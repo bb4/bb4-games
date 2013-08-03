@@ -1,0 +1,12 @@
+(;
+FF[4]
+GM[1]
+SZ2[14][11]
+Player1[Player 1]
+Player2[Player 2]
+GN[test1]
+;P1[hk][hi]wall[hj][gj]
+;P2[hd][hf]wall[fi][fh]
+;P1[dk][di]wall[ei][di]
+;P2[dd][df]wall[ge][he]
+)

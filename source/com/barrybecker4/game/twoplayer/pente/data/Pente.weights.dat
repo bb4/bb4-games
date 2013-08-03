@@ -1,0 +1,6 @@
+W1 2     // open ended one.
+W2 5     // open ended two in a row.
+W3 34    // open ended 3 in a row.
+W4 34    // closed ended 4 in a row.
+W5 70    // open ended 4 in a row.
+W6 1450  // 5 in a row. Won game.

@@ -1,0 +1,55 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.79 [en] (Windows NT 5.0; U) [Netscape]">
+</head>
+<body>
+<p>
+This package provides the core classes for online game playing. To play online you need an instance of the OnlineGameServer running on a server. 
+Then when you start an instance of a specific game on a client, it should detect the server and create a ServerConnection to is (using a socket). 
+The client issues GameCommands to the server whenever something happens to change the game state. 
+When the server receives the command, it will update the central game state on the server and broadcast the new state to all the clients.
+Clients can communicate with each other using the chat window embedded in the client UI.
+</p>
+<p>
+    The architecture works like this. The OnlineGameServer has a ServerCommandProcessor. 
+The ServerCommanProcessor has an OnlineGameTableList and a GameController for keeping track of the universal game state. 
+The GameController has a list of players - all of which are SurrogatePlayers except for the RobotPlayers.
+The client has a GamePanel of some type which contains a GameController as well. 
+This GameController, however, contains players which are all surrogates except for one- the human player on this client.
+The server will broadcast all moves (robot or human) so that all the clients are in synch.
+</p>
+<pre>
+    Server
+    ---------
+    OnlinePokerServer
+         ServerCommandProcessor
+             OnlineGameTableList
+             GameController - has list of players (all of which are surrogate except for the robots).
+         ServerSocket
+         
+   Client
+   ---------
+    GamePanel
+        GameController
+              ServerConnection - calls handleServerUpdate on all registered OnlineGameListeners (e.g. controller, Surrogates, GameInfo)
+              list of players (all of which are surrogate except for the single human player on this client)
+        GameViewer - shows ths current game state
+        GameInfo - shows the game stats and chat window.
+</pre>
+<h2>
+Current Bugs
+</h2>
+<p>
+    When you cancel or close the new game dialog, the player should automatically stand up from whatever table he is at.
+</p>
+<h2>
+Some Ideas for Future Enhancments
+</h2>
+<p>
+    
+</p>
+
+</body>
+</html>

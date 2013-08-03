@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--!DOCTYPE plugins SYSTEM "J:\projects\java_projects\trunk\source\com\barrybecker4\game\plugins2012.dtd"-->
+<!DOCTYPE plugins SYSTEM "http://barrybecker4.com/schema/plugins2012.dtd">
+
+<plugins date="10/19/2004" author="Barry Becker">
+
+    <!-- whenever you add a new game to the framework, you need to add an extra entry here -->
+    <!-- here are the 2 player games -->
+    <game name="pente"
+          msgKey="PENTE"
+          type="TWO_PLAYER_GAME"
+          msgBundleBase="com.barrybecker4.game.twoplayer.pente.resources.penteMessages"
+          panelClass="com.barrybecker4.game.twoplayer.pente.ui.PentePanel"
+          controllerClass="com.barrybecker4.game.twoplayer.pente.PenteController" />
+    <game name="tictactoe"
+          msgKey="TIC_TAC_TOE"
+          type="TWO_PLAYER_GAME"
+          msgBundleBase="com.barrybecker4.game.twoplayer.tictactoe.resources.tictactoeMessages"
+          panelClass="com.barrybecker4.game.twoplayer.tictactoe.ui.TicTacToePanel"
+          controllerClass="com.barrybecker4.game.twoplayer.tictactoe.TicTacToeController" />
+    <game name="checkers"
+          msgKey="CHECKERS"
+          type="TWO_PLAYER_GAME"
+          msgBundleBase="com.barrybecker4.game.twoplayer.checkers.resources.checkersMessages"
+          panelClass="com.barrybecker4.game.twoplayer.checkers.ui.CheckersPanel"
+          controllerClass="com.barrybecker4.game.twoplayer.checkers.CheckersController" />
+    <game name="chess"
+          msgKey="CHESS"
+          type="TWO_PLAYER_GAME"
+          msgBundleBase="com.barrybecker4.game.twoplayer.chess.resources.chessMessages"
+          panelClass="com.barrybecker4.game.twoplayer.chess.ui.ChessPanel"
+          controllerClass="com.barrybecker4.game.twoplayer.chess.ChessController" />
+    <game name="blockade"
+          msgKey="BLOCKADE"
+          type="TWO_PLAYER_GAME"
+          msgBundleBase="com.barrybecker4.game.twoplayer.blockade.resources.blockadeMessages"
+          panelClass="com.barrybecker4.game.twoplayer.blockade.ui.BlockadePanel"
+          controllerClass="com.barrybecker4.game.twoplayer.blockade.BlockadeController" />
+    <game name="go"
+          msgKey="GO"
+          type="TWO_PLAYER_GAME"
+          msgBundleBase="com.barrybecker4.game.twoplayer.go.resources.goMessages"
+          panelClass="com.barrybecker4.game.twoplayer.go.ui.GoPanel"
+          controllerClass="com.barrybecker4.game.twoplayer.go.GoController"
+          default="true"/>
+
+    <!-- these are the multiplayer games -->
+    <game name="galactic"
+          msgKey="GALACTIC"
+          type="MULTI_PLAYER_GAME"
+          msgBundleBase="com.barrybecker4.game.multiplayer.galactic.resources.galacticMessages"
+          panelClass="com.barrybecker4.game.multiplayer.galactic.ui.GalacticPanel"
+          controllerClass="com.barrybecker4.game.multiplayer.galactic.GalacticController" />
+    <game name="poker"
+          msgKey="POKER"
+          type="MULTI_PLAYER_GAME"
+          msgBundleBase="com.barrybecker4.game.multiplayer.poker.resources.pokerMessages"
+          panelClass="com.barrybecker4.game.multiplayer.poker.ui.PokerPanel"
+          controllerClass="com.barrybecker4.game.multiplayer.poker.PokerController" />
+    <game name="set"
+          msgKey="SET"
+          type="MULTI_PLAYER_GAME"
+          msgBundleBase="com.barrybecker4.game.multiplayer.set.resources.setMessages"
+          panelClass="com.barrybecker4.game.multiplayer.set.ui.SetPanel"
+          controllerClass="com.barrybecker4.game.multiplayer.set.SetController" />
+      <game name="trivial"
+          msgKey="TRIVIAL"
+          type="MULTI_PLAYER_GAME"
+          msgBundleBase="com.barrybecker4.game.multiplayer.trivial.resources.trivialMessages"
+          panelClass="com.barrybecker4.game.multiplayer.trivial.ui.TrivialPanel"
+          controllerClass="com.barrybecker4.game.multiplayer.trivial.TrivialController" />
+</plugins>

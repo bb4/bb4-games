@@ -1,0 +1,42 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.79 [en] (Windows NT 5.0; U) [Netscape]">
+</head>
+<body>
+<p>
+This package was originally meant to provide a framework for creating and exprimenting with 2 player games with perfect information.
+However, it has expended to include multi-player games, and games other than those with perfect information.
+You can use it to create new games or improve on old ones.
+Even if you do not add new games, there are a variety of ways that you can extend and improve
+all of the exisisting games by enhancing the shared core package.
+For example, you can add new search strategies (see the game.twoplayer.common.search package)
+or you can enhance the ui (see game.core.ui).
+</p>
+<h2>
+Some Ideas for Future Enhancments
+</h2>
+<p>
+    Other Games to implement :  battleship, boggle
+</p>
+<pre>
+  Deployment notes:
+
+      copy contents of /dist to webserver docroot: /var/www/html
+        (or maybe D:\apps\Program Files (x86)\Apache Software Foundation\Apache2.2\htdocs\)
+
+         cd /var/www/html
+
+      Start apache webserver /varsbin/apachect1 start
+      contact URL to test: http://192.168.1.100 (or 101 or 102)
+      use no-ip to get static ip?
+
+      Once verified, upload to BarryBecker4.com using filezilla or direct ftp connection to yahoo web hosting.
+      bin (binary mode), prompt (turns off prompting for multiple file transfers)
+</pre>
+<br>
+Here is a package dependency diagram
+<img src="package.png"/>
+</body>
+</html>

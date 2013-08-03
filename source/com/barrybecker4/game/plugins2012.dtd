@@ -1,0 +1,17 @@
+<!ELEMENT plugins   (game)*>
+<!ELEMENT game    EMPTY>
+
+<!ATTLIST plugins
+    date        CDATA      #IMPLIED
+    author      NMTOKENS   #IMPLIED
+>
+
+<!ATTLIST game
+    name             ID       #REQUIRED
+    msgKey           NMTOKENS #REQUIRED
+    type             NMTOKENS #REQUIRED
+    msgBundleBase    CDATA    #REQUIRED
+    panelClass       CDATA    #REQUIRED
+    controllerClass  CDATA    #REQUIRED
+    default          NMTOKENS #IMPLIED
+>

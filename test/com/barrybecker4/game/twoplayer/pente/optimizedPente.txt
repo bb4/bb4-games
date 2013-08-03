@@ -1,0 +1,2 @@
+iteration,	fitness,	jumpSize,	dotprod,	1a weight,	1b weight,	1c weight,	2a weight,	2b weight,	3a weight,	3b weight,	4a  weight,	4b weight,	5 weight,	6 weight,	7 weight,	comment 
+0,	0,	0,	0,	0, 0, 0, 0, 8.19, 24.58, 163.8, 172.0, 778.2, 8,192, 8,192, 8,192,	initial test

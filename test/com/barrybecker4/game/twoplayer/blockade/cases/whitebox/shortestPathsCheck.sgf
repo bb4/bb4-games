@@ -1,0 +1,28 @@
+(;
+FF[4]
+GM[1]
+SZ2[8][7]
+Player1[Player 1]
+Player2[Player 2]
+GN[test1]
+;P1[dg][de]wall[df][cf]
+;P2[bb][bd]wall[dc][cc]
+;P1[bg][be]wall[fe][ee]
+;P2[bd][bf]wall[ac][bc]
+;P1[de][ed]wall[af][bf]
+;P2[bf][df]wall[fc][ec]
+;P1[ed][gd]wall[ff][ef]
+;P2[df][ff]wall[eb][ec]
+;P1[gd][gb]wall[ff][fe]
+;P2[db][ea]wall[db][da]
+;P1[gb][fa]wall[cd][dd]
+;P2[ea][fb]wall[db][cb]
+;P1[fa][eb]wall[ba][aa]
+;P2[fb][gc]wall[be][bd]
+;P1[eb][dc]wall[ag][bg]
+;P2[gc][ge]wall[be][ce]
+;P1[dc][bc]wall[fg][eg]
+;P2[ge][gg]wall[fa][fb]
+;P1[bc][bb]nowall
+;P2[gg][eg]nowall
+)
