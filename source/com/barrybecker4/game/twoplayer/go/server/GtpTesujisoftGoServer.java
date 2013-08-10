@@ -67,7 +67,7 @@ public class GtpTesujisoftGoServer extends GtpServer{
         if (opt.isSet("help")) {
             String helpText =
                 "Usage: java -classpath "+
-                    FileUtil.PROJECT_HOME +
+                    FileUtil.getHomeDir() +
                     "/classes com.barrybecker4.game.twoplayer.go.server.GtpTesujisoftGoServer [options]\n" +
                     '\n' +
                 "-config       config file\n" +

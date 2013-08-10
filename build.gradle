@@ -1,70 +1,73 @@
 // Copyright by Barry G. Becker, 2013. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 
-description = 'A game playing framework and a collection of two-player and multi-player games. In all games, one or more intelligent computer opponents are allowed to play.'
+description = 'A game playing framework and a collection of two-player and multi-player games. ' +
+        'In all games, one or more intelligent computer opponents are allowed to play.'
 group = 'com.barrybecker4'
 version = '1.1.2-SNAPSHOT'
-
 apply from: 'https://raw.github.com/barrybecker4/bb4-common/master/bb4.gradle'
-
 project.archivesBaseName = 'bb4-game-common'
 mainClassName = "com.barrybecker4.game.common.ui.GameApp"
+gameApp = 'com.barrybecker4.game.common.ui.GameApp'
 
-task show << {
-   println sourceSets.main.runtimeClasspath.each { println it }
-   println "---"
-   buildscript.configurations.classpath.each { println it }
+dependencies {
+    compile 'com.barrybecker4:bb4-sound:1.1.2-SNAPSHOT'
+    compile 'com.barrybecker4:bb4-optimization:1.1.2-SNAPSHOT'
+    compile 'com.barrybecker4:bb4-sgf:1.1'
+
+    // jars needed for go
+    compile fileTree(dir: 'lib', include: '*.jar')
 }
 
 task runGalactic(type: JavaExec, depends: classes) {
-    main = 'com.barrybecker4.game.common.ui.GameApp'
+    main = gameApp
     args = ["-name", "galactic", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
 task runPente(type: JavaExec, depends: classes) {
-    main = 'com.barrybecker4.game.common.ui.GameApp'
+    main = gameApp
     args = ["-name", "pente", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
 task runTicTacToe(type: JavaExec, depends: classes) {
-    main = 'com.barrybecker4.game.common.ui.GameApp'
+    main = gameApp
     args = ["-name", "tictactoe", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
 task runBlockade(type: JavaExec, depends: classes) {
-    main = 'com.barrybecker4.game.common.ui.GameApp'
+    main = gameApp
     args = ["-name", "blockade", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
 task runCheckers(type: JavaExec, depends: classes) {
-    main = 'com.barrybecker4.game.common.ui.GameApp'
+    main = gameApp
     args = ["-name", "checkers", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
 task runChess(type: JavaExec, depends: classes) {
-    main = 'com.barrybecker4.game.common.ui.GameApp'
+    main = gameApp
     args = ["-name", "chess", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
 task runSet(type: JavaExec, depends: classes) {
-    main = 'com.barrybecker4.game.common.ui.GameApp'
+    main = gameApp
     args = ["-name", "set", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
 task runGo(type: JavaExec, depends: classes) {
-    main = 'com.barrybecker4.game.common.ui.GameApp'
+    main = gameApp
     args = ["-name", "go", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
 task runGoJapanese(type: JavaExec, depends: classes) {
-    main = 'com.barrybecker4.game.common.ui.GameApp'
+    main = gameApp
     args = ["-name", "go", "-locale", "JAPANESE"]
     classpath = sourceSets.main.runtimeClasspath
     jvmArgs = ["-ea"]   // in gradle 1.7 default  jvmArgs can be set with applicationDefaultJvmArgs
@@ -84,7 +87,7 @@ task runGoGui(type: JavaExec, depends: classes) {
 }     */
 
 task runTrivial(type: JavaExec, depends: classes) {
-    main = 'com.barrybecker4.game.common.ui.GameApp'
+    main = gameApp
     args = ["-name", "trivial", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
@@ -194,72 +197,13 @@ task runPokerServerAndClients(type: JavaExec, depends: classes) {
       <param name="arg2" value="${java_compiler} -ea -classpath ${classesDir};${libDir}/gogui7.1.jar com.barrybecker4.game.twoplayer.go.server.GtpTesujisoftGoServer"/>
     </antcall>
   </target>
-
- <target name="executeGalactic" description="Run the Galactic Empire program">
-    <antcall target="executeProgram">
-      <param name="className" value="${gameAppClass}"/>
-      <param name="libPath" value="${libDir}/jai-codec-1.1.3.jar;"/>
-      <param name="args" value="-name galactic -locale ENGLISH"/>
-    </antcall>
-  </target>
-
-  <target name="executeChess" description="Run the chess program">
-    <antcall target="executeProgram">
-      <param name="className" value="${gameAppClass}"/>
-      <param name="libPath" value="${libDir}/jai-codec-1.1.3.jar;${libDir}/bb4-sgf-1.1.jar;"/>
-      <param name="args" value="-name chess -locale ENGLISH"/>
-    </antcall>
-  </target>
-
-  <target name="executeTrivial" depends="compile" description="Run trivial test game app">
-    <antcall target="executeProgram">
-      <param name="className" value="${gameAppClass}"/>
-      <param name="libPath" value="${libDir}/jai-codec-1.1.3.jar;"/>
-      <param name="args" value="-name trivial -locale ENGLISH"/>
-    </antcall>
-  </target>
-
-   <target name="executeTrivialServer" depends="compile" description="Run online trivial server">
-    <antcall target="executeProgram">
-      <param name="className" value="com.barrybecker4.game.common.online.ui.OnlineGameServerFrame"/>
-      <param name="libPath" value="${libDir}/jai-codec-1.1.3.jar;"/>
-      <param name="args" value="-game trivial"/>
-    </antcall>
-  </target
-
-  <!--target name="executeSetGame" description="Run the Set Game app">
-    <antcall target="executeProgram">
-      <param name="className" value="${gameAppClass}"/>
-      <param name="libPath" value="${libDir}/jai-codec-1.1.3.jar;"/>
-      <param name="args" value="-name set -locale ENGLISH"/>
-    </antcall>
-  </target>
-
-  <target name="executeGo" description="Run the go program">
-    <antcall target="executeProgram">
-      <param name="className" value="${gameAppClass}"/>
-      <param name="libPath" value="${libDir}/jai-codec-1.1.3.jar;${libDir}/gtpserver.jar;${libDir}/bb4-sgf-1.1.jar;"/>
-      <param name="args" value="-name go -locale ENGLISH"/>
-    </antcall>
-  </target>
   */
-
-dependencies {
-    compile 'com.barrybecker4:bb4-sound:1.1.2-SNAPSHOT'
-    compile 'com.barrybecker4:bb4-optimization:1.1.2-SNAPSHOT'
-    compile 'com.barrybecker4:bb4-sgf:1.1'
-
-    // jars needed for go
-    compile fileTree(dir: 'lib', include: '*.jar')
-}
-
 
 task gameCommonJar(type: Jar) {
     from sourceSets.main.output
     include 'com/barrybecker4/game/common/**'
     include 'com/barrybecker4/game/card/**'
     include 'com/barrybecker4/game/*.xml'
-    exclude 'com/barrybecker4/game/**/test' // proly don't need this anymore
     baseName = 'bb4-game-common'
     manifest {
         attributes 'Implementation-Title': 'Game common code',
@@ -346,77 +290,13 @@ task trivialJar(type: Jar) {
     baseName = 'bb4-trivial'
 }
 
-artifacts {
-    archives gameCommonJar
-    archives twoPlayerCommonJar
-    archives multiPlayerCommonJar
-    archives cardJar
-    archives blockadeJar
-    archives chessJar
-    archives goJar
-    archives penteJar
-    archives tictactoeJar
-    archives galacticJar
-    archives pokerJar
-    archives setJar
-    archives trivialJar
+// skip building the default jar that contains everything
+jar { enabled = false }
 
-    archives sourcesJar
-    archives javadocJar
-}
+ext.jarTasks = [
+    gameCommonJar, twoPlayerCommonJar, multiPlayerCommonJar, cardJar,
+    blockadeJar, chessJar, goJar, penteJar, tictactoeJar, galacticJar,
+    pokerJar, setJar, trivialJar, sourcesJar, javadocJar
+]
 
-jar {
-    // skip building the default jar that contains everything
-    enabled = false
-}
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            // Maven does allow more than one jar per pom file. Filter is used to make many artifacts.
-            // There may be a better way to do this. See
-            //http://stackoverflow.com/questions/7826652/how-to-upload-an-existing-collection-of-3rd-party-jars-to-a-maven-server-in-grad
-            //http://www.gradle.org/docs/current/userguide/userguide_single.html#sub:multiple_artifacts_per_project
-
-            addFilter('bb4-game-common') {artifact, file ->
-                artifact.name == 'bb4-game-common'
-            }
-            addFilter('bb4-twoplayer-common') {artifact, file ->
-                artifact.name == 'bb4-twoplayer-common'
-            }
-            addFilter('bb4-multiplayer-common') {artifact, file ->
-                artifact.name == 'bb4-multiplayer-common'
-            }
-            addFilter('bb4-card') {artifact, file ->
-                artifact.name == 'bb4-card'
-            }
-            addFilter('bb4-blockade') {artifact, file ->
-                artifact.name == 'bb4-blockade'
-            }
-            addFilter('bb4-chess') {artifact, file ->
-                artifact.name == 'bb4-chess'
-            }
-            addFilter('bb4-go') {artifact, file ->
-                artifact.name == 'bb4-go'
-            }
-            addFilter('bb4-pente') {artifact, file ->
-                artifact.name == 'bb4-pente'
-            }
-            addFilter('bb4-tictactoe') {artifact, file ->
-                artifact.name == 'bb4-tictactoe'
-            }
-            addFilter('bb4-galactic') {artifact, file ->
-                artifact.name == 'bb4-galactic'
-            }
-            addFilter('bb4-poker') {artifact, file ->
-                artifact.name == 'bb4-poker'
-            }
-            addFilter('bb4-set') {artifact, file ->
-                artifact.name == 'bb4-set'
-            }
-            addFilter('bb4-trivial') {artifact, file ->
-                artifact.name == 'bb4-trivial'
-            }
-        }
-    }
-}
+apply from: 'https://raw.github.com/barrybecker4/bb4-common/master/bb4-publish.gradle'

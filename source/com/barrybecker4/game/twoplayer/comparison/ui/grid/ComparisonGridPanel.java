@@ -31,7 +31,7 @@ public final class ComparisonGridPanel
              extends JPanel
              implements ActionListener, GameMenuListener, PerformanceRunnerListener {
 
-    private static final String DEFAULT_SAVE_LOCATION = FileUtil.PROJECT_HOME + "temp/comparisonResults/";  // NON-NLS
+    private static final String DEFAULT_SAVE_LOCATION = FileUtil.getHomeDir() + "temp/comparisonResults/";  // NON-NLS
     private GradientButton runButton_;
     private GradientButton resultsLocationButton_;
     private GradientButton saveResultsButton_;
