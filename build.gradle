@@ -3,15 +3,15 @@
 description = 'A game playing framework and a collection of two-player and multi-player games. ' +
         'In all games, one or more intelligent computer opponents are allowed to play.'
 group = 'com.barrybecker4'
-version = '1.1.2-SNAPSHOT'
+version = '1.1.2'
 apply from: 'https://raw.github.com/barrybecker4/bb4-common/master/bb4.gradle'
-project.archivesBaseName = 'bb4-game-common'
+project.archivesBaseName = 'bb4-game'
 mainClassName = "com.barrybecker4.game.common.ui.GameApp"
 ext.gameApp = 'com.barrybecker4.game.common.ui.GameApp'
 
 dependencies {
-    compile 'com.barrybecker4:bb4-sound:1.1.2-SNAPSHOT'
-    compile 'com.barrybecker4:bb4-optimization:1.1.2-SNAPSHOT'
+    compile 'com.barrybecker4:bb4-sound:1.1.2'
+    compile 'com.barrybecker4:bb4-optimization:1.1.2'
     compile 'com.barrybecker4:bb4-sgf:1.1'
 
     // jars needed for go
@@ -199,104 +199,18 @@ task runPokerServerAndClients(type: JavaExec, depends: classes) {
   </target>
   */
 
-task gameCommonJar(type: Jar) {
-    from sourceSets.main.output
-    include 'com/barrybecker4/game/common/**'
-    include 'com/barrybecker4/game/card/**'
-    include 'com/barrybecker4/game/*.xml'
-    baseName = 'bb4-game-common'
-    manifest {
-        attributes 'Implementation-Title': 'Game common code',
-            'Implementation-Version': version,
-            provider: 'gradle',
-            'Main-Class': mainClassName
-    }
-}
-
-task twoPlayerCommonJar(type: Jar) {
-    from sourceSets.main.output
-    include 'com/barrybecker4/game/twoplayer/common/**'
-    baseName = 'bb4-twoplayer-common'
-    manifest {
-        attributes 'Implementation-Title': 'Two Player Game common code',
-            'Implementation-Version': version,
-            provider: 'gradle',
-            'Main-Class': mainClassName
-    }
-}
-
-task multiPlayerCommonJar(type: Jar) {
-    from sourceSets.main.output
-    include 'com/barrybecker4/game/multiplayer/common/**'
-    baseName = 'bb4-multiplayer-common'
-    manifest {
-        attributes 'Implementation-Title': 'Multi-Player Game common code',
-            'Implementation-Version': version,
-            provider: 'gradle',
-            'Main-Class': mainClassName
-    }
-}
-
-task cardJar(type: Jar) {
-    from sourceSets.main.output
-    include 'com/barrybecker4/game/card/**'
-    baseName = 'bb4-card'
-}
-task blockadeJar(type: Jar) {
-    from sourceSets.main.output
-    include 'com/barrybecker4/game/twoplayer/blockade/**'
-    baseName = 'bb4-blockade'
-}
-// note that chess and checkers are combined because chess extends checkers
-task chessJar(type: Jar) {
-    from sourceSets.main.output
-    include 'com/barrybecker4/game/twoplayer/chess/**'
-    include 'com/barrybecker4/game/twoplayer/checkers/**'
-    baseName = 'bb4-chess'
-}
-task goJar(type: Jar) {
-    from sourceSets.main.output
-    include 'com/barrybecker4/game/twoplayer/go/**'
-    baseName = 'bb4-go'
-}
-task penteJar(type: Jar) {
-    from sourceSets.main.output
-    include 'com/barrybecker4/game/twoplayer/pente/**'
-    baseName = 'bb4-pente'
-}
-task tictactoeJar(type: Jar) {
-    from sourceSets.main.output
-    include 'com/barrybecker4/game/twoplayer/tictactoe/**'
-    baseName = 'bb4-tictactoe'
-}
-task galacticJar(type: Jar) {
-    from sourceSets.main.output
-    include 'com/barrybecker4/game/multiplayer/galactic/**'
-    baseName = 'bb4-galactic'
-}
-task pokerJar(type: Jar) {
-    from sourceSets.main.output
-    include 'com/barrybecker4/game/multiplayer/poker/**'
-    baseName = 'bb4-poker'
-}
-task setJar(type: Jar) {
-    from sourceSets.main.output
-    include 'com/barrybecker4/game/multiplayer/set/**'
-    baseName = 'bb4-set'
-}
-task trivialJar(type: Jar) {
-    from sourceSets.main.output
-    include 'com/barrybecker4/game/multiplayer/trivial/**'
-    baseName = 'bb4-trivial'
-}
-
-// skip building the default jar that contains everything
-jar { enabled = false }
-
-ext.jarTasks = [
-    gameCommonJar, twoPlayerCommonJar, multiPlayerCommonJar, cardJar,
-    blockadeJar, chessJar, goJar, penteJar, tictactoeJar, galacticJar,
-    pokerJar, setJar, trivialJar, sourcesJar, javadocJar
-]
+ext.appMap = new LinkedHashMap()
+appMap.put('game',
+        [include:['com/barrybecker4/game/common/**', 'com/barrybecker4/game/card/**', 'com/barrybecker4/game/*.xml']])
+appMap.put('twoplayer',   [include:['com/barrybecker4/game/twoplayer/common/**']])
+appMap.put('multiplayer', [include:['com/barrybecker4/game/multiplayer/common/**']])
+appMap.put('blockade',  [include:['com/barrybecker4/game/twoplayer/blockade/**']])
+appMap.put('chess',     [include:['com/barrybecker4/game/twoplayer/chess/**', 'com/barrybecker4/game/twoplayer/checkers/**']])
+appMap.put('go',        [include:['com/barrybecker4/game/twoplayer/go/**']])
+appMap.put('pente',     [include:['com/barrybecker4/game/twoplayer/pente/**']])
+appMap.put('tictactoe', [include:['com/barrybecker4/game/twoplayer/tictactoe/**']])
+appMap.put('galactic',  [include:['com/barrybecker4/game/multiplayer/galactic/**']])
+appMap.put('poker',     [include:['com/barrybecker4/game/multiplayer/poker/**']])
+appMap.put('set',       [include:['com/barrybecker4/game/multiplayer/set/**']])
 
 apply from: 'https://raw.github.com/barrybecker4/bb4-common/master/bb4-publish.gradle'
