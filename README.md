@@ -12,7 +12,6 @@ Here are the game implementations added so far (hopefully others will contribute
    - Multi-player
       - [Poker](http://barrybecker4.com/applets/poker_en.html)
       - [Galactic](http://barrybecker4.com/applets/galactic_en.html)
-      - [Set](http://barrybecker4.com/applets/set_en.html)
 
 
 ### [How to Build](https://github.com/barrybecker4/bb4-common/wiki/Building-bb4-Projects)
