@@ -1,14 +1,11 @@
 /** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.common;
 
-import com.barrybecker4.game.common.board.Board;
-
 /**
- *  This base class describes a change in state from one board
- *  position to the next in a game.
+ * This base class describes a change in state from one board
+ * position to the next in a game.
  *
- *  @see Board
- *  @author Barry Becker
+ * @author Barry Becker
  */
 public class Move implements Comparable<Move> {
 
@@ -37,9 +34,9 @@ public class Move implements Comparable<Move> {
     }
 
     /**
-     *  we sort based on the statically evaluated board value
-     *  because the inherited value is not known yet.
-     *  @return  > 0 if move1 bigger, < 0 if smaller, = 0 if equal
+     * We sort based on the statically evaluated board value
+     * because the inherited value is not known yet.
+     * @return 1 if move1 bigger, -1 if smaller, = 0 if equal
      */
     @Override
     public int compareTo( Move move ) {
