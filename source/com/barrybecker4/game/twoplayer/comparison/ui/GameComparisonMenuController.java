@@ -34,7 +34,7 @@ public class GameComparisonMenuController extends GameMenuController {
         GameContext.loadResources(gameName);
 
         gamePanel_ = PluginManager.getInstance().getPlugin(gameName).getPanelInstance();
-        //gamePanel_.init(frame_);
+        gamePanel_.init(frame_);
 
         frame_.setTitle(gamePanel_.getTitle());
     }

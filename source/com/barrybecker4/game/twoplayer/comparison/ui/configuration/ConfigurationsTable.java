@@ -53,7 +53,7 @@ class ConfigurationsTable extends TableBase {
     private static final int NUM_COLS = columnNames_.length;
 
     /**
-     * constructor
+     * Constructor
      * @param optionsList to initialize the rows in the table with. May be null.
      */
     public ConfigurationsTable(SearchOptionsConfigList optionsList)  {

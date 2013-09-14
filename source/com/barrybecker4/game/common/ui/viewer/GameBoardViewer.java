@@ -70,7 +70,7 @@ public abstract class GameBoardViewer extends JPanel
         origCursor_ = this.getCursor();
 
         mouseListener_ = createViewerMouseListener();
-        addMouseListener( mouseListener_ );
+        addMouseListener(mouseListener_);
         addMouseMotionListener(mouseListener_);
         // add a listener so that we realize when the computer (or human) has finished making his move
         addGameChangedListener(this);

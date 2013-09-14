@@ -78,9 +78,10 @@ public final class ConfigurationPanel extends JPanel
 
     private JComboBox createConfigDropDown() {
 
-        ComboBoxModel model = new DefaultComboBoxModel(ConfigurationListEnum.values());
+        ComboBoxModel<ConfigurationListEnum> model =
+                new DefaultComboBoxModel<ConfigurationListEnum>(ConfigurationListEnum.values());
         model.setSelectedItem(DEFAULT_CONFIGURATIONS);
-        JComboBox dropList = new JComboBox(model);
+        JComboBox dropList = new JComboBox<ConfigurationListEnum>(model);
         dropList.addActionListener(this);
         return dropList;
     }
@@ -139,7 +140,7 @@ public final class ConfigurationPanel extends JPanel
              initializeConfigTable();
         }
         else {
-            assert false :  "Unexpected source =" + source;
+            assert false : "Unexpected source =" + source;
         }
     }
 

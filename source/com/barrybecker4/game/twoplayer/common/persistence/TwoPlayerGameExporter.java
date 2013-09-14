@@ -79,7 +79,7 @@ public class TwoPlayerGameExporter extends GameExporter {
 
     protected void writeMoves(MoveList moves, Writer out) throws IOException {
         Iterator<Move> it = moves.iterator();
-        GameContext.log( 0, "movelist size= " + moves.size() );
+        GameContext.log(1, "movelist size= " + moves.size() );
         while ( it.hasNext() ) {
             Move move = it.next();
             out.write( getSgfForMove(move) );

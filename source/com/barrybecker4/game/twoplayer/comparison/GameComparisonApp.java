@@ -61,11 +61,11 @@ public class GameComparisonApp {
 
         JMenu fileMenu = new FileMenu(menuController);
 
-        JMenuBar menubar = new JMenuBar();
-        menubar.add(fileMenu);
-        menubar.add(gameMenu);
+        JMenuBar menuBar = new JMenuBar();
+        menuBar.add(fileMenu);
+        menuBar.add(gameMenu);
 
-        frame_.getRootPane().setJMenuBar(menubar);
+        frame_.getRootPane().setJMenuBar(menuBar);
     }
 
     /**
@@ -105,5 +105,4 @@ public class GameComparisonApp {
 
         new GameComparisonApp(gameName);
     }
-
 }

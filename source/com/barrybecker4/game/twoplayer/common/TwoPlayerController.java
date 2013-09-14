@@ -4,7 +4,6 @@ package com.barrybecker4.game.twoplayer.common;
 import com.barrybecker4.ca.dj.jigo.sgf.SGFException;
 import com.barrybecker4.game.common.GameContext;
 import com.barrybecker4.game.common.GameController;
-import com.barrybecker4.game.common.GameOptions;
 import com.barrybecker4.game.common.GameWeights;
 import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.board.Board;
@@ -72,11 +71,11 @@ public abstract class TwoPlayerController extends GameController {
     }
 
     @Override
-    public GameOptions getOptions() {
+    public TwoPlayerOptions getOptions() {
         if (gameOptions_ == null) {
             gameOptions_ = createOptions();
         }
-        return gameOptions_;
+        return (TwoPlayerOptions)gameOptions_;
     }
 
     /**
@@ -90,7 +89,7 @@ public abstract class TwoPlayerController extends GameController {
      */
     public TwoPlayerOptions getTwoPlayerOptions() {
 
-        return (TwoPlayerOptions) getOptions();
+        return getOptions();
     }
 
     public TwoPlayerViewModel getTwoPlayerViewer() {

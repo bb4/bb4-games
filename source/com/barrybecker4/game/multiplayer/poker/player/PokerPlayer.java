@@ -112,10 +112,11 @@ public abstract class PokerPlayer extends MultiGamePlayer {
     }
 
     /**
-     * have this player contribute some amount to the pot.
+     * Have this player contribute some amount to the pot.
      * of course the amount must be less than they have altogether.
      * If it is greater, then he/she is out of the game.
-     * @param amount
+     * @param round the current poker round
+     * @param amount amount contributed to the pot.
      */
     public void contributeToPot(PokerRound round, int amount) {
 

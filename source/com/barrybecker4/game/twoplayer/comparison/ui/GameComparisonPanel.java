@@ -5,12 +5,11 @@ package com.barrybecker4.game.twoplayer.comparison.ui;
 import com.barrybecker4.game.twoplayer.comparison.ui.configuration.ConfigurationPanel;
 import com.barrybecker4.game.twoplayer.comparison.ui.grid.ComparisonGridPanel;
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.BorderLayout;
 
 /**
  * Allows comparing the performance of two player games played against each other
@@ -23,7 +22,7 @@ import java.awt.event.ActionListener;
  *  @author Barry Becker
  */
 public class GameComparisonPanel extends JPanel
-                                 implements ActionListener, ChangeListener {
+                                 implements ChangeListener {
 
     private JTabbedPane tabbedPane;
     private ConfigurationPanel comparisonConfigurationPanel;
@@ -64,19 +63,6 @@ public class GameComparisonPanel extends JPanel
 
     public ComparisonGridPanel getGridPanel() {
         return comparisonGridPanel;
-    }
-
-    /**
-     * handle button click actions.
-     * If you add your own custom buttons, you should override this, but be sure the first line is
-     * <P>
-     * super.actionPerformed(e);
-     */
-    @Override
-    public void actionPerformed( ActionEvent e ) {
-        Object source = e.getSource();
-        if ( source == null ) {
-        }
     }
 
     @Override

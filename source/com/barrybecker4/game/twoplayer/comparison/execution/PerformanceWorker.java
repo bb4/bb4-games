@@ -6,7 +6,6 @@ import com.barrybecker4.game.common.persistence.GameExporter;
 import com.barrybecker4.game.common.player.Player;
 import com.barrybecker4.game.common.player.PlayerList;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerController;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerOptions;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerPlayerOptions;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerViewModel;
 import com.barrybecker4.game.twoplayer.comparison.model.PerformanceResults;
@@ -16,7 +15,7 @@ import com.barrybecker4.game.twoplayer.comparison.model.SearchOptionsConfig;
 import com.barrybecker4.game.twoplayer.comparison.model.SearchOptionsConfigList;
 import com.barrybecker4.ui.util.GUIUtil;
 
-import javax.swing.*;
+import javax.swing.JComponent;
 import java.awt.image.BufferedImage;
 
 /**
@@ -61,11 +60,15 @@ public class PerformanceWorker implements Runnable {
         listener.performanceRunsDone(model);
     }
 
-    /** Get the results for a pair of games where each player gets to play first */
+    /**
+     * @param i index for first set of config options
+     * @param j index for second set of config options
+     * @return the results for a pair of games where each player gets to play first
+     */
     private PerformanceResultsPair getResultsForComparison(int i, int j) {
 
         PlayerList players = controller.getPlayers();
-        ((TwoPlayerOptions)controller.getOptions()).setShowGameOverDialog(false);
+        controller.getOptions().setShowGameOverDialog(false);
 
         Player player1 = players.getPlayer1();
         Player player2 = players.getPlayer2();
@@ -76,12 +79,12 @@ public class PerformanceWorker implements Runnable {
         ((TwoPlayerPlayerOptions)(player1.getOptions())).setSearchOptions(config1.getSearchOptions());
         ((TwoPlayerPlayerOptions)(player2.getOptions())).setSearchOptions(config2.getSearchOptions());
         String description1 = config1.getName() + FILE_SIDE_DELIM + config2.getName();
-        String description2 = config2.getName() + FILE_SIDE_DELIM + config1.getName();
+        //String description2 = config2.getName() + FILE_SIDE_DELIM + config1.getName();
 
         System.out.println("("+i+", "+j+") round 1  starts:" + config1.getSearchOptions().getSearchStrategyMethod());
         PerformanceResults p1FirstResults = getResultsForRound(player1, player2, description1);
         System.out.println("("+i+", "+j+") round 2  starts:" + config2.getSearchOptions().getSearchStrategyMethod());
-        PerformanceResults p2FirstResults = getResultsForRound(player2, player1, description2);
+        PerformanceResults p2FirstResults = getResultsForRound(player2, player1, description1);
 
         return new PerformanceResultsPair(p1FirstResults, p2FirstResults);
     }

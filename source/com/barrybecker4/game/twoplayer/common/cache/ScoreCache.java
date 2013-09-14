@@ -11,8 +11,8 @@ import com.barrybecker4.game.twoplayer.common.search.transposition.HashKey;
  * search space.
  * This technique applies the memoization pattern to search.
  * See http://en.wikipedia.org/wiki/Transposition_table
- * http://pages.cs.wisc.edu/~mjr/Pente/
- * shttp://people.csail.mit.edu/plaat/mtdf.html
+ *     http://pages.cs.wisc.edu/~mjr/Pente/
+ *     shttp://people.csail.mit.edu/plaat/mtdf.html
  *
  * @author Barry Becker
  */

@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
+ * Shows the two configurations playing against each other in the {@code TwoPlayerPanel}.
  * @author Barry Becker
  */
 public class GameRunnerDialog extends AbstractDialog {

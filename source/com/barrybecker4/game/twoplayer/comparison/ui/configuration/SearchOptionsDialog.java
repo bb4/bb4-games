@@ -57,11 +57,10 @@ public class SearchOptionsDialog extends OptionsDialog {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout( new BorderLayout() );
 
-
-
         // all defaults initially.
         String title = (existingOptions != null) ? existingOptions.getName() : "";
-        SearchOptions searchOptions = (existingOptions != null) ? existingOptions.getSearchOptions(): new SearchOptions();
+        SearchOptions searchOptions =
+                (existingOptions != null) ? existingOptions.getSearchOptions(): new SearchOptions();
 
         nameField = new TextInput("Configuration Name:", title, 30);
         nameField.setBorder(BorderFactory.createEmptyBorder(5, 5, 10, 5));

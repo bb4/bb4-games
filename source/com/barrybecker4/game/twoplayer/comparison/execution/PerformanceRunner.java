@@ -5,7 +5,7 @@ import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerPanel;
 import com.barrybecker4.game.twoplayer.comparison.model.SearchOptionsConfigList;
 import com.barrybecker4.game.twoplayer.comparison.ui.execution.GameRunnerDialog;
 
-import javax.swing.*;
+import javax.swing.SwingUtilities;
 
 /**
  * Run through the grid of game combinations and gather the performance results .
@@ -17,6 +17,9 @@ public class PerformanceRunner {
     private TwoPlayerPanel gamePanel_;
     private PerformanceRunnerListener listener;
 
+    /**
+     * Construct the runner
+     */
     public PerformanceRunner(TwoPlayerPanel gamePanel, SearchOptionsConfigList optionsList,
                              PerformanceRunnerListener listener)  {
         this.optionsList = optionsList;
@@ -37,5 +40,4 @@ public class PerformanceRunner {
                 new PerformanceWorker(gamePanel_.get2PlayerController(), optionsList, listener);
         SwingUtilities.invokeLater(worker);
     }
-
 }
