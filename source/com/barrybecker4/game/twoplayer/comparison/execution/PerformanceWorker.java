@@ -7,7 +7,6 @@ import com.barrybecker4.game.common.player.Player;
 import com.barrybecker4.game.common.player.PlayerList;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerController;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerPlayerOptions;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerViewModel;
 import com.barrybecker4.game.twoplayer.comparison.model.PerformanceResults;
 import com.barrybecker4.game.twoplayer.comparison.model.PerformanceResultsPair;
 import com.barrybecker4.game.twoplayer.comparison.model.ResultsModel;
@@ -30,6 +29,7 @@ public class PerformanceWorker implements Runnable {
     private SearchOptionsConfigList optionsList;
     private PerformanceRunnerListener listener;
     private ResultsModel model;
+    private int progress;
 
     /**
      * Constructor.
@@ -41,6 +41,7 @@ public class PerformanceWorker implements Runnable {
         this.controller = controller;
         this.optionsList = optionsList;
         this.listener = listener;
+        this.progress = 0;
     }
 
     /** Run the process in a separate thread */
@@ -51,13 +52,17 @@ public class PerformanceWorker implements Runnable {
         for (int i=0; i<size; i++) {
             for (int j=0; j<size; j++) {
 
-                PerformanceResultsPair results =
-                        getResultsForComparison(i, j);
+                PerformanceResultsPair results = getResultsForComparison(i, j);
                 model.setResults(i, j, results);
+                progress++;
             }
         }
         model.normalize();
         listener.performanceRunsDone(model);
+    }
+
+    public int getProgress() {
+        return progress;
     }
 
     /**
@@ -78,13 +83,12 @@ public class PerformanceWorker implements Runnable {
         SearchOptionsConfig config2 = optionsList.get(j);
         ((TwoPlayerPlayerOptions)(player1.getOptions())).setSearchOptions(config1.getSearchOptions());
         ((TwoPlayerPlayerOptions)(player2.getOptions())).setSearchOptions(config2.getSearchOptions());
-        String description1 = config1.getName() + FILE_SIDE_DELIM + config2.getName();
-        //String description2 = config2.getName() + FILE_SIDE_DELIM + config1.getName();
+        String description = config1.getName() + FILE_SIDE_DELIM + config2.getName();
 
         System.out.println("("+i+", "+j+") round 1  starts:" + config1.getSearchOptions().getSearchStrategyMethod());
-        PerformanceResults p1FirstResults = getResultsForRound(player1, player2, description1);
+        PerformanceResults p1FirstResults = getResultsForRound(player1, player2, description);
         System.out.println("("+i+", "+j+") round 2  starts:" + config2.getSearchOptions().getSearchStrategyMethod());
-        PerformanceResults p2FirstResults = getResultsForRound(player2, player1, description1);
+        PerformanceResults p2FirstResults = getResultsForRound(player2, player1, description);
 
         return new PerformanceResultsPair(p1FirstResults, p2FirstResults);
     }
@@ -102,8 +106,8 @@ public class PerformanceWorker implements Runnable {
         players.set(0, player1);
         players.set(1, player2);
 
-        // this is freezing the UI and reporting that the first move is null.
-        ((TwoPlayerViewModel)controller.getViewer()).doComputerVsComputerGame();
+        // this is freezing the UI.
+        controller.getViewer().doComputerVsComputerGame();
 
         assert (controller.isDone());
         System.out.println("******** game is done = " + controller.isDone() +" ******");

@@ -23,7 +23,7 @@ public class PentePlayerOptions extends TwoPlayerPlayerOptions {
     private static final int DEFAULT_PERCENT_LESS_THAN_BEST_THRESH = 80;
 
     /** for any given ply never consider more than BEST_PERCENTAGE of the top moves. not used. */
-    private static final int DEFAULT_PERCENTAGE_BEST_MOVES = 0;
+    private static final int DEFAULT_PERCENTAGE_BEST_MOVES = 50;
 
     /** for any given ply never consider less than this many moves. */
     private static final int DEFAULT_MIN_BEST_MOVES = 5;

@@ -116,7 +116,7 @@ public final class ComparisonGridPanel
             PerformanceRunner runner =
                 new PerformanceRunner((TwoPlayerPanel)gamePanel, optionsList, this);
 
-            // when done performanceRunsDone will be called.
+            // when done, performanceRunsDone will be called.
             runner.doComparisonRuns();
         }
         else if (source == resultsLocationButton_) {

@@ -51,11 +51,11 @@ public class BestMovesOptionsPanel extends JPanel {
                             GameContext.getLabel("PERCENT_LESS_THAN_BEST_THRESH_TIP"), 0, 100, true);
 
         bestPercentageField_ =
-                new NumberInput( GameContext.getLabel("PERCENTAGE_AT_PLY"), bestMovesOptions_.getPercentageBestMoves(),
-                                 GameContext.getLabel("PERCENTAGE_AT_PLY_TIP"), 0, 100, true);
+                new NumberInput(GameContext.getLabel("PERCENTAGE_AT_PLY"), bestMovesOptions_.getPercentageBestMoves(),
+                                GameContext.getLabel("PERCENTAGE_AT_PLY_TIP"), 0, 100, true);
         minBestMovesField_ =
-                new NumberInput( GameContext.getLabel("MIN_BEST_MOVES"), bestMovesOptions_.getMinBestMoves(),
-                                 GameContext.getLabel("MIN_BEST_MOVES_TIP"), 1, 100, true);
+                new NumberInput(GameContext.getLabel("MIN_BEST_MOVES"), bestMovesOptions_.getMinBestMoves(),
+                                GameContext.getLabel("MIN_BEST_MOVES_TIP"), 1, 100, true);
 
         add( percentLessThanBestThreshField_ );
         add( bestPercentageField_ );

@@ -68,7 +68,7 @@ class GameTreeButtons extends JPanel implements ActionListener {
      * called when the ok button is clicked.
      */
     private void step() {
-        mainController_.getTwoPlayerViewer().step();
+        mainController_.getViewer().step();
         gameTreeDlg_.showCurrentGameTree();
     }
 
@@ -80,7 +80,7 @@ class GameTreeButtons extends JPanel implements ActionListener {
         pauseButton_.setEnabled(true);
         continueButton_.setEnabled(false);
         stepButton_.setEnabled(false);
-        mainController_.getTwoPlayerViewer().continueProcessing();
+        mainController_.getViewer().continueProcessing();
     }
 
     /**

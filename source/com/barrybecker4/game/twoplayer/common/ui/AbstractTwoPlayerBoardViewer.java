@@ -136,7 +136,7 @@ public abstract class AbstractTwoPlayerBoardViewer extends GameBoardViewer
         if (get2PlayerController().getTwoPlayerOptions().isAutoOptimize())  {
             runOptimization();
         }
-        if (controller.getPlayers().allPlayersComputer() ) {
+        else if (controller.getPlayers().allPlayersComputer() ) {
             controller.computerMovesFirst();
             doComputerMove( false );
         }

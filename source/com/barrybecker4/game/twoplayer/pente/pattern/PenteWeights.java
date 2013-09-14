@@ -18,19 +18,20 @@ public class PenteWeights extends GameWeights {
     /** If greater than this threshold, then opponent is in jeopardy. */
     public static final int JEOPARDY_WEIGHT = 80;
 
-    /** These defaults may be overridden in by the user in the UI.
+    /**
+     * These defaults may be overridden in by the user in the UI.
      *
-     * I ran an optimization at lookahead=4 and these were the optimized weights found:
-     * parameter[0] = 1a weight =0 [0, 40.0]
-       parameter[1] = 1b weight =0 [0, 40.0];
-       parameter[2] = 1c weight =0 [0, 40.0];
-       parameter[3] = 2a weight =1.514 [0, 80.0];
-       parameter[4] = 2b weight =8.0 [0, 160.0];
-       parameter[5] = 3a weight =31.939 [4.0, 320.0];
-       parameter[6] = 3b weight =320.0 [4.0, 800.0];
-       parameter[7] = 4a  weight =348.0 [4.0, 800.0];
-       parameter[8] = 4b weight =4,096 [40.0, 8,192];
-       parameter[9] = 5 weight =8,602 [4,096, 12,288];
+     * I ran an optimization at lookahead=6 and these were the optimized weights found:
+     * parameter[0] = 1a weight = 0.035 [0, 40.0]
+       parameter[1] = 1b weight = 0 [0, 40.0];
+       parameter[2] = 1c weight = 0 [0, 40.0];
+       parameter[3] = 2a weight = 2.0 [0, 80.0];
+       parameter[4] = 2b weight = 8.0 [0, 160.0];
+       parameter[5] = 3a weight = 32.0 [4.0, 320.0];
+       parameter[6] = 3b weight = 320.0 [4.0, 800.0];
+       parameter[7] = 4a weight = 348.0 [4.0, 800.0];
+       parameter[8] = 4b weight = 4,915 [40.0, 8,192];
+       parameter[9] = 5 weight = 8,602 [4,096, 12,288];
        parameter[10] = 6 weight =8,602 [4,096, 16,384];
        parameter[11] = 7 weight =12,288 [4,096, 20,480];
      */

@@ -12,7 +12,6 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
 /**
  * Shows progress while the computer move is being determined.
  *

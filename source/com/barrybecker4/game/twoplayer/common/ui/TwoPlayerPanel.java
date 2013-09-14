@@ -140,7 +140,8 @@ public abstract class TwoPlayerPanel extends GamePanel
         if ( source == toolBar_.getNewGameButton()) {
             get2PlayerController().pause();
             boolean canceled = newGameDialog_.showDialog();
-            if ( !canceled ) { // newGame a game with the newly defined options
+            if ( !canceled ) {
+                // start game with the newly defined options
                 startGame();
             }
             else {

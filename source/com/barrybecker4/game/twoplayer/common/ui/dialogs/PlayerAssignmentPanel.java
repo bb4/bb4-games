@@ -165,15 +165,18 @@ public class PlayerAssignmentPanel extends JPanel
         return false;
     }
 
-    public void setBothComputerPlayers() {
-        boolean checked = true;
-        computer1Button_.setSelected(checked);
-        computer2Button_.setSelected(checked);
-        editOptions1Button_.setEnabled(!checked);
-        editOptions2Button_.setEnabled(!checked);
-        human1Button_.setEnabled(!checked);
-        computer1Button_.setEnabled(!checked);
-        human2Button_.setEnabled(!checked);
-        computer2Button_.setEnabled(!checked);
+    public void setPlayersSelected(boolean enable) {
+
+        editOptions1Button_.setEnabled(enable);
+        editOptions2Button_.setEnabled(enable);
+        human1Button_.setEnabled(enable);
+        computer1Button_.setEnabled(enable);
+        human2Button_.setEnabled(enable);
+        computer2Button_.setEnabled(enable);
+    }
+
+    public void setBothComputerPlayers(boolean bothComputers) {
+        computer1Button_.setSelected(bothComputers);
+        computer2Button_.setSelected(bothComputers);
     }
 }

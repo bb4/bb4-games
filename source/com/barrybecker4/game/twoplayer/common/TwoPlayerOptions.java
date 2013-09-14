@@ -3,7 +3,6 @@ package com.barrybecker4.game.twoplayer.common;
 
 import com.barrybecker4.game.common.GameOptions;
 import com.barrybecker4.sound.Instruments;
-import com.barrybecker4.sound.MusicMaker;
 
 /**
  * Encapsulate two player options here to keep the TwoPlayerController class mush simpler.
@@ -16,13 +15,12 @@ public class TwoPlayerOptions extends GameOptions {
     private static final String DEFAULT_TONE = Instruments.TAIKO_DRUM;
 
     /** if true, then try to show a dialog visualizing the game tree.  */
-    private boolean showGameTree_ = false;
+    private boolean showGameTree_;
 
-    private boolean showGameOverDialog_ = true;
+    private boolean showGameOverDialog_;
     private boolean autoOptimize_;
-    private String autoOptimizeFile_ = null;
-
-    private String preferredTone_ = null;
+    private String autoOptimizeFile_;
+    private String preferredTone_;
 
 
     /**
@@ -30,6 +28,8 @@ public class TwoPlayerOptions extends GameOptions {
      */
     public TwoPlayerOptions() {
         preferredTone_ = getDefaultTone();
+        showGameOverDialog_ = true;
+        showGameTree_ = false;
     }
 
     /**
@@ -64,10 +64,17 @@ public class TwoPlayerOptions extends GameOptions {
         showGameTree_ = show;
     }
 
+    /**
+     * This is useful if running lots of games in a row and the user should not have to click to dismiss the dialogs.
+     * @param value whether or not to show a popup when the game is completed
+     */
     public final void setShowGameOverDialog(boolean value) {
         showGameOverDialog_ = value;
     }
 
+    /**
+     * @return if false, then no game over dialog pops up at the end of the game
+     */
     public boolean getShowGameOverDialog() {
         return showGameOverDialog_;
     }
@@ -79,7 +86,7 @@ public class TwoPlayerOptions extends GameOptions {
      */
     public final void setAutoOptimize(boolean autoOptimize) {
         autoOptimize_ = autoOptimize;
-        showGameOverDialog_ = false;
+        showGameOverDialog_ = !autoOptimize;
     }
 
     /**

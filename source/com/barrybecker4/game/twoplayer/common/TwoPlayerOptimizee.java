@@ -65,7 +65,7 @@ class TwoPlayerOptimizee implements Optimizee {
      *  The first one where params1 plays first, and the second where params2 plays first.
      *  This should remove the bias.
      *
-     * @param params1 set of weight for one of the sides
+     * @param params1 set of weights for one of the sides
      * @param params2 set of weights for the other side
      * @return the amount that params1 are better than params2. May be negative if params2 are better.
      */
@@ -95,8 +95,8 @@ class TwoPlayerOptimizee implements Optimizee {
         controller_.reset();
         controller_.computerMovesFirst();
 
-        if (controller_.getTwoPlayerViewer() != null)  {
-            controller_.getTwoPlayerViewer().doComputerVsComputerGame();
+        if (controller_.getViewer() != null)  {
+            controller_.getViewer().doComputerVsComputerGame();
         }
         else {
             // run in batch mode where the viewer is not available.

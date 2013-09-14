@@ -92,7 +92,7 @@ public abstract class TwoPlayerController extends GameController {
         return getOptions();
     }
 
-    public TwoPlayerViewModel getTwoPlayerViewer() {
+    public TwoPlayerViewModel getViewer() {
        return (TwoPlayerViewModel)viewer_;
     }
 
@@ -131,7 +131,7 @@ public abstract class TwoPlayerController extends GameController {
                     "file " + fileName + " was not found." + fnfe.getMessage());
         } catch (IOException ioe) {
             JOptionPane.showMessageDialog( null,
-                                           "IOException occurrred while reading " +
+                                           "IOException occurred while reading " +
                                            fileName + " :" + ioe.getMessage() );
         } catch (SGFException sgfe) {
             JOptionPane.showMessageDialog( null,

@@ -39,5 +39,6 @@ public class PerformanceRunner {
         PerformanceWorker worker =
                 new PerformanceWorker(gamePanel_.get2PlayerController(), optionsList, listener);
         SwingUtilities.invokeLater(worker);
+
     }
 }

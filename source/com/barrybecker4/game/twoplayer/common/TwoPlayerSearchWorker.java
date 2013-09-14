@@ -12,10 +12,10 @@ import com.barrybecker4.game.common.Move;
  */
 class TwoPlayerSearchWorker {
 
-    private TwoPlayerController controller_;
+    private TwoPlayerController controller;
 
     /** Worker represents a separate thread for computing the next move. */
-    private Worker worker_;
+    private Worker worker;
 
     /** this is true while the computer thinks about its next move. */
     private boolean processing_ = false;
@@ -25,7 +25,7 @@ class TwoPlayerSearchWorker {
      * Construct the search worker.
      */
     public TwoPlayerSearchWorker(TwoPlayerController controller) {
-        controller_ = controller;
+        this.controller = controller;
     }
 
     /**
@@ -33,14 +33,14 @@ class TwoPlayerSearchWorker {
      */
     public void interrupt() {
         if (isProcessing()) {
-            controller_.pause();
-            if (worker_ != null) {
-                worker_.interrupt();
+            controller.pause();
+            if (worker != null) {
+                worker.interrupt();
                 processing_ = false;
                 // make the move even though we did not finish computing it
-                Move move = (Move)worker_.get();
+                Move move = (Move) worker.get();
                 if (move != null) {
-                    controller_.getTwoPlayerViewer().computerMoved(move);
+                    controller.getViewer().computerMoved(move);
                 }
             }
             ThreadUtil.sleep(100);
@@ -57,38 +57,37 @@ class TwoPlayerSearchWorker {
      */
      public boolean requestComputerMove(final boolean isPlayer1, final boolean synchronous) throws AssertionError {
 
-         worker_ = new Worker() {
+         worker = new Worker() {
 
-             private Move move_;
+             private Move move;
 
              @Override
              public Object construct() {
                  processing_ = true;
 
-                 move_ = controller_.findComputerMove( isPlayer1 );
+                 move = controller.findComputerMove( isPlayer1 );
 
-                 return move_;
+                 return move;
              }
 
               @Override
               public void finished() {
 
-                  // move_ could be null if there was no legal move
-                  if (controller_.getTwoPlayerViewer() != null)  {
-                      controller_.getTwoPlayerViewer().computerMoved(move_);
+                  // move could be null if there was no legal move
+                  if (controller.getViewer() != null)  {
+                      controller.getViewer().computerMoved(move);
                   }
                   processing_ = false;
               }
          };
 
-         worker_.start();
+         worker.start();
 
          if (synchronous) {
 
              // this blocks until the value is available
-             TwoPlayerMove m = (TwoPlayerMove)worker_.get();
-             boolean d = controller_.getSearchable().done(m, true);
-             return d;
+             TwoPlayerMove m = (TwoPlayerMove) worker.get();
+             return controller.getSearchable().done(m, true);
          }
          return false;
      }

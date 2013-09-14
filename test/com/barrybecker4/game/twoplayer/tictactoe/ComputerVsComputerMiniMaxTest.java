@@ -32,8 +32,6 @@ public class ComputerVsComputerMiniMaxTest extends TestCase {
         searchOptions.setSearchStrategyMethod(SearchStrategyType.MINIMAX);
         searchOptions.getBruteSearchOptions().setLookAhead(4);
         searchOptions.getBruteSearchOptions().setAlphaBeta(false);
-
-        //controller.setOptions(options);
     }
 
     private void initializeSearchOptions() {
