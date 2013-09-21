@@ -15,13 +15,16 @@ import com.barrybecker4.game.twoplayer.comparison.model.SearchOptionsConfigList;
 import com.barrybecker4.ui.util.GUIUtil;
 
 import javax.swing.JComponent;
+import javax.swing.SwingWorker;
 import java.awt.image.BufferedImage;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * A worker that will run all the computer vs computer games serially in a separate thread.
  * @author Barry Becker
  */
-public class PerformanceWorker implements Runnable {
+public class PerformanceWorker extends SwingWorker<ResultsModel, Integer> {
 
     private static final String FILE_SIDE_DELIM = "_vs_";
 
@@ -44,25 +47,37 @@ public class PerformanceWorker implements Runnable {
         this.progress = 0;
     }
 
-    /** Run the process in a separate thread */
+    /**
+     * runs all the game strategies against each other and accumulate results
+     */
     @Override
-    public void run() {
-
+    protected ResultsModel doInBackground() throws Exception {
         int size = model.getSize();
         for (int i=0; i<size; i++) {
             for (int j=0; j<size; j++) {
 
                 PerformanceResultsPair results = getResultsForComparison(i, j);
                 model.setResults(i, j, results);
-                progress++;
+                publish(progress++);
             }
         }
         model.normalize();
-        listener.performanceRunsDone(model);
+        //
+        return model;
     }
 
-    public int getProgress() {
-        return progress;
+
+    @Override
+    protected void process(List<Integer> chunks) {
+        // potentially show progress
+    }
+
+    protected void done() {
+        try {
+            listener.performanceRunsDone(get());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

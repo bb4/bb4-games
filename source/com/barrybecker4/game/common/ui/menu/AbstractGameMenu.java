@@ -14,7 +14,6 @@ import java.util.List;
 public abstract class AbstractGameMenu extends JMenu
                                        implements ActionListener {
 
-    protected JFrame frame_;
     protected String currentGameName;
 
     protected List<GameMenuListener> listeners =

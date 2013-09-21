@@ -118,6 +118,14 @@ task runPokerServer(type: JavaExec, depends: classes) {
     classpath = sourceSets.main.runtimeClasspath
 }
 
+
+task runGameComparisons(type: JavaExec, depends: classes) {
+    main = "com.barrybecker4.game.twoplayer.comparison.GameComparisonApp"
+    args = ["-name", "pente", "-locale", "ENGLISH"]
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+
 /*
 task runPokerServerAndClients(type: JavaExec, depends: classes) {
     tasks.runPokerServer.execute()
