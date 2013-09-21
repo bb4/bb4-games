@@ -64,9 +64,7 @@ class TwoPlayerSearchWorker {
              @Override
              public Object construct() {
                  processing_ = true;
-
                  move = controller.findComputerMove( isPlayer1 );
-
                  return move;
              }
 

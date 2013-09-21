@@ -2,6 +2,7 @@
 package com.barrybecker4.game.twoplayer.common;
 
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchProgress;
+import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy;
 
 /**
  * Requests the next move to be found.
@@ -35,7 +36,8 @@ public class ComputerMoveRequester implements SearchProgress {
 
     @Override
     public long getNumMovesConsidered() {
-        return controller_.getSearchStrategy().getNumMovesConsidered();
+        SearchStrategy strategy = controller_.getSearchStrategy();
+        return (strategy == null) ? 0 : strategy.getNumMovesConsidered();
     }
 
     @Override

@@ -16,7 +16,8 @@ import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerViewModel;
 import com.barrybecker4.optimization.parameter.ParameterArray;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import java.util.List;
 
 /**
@@ -110,10 +111,15 @@ public abstract class AbstractTwoPlayerBoardViewer extends GameBoardViewer
      * run many games and use hill-climbing to find optimal weights.
      */
     private void runOptimization() {
-        ParameterArray optimizedParams = get2PlayerController().runOptimization();
 
-        JOptionPane.showMessageDialog(this, GameContext.getLabel("OPTIMIZED_WEIGHTS_TXT") +
+        final GameBoardViewer viewer = this;
+
+        get2PlayerController().runOptimization(new OptimizationDoneHandler() {
+            public void done(ParameterArray optimizedParams) {
+                JOptionPane.showMessageDialog(viewer, GameContext.getLabel("OPTIMIZED_WEIGHTS_TXT") +
                 optimizedParams, GameContext.getLabel("OPTIMIZED_WEIGHTS"), JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
     }
 
     /**

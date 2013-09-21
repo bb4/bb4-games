@@ -15,11 +15,11 @@ import com.barrybecker4.game.twoplayer.common.persistence.TwoPlayerGameImporter;
 import com.barrybecker4.game.twoplayer.common.search.Searchable;
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy;
 import com.barrybecker4.game.twoplayer.common.search.tree.IGameTreeViewable;
+import com.barrybecker4.game.twoplayer.common.ui.OptimizationDoneHandler;
 import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerPieceRenderer;
 import com.barrybecker4.optimization.Optimizee;
 import com.barrybecker4.optimization.Optimizer;
 import com.barrybecker4.optimization.parameter.ParameterArray;
-import com.barrybecker4.optimization.strategy.OptimizationStrategyType;
 
 import javax.swing.JOptionPane;
 import java.awt.Color;
@@ -27,8 +27,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-
-import static com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy.WINNING_VALUE;
 
 /**
  * This is an abstract base class for a two player Game Controller.
@@ -328,17 +326,17 @@ public abstract class TwoPlayerController extends GameController {
 
     /**
      * Let the computer play against itself for a long time as it optimizes its parameters.
+     * @param handler will be called when the optimization is done processing.
      * @return the resulting optimized parameters.
      */
-    public ParameterArray runOptimization() {
-        Optimizer optimizer = new Optimizer( this.getOptimizee(), getTwoPlayerOptions().getAutoOptimizeFile() );
+    public void runOptimization(final OptimizationDoneHandler handler) {
 
-        ParameterArray optimizedParams;
-        optimizedParams =
-                optimizer.doOptimization(OptimizationStrategyType.HILL_CLIMBING,
-                                         getComputerWeights().getDefaultWeights(),
-                                         WINNING_VALUE);
-        return optimizedParams;
+        final Optimizer optimizer =
+                new Optimizer( this.getOptimizee(), getTwoPlayerOptions().getAutoOptimizeFile() );
+
+        ParameterArray weights = getComputerWeights().getDefaultWeights();
+
+        new TwoPlayerOptimizationWorker(optimizer, weights, handler).execute();
     }
 
     /**
@@ -392,7 +390,7 @@ public abstract class TwoPlayerController extends GameController {
         return new TwoPlayerOptimizee(this);
     }
 
-    public Searchable getSearchable() {
+    public synchronized Searchable getSearchable() {
         if (searchable_ == null) {
             searchable_ = createSearchable((TwoPlayerBoard)getBoard(), getPlayers());
         }
