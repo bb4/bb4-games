@@ -30,7 +30,7 @@ public class PenteBoard extends TwoPlayerBoard {
         setSize( 30, 30 );
     }
 
-    public PenteBoard(PenteBoard pb) {
+    private PenteBoard(PenteBoard pb) {
         super(pb);
         candidateMoves = pb.candidateMoves.copy();
     }

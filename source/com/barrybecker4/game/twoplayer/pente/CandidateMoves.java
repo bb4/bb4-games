@@ -8,7 +8,8 @@ package com.barrybecker4.game.twoplayer.pente;
  */
 public class CandidateMoves {
 
-    int numRows, numCols;
+    private int numRows, numCols;
+
     /** this is an auxiliary structure to help determine candidate moves. should extract to sep class. */
     private boolean[][] candidateMoves_;
 
@@ -28,9 +29,9 @@ public class CandidateMoves {
 
     /** Copy constructor */
     public CandidateMoves copy() {
-        CandidateMoves cmoves = new CandidateMoves();
-        cmoves.candidateMoves_ = this.candidateMoves_.clone();
-        return cmoves;
+        CandidateMoves moves = new CandidateMoves();
+        moves.candidateMoves_ = this.candidateMoves_.clone();
+        return moves;
     }
 
     public boolean isCandidate(int i, int j)   {

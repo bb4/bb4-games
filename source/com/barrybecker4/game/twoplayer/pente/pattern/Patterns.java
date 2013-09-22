@@ -18,7 +18,7 @@ public abstract class Patterns {
     /**
      * This table provides a quick way to look up a weight for a pattern.
      */
-    protected PatternTable patternTable_;
+    private PatternTable patternTable_;
 
     /**
      * Constructor.

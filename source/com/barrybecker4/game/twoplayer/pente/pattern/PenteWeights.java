@@ -54,13 +54,13 @@ public class PenteWeights extends GameWeights {
         ASSUMED_WINNING_VALUE,  ASSUMED_WINNING_VALUE,  ASSUMED_WINNING_VALUE
     };
 
-    protected static final String[] WEIGHT_SHORT_DESCRIPTIONS = {
+    private static final String[] WEIGHT_SHORT_DESCRIPTIONS = {
         "1a weight", "1b weight", "1c weight", "2a weight",
         "2b weight", "3a weight", "3b weight", "4a  weight",
         "5 weight", "6 weight", "7 weight", "8 weight"};
 
 
-    protected static final String[] WEIGHT_DESCRIPTIONS = {
+    private static final String[] WEIGHT_DESCRIPTIONS = {
         "Open ended two in a row (_XX)",            // 0
         "Closed three in a row (XXX)",                    // 1
         "Three in a row with chance to make 4 (_XXX or X_XX)",   // 2

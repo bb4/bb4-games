@@ -13,7 +13,7 @@ import java.awt.Color;
  *
  * @author Barry Becker
  */
-public class PentePlayerOptions extends TwoPlayerPlayerOptions {
+class PentePlayerOptions extends TwoPlayerPlayerOptions {
 
 
     /** initial look ahead factor. */
@@ -29,7 +29,7 @@ public class PentePlayerOptions extends TwoPlayerPlayerOptions {
     private static final int DEFAULT_MIN_BEST_MOVES = 5;
 
 
-    public PentePlayerOptions(String name, Color color) {
+    PentePlayerOptions(String name, Color color) {
        super(name, color);
     }
 

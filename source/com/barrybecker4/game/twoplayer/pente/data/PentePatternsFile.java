@@ -123,7 +123,7 @@ public class PentePatternsFile extends PentePatterns {
 
         String exportFile = getExportFile();
         File file = new File( exportFile );
-        FileOutputStream patternFile = null;
+        FileOutputStream patternFile;
 
         try {
             patternFile = new FileOutputStream( file );

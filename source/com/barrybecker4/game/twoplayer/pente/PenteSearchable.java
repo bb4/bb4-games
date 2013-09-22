@@ -19,8 +19,7 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
 */
 public class PenteSearchable extends TwoPlayerSearchable {
 
-    protected MoveEvaluator moveEvaluator_;
-
+    private MoveEvaluator moveEvaluator_;
     private PenteMoveGenerator generator;
 
     /** Constructor */

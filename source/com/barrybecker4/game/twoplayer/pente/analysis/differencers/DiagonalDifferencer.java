@@ -11,13 +11,13 @@ import com.barrybecker4.game.twoplayer.pente.pattern.Patterns;
  *
  * @author Barry Becker
 */
-public abstract class DiagonalDifferencer extends ValueDifferencer {
+abstract class DiagonalDifferencer extends ValueDifferencer {
 
     protected int numRows;
     protected int numCols;
 
 
-    public DiagonalDifferencer(TwoPlayerBoard board, Patterns patterns,
+    DiagonalDifferencer(TwoPlayerBoard board, Patterns patterns,
                                LineFactory lineFactory) {
         super(board, patterns, lineFactory);
     }
