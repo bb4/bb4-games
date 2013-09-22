@@ -44,6 +44,11 @@ public class TwoPlayerGameImporter extends GameImporter {
     public void restoreFromStream(InputStream iStream)
             throws IOException, SGFException  {
 
+        // If this ever fails from the IDE (and not gradle) its probably because
+        // the IDE is not copying the sgf file to the classes directory.
+        // In Intellij this can be fixed by going to the compiler settings and
+        // adding ?*.sgf; to the resource pattern list.
+        if (iStream == null) throw new IllegalArgumentException("iStream is null");
         SGFLoader gameLoader = createLoader();
         SGFGame game = gameLoader.load(iStream);
         restoreGame(game);

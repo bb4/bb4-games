@@ -77,17 +77,18 @@ final class GameTreeViewer extends JPanel implements MouseMotionListener
         totalAtLevel_ = new int[depth_+2];
         oldHighlightPath_ = null;
 
-        if (root_ != null && root_.getUserObject() != null) {
+        if (root_.getUserObject() != null) {
             initializeTreeStats(root_, 0);
         }
     }
 
     /**
-     *  draw the currently visible game tree.
+     * Draw the currently visible game tree.
      */
     public synchronized void refresh() {
         // this will paint the component immediately
-        paint( getGraphics() );
+        //paint( getGraphics() );
+        repaint();
         oldHighlightPath_ = null;
     }
 

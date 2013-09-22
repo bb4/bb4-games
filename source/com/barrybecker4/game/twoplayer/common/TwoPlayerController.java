@@ -327,7 +327,6 @@ public abstract class TwoPlayerController extends GameController {
     /**
      * Let the computer play against itself for a long time as it optimizes its parameters.
      * @param handler will be called when the optimization is done processing.
-     * @return the resulting optimized parameters.
      */
     public void runOptimization(final OptimizationDoneHandler handler) {
 

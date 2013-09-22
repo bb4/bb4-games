@@ -10,6 +10,8 @@ import com.barrybecker4.game.twoplayer.pente.pattern.SimpleWeights;
 import com.barrybecker4.optimization.parameter.ParameterArray;
 import junit.framework.TestCase;
 
+import java.io.InputStream;
+
 /**
  * Base class for all differencer tests.
  *
@@ -47,6 +49,10 @@ public abstract class ValueDifferencerTst extends TestCase  {
     private PenteBoard restoreBoard(String problemFileBase) throws Exception {
         PenteController controller = new PenteController();
         String path = TEST_CASE_DIR + problemFileBase + ".sgf";
+        InputStream iStream = getClass().getResourceAsStream(path);
+        if (iStream == null)
+            throw new IllegalArgumentException("bad path: " + path);
+
         controller.restoreFromStream(getClass().getResourceAsStream(path));
         return (PenteBoard) controller.getBoard();
     }
