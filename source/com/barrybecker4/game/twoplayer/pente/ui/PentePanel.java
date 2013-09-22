@@ -10,7 +10,7 @@ import com.barrybecker4.game.common.ui.viewer.GameBoardViewer;
 import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerInfoPanel;
 import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerPanel;
 
-import java.awt.*;
+import java.awt.Component;
 
 /**
  *  This class defines the main UI for the Pente game applet.

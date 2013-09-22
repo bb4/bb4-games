@@ -13,7 +13,7 @@ import com.barrybecker4.game.twoplayer.pente.pattern.PenteWeights;
 import com.barrybecker4.optimization.parameter.ParameterArray;
 
 /**
- * Defines everything the computer needs to know to play Pente.
+ * Defines everything the computer needs to know to search for the next pente move.
  *
  * @author Barry Becker
 */
@@ -21,7 +21,7 @@ public class PenteSearchable extends TwoPlayerSearchable {
 
     protected MoveEvaluator moveEvaluator_;
 
-    PenteMoveGenerator generator;
+    private PenteMoveGenerator generator;
 
     /** Constructor */
     public PenteSearchable(TwoPlayerBoard board, PlayerList players) {

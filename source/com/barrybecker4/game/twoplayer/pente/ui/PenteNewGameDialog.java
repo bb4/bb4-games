@@ -4,7 +4,7 @@ package com.barrybecker4.game.twoplayer.pente.ui;
 import com.barrybecker4.game.common.GameViewModel;
 import com.barrybecker4.game.twoplayer.common.ui.dialogs.TwoPlayerNewGameDialog;
 
-import java.awt.*;
+import java.awt.Component;
 import java.awt.event.ActionListener;
 
 public class PenteNewGameDialog extends TwoPlayerNewGameDialog

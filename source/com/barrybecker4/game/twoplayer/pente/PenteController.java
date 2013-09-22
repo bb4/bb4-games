@@ -14,7 +14,8 @@ import com.barrybecker4.game.twoplayer.common.search.Searchable;
 import com.barrybecker4.game.twoplayer.pente.pattern.PentePatterns;
 import com.barrybecker4.game.twoplayer.pente.pattern.PenteWeights;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
 
 /**
  * Defines everything the computer needs to know to play Pente.

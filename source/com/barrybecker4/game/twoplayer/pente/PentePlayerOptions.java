@@ -7,7 +7,7 @@ import com.barrybecker4.game.twoplayer.common.search.options.BruteSearchOptions;
 import com.barrybecker4.game.twoplayer.common.search.options.MonteCarloSearchOptions;
 import com.barrybecker4.game.twoplayer.common.search.options.SearchOptions;
 
-import java.awt.*;
+import java.awt.Color;
 
 /**
  *
