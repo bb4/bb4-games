@@ -55,8 +55,10 @@ public class Line {
     public int computeValueDifference(int position) {
 
         char symb = line.charAt( position );
-        assert symb != Patterns.UNOCCUPIED:
-            "The piece just played at position "+ position + " in line "+ line +" must be a symbol.";
+        if (symb == Patterns.UNOCCUPIED) {
+            throw new IllegalStateException(
+                    "The piece just played at position "+ position + " in line "+ line +" must be a symbol.");
+        }
         boolean player1Perspective = (symb == GamePiece.P1_SYMB);
 
         int len = line.length();

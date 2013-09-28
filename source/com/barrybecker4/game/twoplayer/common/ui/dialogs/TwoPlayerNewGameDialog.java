@@ -57,12 +57,12 @@ public class TwoPlayerNewGameDialog extends NewGameDialog
 
         playersPanel_ = createPlayerAssignmentPanel();
         JPanel optimizationPanel = createOptimizationPanel();
-        JPanel boardParamPanel = createBoardParamPanel();
+        gridParamPanel_ = createBoardParamPanel();
         JPanel customPanel = createCustomPanel();
 
         playLocalPanel.add(playersPanel_ );
         playLocalPanel.add( optimizationPanel );
-        playLocalPanel.add( boardParamPanel );
+        playLocalPanel.add( gridParamPanel_ );
         if ( customPanel != null )
             playLocalPanel.add( customPanel );
         return playLocalPanel;
@@ -107,12 +107,8 @@ public class TwoPlayerNewGameDialog extends NewGameDialog
             board.setSize(gridParamPanel_.getRowSize(), gridParamPanel_.getColSize());
         }
 
-       c.getTwoPlayerOptions().setAutoOptimize(optimizationCheckbox_.isSelected());
+        c.getOptions().setAutoOptimize(optimizationCheckbox_.isSelected());
         playersPanel_.ok();
-
-        if (board != null && gridParamPanel_ != null) {
-            board.setSize( gridParamPanel_.getRowSize(), gridParamPanel_.getColSize() );
-        }
         super.ok();
     }
 
@@ -151,7 +147,7 @@ public class TwoPlayerNewGameDialog extends NewGameDialog
                 else {
                     playersPanel_.setBothComputerPlayers(true);
                     playersPanel_.setPlayersSelected(false);
-                    get2PlayerController().getTwoPlayerOptions().setAutoOptimizeFile( file.getAbsolutePath() );
+                    get2PlayerController().getOptions().setAutoOptimizeFile( file.getAbsolutePath() );
                 }
             }
             else {

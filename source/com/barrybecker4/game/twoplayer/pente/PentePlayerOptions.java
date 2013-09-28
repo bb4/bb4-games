@@ -10,7 +10,7 @@ import com.barrybecker4.game.twoplayer.common.search.options.SearchOptions;
 import java.awt.Color;
 
 /**
- *
+ * Player options specific to Pente game.
  * @author Barry Becker
  */
 class PentePlayerOptions extends TwoPlayerPlayerOptions {

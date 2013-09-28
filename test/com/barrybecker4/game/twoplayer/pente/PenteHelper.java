@@ -1,7 +1,6 @@
 /** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.pente;
 
-import com.barrybecker4.game.twoplayer.common.TwoPlayerController;
 import com.barrybecker4.game.twoplayer.common.search.SearchableHelper;
 
 /**
@@ -10,7 +9,7 @@ import com.barrybecker4.game.twoplayer.common.search.SearchableHelper;
 public class PenteHelper extends SearchableHelper {
 
     @Override
-    public TwoPlayerController createController() {
+    public PenteController createController() {
         return new PenteController(10, 10);
     }
 

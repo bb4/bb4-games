@@ -6,18 +6,20 @@ import com.barrybecker4.game.common.board.BoardPosition;
 import com.barrybecker4.game.common.board.GamePiece;
 import com.barrybecker4.game.twoplayer.pente.pattern.SimplePatterns;
 import com.barrybecker4.game.twoplayer.pente.pattern.SimpleWeights;
-import junit.framework.TestCase;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Verify that we correctly evaluate lines on the board.
  *
  * @author Barry Becker
  */
-public class LineTest extends TestCase  {
+public class LineTest {
 
     private GameWeights weights = new SimpleWeights();
 
-
+    @Test
     public void testAppendEmpty() {
 
         Line line = new Line(createLineEvaluator());
@@ -26,6 +28,7 @@ public class LineTest extends TestCase  {
         assertEquals("_", line.toString());
     }
 
+    @Test
     public void testAppendPlayer() {
 
         Line line = new Line(createLineEvaluator());
@@ -38,6 +41,7 @@ public class LineTest extends TestCase  {
         assertEquals("XO", line.toString());
     }
 
+    @Test
     public void testComputeValueDifferenceXX_Integraction() {
 
         Line line = createLine("XX");
@@ -49,6 +53,7 @@ public class LineTest extends TestCase  {
         assertEquals(9, diff);
     }
 
+    @Test
     public void testComputeValueDifferenceOO_Integraction() {
 
         Line line = createLine("OO");
@@ -60,6 +65,7 @@ public class LineTest extends TestCase  {
         assertEquals(-9, diff);
     }
 
+    @Test
     public void testComputeValueDifference_X_Integraction() {
 
         Line line = createLine("_X");
@@ -69,6 +75,7 @@ public class LineTest extends TestCase  {
         assertEquals(1, diff);
     }
 
+    @Test
     public void testComputeValueDifferenceXX_TooShort() {
 
         Line line = createLineWithMock("XX");
@@ -80,6 +87,7 @@ public class LineTest extends TestCase  {
         assertEquals(0, diff);
     }
 
+    @Test
     public void testComputeValueDifference_XXX() {
 
         Line line = createLineWithMock("_XXX");
@@ -92,6 +100,7 @@ public class LineTest extends TestCase  {
     }
 
     /** The mock evaluator returns 1 whenever the position matches the player symbol (or -1 if opponent) */
+    @Test
     public void testComputeValueDifference_XOX() {
 
         Line line = createLineWithMock("_XOX");
@@ -103,6 +112,7 @@ public class LineTest extends TestCase  {
         assertEquals(2, diff);
     }
 
+    @Test
     public void testComputeValueDifference_XOXrecorded() {
 
         Line line = createLineWithRecorder("_XOX");
@@ -117,6 +127,7 @@ public class LineTest extends TestCase  {
     }
 
     /** shows a more typical pattern */
+    @Test
     public void testComputeValueDifferenceXX_XO_X_X_recorded() {
 
         Line line = createLineWithRecorder("XX_XO_X_X_");
@@ -149,19 +160,12 @@ public class LineTest extends TestCase  {
     }
 
     /** Cannot check where no symbol was played */
+    @Test (expected = IllegalStateException.class)
     public void testComputeValueDifferenceXX_XO_X_X_emptyPosition() {
 
         Line line = createLineWithRecorder("XX_XO_X_X_");
-
-        try {
-            line.computeValueDifference(2);
-            fail("did not expect to get here");
-        }
-        catch (AssertionError e) {
-            // success
-        }
+        line.computeValueDifference(2);
     }
-
 
     /**
      * @param linePattern  some sequence of X, O, _

@@ -285,7 +285,7 @@ public abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst {
             printMoves(title, moves);
         }
 
-        assertEquals("Unexpected number of generated moves.",
+        assertEquals("Unexpected number of generated moves. The moves generated were:\n" + moves,
                 expectedMoves.length, moves.size());
 
         StringBuilder diffs = new StringBuilder("");

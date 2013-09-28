@@ -1,4 +1,4 @@
-/** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
+/** Copyright by Barry G. Becker, 2000-2013. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.common;
 
 import com.barrybecker4.common.geometry.ByteLocation;
@@ -7,12 +7,15 @@ import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.board.GamePiece;
 import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub;
 import com.barrybecker4.game.twoplayer.common.search.options.BestMovesSearchOptions;
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Barry Becker
  */
-public class BestMoveFinderTest extends TestCase {
+public class BestMoveFinderTest {
 
     private BestMoveFinder finder;
 
@@ -22,21 +25,16 @@ public class BestMoveFinderTest extends TestCase {
     private static final boolean PLAYER2 = false;
 
     /**
-     * Constructor
-     */
-    public BestMoveFinderTest() {
-    }
-
-    /**
      * common initialization for all test cases.
      */
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp()  {
+
         options = new BestMovesSearchOptions();
         finder = new BestMoveFinder(options);
     }
 
+    @Test
     public void testBestMinOneP1() {
         options.setPercentLessThanBestThresh(0);
         options.setPercentageBestMoves(0);
@@ -47,6 +45,7 @@ public class BestMoveFinderTest extends TestCase {
         assertEquals("Unexpected value", 100, mList.getFirstMove().getValue());
     }
 
+    @Test
     public void testBestMinOneP2() {
         options.setPercentLessThanBestThresh(0);
         options.setPercentageBestMoves(0);
@@ -57,6 +56,7 @@ public class BestMoveFinderTest extends TestCase {
         assertEquals("Unexpected value", -10, mList.getFirstMove().getValue());
     }
 
+    @Test
     public void testBestMinTwo() {
         options.setPercentLessThanBestThresh(0);
         options.setPercentageBestMoves(0);
@@ -66,6 +66,7 @@ public class BestMoveFinderTest extends TestCase {
         assertEquals("Unexpected number of best moves found", 2, mList.getNumMoves());
     }
 
+    @Test
     public void testBestMinBiggerThanTotal() {
         options.setPercentLessThanBestThresh(0);
         options.setPercentageBestMoves(0);
@@ -75,6 +76,17 @@ public class BestMoveFinderTest extends TestCase {
         assertEquals("Unexpected number of best moves found", 3, mList.getNumMoves());
     }
 
+    @Test
+    public void testMinBestSmallerThanNumberReturned() {
+        options.setPercentLessThanBestThresh(50);
+        options.setPercentageBestMoves(100);
+        options.setMinBestMoves(2);
+
+        MoveList mList = finder.getBestMoves(PLAYER1, createSimpleThreeMoveList());
+        assertEquals("Unexpected number of best moves found", 3, mList.getNumMoves());
+    }
+
+    @Test
     public void testBest20PercentMovesP1() {
         options.setPercentLessThanBestThresh(0);
         options.setPercentageBestMoves(20);
@@ -85,6 +97,7 @@ public class BestMoveFinderTest extends TestCase {
         assertEquals("Unexpected value", 10, mList.getFirstMove().getValue());
     }
 
+    @Test
     public void testBest20PercentMovesP2() {
         options.setPercentLessThanBestThresh(0);
         options.setPercentageBestMoves(20);
@@ -95,6 +108,7 @@ public class BestMoveFinderTest extends TestCase {
         assertEquals("Unexpected value", -10, mList.getFirstMove().getValue());
     }
 
+    @Test
     public void testBest20PercentLessThanBestThreshMovesP1() {
         options.setPercentLessThanBestThresh(20);
         options.setPercentageBestMoves(0);
@@ -105,6 +119,7 @@ public class BestMoveFinderTest extends TestCase {
         assertEquals("Unexpected value", 10, mList.getFirstMove().getValue());
     }
 
+    @Test
     public void testBest20PercentLessThanBestThreshMovesP2() {
         options.setPercentLessThanBestThresh(20);
         options.setPercentageBestMoves(0);
@@ -115,14 +130,7 @@ public class BestMoveFinderTest extends TestCase {
         assertEquals("Unexpected value", -10, mList.getFirstMove().getValue());
     }
 
-    private MoveList createSimpleThreeMoveList() {
-        MoveList moveList = new MoveList();
-        moveList.add(TwoPlayerMoveStub.createMove(new ByteLocation(1, 2), 100, new GamePiece(true)));
-        moveList.add(TwoPlayerMoveStub.createMove(new ByteLocation(1, 3), 50, new GamePiece(true)));
-        moveList.add(TwoPlayerMoveStub.createMove(new ByteLocation(1, 4), -10, new GamePiece(true)));
-        return moveList;
-    }
-
+    @Test
     public void testBestMinMoreThanPercentMovesP1() {
         options.setPercentLessThanBestThresh(0);
         options.setPercentageBestMoves(20);
@@ -132,6 +140,7 @@ public class BestMoveFinderTest extends TestCase {
         assertEquals("Unexpected number of best moves found", 10, mList.getNumMoves());
     }
 
+    @Test
     public void testBestMinMoreThanPercentLessThanBestThreshMovesP2() {
         options.setPercentLessThanBestThresh(0);
         options.setPercentageBestMoves(20);
@@ -139,6 +148,14 @@ public class BestMoveFinderTest extends TestCase {
 
         MoveList mList = finder.getBestMoves(PLAYER2, createRangeMoveList(new Range(-10, 10)));
         assertEquals("Unexpected number of best moves found", 10, mList.getNumMoves());
+    }
+
+     private MoveList createSimpleThreeMoveList() {
+        MoveList moveList = new MoveList();
+        moveList.add(TwoPlayerMoveStub.createMove(new ByteLocation(1, 2), 100, new GamePiece(true)));
+        moveList.add(TwoPlayerMoveStub.createMove(new ByteLocation(1, 3), 50, new GamePiece(true)));
+        moveList.add(TwoPlayerMoveStub.createMove(new ByteLocation(1, 4), -10, new GamePiece(true)));
+        return moveList;
     }
 
     /**

@@ -18,59 +18,56 @@ import static com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrat
  */
 final class PenteMoveGenerator {
 
-    private PenteSearchable searchable_;
 
     /**
      * Constructor.
      */
-    public PenteMoveGenerator(PenteSearchable searchable) {
-        searchable_ = searchable;
+    public PenteMoveGenerator() {
     }
 
     /**
      * @return all reasonably good next moves.
      */
-    public final MoveList generateMoves(TwoPlayerMove lastMove, ParameterArray weights) {
+    public final MoveList generateMoves(PenteSearchable searchable, TwoPlayerMove lastMove, ParameterArray weights) {
         MoveList moveList = new MoveList();
 
-        PenteBoard pb = searchable_.getBoard();
-        pb.determineCandidateMoves();
+        PenteBoard pb = searchable.getBoard(); //.copy();
+        CandidateMoves candMoves = pb.getCandidateMoves();
 
         boolean player1 = (lastMove == null) || !lastMove.isPlayer1();
 
         int ncols = pb.getNumCols();
         int nrows = pb.getNumRows();
 
-        for (int i = 1; i <= ncols; i++ ) {
-            for (int j = 1; j <= nrows; j++ ) {
-                if ( pb.isCandidateMove( j, i )) {
-                    TwoPlayerMove m;
+        for (int i = 1; i <= nrows; i++ ) {
+             for (int j = 1; j <= ncols; j++ ) {
+                if ( candMoves.isCandidateMove( i, j )) {
+                    TwoPlayerMove move;
                     if (lastMove == null)
-                       m = TwoPlayerMove.createMove( j, i, 0, new GamePiece(player1));
+                       move = TwoPlayerMove.createMove( i, j, 0, new GamePiece(player1));
                     else
-                       m = TwoPlayerMove.createMove( j, i, lastMove.getValue(), new GamePiece(player1));
-                    searchable_.makeInternalMove( m );
-                    m.setValue(searchable_.worth( m, weights));
+                       move = TwoPlayerMove.createMove( i, j, lastMove.getValue(), new GamePiece(player1));
+                    searchable.makeInternalMove( move );
+                    move.setValue(searchable.worth(move, weights));
                     // now revert the board
-                    searchable_.undoInternalMove( m );
-                    moveList.add( m );
+                    searchable.undoInternalMove( move );
+                    moveList.add( move );
                 }
             }
         }
-        BestMoveFinder finder = new BestMoveFinder(searchable_.getSearchOptions().getBestMovesSearchOptions());
+        BestMoveFinder finder = new BestMoveFinder(searchable.getSearchOptions().getBestMovesSearchOptions());
         return finder.getBestMoves( player1, moveList);
     }
 
     /**
      * @return a list of urgent moves (i.e positions that can result in a win for either player.
      */
-    public MoveList generateUrgentMoves(TwoPlayerMove lastMove, ParameterArray weights) {
+    public MoveList generateUrgentMoves(PenteSearchable searchable, TwoPlayerMove lastMove, ParameterArray weights) {
         // no urgent moves at start of game.
         if (lastMove == null)  {
             return new MoveList();
         }
-         MoveList allMoves =
-             findMovesForBothPlayers(lastMove, weights);
+        MoveList allMoves = findMovesForBothPlayers(searchable, lastMove, weights);
 
         // now keep only those that result in a win or loss.
         MoveList urgentMoves = new MoveList();
@@ -79,7 +76,7 @@ final class PenteMoveGenerator {
         for (Move m : allMoves) {
             TwoPlayerMove move = (TwoPlayerMove) m;
             // if its not a winning move or we already have it, then skip
-            if ( Math.abs(move.getValue()) >= WINNING_VALUE  && !contains(move, urgentMoves) ) {
+            if ( Math.abs(move.getValue()) >= WINNING_VALUE  && !contains(move, urgentMoves)) {
                 move.setUrgent(true);
                 move.setPlayer1(currentPlayer);
                 move.setPiece(new GamePiece(currentPlayer));
@@ -93,17 +90,18 @@ final class PenteMoveGenerator {
      * Consider both our moves and opponent moves.
      * @return Set of all next moves.
      */
-    private MoveList findMovesForBothPlayers(TwoPlayerMove lastMove, ParameterArray weights) {
+    private MoveList findMovesForBothPlayers(
+            PenteSearchable searchable, TwoPlayerMove lastMove, ParameterArray weights) {
         MoveList allMoves = new MoveList();
 
-        MoveList moves = generateMoves(lastMove, weights);
+        MoveList moves = generateMoves(searchable, lastMove, weights);
         allMoves.addAll(moves);
 
         // unlike go, I don't know if we need this
         TwoPlayerMove oppLastMove = lastMove.copy();
         oppLastMove.setPlayer1(!lastMove.isPlayer1());
         MoveList opponentMoves =
-                generateMoves(oppLastMove, weights);
+                generateMoves(searchable, oppLastMove, weights);
         for (Move m : opponentMoves){
             TwoPlayerMove move = (TwoPlayerMove) m;
             allMoves.add(move);
@@ -113,6 +111,7 @@ final class PenteMoveGenerator {
     }
 
     /**
+     * This version of contains does not consider the player when determining containment.
      * @return true of the {@link MoveList} contains the specified move.
      */
     private boolean contains(TwoPlayerMove move, MoveList moves) {

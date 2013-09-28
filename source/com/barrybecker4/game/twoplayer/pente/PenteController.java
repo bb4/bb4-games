@@ -10,7 +10,6 @@ import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerController;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerOptions;
-import com.barrybecker4.game.twoplayer.common.search.Searchable;
 import com.barrybecker4.game.twoplayer.pente.pattern.PentePatterns;
 import com.barrybecker4.game.twoplayer.pente.pattern.PenteWeights;
 
@@ -37,7 +36,7 @@ public class PenteController extends TwoPlayerController {
     }
 
     /**
-     *  Construct the Pente game controller given an initial board size
+     * Construct the Pente game controller given an initial board size
      */
     public PenteController(int nrows, int ncols ) {
         size = new Dimension( nrows, ncols );
@@ -84,9 +83,12 @@ public class PenteController extends TwoPlayerController {
         return PentePatterns.WIN_RUN_LENGTH;
     }
 
+    public synchronized PenteSearchable getSearchable() {
+        return (PenteSearchable) super.getSearchable();
+    }
 
     @Override
-    protected Searchable createSearchable(TwoPlayerBoard board, PlayerList players) {
+    protected PenteSearchable createSearchable(TwoPlayerBoard board, PlayerList players) {
         return new PenteSearchable(board, players);
     }
 }

@@ -1,0 +1,199 @@
+/** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
+package com.barrybecker4.game.twoplayer.pente;
+
+import com.barrybecker4.common.geometry.ByteLocation;
+import com.barrybecker4.game.common.Move;
+import com.barrybecker4.game.common.MoveList;
+import com.barrybecker4.game.common.board.GamePiece;
+import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
+import com.barrybecker4.game.twoplayer.common.search.options.BestMovesSearchOptions;
+import com.barrybecker4.optimization.parameter.ParameterArray;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+
+
+/**
+ * @author Barry Becker
+ */
+public class PenteMoveGeneratorTest {
+
+    /** instance under test */
+    private PenteMoveGenerator generator;
+
+    private PenteHelper helper;
+    private PenteController controller;
+
+    private ParameterArray weights;
+
+    @Before
+    public void setUp() {
+
+        helper = new PenteHelper();
+        controller = helper.createController();
+
+        BestMovesSearchOptions bmOptions = controller.getSearchable().getSearchOptions().getBestMovesSearchOptions();
+        bmOptions.setMinBestMoves(5);
+        bmOptions.setPercentageBestMoves(50);  // take better half
+        bmOptions.setPercentLessThanBestThresh(100);
+
+        weights = controller.getComputerWeights().getDefaultWeights();
+        generator = new PenteMoveGenerator();
+    }
+
+    /** The center position should be the only generated move. */
+    @Test
+    public void testNextMoveNoMoves() throws Exception {
+
+        MoveList actMoves = generator.generateMoves(
+                controller.getSearchable(), (TwoPlayerMove) controller.getLastMove(), weights);
+
+        MoveList expMoves = new MoveList();
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(6, 6), 0, new GamePiece(true)));
+
+        assertEquals("Unexpected first move.", expMoves, actMoves);
+    }
+
+    @Test
+    public void testGeneratedMovesSomeMovesAlready() throws Exception {
+        restore("midGameP1ToPlay");
+
+        MoveList actMoves = generator.generateMoves(
+                controller.getSearchable(), (TwoPlayerMove) controller.getLastMove(), weights);
+
+        MoveList expMoves = new MoveList();
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(13, 10), -56, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(9, 13), -56, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(11, 13), -56, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(9, 9), -56, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(11, 10), -56, new GamePiece(true)));
+
+        assertEquals("Unexpected moves.", expMoves, actMoves);
+    }
+
+    @Test
+    public void testGeneratedMovesAfterFirstMove() throws Exception {
+        restore("p2ToPlayAfterFirstMove");
+
+        MoveList actMoves = generator.generateMoves(
+                controller.getSearchable(), (TwoPlayerMove) controller.getLastMove(), weights);
+
+        MoveList expMoves = new MoveList();
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(1, 1), 0, new GamePiece(false)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(1, 2), 0, new GamePiece(false)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(1, 3), 0, new GamePiece(false)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(2, 1), 0, new GamePiece(false)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(2, 3), 0, new GamePiece(false)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(3, 1), 0, new GamePiece(false)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(3, 2), 0, new GamePiece(false)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(3, 3), 0, new GamePiece(false)));
+
+        assertEquals("Unexpected moves.", expMoves, actMoves);
+    }
+
+    @Test
+    public void testGeneratedMovesAfterSecondMove() throws Exception {
+        restore("p1ToPlayAfterSecondMove");
+
+        MoveList actMoves = generator.generateMoves(
+                controller.getSearchable(), (TwoPlayerMove) controller.getLastMove(), weights);
+
+        MoveList expMoves = new MoveList();
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(4, 4), 0, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(4, 3), 0, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(4, 2), 0, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(2, 4), 8, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(2, 3), 8, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(2, 2), 8, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(4, 1), 0, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(3, 4), 0, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(3, 1), 0, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(2, 1), 0, new GamePiece(true)));
+
+        assertEquals("Unexpected moves.", expMoves, actMoves);
+    }
+
+    @Test
+    public void testGeneratedMovesMidGame() throws Exception {
+
+        // make sure we get all legal reasonable moves
+        BestMovesSearchOptions bmOptions = controller.getSearchable().getSearchOptions().getBestMovesSearchOptions();
+        bmOptions.setMinBestMoves(100);
+        bmOptions.setPercentageBestMoves(100);
+        bmOptions.setPercentLessThanBestThresh(0);
+
+        restore("../analysis/differencers/exampleBoard");
+
+        MoveList actMoves = generator.generateMoves(
+                controller.getSearchable(), (TwoPlayerMove) controller.getLastMove(), weights);
+
+        MoveList expMoves = new MoveList();
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(5, 3), 4597, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(5, 8), 4565, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(8, 2), 46, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(7, 3), 46, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(7, 2), 38, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(9, 3), 30, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(8, 8), 30, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(8, 4), 30, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(6, 7), 28, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(6, 6), 22, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(2, 3), 22, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(9, 4), 14, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(4, 5), 14, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(3, 3), 14, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(7, 7), 10, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(3, 5), 10, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(8, 1), 8, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(7, 5), 8, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(10, 3), 6, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(7, 8), 6, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(4, 4), 6, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(4, 3), 6, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(4, 2), 6, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(3, 8), 6, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(2, 5), 6, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(1, 5), 6, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(1, 3), 6, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(7, 6), 2, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(9, 8), 0, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(9, 7), 0, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(9, 5), 0, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(6, 1), 0, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(10, 8), -2, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(10, 6), -2, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(10, 2), -2, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(10, 1), -2, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(9, 6), -2, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(9, 1), -2, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(6, 8), -2, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(6, 2), -2, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(5, 1), -2, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(4, 8), -2, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(4, 7), -2, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(4, 6), -2, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(4, 1), -2, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(2, 8), -2, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(2, 7), -2, new GamePiece(true)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(2, 6), -2, new GamePiece(true)));
+
+        assertEquals("Unexpected moves. act=\n" + printMoves(actMoves),
+                expMoves, actMoves);
+    }
+
+    protected void restore(String problemFileBase) throws Exception {
+        controller.restoreFromStream(helper.getTestResource(problemFileBase));
+    }
+
+    protected String printMoves(MoveList moves) {
+        StringBuilder bldr = new StringBuilder();
+        for (Move m : moves) {
+            bldr.append("expMoves.add(");
+            bldr.append(((TwoPlayerMove)m).getConstructorString());
+            bldr.append(");\n");
+        }
+        return bldr.toString();
+    }
+
+}

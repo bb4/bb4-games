@@ -94,7 +94,7 @@ public class ChessSearchable extends TwoPlayerSearchable {
        // remove any moves that causes the king goes into jeopardy (ie check).
        removeSelfCheckingMoves(moveList);
 
-       return  bestMoveFinder_.getBestMoves( player1, moveList);
+       return bestMoveFinder_.getBestMoves( player1, moveList);
    }
 
    /**
@@ -114,7 +114,7 @@ public class ChessSearchable extends TwoPlayerSearchable {
      * @param weights to use.
      * @return the number of moves added.
      */
-    int addMoves( BoardPosition pos, MoveList moveList, TwoPlayerMove lastMove, ParameterArray weights) {
+    int addMoves(BoardPosition pos, MoveList moveList, TwoPlayerMove lastMove, ParameterArray weights) {
         List<ChessMove> moves =
                 ((ChessPiece)pos.getPiece()).findPossibleMoves(getBoard(), pos.getRow(), pos.getCol(), lastMove);
 

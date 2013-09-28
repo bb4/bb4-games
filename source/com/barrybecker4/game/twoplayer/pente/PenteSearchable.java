@@ -19,8 +19,9 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
 */
 public class PenteSearchable extends TwoPlayerSearchable {
 
-    private MoveEvaluator moveEvaluator_;
+    private MoveEvaluator moveEvaluator;
     private PenteMoveGenerator generator;
+    private Patterns patterns;
 
     /** Constructor */
     public PenteSearchable(TwoPlayerBoard board, PlayerList players) {
@@ -33,6 +34,12 @@ public class PenteSearchable extends TwoPlayerSearchable {
         init();
     }
 
+
+    private void init() {
+        generator = new PenteMoveGenerator();
+        moveEvaluator = new MoveEvaluator(createPatterns());
+    }
+
     @Override
     public PenteSearchable copy() {
         return new PenteSearchable(this);
@@ -41,11 +48,6 @@ public class PenteSearchable extends TwoPlayerSearchable {
     @Override
     public PenteBoard getBoard() {
         return (PenteBoard) board_;
-    }
-
-    private void init() {
-        generator = new PenteMoveGenerator(this);
-        moveEvaluator_ = new MoveEvaluator(board_, createPatterns());
     }
 
     protected Patterns createPatterns() {
@@ -58,8 +60,8 @@ public class PenteSearchable extends TwoPlayerSearchable {
      *  a large positive value means that the move is good from player1's viewpoint
      */
     @Override
-    public int worth( TwoPlayerMove lastMove, ParameterArray weights ) {
-        return moveEvaluator_.worth(lastMove, weights);
+    public int worth(TwoPlayerMove lastMove, ParameterArray weights ) {
+        return moveEvaluator.worth(getBoard(), lastMove, weights);
     }
 
     /**
@@ -68,7 +70,7 @@ public class PenteSearchable extends TwoPlayerSearchable {
     @Override
     public MoveList generateMoves(TwoPlayerMove lastMove,
                                   ParameterArray weights) {
-        return generator.generateMoves(lastMove, weights);
+        return generator.generateMoves(this, lastMove, weights);
     }
 
     /**
@@ -78,7 +80,7 @@ public class PenteSearchable extends TwoPlayerSearchable {
      */
     @Override
     public MoveList generateUrgentMoves(TwoPlayerMove lastMove, ParameterArray weights) {
-        return generator.generateUrgentMoves(lastMove, weights);
+        return generator.generateUrgentMoves(this, lastMove, weights);
     }
 
     /**

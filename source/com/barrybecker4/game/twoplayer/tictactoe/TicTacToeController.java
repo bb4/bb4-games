@@ -5,10 +5,9 @@ import com.barrybecker4.game.common.player.PlayerList;
 import com.barrybecker4.game.common.player.PlayerOptions;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerOptions;
-import com.barrybecker4.game.twoplayer.common.search.Searchable;
 import com.barrybecker4.game.twoplayer.pente.PenteController;
 
-import java.awt.*;
+import java.awt.Color;
 
 /**
  * Defines everything the computer needs to know to play TicTacToe.
@@ -57,7 +56,12 @@ public class TicTacToeController extends PenteController {
     }
 
     @Override
-    protected Searchable createSearchable(TwoPlayerBoard board, PlayerList players) {
+    public synchronized TicTacToeSearchable getSearchable() {
+        return (TicTacToeSearchable) super.getSearchable();
+    }
+
+    @Override
+    protected TicTacToeSearchable createSearchable(TwoPlayerBoard board, PlayerList players) {
         return new TicTacToeSearchable(board, players);
     }
 }

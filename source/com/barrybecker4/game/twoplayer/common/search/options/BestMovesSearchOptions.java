@@ -16,7 +16,7 @@ public class BestMovesSearchOptions {
     /** No matter what the percentBestMoves is we should not prune if less than this number. */
     private static final int DEFAULT_MIN_BEST_MOVES = 10;
 
-    /** Select best moves whose value is no less than this percent less than the highest value in the set. */
+    /** Select the best moves whose value is no less than this percent less than the highest value in the set. */
     private static final int DEFAULT_PERCENT_LESS_THAN_BEST_THRESH = 60;
 
     private int bestPercentage_ = DEFAULT_PERCENTAGE_BEST_MOVES;
@@ -69,7 +69,7 @@ public class BestMovesSearchOptions {
     }
 
     /**
-     * @return  never return fewer than this many best moves.
+     * @return never return fewer than this many best moves.
      */
     public int getMinBestMoves() {
         return minBestMoves_;
@@ -81,7 +81,7 @@ public class BestMovesSearchOptions {
     }
 
     /**
-     * @return  never return fewer than this many best moves.
+     * @return never return fewer than this many best moves.
      */
     public int getPercentLessThanBestThresh() {
         return percentLessThanBestThreshold_;

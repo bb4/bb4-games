@@ -1,7 +1,6 @@
 /** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.tictactoe.ui;
 
-import com.barrybecker4.game.common.GameController;
 import com.barrybecker4.game.common.ui.viewer.GameBoardRenderer;
 import com.barrybecker4.game.twoplayer.pente.ui.PenteBoardViewer;
 import com.barrybecker4.game.twoplayer.tictactoe.TicTacToeController;
@@ -21,7 +20,7 @@ public class TicTacToeBoardViewer extends PenteBoardViewer {
     }
 
     @Override
-    protected GameController createController() {
+    protected TicTacToeController createController() {
         return new TicTacToeController();
     }
 

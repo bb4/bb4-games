@@ -81,14 +81,6 @@ public abstract class TwoPlayerController extends GameController {
      */
     protected abstract TwoPlayerOptions createOptions();
 
-    /**
-     * These options define the search algorithm and other settings.
-     * @return game options
-     */
-    public TwoPlayerOptions getTwoPlayerOptions() {
-
-        return getOptions();
-    }
 
     public TwoPlayerViewModel getViewer() {
        return (TwoPlayerViewModel)viewer_;
@@ -331,7 +323,7 @@ public abstract class TwoPlayerController extends GameController {
     public void runOptimization(final OptimizationDoneHandler handler) {
 
         final Optimizer optimizer =
-                new Optimizer( this.getOptimizee(), getTwoPlayerOptions().getAutoOptimizeFile() );
+                new Optimizer( this.getOptimizee(), getOptions().getAutoOptimizeFile() );
 
         ParameterArray weights = getComputerWeights().getDefaultWeights();
 

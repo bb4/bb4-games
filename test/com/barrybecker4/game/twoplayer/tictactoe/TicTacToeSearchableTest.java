@@ -131,7 +131,6 @@ public class TicTacToeSearchableTest extends TwoPlayerSearchableBaseTst {
     @Override
     public void  testGenerateUrgentMoves() throws Exception {
 
-        System.out.println("GEN URGENT 1......");
         restore("urgentMoves");
         // there should not be any urgent moves at the very start of the game.
         System.out.println("lastMove="+getController().getLastMove() );   // 1,1
@@ -139,21 +138,18 @@ public class TicTacToeSearchableTest extends TwoPlayerSearchableBaseTst {
             searchable.generateUrgentMoves((TwoPlayerMove)getController().getLastMove(), weights());
 
         checkMoveListAgainstExpected("urgentMoves", EXPECTED_URGENT_MOVES, moves);
-        System.out.println("DONE GEN URGENT 1");
     }
 
     /**  Verify that we generate a correct list of urgent moves for the other player.  */
     public void  testGenerateUrgentMovesP2() throws Exception {
 
-        System.out.println("GEN URGENT 2......");
         restore("urgentMoves");
         // there should not be any urgent moves at the very start of the game.
         System.out.println("lastMove=" + getController().getLastMove() );   // 1,1
         MoveList moves =
             searchable.generateUrgentMoves((TwoPlayerMove)getController().getLastMove(), weights());
 
-        checkMoveListAgainstExpected("urgentMoves", EXPECTED_URGENT_MOVES, moves);
-        System.out.println("DONE GEN URGENT 2");
+        checkMoveListAgainstExpected("urgentMoves: " + moves, EXPECTED_URGENT_MOVES, moves);
     }
 
 

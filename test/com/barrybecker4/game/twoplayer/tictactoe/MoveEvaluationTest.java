@@ -33,7 +33,7 @@ public class MoveEvaluationTest extends TestCase  {
 
         board = new TicTacToeBoard();
         weights = new TicTacToeWeights();
-        evaluator = new MoveEvaluator(board, new TicTacToePatterns());
+        evaluator = new MoveEvaluator(new TicTacToePatterns());
     }
 
     public void test__OEvaluation() {
@@ -156,7 +156,7 @@ public class MoveEvaluationTest extends TestCase  {
     private void verifyResult(Direction dir, int row, int col, boolean player1, int expectedWorth) {
         TwoPlayerMove lastMove = TwoPlayerMove.createMove(row, col,  0, new GamePiece(player1));
         board.makeMove(lastMove);
-        int worth = evaluator.worth(lastMove, weights.getDefaultWeights());
+        int worth = evaluator.worth(board, lastMove, weights.getDefaultWeights());
         assertEquals("[" + dir + "] Unexpected worth for move " + lastMove, expectedWorth, worth);
         board.undoMove();
     }

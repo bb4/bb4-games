@@ -46,7 +46,7 @@ public class GalacticTurn extends Move {
 
     /**
      * given an order and destPlanet create a battle sequence that can be played back in the ui.
-     * @param battle ecapsulated battle simulation
+     * @param battle encapsulated battle simulation
      */
     public void addSimulation(BattleSimulation battle)  {
         if (battles_ == null) {

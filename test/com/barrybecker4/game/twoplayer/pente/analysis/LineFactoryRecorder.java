@@ -16,7 +16,7 @@ public class LineFactoryRecorder extends LineFactory {
     private List<Line> lines_;
 
     public LineFactoryRecorder() {
-        lines_ = new LinkedList<Line>();
+        lines_ = new LinkedList<>();
     }
 
     @Override

@@ -139,7 +139,7 @@ public abstract class AbstractTwoPlayerBoardViewer extends GameBoardViewer
     public void startNewGame() {
         reset();
         TwoPlayerController controller = get2PlayerController();
-        if (get2PlayerController().getTwoPlayerOptions().isAutoOptimize())  {
+        if (get2PlayerController().getOptions().isAutoOptimize())  {
             runOptimization();
         }
         else if (controller.getPlayers().allPlayersComputer() ) {
@@ -164,7 +164,7 @@ public abstract class AbstractTwoPlayerBoardViewer extends GameBoardViewer
 
         TwoPlayerController c = get2PlayerController();
         if ( GameContext.getUseSound() ) {
-            GameContext.getMusicMaker().playNote( c.getTwoPlayerOptions().getPreferredTone(), 45, 0, 200, 1000 );
+            GameContext.getMusicMaker().playNote( c.getOptions().getPreferredTone(), 45, 0, 200, 1000 );
         }
         // need to clear the cache, otherwise we may render a stale board.
         cachedGameBoard_ = null;
@@ -280,7 +280,7 @@ public abstract class AbstractTwoPlayerBoardViewer extends GameBoardViewer
 
         // note: we don't show the winner dialog if we are having the computer play against itself.
         if (c.getSearchable().done((TwoPlayerMove)evt.getMove(), true)
-                && c.getTwoPlayerOptions().getShowGameOverDialog()) {
+                && c.getOptions().getShowGameOverDialog()) {
             showWinnerDialog();
             //c.reset();
         }
@@ -293,7 +293,6 @@ public abstract class AbstractTwoPlayerBoardViewer extends GameBoardViewer
 
     /**
      * let the computer go next if one of the players is a computer.
-     *
      * @param move the current move (it must not be null)
      * @return false if the game is at an end, otherwise return true
      */
@@ -417,7 +416,7 @@ public abstract class AbstractTwoPlayerBoardViewer extends GameBoardViewer
        if (cachedGameBoard_ == null) {
            cachedGameBoard_ = (Board)c.getBoard().copy();
        }
-       if (c.isProcessing() && !c.getTwoPlayerOptions().isAutoOptimize()) {
+       if (c.isProcessing() && !c.getOptions().isAutoOptimize()) {
            return cachedGameBoard_;
        }
        else {
@@ -438,10 +437,10 @@ public abstract class AbstractTwoPlayerBoardViewer extends GameBoardViewer
             setCursor( origCursor_ );
             if ( GameContext.getUseSound() )
                 GameContext.getMusicMaker().playNote(
-                        get2PlayerController().getTwoPlayerOptions().getPreferredTone(), 45, 0, 200, 1000 );
+                        get2PlayerController().getOptions().getPreferredTone(), 45, 0, 200, 1000 );
             showLastMove();
             cachedGameBoard_ = null;
-            if (!get2PlayerController().getTwoPlayerOptions().isAutoOptimize()) {
+            if (!get2PlayerController().getOptions().isAutoOptimize()) {
                 // show a pop-up for certain exceptional cases.
                 // For example, in chess we warn on a checking move.
                 warnOnSpecialMoves((TwoPlayerMove) lastMove);

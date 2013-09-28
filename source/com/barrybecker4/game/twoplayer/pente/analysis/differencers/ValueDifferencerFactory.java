@@ -14,16 +14,14 @@ import com.barrybecker4.game.twoplayer.pente.pattern.Patterns;
 */
 public class ValueDifferencerFactory {
 
-    protected TwoPlayerBoard board_;
     protected Patterns patterns_;
     protected LineFactory lineFactory_;
 
     /**
      * Constructor
      */
-    public ValueDifferencerFactory(TwoPlayerBoard board, Patterns patterns, LineFactory factory) {
+    public ValueDifferencerFactory( Patterns patterns, LineFactory factory) {
         patterns_ = patterns;
-        board_ = board;
         lineFactory_ = factory;
     }
 
@@ -31,18 +29,18 @@ public class ValueDifferencerFactory {
      * @param dir the direction used to decide which differencer to create.
      * @return differencer for the specified direction.
      */
-    public ValueDifferencer createValueDifferencer(Direction dir) {
+    public ValueDifferencer createValueDifferencer(TwoPlayerBoard board, Direction dir) {
         ValueDifferencer differencer = null;
         switch (dir) {
             case VERTICAL:
             case HORIZONTAL:
-                differencer = new StraightDifferencer(board_, patterns_, lineFactory_, dir);
+                differencer = new StraightDifferencer(board, patterns_, lineFactory_, dir);
                 break;
             case UP_DIAGONAL:
-                differencer = new UpDiagonalDifferencer(board_, patterns_, lineFactory_);
+                differencer = new UpDiagonalDifferencer(board, patterns_, lineFactory_);
                 break;
             case DOWN_DIAGONAL:
-                differencer = new DownDiagonalDifferencer(board_, patterns_, lineFactory_);
+                differencer = new DownDiagonalDifferencer(board, patterns_, lineFactory_);
                 break;
         }
         return differencer;

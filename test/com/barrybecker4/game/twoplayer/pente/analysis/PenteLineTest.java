@@ -4,28 +4,31 @@ package com.barrybecker4.game.twoplayer.pente.analysis;
 import com.barrybecker4.game.common.GameWeights;
 import com.barrybecker4.game.twoplayer.pente.PenteTestWeights;
 import com.barrybecker4.game.twoplayer.pente.pattern.PentePatterns;
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Verify that we correctly evaluate patterns on the board.
  *
  * @author Barry Becker
  */
-public class PenteLineTest extends TestCase  {
+public class PenteLineTest {
 
     GameWeights weights;
     private static final boolean PLAYER1_PERSP = true;
     private static final boolean PLAYER2_PERSP = false;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         weights = new PenteTestWeights();
     }
 
     /** from the perspective of X */
+    @Test
     public void testEvalLinePlayer1Short_p1Persp() {
         checkLine("_X_XO", 1, PLAYER1_PERSP, 2, new String[] {"_X_X"});
         checkLine("_X_XO", 2, PLAYER1_PERSP, 2, new String[] {"_X_X"});
@@ -34,10 +37,10 @@ public class PenteLineTest extends TestCase  {
         checkLine("_XX", 1, PLAYER1_PERSP, 0, new String[] {"_XX"});
         checkLine("_XX_", 2, PLAYER1_PERSP, 8, new String[] {"_XX_"});
         checkLine("_XX_", 3, PLAYER1_PERSP, 8, new String[] {"_XX_"});
-
     }
 
     /** from the perspective of O */
+    @Test
     public void testEvalLinePlayer1Short_p2Persp() {
         checkLine("_X_XO", 3, PLAYER2_PERSP, 0, new String[] {"_"});
         checkLine("_X_XO", 4, PLAYER2_PERSP, 0, new String[] {"O"});
@@ -45,7 +48,7 @@ public class PenteLineTest extends TestCase  {
         checkLine("_XX_", 3, PLAYER2_PERSP, 0, new String[] {"_"});
     }
 
-
+    @Test
     public void testEvalLinePlayer1Long() {
         checkLine("_XX_XX__",  1, PLAYER1_PERSP, 320, new String[] {"_XX_XX_"});
         checkLine("_XX_XX__",  3, PLAYER1_PERSP, 320, new String[] {"_XX_XX_"});

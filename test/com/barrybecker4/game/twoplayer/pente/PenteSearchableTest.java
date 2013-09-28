@@ -57,7 +57,7 @@ public class PenteSearchableTest extends TwoPlayerSearchableBaseTst {
     /** Load a game at the last move and verify that the next move results in done == true  */
     @Override
     public void testDoneEndGame() throws Exception {
-         restore("endGameNoMoreMoves");
+        restore("endGameNoMoreMoves");
         assertTrue("Expected done state for this game because there are no more moves. ",
                 searchable.done((TwoPlayerMove)getController().getLastMove(), false));
     }

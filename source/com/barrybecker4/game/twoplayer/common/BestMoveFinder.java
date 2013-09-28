@@ -73,7 +73,9 @@ public class BestMoveFinder {
     }
 
     /**
-     *
+     * @param moveList list of moves
+     * @param minBest return no fewer than this many moves (unless there are not that many to choose from)
+     * @param percentLessThanBestThresh only consider moves whos score is no less than this percent of the best score.
      * @return top moves
      */
     private MoveList determineMovesExceedingValueThresh(MoveList moveList, int minBest, int percentLessThanBestThresh) {

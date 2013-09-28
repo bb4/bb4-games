@@ -32,8 +32,6 @@ public class UctStrategy extends AbstractSearchStrategy {
     /** When selecting a random move for a random game, select from only this many of the top moves. */
     private int percentLessThanBestThresh;
 
-    //private boolean maxim
-
 
     /**
      * Constructor - do not call directly.
@@ -84,7 +82,7 @@ public class UctStrategy extends AbstractSearchStrategy {
     }
 
     /**
-     * This recursive method ultimately expands the in memory game try by one node and updates that nodes parents.
+     * This recursive method ultimately expands the in memory game trying by one node and updates that nodes parents.
      *
      *  return 0=lose 1=win for current player to move
      * int playSimulation(Node n) {
@@ -129,8 +127,8 @@ public class UctStrategy extends AbstractSearchStrategy {
 
             // may be null if there are no move valid moves or lastMoveNode won the game.
             if (nextNode != null) {
-                SearchTreeNode nextParent = parent!=null ? parent.findChild(nextNode.move) : null;
                 searchable.makeInternalMove(nextNode.move);
+                SearchTreeNode nextParent = (parent != null) ? parent.findChild(nextNode.move) : null;
                 player1Score = playSimulation(nextNode, nextParent);
                 searchable.undoInternalMove(nextNode.move);
             } else {

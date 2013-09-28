@@ -1,32 +1,29 @@
 // Copyright by Barry G. Becker, 2012. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 package com.barrybecker4.game.twoplayer.pente.analysis;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Verify that we correctly extract patterns from rows or columns on the board.
  *
  * @author Barry Becker
  */
-public class PatternExtractorTest extends TestCase  {
+public class PatternExtractorTest  {
 
     /** instance under test. */
     private PatternExtractor extractor;
     CharSequence pattern;
 
-
+    @Test (expected = StringIndexOutOfBoundsException.class)
     public void testEmpty() {
 
         extractor = new PatternExtractor("");
-        try {
-            extractor.getPattern('O', 0, 0, 0);
-            fail("did not expect to get here");
-        }
-        catch (StringIndexOutOfBoundsException e) {
-            // success
-        }
+        extractor.getPattern('O', 0, 0, 0);
     }
 
+    @Test
     public void testGetPatternFromX() {
 
         extractor = new PatternExtractor("X");
@@ -35,6 +32,7 @@ public class PatternExtractorTest extends TestCase  {
         assertEquals("", extractor.getPattern('X', 0, 0, 0));
     }
 
+    @Test
     public void testGetPatterFromXX() {
 
         extractor = new PatternExtractor("XX");
@@ -43,6 +41,7 @@ public class PatternExtractorTest extends TestCase  {
         assertEquals("", extractor.getPattern('X', 0, 0, 1));
     }
 
+    @Test
     public void testGetPatternFromXXX() {
 
         extractor = new PatternExtractor("XXX");
@@ -53,6 +52,7 @@ public class PatternExtractorTest extends TestCase  {
         assertEquals("", extractor.getPattern('X', 2, 0, 2));
     }
 
+    @Test
     public void testGetPatternFromX_X() {
 
         extractor = new PatternExtractor("X_X");
@@ -63,6 +63,7 @@ public class PatternExtractorTest extends TestCase  {
         assertEquals("", extractor.getPattern('X', 2, 0, 2));
     }
 
+    @Test
     public void testGetPatternFromX_X_XX_() {
 
         extractor = new PatternExtractor("X_X_XX_");
@@ -75,6 +76,7 @@ public class PatternExtractorTest extends TestCase  {
         assertEquals("", extractor.getPattern('X', 2, 0, 6));
     }
 
+    @Test
     public void testGetPatternFrom_XO() {
 
         extractor = new PatternExtractor("_XO");
@@ -87,6 +89,7 @@ public class PatternExtractorTest extends TestCase  {
         assertEquals("O", extractor.getPattern('X', 2, 0, 2));
     }
 
+    @Test
     public void testGetPatternFrom_XO_XX_O_fromXPersp() {
 
         extractor = new PatternExtractor("_XO_XX_O");
@@ -101,6 +104,7 @@ public class PatternExtractorTest extends TestCase  {
         assertEquals("", extractor.getPattern('O', 7, 0, 7));
     }
 
+    @Test
     public void testGetPatternFrom_XO_XX_O_fromOPersp() {
 
         extractor = new PatternExtractor("_XO_XX_O");
@@ -115,6 +119,7 @@ public class PatternExtractorTest extends TestCase  {
         assertEquals("_O", extractor.getPattern('X', 7, 0, 7));
     }
 
+    @Test
     public void testGetPatternFromX__O_XXO__O_O_DoubleBlanksO() {
 
         extractor = new PatternExtractor("X__O_XXO__O_O__");
@@ -132,6 +137,7 @@ public class PatternExtractorTest extends TestCase  {
         assertEquals("_", extractor.getPattern('X', 14, 0, 14));
     }
 
+    @Test
     public void testGetPatternFromX__O_XXO__O_O_DoubleBlanksX() {
 
         extractor = new PatternExtractor("X__O_XXO__O_O__");

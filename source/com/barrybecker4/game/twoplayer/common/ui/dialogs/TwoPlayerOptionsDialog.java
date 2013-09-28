@@ -2,13 +2,14 @@
 package com.barrybecker4.game.twoplayer.common.ui.dialogs;
 
 import com.barrybecker4.game.common.GameContext;
-import com.barrybecker4.game.common.GameOptions;
 import com.barrybecker4.game.common.ui.dialogs.GameOptionsDialog;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerController;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerOptions;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JCheckBox;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 
@@ -38,11 +39,11 @@ public class TwoPlayerOptionsDialog extends GameOptionsDialog
     }
 
     @Override
-    public GameOptions getOptions() {
+    public TwoPlayerOptions getOptions() {
 
         TwoPlayerOptions options = getTwoPlayerOptions();
 
-        options.setShowGameTree(gameTreeCheckbox_.isSelected() );
+        options.setShowGameTree(gameTreeCheckbox_.isSelected());
         return options;
     }
 
@@ -69,7 +70,7 @@ public class TwoPlayerOptionsDialog extends GameOptionsDialog
         addProfileCheckBox(p);
 
         // show game tree option
-        TwoPlayerOptions options = get2PlayerController().getTwoPlayerOptions();
+        TwoPlayerOptions options = get2PlayerController().getOptions();
         gameTreeCheckbox_ = new JCheckBox(GameContext.getLabel("SHOW_GAME_TREE"), options.getShowGameTree());
         gameTreeCheckbox_.setToolTipText( GameContext.getLabel("SHOW_GAME_TREE_TIP") );
         gameTreeCheckbox_.addActionListener( this );

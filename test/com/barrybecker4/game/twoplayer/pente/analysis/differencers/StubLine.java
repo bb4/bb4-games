@@ -25,7 +25,6 @@ public class StubLine extends Line {
 
     @Override
     public int computeValueDifference(int position) {
-
         return 0;
     }
 

@@ -264,7 +264,7 @@ public class TwoPlayerMove extends Move {
             pieceCreator = getPiece().isOwnedByPlayer1()? "PLAYER1_PIECE" : "PLAYER2_PIECE";
 
         }
-        return "TwoPlayerMove.createMove(new Location("
+        return "TwoPlayerMove.createMove(new ByteLocation("
                 + getToLocation().getRow()  + ", " + getToLocation().getCol()  + "), " + getValue() + ", "
                 + pieceCreator + "),";
     }

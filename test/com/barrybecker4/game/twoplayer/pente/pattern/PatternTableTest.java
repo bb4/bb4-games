@@ -1,20 +1,18 @@
 // Copyright by Barry G. Becker, 2012. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 package com.barrybecker4.game.twoplayer.pente.pattern;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Barry Becker
  */
-public class PatternTableTest extends TestCase  {
+public class PatternTableTest {
 
     PatternTable patternTable;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
+    @Test
     public void testGetWeightIndexForUninitializedTable() {
 
         patternTable = new PatternTable();
@@ -27,6 +25,7 @@ public class PatternTableTest extends TestCase  {
         assertEquals(-1, wtIndex);
     }
 
+    @Test
     public void testGetWeightIndexForXXPattern() {
 
         patternTable = new PatternTable();
@@ -35,6 +34,7 @@ public class PatternTableTest extends TestCase  {
         assertEquals(0, patternTable.getWeightIndexForPattern("XX", 0, 1));
     }
 
+    @Test
     public void testGetWeightIndexForXXXPattern() {
 
         patternTable = new PatternTable();
@@ -45,6 +45,7 @@ public class PatternTableTest extends TestCase  {
     }
 
     /** Check that the reverse was also added. */
+    @Test
     public void testGetWeightIndexFor_XXPattern() {
 
         patternTable = new PatternTable();
@@ -56,6 +57,7 @@ public class PatternTableTest extends TestCase  {
     }
 
     /** Check that the reverse was also added. */
+    @Test
     public void testGetWeightIndexForOOX_XXPattern() {
 
         patternTable = new PatternTable();

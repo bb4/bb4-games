@@ -75,7 +75,9 @@ public abstract class TwoPlayerBoard extends Board {
      * @return The index of the state for this position.
      */
     public int getStateIndex(BoardPosition pos) {
-        assert pos.isOccupied() : "this should only be called on occupied positions";
+        if (!pos.isOccupied()) {
+            throw new IllegalArgumentException("this should only be called on occupied positions. Position = " + pos);
+        }
         return pos.getPiece().isOwnedByPlayer1()? 1 : 2;
     }
 
@@ -85,24 +87,25 @@ public abstract class TwoPlayerBoard extends Board {
         bldr.append("\n");
         int nRows = getNumRows();
         int nCols = getNumCols();
-        TwoPlayerMove m = (TwoPlayerMove) getMoveList().getLastMove();
+        TwoPlayerMove lastMove = (TwoPlayerMove) getMoveList().getLastMove();
 
         for ( int i = 1; i <= nRows; i++ )   {
             boolean followingLastMove = false;
             for ( int j = 1; j <= nCols; j++ ) {
                 BoardPosition pos = this.getPosition(i,j);
                 if (pos.isOccupied()) {
-                    if (pos.getLocation().equals(m.getToLocation())) {
+                    if (pos.getLocation().equals(lastMove.getToLocation())) {
                         bldr.append("[").append(pos.getPiece()).append("]");
                         followingLastMove = true;
                     }
                     else  {
-                        bldr.append(followingLastMove?"":" ").append(pos.getPiece());
+                        bldr.append(followingLastMove ? "" : " ").append(pos.getPiece());
                         followingLastMove = false;
                     }
                 }
                 else {
-                    bldr.append(followingLastMove?"":" " + "_");
+                    bldr.append(followingLastMove ? "" : " ").append("_");
+                    followingLastMove = false;
                 }
             }
             bldr.append("\n");

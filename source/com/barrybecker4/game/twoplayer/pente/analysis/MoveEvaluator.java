@@ -2,8 +2,8 @@
 package com.barrybecker4.game.twoplayer.pente.analysis;
 
 import com.barrybecker4.game.common.board.GamePiece;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
+import com.barrybecker4.game.twoplayer.pente.PenteBoard;
 import com.barrybecker4.game.twoplayer.pente.analysis.differencers.ValueDifferencer;
 import com.barrybecker4.game.twoplayer.pente.analysis.differencers.ValueDifferencerFactory;
 import com.barrybecker4.game.twoplayer.pente.pattern.Patterns;
@@ -18,8 +18,8 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
 */
 public class MoveEvaluator  {
 
-    private TwoPlayerBoard board_;
-
+    Patterns patterns;
+    ValueDifferencerFactory differencerFactory;
     private ValueDifferencer vertDifferencer;
     private ValueDifferencer horzDifferencer;
     private ValueDifferencer upDiagDifferencer;
@@ -28,21 +28,24 @@ public class MoveEvaluator  {
     /**
      * Constructor
      */
-    public MoveEvaluator(TwoPlayerBoard board, Patterns patterns) {
-        board_ = board;
-        setValueDifferencerFactory(
-                new ValueDifferencerFactory(board_, patterns, new LineFactory()));
+    public MoveEvaluator(Patterns patterns) {
+        this.patterns = patterns;
+        this.differencerFactory = new ValueDifferencerFactory(patterns, new LineFactory());
     }
 
     /**
      * Used for testing to inject something that will create mock differencers.
      */
     public void setValueDifferencerFactory(ValueDifferencerFactory differencerFactory) {
+         this.differencerFactory = differencerFactory;
+    }
 
-        vertDifferencer = differencerFactory.createValueDifferencer(Direction.VERTICAL);
-        horzDifferencer = differencerFactory.createValueDifferencer(Direction.HORIZONTAL);
-        upDiagDifferencer = differencerFactory.createValueDifferencer(Direction.UP_DIAGONAL);
-        downDiagDifferencer = differencerFactory.createValueDifferencer(Direction.DOWN_DIAGONAL);
+    private void createDifferencers(PenteBoard board) {
+
+        vertDifferencer = differencerFactory.createValueDifferencer(board, Direction.VERTICAL);
+        horzDifferencer = differencerFactory.createValueDifferencer(board, Direction.HORIZONTAL);
+        upDiagDifferencer = differencerFactory.createValueDifferencer(board, Direction.UP_DIAGONAL);
+        downDiagDifferencer = differencerFactory.createValueDifferencer(board, Direction.DOWN_DIAGONAL);
     }
 
     /**
@@ -50,15 +53,19 @@ public class MoveEvaluator  {
      * @return the lastMove's value modified by the value add of the new move.
      *  a large positive value means that the move is good from player1's viewpoint.
      */
-    public int worth( TwoPlayerMove lastMove, ParameterArray weights ) {
+    public int worth(PenteBoard board, TwoPlayerMove lastMove, ParameterArray weights ) {
 
         int row = lastMove.getToRow();
         int col = lastMove.getToCol();
-        GamePiece piece = board_.getPosition(row, col).getPiece();
-        assert piece != null :
-                "There must be a piece where the last move was played (" + row+", " + col + ")";
-        assert (lastMove.isPlayer1() == piece.isOwnedByPlayer1()) :
-                "The last move played must be for the same player found on the board.";
+        createDifferencers(board);
+
+        GamePiece piece = board.getPosition(row, col).getPiece();
+        if (piece == null)
+            throw new IllegalStateException(
+                    "There must be a piece where the last move was played (" + row+", " + col + ")");
+        if (lastMove.isPlayer1() != piece.isOwnedByPlayer1()) {
+            throw new IllegalStateException("The last move played must be for the same player found on the board.");
+        }
 
         // look at every string that passes through this new move to see how the value is effected.
         int diff;

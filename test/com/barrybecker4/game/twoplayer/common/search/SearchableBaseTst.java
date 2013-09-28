@@ -5,13 +5,13 @@ import junit.framework.TestCase;
 
 /**
  * Verify that all the methods in the Searchable interface work as expected.
- * Derived test classes will excersize these methods for specific game instances.
+ * Derived test classes will exercise these methods for specific game instances.
  *
  * @author Barry Becker
  */
 public abstract class SearchableBaseTst extends TestCase {
 
-    /** The serachable instance under test. */
+    /** The searchable instance under test. */
     protected Searchable searchable;
 
     protected ISearchableHelper helper;
@@ -23,7 +23,7 @@ public abstract class SearchableBaseTst extends TestCase {
     }
 
     /**
-     * @return the helper that will help us create the contorller, options and other related info.
+     * @return the helper that will help us create the controller, options and other related info.
      */
     protected abstract ISearchableHelper createSearchableHelper();
 

@@ -8,16 +8,19 @@ import com.barrybecker4.game.twoplayer.pente.pattern.Patterns;
 import com.barrybecker4.game.twoplayer.pente.pattern.PentePatterns;
 import com.barrybecker4.game.twoplayer.pente.pattern.SimpleWeights;
 import com.barrybecker4.optimization.parameter.ParameterArray;
-import junit.framework.TestCase;
+import org.junit.Before;
 
 import java.io.InputStream;
+
+import static org.junit.Assert.assertEquals;
+
 
 /**
  * Base class for all differencer tests.
  *
  * @author Barry Becker
  */
-public abstract class ValueDifferencerTst extends TestCase  {
+public abstract class ValueDifferencerTst {
 
     private static final String TEST_CASE_DIR =
            SearchableHelper.EXTERNAL_TEST_CASE_DIR + "pente/cases/analysis/differencers/";
@@ -29,14 +32,12 @@ public abstract class ValueDifferencerTst extends TestCase  {
     protected StubLineFactory lineFactory;
 
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-
+    @Before
+    public void setUp() throws Exception {
         PenteBoard board = restoreBoard("exampleBoard");
         Patterns patterns = new PentePatterns();
         lineFactory = new StubLineFactory();
-        differencerFactory = new ValueDifferencerFactory(board, patterns, lineFactory);
+        differencerFactory = new ValueDifferencerFactory(patterns, lineFactory);
         differencer = createDifferencer(board, patterns);
     }
 

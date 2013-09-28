@@ -18,29 +18,25 @@ public class TicTacToeBoard extends PenteBoard {
         setSize( 3, 3 );
     }
 
+
+    @Override
+    public TicTacToeBoard copy() {
+        return new TicTacToeBoard(this);
+    }
+
+
+    private TicTacToeBoard(TicTacToeBoard pb) {
+        super(pb);
+    }
+
     @Override
     public int getMaxNumMoves() {
         return 9;
     }
 
-    /**
-     * All empty positions are candidate moves dor tic tac toe.
-     * This is a bit similar than what we do for pente.
-     */
     @Override
-    public void determineCandidateMoves() {
-
-        // first clear out what we had before
-        candidateMoves.clear();
-
-        int i,j;
-
-        for ( i = 1; i <= getNumRows(); i++ )  {
-            for ( j = 1; j <= getNumCols(); j++ )  {
-                if ( !getPosition(i, j).isOccupied())
-                    candidateMoves.setCandidate(i, j);
-            }
-        }
+    public TicTacToeCandidateMoves getCandidateMoves() {
+        return new TicTacToeCandidateMoves(this);
     }
 
 }

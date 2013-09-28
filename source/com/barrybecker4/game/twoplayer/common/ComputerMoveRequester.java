@@ -57,6 +57,8 @@ public class ComputerMoveRequester implements SearchProgress {
 
     @Override
     public void continueProcessing() {
-        controller_.getSearchStrategy().continueProcessing();
+        if (controller_.getSearchStrategy() != null) {
+            controller_.getSearchStrategy().continueProcessing();
+        }
     }
 }
