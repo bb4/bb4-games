@@ -12,18 +12,28 @@ import com.barrybecker4.game.common.board.BoardPosition;
  */
 public class CandidateMoves {
 
-    private PenteBoard board;
-    protected int numRows, numCols;
+    /** 8 footprint offsets around a single position. */
+    private static ByteLocation[] SPLAT = {
+            new ByteLocation(-1, -1),
+            new ByteLocation(-1, 0),
+            new ByteLocation(-1, 1),
+            new ByteLocation(0, -1),
+            new ByteLocation(0, 1),
+            new ByteLocation(1, -1),
+            new ByteLocation(1, 0),
+            new ByteLocation(1, 1),
+    };
+
+    private int numRows, numCols;
 
     /** this is an auxiliary structure to help determine candidate moves. should extract to sep class. */
-    protected boolean[][] candidateMoves_;
+    private boolean[][] candidateMoves_;
 
     /**
      * Constructor
      * @param board the pente board to determine candidate moves for
      */
     public CandidateMoves(PenteBoard board) {
-        this.board = board;
         this.numRows = board.getNumRows();
         this.numCols = board.getNumCols();
         this.candidateMoves_ = new boolean[numRows + 2][numCols + 2];
@@ -44,10 +54,10 @@ public class CandidateMoves {
         return candidateMoves_[row][col];
     }
 
-    public void setCandidate(int i, int j) {
-        BoardPosition pos = board.getPosition(i, j);
-        if ( pos != null && !board.getPosition(i, j).isOccupied())  {
-            candidateMoves_[i][j] = true;
+    public void setCandidate(BoardPosition pos) {
+
+        if ( pos != null && !pos.isOccupied())  {
+            candidateMoves_[pos.getRow()][pos.getCol()] = true;
         }
     }
 
@@ -62,23 +72,22 @@ public class CandidateMoves {
         for ( i = 1; i <= numRows; i++ ) {
             for ( j = 1; j <= numCols; j++ ) {
                 if ( board.getPosition(i, j).isOccupied() ) {
+                    Location location = new ByteLocation(i, j);
                     // set the surrounding footprint
-                    setCandidate(i - 1, j - 1);
-                    setCandidate(i - 1, j);
-                    setCandidate(i - 1, j + 1);
-                    setCandidate(i, j - 1);
-                    setCandidate(i, j + 1);
-                    setCandidate(i + 1, j - 1);
-                    setCandidate(i + 1, j);
-                    setCandidate(i + 1, j + 1);
+                    for (Location offset : SPLAT) {
+                        BoardPosition pos =
+                                board.getPosition(location.incrementOnCopy(offset));
+                        setCandidate(pos);
+                    }
                     hasCandidates = true;
                 }
             }
         }
         // edge case when no moves on the board - just use the center
         Location center = new ByteLocation(numRows / 2 + 1, numCols / 2 + 1);
-        if (!hasCandidates && !board.getPosition(center).isOccupied()) {
-            setCandidate(center.getRow(), center.getCol());
+        BoardPosition pos = board.getPosition(center);
+        if (!hasCandidates) {
+            setCandidate(pos);
         }
     }
 }

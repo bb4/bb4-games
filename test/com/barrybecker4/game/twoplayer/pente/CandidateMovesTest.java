@@ -20,7 +20,7 @@ public class CandidateMovesTest {
 
     /** The center position should be a candidate if no moves have been played yet. */
     @Test
-    public void testCandidatesWhenNoMoves() throws Exception {
+    public void testCandidatesWhenEmpty10x10Board() throws Exception {
 
         PenteBoard board = new PenteBoard(10, 10);
 
@@ -29,6 +29,38 @@ public class CandidateMovesTest {
         assertTrue("Missing candidate move.", candidates.isCandidateMove(6, 6));
         assertFalse("Unexpected candidate.", candidates.isCandidateMove(5, 6));
         assertFalse("Unexpected candidate.", candidates.isCandidateMove(4, 7));
+    }
+
+    /** The center position should be a candidate if no moves have been played yet. */
+    @Test
+    public void testCandidatesWhenEmpty2x2Board() throws Exception {
+
+        PenteBoard board = new PenteBoard(2, 2);
+
+        candidates = board.getCandidateMoves();
+
+        assertTrue("Missing candidate move.", candidates.isCandidateMove(2, 2));
+        assertFalse("Unexpected candidate.", candidates.isCandidateMove(1, 2));
+        assertFalse("Unexpected candidate.", candidates.isCandidateMove(2, 1));
+        assertFalse("Unexpected candidate.", candidates.isCandidateMove(1, 1));
+    }
+
+    /** No candidates if the board is competely full. */
+    @Test
+    public void testCandidatesWhenNoMoves() throws Exception {
+
+        PenteBoard board = new PenteBoard(2, 2);
+        board.makeMove(TwoPlayerMove.createMove(new ByteLocation(1, 1), 0, new GamePiece(true)));
+        board.makeMove(TwoPlayerMove.createMove(new ByteLocation(2, 2), 0, new GamePiece(false)));
+        board.makeMove(TwoPlayerMove.createMove(new ByteLocation(1, 2), 0, new GamePiece(true)));
+        board.makeMove(TwoPlayerMove.createMove(new ByteLocation(2, 1), 0, new GamePiece(false)));
+
+        candidates = board.getCandidateMoves();
+
+        assertFalse("Unexpected candidate.", candidates.isCandidateMove(2, 2));
+        assertFalse("Unexpected candidate.", candidates.isCandidateMove(1, 2));
+        assertFalse("Unexpected candidate.", candidates.isCandidateMove(1, 1));
+        assertFalse("Unexpected candidate.", candidates.isCandidateMove(2, 1));
     }
 
     /** The 8 spaces surrounding should be candidates. */
@@ -45,6 +77,25 @@ public class CandidateMovesTest {
         assertTrue("Missing candidate move.", candidates.isCandidateMove(3, 2));
         assertFalse("Unexpected candidate.", candidates.isCandidateMove(5, 6));
         assertFalse("Unexpected candidate.", candidates.isCandidateMove(4, 7));
+    }
+
+    /** This is a typical case. */
+    @Test
+    public void testCandidatesWhenTwoMovesPresent() throws Exception {
+
+        PenteBoard board = new PenteBoard(10, 10);
+        board.makeMove(TwoPlayerMove.createMove(new ByteLocation(3, 3), 0, new GamePiece(true)));
+        board.makeMove(TwoPlayerMove.createMove(new ByteLocation(4, 3), 0, new GamePiece(false)));
+
+        candidates = board.getCandidateMoves();
+
+        assertTrue("Missing candidate move.", candidates.isCandidateMove(2, 2));
+        assertTrue("Missing candidate move.", candidates.isCandidateMove(2, 3));
+        assertTrue("Missing candidate move.", candidates.isCandidateMove(3, 2));
+        assertTrue("Missing candidate move.", candidates.isCandidateMove(5, 3));
+        assertTrue("Missing candidate move.", candidates.isCandidateMove(5, 4));
+        assertFalse("Unexpected candidate.", candidates.isCandidateMove(6, 6));
+        assertFalse("Unexpected candidate.", candidates.isCandidateMove(1, 7));
     }
 
 }
