@@ -32,7 +32,6 @@ public class PenteBoard extends TwoPlayerBoard {
         super(pb);
     }
 
-
     @Override
     public PenteBoard copy() {
         return new PenteBoard(this);

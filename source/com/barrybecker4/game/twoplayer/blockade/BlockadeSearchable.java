@@ -104,10 +104,8 @@ public class BlockadeSearchable extends TwoPlayerSearchable {
         MoveGenerator generator = new MoveGenerator(weights, getBoard());
         MoveList moveList  = generator.generateMoves(lastMove);
 
-        boolean player1 = (lastMove == null) || !lastMove.isPlayer1();
-
         MoveList bestMoves =
-            bestMoveFinder_.getBestMoves( player1, moveList);
+            bestMoveFinder_.getBestMoves(moveList);
 
         getProfiler().stopGenerateMoves();
         return bestMoves;

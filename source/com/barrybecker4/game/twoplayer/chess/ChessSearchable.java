@@ -76,7 +76,7 @@ public class ChessSearchable extends TwoPlayerSearchable {
    @Override
    public MoveList generateMoves( TwoPlayerMove lastMove, ParameterArray weights) {
        MoveList moveList = new MoveList();
-       int row,col;
+       int row, col;
 
        boolean player1 = (lastMove == null) || !(lastMove.isPlayer1());
 
@@ -94,7 +94,7 @@ public class ChessSearchable extends TwoPlayerSearchable {
        // remove any moves that causes the king goes into jeopardy (ie check).
        removeSelfCheckingMoves(moveList);
 
-       return bestMoveFinder_.getBestMoves( player1, moveList);
+       return bestMoveFinder_.getBestMoves(moveList);
    }
 
    /**

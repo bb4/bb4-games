@@ -43,8 +43,8 @@ public class GoPlayerOptions extends TwoPlayerPlayerOptions {
 
         SearchOptions opts = new SearchOptions(new BruteSearchOptions(DEFAULT_LOOK_AHEAD, 16),
                                  new BestMovesSearchOptions(DEFAULT_PERCENTAGE_BEST_MOVES,
-                                                            DEFAULT_MIN_BEST_MOVES,
-                                                            DEFAULT_PERCENT_LESS_THAN_BEST_THRESH),
+                                         DEFAULT_PERCENT_LESS_THAN_BEST_THRESH, DEFAULT_MIN_BEST_MOVES
+                                 ),
                                  new MonteCarloSearchOptions(200, 0.9, 10));
         opts.setSearchStrategyMethod(SearchStrategyType.NEGASCOUT);
         opts.getBruteSearchOptions().setQuiescence(true);

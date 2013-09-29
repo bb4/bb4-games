@@ -35,8 +35,8 @@ public class TicTacToePlayerOptions extends TwoPlayerPlayerOptions {
     protected SearchOptions createDefaultSearchOptions() {
         return new SearchOptions(new BruteSearchOptions(DEFAULT_LOOK_AHEAD),
                                  new BestMovesSearchOptions(DEFAULT_PERCENTAGE_BEST_MOVES,
-                                                            DEFAULT_MIN_BEST_MOVES,
-                                                            DEFAULT_PERCENTAGE_LESS_THAN_BEST_THRESH),
+                                         DEFAULT_PERCENTAGE_LESS_THAN_BEST_THRESH, DEFAULT_MIN_BEST_MOVES
+                                 ),
                                  new MonteCarloSearchOptions(200, 1.0, 8));
     }
 }

@@ -18,7 +18,6 @@ import static com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrat
  */
 final class PenteMoveGenerator {
 
-
     /**
      * Constructor.
      */
@@ -31,7 +30,7 @@ final class PenteMoveGenerator {
     public final MoveList generateMoves(PenteSearchable searchable, TwoPlayerMove lastMove, ParameterArray weights) {
         MoveList moveList = new MoveList();
 
-        PenteBoard pb = searchable.getBoard(); //.copy();
+        PenteBoard pb = searchable.getBoard();
         CandidateMoves candMoves = pb.getCandidateMoves();
 
         boolean player1 = (lastMove == null) || !lastMove.isPlayer1();
@@ -42,11 +41,9 @@ final class PenteMoveGenerator {
         for (int i = 1; i <= nrows; i++ ) {
              for (int j = 1; j <= ncols; j++ ) {
                 if ( candMoves.isCandidateMove( i, j )) {
-                    TwoPlayerMove move;
-                    if (lastMove == null)
-                       move = TwoPlayerMove.createMove( i, j, 0, new GamePiece(player1));
-                    else
-                       move = TwoPlayerMove.createMove( i, j, lastMove.getValue(), new GamePiece(player1));
+                    int lastValue = lastMove == null ? 0 : lastMove.getValue();
+                    TwoPlayerMove move = TwoPlayerMove.createMove( i, j, lastValue, new GamePiece(player1));
+
                     searchable.makeInternalMove( move );
                     move.setValue(searchable.worth(move, weights));
                     // now revert the board
@@ -56,7 +53,7 @@ final class PenteMoveGenerator {
             }
         }
         BestMoveFinder finder = new BestMoveFinder(searchable.getSearchOptions().getBestMovesSearchOptions());
-        return finder.getBestMoves( player1, moveList);
+        return finder.getBestMoves(moveList);
     }
 
     /**

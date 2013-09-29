@@ -37,6 +37,8 @@ public class PenteController extends TwoPlayerController {
 
     /**
      * Construct the Pente game controller given an initial board size
+     * @param nrows number of rows on the board
+     * @param ncols number of columns on the board.
      */
     public PenteController(int nrows, int ncols ) {
         size = new Dimension( nrows, ncols );
@@ -59,7 +61,7 @@ public class PenteController extends TwoPlayerController {
     }
 
     /**
-     *  this gets the pente specific patterns and weights
+     * This gets the pente specific patterns and weights
      */
     @Override
     protected void initializeData() {
@@ -72,11 +74,11 @@ public class PenteController extends TwoPlayerController {
     @Override
     public void computerMovesFirst() {
         int delta = getWinRunLength() - 1;
-        Board b = (Board) getBoard();
-        int c = (int) (GameContext.random().nextFloat() * (b.getNumCols() - 2 * delta) + delta + 1);
-        int r = (int) (GameContext.random().nextFloat() * (b.getNumRows() - 2 * delta) + delta + 1);
-        TwoPlayerMove m = TwoPlayerMove.createMove( r, c, 0, new GamePiece(true) );
-        makeMove( m );
+        Board board = (Board) getBoard();
+        int col = (int) (GameContext.random().nextFloat() * (board.getNumCols() - 2 * delta) + delta + 1);
+        int row = (int) (GameContext.random().nextFloat() * (board.getNumRows() - 2 * delta) + delta + 1);
+        TwoPlayerMove move = TwoPlayerMove.createMove( row, col, 0, new GamePiece(true) );
+        makeMove( move );
     }
 
     protected int getWinRunLength() {

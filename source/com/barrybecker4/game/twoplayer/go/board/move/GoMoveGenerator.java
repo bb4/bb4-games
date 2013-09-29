@@ -46,9 +46,8 @@ public final class GoMoveGenerator {
         for (Move move : moveList)  {
             setMoveValue(weights, (GoMove)move);
         }
-        boolean player1 = (lastMove == null) || !lastMove.isPlayer1();
         BestMoveFinder finder = new BestMoveFinder(searchable_.getSearchOptions().getBestMovesSearchOptions());
-        moveList = finder.getBestMoves(player1, moveList);
+        moveList = finder.getBestMoves(moveList);
 
         addPassingMoveIfNeeded(lastMove, moveList);
 

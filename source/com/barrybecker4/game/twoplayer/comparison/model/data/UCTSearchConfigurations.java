@@ -41,7 +41,7 @@ public class UCTSearchConfigurations extends SearchOptionsConfigList {
         bruteOpts.setQuiescence(useQuiescence);
         return new SearchOptions(SearchStrategyType.NEGAMAX,
                              bruteOpts,
-                             new BestMovesSearchOptions(90, 20, 50),
+                             new BestMovesSearchOptions(90, 50, 20),
                              new MonteCarloSearchOptions());
     }
 

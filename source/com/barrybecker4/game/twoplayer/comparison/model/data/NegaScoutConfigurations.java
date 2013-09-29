@@ -49,7 +49,7 @@ public class NegaScoutConfigurations extends SearchOptionsConfigList {
     }
 
     private BestMovesSearchOptions createBestMoveOptions() {
-        return new BestMovesSearchOptions(100, 40, 20);
+        return new BestMovesSearchOptions(100, 20, 40);
     }
 
 }

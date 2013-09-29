@@ -19,6 +19,6 @@ public class ChessPlayerOptions extends TwoPlayerPlayerOptions {
 
     @Override
     protected SearchOptions createDefaultSearchOptions() {
-        return new SearchOptions(new BruteSearchOptions(2),  new BestMovesSearchOptions(80, 10, 0));
+        return new SearchOptions(new BruteSearchOptions(2),  new BestMovesSearchOptions(80, 0, 10));
     }
 }

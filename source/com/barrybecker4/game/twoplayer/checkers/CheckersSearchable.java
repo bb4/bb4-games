@@ -39,11 +39,9 @@ public class CheckersSearchable extends TwoPlayerSearchable {
     public MoveList generateMoves(TwoPlayerMove lastMove, ParameterArray weights) {
 
         MoveGenerator generator = new MoveGenerator(this, weights);
-        boolean player1 = (lastMove == null) || !lastMove.isPlayer1();
-
         MoveList moveList = generator.generateMoves(lastMove);
 
-        return bestMoveFinder_.getBestMoves( player1, moveList);
+        return bestMoveFinder_.getBestMoves(moveList);
     }
 
     /**
