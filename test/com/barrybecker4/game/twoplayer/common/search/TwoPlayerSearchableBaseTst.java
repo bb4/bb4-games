@@ -25,7 +25,7 @@ import java.util.List;
 @SuppressWarnings({"ClassWithTooManyMethods", "UnusedDeclaration"})
 public abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst {
 
-    private static final int DEFAULT_DEBUG_LEVEL = 2;
+    private static final int DEFAULT_DEBUG_LEVEL = 1;
     private static final int DEFAULT_LOOKAHEAD = 2;
     private static final int DEFAULT_BEST_PERCENTAGE = 100;
 
@@ -34,7 +34,7 @@ public abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst {
 
     /**
      * common initialization for all go test cases.
-     * Override setOptionOverides if you want different search parameters.
+     * Override setOptionOverrides if you want different search parameters.
      */
     @Override
     protected void setUp() throws Exception {

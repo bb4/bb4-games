@@ -29,7 +29,7 @@ public class PenteSearchableTest extends TwoPlayerSearchableBaseTst {
         return TwoPlayerMove.createMove(5, 5,   0, new GamePiece(true));
     }
 
-    /** at the very start only the center move is a candidate move */
+    /** At the very start, only the center move is a candidate move */
     @Override
     protected int getExpectedNumGeneratedMovesBeforeFirstMove() {
        return 1;
@@ -42,7 +42,19 @@ public class PenteSearchableTest extends TwoPlayerSearchableBaseTst {
                 searchable.done((TwoPlayerMove)getController().getLastMove(), false));
     }
 
-    /** Expected done becauise there are 5 ina row and score should exceed the win threshold. */
+    public void testAlmostWonP1ToPlay() throws Exception {
+        restore("almostWonP1ToPlay");
+        assertFalse("Did not expect done even though very close. ",
+                searchable.done((TwoPlayerMove)getController().getLastMove(), false));
+    }
+
+    public void testAlmostWonP2ToPlay() throws Exception {
+        restore("almostWonP2ToPlay");
+        assertFalse("Did not expect done even though very close. ",
+                searchable.done((TwoPlayerMove)getController().getLastMove(), false));
+    }
+
+    /** Expected done here because there are 5 in a row and score should exceed the win threshold. */
     @Override
     public void testDoneForMidGameWin() throws Exception {
         restore("wonGameP1");
@@ -62,7 +74,7 @@ public class PenteSearchableTest extends TwoPlayerSearchableBaseTst {
                 searchable.done((TwoPlayerMove)getController().getLastMove(), false));
     }
 
-    /**  Load a game in the middle and verify that we can get reasonable next moves. */
+    /** Load a game in the middle and verify that we can get reasonable next moves. */
     @Override
     public void testGenerateAllP1MovesMidGame() throws Exception {
         checkGeneratedMoves("midGameP1ToPlay8x8", EXPECTED_ALL_MIDDLE_GAME_MOVES_P1);

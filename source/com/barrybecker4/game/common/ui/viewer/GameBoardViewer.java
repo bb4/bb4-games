@@ -50,11 +50,12 @@ public abstract class GameBoardViewer extends JPanel
     private ViewerMouseListener mouseListener_;
 
     /** list of listeners for handling those events. */
-    private final List<GameChangedListener> gameListeners_ = new ArrayList<GameChangedListener>();
+    private final List<GameChangedListener> gameListeners_ = new ArrayList<>();
 
     protected final Cursor waitCursor_ = new Cursor( Cursor.WAIT_CURSOR );
     protected Cursor origCursor_ = null;
     protected JFrame parent_ = null;
+    private File lastFileAccessed;
 
 
     /**
@@ -106,9 +107,15 @@ public abstract class GameBoardViewer extends JPanel
      */
     public void openGame() {
         JFileChooser chooser = FileChooserUtil.getFileChooser(new SgfFileFilter());
-        int state = chooser.showOpenDialog( null );
+        if (lastFileAccessed != null) {
+            System.out.println("lastFile="+ lastFileAccessed.toString());
+            chooser.setCurrentDirectory(lastFileAccessed);
+        }
+        int state = chooser.showOpenDialog(null);
+
         File file = chooser.getSelectedFile();
         if ( file != null && state == JFileChooser.APPROVE_OPTION )  {
+            lastFileAccessed = file;
             controller_.restoreFromFile(file.getAbsolutePath());
             sendGameChangedEvent(controller_.getLastMove());
             this.refresh();

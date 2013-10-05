@@ -112,7 +112,7 @@ public final class GameContext {
      * log a message using the internal logger object
      */
     public static void log( int logLevel, String message ) {
-            logger_.print( logLevel, getDebugMode(), message );
+        logger_.print( logLevel, getDebugMode(), message );
     }
 
     /**
