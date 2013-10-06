@@ -7,8 +7,8 @@ import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.board.GamePiece;
 import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub;
 import com.barrybecker4.game.twoplayer.common.search.options.BestMovesSearchOptions;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.Before;
 
 import static org.junit.Assert.assertEquals;
 
@@ -33,8 +33,19 @@ public class BestMoveFinderTest {
         finder = new BestMoveFinder(options);
     }
 
+    /** if all the thresholds are set to 0, no moves will be returned */
     @Test
-    public void testBestMinOneP1() {
+    public void testNoMovesReturnedWhenThresholds0() {
+        options.setPercentLessThanBestThresh(0);
+        options.setPercentageBestMoves(0);
+        options.setMinBestMoves(0);
+
+        MoveList mList = finder.getBestMoves(createSimpleThreeMoveList(PLAYER2));
+        assertEquals("Unexpected number of best moves found", 0, mList.getNumMoves());
+    }
+
+    @Test
+    public void testMinBestOfOneP1() {
         options.setPercentLessThanBestThresh(0);
         options.setPercentageBestMoves(0);
         options.setMinBestMoves(1);
@@ -45,7 +56,7 @@ public class BestMoveFinderTest {
     }
 
     @Test
-    public void testBestMinOneP2() {
+    public void testMinBestOfOneP2() {
         options.setPercentLessThanBestThresh(0);
         options.setPercentageBestMoves(0);
         options.setMinBestMoves(1);
@@ -56,17 +67,29 @@ public class BestMoveFinderTest {
     }
 
     @Test
-    public void testBestMinTwo() {
+    public void testMinBestTwoP1() {
         options.setPercentLessThanBestThresh(0);
         options.setPercentageBestMoves(0);
         options.setMinBestMoves(2);
 
         MoveList mList = finder.getBestMoves(createSimpleThreeMoveList(PLAYER1));
         assertEquals("Unexpected number of best moves found", 2, mList.getNumMoves());
+        assertEquals("Unexpected value", 100, mList.getFirstMove().getValue());
     }
 
     @Test
-    public void testBestMinBiggerThanTotal() {
+    public void testMinBestTwoP2() {
+        options.setPercentLessThanBestThresh(0);
+        options.setPercentageBestMoves(0);
+        options.setMinBestMoves(2);
+
+        MoveList mList = finder.getBestMoves(createSimpleThreeMoveList(PLAYER2));
+        assertEquals("Unexpected number of best moves found", 2, mList.getNumMoves());
+        assertEquals("Unexpected value", -10, mList.getFirstMove().getValue());
+    }
+
+    @Test
+    public void testBestMinBiggerThanTotalP1() {
         options.setPercentLessThanBestThresh(0);
         options.setPercentageBestMoves(0);
         options.setMinBestMoves(5);
@@ -76,7 +99,17 @@ public class BestMoveFinderTest {
     }
 
     @Test
-    public void testMinBestSmallerThanNumberReturned() {
+    public void testBestMinBiggerThanTotalP2() {
+        options.setPercentLessThanBestThresh(0);
+        options.setPercentageBestMoves(0);
+        options.setMinBestMoves(5);
+
+        MoveList mList = finder.getBestMoves(createSimpleThreeMoveList(PLAYER2));
+        assertEquals("Unexpected number of best moves found", 3, mList.getNumMoves());
+    }
+
+    @Test
+    public void testMinBestSmallerThanNumberReturnedP1() {
         options.setPercentLessThanBestThresh(50);
         options.setPercentageBestMoves(100);
         options.setMinBestMoves(2);
@@ -125,9 +158,41 @@ public class BestMoveFinderTest {
         options.setMinBestMoves(1);
 
         MoveList mList = finder.getBestMoves(createRangeMoveList(new Range(1, 40), PLAYER1));
-        System.out.println("moves="+ mList);
         assertEquals("Unexpected number of best moves found", 10, mList.getNumMoves());
         assertEquals("Unexpected value", 40, mList.getFirstMove().getValue());
+    }
+
+    @Test
+    public void testBest25PercentLessThanBestThreshMovesP2WhenAllPositive() {
+        options.setPercentLessThanBestThresh(25);
+        options.setPercentageBestMoves(0);
+        options.setMinBestMoves(1);
+
+        MoveList mList = finder.getBestMoves(createRangeMoveList(new Range(1, 40), PLAYER2));
+        assertEquals("Unexpected number of best moves found", 10, mList.getNumMoves());
+        assertEquals("Unexpected value", 1, mList.getFirstMove().getValue());
+    }
+
+    @Test
+    public void testBest25PercentLessThanBestThreshMovesP1WhenAllNegative() {
+        options.setPercentLessThanBestThresh(25);
+        options.setPercentageBestMoves(0);
+        options.setMinBestMoves(1);
+
+        MoveList mList = finder.getBestMoves(createRangeMoveList(new Range(-40, 1), PLAYER1));
+        assertEquals("Unexpected number of best moves found", 11, mList.getNumMoves());
+        assertEquals("Unexpected value", 1, mList.getFirstMove().getValue());
+    }
+
+    @Test
+    public void testBest25PercentLessThanBestThreshMovesP2WhenAllNegative() {
+        options.setPercentLessThanBestThresh(25);
+        options.setPercentageBestMoves(0);
+        options.setMinBestMoves(1);
+
+        MoveList mList = finder.getBestMoves(createRangeMoveList(new Range(-40, 1), PLAYER2));
+        assertEquals("Unexpected number of best moves found", 11, mList.getNumMoves());
+        assertEquals("Unexpected value", -40, mList.getFirstMove().getValue());
     }
 
     @Test
@@ -172,30 +237,74 @@ public class BestMoveFinderTest {
         assertEquals("Unexpected number of best moves found", 10, mList.getNumMoves());
     }
 
+    @Test
+    public void test50PercentLessThanBest5P1() {
+        options.setPercentLessThanBestThresh(50);
+        options.setPercentageBestMoves(0);
+        options.setMinBestMoves(0);
+
+        MoveList mList = finder.getBestMoves(createSimpleFiveMoveList(PLAYER1));
+        assertEquals("Unexpected number of best moves found", 1, mList.getNumMoves());
+        assertEquals("Unexpected value", 1000, mList.getFirstMove().getValue());
+    }
+
+    @Test
+    public void test50PercentLessThanBest5P2() {
+        options.setPercentLessThanBestThresh(50);
+        options.setPercentageBestMoves(0);
+        options.setMinBestMoves(0);
+
+        MoveList mList = finder.getBestMoves(createSimpleFiveMoveList(PLAYER2));
+        assertEquals("Unexpected number of best moves found", 4, mList.getNumMoves());
+        assertEquals("Unexpected value", -5, mList.getFirstMove().getValue());
+    }
+
+    @Test
+    public void test50PercentLessThanBestWithDuplicatesP1() {
+        options.setPercentLessThanBestThresh(50);
+        options.setPercentageBestMoves(0);
+        options.setMinBestMoves(0);
+
+        MoveList mList = finder.getBestMoves(createMoveListWithDuplicateScores(PLAYER1));
+        assertEquals("Unexpected number of best moves found", 1, mList.getNumMoves());
+        assertEquals("Unexpected value", 1000, mList.getFirstMove().getValue());
+    }
+
+    @Test
+    public void test50PercentLessThanBestWithDuplicatesP2() {
+        options.setPercentLessThanBestThresh(50);
+        options.setPercentageBestMoves(0);
+        options.setMinBestMoves(0);
+
+        MoveList mList = finder.getBestMoves(createMoveListWithDuplicateScores(PLAYER2));
+        assertEquals("Unexpected number of best moves found", 3, mList.getNumMoves());
+        assertEquals("Unexpected value", 5, mList.getFirstMove().getValue());
+    }
+
      private MoveList createSimpleThreeMoveList(boolean player1) {
-        MoveList moveList = new MoveList();
-        moveList.add(TwoPlayerMoveStub.createMove(new ByteLocation(1, 2), 100, new GamePiece(player1)));
-        moveList.add(TwoPlayerMoveStub.createMove(new ByteLocation(1, 3), 50, new GamePiece(player1)));
-        moveList.add(TwoPlayerMoveStub.createMove(new ByteLocation(1, 4), -10, new GamePiece(player1)));
-        return moveList;
+          MoveList moveList = new MoveList();
+          moveList.add(TwoPlayerMoveStub.createMove(new ByteLocation(1, 3), 50, new GamePiece(player1)));
+          moveList.add(TwoPlayerMoveStub.createMove(new ByteLocation(1, 2), 100, new GamePiece(player1)));
+          moveList.add(TwoPlayerMoveStub.createMove(new ByteLocation(1, 4), -10, new GamePiece(player1)));
+          return moveList;
     }
 
     private MoveList createSimpleFiveMoveList(boolean player1) {
         MoveList moveList = new MoveList();
+        moveList.add(TwoPlayerMoveStub.createMove(new ByteLocation(1, 3), 0, new GamePiece(player1)));
         moveList.add(TwoPlayerMoveStub.createMove(new ByteLocation(1, 2), 1000, new GamePiece(player1)));
         moveList.add(TwoPlayerMoveStub.createMove(new ByteLocation(1, 3), 50, new GamePiece(player1)));
-        moveList.add(TwoPlayerMoveStub.createMove(new ByteLocation(1, 4), 5, new GamePiece(player1)));
-        moveList.add(TwoPlayerMoveStub.createMove(new ByteLocation(1, 3), 0, new GamePiece(player1)));
         moveList.add(TwoPlayerMoveStub.createMove(new ByteLocation(1, 3), -5, new GamePiece(player1)));
+        moveList.add(TwoPlayerMoveStub.createMove(new ByteLocation(1, 4), 5, new GamePiece(player1)));
         return moveList;
     }
 
     private MoveList createMoveListWithDuplicateScores(boolean player1) {
         MoveList moveList = new MoveList();
         moveList.add(TwoPlayerMoveStub.createMove(new ByteLocation(1, 2), 500, new GamePiece(player1)));
+        moveList.add(TwoPlayerMoveStub.createMove(new ByteLocation(1, 3), 1000, new GamePiece(player1)));
         moveList.add(TwoPlayerMoveStub.createMove(new ByteLocation(1, 3), 500, new GamePiece(player1)));
         moveList.add(TwoPlayerMoveStub.createMove(new ByteLocation(1, 4), 5, new GamePiece(player1)));
-        moveList.add(TwoPlayerMoveStub.createMove(new ByteLocation(1, 3), -1000, new GamePiece(player1)));
         return moveList;
     }
 

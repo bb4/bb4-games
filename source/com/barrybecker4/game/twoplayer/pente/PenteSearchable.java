@@ -34,7 +34,6 @@ public class PenteSearchable extends TwoPlayerSearchable {
         init();
     }
 
-
     private void init() {
         generator = new PenteMoveGenerator();
         moveEvaluator = new MoveEvaluator(createPatterns());

@@ -3,9 +3,9 @@ package com.barrybecker4.game.twoplayer.common.search.options;
 
 /**
  * Options to limit the number of moves searched at each ply to just the ones most likely to be selected.
- * There is no guarantee that the subset returned will contain the best move, but it's a trade-off for search time.
- * The options are for search strategies that use brute-force minimax search like MiniMax, NegaMax, NegaScout,
- * and also the memory and aspiration variations of these strategies.
+ * There is no guarantee that the subset returned will contain the actual best move, but it's a trade-off
+ * for search time. The options are for search strategies that use brute-force minimax search
+ * like MiniMax, NegaMax, NegaScout, and also the memory and aspiration variations of these strategies.
  * These methods usually use a search window to do pruning of tree branches.
  * The different options define a number of constraints on limiting the number of moves returned.
  * All the constraints must be satisfied in the sense that there will never be fewer moves returned than
