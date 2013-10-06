@@ -17,7 +17,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Responsible for handling events related to the display and interaction with the visual game tree.
+ * Responsible for handling events related to the display, and interaction with, the visual game tree.
  *
  * @author Barry Becker
  */
@@ -37,9 +37,8 @@ public final class GameTreeMotionListener implements MouseMotionListener {
     private static final boolean SHOW_SUCCESSIVE_MOVES  = true;
 
 
-
     /**
-     * constructor - create the tree dialog.
+     * Constructor - create the tree dialog.
      */
     public GameTreeMotionListener(GameTreeViewer treeViewer,
                                   TwoPlayerViewModel boardViewer,
@@ -67,7 +66,7 @@ public final class GameTreeMotionListener implements MouseMotionListener {
     }
 
     /**
-     * called when a particular move in the game tree has been selected by the user (by clicking on it or mouse-over).
+     * Called when a particular move in the game tree has been selected by the user (by clicking on it or mouse-over).
      */
     private void selectCallback( MouseEvent e ) {
 
@@ -87,14 +86,16 @@ public final class GameTreeMotionListener implements MouseMotionListener {
         int chainLength = path.getPathCount();
         Object[] nodes = path.getPath();
         SearchTreeNode lastNode = (SearchTreeNode)nodes[chainLength-1];
-        List<TwoPlayerMove> moveList = new LinkedList<TwoPlayerMove>();
-        TwoPlayerMove m = null;
+
+        List<TwoPlayerMove> moveList = new LinkedList<>();
+        TwoPlayerMove move = null;
         for ( int i = 0; i < chainLength; i++ ) {
             SearchTreeNode node = (SearchTreeNode) nodes[i];
-            m = (TwoPlayerMove) node.getUserObject();
-            if ( m == null )
-                return; // no node here
-            moveList.add( m );
+            move = (TwoPlayerMove) node.getUserObject();
+            assert move != null;
+            //if ( move == null )
+            //    continue; //return; // no node here
+            moveList.add( move );
         }
 
         AbstractTwoPlayerBoardViewer viewer = (AbstractTwoPlayerBoardViewer)boardViewer_;
@@ -102,15 +103,15 @@ public final class GameTreeMotionListener implements MouseMotionListener {
             // add expected successive moves to show likely outcome.
             moveList = addSuccessiveMoves(moveList, lastNode);
         }
-        GameContext.log(3, "chainlen before="+chainLength+" after="+moveList.size());
+        GameContext.log(3, "chain len before=" + chainLength + " after=" + moveList.size());
         chainLength = moveList.size();
         viewer.showMoveSequence( moveList, oldChainLength_, lastNode.getChildMoves() );
 
         // remember the old chain magnitude so we know how much to back up next time
         oldChainLength_ = chainLength;
 
-        // we should throw an event instead of have this dependency.
-        moveInfoPanel_.setText(viewer, m, lastNode);
+        // we should throw an event instead of having this dependency.
+        moveInfoPanel_.setText(viewer, move, lastNode);
     }
 
     /**

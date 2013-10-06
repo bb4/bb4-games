@@ -118,7 +118,7 @@ public final class GameTreeDialog extends AbstractDialog
      * start over from scratch.
      */
     public synchronized void reset() {
-        if (textTree_!=null) {
+        if (textTree_ != null) {
             textTree_.removeMouseMotionListener(motionListener_);
         }
         tree_ = new GameTreeViewable(null);

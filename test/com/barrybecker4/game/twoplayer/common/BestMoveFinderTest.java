@@ -33,7 +33,10 @@ public class BestMoveFinderTest {
         finder = new BestMoveFinder(options);
     }
 
-    /** if all the thresholds are set to 0, no moves will be returned */
+    /**
+     * if all the thresholds are set to 0, we still get one move (teh best one)
+     * because 0 percent less than the best is the best
+     */
     @Test
     public void testNoMovesReturnedWhenThresholds0() {
         options.setPercentLessThanBestThresh(0);
@@ -41,7 +44,20 @@ public class BestMoveFinderTest {
         options.setMinBestMoves(0);
 
         MoveList mList = finder.getBestMoves(createSimpleThreeMoveList(PLAYER2));
-        assertEquals("Unexpected number of best moves found", 0, mList.getNumMoves());
+        assertEquals("Unexpected number of best moves found", 1, mList.getNumMoves());
+    }
+
+    /**
+     * if all the thresholds are set to 0, we still get one move (teh best one)
+     * because 0 percent less than the best is the best
+     */
+    @Test
+    public void testNoMovesReturnedWhenNoMovesToSelectFrom() {
+        options.setPercentLessThanBestThresh(1);
+        options.setPercentageBestMoves(1);
+        options.setMinBestMoves(1);
+
+        MoveList mList = finder.getBestMoves(new MoveList());
     }
 
     @Test
@@ -147,7 +163,7 @@ public class BestMoveFinderTest {
         options.setMinBestMoves(1);
 
         MoveList mList = finder.getBestMoves(createRangeMoveList(new Range(-20, 20), PLAYER1));
-        assertEquals("Unexpected number of best moves found", 10, mList.getNumMoves());
+        assertEquals("Unexpected number of best moves found", 11, mList.getNumMoves());
         assertEquals("Unexpected value", 20, mList.getFirstMove().getValue());
     }
 
@@ -201,9 +217,9 @@ public class BestMoveFinderTest {
         options.setPercentageBestMoves(0);
         options.setMinBestMoves(1);
 
-        MoveList mList = finder.getBestMoves(createRangeMoveList(new Range(-10, 10), PLAYER1));
+        MoveList mList = finder.getBestMoves(createRangeMoveList(new Range(-10, 9), PLAYER1));
         assertEquals("Unexpected number of best moves found", 4, mList.getNumMoves());
-        assertEquals("Unexpected value", 10, mList.getFirstMove().getValue());
+        assertEquals("Unexpected value", 9, mList.getFirstMove().getValue());
     }
 
     @Test
@@ -212,7 +228,7 @@ public class BestMoveFinderTest {
         options.setPercentageBestMoves(0);
         options.setMinBestMoves(1);
 
-        MoveList mList = finder.getBestMoves(createRangeMoveList(new Range(-10, 10), PLAYER2));
+        MoveList mList = finder.getBestMoves(createRangeMoveList(new Range(-10, 9), PLAYER2));
         assertEquals("Unexpected number of best moves found", 4, mList.getNumMoves());
         assertEquals("Unexpected value", -10, mList.getFirstMove().getValue());
     }
@@ -279,6 +295,26 @@ public class BestMoveFinderTest {
         MoveList mList = finder.getBestMoves(createMoveListWithDuplicateScores(PLAYER2));
         assertEquals("Unexpected number of best moves found", 3, mList.getNumMoves());
         assertEquals("Unexpected value", 5, mList.getFirstMove().getValue());
+    }
+
+    @Test
+    public void testGetAllWhen100PercentLessThanBestP1() {
+        options.setPercentLessThanBestThresh(100);
+        options.setPercentageBestMoves(1);
+        options.setMinBestMoves(1);
+
+        MoveList mList = finder.getBestMoves(createSimpleFiveMoveList(PLAYER1));
+        assertEquals("Unexpected number of best moves found", 5, mList.getNumMoves());
+    }
+
+    @Test
+    public void testGetAllWhen100PercentLessThanBestP2() {
+        options.setPercentLessThanBestThresh(100);
+        options.setPercentageBestMoves(1);
+        options.setMinBestMoves(1);
+
+        MoveList mList = finder.getBestMoves(createSimpleFiveMoveList(PLAYER2));
+        assertEquals("Unexpected number of best moves found", 5, mList.getNumMoves());
     }
 
      private MoveList createSimpleThreeMoveList(boolean player1) {

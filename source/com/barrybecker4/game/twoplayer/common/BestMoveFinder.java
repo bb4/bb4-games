@@ -89,8 +89,7 @@ public class BestMoveFinder {
             double highValue = moveList.getFirstMove().getValue();
             double lowValue = moveList.getLastMove().getValue();
             double range = Math.abs(highValue - lowValue);
-            int percentLessThanBestThresh = searchOptions_.getPercentLessThanBestThresh();
-            double percent = percentLessThanBestThresh / 100.0;
+            double percent = searchOptions_.getPercentLessThanBestThresh() / 100.0;
             double diff = range * percent;
             thresholdValue = highValue + (isPlayer1 ? -diff : diff);
         }
@@ -111,8 +110,8 @@ public class BestMoveFinder {
             for (Move move : moveList) {
                 TwoPlayerMove currentMove = (TwoPlayerMove) move;
                 boolean threshExceeded = isPlayer1 ?
-                        currentMove.getValue() > thresholdValue :
-                        currentMove.getValue() < thresholdValue;
+                        currentMove.getValue() >= thresholdValue :
+                        currentMove.getValue() <= thresholdValue;
                 if (bestMoves.size() < minToGet || threshExceeded) {
                     bestMoves.add(move);
                 }

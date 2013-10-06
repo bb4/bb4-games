@@ -33,10 +33,11 @@ public class PenteMoveGeneratorTest {
         helper = new PenteHelper();
         controller = helper.createController();
 
-        BestMovesSearchOptions bmOptions = controller.getSearchable().getSearchOptions().getBestMovesSearchOptions();
-        bmOptions.setMinBestMoves(5);
+        BestMovesSearchOptions bmOptions =
+                controller.getSearchable().getSearchOptions().getBestMovesSearchOptions();
+        bmOptions.setMinBestMoves(1);
         bmOptions.setPercentageBestMoves(50);  // take better half
-        bmOptions.setPercentLessThanBestThresh(100);
+        bmOptions.setPercentLessThanBestThresh(50); // include those greater than 50% of best value
 
         weights = controller.getComputerWeights().getDefaultWeights();
         generator = new PenteMoveGenerator();
@@ -44,7 +45,7 @@ public class PenteMoveGeneratorTest {
 
     /** The center position should be the only generated move. */
     @Test
-    public void testNextMoveNoMoves() throws Exception {
+    public void testNextMoveWhenNoMovesOnBoard() throws Exception {
 
         MoveList actMoves = generator.generateMoves(
                 controller.getSearchable(), (TwoPlayerMove) controller.getLastMove(), weights);
@@ -81,13 +82,13 @@ public class PenteMoveGeneratorTest {
         expMoves.add(TwoPlayerMove.createMove(new ByteLocation(11, 7), -48, new GamePiece(true)));
         expMoves.add(TwoPlayerMove.createMove(new ByteLocation(10, 12), -48, new GamePiece(true)));
         expMoves.add(TwoPlayerMove.createMove(new ByteLocation(10, 9), -48, new GamePiece(true)));
-        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(10, 8), -48, new GamePiece(true)));
-        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(8, 14), -48, new GamePiece(true)));
-        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(8, 13), -48, new GamePiece(true)));
-        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(7, 14), -48, new GamePiece(true)));
-        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(7, 11), -48, new GamePiece(true)));
-        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(6, 13), -48, new GamePiece(true)));
-        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(12, 13), -54, new GamePiece(true)));
+        //expMoves.add(TwoPlayerMove.createMove(new ByteLocation(10, 8), -48, new GamePiece(true)));
+        //expMoves.add(TwoPlayerMove.createMove(new ByteLocation(8, 14), -48, new GamePiece(true)));
+        //expMoves.add(TwoPlayerMove.createMove(new ByteLocation(8, 13), -48, new GamePiece(true)));
+        //expMoves.add(TwoPlayerMove.createMove(new ByteLocation(7, 14), -48, new GamePiece(true)));
+        //expMoves.add(TwoPlayerMove.createMove(new ByteLocation(7, 11), -48, new GamePiece(true)));
+        //expMoves.add(TwoPlayerMove.createMove(new ByteLocation(6, 13), -48, new GamePiece(true)));
+        //expMoves.add(TwoPlayerMove.createMove(new ByteLocation(12, 13), -54, new GamePiece(true)));
 
         assertEquals("Unexpected moves.", expMoves, actMoves);
     }
@@ -105,6 +106,9 @@ public class PenteMoveGeneratorTest {
         expMoves.add(TwoPlayerMove.createMove(new ByteLocation(1, 3), 0, new GamePiece(false)));
         expMoves.add(TwoPlayerMove.createMove(new ByteLocation(2, 1), 0, new GamePiece(false)));
         expMoves.add(TwoPlayerMove.createMove(new ByteLocation(2, 3), 0, new GamePiece(false)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(3, 1), 0, new GamePiece(false)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(3, 2), 0, new GamePiece(false)));
+        expMoves.add(TwoPlayerMove.createMove(new ByteLocation(3, 3), 0, new GamePiece(false)));
 
         assertEquals("Unexpected moves.", expMoves, actMoves);
     }
