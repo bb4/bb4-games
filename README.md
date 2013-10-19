@@ -16,9 +16,9 @@ Here are the game implementations added so far (hopefully others will contribute
 
 ### [How to Build](https://github.com/barrybecker4/bb4-common/wiki/Building-bb4-Projects)
 
-If you have not already done so, first install [Git](http://git-scm.com/), [Gradle](http://www.gradle.org/), and [Intellij](http://www.jetbrains.com/idea/).
+If you have not already done so, first install [Git](http://git-scm.com/), and [Intellij](http://www.jetbrains.com/idea/).
 
-Type 'gradle build' at the root.
+Type 'gradle buildw' at the root (or ./gradlew if running in Cygwin).
 If you want to open the source in Intellij, then first run 'gradle idea'.
 Use gradle tasks to see all the different games that can be run using a command like 'gradle runPente'
 
