@@ -18,55 +18,55 @@ dependencies {
     compile fileTree(dir: 'lib', include: '*.jar')
 }
 
-task runGalactic(type: JavaExec, depends: classes) {
+task runGalactic(type: JavaExec) {
     main = gameApp
     args = ["-name", "galactic", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task runPente(type: JavaExec, depends: classes) {
+task runPente(type: JavaExec) {
     main = gameApp
     args = ["-name", "pente", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task runTicTacToe(type: JavaExec, depends: classes) {
+task runTicTacToe(type: JavaExec) {
     main = gameApp
     args = ["-name", "tictactoe", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task runBlockade(type: JavaExec, depends: classes) {
+task runBlockade(type: JavaExec) {
     main = gameApp
     args = ["-name", "blockade", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task runCheckers(type: JavaExec, depends: classes) {
+task runCheckers(type: JavaExec) {
     main = gameApp
     args = ["-name", "checkers", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task runChess(type: JavaExec, depends: classes) {
+task runChess(type: JavaExec) {
     main = gameApp
     args = ["-name", "chess", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task runSet(type: JavaExec, depends: classes) {
+task runSet(type: JavaExec) {
     main = gameApp
     args = ["-name", "set", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task runGo(type: JavaExec, depends: classes) {
+task runGo(type: JavaExec) {
     main = gameApp
     args = ["-name", "go", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task runGoJapanese(type: JavaExec, depends: classes) {
+task runGoJapanese(type: JavaExec) {
     main = gameApp
     args = ["-name", "go", "-locale", "JAPANESE"]
     classpath = sourceSets.main.runtimeClasspath
@@ -74,52 +74,52 @@ task runGoJapanese(type: JavaExec, depends: classes) {
 }
 
 
-task runKgsTesujisoftGoClient(type: JavaExec, depends: classes) {
+task runKgsTesujisoftGoClient(type: JavaExec) {
     main = 'com.barrybecker4.game.twoplayer.go.GtpKgsTesujisoftGoClient'
     classpath = sourceSets.main.runtimeClasspath
 }
 
 /*
-task runGoGui(type: JavaExec, depends: classes) {
+task runGoGui(type: JavaExec) {
     main = 'gogui.Main'
     args = ["arg1", "-program", "arg2", "${java_compiler} -ea -classpath ${classesDir};${libDir}/gogui7.1.jar com.barrybecker4.game.twoplayer.go.server.GtpTesujisoftGoServer"]
     classpath = sourceSets.main.runtimeClasspath
 }     */
 
-task runTrivial(type: JavaExec, depends: classes) {
+task runTrivial(type: JavaExec) {
     main = gameApp
     args = ["-name", "trivial", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task runTrivialServer(type: JavaExec, depends: classes) {
+task runTrivialServer(type: JavaExec) {
     main = 'com.barrybecker4.game.common.online.ui.OnlineGameServerFrame'
     args = ["-game", "trivial"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
 /*
-task runTrivialServerAndClients(type: JavaExec, depends: classes) {
+task runTrivialServerAndClients(type: JavaExec) {
     tasks.runTrivialServer.execute()
     tasks.runTrivial.execute()
     tasks.runTrivial.execute()
     tasks.runTrivial.execute()
 }  */
 
-task runPoker(type: JavaExec, depends: classes) {
+task runPoker(type: JavaExec) {
     main = 'com.barrybecker4.game.common.ui.GameApp'
     args = ["-name", "poker", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task runPokerServer(type: JavaExec, depends: classes) {
+task runPokerServer(type: JavaExec) {
     main = 'com.barrybecker4.game.common.online.ui.OnlineGameServerFrame'
     args = ["-game", "poker", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
 
-task runGameComparisons(type: JavaExec, depends: classes) {
+task runGameComparisons(type: JavaExec) {
     main = "com.barrybecker4.game.twoplayer.comparison.GameComparisonApp"
     args = ["-name", "pente", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
@@ -127,7 +127,7 @@ task runGameComparisons(type: JavaExec, depends: classes) {
 
 
 /*
-task runPokerServerAndClients(type: JavaExec, depends: classes) {
+task runPokerServerAndClients(type: JavaExec) {
     tasks.runPokerServer.execute()
     tasks.runPoker.execute()
     tasks.runPoker.execute()

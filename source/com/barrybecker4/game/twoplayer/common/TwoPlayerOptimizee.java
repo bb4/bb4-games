@@ -2,7 +2,7 @@
 package com.barrybecker4.game.twoplayer.common;
 
 import com.barrybecker4.game.common.GameWeights;
-import com.barrybecker4.optimization.Optimizee;
+import com.barrybecker4.optimization.optimizee.Optimizee;
 import com.barrybecker4.optimization.parameter.ParameterArray;
 
 /**
