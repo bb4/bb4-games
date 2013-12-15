@@ -10,14 +10,17 @@ import com.barrybecker4.game.twoplayer.blockade.board.BlockadeTstUtil;
 import com.barrybecker4.game.twoplayer.blockade.board.move.BlockadeMove;
 import com.barrybecker4.game.twoplayer.blockade.board.path.Path;
 import com.barrybecker4.game.twoplayer.blockade.board.path.PathList;
+import org.junit.Test;
 
 import static com.barrybecker4.game.twoplayer.blockade.board.BlockadeTstUtil.createMove;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Barry Becker
  */
 public class ShortestPathFinderTest extends BlockadeTestCase {
 
+    @Test
     public void testFindShortestPathsForSimple5x7() throws Exception {
 
         PathList expPaths = new PathList(new Path[] {
@@ -35,7 +38,7 @@ public class ShortestPathFinderTest extends BlockadeTestCase {
         verifyShortestPaths("board/analysis/initial5x7", new ByteLocation(2, 2), expPaths);
     }
 
-
+    @Test
     public void testFindShortestPathsWhenWAllsPresentFor5x7() throws Exception {
 
         PathList expPaths = new PathList(new Path[] {

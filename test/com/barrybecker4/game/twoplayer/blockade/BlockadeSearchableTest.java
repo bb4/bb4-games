@@ -14,6 +14,10 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
 
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 
 /**
  * Verify that all the methods in blockadeSearchable work as expected
@@ -35,7 +39,6 @@ public class BlockadeSearchableTest extends TwoPlayerSearchableBaseTst {
                                 0, new GamePiece(true),
                                 new BlockadeWall(new BlockadeBoardPosition(1, 1), new BlockadeBoardPosition(2, 1)));
     }
-
 
     @Override
     protected int getDebugLevel() {
@@ -157,7 +160,7 @@ public class BlockadeSearchableTest extends TwoPlayerSearchableBaseTst {
 
     /**  Verify that we generate a correct list of urgent moves.  */
     @Override
-    public void  testGenerateUrgentMoves() {
+    public void testGenerateUrgentMoves() {
          // there should not be any urgent moves at the very start of the game
          List moves = searchable.generateUrgentMoves(null, weights());
          assertTrue("We expect move list to be empty since generateUrgentMoves is not implemented for Blockade.",

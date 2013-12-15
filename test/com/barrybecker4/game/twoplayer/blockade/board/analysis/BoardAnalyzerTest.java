@@ -9,8 +9,10 @@ import com.barrybecker4.game.twoplayer.blockade.board.BlockadeTstUtil;
 import com.barrybecker4.game.twoplayer.blockade.board.move.BlockadeMove;
 import com.barrybecker4.game.twoplayer.blockade.board.path.Path;
 import com.barrybecker4.game.twoplayer.blockade.board.path.PathList;
+import org.junit.Test;
 
 import static com.barrybecker4.game.twoplayer.blockade.board.BlockadeTstUtil.createMove;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Barry Becker
@@ -18,6 +20,7 @@ import static com.barrybecker4.game.twoplayer.blockade.board.BlockadeTstUtil.cre
 public class BoardAnalyzerTest extends BlockadeTestCase {
 
 
+    @Test
     public void testFindAllOpponentShortestPathsForSimple5x7Player1() throws Exception {
 
         PathList expPaths = new PathList(new Path[] {
@@ -44,6 +47,7 @@ public class BoardAnalyzerTest extends BlockadeTestCase {
         verifyOpponentShortestPaths("board/analysis/initial5x7", true, expPaths);
     }
 
+    @Test
     public void testFindAllOpponentShortestPathsForSimple5x7Player2() throws Exception {
 
         PathList expPaths = new PathList(new Path[] {
@@ -70,7 +74,7 @@ public class BoardAnalyzerTest extends BlockadeTestCase {
         verifyOpponentShortestPaths("board/analysis/initial5x7", false, expPaths);
     }
 
-
+    @Test
     public void testFindAllOpponentShortestPathsFor5x7Player1AfterFirstMove() throws Exception {
 
         PathList expPaths = new PathList(new Path[] {
@@ -98,6 +102,7 @@ public class BoardAnalyzerTest extends BlockadeTestCase {
         verifyOpponentShortestPaths("board/analysis/afterFirstMove5x7", true, expPaths);
     }
 
+    @Test
     public void testFindAllOpponentShortestPathsFor5x7Player2AfterFirstMove() throws Exception {
 
         PathList expPaths = new PathList(new Path[] {
@@ -126,6 +131,7 @@ public class BoardAnalyzerTest extends BlockadeTestCase {
         verifyOpponentShortestPaths("board/analysis/afterFirstMove5x7", false, expPaths);
     }
 
+    @Test
     public void testFindAllOpponentShortestPathsFor11x14Endgame() throws Exception {
 
         PathList expPaths = new PathList(new Path[] {

@@ -49,13 +49,16 @@ public class ExpectedSearchableResults {
     };
 
     static final TwoPlayerMove[] EXPECTED_TOP_MIDDLE_GAME_MOVES_CENTER_P1 =  {
-        TwoPlayerMove.createMove(new ByteLocation(1, 2), 4, PLAYER2_PIECE),
-        TwoPlayerMove.createMove(new ByteLocation(2, 1), 4, PLAYER2_PIECE),
+        TwoPlayerMove.createMove(new ByteLocation(1, 2), 0, PLAYER2_PIECE),
+        TwoPlayerMove.createMove(new ByteLocation(2, 1), 0, PLAYER2_PIECE),
+        TwoPlayerMove.createMove(new ByteLocation(2, 3), 0, PLAYER2_PIECE),
+        TwoPlayerMove.createMove(new ByteLocation(3, 2), 0, PLAYER2_PIECE),
     };
 
     static final TwoPlayerMove[] EXPECTED_TOP_MIDDLE_GAME_MOVES_CORNER_P1 =  {
         TwoPlayerMove.createMove(new ByteLocation(1, 2), -8, PLAYER2_PIECE),
         TwoPlayerMove.createMove(new ByteLocation(2, 1), -8, PLAYER2_PIECE),
+        TwoPlayerMove.createMove(new ByteLocation(2, 2), -8, PLAYER2_PIECE),
     };
 
     static final TwoPlayerMove[] EXPECTED_TOP_MIDDLE_GAME_MOVES_EDGE_P1 =  {

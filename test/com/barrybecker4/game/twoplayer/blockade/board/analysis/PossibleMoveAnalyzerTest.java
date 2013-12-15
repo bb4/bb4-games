@@ -7,17 +7,20 @@ import com.barrybecker4.game.twoplayer.blockade.BlockadeTestCase;
 import com.barrybecker4.game.twoplayer.blockade.board.BlockadeBoard;
 import com.barrybecker4.game.twoplayer.blockade.board.BlockadeBoardPosition;
 import com.barrybecker4.game.twoplayer.blockade.board.move.BlockadeMove;
+import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static com.barrybecker4.game.twoplayer.blockade.board.BlockadeTstUtil.createMove;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Barry Becker
  */
 public class PossibleMoveAnalyzerTest extends BlockadeTestCase {
 
+    @Test
     public void testFindPossibleMoves() throws Exception {
 
         List<BlockadeMove> expMoves = Arrays.asList(
@@ -36,6 +39,7 @@ public class PossibleMoveAnalyzerTest extends BlockadeTestCase {
         verifyPossibleMoves("board/analysis/initial5x7", new ByteLocation(3, 3), expMoves);
     }
 
+    @Test
     public void testFindPossibleMovesWhenWalls() throws Exception {
 
         List<BlockadeMove> expMoves = Arrays.asList(
@@ -67,5 +71,4 @@ public class PossibleMoveAnalyzerTest extends BlockadeTestCase {
 
         assertEquals("Unexpected possible moves.", expMoves, moves);
     }
-
 }

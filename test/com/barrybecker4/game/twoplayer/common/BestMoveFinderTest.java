@@ -48,8 +48,7 @@ public class BestMoveFinderTest {
     }
 
     /**
-     * if all the thresholds are set to 0, we still get one move (teh best one)
-     * because 0 percent less than the best is the best
+     * If there are no moves to select from, then 0 will be returned.
      */
     @Test
     public void testNoMovesReturnedWhenNoMovesToSelectFrom() {
@@ -58,6 +57,7 @@ public class BestMoveFinderTest {
         options.setMinBestMoves(1);
 
         MoveList mList = finder.getBestMoves(new MoveList());
+        assertEquals("Unexpected number of best moves found", 0, mList.getNumMoves());
     }
 
     @Test

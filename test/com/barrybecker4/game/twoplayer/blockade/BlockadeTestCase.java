@@ -9,14 +9,16 @@ import com.barrybecker4.game.twoplayer.common.TwoPlayerPlayerOptions;
 import com.barrybecker4.game.twoplayer.common.search.options.SearchOptions;
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategyType;
 import com.barrybecker4.ui.file.GenericFileFilter;
-import junit.framework.Assert;
-import junit.framework.TestCase;
+import org.junit.Before;
+
+import static org.junit.Assert.assertTrue;
+
 
 /**
- *Base class for all Blockade test cases.
+ * Base class for all Blockade test cases.
  * @author Barry Becker
  */
-public abstract class BlockadeTestCase extends TestCase {
+public abstract class BlockadeTestCase {
 
     /** moved all test cases here so they are not included in the jar and do not need to be searched */
     private static final String EXTERNAL_TEST_CASE_DIR = "/com/barrybecker4/game/twoplayer/blockade/cases/"; // NON-NLS
@@ -26,13 +28,12 @@ public abstract class BlockadeTestCase extends TestCase {
     protected BlockadeController controller_;
 
 
-
     /**
      * common initialization for all test cases.
      */
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
+
         GameContext.loadResources("blockade"); // NON-NLS
         GameContext.setDebugMode(0);
 
@@ -65,7 +66,6 @@ public abstract class BlockadeTestCase extends TestCase {
 
     protected Move getNextMove(String problemFile, boolean firstPlayerPlays) throws Exception {
 
-
         GameContext.log(1, "finding next move for "+problemFile+" ...");
         long time = System.currentTimeMillis();
         restore(problemFile);
@@ -80,8 +80,8 @@ public abstract class BlockadeTestCase extends TestCase {
 
     protected static void checkExpected(BlockadeMove m, int row, int col) {
 
-        Assert.assertTrue("Was expecting "+ row +", "+ col +", but instead got "+m,
-                          m.getToRow() == row && m.getToCol() == col);
+        assertTrue("Was expecting " + row + ", " + col + ", but instead got " + m,
+                m.getToRow() == row && m.getToCol() == col);
     }
 
 }

@@ -13,8 +13,14 @@ import com.barrybecker4.game.twoplayer.common.search.options.BestMovesSearchOpti
 import com.barrybecker4.game.twoplayer.common.search.options.BruteSearchOptions;
 import com.barrybecker4.game.twoplayer.common.search.options.SearchOptions;
 import com.barrybecker4.optimization.parameter.ParameterArray;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 
 /**
@@ -36,13 +42,12 @@ public abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst {
      * common initialization for all go test cases.
      * Override setOptionOverrides if you want different search parameters.
      */
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         super.setUp();
         searchable = getController().getSearchable();
 
         setPlayerSearchOptions();
-
         GameContext.setDebugMode(getDebugLevel());
     }
 
@@ -95,7 +100,7 @@ public abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst {
     }
 
     protected TwoPlayerOptions getTwoPlayerOptions()  {
-        return  (TwoPlayerOptions)getController().getOptions();
+        return getController().getOptions();
     }
 
     protected SearchOptions getSearchOptions() {
@@ -108,6 +113,7 @@ public abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst {
 
     /** verify that we can retrieve the lookahead value. */
     @Override
+    @Test
     public void testLookaheadValue() throws Exception {
 
         BruteSearchOptions opts = getSearchOptions().getBruteSearchOptions();
@@ -118,6 +124,7 @@ public abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst {
 
     /** verify that we can retrieve the lookahead value. */
     @Override
+    @Test
     public void testAlphaBetaValue() throws Exception{
 
         BruteSearchOptions opts = getSearchOptions().getBruteSearchOptions();
@@ -128,6 +135,7 @@ public abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst {
 
     /** verify that we can retrieve the quiescence value. */
     @Override
+    @Test
     public void testQuiescenceValue() throws Exception {
         BruteSearchOptions opts = getSearchOptions().getBruteSearchOptions();
         assertEquals("Unexpected quiessence value.", false, opts.getQuiescence());
@@ -137,6 +145,7 @@ public abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst {
 
 
     /**verify that we are not done if we are at the very start of the game.  */
+    @Test
     public void testDoneBeforeAnyMovesMade() throws Exception{
 
         assertFalse("We cannot be done if no moves have been made yet. ",
@@ -144,6 +153,7 @@ public abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst {
     }
 
     /** If next move is null, and we have at least one move made, then done will be true.  */
+    @Test
     public void testDoneNullAfterFirstMove() throws Exception {
 
         controller.computerMovesFirst();
@@ -153,24 +163,29 @@ public abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst {
     }
 
     /** Verify not done after first move.  */
+    @Test
     public void testDoneStartGame() {
         assertFalse("We don't expect to be done after making the very first move. ",
                searchable.done(createInitialMove(), false));
     }
 
     /**  Load a game in the middle and verify that a legal midgame move doesn't return true.  */
+    @Test
     public abstract void testNotDoneMidGame() throws Exception;
 
     /** Load a game that was won in the middle and verify that done returns true.  */
+    @Test
     public abstract void testDoneForMidGameWin() throws Exception;
 
     /** Load a game that does not have any more valid moves and verify that done == true  */
+    @Test
     public abstract void testDoneEndGame() throws Exception;
 
     /**
      * Verify that we generate a reasonable list of moves to try next.
      * check that we can generate a list of initial moves and do not fail when the last move is null.
      */
+    @Test
    public void testGenerateMovesBeforeFirstMove() {
 
        List moves = searchable.generateMoves(null, weights());
@@ -190,6 +205,7 @@ public abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst {
      * Verify that we generate a reasonable list of moves to try next.
      * check that we can generate a list of initial moves and do not fail after the very first move.
      */
+   @Test
    public void testGenerateMovesAfterFirstMove() {
        controller.computerMovesFirst();
        ParameterArray wts = weights();
@@ -201,47 +217,56 @@ public abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst {
    }
 
     /**  Load a game in the middle and verify that we can get all the reasonable next moves. */
-   public void testGenerateAllP1MovesMidGame() throws Exception {
-       assertFalse(false);
-   }
+    @Test
+    public void testGenerateAllP1MovesMidGame() throws Exception {
+        assertFalse(false);
+    }
 
    /**  Load a game in the middle and verify that we can get the expected high value next moves. */
+   @Test
    public void testGenerateTopP1MovesMidGame() throws Exception {
        assertFalse(false);
    }
 
     /** Load a game at the end and verify that we can get all the reasonable next moves. */
+    @Test
    public void testGenerateAllP1MovesEndGame() throws Exception {
        assertFalse(false);
    }
 
    /** Load a game at the end and verify that we can get all the high value next moves. */
+   @Test
    public void testGenerateTopP1MovesEndGame() throws Exception {
        assertFalse(false);
    }
 
    /**  Load a game in the middle and verify that we can get all the reasonable next moves. */
+   @Test
    public void testGenerateAllP2MovesMidGame() throws Exception {
        assertFalse(false);
    }
 
    /**  Load a game in the middle and verify that we can get the expected high value next moves. */
+   @Test
    public void testGenerateTopP2MovesMidGame() throws Exception {
        assertFalse(false);
    }
 
    /** Load a game at the end and verify that we can get all the reasonable next moves. */
+   @Test
    public void testGenerateAllP2MovesEndGame() throws Exception {
        assertFalse(false);
    }
 
    /** Load a game at the end and verify that we can get all the high value next moves. */
+   @Test
    public void testGenerateTopP2MovesEndGame() throws Exception {
        assertFalse(false);
    }
 
    /**  There should not be any urgent moves at the very start of the game.  */
-   public void  testGenerateUrgentMovesAtStartOfGame() {
+   @Test
+   public void testGenerateUrgentMovesAtStartOfGame() {
          List moves = searchable.generateUrgentMoves(null, weights());
          assertTrue("We expected move list to be non-null.",
                  moves != null );
@@ -250,7 +275,8 @@ public abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst {
     }
 
    /**  Verify that we generate a correct list of urgent moves.  */
-   public void  testGenerateUrgentMoves() throws Exception {
+   @Test
+   public void testGenerateUrgentMoves() throws Exception {
          assertFalse(false);
          // load a typical game in the beginning and verify that there are no urgent next moves.
 
@@ -260,6 +286,7 @@ public abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst {
     }
 
     /**  Verify that we can detect when a player is in jeopardy. */
+    @Test
     public void testInJeopardy() {
         boolean actualInJeopardy =
                 searchable.inJeopardy(null, weights());

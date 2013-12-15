@@ -7,8 +7,12 @@ import com.barrybecker4.game.common.board.GamePiece;
 import com.barrybecker4.game.twoplayer.blockade.BlockadeTestCase;
 import com.barrybecker4.game.twoplayer.blockade.board.BlockadeBoard;
 import com.barrybecker4.game.twoplayer.blockade.board.move.wall.BlockadeWall;
+import org.junit.Test;
 
 import java.util.List;
+
+import static org.junit.Assert.assertTrue;
+
 
 /**
  * Test methods on MoveGenerator
@@ -17,6 +21,7 @@ import java.util.List;
  */
 public class MoveGeneratorTest extends BlockadeTestCase {
 
+    @Test
     public void  testGetWallsForMove() throws Exception {
         restore("whitebox/moveList1");
 
@@ -25,6 +30,7 @@ public class MoveGeneratorTest extends BlockadeTestCase {
         //GameContext.log(2, "Walls=" + walls);
     }
 
+    @Test
     public void testGenerateMoves() throws Exception {
 
         restore("whitebox/noMoves2");
@@ -39,6 +45,7 @@ public class MoveGeneratorTest extends BlockadeTestCase {
                 +" moves="+ moves, moves.size() == expectedNumMoves);
     }
 
+    @Test
     public void testGenerateMoves2() throws Exception {
 
         restore("whitebox/noMoves2");
@@ -68,5 +75,4 @@ public class MoveGeneratorTest extends BlockadeTestCase {
                 + " moves but got " +moves.size() +" moves="+ moves,
                 moves.size() == expectedNumMoves);
     }
-
 }

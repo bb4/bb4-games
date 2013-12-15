@@ -13,43 +13,47 @@ import com.barrybecker4.game.twoplayer.blockade.board.path.Path;
 import com.barrybecker4.game.twoplayer.blockade.board.path.PathLengths;
 import com.barrybecker4.game.twoplayer.blockade.board.path.PathList;
 import com.barrybecker4.game.twoplayer.blockade.board.path.PlayerPathLengths;
-import junit.framework.Assert;
+import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 /**
  * @author Barry Becker
  */
 public class BlockadeBoardTest extends BlockadeTestCase {
 
+    @Test
     public void testPositionStates() {
 
         BlockadeBoardPosition p = new BlockadeBoardPosition(1, 1);
 
-        Assert.assertTrue("no piece or walls", p.getStateIndex() == 0);
+        assertTrue("no piece or walls", p.getStateIndex() == 0);
         p.setPiece(new GamePiece(true));
 
         LinkedHashSet<BlockadeBoardPosition> wallPositions =
-                new LinkedHashSet<BlockadeBoardPosition>(2);
+                new LinkedHashSet<>(2);
 
-        Assert.assertTrue("p1 piece and no walls", p.getStateIndex() == 1);
+        assertTrue("p1 piece and no walls", p.getStateIndex() == 1);
 
         wallPositions.add(new BlockadeBoardPosition(10, 11));
         wallPositions.add(new BlockadeBoardPosition(10, 12));
         p.setEastWall(new BlockadeWall(wallPositions));
-        Assert.assertTrue("p1 piece and east wall", p.getStateIndex() == 3);
+        assertTrue("p1 piece and east wall", p.getStateIndex() == 3);
 
         wallPositions.clear();
         wallPositions.add(new BlockadeBoardPosition(10, 12));
         wallPositions.add(new BlockadeBoardPosition(11, 12));
         p.setSouthWall(new BlockadeWall(wallPositions));
-        Assert.assertTrue("p1 piece and both walls", p.getStateIndex() == 7);
+        assertTrue("p1 piece and both walls", p.getStateIndex() == 7);
 
         p.setPiece(new GamePiece(false));
-        Assert.assertTrue("p2 piece and both walls", p.getStateIndex() == 11);
+        assertTrue("p2 piece and both walls", p.getStateIndex() == 11);
     }
 
     /**
@@ -109,6 +113,7 @@ public class BlockadeBoardTest extends BlockadeTestCase {
     /**
      * Test the list of candidate next moves.
      */
+    @Test
     public void testPossibleMoveList() throws Exception {
 
          restore("whitebox/moveList1");
@@ -156,9 +161,10 @@ public class BlockadeBoardTest extends BlockadeTestCase {
     }
 
     /**
-     *
+     * confirm expected moves against actuals.
      */
-    private static void verifyMoves(BoardPosition position, List player1Moves,  int expectedNumMoves, Map<Location, Integer> p1NumMap) {
+    private static void verifyMoves(BoardPosition position, List player1Moves,
+                                    int expectedNumMoves, Map<Location, Integer> p1NumMap) {
 
         if (p1NumMap.containsKey(position.getLocation())) {
              expectedNumMoves = p1NumMap.get(position.getLocation());
@@ -166,7 +172,7 @@ public class BlockadeBoardTest extends BlockadeTestCase {
         //if (player1Moves.size() != expectedNumMoves) {
         //    GameContext.log(1, "Expected "+expectedNumMoves+" moves for player1, but got "+player1Moves.size() +":" + player1Moves);
         //}
-        Assert.assertTrue("Expected " + expectedNumMoves + " moves for player1, but got " + player1Moves.size()
+        assertTrue("Expected " + expectedNumMoves + " moves for player1, but got " + player1Moves.size()
                 + ":" + player1Moves, player1Moves.size() == expectedNumMoves);
     }
 
@@ -245,6 +251,7 @@ public class BlockadeBoardTest extends BlockadeTestCase {
     /**
      * Test that we can accurately determine all the opponent shortest paths.
      */
+    @Test
     public void testFindOpponentShortestPaths() throws Exception {
          restore("whitebox/shortestPaths1");
          BlockadeBoard board = (BlockadeBoard)controller_.getBoard();
@@ -263,8 +270,8 @@ public class BlockadeBoardTest extends BlockadeTestCase {
          // now check that we have exactly the expected paths
          String p1PathDiff = pathListDiff(EXPECTED_P1_PATHS, p1Paths);
          String p2PathDiff = pathListDiff(EXPECTED_P2_PATHS, p2Paths);
-         Assert.assertTrue("p1Path difference=\n" + p1PathDiff,  p1PathDiff.length() == 0);
-         Assert.assertTrue("p2Path difference=\n" + p2PathDiff,  p2PathDiff.length() == 0);
+         assertTrue("p1Path difference=\n" + p1PathDiff, p1PathDiff.length() == 0);
+         assertTrue("p2Path difference=\n" + p2PathDiff, p2PathDiff.length() == 0);
     }
 
     private void printPathCreator(PathList paths) {
@@ -305,7 +312,7 @@ public class BlockadeBoardTest extends BlockadeTestCase {
         return pathListsDifferent ? diffs.toString() : "";
     }
 
-
+    @Test
     public void testShortestPathLength() throws Exception {
          restore("whitebox/noMoves2");
          BlockadeBoard board = (BlockadeBoard)controller_.getBoard();
@@ -319,11 +326,12 @@ public class BlockadeBoardTest extends BlockadeTestCase {
          PathLengths actualP1Lengths = pLengths.getPathLengthsForPlayer(true);
          PathLengths actualP2Lengths = pLengths.getPathLengthsForPlayer(false);
 
-         Assert.assertTrue("Unexpected Player1 Path lengths - " + actualP1Lengths, expectedP1Lengths.equals(actualP1Lengths));
-         Assert.assertTrue("Unexpected Player2 Path lengths - " + actualP2Lengths, expectedP2Lengths.equals(actualP2Lengths));
+         assertTrue("Unexpected Player1 Path lengths - " + actualP1Lengths, expectedP1Lengths.equals(actualP1Lengths));
+         assertTrue("Unexpected Player2 Path lengths - " + actualP2Lengths, expectedP2Lengths.equals(actualP2Lengths));
     }
 
-     public void testShortestPaths2() throws Exception {
+    @Test
+    public void testShortestPaths2() throws Exception {
 
          restore("whitebox/noMoves2");
          BlockadeBoard board = (BlockadeBoard)controller_.getBoard();
@@ -348,14 +356,15 @@ public class BlockadeBoardTest extends BlockadeTestCase {
          PathLengths actualP1Lengths = pLengths.getPathLengthsForPlayer(true);
          PathLengths actualP2Lengths = pLengths.getPathLengthsForPlayer(false);
 
-         Assert.assertTrue("Unexpected Player1 Path lengths - " + actualP1Lengths,  expectedP1Lengths.equals(actualP1Lengths) );
-         Assert.assertTrue("Unexpected Player2 Path lengths - " + actualP2Lengths, expectedP2Lengths.equals(actualP2Lengths) );
+         assertTrue("Unexpected Player1 Path lengths - " + actualP1Lengths, expectedP1Lengths.equals(actualP1Lengths));
+         assertTrue("Unexpected Player2 Path lengths - " + actualP2Lengths, expectedP2Lengths.equals(actualP2Lengths));
     }
 
 
      private static final int[] EXPECTED_PATHS_LENGTHS = { 0,  11, 12};
 
-     public void testFindShortestPaths() throws Exception {
+    @Test
+    public void testFindShortestPaths() throws Exception {
          restore("whitebox/shortestPathsCheck");
          BlockadeBoard board = (BlockadeBoard)controller_.getBoard();
          //BlockadeMove lastMove = (BlockadeMove) controller_.getMoveList().getLast();
@@ -370,15 +379,15 @@ public class BlockadeBoardTest extends BlockadeTestCase {
 
          int size = EXPECTED_PATHS_LENGTHS.length;
          int[] lengths = new int[size];
-         Assert.assertTrue("Unexpected number of pLengths1="+ pLengths1.size(), pLengths1.size() == 1);
-         Assert.assertTrue("Unexpected number of pLengths2="+ pLengths2.size(),  pLengths2.size() == 2);
+         assertTrue("Unexpected number of pLengths1=" + pLengths1.size(), pLengths1.size() == 1);
+         assertTrue("Unexpected number of pLengths2=" + pLengths2.size(), pLengths2.size() == 2);
 
          lengths[0] = pLengths1.get(0).getLength();
          lengths[1] = pLengths2.get(0).getLength();
          lengths[2] = pLengths2.get(1).getLength();
 
          for (int i=0; i<size; i++) {
-             Assert.assertTrue("Expected len "+  EXPECTED_PATHS_LENGTHS[i] + " but got  "+ lengths[i] ,  lengths[i] == EXPECTED_PATHS_LENGTHS[i]);
+             assertTrue("Expected len " + EXPECTED_PATHS_LENGTHS[i] + " but got  " + lengths[i], lengths[i] == EXPECTED_PATHS_LENGTHS[i]);
          }
     }
 }

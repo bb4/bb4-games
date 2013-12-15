@@ -4,6 +4,10 @@ package com.barrybecker4.game.twoplayer.blockade.board.move.wall;
 import com.barrybecker4.game.twoplayer.blockade.BlockadeTestCase;
 import com.barrybecker4.game.twoplayer.blockade.board.BlockadeBoard;
 import com.barrybecker4.game.twoplayer.blockade.board.BlockadeBoardPosition;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Barry Becker
@@ -26,8 +30,8 @@ public class DiagonalWallCheckerTest extends BlockadeTestCase {
     /**
      * Common initialization for all test cases.
      */
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         super.setUp();
 
         board = new BlockadeBoard(7, 5);
@@ -43,6 +47,7 @@ public class DiagonalWallCheckerTest extends BlockadeTestCase {
         bottomBottomLeft = board.getPosition(4, 3);
     }
 
+    @Test
     public void testCheckWhenNoWallsOnBoard() {
 
         BlockadeWallList expWalls = new BlockadeWallList();
@@ -52,6 +57,7 @@ public class DiagonalWallCheckerTest extends BlockadeTestCase {
         verifyWalls(expWalls);
     }
 
+    @Test
     public void  testCheckWhenLeftWallOnBoard() {
 
         board.addWall(new BlockadeWall(topLeftLeft, topLeft));
@@ -63,6 +69,7 @@ public class DiagonalWallCheckerTest extends BlockadeTestCase {
         verifyWalls(expWalls);
     }
 
+    @Test
     public void testCheckWhenRightWallOnBoard() {
 
         board.addWall(new BlockadeWall(topRight, topRightRight));
@@ -74,6 +81,7 @@ public class DiagonalWallCheckerTest extends BlockadeTestCase {
         verifyWalls(expWalls);
     }
 
+    @Test
     public void testCheckWhenTopWallOnBoard() {
 
         board.addWall(new BlockadeWall(topTopLeft, topLeft));
@@ -85,6 +93,7 @@ public class DiagonalWallCheckerTest extends BlockadeTestCase {
         verifyWalls(expWalls);
     }
 
+    @Test
     public void testCheckWhenBottomWallOnBoard() {
 
         board.addWall(new BlockadeWall(bottomLeft, bottomBottomLeft));
@@ -96,6 +105,7 @@ public class DiagonalWallCheckerTest extends BlockadeTestCase {
         verifyWalls(expWalls);
     }
 
+    @Test
     public void testCheckWhenLeftAndBottomWalls() {
 
         board.addWall(new BlockadeWall(topLeftLeft, topLeft));
@@ -108,6 +118,7 @@ public class DiagonalWallCheckerTest extends BlockadeTestCase {
         verifyWalls(expWalls);
     }
 
+    @Test
     public void testCheckWhenLeftAndTopWalls() {
 
         board.addWall(new BlockadeWall(topLeftLeft, topLeft));
@@ -120,6 +131,7 @@ public class DiagonalWallCheckerTest extends BlockadeTestCase {
         verifyWalls(expWalls);
     }
 
+    @Test
     public void testCheckWhenRightAndTopWalls() {
 
         board.addWall(new BlockadeWall(topTopLeft, topLeft));
@@ -132,7 +144,8 @@ public class DiagonalWallCheckerTest extends BlockadeTestCase {
         verifyWalls(expWalls);
     }
 
-    public void testCheckWhenRightAndBotttomWalls() {
+    @Test
+    public void testCheckWhenRightAndBottomWalls() {
 
         board.addWall(new BlockadeWall(topRight, topRightRight));
         board.addWall(new BlockadeWall(bottomLeft, bottomBottomLeft));

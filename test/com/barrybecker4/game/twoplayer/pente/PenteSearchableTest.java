@@ -6,9 +6,11 @@ import com.barrybecker4.game.common.board.GamePiece;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.search.ISearchableHelper;
 import com.barrybecker4.game.twoplayer.common.search.TwoPlayerSearchableBaseTst;
+import org.junit.Test;
 
 import static com.barrybecker4.game.twoplayer.pente.ExpectedSearchableResults.*;
-
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Verify that all the methods in PenteSearchable work as expected
@@ -42,12 +44,14 @@ public class PenteSearchableTest extends TwoPlayerSearchableBaseTst {
                 searchable.done((TwoPlayerMove)getController().getLastMove(), false));
     }
 
+    @Test
     public void testAlmostWonP1ToPlay() throws Exception {
         restore("almostWonP1ToPlay");
         assertFalse("Did not expect done even though very close. ",
                 searchable.done((TwoPlayerMove)getController().getLastMove(), false));
     }
 
+    @Test
     public void testAlmostWonP2ToPlay() throws Exception {
         restore("almostWonP2ToPlay");
         assertFalse("Did not expect done even though very close. ",
@@ -145,6 +149,7 @@ public class PenteSearchableTest extends TwoPlayerSearchableBaseTst {
     }
 
     /**  Verify that we generate a correct list of urgent moves.  */
+    @Test
     public void testGenerateUrgentMovesP2() throws Exception {
 
         restore("urgentMoveP2ToPlay");

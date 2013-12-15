@@ -6,8 +6,11 @@ import com.barrybecker4.game.common.board.GamePiece;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.search.ISearchableHelper;
 import com.barrybecker4.game.twoplayer.common.search.TwoPlayerSearchableBaseTst;
+import org.junit.Test;
 
 import static com.barrybecker4.game.twoplayer.tictactoe.ExpectedSearchableResults.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 
 /**
@@ -62,7 +65,7 @@ public class TicTacToeSearchableTest extends TwoPlayerSearchableBaseTst {
                 searchable.done((TwoPlayerMove)getController().getLastMove(), false));
     }
 
-    /**  Load a game in the middle and verify that we can get reasonable next moves. */
+    /** Load a game in the middle and verify that we can get reasonable next moves. */
     @Override
     public void testGenerateAllP1MovesMidGame() throws Exception {
         checkGeneratedMoves("midGameCenterX", EXPECTED_ALL_MIDDLE_GAME_MOVES_CENTER_P1);
@@ -121,15 +124,15 @@ public class TicTacToeSearchableTest extends TwoPlayerSearchableBaseTst {
         checkGeneratedMoves("endGameO", EXPECTED_ALL_END_GAME_MOVES_P2);
     }
 
-     /** Load a game at the end and verify that we can get all the high value next moves. */
-     @Override
-     public void testGenerateTopP2MovesEndGame() throws Exception {
+    /** Load a game at the end and verify that we can get all the high value next moves. */
+    @Override
+    public void testGenerateTopP2MovesEndGame() throws Exception {
         checkGeneratedMoves("endGameO", EXPECTED_TOP_END_GAME_MOVES_P2);
     }
 
     /**  Verify that we generate a correct list of urgent moves.  */
     @Override
-    public void  testGenerateUrgentMoves() throws Exception {
+    public void testGenerateUrgentMoves() throws Exception {
 
         restore("urgentMoves");
         // there should not be any urgent moves at the very start of the game.
@@ -141,7 +144,8 @@ public class TicTacToeSearchableTest extends TwoPlayerSearchableBaseTst {
     }
 
     /**  Verify that we generate a correct list of urgent moves for the other player.  */
-    public void  testGenerateUrgentMovesP2() throws Exception {
+    @Test
+    public void testGenerateUrgentMovesP2() throws Exception {
 
         restore("urgentMoves");
         // there should not be any urgent moves at the very start of the game.

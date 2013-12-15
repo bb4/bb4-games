@@ -8,6 +8,9 @@ import com.barrybecker4.game.twoplayer.blockade.board.move.BlockadeMove;
 import com.barrybecker4.game.twoplayer.blockade.board.move.wall.BlockadeWall;
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy;
 import com.barrybecker4.optimization.parameter.ParameterArray;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 
 /**
@@ -15,14 +18,11 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  */
 public class BlockadeControllerTest extends BlockadeTestCase {
 
-    /**
-     * Creates a new instance of BlockadeControllerTest
-     */
-    public BlockadeControllerTest() {}
 
     /**
      * Verify that the calculated worth for various moves is within reasonable ranges.
      */
+    @Test
     public void testWorthOfWinningMove() throws Exception {
         restore("whitebox/endGame");
 
