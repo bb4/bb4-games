@@ -60,10 +60,11 @@ public class MoveEvaluator  {
         createDifferencers(board);
 
         GamePiece piece = board.getPosition(row, col).getPiece();
-        if (piece == null)
+        if (piece == null) {
             throw new IllegalStateException(
                     "There must be a piece where the last move was played (" + row+", " + col + ")");
-        if (lastMove.isPlayer1() != piece.isOwnedByPlayer1()) {
+        }
+            if (lastMove.isPlayer1() != piece.isOwnedByPlayer1()) {
             throw new IllegalStateException("The last move played must be for the same player found on the board.");
         }
 

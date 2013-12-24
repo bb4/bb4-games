@@ -21,7 +21,7 @@ public class TicTacToePlayerOptions extends TwoPlayerPlayerOptions {
     private static final int DEFAULT_PERCENTAGE_BEST_MOVES = 100;
 
     /** Don't consider moves that are less than this percentage less than the best move. */
-    private static final int DEFAULT_PERCENTAGE_LESS_THAN_BEST_THRESH = 0;
+    private static final int DEFAULT_PERCENTAGE_LESS_THAN_BEST_THRESH = 100;
 
     /** for any given ply never consider less than this many moves. */
     private static final int DEFAULT_MIN_BEST_MOVES = 4;
