@@ -3,7 +3,6 @@ package com.barrybecker4.game.twoplayer.go.board.analysis.group.eye.potential;
 
 import com.barrybecker4.common.geometry.Box;
 import com.barrybecker4.common.geometry.ByteLocation;
-import com.barrybecker4.common.geometry.Location;
 import com.barrybecker4.game.twoplayer.go.board.GoBoard;
 import com.barrybecker4.game.twoplayer.go.board.analysis.group.GroupAnalyzerMap;
 import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup;

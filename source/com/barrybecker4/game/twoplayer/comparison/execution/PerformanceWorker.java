@@ -18,7 +18,6 @@ import javax.swing.JComponent;
 import javax.swing.SwingWorker;
 import java.awt.image.BufferedImage;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /**
  * A worker that will run all the computer vs computer games serially in a separate thread.

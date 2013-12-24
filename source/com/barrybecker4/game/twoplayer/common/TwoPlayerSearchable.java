@@ -49,7 +49,6 @@ public abstract class TwoPlayerSearchable extends AbstractSearchable {
         this(searchable.getBoard().copy(), (PlayerList)searchable.players_.clone());
     }
 
-    @Override
     public TwoPlayerBoard getBoard() {
         return board_;
     }
@@ -59,7 +58,6 @@ public abstract class TwoPlayerSearchable extends AbstractSearchable {
      * It is actually ok if the same player moves twice in the case where we are looking for urgent moves.
      * @param move the move to play.
      */
-    @Override
     public void makeInternalMove(TwoPlayerMove move) {
 
         getBoard().makeMove(move);
@@ -76,7 +74,6 @@ public abstract class TwoPlayerSearchable extends AbstractSearchable {
      * takes back the most recent move.
      * @param move move to undo
      */
-    @Override
     public void undoInternalMove( TwoPlayerMove move) {
         TwoPlayerMove lastMove = (TwoPlayerMove) moveList_.getLastMove();
         assert move.equals(lastMove) : "The move we are trying to undo ("+ move +") in list="
@@ -96,7 +93,6 @@ public abstract class TwoPlayerSearchable extends AbstractSearchable {
      * @return an integer value for the worth of the move.
      *  must be between -SearchStrategy.WINNING_VALUE and SearchStrategy.WINNING_VALUE.
      */
-    @Override
     public abstract int worth( TwoPlayerMove lastMove, ParameterArray weights);
 
 
@@ -105,7 +101,6 @@ public abstract class TwoPlayerSearchable extends AbstractSearchable {
         return ((TwoPlayerPlayerOptions) getCurrentPlayer().getOptions()).getSearchOptions();
     }
 
-
     /**
      * Given a move, determine whether the game is over.
      * If recordWin is true, then the variables for player1/2HasWon can get set.
@@ -113,7 +108,6 @@ public abstract class TwoPlayerSearchable extends AbstractSearchable {
      * @param move the move to check. If null then return true. This is typically the last move played.
      * @param recordWin if true then the controller state will record wins
      */
-    @Override
     public boolean done( TwoPlayerMove move, boolean recordWin ) {
 
         // the game can't be over if no moves have been made yet.
@@ -158,7 +152,6 @@ public abstract class TwoPlayerSearchable extends AbstractSearchable {
     /**
      * @return true if the specified move caused one or more opponent pieces to become jeopardized
      */
-    @Override
     public boolean inJeopardy( TwoPlayerMove move, ParameterArray weights) {
         return false;
     }
@@ -166,7 +159,6 @@ public abstract class TwoPlayerSearchable extends AbstractSearchable {
     /**
      * @return get a hash key that represents this board state (with negligibly small chance of conflict)
      */
-    @Override
     public HashKey getHashKey() {
         return hash.getKey();
     }

@@ -7,7 +7,6 @@ import com.barrybecker4.ca.dj.jigo.sgf.tokens.InfoToken;
 import com.barrybecker4.ca.dj.jigo.sgf.tokens.SGFToken;
 import com.barrybecker4.ca.dj.jigo.sgf.tokens.TextToken;
 import com.barrybecker4.common.geometry.ByteLocation;
-import com.barrybecker4.common.geometry.Location;
 import com.barrybecker4.game.common.GameContext;
 import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.MoveList;

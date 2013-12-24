@@ -58,7 +58,6 @@ public class GroupAnalyzer implements GroupChangeListener {
      * Called when the group we are maintaining info about changes.
      * It changes by having stones added or removed.
      */
-    @Override
     public void groupChanged() {
         invalidate();
     }
