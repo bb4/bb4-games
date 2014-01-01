@@ -80,7 +80,13 @@ public abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst {
      * @param problemFileBase the saved game to restore and test.
      */
     protected void restore(String problemFileBase) throws Exception {
-        getController().restoreFromStream(helper.getTestResource(problemFileBase));
+        try {
+            getController().restoreFromStream(helper.getTestResource(problemFileBase));
+        }
+        catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Could not find problem file "
+                    + helper.getTestResourceLocation(problemFileBase), e);
+        }
     }
 
     protected TwoPlayerController getController() {

@@ -13,15 +13,21 @@ public enum Outcome {
 
     PLAYER1_WON {
         @Override
-        public Color getColor() { return TwoPlayerPieceRenderer.DEFAULT_PLAYER1_COLOR;  }
+        public Color getColor() {
+            return TwoPlayerPieceRenderer.DEFAULT_PLAYER1_COLOR;
+        }
     },
     PLAYER2_WON {
         @Override
-        public Color getColor() { return TwoPlayerPieceRenderer.DEFAULT_PLAYER2_COLOR; }
+        public Color getColor() {
+            return TwoPlayerPieceRenderer.DEFAULT_PLAYER2_COLOR;
+        }
     },
     TIE {
         @Override
-        public Color getColor() { return Color.GRAY.brighter(); }
+        public Color getColor() {
+            return Color.GRAY.brighter();
+        }
     };
 
     public abstract Color getColor();

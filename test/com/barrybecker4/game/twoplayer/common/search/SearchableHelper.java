@@ -6,8 +6,8 @@ import com.barrybecker4.game.twoplayer.common.search.options.SearchOptions;
 import java.io.InputStream;
 
 /**
- * Created by IntelliJ IDEA. User: barrybecker4 Date: Dec 31, 2009 Time: 7:32:13 AM To change this template use File |
- * Settings | File Templates.
+ * Helper methods to aid in testing two player searchables.
+ * @author Barry Becker
  */
 public abstract class SearchableHelper implements ISearchableHelper {
 
@@ -23,8 +23,12 @@ public abstract class SearchableHelper implements ISearchableHelper {
 
     @Override
     public InputStream getTestResource(String problemFileBase) {
-        String path = getTestCaseDir() + problemFileBase + SGF_EXTENSION;
-        return getClass().getResourceAsStream(path);
+        return getClass().getResourceAsStream(getTestResourceLocation(problemFileBase));
+    }
+
+    @Override
+    public String getTestResourceLocation(String problemFileBase) {
+        return getTestCaseDir() + problemFileBase + SGF_EXTENSION;
     }
 
     @Override

@@ -28,6 +28,11 @@ public interface ISearchableHelper {
     InputStream getTestResource(String problemFileBase);
 
     /**
+     * @return test file location containing state of saved game to restore.
+     */
+    String getTestResourceLocation(String problemFileBase);
+
+    /**
      * @param progress how far into the game are we.
      * @param player1 true if player one has just played.
      * @return get the game file corresponding to the given amount of progress and the specified player.

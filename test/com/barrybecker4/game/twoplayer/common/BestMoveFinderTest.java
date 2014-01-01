@@ -41,7 +41,7 @@ public class BestMoveFinderTest {
     public void testNoMovesReturnedWhenThresholds0() {
         options.setPercentLessThanBestThresh(0);
         options.setPercentageBestMoves(0);
-        options.setMinBestMoves(0);
+        options.setMinBestMoves(1);
 
         MoveList mList = finder.getBestMoves(createSimpleThreeMoveList(PLAYER2));
         assertEquals("Unexpected number of best moves found", 1, mList.getNumMoves());
@@ -257,7 +257,7 @@ public class BestMoveFinderTest {
     public void test50PercentLessThanBest5P1() {
         options.setPercentLessThanBestThresh(50);
         options.setPercentageBestMoves(0);
-        options.setMinBestMoves(0);
+        options.setMinBestMoves(1);
 
         MoveList mList = finder.getBestMoves(createSimpleFiveMoveList(PLAYER1));
         assertEquals("Unexpected number of best moves found", 1, mList.getNumMoves());
@@ -268,7 +268,7 @@ public class BestMoveFinderTest {
     public void test50PercentLessThanBest5P2() {
         options.setPercentLessThanBestThresh(50);
         options.setPercentageBestMoves(0);
-        options.setMinBestMoves(0);
+        options.setMinBestMoves(1);
 
         MoveList mList = finder.getBestMoves(createSimpleFiveMoveList(PLAYER2));
         assertEquals("Unexpected number of best moves found", 4, mList.getNumMoves());
@@ -279,7 +279,7 @@ public class BestMoveFinderTest {
     public void test50PercentLessThanBestWithDuplicatesP1() {
         options.setPercentLessThanBestThresh(50);
         options.setPercentageBestMoves(0);
-        options.setMinBestMoves(0);
+        options.setMinBestMoves(1);
 
         MoveList mList = finder.getBestMoves(createMoveListWithDuplicateScores(PLAYER1));
         assertEquals("Unexpected number of best moves found", 1, mList.getNumMoves());
@@ -290,7 +290,7 @@ public class BestMoveFinderTest {
     public void test50PercentLessThanBestWithDuplicatesP2() {
         options.setPercentLessThanBestThresh(50);
         options.setPercentageBestMoves(0);
-        options.setMinBestMoves(0);
+        options.setMinBestMoves(1);
 
         MoveList mList = finder.getBestMoves(createMoveListWithDuplicateScores(PLAYER2));
         assertEquals("Unexpected number of best moves found", 3, mList.getNumMoves());

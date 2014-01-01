@@ -61,7 +61,6 @@ public class PerformanceWorker extends SwingWorker<ResultsModel, Integer> {
             }
         }
         model.normalize();
-        //
         return model;
     }
 
@@ -80,6 +79,9 @@ public class PerformanceWorker extends SwingWorker<ResultsModel, Integer> {
     }
 
     /**
+     * Get the results of running strategy i against strategy j.
+     * Two rounds are played - the first where player one uses strategy i, and the
+     * second where player1 uses strategy j.
      * @param i index for first set of config options
      * @param j index for second set of config options
      * @return the results for a pair of games where each player gets to play first
@@ -120,7 +122,7 @@ public class PerformanceWorker extends SwingWorker<ResultsModel, Integer> {
         players.set(0, player1);
         players.set(1, player2);
 
-        // this is freezing the UI.
+        // this used to freeze the UI.
         controller.getViewer().doComputerVsComputerGame();
 
         assert (controller.isDone());
