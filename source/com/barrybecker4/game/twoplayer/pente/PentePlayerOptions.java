@@ -20,10 +20,10 @@ class PentePlayerOptions extends TwoPlayerPlayerOptions {
     private static final int DEFAULT_LOOK_AHEAD = 6;
 
     /** Don't consider moves that are less than this percentage less than the best move. */
-    private static final int DEFAULT_PERCENT_LESS_THAN_BEST_THRESH = 80;
+    private static final int DEFAULT_PERCENT_LESS_THAN_BEST_THRESH = 70;
 
     /** for any given ply never consider more than BEST_PERCENTAGE of the top moves. not used. */
-    private static final int DEFAULT_PERCENTAGE_BEST_MOVES = 50;
+    private static final int DEFAULT_PERCENTAGE_BEST_MOVES = 60;
 
     /** for any given ply never consider less than this many moves. */
     private static final int DEFAULT_MIN_BEST_MOVES = 5;
