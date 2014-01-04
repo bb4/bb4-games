@@ -10,7 +10,7 @@ import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerPanel;
 import com.barrybecker4.game.twoplayer.comparison.execution.PerformanceRunner;
 import com.barrybecker4.game.twoplayer.comparison.execution.PerformanceRunnerListener;
 import com.barrybecker4.game.twoplayer.comparison.model.ResultsModel;
-import com.barrybecker4.game.twoplayer.comparison.model.SearchOptionsConfigList;
+import com.barrybecker4.game.twoplayer.comparison.model.config.SearchOptionsConfigList;
 import com.barrybecker4.ui.components.GradientButton;
 import com.barrybecker4.ui.file.DirFileFilter;
 import com.barrybecker4.ui.file.FileChooserUtil;

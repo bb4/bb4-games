@@ -1,13 +1,13 @@
 // Copyright by Barry G. Becker, 2012. Licensed under MIT License: http://www.opensource.org/licenses/MIT
-package com.barrybecker4.game.twoplayer.comparison.model.data;
+package com.barrybecker4.game.twoplayer.comparison.model.config.data;
 
 import com.barrybecker4.game.twoplayer.common.search.options.BestMovesSearchOptions;
 import com.barrybecker4.game.twoplayer.common.search.options.BruteSearchOptions;
 import com.barrybecker4.game.twoplayer.common.search.options.MonteCarloSearchOptions;
 import com.barrybecker4.game.twoplayer.common.search.options.SearchOptions;
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategyType;
-import com.barrybecker4.game.twoplayer.comparison.model.SearchOptionsConfig;
-import com.barrybecker4.game.twoplayer.comparison.model.SearchOptionsConfigList;
+import com.barrybecker4.game.twoplayer.comparison.model.config.SearchOptionsConfig;
+import com.barrybecker4.game.twoplayer.comparison.model.config.SearchOptionsConfigList;
 
 /**
  * A default list of search config options so we do not have to enter them every time.

@@ -1,5 +1,5 @@
 // Copyright by Barry G. Becker, 2012. Licensed under MIT License: http://www.opensource.org/licenses/MIT
-package com.barrybecker4.game.twoplayer.comparison.model;
+package com.barrybecker4.game.twoplayer.comparison.model.config;
 
 import java.util.ArrayList;
 
@@ -27,7 +27,7 @@ public class SearchOptionsConfigList extends ArrayList<SearchOptionsConfig> {
         for (SearchOptionsConfig element : this) {
             if (element.getName().equals(config.getName())) {
                 throw new IllegalStateException(
-                        "Cannot have two conigurations with the same name");
+                        "Cannot have two configurations with the same name");
             }
         }
         return super.add(config);

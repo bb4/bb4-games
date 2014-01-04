@@ -2,7 +2,7 @@
 package com.barrybecker4.game.twoplayer.comparison.execution;
 
 import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerPanel;
-import com.barrybecker4.game.twoplayer.comparison.model.SearchOptionsConfigList;
+import com.barrybecker4.game.twoplayer.comparison.model.config.SearchOptionsConfigList;
 import com.barrybecker4.game.twoplayer.comparison.ui.execution.GameRunnerDialog;
 
 /**

@@ -10,8 +10,8 @@ import com.barrybecker4.game.twoplayer.common.TwoPlayerPlayerOptions;
 import com.barrybecker4.game.twoplayer.comparison.model.PerformanceResults;
 import com.barrybecker4.game.twoplayer.comparison.model.PerformanceResultsPair;
 import com.barrybecker4.game.twoplayer.comparison.model.ResultsModel;
-import com.barrybecker4.game.twoplayer.comparison.model.SearchOptionsConfig;
-import com.barrybecker4.game.twoplayer.comparison.model.SearchOptionsConfigList;
+import com.barrybecker4.game.twoplayer.comparison.model.config.SearchOptionsConfig;
+import com.barrybecker4.game.twoplayer.comparison.model.config.SearchOptionsConfigList;
 import com.barrybecker4.ui.util.GUIUtil;
 
 import javax.swing.JComponent;

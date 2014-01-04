@@ -1,30 +1,33 @@
 // Copyright by Barry G. Becker, 2012. Licensed under MIT License: http://www.opensource.org/licenses/MIT
-package com.barrybecker4.game.twoplayer.comparison.model.data;
+package com.barrybecker4.game.twoplayer.comparison.model.config.data;
 
 import com.barrybecker4.game.twoplayer.common.search.options.BestMovesSearchOptions;
 import com.barrybecker4.game.twoplayer.common.search.options.BruteSearchOptions;
 import com.barrybecker4.game.twoplayer.common.search.options.MonteCarloSearchOptions;
 import com.barrybecker4.game.twoplayer.common.search.options.SearchOptions;
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategyType;
-import com.barrybecker4.game.twoplayer.comparison.model.SearchOptionsConfig;
-import com.barrybecker4.game.twoplayer.comparison.model.SearchOptionsConfigList;
+import com.barrybecker4.game.twoplayer.comparison.model.config.SearchOptionsConfig;
+import com.barrybecker4.game.twoplayer.comparison.model.config.SearchOptionsConfigList;
 
 /**
- * A default list of search config options so we do not have to enter them every time.
+ * Test negamax lookahead configurations where we always consider all possible moves.
+ * Good for testing TicTacToe or Pente.
  *
  * @author Barry Becker
  */
-public class NegaMaxConfigurations extends SearchOptionsConfigList {
+public class NegaMaxAllMoveConfigurations extends SearchOptionsConfigList {
 
     private static final int DEFAULT_QUIESCENT_LOOK_AHEAD = 5;
 
-    public NegaMaxConfigurations()  {
+    public NegaMaxAllMoveConfigurations()  {
         initialize();
     }
 
     protected void initialize() {
-        add(new SearchOptionsConfig("NegaMax2",  createNegaMaxSearchOptions(2)));
+        add(new SearchOptionsConfig("NegaMax2", createNegaMaxSearchOptions(2)));
         add(new SearchOptionsConfig("Negamax3", createNegaMaxSearchOptions(3)));
+        add(new SearchOptionsConfig("Negamax4", createNegaMaxSearchOptions(4)));
+        add(new SearchOptionsConfig("Negamax5", createNegaMaxSearchOptions(5)));
     }
 
     private SearchOptions createNegaMaxSearchOptions(int level)  {
@@ -37,7 +40,6 @@ public class NegaMaxConfigurations extends SearchOptionsConfigList {
     }
 
     private BestMovesSearchOptions createBestMoveOptions() {
-        return new BestMovesSearchOptions(100, 20, 40);
+        return new BestMovesSearchOptions(100, 100, 40);
     }
-
 }

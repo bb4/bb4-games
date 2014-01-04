@@ -3,8 +3,8 @@ package com.barrybecker4.game.twoplayer.comparison.ui.grid;
 
 import com.barrybecker4.game.twoplayer.comparison.model.PerformanceResultsPair;
 import com.barrybecker4.game.twoplayer.comparison.model.ResultsModel;
-import com.barrybecker4.game.twoplayer.comparison.model.SearchOptionsConfig;
-import com.barrybecker4.game.twoplayer.comparison.model.SearchOptionsConfigList;
+import com.barrybecker4.game.twoplayer.comparison.model.config.SearchOptionsConfig;
+import com.barrybecker4.game.twoplayer.comparison.model.config.SearchOptionsConfigList;
 import com.barrybecker4.game.twoplayer.comparison.ui.grid.cellrenderers.FirstColumnCellRenderer;
 import com.barrybecker4.game.twoplayer.comparison.ui.grid.cellrenderers.ResultGridCellRenderer;
 import com.barrybecker4.game.twoplayer.comparison.ui.grid.cellrenderers.ResultHeaderCellRenderer;

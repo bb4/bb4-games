@@ -1,17 +1,25 @@
 // Copyright by Barry G. Becker, 2012. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 package com.barrybecker4.game.twoplayer.comparison.ui.configuration;
 
-import com.barrybecker4.game.twoplayer.comparison.model.SearchOptionsConfig;
-import com.barrybecker4.game.twoplayer.comparison.model.SearchOptionsConfigList;
-import com.barrybecker4.game.twoplayer.comparison.model.data.ConfigurationListEnum;
+import com.barrybecker4.game.twoplayer.comparison.model.config.SearchOptionsConfig;
+import com.barrybecker4.game.twoplayer.comparison.model.config.SearchOptionsConfigList;
+import com.barrybecker4.game.twoplayer.comparison.model.config.data.ConfigurationListEnum;
 import com.barrybecker4.ui.components.GradientButton;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import static com.barrybecker4.game.twoplayer.comparison.model.config.data.ConfigurationListEnum.DEFAULT_CONFIGS;
 
 /**
  * Allow the user to maintain their current orders and add new ones.
@@ -21,7 +29,6 @@ import java.awt.event.ActionListener;
 public final class ConfigurationPanel extends JPanel
                               implements ActionListener, ListSelectionListener {
 
-    private static final ConfigurationListEnum DEFAULT_CONFIGURATIONS = ConfigurationListEnum.DEFAULT_CONFIGS;
 
     private GradientButton addConfigButton_;
     private GradientButton editConfigButton_;
@@ -79,9 +86,9 @@ public final class ConfigurationPanel extends JPanel
     private JComboBox createConfigDropDown() {
 
         ComboBoxModel<ConfigurationListEnum> model =
-                new DefaultComboBoxModel<ConfigurationListEnum>(ConfigurationListEnum.values());
-        model.setSelectedItem(DEFAULT_CONFIGURATIONS);
-        JComboBox dropList = new JComboBox<ConfigurationListEnum>(model);
+                new DefaultComboBoxModel<>(ConfigurationListEnum.values());
+        model.setSelectedItem(DEFAULT_CONFIGS);
+        JComboBox dropList = new JComboBox<>(model);
         dropList.addActionListener(this);
         return dropList;
     }

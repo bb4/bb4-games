@@ -101,7 +101,7 @@ public class PerformanceResults {
         double numSecs = getNumSeconds();
         int numMinutes = (int)(numSecs / 60);
         double seconds = numSecs - numMinutes * 60;
-        String minFmt =  (numMinutes>0)? FormatUtil.formatNumber(numMinutes)  + " min " : "";
+        String minFmt =  (numMinutes > 0)? FormatUtil.formatNumber(numMinutes)  + " min " : "";
         return ( minFmt + seconds + " secs");
     }
 

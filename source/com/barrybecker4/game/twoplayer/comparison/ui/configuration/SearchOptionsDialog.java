@@ -4,7 +4,7 @@ package com.barrybecker4.game.twoplayer.comparison.ui.configuration;
 import com.barrybecker4.game.common.GameContext;
 import com.barrybecker4.game.twoplayer.common.search.options.SearchOptions;
 import com.barrybecker4.game.twoplayer.common.ui.dialogs.searchoptions.SearchOptionsPanel;
-import com.barrybecker4.game.twoplayer.comparison.model.SearchOptionsConfig;
+import com.barrybecker4.game.twoplayer.comparison.model.config.SearchOptionsConfig;
 import com.barrybecker4.ui.components.GradientButton;
 import com.barrybecker4.ui.components.TextInput;
 import com.barrybecker4.ui.dialogs.OptionsDialog;

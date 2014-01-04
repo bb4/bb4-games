@@ -1,7 +1,7 @@
 // Copyright by Barry G. Becker, 2012. Licensed under MIT License: http://www.opensource.org/licenses/MIT
-package com.barrybecker4.game.twoplayer.comparison.model.data;
+package com.barrybecker4.game.twoplayer.comparison.model.config.data;
 
-import com.barrybecker4.game.twoplayer.comparison.model.SearchOptionsConfigList;
+import com.barrybecker4.game.twoplayer.comparison.model.config.SearchOptionsConfigList;
 
 /**
  * Different types of canned configurations
@@ -11,6 +11,7 @@ public enum ConfigurationListEnum {
 
     DEFAULT_CONFIGS("Default configurations", new DefaultSearchConfigurations()),
     NEGAMAX_CONFIGS("Negamax configurations", new NegaMaxConfigurations()),
+    NEGAMAX_ALL_MOVE_CONFIGS("Negamax all move configurations", new NegaMaxAllMoveConfigurations()),
     NEGASCOUT_CONFIGS("Negascout configurations", new NegaScoutConfigurations()),
     UCT_CONFIGS("UCT Variations", new UCTSearchConfigurations()),
     EMPTY_CONFIGS("Empty", new EmptyConfigurations());

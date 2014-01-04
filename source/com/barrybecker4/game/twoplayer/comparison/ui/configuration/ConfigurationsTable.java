@@ -2,8 +2,8 @@
 package com.barrybecker4.game.twoplayer.comparison.ui.configuration;
 
 import com.barrybecker4.game.twoplayer.common.search.options.SearchOptions;
-import com.barrybecker4.game.twoplayer.comparison.model.SearchOptionsConfig;
-import com.barrybecker4.game.twoplayer.comparison.model.SearchOptionsConfigList;
+import com.barrybecker4.game.twoplayer.comparison.model.config.SearchOptionsConfig;
+import com.barrybecker4.game.twoplayer.comparison.model.config.SearchOptionsConfigList;
 import com.barrybecker4.ui.table.BasicCellRenderer;
 import com.barrybecker4.ui.table.BasicTableModel;
 import com.barrybecker4.ui.table.TableBase;
