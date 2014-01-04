@@ -27,4 +27,10 @@ public class GameRunnerDialog extends AbstractDialog {
 
         return gamePanel;
     }
+
+
+    public void close() {
+        super.dispose();
+        gamePanel = null;
+    }
 }

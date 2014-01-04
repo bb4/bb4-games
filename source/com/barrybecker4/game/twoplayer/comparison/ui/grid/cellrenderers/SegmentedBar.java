@@ -66,7 +66,7 @@ public abstract class SegmentedBar extends JPanel {
 
         if (height > 18) {
             g2.drawString(labels[0], TEXT_INSET_X, TEXT_INSET_Y);
-            g2.drawString(labels[1], n1Width + TEXT_INSET_X, height - TEXT_INSET_Y/2);
+            g2.drawString(labels[1], n1Width + TEXT_INSET_X, height - TEXT_INSET_Y/2 + 1);
         }
     }
 

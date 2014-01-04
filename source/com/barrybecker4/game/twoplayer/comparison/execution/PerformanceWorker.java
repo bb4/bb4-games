@@ -17,6 +17,7 @@ import com.barrybecker4.ui.util.GUIUtil;
 import javax.swing.JComponent;
 import javax.swing.SwingWorker;
 import java.awt.image.BufferedImage;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -29,7 +30,7 @@ public class PerformanceWorker extends SwingWorker<ResultsModel, Integer> {
 
     private TwoPlayerController controller;
     private SearchOptionsConfigList optionsList;
-    private PerformanceRunnerListener listener;
+    private List<PerformanceRunnerListener> listeners = new LinkedList<>();
     private ResultsModel model;
     private int progress;
 
@@ -37,13 +38,15 @@ public class PerformanceWorker extends SwingWorker<ResultsModel, Integer> {
      * Constructor.
      * The listener will be called when all the performance results have been computed and normalized.
      */
-    PerformanceWorker(TwoPlayerController controller, SearchOptionsConfigList optionsList,
-                      PerformanceRunnerListener listener) {
+    PerformanceWorker(TwoPlayerController controller, SearchOptionsConfigList optionsList) {
         this.model = new ResultsModel(optionsList.size());
         this.controller = controller;
         this.optionsList = optionsList;
-        this.listener = listener;
         this.progress = 0;
+    }
+
+    public void addListener(PerformanceRunnerListener listener) {
+        listeners.add(listener);
     }
 
     /**
@@ -72,7 +75,9 @@ public class PerformanceWorker extends SwingWorker<ResultsModel, Integer> {
 
     protected void done() {
         try {
-            listener.performanceRunsDone(get());
+            for (PerformanceRunnerListener listener : listeners)  {
+                listener.performanceRunsDone(get());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

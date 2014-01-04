@@ -2,6 +2,7 @@
 package com.barrybecker4.game.twoplayer.comparison.execution;
 
 import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerPanel;
+import com.barrybecker4.game.twoplayer.comparison.model.ResultsModel;
 import com.barrybecker4.game.twoplayer.comparison.model.config.SearchOptionsConfigList;
 import com.barrybecker4.game.twoplayer.comparison.ui.execution.GameRunnerDialog;
 
@@ -13,7 +14,7 @@ public class PerformanceRunner {
 
     private SearchOptionsConfigList optionsList;
     private TwoPlayerPanel gamePanel_;
-    private PerformanceRunnerListener listener;
+    private PerformanceRunnerListener reporter;
 
     /**
      * Construct the runner
@@ -22,20 +23,29 @@ public class PerformanceRunner {
                              PerformanceRunnerListener listener)  {
         this.optionsList = optionsList;
         this.gamePanel_ = gamePanel;
-        this.listener = listener;
+        this.reporter = listener;
     }
 
     /**
-     * Run the NxN comparison and let the listener do what it wants with the results.
+     * Run the NxN comparison and let the reporter do what it wants with the results.
      */
     public void doComparisonRuns() {
 
-        GameRunnerDialog runnerDialog = new GameRunnerDialog(gamePanel_);
+        final GameRunnerDialog runnerDialog = new GameRunnerDialog(gamePanel_);
         runnerDialog.showDialog();
         gamePanel_.init(null);
 
+        // add listeners not in constructor
         PerformanceWorker worker =
-                new PerformanceWorker(gamePanel_.get2PlayerController(), optionsList, listener);
+                new PerformanceWorker(gamePanel_.get2PlayerController(), optionsList);
+        worker.addListener(reporter);
+        worker.addListener(new PerformanceRunnerListener() {
+            @Override
+            public void performanceRunsDone(ResultsModel model) {
+                 runnerDialog.close();
+            }
+        });
+
         worker.execute();
     }
 }
