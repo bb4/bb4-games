@@ -40,7 +40,7 @@ public abstract class GameImporter {
     public abstract void restoreFromStream(InputStream iStream) throws IOException, SGFException;
 
     /**
-     * This will retore a game from an SGF structure to the controller
+     * This will restore a game from an SGF structure to the controller
      */
     protected void restoreGame( SGFGame game )
     {
