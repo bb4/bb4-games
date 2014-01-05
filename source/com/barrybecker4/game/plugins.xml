@@ -43,6 +43,12 @@
           panelClass="com.barrybecker4.game.twoplayer.go.ui.GoPanel"
           controllerClass="com.barrybecker4.game.twoplayer.go.GoController"
           default="true"/>
+    <game name="mancala"
+          msgKey="MANCALA"
+          type="TWO_PLAYER_GAME"
+          msgBundleBase="com.barrybecker4.game.twoplayer.mancala.resources.mancalaMessages"
+          panelClass="com.barrybecker4.game.twoplayer.mancala.ui.MancalaPanel"
+          controllerClass="com.barrybecker4.game.twoplayer.mancala.MancalaController" />
 
     <!-- these are the multiplayer games -->
     <game name="galactic"

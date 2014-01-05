@@ -17,7 +17,8 @@ import javax.swing.JComponent;
 import java.awt.image.BufferedImage;
 
 /**
- * A worker that will run all the computer vs computer games serially in a separate thread.
+ * Creates performance results given the controller and list of configuration options to pair off
+ * against each other.
  * @author Barry Becker
  */
 public class PerformanceResultsBuilder {
@@ -47,6 +48,7 @@ public class PerformanceResultsBuilder {
      */
     public PerformanceResultsPair getResultsForComparison(int i, int j) {
 
+        controller.reset();
         PlayerList players = controller.getPlayers();
         controller.getOptions().setShowGameOverDialog(false);
 

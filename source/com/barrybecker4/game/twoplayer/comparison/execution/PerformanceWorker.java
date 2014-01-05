@@ -16,8 +16,6 @@ import java.util.List;
  */
 public class PerformanceWorker extends SwingWorker<ResultsModel, Integer> {
 
-    private static final String FILE_SIDE_DELIM = "_vs_";
-
     private PerformanceResultsBuilder resultsBuilder;
     private List<PerformanceRunnerListener> listeners = new LinkedList<>();
     private ResultsModel model;
