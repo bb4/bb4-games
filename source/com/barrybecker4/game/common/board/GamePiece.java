@@ -64,7 +64,7 @@ public class GamePiece implements Serializable {
      * @param player1 if owned by player1
      * @param type there may be different types of pieces (for example in chess there are many; checkers has 2)
      */
-    protected GamePiece( boolean player1, char type) {
+    protected GamePiece(boolean player1, char type) {
         ownedByPlayer1_ = player1;
         type_ = type;
         transparency_ = 0;

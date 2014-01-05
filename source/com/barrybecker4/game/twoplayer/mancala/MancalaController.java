@@ -19,7 +19,8 @@ import java.awt.Dimension;
 */
 public class MancalaController extends TwoPlayerController {
 
-    private static final int DEFAULT_NUM_ROWS = 20;
+    private static final int DEFAULT_NUM_ROWS = 2;
+    private static final int DEFAULT_NUM_COLS = 8;
 
     private Dimension size;
 
@@ -27,7 +28,7 @@ public class MancalaController extends TwoPlayerController {
      *  Constructor
      */
     public MancalaController() {
-        size = new Dimension(DEFAULT_NUM_ROWS, DEFAULT_NUM_ROWS);
+        size = new Dimension(DEFAULT_NUM_COLS, DEFAULT_NUM_ROWS);
         initializeData();
     }
 
@@ -43,7 +44,7 @@ public class MancalaController extends TwoPlayerController {
 
     @Override
     protected MancalaBoard createBoard() {
-        return new MancalaBoard(size.width, size.height);
+        return new MancalaBoard(size.width);
     }
 
     @Override
