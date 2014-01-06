@@ -7,7 +7,7 @@ import com.barrybecker4.game.common.board.GamePiece;
 import com.barrybecker4.game.common.ui.viewer.GameBoardViewer;
 import com.barrybecker4.game.common.ui.viewer.ViewerMouseListener;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
-import com.barrybecker4.game.twoplayer.mancala.MancalaBoard;
+import com.barrybecker4.game.twoplayer.mancala.board.MancalaBoard;
 import com.barrybecker4.game.twoplayer.mancala.MancalaController;
 
 import java.awt.event.MouseEvent;

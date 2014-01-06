@@ -1,5 +1,5 @@
 /** Copyright by Barry G. Becker, 2014. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
-package com.barrybecker4.game.twoplayer.mancala;
+package com.barrybecker4.game.twoplayer.mancala.move;
 
 import com.barrybecker4.common.geometry.Location;
 import com.barrybecker4.game.common.Move;
@@ -7,6 +7,8 @@ import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.board.GamePiece;
 import com.barrybecker4.game.twoplayer.common.BestMoveFinder;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
+import com.barrybecker4.game.twoplayer.mancala.MancalaSearchable;
+import com.barrybecker4.game.twoplayer.mancala.board.MancalaBoard;
 import com.barrybecker4.optimization.parameter.ParameterArray;
 
 import static com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy.WINNING_VALUE;
@@ -16,7 +18,7 @@ import static com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrat
  *
  * @author Barry Becker
  */
-final class MancalaMoveGenerator {
+public final class MancalaMoveGenerator {
 
     /**
      * Constructor.

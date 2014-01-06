@@ -1,5 +1,5 @@
 /** Copyright by Barry G. Becker, 2014. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
-package com.barrybecker4.game.twoplayer.mancala;
+package com.barrybecker4.game.twoplayer.mancala.board;
 
 import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.board.BoardPosition;

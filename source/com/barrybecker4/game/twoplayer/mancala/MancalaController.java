@@ -8,6 +8,7 @@ import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerController;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerOptions;
+import com.barrybecker4.game.twoplayer.mancala.board.MancalaBoard;
 
 import java.awt.Color;
 import java.awt.Dimension;

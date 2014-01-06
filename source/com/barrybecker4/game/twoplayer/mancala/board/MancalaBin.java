@@ -1,4 +1,4 @@
-package com.barrybecker4.game.twoplayer.mancala;
+package com.barrybecker4.game.twoplayer.mancala.board;
 
 import com.barrybecker4.game.common.board.GamePiece;
 

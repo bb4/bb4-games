@@ -6,6 +6,9 @@ import com.barrybecker4.game.common.player.PlayerList;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerSearchable;
+import com.barrybecker4.game.twoplayer.mancala.board.MancalaBoard;
+import com.barrybecker4.game.twoplayer.mancala.move.MancalaMoveGenerator;
+import com.barrybecker4.game.twoplayer.mancala.move.MoveEvaluator;
 import com.barrybecker4.optimization.parameter.ParameterArray;
 
 /**
