@@ -2,8 +2,10 @@
 package com.barrybecker4.game.twoplayer.mancala.move;
 
 import com.barrybecker4.common.geometry.Location;
+import com.barrybecker4.game.common.board.GamePiece;
 import com.barrybecker4.game.twoplayer.blockade.board.BlockadeBoard;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
+import com.barrybecker4.game.twoplayer.mancala.board.MancalaBin;
 
 /**
  *  Describes a change in state from one board
@@ -23,11 +25,10 @@ public class MancalaMove extends TwoPlayerMove {
      * Constructor. This should not usually be called directly
      * use the factory method createMove instead.
      */
-    public MancalaMove(Location origin, byte numStonesMoved, int val) {
-        super(origin, val,  null);
+    public MancalaMove(boolean player1, Location origin, byte numStonesMoved, int val) {
+        super(origin, val,  new GamePiece(player1));
         stonesMoved = numStonesMoved;
     }
-
 
     /**
      * copy constructor
@@ -45,12 +46,25 @@ public class MancalaMove extends TwoPlayerMove {
         return new MancalaMove(this);
     }
 
-      /**
+
+    /**
+     * factory method for getting new moves. It uses recycled objects if possible.
+     * @return the newly created move.
+     */
+    public static MancalaMove createMove(boolean isPlayer1, Location loc, int val, MancalaBin bin) {
+        return new MancalaMove(isPlayer1, loc, bin.getNumStones(), val);
+    }
+
+    /**
      * @return the bin where the stones were drawn.
      */
     public Location getFromLocation() {
         //Note that the toLocation from the parent class is used internally.
         return this.toLocation_;
+    }
+
+    public int getNumStonesMoved() {
+        return stonesMoved;
     }
 
     @Override

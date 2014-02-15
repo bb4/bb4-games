@@ -7,6 +7,7 @@ import com.barrybecker4.game.common.ui.ComputerMoveProgressBar;
 import com.barrybecker4.game.common.ui.dialogs.GameOptionsDialog;
 import com.barrybecker4.game.common.ui.panel.GameChangedListener;
 import com.barrybecker4.game.common.ui.panel.GamePanel;
+import com.barrybecker4.game.common.ui.viewer.GamePieceRenderer;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerController;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerOptions;
 import com.barrybecker4.game.twoplayer.common.ui.dialogs.TwoPlayerOptionsDialog;
@@ -14,8 +15,9 @@ import com.barrybecker4.game.twoplayer.common.ui.gametree.GameTreeCellRenderer;
 import com.barrybecker4.game.twoplayer.common.ui.gametree.GameTreeDialog;
 import com.barrybecker4.ui.components.TexturedPanel;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

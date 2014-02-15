@@ -47,6 +47,7 @@ public class MancalaSearchable extends TwoPlayerSearchable {
         return (MancalaBoard) board_;
     }
 
+
     /**
      * Statically evaluate the board position.
      * @return the lastMoves value modified by the value add of the new move.

@@ -17,7 +17,7 @@ public enum Suit {
     HEARTS("H");
 
     private final String symbol;
-    private static final Map<String, Suit> SUIT_FROM_SYMBOL = new HashMap<String, Suit>();
+    private static final Map<String, Suit> SUIT_FROM_SYMBOL = new HashMap<>();
 
     static {
         for (Suit r : values()) {

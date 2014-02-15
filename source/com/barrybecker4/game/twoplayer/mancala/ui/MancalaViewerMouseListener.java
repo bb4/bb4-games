@@ -3,12 +3,12 @@ package com.barrybecker4.game.twoplayer.mancala.ui;
 
 import com.barrybecker4.common.geometry.Location;
 import com.barrybecker4.game.common.board.BoardPosition;
-import com.barrybecker4.game.common.board.GamePiece;
 import com.barrybecker4.game.common.ui.viewer.GameBoardViewer;
 import com.barrybecker4.game.common.ui.viewer.ViewerMouseListener;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
-import com.barrybecker4.game.twoplayer.mancala.board.MancalaBoard;
 import com.barrybecker4.game.twoplayer.mancala.MancalaController;
+import com.barrybecker4.game.twoplayer.mancala.board.MancalaBin;
+import com.barrybecker4.game.twoplayer.mancala.board.MancalaBoard;
+import com.barrybecker4.game.twoplayer.mancala.move.MancalaMove;
 
 import java.awt.event.MouseEvent;
 
@@ -26,7 +26,11 @@ class MancalaViewerMouseListener extends ViewerMouseListener {
         super(viewer);
     }
 
-
+    /**
+     * When the mouse is clicked on a bin, the stones in that bin should be
+     * picked up and seeded counter-clockwise into other bins (skipping the opponent home bin).
+     * @param e mouse event
+     */
     @Override
     public void mousePressed( MouseEvent e ) {
 
@@ -40,15 +44,19 @@ class MancalaViewerMouseListener extends ViewerMouseListener {
 
         MancalaBoard board = (MancalaBoard) controller.getBoard();
 
-        // if there is already a piece where the user clicked or its
-        // out of bounds, then return without doing anything
-        BoardPosition p = board.getPosition( loc);
-        if ( (p == null) || !p.isUnoccupied() )
+        // If the player click on a home base, an opponent bin, or some invalid location, just return
+        BoardPosition p = board.getPosition(loc);
+        if ( (p == null) || p.isUnoccupied() )
             return;
+        MancalaBin bin = (MancalaBin) p.getPiece();
+        if (bin.isHome()
+            || bin.getNumStones() == 0
+            || bin.isOwnedByPlayer1() != controller.isPlayer1sTurn()) {
+            return;
+        }
 
-        TwoPlayerMove m =
-            TwoPlayerMove.createMove( loc.getRow(), loc.getCol(), 0,
-                                      new GamePiece(controller.isPlayer1sTurn()));
+        MancalaMove m =
+            new MancalaMove(controller.isPlayer1sTurn(), loc, bin.getNumStones(), 0);
 
         viewer.continuePlay( m );
     }

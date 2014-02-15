@@ -39,6 +39,7 @@ task runTicTacToe(type: JavaExec) {
 task runMancala(type: JavaExec) {
     main = gameApp
     args = ["-name", "mancala", "-locale", "ENGLISH"]
+    jvmArgs = ["-ea"]
     classpath = sourceSets.main.runtimeClasspath
 }
 

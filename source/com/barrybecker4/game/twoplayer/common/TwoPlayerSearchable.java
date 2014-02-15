@@ -104,7 +104,7 @@ public abstract class TwoPlayerSearchable extends AbstractSearchable {
     /**
      * Given a move, determine whether the game is over.
      * If recordWin is true, then the variables for player1/2HasWon can get set.
-     *  sometimes, like when we are looking ahead we do not want to set these.
+     *  sometimes, like when we are looking, ahead we do not want to set these.
      * @param move the move to check. If null then return true. This is typically the last move played.
      * @param recordWin if true then the controller state will record wins
      */

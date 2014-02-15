@@ -12,7 +12,7 @@ import java.util.List;
 public class Deck extends ArrayList<Card> {
 
     /** A prototype deck that gets statically initialized. */
-    private static final List<Card> protoDeck = new ArrayList<Card>();
+    private static final List<Card> protoDeck = new ArrayList<>();
 
     static {
         for (Suit suit : Suit.values()) {

@@ -119,9 +119,9 @@ public class TwoPlayerMove extends Move {
      * factory method for getting new moves. It uses recycled objects if possible.
      * @return the newly created move.
      */
-    public static TwoPlayerMove createMove( Location destinationLocation,
-                                            int val, GamePiece piece )  {
-        return new TwoPlayerMove(destinationLocation, val, piece );
+    public static TwoPlayerMove createMove(Location destinationLocation,
+                                           int val, GamePiece piece)  {
+        return new TwoPlayerMove(destinationLocation, val, piece);
     }
 
     public final byte getToRow()  {

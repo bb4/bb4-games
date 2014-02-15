@@ -79,6 +79,7 @@ public class GamePiece implements Serializable {
         transparency_ = piece.transparency_;
         annotation_ = piece.annotation_;
     }
+
     /**
      * @return create a deep copy
      */

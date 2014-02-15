@@ -1,10 +1,12 @@
 /** Copyright by Barry G. Becker, 2014. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.mancala.board;
 
+import com.barrybecker4.common.geometry.Location;
 import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.board.BoardPosition;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
+import com.barrybecker4.game.twoplayer.mancala.move.MancalaMove;
 
 /**
  * Representation of a Mancala Game Board.
@@ -14,7 +16,9 @@ import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 public class MancalaBoard extends TwoPlayerBoard {
 
     /** traditionally each bin starts with 3 stones. */
-    private static final int INITIAL_STONES_PER_BIN = 3;
+    private static final byte INITIAL_STONES_PER_BIN = 3;
+
+    private BinNavigator navigator;
 
     /**
      * Constructor
@@ -28,6 +32,7 @@ public class MancalaBoard extends TwoPlayerBoard {
      */
     public MancalaBoard(int numCols) {
         setSize( 2, numCols );
+        navigator = new BinNavigator(numCols);
     }
 
     /**
@@ -40,6 +45,7 @@ public class MancalaBoard extends TwoPlayerBoard {
 
     protected MancalaBoard(MancalaBoard mb) {
         super(mb);
+        navigator = new BinNavigator(mb.getNumCols());
     }
 
     @Override
@@ -55,16 +61,15 @@ public class MancalaBoard extends TwoPlayerBoard {
         super.reset();
         for (int row = 1; row <= getNumRows(); row++)
         for (int col = 2; col < getNumCols(); col++) {
-            getPosition(row, col).setPiece(new MancalaBin(row == 1, INITIAL_STONES_PER_BIN));
+            getPosition(row, col).setPiece(new MancalaBin(row == 1, INITIAL_STONES_PER_BIN, false));
         }
-        getPosition(1, 1).setPiece(new MancalaBin(true, 0));
-        getPosition(1, getNumCols()).setPiece(new MancalaBin(false, 0));
+        getPosition(1, 1).setPiece(new MancalaBin(true, (byte)0, true));
+        getPosition(1, getNumCols()).setPiece(new MancalaBin(false, (byte)0, true));
     }
 
     protected BoardPosition getPositionPrototype() {
         return new BoardPosition(1, 1, null);
     }
-
 
     /**
      * This is just a conservative rough guess.
@@ -79,6 +84,104 @@ public class MancalaBoard extends TwoPlayerBoard {
     @Override
     public int getMaxNumMoves() {
         return getNumCols() * INITIAL_STONES_PER_BIN * 3 + 1;
+    }
+
+    /**
+     * Given a move specification, execute it on the board.
+     * See rules: http://boardgames.about.com/cs/mancala/ht/play_mancala.htm
+     * @param move the move to make, if possible.
+     * @return false if the move is illegal.
+     */
+    @Override
+    protected boolean makeInternalMove( Move move ) {
+
+        MancalaMove m = (MancalaMove)move;
+        Location currentLocation = m.getFromLocation();
+        MancalaBin bin = getBin(currentLocation);
+        if (bin.isHome() || bin.getNumStones() == 0) {
+            return false;
+        }
+        int numStones = bin.getStones();
+
+        // march counter-clockwise around the board dropping stones into bins (but skipping the opponent home bin)
+        for (int i = 0; i<numStones; i++) {
+            currentLocation = navigator.getNextLocation(currentLocation);
+            MancalaBin nextBin = getBin(currentLocation);
+            if (!(nextBin.isHome() && ((MancalaMove) move).isPlayer1() != nextBin.isOwnedByPlayer1())) {
+                nextBin.increment();
+            }
+        }
+        // handle some special cases. like capturing
+        MancalaBin lastBin = getBin(currentLocation);
+        // if the last bin seeded had no stones, capture that piece
+        // and all the stones from the opposite bin and put in your store
+        if (!lastBin.isHome() && lastBin.getNumStones() == 1)  {
+
+            MancalaBin oppositeBin = getBin(navigator.getOppositeLocation(currentLocation));
+            MancalaBin homeBin = getHomeBin(m.isPlayer1());
+            homeBin.increment(lastBin.getStones());
+            homeBin.increment(oppositeBin.getStones());
+        }
+
+        // if no stones left on players side, opponent captures all remaining stone son his side
+        if (isSideClear(m.isPlayer1())) {
+            clearSide(!m.isPlayer1());
+        }
+        if (isSideClear(!m.isPlayer1())) {
+            clearSide(m.isPlayer1());
+        }
+        return true;
+    }
+
+    public MancalaBin getHomeBin(boolean player1) {
+        return getBin(navigator.getHomeLocation(player1));
+    }
+
+
+    public boolean isEmpty() {
+        return isSideClear(true) && isSideClear(false);
+    }
+
+
+    private boolean isSideClear(boolean player1) {
+        int sum = 0;
+        Location currentLoc = navigator.getHomeLocation(!player1);
+        for (int i=0; i<getNumCols()-2; i++) {
+            currentLoc = navigator.getNextLocation(currentLoc);
+            sum += getBin(currentLoc).getNumStones();
+        }
+        return sum == 0;
+    }
+
+    /**
+     * Clear off the remaining stones on the specified players side and put them in his store.
+     * @param player1 player's whose side to clear.
+     */
+    private void clearSide(boolean player1) {
+        MancalaBin homeBin = getHomeBin(player1);
+
+        Location currentLoc = navigator.getHomeLocation(!player1);
+        for (int i=0; i<getNumCols()-2; i++) {
+            currentLoc = navigator.getNextLocation(currentLoc);
+            homeBin.increment(getBin(currentLoc).getStones());
+        }
+    }
+
+    /**
+     * @return true if the players move lands the last stone in their own home bin.
+     */
+    public boolean moveAgainAfterMove(Move move) {
+        MancalaMove m = (MancalaMove)move;
+        Location lastLoc = navigator.getNthBin(m.getFromLocation(), m.getNumStonesMoved());
+        MancalaBin bin = getBin(lastLoc);
+        return bin.isHome() && bin.isOwnedByPlayer1() == m.isPlayer1();
+    }
+
+    public MancalaBin getBin(Location loc) {
+        assert loc != null;
+        MancalaBin bin =  (MancalaBin) getPosition(loc).getPiece();
+        assert bin != null : " Could not find mancala bin at "+ loc;
+        return bin;
     }
 
     /**

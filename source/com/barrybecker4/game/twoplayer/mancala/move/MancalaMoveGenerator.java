@@ -1,6 +1,7 @@
 /** Copyright by Barry G. Becker, 2014. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.mancala.move;
 
+import com.barrybecker4.common.geometry.ByteLocation;
 import com.barrybecker4.common.geometry.Location;
 import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.MoveList;
@@ -32,25 +33,26 @@ public final class MancalaMoveGenerator {
     public final MoveList generateMoves(MancalaSearchable searchable, TwoPlayerMove lastMove, ParameterArray weights) {
         MoveList moveList = new MoveList();
 
-        MancalaBoard pb = searchable.getBoard();
-        //CandidateMoves candMoves = pb.getCandidateMoves();
+        MancalaBoard mboard = searchable.getBoard();
+        //CandidateMoves candMoves = mboard.getCandidateMoves();
 
         boolean player1 = (lastMove == null) || !lastMove.isPlayer1();
 
-        int ncols = pb.getNumCols();
-        int nrows = pb.getNumRows();
+        int ncols = mboard.getNumCols();
+        int nrows = mboard.getNumRows();
 
         for (int i = 1; i <= nrows; i++ ) {
              for (int j = 1; j <= ncols; j++ ) {
 
-                int lastValue = lastMove == null ? 0 : lastMove.getValue();
-                TwoPlayerMove move = TwoPlayerMove.createMove( i, j, lastValue, new GamePiece(player1));
+                 int lastValue = lastMove == null ? 0 : lastMove.getValue();
+                 Location loc = new ByteLocation(i, j);
+                 TwoPlayerMove move = MancalaMove.createMove(player1, loc, lastValue, mboard.getBin(loc));
 
-                searchable.makeInternalMove( move );
-                move.setValue(searchable.worth(move, weights));
-                // now revert the board
-                searchable.undoInternalMove( move );
-                moveList.add( move );
+                 searchable.makeInternalMove( move );
+                 move.setValue(searchable.worth(move, weights));
+                 // now revert the board
+                 searchable.undoInternalMove( move );
+                 moveList.add( move );
             }
         }
         BestMoveFinder finder = new BestMoveFinder(searchable.getSearchOptions().getBestMovesSearchOptions());

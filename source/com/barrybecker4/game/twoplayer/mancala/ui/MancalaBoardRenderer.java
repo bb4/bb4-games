@@ -3,7 +3,8 @@ package com.barrybecker4.game.twoplayer.mancala.ui;
 
 import com.barrybecker4.game.common.ui.viewer.GameBoardRenderer;
 import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerBoardRenderer;
-import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerPieceRenderer;
+
+import java.awt.Graphics2D;
 
 /**
  * Singleton class that takes a game board and renders it for the GameBoardViewer.
@@ -22,7 +23,7 @@ public class MancalaBoardRenderer extends TwoPlayerBoardRenderer {
      * Use getRenderer instead
      */
     protected MancalaBoardRenderer(){
-        pieceRenderer_ = TwoPlayerPieceRenderer.getRenderer();
+        pieceRenderer_ = MancalaBinRenderer.getRenderer();
     }
 
     public static GameBoardRenderer getRenderer() {
@@ -31,5 +32,11 @@ public class MancalaBoardRenderer extends TwoPlayerBoardRenderer {
         return renderer_;
     }
 
+     /**
+      * no grid by default for mancala.
+      */
+    @Override
+    protected void drawGrid(Graphics2D g2, int startPos, int rightEdgePos, int bottomEdgePos, int start,
+                            int nrows1, int ncols1, int gridOffset) {}
 }
 
