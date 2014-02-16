@@ -11,17 +11,16 @@ import com.barrybecker4.game.common.GameWeights;
  */
 public class MancalaWeights extends GameWeights {
 
+    public static final int STORAGE_WEIGHT_INDEX = 0;
+
     /** If greater than this threshold, then opponent is in jeopardy. */
     public static final int JEOPARDY_WEIGHT = 80;
 
     /**
      * These defaults may be overridden in by the user in the UI.
-     *
-     * I ran an optimization at lookahead=6 and these were the optimized weights found:
-     * parameter[0] = 1a weight = 0.035 [0, 40.0]
      */
     private static final double[] DEFAULT_WEIGHTS = {
-        0.0
+        1.0
     };
 
     /** Don't allow the weights to exceed these maximum values. Upper limit. */
@@ -35,11 +34,11 @@ public class MancalaWeights extends GameWeights {
     };
 
     private static final String[] WEIGHT_SHORT_DESCRIPTIONS = {
-        "1a weight"
+        "storage weight"
     };
 
     private static final String[] WEIGHT_DESCRIPTIONS = {
-        "Open ended two in a row"
+        "The difference between player one's stones in storage versus player two's"
     };
 
     public MancalaWeights() {
@@ -47,7 +46,7 @@ public class MancalaWeights extends GameWeights {
     }
 
     public MancalaWeights(double[] weights) {
-        super( weights,  MIN_WEIGHTS, MAX_WEIGHTS, WEIGHT_SHORT_DESCRIPTIONS, WEIGHT_DESCRIPTIONS );
+        super( weights, MIN_WEIGHTS, MAX_WEIGHTS, WEIGHT_SHORT_DESCRIPTIONS, WEIGHT_DESCRIPTIONS );
     }
 
 }

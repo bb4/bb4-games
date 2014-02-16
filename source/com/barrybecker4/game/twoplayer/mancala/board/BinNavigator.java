@@ -53,16 +53,17 @@ public class BinNavigator {
     }
 
     /**
-     * @param loc initial location
-     * @param numHops number of hops
-     * @return the bin that is n hops counter clockwise from lov
+     * @param location initial location
+     * @param numHops number of hops. If negative, then hop backwards
+     * @return the bin that is n hops counter clockwise from location
      */
-    public Location getNthBin(Location loc, int numHops) {
+    public Location getNthLocation(Location location, int numHops) {
 
-        Location lastLoc = loc;
-        while (numHops > 0) {
+        Location lastLoc = location;
+        int hops = numHops > 0 ? numHops : 2 * size - 2 - numHops;
+        while (hops > 0) {
             lastLoc = nextMap.get(lastLoc);
-            numHops--;
+            hops--;
         }
 
         return lastLoc;

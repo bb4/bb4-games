@@ -25,23 +25,24 @@ public final class MancalaMoveGenerator {
     /**
      * @return all reasonably good next moves.
      */
-    public final MoveList generateMoves(MancalaSearchable searchable, TwoPlayerMove lastMove, ParameterArray weights) {
-        MoveList moveList = new MoveList();
+    public final MoveList generateMoves(
+            MancalaSearchable searchable, TwoPlayerMove lastMove, ParameterArray weights) {
 
-        MancalaBoard mboard = searchable.getBoard();
+        MoveList moveList = new MoveList();
+        MancalaBoard board = searchable.getBoard();
 
         boolean player1 = (lastMove == null) || !lastMove.isPlayer1();
-        List<Location> candidateStarts = mboard.getCandidateStartLocations(player1);
-
+        List<Location> candidateStarts = board.getCandidateStartLocations(player1);
 
         for (Location startLoc : candidateStarts)  {
 
             int lastValue = lastMove == null ? 0 : lastMove.getValue();
 
-            TwoPlayerMove move = MancalaMove.createMove(player1, startLoc, lastValue, mboard.getBin(startLoc));
+            MancalaMove move = MancalaMove.createMove(player1, startLoc, lastValue, board.getBin(startLoc));
 
             // this will actually set the captures on the move if any
             searchable.makeInternalMove( move );
+            assert move.getCaptures() != null;
             move.setValue(searchable.worth(move, weights));
             // now revert the board
             searchable.undoInternalMove( move );

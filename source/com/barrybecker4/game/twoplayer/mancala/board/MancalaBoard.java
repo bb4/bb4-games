@@ -5,8 +5,9 @@ import com.barrybecker4.common.geometry.Location;
 import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.board.BoardPosition;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
-import com.barrybecker4.game.twoplayer.mancala.move.Captures;
 import com.barrybecker4.game.twoplayer.mancala.move.MancalaMove;
+import com.barrybecker4.game.twoplayer.mancala.move.MoveMaker;
+import com.barrybecker4.game.twoplayer.mancala.move.MoveUndoer;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -21,6 +22,7 @@ public class MancalaBoard extends TwoPlayerBoard {
     /** traditionally each bin starts with 3 stones. */
     private static final byte INITIAL_STONES_PER_BIN = 3;
 
+    /** used to navigate around the bins on in the board */
     private BinNavigator navigator;
 
     /**
@@ -57,7 +59,7 @@ public class MancalaBoard extends TwoPlayerBoard {
     }
 
     /**
-     *  Reset the board to its initial state.
+     * Reset the board to its initial state.
      */
     @Override
     public void reset() {
@@ -90,59 +92,19 @@ public class MancalaBoard extends TwoPlayerBoard {
     }
 
     /**
-     * Given a move specification, execute it on the board.
-     * See rules: http://boardgames.about.com/cs/mancala/ht/play_mancala.htm
-     * @param move the move to make, if possible.
-     * @return false if the move is illegal.
+     * {@inheritDoc}
      */
     @Override
     protected boolean makeInternalMove( Move move ) {
+        return new MoveMaker(this).makeMove(move);
+    }
 
-        MancalaMove m = (MancalaMove)move;
-        do {
-            assert m != null;
-            Location currentLocation = m.getFromLocation();
-            MancalaBin bin = getBin(currentLocation);
-            if (bin.isHome() || bin.getNumStones() == 0) {
-                return false;
-            }
-            int numStones = bin.getStones();
-
-            // march counter-clockwise around the board dropping stones into bins (but skipping the opponent home bin)
-            for (int i = 0; i<numStones; i++) {
-                currentLocation = navigator.getNextLocation(currentLocation);
-                MancalaBin nextBin = getBin(currentLocation);
-                if (!(nextBin.isHome() && ((MancalaMove) move).isPlayer1() != nextBin.isOwnedByPlayer1())) {
-                    nextBin.increment();
-                }
-            }
-            // handle some special cases. like capturing
-            Captures captures = new Captures();
-            MancalaBin lastBin = getBin(currentLocation);
-
-            // if the last bin seeded had no stones, capture that piece
-            // and all the stones from the opposite bin and put in your store
-            if (!lastBin.isHome() && lastBin.getNumStones() == 1)  {
-
-                Location oppositeLoc = navigator.getOppositeLocation(currentLocation);
-                MancalaBin oppositeBin = getBin(oppositeLoc);
-                MancalaBin homeBin = getHomeBin(m.isPlayer1());
-                captures.put(oppositeLoc, lastBin.getNumStones());
-                homeBin.increment(lastBin.getStones());
-                homeBin.increment(oppositeBin.getStones());
-            }
-
-            // if no stones left on players side, opponent captures all remaining stone on his side
-            if (isSideClear(m.isPlayer1())) {
-                clearSide(!m.isPlayer1(), captures);
-            }
-            if (isSideClear(!m.isPlayer1())) {
-                clearSide(m.isPlayer1(), captures);
-            }
-            m.setCaptures(captures);
-            m = m.getFollowUpMove();
-        } while (m != null);
-        return true;
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected void undoInternalMove( Move move ) {
+        new MoveUndoer(this).undoMove(move);
     }
 
     public MancalaBin getHomeBin(boolean player1) {
@@ -153,7 +115,7 @@ public class MancalaBoard extends TwoPlayerBoard {
         return isSideClear(true) && isSideClear(false);
     }
 
-    private boolean isSideClear(boolean player1) {
+    public boolean isSideClear(boolean player1) {
         int sum = 0;
         Location currentLoc = navigator.getHomeLocation(!player1);
         for (int i=0; i < getNumCols() - 2; i++) {
@@ -164,31 +126,32 @@ public class MancalaBoard extends TwoPlayerBoard {
     }
 
     /**
-     * Clear off the remaining stones on the specified players side and put them in his store.
-     * @param player1 player's whose side to clear.
-     */
-    private void clearSide(boolean player1, Captures captures) {
-        MancalaBin homeBin = getHomeBin(player1);
-
-        Location currentLoc = navigator.getHomeLocation(!player1);
-        for (int i=0; i < getNumCols() - 2; i++) {
-            currentLoc = navigator.getNextLocation(currentLoc);
-            MancalaBin bin = getBin(currentLoc);
-            if (bin.getNumStones() > 0) {
-                captures.put(currentLoc, bin.getNumStones());
-            }
-            homeBin.increment(bin.getStones());
-        }
-    }
-
-    /**
      * @return true if the players move will land the last stone in their own home bin.
      */
     public boolean moveAgainAfterMove(Move move) {
         MancalaMove m = (MancalaMove)move;
-        Location lastLoc = navigator.getNthBin(m.getFromLocation(), m.getNumStonesMoved());
+        Location lastLoc = navigator.getNthLocation(m.getFromLocation(), m.getNumStonesSeeded());
         MancalaBin bin = getBin(lastLoc);
         return bin.isHome() && bin.isOwnedByPlayer1() == m.isPlayer1();
+    }
+
+
+    /**
+     * @param player1  the player's who's bins to consider
+     * @return a list of all player bin locations that have one stone or more.
+     */
+    public List<Location> getCandidateStartLocations(boolean player1) {
+        List<Location> locations = new LinkedList<>();
+
+        Location currentLoc = getHomeLocation(!player1);
+        for (int i=0; i < getNumCols()-2; i++) {
+            currentLoc = getNextLocation(currentLoc);
+            if (getBin(currentLoc).getStones() > 0) {
+                locations.add(currentLoc);
+            }
+        }
+
+        return locations;
     }
 
     public MancalaBin getBin(Location loc) {
@@ -198,43 +161,20 @@ public class MancalaBoard extends TwoPlayerBoard {
         return bin;
     }
 
-    /**
-     * @param player1  the player's who's bins to consider
-     * @return a list of all player bin locations that have one stone or more.
-     */
-    public List<Location> getCandidateStartLocations(boolean player1) {
-        List<Location> locations = new LinkedList<>();
-
-        Location currentLoc = navigator.getHomeLocation(!player1);
-        for (int i=0; i < getNumCols()-2; i++) {
-            currentLoc = navigator.getNextLocation(currentLoc);
-            if (getBin(currentLoc).getStones() > 0) {
-                locations.add(currentLoc);
-            }
-        }
-
-        return locations;
+    public Location getHomeLocation(boolean player1) {
+        return navigator.getHomeLocation(player1);
     }
 
-    /**
-     * For mancala, undoing a move means picking up all the stones that were
-     * placed and restoring them to their original bin.
-     * It can be a bit tricky for compound moves - ones it which the player goes again because
-     * their last seeded bin was their store. In these cases, the moves must be undone in the reverse order.
-     * Furthermore some moves capture stones in other bins, those must also be restored and deducted from the
-     * appropriate player storage.
-     */
-    @Override
-    protected void undoInternalMove( Move move ) {
+    public Location getNextLocation(Location loc) {
+        return navigator.getNextLocation(loc);
+    }
 
-        MancalaMove m = (MancalaMove) move;
-        if (m.getFollowUpMove() != null) {
-            undoInternalMove(m.getFollowUpMove());
-        }
+    public Location getNthLocation(Location startLoc, int numHops) {
+        return navigator.getNthLocation(startLoc, numHops);
+    }
 
-        // pick up seed stones
-        // restore captures from storage
-        //getPosition(m.getToRow(), m.getToCol()).clear();
+    public Location getOppositeLocation(Location loc) {
+        return navigator.getOppositeLocation(loc);
     }
 
     /**

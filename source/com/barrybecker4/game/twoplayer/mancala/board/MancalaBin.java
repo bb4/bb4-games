@@ -50,8 +50,13 @@ public class MancalaBin extends GamePiece {
         this.numStones++;
     }
 
-    public void increment(int numStones) {
-        this.numStones += numStones;
+    /**
+     * @param num the number of stones to increment this bin by. May be negative.
+     */
+    public void increment(int num) {
+        this.numStones += num;
+        assert this.numStones >= 0 : "The number of stones (" + numStones
+                + ") went below 0 when we added " + num + ".";
     }
 
     public String toString() {

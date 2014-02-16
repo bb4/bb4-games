@@ -93,7 +93,7 @@ public class MancalaMove extends TwoPlayerMove {
         return this.toLocation_;
     }
 
-    public int getNumStonesMoved() {
+    public byte getNumStonesSeeded() {
         return stonesMoved;
     }
 
