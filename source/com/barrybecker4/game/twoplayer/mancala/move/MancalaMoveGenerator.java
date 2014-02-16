@@ -1,7 +1,6 @@
 /** Copyright by Barry G. Becker, 2014. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.mancala.move;
 
-import com.barrybecker4.common.geometry.ByteLocation;
 import com.barrybecker4.common.geometry.Location;
 import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.MoveList;
@@ -11,6 +10,8 @@ import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.mancala.MancalaSearchable;
 import com.barrybecker4.game.twoplayer.mancala.board.MancalaBoard;
 import com.barrybecker4.optimization.parameter.ParameterArray;
+
+import java.util.List;
 
 import static com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy.WINNING_VALUE;
 
@@ -22,38 +23,29 @@ import static com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrat
 public final class MancalaMoveGenerator {
 
     /**
-     * Constructor.
-     */
-    public MancalaMoveGenerator() {
-    }
-
-    /**
      * @return all reasonably good next moves.
      */
     public final MoveList generateMoves(MancalaSearchable searchable, TwoPlayerMove lastMove, ParameterArray weights) {
         MoveList moveList = new MoveList();
 
         MancalaBoard mboard = searchable.getBoard();
-        //CandidateMoves candMoves = mboard.getCandidateMoves();
 
         boolean player1 = (lastMove == null) || !lastMove.isPlayer1();
+        List<Location> candidateStarts = mboard.getCandidateStartLocations(player1);
 
-        int ncols = mboard.getNumCols();
-        int nrows = mboard.getNumRows();
 
-        for (int i = 1; i <= nrows; i++ ) {
-             for (int j = 1; j <= ncols; j++ ) {
+        for (Location startLoc : candidateStarts)  {
 
-                 int lastValue = lastMove == null ? 0 : lastMove.getValue();
-                 Location loc = new ByteLocation(i, j);
-                 TwoPlayerMove move = MancalaMove.createMove(player1, loc, lastValue, mboard.getBin(loc));
+            int lastValue = lastMove == null ? 0 : lastMove.getValue();
 
-                 searchable.makeInternalMove( move );
-                 move.setValue(searchable.worth(move, weights));
-                 // now revert the board
-                 searchable.undoInternalMove( move );
-                 moveList.add( move );
-            }
+            TwoPlayerMove move = MancalaMove.createMove(player1, startLoc, lastValue, mboard.getBin(startLoc));
+
+            // this will actually set the captures on the move if any
+            searchable.makeInternalMove( move );
+            move.setValue(searchable.worth(move, weights));
+            // now revert the board
+            searchable.undoInternalMove( move );
+            moveList.add( move );
         }
         BestMoveFinder finder = new BestMoveFinder(searchable.getSearchOptions().getBestMovesSearchOptions());
         return finder.getBestMoves(moveList);

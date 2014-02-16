@@ -85,15 +85,23 @@ public class MancalaController extends TwoPlayerController {
         }
 
         if (board.isEmpty())  {
+            determineWinner(board);
+        }
+    }
 
-            int p1Stones = board.getHomeBin(true).getNumStones();
-            int p2Stones = board.getHomeBin(false).getNumStones();
-            if (p1Stones > p2Stones) {
-                getPlayers().get(0).setWon(true);
-            }
-            else {
-               getPlayers().get(1).setWon(true);
-            }
+    /**
+     * After one players side is empty, the other players side is also cleared (with stones moved to their store)
+     * now it's time to see who's store has more stones.
+     * @param board the board
+     */
+    private void determineWinner(MancalaBoard board) {
+        int p1Stones = board.getHomeBin(true).getNumStones();
+        int p2Stones = board.getHomeBin(false).getNumStones();
+        if (p1Stones > p2Stones) {
+            getPlayers().get(0).setWon(true);
+        }
+        else {
+            getPlayers().get(1).setWon(true);
         }
     }
 

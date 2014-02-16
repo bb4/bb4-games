@@ -16,7 +16,6 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Stroke;
 import java.awt.geom.Ellipse2D;
-import java.text.DecimalFormat;
 
 /**
  * a singleton class that takes renders a mancala bin containing some number of stones.
@@ -29,7 +28,6 @@ public class MancalaBinRenderer extends TwoPlayerPieceRenderer {
 
     private static final Color STONE_COLOR = new Color(20, 40, 80);
     private static final Stroke BIN_STROKE = new BasicStroke(2.0f);
-    private static final DecimalFormat FORMAT = new DecimalFormat("###,###.#");
 
 
     /**
