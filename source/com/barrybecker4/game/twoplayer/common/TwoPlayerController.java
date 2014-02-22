@@ -6,7 +6,7 @@ import com.barrybecker4.game.common.GameContext;
 import com.barrybecker4.game.common.GameController;
 import com.barrybecker4.game.common.GameWeights;
 import com.barrybecker4.game.common.Move;
-import com.barrybecker4.game.common.board.Board;
+import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.player.Player;
 import com.barrybecker4.game.common.player.PlayerList;
 import com.barrybecker4.game.common.player.PlayerOptions;
@@ -17,8 +17,8 @@ import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy;
 import com.barrybecker4.game.twoplayer.common.search.tree.IGameTreeViewable;
 import com.barrybecker4.game.twoplayer.common.ui.OptimizationDoneHandler;
 import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerPieceRenderer;
-import com.barrybecker4.optimization.optimizee.Optimizee;
 import com.barrybecker4.optimization.Optimizer;
+import com.barrybecker4.optimization.optimizee.Optimizee;
 import com.barrybecker4.optimization.parameter.ParameterArray;
 
 import javax.swing.JOptionPane;
@@ -41,7 +41,7 @@ import java.io.InputStream;
  *
  *  @author Barry Becker
  */
-public abstract class TwoPlayerController extends GameController {
+public abstract class TwoPlayerController extends GameController<TwoPlayerBoard> {
 
     protected boolean player1sTurn_ = true;
 
@@ -105,6 +105,11 @@ public abstract class TwoPlayerController extends GameController {
     @Override
     public TwoPlayerGameExporter getExporter() {
         return new TwoPlayerGameExporter(this);
+    }
+
+    @Override
+    public MoveList getMoveList() {
+        return getBoard().getMoveList();
     }
 
     @Override
@@ -201,7 +206,7 @@ public abstract class TwoPlayerController extends GameController {
         if (!getPlayers().anyPlayerWon()) {
             return 0;
         }
-        return ((Board)getBoard()).getTypicalNumMoves() / getNumMoves();
+        return getBoard().getTypicalNumMoves() / getNumMoves();
     }
 
     /**
@@ -282,12 +287,12 @@ public abstract class TwoPlayerController extends GameController {
      * this makes the specified move (assumed valid) and adds it to the move list.
      * Calling this does not keep track of weights or the search.
      * Its most common use is for browsing the game tree.
-     *  @param m the move to play.
+     * @param move the move to play.
      */
     @Override
-    public void makeMove( Move m ) {
-        getSearchable().makeInternalMove((TwoPlayerMove)m);
-        player1sTurn_ = !((TwoPlayerMove)m).isPlayer1();
+    public void makeMove( Move move ) {
+        getSearchable().makeInternalMove((TwoPlayerMove)move);
+        player1sTurn_ = !((TwoPlayerMove)move).isPlayer1();
     }
 
     /**
@@ -383,7 +388,7 @@ public abstract class TwoPlayerController extends GameController {
 
     public synchronized Searchable getSearchable() {
         if (searchable_ == null) {
-            searchable_ = createSearchable((TwoPlayerBoard)getBoard(), getPlayers());
+            searchable_ = createSearchable(getBoard(), getPlayers());
         }
 
         return searchable_;

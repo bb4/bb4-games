@@ -1,7 +1,6 @@
-/** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
+/** Copyright by Barry G. Becker, 2000-2014. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.common;
 
-import com.barrybecker4.game.common.board.Board;
 import com.barrybecker4.game.common.board.IBoard;
 import com.barrybecker4.game.common.board.IRectangularBoard;
 import com.barrybecker4.game.common.online.server.IServerConnection;
@@ -17,11 +16,11 @@ import com.barrybecker4.game.common.player.PlayerList;
  *
  *  @author Barry Becker
  */
-public abstract class GameController
+public abstract class GameController<B extends IBoard>
            implements IGameController {
 
     /** the board has the layout of the pieces. */
-    private IBoard board_;
+    private B board_;
 
     /** Use this to draw directly to the ui while thinking (for debugging purposes) . */
     protected GameViewModel viewer_;
@@ -61,12 +60,6 @@ public abstract class GameController
         getBoard().reset();
     }
 
-
-    @Override
-    public MoveList getMoveList() {
-        return ((Board)getBoard()).getMoveList();
-    }
-
     /**
      * @return the last move played.
      */
@@ -79,7 +72,7 @@ public abstract class GameController
      */
     @Override
     public int getNumMoves() {
-        return ((Board)getBoard()).getMoveList().getNumMoves();
+        return getMoveList().getNumMoves();
     }
 
     /**
@@ -103,14 +96,14 @@ public abstract class GameController
      * @return the board representation object.
      */
     @Override
-    public final IBoard getBoard() {
+    public B getBoard() {
         if (board_ == null) {
             board_ = createBoard();
         }
         return board_;
     }
 
-    protected abstract IBoard createBoard();
+    protected abstract B createBoard();
 
     /**
      * Setup the initial game state.

@@ -81,7 +81,7 @@ public class MancalaController extends TwoPlayerController {
 
         MancalaBoard board = (MancalaBoard) getBoard();
         if (!board.moveAgainAfterMove(move)) {
-           player1sTurn_ = !((TwoPlayerMove)m).isPlayer1();
+           player1sTurn_ = !((TwoPlayerMove) move).isPlayer1();
         }
 
         if (board.isEmpty())  {

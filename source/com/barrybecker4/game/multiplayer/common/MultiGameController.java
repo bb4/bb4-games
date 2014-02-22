@@ -43,7 +43,7 @@ import java.util.List;
  *  </ul>
  * @author Barry Becker
  */
-public abstract class MultiGameController extends GameController {
+public abstract class MultiGameController extends GameController<IBoard> {
 
     protected int currentPlayerIndex_;
 
@@ -77,6 +77,11 @@ public abstract class MultiGameController extends GameController {
     }
 
     protected abstract IBoard createTable(int nrows, int ncols);
+
+    @Override
+    public MoveList getMoveList() {
+        return null; //getBoard().getMoveList();
+    }
 
     /**
      * Return the game board back to its initial opening state

@@ -106,6 +106,8 @@ public class GalacticController extends MultiGameController {
     @Override
     public boolean isOnlinePlayAvailable() {return false; }
 
+
+
     /**
      * @return true if the game is over.
      */

@@ -10,5 +10,8 @@ import com.barrybecker4.game.twoplayer.common.search.transposition.Transposition
  */
 public interface MemorySearchStrategy extends SearchStrategy {
 
+    /**
+     * @return the internal transposition table cache. It's used to avoid recomputing move scores.
+     */
     TranspositionTable getTranspositionTable();
 }

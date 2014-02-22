@@ -2,6 +2,7 @@
 package com.barrybecker4.game.multiplayer.poker;
 
 import com.barrybecker4.game.common.GameOptions;
+import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.player.Player;
 import com.barrybecker4.game.common.player.PlayerList;
 import com.barrybecker4.game.multiplayer.common.MultiGameController;
@@ -66,13 +67,21 @@ public class PokerController extends MultiGameController {
     }
 
     /**
+     * @return the board representation object.
+     */
+    @Override
+    public PokerTable getBoard() {
+        return (PokerTable)super.getBoard();
+    }
+
+    /**
      * Return the game board back to its initial opening state
      */
     @Override
     public void reset() {
         super.reset();
         initializeData();
-        round = ((PokerTable) getBoard()).getRound();
+        round = getBoard().getRound();
         round.anteUp(getPlayers(), ((PokerOptions)getOptions()).getAnte());
     }
 
@@ -81,8 +90,12 @@ public class PokerController extends MultiGameController {
         return new PokerOptions();
     }
 
+    public MoveList getMoveList() {
+        return getBoard().getMoveList();
+    }
+
     /**
-     *  Construct the game controller given an initial board size
+     * @return the poker game table given an initial board size
      */
     @Override
     protected PokerTable createTable(int nrows, int ncols ) {
@@ -119,7 +132,7 @@ public class PokerController extends MultiGameController {
         deal();
         currentPlayerIndex_ = 0;
 
-        ((PokerTable)getBoard()).initPlayers(getPlayers());
+        getBoard().initPlayers(getPlayers());
     }
 
     /**

@@ -114,11 +114,9 @@ public class BestMovesSearchOptions {
     }
 
     public String toString() {
-        StringBuilder bldr = new StringBuilder();
-        bldr.append("bestPercentage: ").append(bestPercentage_);
-        bldr.append("  minBestMoves:").append(minBestMoves_);
-        bldr.append("  percentLessThanBestThreshold:").append(percentLessThanBestThreshold_);
-        return bldr.toString();
+        return "bestPercentage: " + bestPercentage_
+                + "  minBestMoves:" + minBestMoves_
+                + "  percentLessThanBestThreshold:" + percentLessThanBestThreshold_;
     }
 
 }

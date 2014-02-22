@@ -20,12 +20,12 @@ import com.barrybecker4.game.common.player.PlayerList;
  *
  * @author Barry Becker
  */
-public interface IGameController {
+public interface IGameController<B extends IBoard> {
 
     /**
      * @return the board representation object.
      */
-    IBoard getBoard();
+    B getBoard();
 
     /**
      * @return the class which shows the current state of the game board.
@@ -44,9 +44,9 @@ public interface IGameController {
      * adds it to the move list.
      * For two player games, calling this does not keep track of weights or the search.
      * Its most common use is for browsing the game tree.
-     *  @param m the move to play.
+     * @param m the move to play.
      */
-    void makeMove( Move m );
+    void makeMove(Move m);
 
     /**
      * @return the list of moves made so far.
