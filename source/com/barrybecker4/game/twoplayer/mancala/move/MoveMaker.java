@@ -37,7 +37,7 @@ public class MoveMaker extends MoveAction  {
                 m.setCaptures(new Captures());
                 return false;
             }
-            int numStones = bin.getStones();
+            int numStones = bin.takeStones();
 
             // march counter-clockwise around the board dropping stones into bins (but skipping the opponent home bin)
             for (int i = 0; i<numStones; i++) {
@@ -73,8 +73,8 @@ public class MoveMaker extends MoveAction  {
             MancalaBin oppositeBin = board.getBin(oppositeLoc);
             MancalaBin homeBin = board.getHomeBin(move.isPlayer1());
             captures.put(oppositeLoc, lastBin.getNumStones());
-            homeBin.increment(lastBin.getStones());
-            homeBin.increment(oppositeBin.getStones());
+            homeBin.increment(lastBin.takeStones());
+            homeBin.increment(oppositeBin.takeStones());
         }
 
         // if no stones left on players side, opponent captures all remaining stone on his side
@@ -101,7 +101,7 @@ public class MoveMaker extends MoveAction  {
             if (bin.getNumStones() > 0) {
                 captures.put(currentLoc, bin.getNumStones());
             }
-            homeBin.increment(bin.getStones());
+            homeBin.increment(bin.takeStones());
         }
     }
 }

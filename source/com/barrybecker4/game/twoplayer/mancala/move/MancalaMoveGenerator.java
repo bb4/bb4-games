@@ -33,21 +33,21 @@ public final class MancalaMoveGenerator {
 
         boolean player1 = (lastMove == null) || !lastMove.isPlayer1();
         List<Location> candidateStarts = board.getCandidateStartLocations(player1);
-
+        System.out.println("generating moves");
         for (Location startLoc : candidateStarts)  {
 
             int lastValue = lastMove == null ? 0 : lastMove.getValue();
-
             MancalaMove move = MancalaMove.createMove(player1, startLoc, lastValue, board.getBin(startLoc));
 
             // this will actually set the captures on the move if any
             searchable.makeInternalMove( move );
-            assert move.getCaptures() != null;
+            System.out.println("m = " + move);
             move.setValue(searchable.worth(move, weights));
             // now revert the board
             searchable.undoInternalMove( move );
             moveList.add( move );
         }
+        System.out.println("--");
         BestMoveFinder finder = new BestMoveFinder(searchable.getSearchOptions().getBestMovesSearchOptions());
         return finder.getBestMoves(moveList);
     }

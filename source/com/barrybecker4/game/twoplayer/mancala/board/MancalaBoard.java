@@ -146,7 +146,7 @@ public class MancalaBoard extends TwoPlayerBoard {
         Location currentLoc = getHomeLocation(!player1);
         for (int i=0; i < getNumCols()-2; i++) {
             currentLoc = getNextLocation(currentLoc);
-            if (getBin(currentLoc).getStones() > 0) {
+            if (getBin(currentLoc).getNumStones() > 0) {
                 locations.add(currentLoc);
             }
         }

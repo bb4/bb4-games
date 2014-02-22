@@ -114,12 +114,26 @@ public class MancalaMove extends TwoPlayerMove {
         return result;
     }
 
+    public String toString(String tab) {
+
+        StringBuilder bldr = new StringBuilder(tab + super.toString());
+        String ntab = "\n" + tab;
+        bldr.append(ntab).append("stones moved = ").append(stonesMoved);
+        if (!getCaptures().isEmpty()) {
+            bldr.append(ntab).append("captures = ").append(getCaptures());
+        }
+        if (getFollowUpMove() != null) {
+            bldr.append(ntab).append("[");
+            bldr.append(ntab).append(getFollowUpMove().toString(tab + "   "));
+            bldr.append(ntab).append("]");
+        }
+
+        return bldr.toString();
+    }
 
     @Override
     public String toString() {
-        String s = super.toString();
-        s += " stones move = " + stonesMoved;
-        return s;
+        return toString("");
     }
 }
 

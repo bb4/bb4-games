@@ -23,7 +23,7 @@ public class MancalaBin extends GamePiece {
         this.isHome = isHome;
     }
 
-     /**
+    /**
      * @return create a deep copy
      */
     public MancalaBin copy() {
@@ -36,7 +36,7 @@ public class MancalaBin extends GamePiece {
     }
 
     /** get and then clear this bins stones */
-    public int getStones() {
+    public int takeStones() {
         int num = numStones;
         numStones = 0;
         return num;
