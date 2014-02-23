@@ -30,7 +30,6 @@ public class MancalaBin extends GamePiece {
         return new MancalaBin(isOwnedByPlayer1(), numStones, isHome);
     }
 
-
     public byte getNumStones() {
        return numStones;
     }

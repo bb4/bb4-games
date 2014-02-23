@@ -60,7 +60,7 @@ public class BinNavigator {
     public Location getNthLocation(Location location, int numHops) {
 
         Location lastLoc = location;
-        int hops = numHops > 0 ? numHops : 2 * size - 2 - numHops;
+        int hops = numHops >= 0 ? numHops : 2 * size - 2 + numHops;
         while (hops > 0) {
             lastLoc = nextMap.get(lastLoc);
             hops--;
