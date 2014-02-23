@@ -17,7 +17,7 @@ import com.barrybecker4.game.common.Move;
  * @see Board for the base implementation of this interface
  * @author Barry Becker
  */
-public interface IRectangularBoard extends IBoard {
+public interface IRectangularBoard<M extends Move> extends IBoard {
 
     /**
      *  Reset the board to its initial starting state.
@@ -73,14 +73,14 @@ public interface IRectangularBoard extends IBoard {
      * @param move the move to make, if possible.
      * @return false if the move is illegal.
      */
-    boolean makeMove( Move move );
+    boolean makeMove(M move);
 
     /**
      * Allow reverting a move so we can step backwards in time.
      * Board is returned to the exact state it was in before the last move was made.
      * @return the move that was just undone.
      */
-    Move undoMove();
+    M undoMove();
 
     /**
      * @return true if the specified position is within the bounds of the board

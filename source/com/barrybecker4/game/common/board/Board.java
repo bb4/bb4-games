@@ -21,7 +21,7 @@ import com.barrybecker4.game.common.MoveList;
  *
  *  @author Barry Becker
  */
-public abstract class Board implements IRectangularBoard {
+public abstract class Board implements IRectangularBoard<Move> {
 
     /** the internal data structures representing the game board and the positions on it. */
     protected BoardPositions positions_;
@@ -125,7 +125,7 @@ public abstract class Board implements IRectangularBoard {
      * @return false if the move is illegal
      */
     @Override
-    public final boolean makeMove( Move move ) {
+    public boolean makeMove( Move move ) {
         boolean legal = makeInternalMove(move);
         getMoveList().add( move );
         return legal;
