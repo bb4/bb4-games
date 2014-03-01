@@ -5,6 +5,7 @@ import com.barrybecker4.common.geometry.Location;
 import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.board.BoardPosition;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
+import com.barrybecker4.game.twoplayer.mancala.move.Captures;
 import com.barrybecker4.game.twoplayer.mancala.move.MancalaMove;
 import com.barrybecker4.game.twoplayer.mancala.move.MoveMaker;
 import com.barrybecker4.game.twoplayer.mancala.move.MoveUndoer;
@@ -45,7 +46,7 @@ public class MancalaBoard extends TwoPlayerBoard {
      * The first and last columns are for the home bases.
      */
     public MancalaBoard() {
-        setSize( 2, 8 );
+        this(8);
     }
 
     protected MancalaBoard(MancalaBoard mb) {
@@ -64,9 +65,10 @@ public class MancalaBoard extends TwoPlayerBoard {
     @Override
     public void reset() {
         super.reset();
-        for (int row = 1; row <= getNumRows(); row++)
-        for (int col = 2; col < getNumCols(); col++) {
-            getPosition(row, col).setPiece(new MancalaBin(row == 1, INITIAL_STONES_PER_BIN, false));
+        for (int row = 1; row <= getNumRows(); row++) {
+            for (int col = 2; col < getNumCols(); col++) {
+                getPosition(row, col).setPiece(new MancalaBin(row == 1, INITIAL_STONES_PER_BIN, false));
+            }
         }
         getPosition(1, 1).setPiece(new MancalaBin(true, (byte)0, true));
         getPosition(1, getNumCols()).setPiece(new MancalaBin(false, (byte)0, true));
@@ -126,7 +128,7 @@ public class MancalaBoard extends TwoPlayerBoard {
     }
 
     /**
-     * @return true if the players move will land the last stone in their own home bin.
+     * @return true if the player's move will land the last stone in their own home bin.
      */
     public boolean moveAgainAfterMove(Move move) {
         MancalaMove m = (MancalaMove)move;
@@ -134,7 +136,6 @@ public class MancalaBoard extends TwoPlayerBoard {
         MancalaBin bin = getBin(lastLoc);
         return bin.isHome() && bin.isOwnedByPlayer1() == m.isPlayer1();
     }
-
 
     /**
      * @param player1  the player's who's bins to consider
@@ -159,6 +160,25 @@ public class MancalaBoard extends TwoPlayerBoard {
         MancalaBin bin =  (MancalaBin) getPosition(loc).getPiece();
         assert bin != null : " Could not find mancala bin at " + loc;
         return bin;
+    }
+
+
+    /**
+     * Clear off the remaining stones on the specified players side and put them in his store.
+     * @param player1 player's whose side to clear.
+     */
+    public void clearSide(boolean player1, Captures captures) {
+        MancalaBin homeBin = getHomeBin(player1);
+
+        Location currentLoc = getHomeLocation(!player1);
+        for (int i=0; i < getNumCols() - 2; i++) {
+            currentLoc = getNextLocation(currentLoc);
+            MancalaBin bin = getBin(currentLoc);
+            if (bin.getNumStones() > 0) {
+                captures.put(currentLoc, bin.getNumStones());
+                homeBin.increment(bin.takeStones());
+            }
+        }
     }
 
     public Location getHomeLocation(boolean player1) {

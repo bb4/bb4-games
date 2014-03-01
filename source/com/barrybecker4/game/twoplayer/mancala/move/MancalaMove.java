@@ -30,7 +30,7 @@ public class MancalaMove extends TwoPlayerMove {
      * On the final move, the opposite side is cleared of stones. That also needs to be remembered.
      * To do this, keep a map of location to number of stones captured
      */
-    private Captures captures;
+    private Captures captures = new Captures();
 
     /**
      * Constructor. This should not usually be called directly

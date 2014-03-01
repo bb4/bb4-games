@@ -33,11 +33,11 @@ public class MoveMaker extends MoveAction  {
         do {
             Location currentLocation = m.getFromLocation();
             MancalaBin bin = board.getBin(currentLocation);
-            if (bin.isHome() || bin.getNumStones() == 0) {
-                m.setCaptures(new Captures());
+            int numStones = ((MancalaMove) move).getNumStonesSeeded();
+            if (bin.isHome() || numStones == 0) {
                 return false;
             }
-            int numStones = bin.takeStones();
+            bin.takeStones();
 
             // march counter-clockwise around the board dropping stones into bins (but skipping the opponent home bin)
             for (int i = 0; i<numStones; i++) {
@@ -72,36 +72,19 @@ public class MoveMaker extends MoveAction  {
             Location oppositeLoc = board.getOppositeLocation(currentLocation);
             MancalaBin oppositeBin = board.getBin(oppositeLoc);
             MancalaBin homeBin = board.getHomeBin(move.isPlayer1());
-            captures.put(oppositeLoc, lastBin.getNumStones());
+            captures.put(oppositeLoc, oppositeBin.getNumStones());
             homeBin.increment(lastBin.takeStones());
             homeBin.increment(oppositeBin.takeStones());
         }
 
         // if no stones left on players side, opponent captures all remaining stone on his side
         if (board.isSideClear(move.isPlayer1())) {
-            clearSide(!move.isPlayer1(), captures);
+            board.clearSide(!move.isPlayer1(), captures);
         }
         if (board.isSideClear(!move.isPlayer1())) {
-            clearSide(move.isPlayer1(), captures);
+            board.clearSide(move.isPlayer1(), captures);
         }
         return captures;
     }
 
-    /**
-     * Clear off the remaining stones on the specified players side and put them in his store.
-     * @param player1 player's whose side to clear.
-     */
-    private void clearSide(boolean player1, Captures captures) {
-        MancalaBin homeBin = board.getHomeBin(player1);
-
-        Location currentLoc = board.getHomeLocation(!player1);
-        for (int i=0; i < board.getNumCols() - 2; i++) {
-            currentLoc = board.getNextLocation(currentLoc);
-            MancalaBin bin = board.getBin(currentLoc);
-            if (bin.getNumStones() > 0) {
-                captures.put(currentLoc, bin.getNumStones());
-            }
-            homeBin.increment(bin.takeStones());
-        }
-    }
 }
