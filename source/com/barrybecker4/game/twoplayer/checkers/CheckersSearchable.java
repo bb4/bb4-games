@@ -4,17 +4,16 @@ package com.barrybecker4.game.twoplayer.checkers;
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.player.PlayerList;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerSearchable;
-import com.barrybecker4.optimization.parameter.ParameterArray;
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy;
+import com.barrybecker4.optimization.parameter.ParameterArray;
 
 /**
  * Defines how the computer should play checkers.
  *
  * @author Barry Becker
  */
-public class CheckersSearchable extends TwoPlayerSearchable {
+public class CheckersSearchable extends TwoPlayerSearchable<CheckersMove> {
 
     /**
      * Constructor
@@ -36,7 +35,7 @@ public class CheckersSearchable extends TwoPlayerSearchable {
      * Generate all possible next moves
      */
     @Override
-    public MoveList generateMoves(TwoPlayerMove lastMove, ParameterArray weights) {
+    public MoveList generateMoves(CheckersMove lastMove, ParameterArray weights) {
 
         MoveGenerator generator = new MoveGenerator(this, weights);
         MoveList moveList = generator.generateMoves(lastMove);
@@ -54,12 +53,12 @@ public class CheckersSearchable extends TwoPlayerSearchable {
      * @return true if the game is over.
      */
     @Override
-    public boolean done( TwoPlayerMove move, boolean recordWin ) {
+    public boolean done(CheckersMove move, boolean recordWin ) {
 
         if (move == null)  {
             // for checkers this means that the other player won.
             if (recordWin)  {
-                TwoPlayerMove lastMove = (TwoPlayerMove) getMoveList().getLastMove();
+                CheckersMove lastMove = (CheckersMove) getMoveList().getLastMove();
                 recordPlayerWin(lastMove.isPlayer1());
             }
             return true;
@@ -96,7 +95,7 @@ public class CheckersSearchable extends TwoPlayerSearchable {
      * @return the value of the current board position
      */
     @Override
-    public int worth( TwoPlayerMove lastMove, ParameterArray weights ) {
+    public int worth(CheckersMove lastMove, ParameterArray weights ) {
         return new BoardEvaluator(board_, weights).calculateWorth();
     }
 
@@ -108,7 +107,7 @@ public class CheckersSearchable extends TwoPlayerSearchable {
      */
     @Override
     public MoveList generateUrgentMoves(
-            TwoPlayerMove lastMove, ParameterArray weights) {
+            CheckersMove lastMove, ParameterArray weights) {
         return new MoveList();
     }
 }

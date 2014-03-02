@@ -193,13 +193,4 @@ public abstract class AbstractBruteSearchStrategy extends AbstractSearchStrategy
                     100 * (numTopLevelMoves_ - remainingNextMoves.size()) / numTopLevelMoves_;
         }
     }
-
-    protected String getIndent(int depth) {
-        String indent = "";
-        int numTabs = lookAhead_ - depth;
-        for (int i=0; i < numTabs; i++) {
-           indent += "   ";
-        }
-        return indent;
-    }
 }

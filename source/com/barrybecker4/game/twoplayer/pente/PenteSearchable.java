@@ -17,7 +17,7 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  *
  * @author Barry Becker
 */
-public class PenteSearchable extends TwoPlayerSearchable {
+public class PenteSearchable extends TwoPlayerSearchable<TwoPlayerMove> {
 
     private MoveEvaluator moveEvaluator;
     private PenteMoveGenerator generator;

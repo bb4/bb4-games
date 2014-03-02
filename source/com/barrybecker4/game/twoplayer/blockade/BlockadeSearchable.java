@@ -11,17 +11,16 @@ import com.barrybecker4.game.twoplayer.blockade.board.move.BlockadeMove;
 import com.barrybecker4.game.twoplayer.blockade.board.move.MoveGenerator;
 import com.barrybecker4.game.twoplayer.blockade.board.path.PlayerPathLengths;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerSearchable;
-import com.barrybecker4.optimization.parameter.ParameterArray;
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy;
+import com.barrybecker4.optimization.parameter.ParameterArray;
 
 /**
  * For searching the blockade tree.
  *
  * @author Barry Becker
  */
-public class BlockadeSearchable extends TwoPlayerSearchable {
+public class BlockadeSearchable extends TwoPlayerSearchable<BlockadeMove> {
 
     /**
      *  Constructor.
@@ -57,7 +56,7 @@ public class BlockadeSearchable extends TwoPlayerSearchable {
      *   A big negative value means a good move for p2.
      */
     @Override
-    public int worth( TwoPlayerMove lastMove, ParameterArray weights ) {
+    public int worth(BlockadeMove lastMove, ParameterArray weights ) {
         getProfiler().startCalcWorth();
         BlockadeMove m = (BlockadeMove)lastMove;
         // if its a winning move then return the winning value
@@ -98,7 +97,7 @@ public class BlockadeSearchable extends TwoPlayerSearchable {
      * lastMove may be null if there was no last move.
      */
     @Override
-    public MoveList generateMoves( TwoPlayerMove lastMove, ParameterArray weights)  {
+    public MoveList generateMoves(BlockadeMove lastMove, ParameterArray weights)  {
         getProfiler().startGenerateMoves();
 
         MoveGenerator generator = new MoveGenerator(weights, getBoard());
@@ -119,7 +118,7 @@ public class BlockadeSearchable extends TwoPlayerSearchable {
      * @param recordWin if true then the controller state will record wins
      */
     @Override
-    public boolean done( TwoPlayerMove move, boolean recordWin ) {
+    public boolean done(BlockadeMove move, boolean recordWin ) {
 
         if (getNumMoves() > 0 && move == null) {
             GameContext.log(0, "Game is over because there are no more moves.");
@@ -146,7 +145,7 @@ public class BlockadeSearchable extends TwoPlayerSearchable {
      * @return list of urgent moves
      */
     @Override
-    public MoveList generateUrgentMoves( TwoPlayerMove lastMove, ParameterArray weights) {
+    public MoveList generateUrgentMoves(BlockadeMove lastMove, ParameterArray weights) {
         return new MoveList();
     }
 }

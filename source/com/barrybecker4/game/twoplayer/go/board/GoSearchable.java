@@ -7,7 +7,6 @@ import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.board.BoardPosition;
 import com.barrybecker4.game.common.player.PlayerList;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerSearchable;
 import com.barrybecker4.game.twoplayer.common.cache.ScoreCache;
 import com.barrybecker4.game.twoplayer.go.board.analysis.BoardEvaluator;
@@ -26,7 +25,7 @@ import java.util.List;
  *
  * @author Barry Becker
  */
-public class GoSearchable extends TwoPlayerSearchable {
+public class GoSearchable extends TwoPlayerSearchable<GoMove> {
 
     /** keeps track of dead stones.  */
     private DeadStoneUpdater deadStoneUpdater_;
@@ -87,7 +86,7 @@ public class GoSearchable extends TwoPlayerSearchable {
      * @return true if the game is over
      */
     @Override
-    public final boolean done( TwoPlayerMove move, boolean recordWin ) {
+    public final boolean done(GoMove move, boolean recordWin ) {
 
         boolean gameOver = false;
 
@@ -145,7 +144,7 @@ public class GoSearchable extends TwoPlayerSearchable {
      *   A big negative value means a good move for p2.
      */
     @Override
-    public int worth( TwoPlayerMove lastMove, ParameterArray weights ) {
+    public int worth(GoMove lastMove, ParameterArray weights ) {
 
         return boardEvaluator_.worth(lastMove, weights, getHashKey());
     }
@@ -163,10 +162,10 @@ public class GoSearchable extends TwoPlayerSearchable {
      * @param move the move to play.
      */
     @Override
-    public void makeInternalMove( TwoPlayerMove move) {
+    public void makeInternalMove(GoMove move) {
 
         super.makeInternalMove(move);
-        updateHashIfCaptures((GoMove) move);
+        updateHashIfCaptures(move);
     }
 
     /**
@@ -174,10 +173,10 @@ public class GoSearchable extends TwoPlayerSearchable {
      * @param move  move to undo
      */
     @Override
-    public void undoInternalMove( TwoPlayerMove move) {
+    public void undoInternalMove(GoMove move) {
 
         super.undoInternalMove(move);
-        updateHashIfCaptures((GoMove) move);
+        updateHashIfCaptures(move);
     }
 
     /**
@@ -200,7 +199,7 @@ public class GoSearchable extends TwoPlayerSearchable {
      * @param move last move
      * @return true if last two moves were passing moves.
      */
-    private boolean twoPasses(TwoPlayerMove move) {
+    private boolean twoPasses(GoMove move) {
 
         List moves = moveList_;
         if ( move.isPassingMove() && moves.size() > 2 ) {
@@ -286,7 +285,7 @@ public class GoSearchable extends TwoPlayerSearchable {
      * @return any moves that take captures or get out of atari.
      */
     @Override
-    public final MoveList generateUrgentMoves( TwoPlayerMove lastMove, ParameterArray weights) {
+    public final MoveList generateUrgentMoves(GoMove lastMove, ParameterArray weights) {
 
         UrgentMoveGenerator generator = new UrgentMoveGenerator(getBoard());
         return generator.generateUrgentMoves(generateMoves(lastMove, weights), lastMove);
@@ -299,15 +298,15 @@ public class GoSearchable extends TwoPlayerSearchable {
      * @return true if the last move created a big change in the score
      */
     @Override
-    public boolean inJeopardy( TwoPlayerMove move, ParameterArray weights) {
-        return UrgentMoveGenerator.inJeopardy((GoMove) move, getBoard());
+    public boolean inJeopardy(GoMove move, ParameterArray weights) {
+        return UrgentMoveGenerator.inJeopardy(move, getBoard());
     }
 
     /**
      * generate all good next moves (statically evaluated)
      */
     @Override
-    public final MoveList generateMoves(TwoPlayerMove lastMove, ParameterArray weights) {
+    public final MoveList generateMoves(GoMove lastMove, ParameterArray weights) {
         GoMoveGenerator generator = new GoMoveGenerator(this);
         return generator.generateEvaluatedMoves(lastMove, weights);
     }

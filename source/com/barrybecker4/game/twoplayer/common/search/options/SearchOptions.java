@@ -107,11 +107,10 @@ public class SearchOptions {
     }
 
     public String toString() {
-        StringBuilder bldr = new StringBuilder("SearchOptions ");
-        bldr.append("strategy=").append(strategyMethod_).append("\\n");
-        bldr.append(bruteOptions_.toString()).append("\\n");
-        bldr.append(bestMovesOptions_.toString()).append("\\n");
-        bldr.append(monteCarloOptions_.toString()).append("\\n");
-        return bldr.toString();
+        return "SearchOptions " + "strategy=" + strategyMethod_
+                + "\\n" + bruteOptions_.toString()
+                + "\\n" + bestMovesOptions_.toString()
+                + "\\n" + monteCarloOptions_.toString()
+                + "\\n";
     }
 }

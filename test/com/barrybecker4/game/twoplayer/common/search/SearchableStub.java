@@ -18,7 +18,7 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  *
  * @author Barry Becker
  */
-public class SearchableStub extends AbstractSearchable {
+public class SearchableStub extends AbstractSearchable<TwoPlayerMove> {
 
     protected SearchStrategy strategy_;
     private SearchOptions options_;

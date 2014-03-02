@@ -1,6 +1,7 @@
 /** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.common.search.strategy;
 
+import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.search.transposition.TranspositionTable;
 
 /**
@@ -8,7 +9,7 @@ import com.barrybecker4.game.twoplayer.common.search.transposition.Transposition
  *
  * @author Barry Becker
  */
-public interface MemorySearchStrategy extends SearchStrategy {
+public interface MemorySearchStrategy extends SearchStrategy<TwoPlayerMove> {
 
     /**
      * @return the internal transposition table cache. It's used to avoid recomputing move scores.

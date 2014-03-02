@@ -11,7 +11,7 @@ import com.barrybecker4.game.twoplayer.common.search.tree.SearchTreeNode;
  *
  * @author Barry Becker
  */
-public interface SearchStrategy extends SearchProgress {
+public interface SearchStrategy<M extends TwoPlayerMove> extends SearchProgress {
 
     /** anything greater than this is considered a won game. */
     int WINNING_VALUE = 4096;
@@ -29,7 +29,7 @@ public interface SearchStrategy extends SearchProgress {
      * @param parent for constructing a ui tree. If null, no game tree is constructed.
      * @return the chosen move (ie the best move) (may be null if no next move).
      */
-    TwoPlayerMove search( TwoPlayerMove lastMove, SearchTreeNode parent );
+    M search( M lastMove, SearchTreeNode parent );
 
     /**
      * @return  parameters for defining the search.

@@ -53,12 +53,8 @@ public class ScoreCache extends LRUCache<HashKey, ScoreEntry> {
     }
 
     public String toString() {
-        StringBuilder bldr = new StringBuilder("ScoreCache [\n");
-        bldr.append("numEntries=").append(numEntries());
-        bldr.append(" hits").append(this.getCacheHits());
-        bldr.append(" misses=").append(this.getCacheMisses());
-        bldr.append("\n]");
-        return bldr.toString();
+        return "ScoreCache [\n" + "numEntries=" + numEntries() + " hits" +
+                getCacheHits() + " misses=" + this.getCacheMisses() + "\n]";
     }
 
 }

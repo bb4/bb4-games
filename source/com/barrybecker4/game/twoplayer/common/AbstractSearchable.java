@@ -17,10 +17,10 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  *
  * @author Barry Becker
  */
-public abstract class AbstractSearchable implements Searchable {
+public abstract class AbstractSearchable<M extends TwoPlayerMove> implements Searchable<M> {
 
     protected MoveList moveList_;
-    protected SearchStrategy strategy_;
+    protected SearchStrategy<M> strategy_;
 
     /**
      * Constructor.
@@ -31,7 +31,7 @@ public abstract class AbstractSearchable implements Searchable {
         moveList_ = moveList;
     }
 
-    public TwoPlayerMove searchForNextMove(ParameterArray weights, TwoPlayerMove lastMove,
+    public M searchForNextMove(ParameterArray weights, M lastMove,
                                            IGameTreeViewable treeViewer) {
         getProfiler().startProfiling();
 
@@ -43,7 +43,7 @@ public abstract class AbstractSearchable implements Searchable {
             root = treeViewer.getRootNode();
         }
 
-        TwoPlayerMove nextMove = strategy_.search( lastMove, root );
+        M nextMove = strategy_.search( lastMove, root );
         getProfiler().stopProfiling(strategy_.getNumMovesConsidered());
         return nextMove;
     }
