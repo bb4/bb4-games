@@ -72,8 +72,9 @@ public class MoveMaker extends MoveAction  {
             Location oppositeLoc = board.getOppositeLocation(currentLocation);
             MancalaBin oppositeBin = board.getBin(oppositeLoc);
             MancalaBin homeBin = board.getHomeBin(move.isPlayer1());
-            captures.put(oppositeLoc, oppositeBin.getNumStones());
+            captures.put(currentLocation, (byte)1);
             homeBin.increment(lastBin.takeStones());
+            captures.put(oppositeLoc, oppositeBin.getNumStones());
             homeBin.increment(oppositeBin.takeStones());
         }
 

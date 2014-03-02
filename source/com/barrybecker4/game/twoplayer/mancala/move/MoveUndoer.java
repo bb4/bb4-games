@@ -42,7 +42,7 @@ public class MoveUndoer extends MoveAction {
     }
 
     /**
-     * Captures are restored from the appropriate players storage.
+     * Captures are restored from the appropriate player's storage.
      * @param move the move to restore captures for.
      */
     private void restoreCaptures(MancalaMove move) {
@@ -50,22 +50,23 @@ public class MoveUndoer extends MoveAction {
         Captures captures = move.getCaptures();
         if (captures.isEmpty()) return;
 
-        MancalaBin oppositeBin = null;
+        Location oppositeBinLocation = null;
         MancalaBin playerHome = board.getHomeBin(move.isPlayer1());
         MancalaBin opponentHome = board.getHomeBin(!move.isPlayer1());
 
         Set<Location> keys = move.getCaptures().keySet();
 
-        // first restore the players captures
+        // first restore the player's captures
         for (Location loc : keys) {
             MancalaBin bin = board.getBin(loc);
             if (bin.isOwnedByPlayer1() == move.isPlayer1()) {
                 bin.increment();
                 playerHome.increment(-1);
-                oppositeBin = board.getBin(board.getOppositeLocation(loc));
+                oppositeBinLocation = board.getOppositeLocation(loc);
             }
         }
-        // next restore the opponent's captures. This can only happen on the last move of the game.
+        // next restore the opponent's captures.
+        // Restoring opponent captures on a whole side can only happen on the last move of the round/game.
         for (Location loc : keys) {
 
             MancalaBin bin = board.getBin(loc);
@@ -73,12 +74,14 @@ public class MoveUndoer extends MoveAction {
 
             byte numCaptures = move.getCaptures().get(loc);
 
-            if (bin.equals(oppositeBin)) {
-                oppositeBin.increment(numCaptures);
+            if (loc.equals(oppositeBinLocation)) {
+                board.getBin(oppositeBinLocation).increment(numCaptures);
                 playerHome.increment(-numCaptures);
             }
             else {
                 bin.increment(numCaptures);
+                assert (numCaptures < opponentHome.getNumStones()) : "We cannot restore " + numCaptures + " to "
+                        + loc + " from the opponent home because it has only " + opponentHome.getNumStones();
                 opponentHome.increment(-numCaptures);
             }
         }
@@ -92,7 +95,7 @@ public class MoveUndoer extends MoveAction {
         // pick up seed stones
         byte numStones = m.getNumStonesSeeded();
         Location currentLocation = m.getFromLocation();
-        board.getNthLocation(currentLocation, -numStones);
+        //currentLocation = board.getNthLocation(currentLocation, -numStones);
         MancalaBin startBin = board.getBin(currentLocation);
         startBin.increment(numStones);
 
@@ -100,6 +103,7 @@ public class MoveUndoer extends MoveAction {
             currentLocation = board.getNextLocation(currentLocation);
             MancalaBin nextBin = board.getBin(currentLocation);
             if (!(nextBin.isHome() && m.isPlayer1() != nextBin.isOwnedByPlayer1())) {
+                assert nextBin.getNumStones() > 0 : "Cannot unseed " + currentLocation + " because it is already at 0.";
                 nextBin.increment(-1);
             }
         }

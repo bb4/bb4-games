@@ -189,10 +189,6 @@ public class MancalaBoard extends TwoPlayerBoard {
         return navigator.getNextLocation(loc);
     }
 
-    public Location getNthLocation(Location startLoc, int numHops) {
-        return navigator.getNthLocation(startLoc, numHops);
-    }
-
     public Location getOppositeLocation(Location loc) {
         return navigator.getOppositeLocation(loc);
     }

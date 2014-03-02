@@ -93,7 +93,7 @@ public abstract class TwoPlayerBoard extends Board {
             for ( int j = 1; j <= nCols; j++ ) {
                 BoardPosition pos = this.getPosition(i,j);
                 if (pos.isOccupied()) {
-                    if (pos.getLocation().equals(lastMove.getToLocation())) {
+                    if (lastMove != null && pos.getLocation().equals(lastMove.getToLocation())) {
                         bldr.append("[").append(pos.getPiece()).append("]");
                         followingLastMove = true;
                     }
