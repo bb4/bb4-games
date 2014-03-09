@@ -194,7 +194,7 @@ public abstract class TwoPlayerController extends GameController<TwoPlayerBoard>
      */
     @Override
     public final Player getCurrentPlayer() {
-        return player1sTurn_? getPlayers().getPlayer1() : getPlayers().getPlayer2();
+        return player1sTurn_ ? getPlayers().getPlayer1() : getPlayers().getPlayer2();
     }
 
     /**

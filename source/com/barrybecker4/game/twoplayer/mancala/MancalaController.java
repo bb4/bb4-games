@@ -80,9 +80,11 @@ public class MancalaController extends TwoPlayerController {
         getSearchable().makeInternalMove(move);
 
         MancalaBoard board = (MancalaBoard) getBoard();
-        if (!board.moveAgainAfterMove(move)) {
-           player1sTurn_ = !((TwoPlayerMove) move).isPlayer1();
+        System.out.println("human= " + getCurrentPlayer().isHuman() + " move Again = " + board.moveAgainAfterMove(move));
+        if (!(getCurrentPlayer().isHuman() && board.moveAgainAfterMove(move))) {
+           player1sTurn_ = !move.isPlayer1();
         }
+        System.out.println(("player1sTurn_="+ player1sTurn_));
 
         if (board.isEmpty())  {
             determineWinner(board);

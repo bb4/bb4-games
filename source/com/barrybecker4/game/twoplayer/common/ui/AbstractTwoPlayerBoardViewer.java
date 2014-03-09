@@ -160,7 +160,7 @@ public abstract class AbstractTwoPlayerBoardViewer extends GameBoardViewer
      * @param move the move to make.
      * @return true if the game is over now.
      */
-    private boolean manMoves( TwoPlayerMove move) {
+    private boolean manMoves(TwoPlayerMove move) {
 
         TwoPlayerController c = get2PlayerController();
         if ( GameContext.getUseSound() ) {
@@ -292,7 +292,7 @@ public abstract class AbstractTwoPlayerBoardViewer extends GameBoardViewer
     }
 
     /**
-     * let the computer go next if one of the players is a computer.
+     * Let the computer go next if one of the players is a computer.
      * @param move the current move (it must not be null)
      * @return false if the game is at an end, otherwise return true
      */
@@ -307,16 +307,17 @@ public abstract class AbstractTwoPlayerBoardViewer extends GameBoardViewer
              if ( controller.isPlayer1sTurn() ) {
                  assert !controller.isProcessing();
                  done = manMoves( move );
-                 if ( !controller.getPlayers().getPlayer2().isHuman() && !done )  {
+                 if (!controller.isPlayer1sTurn() && !controller.getPlayers().getPlayer2().isHuman() && !done )  {
                      done = doComputerMove( false );
                  }
              }
              else { // player 2s turn
                  done = manMoves( move );
-                 if ( !controller.getPlayers().getPlayer1().isHuman() && !done )  {
+                 if (controller.isPlayer1sTurn() && !controller.getPlayers().getPlayer1().isHuman() && !done )  {
                      done = doComputerMove( true );
                  }
              }
+             refresh();
          }
          return !done;
      }

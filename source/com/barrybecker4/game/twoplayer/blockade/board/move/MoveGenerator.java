@@ -49,7 +49,7 @@ public class MoveGenerator {
         // There is one path from every piece to every opponent home (i.e. n*NUM_HOMES)
         PathList opponentPaths = board.findAllOpponentShortestPaths(player1);
 
-        List<BoardPosition> pawnLocations = new LinkedList<BoardPosition>();
+        List<BoardPosition> pawnLocations = new LinkedList<>();
         for ( int row = 1; row <= board.getNumRows(); row++ ) {
             for ( int col = 1; col <= board.getNumCols(); col++ ) {
                 BoardPosition p = board.getPosition( row, col );

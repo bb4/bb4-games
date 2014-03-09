@@ -17,7 +17,7 @@ class MancalaPlayerOptions extends TwoPlayerPlayerOptions {
 
 
     /** initial look ahead factor. */
-    private static final int DEFAULT_LOOK_AHEAD = 6;
+    private static final int DEFAULT_LOOK_AHEAD = 1;
 
     /** Don't consider moves that are less than this percentage less than the best move. */
     private static final int DEFAULT_PERCENT_LESS_THAN_BEST_THRESH = 70;

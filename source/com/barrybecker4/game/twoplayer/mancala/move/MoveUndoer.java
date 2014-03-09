@@ -89,12 +89,12 @@ public class MoveUndoer extends MoveAction {
 
     /**
      * March around and pickup the seeds placed by the move
-     * @param m the move for which the seeing will be undone.
+     * @param move the move for which the seeing will be undone.
      */
-    private void unseedStones(MancalaMove m) {
+    private void unseedStones(MancalaMove move) {
         // pick up seed stones
-        byte numStones = m.getNumStonesSeeded();
-        Location currentLocation = m.getFromLocation();
+        byte numStones = move.getNumStonesSeeded();
+        Location currentLocation = move.getFromLocation();
         //currentLocation = board.getNthLocation(currentLocation, -numStones);
         MancalaBin startBin = board.getBin(currentLocation);
         startBin.increment(numStones);
@@ -102,8 +102,9 @@ public class MoveUndoer extends MoveAction {
         for (int i = 0; i < numStones; i++) {
             currentLocation = board.getNextLocation(currentLocation);
             MancalaBin nextBin = board.getBin(currentLocation);
-            if (!(nextBin.isHome() && m.isPlayer1() != nextBin.isOwnedByPlayer1())) {
-                assert nextBin.getNumStones() > 0 : "Cannot unseed " + currentLocation + " because it is already at 0.";
+            if (!(nextBin.isHome() && move.isPlayer1() != nextBin.isOwnedByPlayer1())) {
+                assert nextBin.getNumStones() > 0 : "Cannot undo move "+ move
+                        + ". Cannot unseed " + currentLocation + " because it is already at 0.";
                 nextBin.increment(-1);
             }
         }

@@ -28,26 +28,40 @@ public final class MancalaMoveGenerator {
     public final MoveList generateMoves(
             MancalaSearchable searchable, TwoPlayerMove lastMove, ParameterArray weights) {
 
+        boolean player1 = (lastMove == null) || !lastMove.isPlayer1();
+        return generateMovesForPlayer(searchable, player1, weights);
+    }
+
+    private MoveList generateMovesForPlayer(
+            MancalaSearchable searchable, boolean player1, ParameterArray weights) {
+
         MoveList moveList = new MoveList();
         MancalaBoard board = searchable.getBoard();
-
-        boolean player1 = (lastMove == null) || !lastMove.isPlayer1();
         List<Location> candidateStarts = board.getCandidateStartLocations(player1);
-        System.out.println("generating moves");
+
         for (Location startLoc : candidateStarts)  {
 
-            int lastValue = lastMove == null ? 0 : lastMove.getValue();
-            MancalaMove move = MancalaMove.createMove(player1, startLoc, lastValue, board.getBin(startLoc));
+            MancalaMove move = MancalaMove.createMove(player1, startLoc, 0, board.getBin(startLoc));
 
             // this will actually set the captures on the move if any
             searchable.makeInternalMove( move );
-            System.out.println("m = " + move);
             move.setValue(searchable.worth(move, weights));
+
+            // if the last move is in a players home bin, then they need to make a follow up more (potentially > 1).
+            if (board.moveAgainAfterMove(move) && candidateStarts.size() > 1) {
+                MoveList followUps = generateMovesForPlayer(searchable, player1, weights);
+                for (Move followUp : followUps) {
+                    MancalaMove m = move.copy();
+                    m.setFollowUpMove((MancalaMove) followUp);
+                    moveList.add(m);
+                }
+            }
+            else {
+               moveList.add( move );
+            }
             // now revert the board
             searchable.undoInternalMove( move );
-            moveList.add( move );
         }
-        System.out.println("--");
         BestMoveFinder finder = new BestMoveFinder(searchable.getSearchOptions().getBestMovesSearchOptions());
         return finder.getBestMoves(moveList);
     }
@@ -68,7 +82,7 @@ public final class MancalaMoveGenerator {
 
         for (Move m : allMoves) {
             TwoPlayerMove move = (TwoPlayerMove) m;
-            // if its not a winning move or we already have it, then skip
+            // if it is not a winning move, or we already have it, then skip
             if ( Math.abs(move.getValue()) >= WINNING_VALUE  && !contains(move, urgentMoves)) {
                 move.setUrgent(true);
                 move.setPlayer1(currentPlayer);
