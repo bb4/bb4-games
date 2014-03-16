@@ -124,7 +124,7 @@ public class MancalaMove extends TwoPlayerMove {
         }
         if (getFollowUpMove() != null) {
             bldr.append(ntab).append("[");
-            bldr.append(ntab).append(getFollowUpMove().toString(tab + "   "));
+            bldr.append("\n").append(getFollowUpMove().toString(tab + "   "));
             bldr.append(ntab).append("]");
         }
 

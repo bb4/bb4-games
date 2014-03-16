@@ -42,7 +42,7 @@ public class MancalaMoveTest {
                 "   Player 1 val:0 inhrtd:0 piece: X((row=1, column=6)) \n" +
                 "   stones moved = 3\n" +
                 "   [\n" +
-                "         Player 1 val:0 inhrtd:0 piece: X((row=1, column=2)) \n" +
+                "      Player 1 val:0 inhrtd:0 piece: X((row=1, column=2)) \n" +
                 "      stones moved = 4\n" +
                 "   ]\n" +
                 "]",
