@@ -43,27 +43,63 @@ public final class MancalaMoveGenerator {
 
             MancalaMove move = MancalaMove.createMove(player1, startLoc, 0, board.getBin(startLoc));
 
-            // this will actually set the captures on the move if any
-            searchable.makeInternalMove( move );
-            move.setValue(searchable.worth(move, weights));
-
-            // if the last move is in a players home bin, then they need to make a follow up more (potentially > 1).
+            // if the last move is in a players home bin, then they need to make a follow up move (potentially > 1).
             if (board.moveAgainAfterMove(move) && candidateStarts.size() > 1) {
-                MoveList followUps = generateMovesForPlayer(searchable, player1, weights);
-                for (Move followUp : followUps) {
-                    MancalaMove m = move.copy();
-                    m.setFollowUpMove((MancalaMove) followUp);
-                    moveList.add(m);
+                MoveList compoundMoves = generateMovesWithFollowUpForPlayer(move, board.copy());
+                for (Move m : compoundMoves) {
+                    MancalaMove compoundMove = (MancalaMove) m;
+                    determineMoveScore(searchable, weights, compoundMove);
+                    moveList.add( compoundMove );
                 }
             }
             else {
-               moveList.add( move );
+                determineMoveScore(searchable, weights, move);
+                moveList.add( move );
             }
-            // now revert the board
-            searchable.undoInternalMove( move );
         }
         BestMoveFinder finder = new BestMoveFinder(searchable.getSearchOptions().getBestMovesSearchOptions());
         return finder.getBestMoves(moveList);
+    }
+
+    private void determineMoveScore(MancalaSearchable searchable, ParameterArray weights, MancalaMove move) {
+        // this will actually set the captures on the move if any
+        searchable.makeInternalMove( move );
+        move.setValue(searchable.worth(move, weights));
+        // now revert the board
+        searchable.undoInternalMove( move );
+    }
+
+    /**
+     * @return list of compound moves based on an initial move that requires at least one follow up.
+     */
+    private MoveList generateMovesWithFollowUpForPlayer(MancalaMove baseMove, MancalaBoard board) {
+
+        MoveList moveList = new MoveList();
+        board.makeMove(baseMove);
+        List<Location> candidateStarts = board.getCandidateStartLocations(baseMove.isPlayer1());
+
+        for (Location startLoc : candidateStarts)  {
+
+            MancalaMove followUp = MancalaMove.createMove(baseMove.isPlayer1(), startLoc, 0, board.getBin(startLoc));
+
+            // there may be follow ups to the follow up.
+            if (board.moveAgainAfterMove(followUp) && candidateStarts.size() > 1) {
+                MoveList followUps = generateMovesWithFollowUpForPlayer(followUp, board.copy());
+                for (Move m : followUps) {
+                    MancalaMove newMove = baseMove.copy();
+                    newMove.setFollowUpMove((MancalaMove) m);
+                    moveList.add(newMove);
+                }
+            }
+            else {
+                MancalaMove newMove = baseMove.copy();
+                newMove.setFollowUpMove(followUp);
+                moveList.add(newMove);
+            }
+        }
+
+        System.out.println("compound moves = " + moveList);
+        return moveList;
     }
 
     /**

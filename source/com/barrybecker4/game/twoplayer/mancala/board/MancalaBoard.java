@@ -162,7 +162,6 @@ public class MancalaBoard extends TwoPlayerBoard {
         return bin;
     }
 
-
     /**
      * Clear off the remaining stones on the specified players side and put them in his store.
      * @param player1 player's whose side to clear.

@@ -29,7 +29,7 @@ public class MoveUndoer extends MoveAction {
      * It can be a bit tricky for compound moves - ones it which the player goes again because
      * their last seeded bin was their store. In these cases, the moves must be undone in the reverse order.
      * Furthermore some moves capture stones in other bins, those must also be restored and deducted from the
-     * appropriate player storage.
+     * appropriate player storage.  Note recursive call.
      */
     public void undoMove(Move move) {
 
@@ -61,6 +61,9 @@ public class MoveUndoer extends MoveAction {
             MancalaBin bin = board.getBin(loc);
             if (bin.isOwnedByPlayer1() == move.isPlayer1()) {
                 bin.increment();
+                if (playerHome.getNumStones() == 0) {
+                    System.out.println("error undoing move=" + move.toString());
+                }
                 playerHome.increment(-1);
                 oppositeBinLocation = board.getOppositeLocation(loc);
             }
@@ -92,10 +95,9 @@ public class MoveUndoer extends MoveAction {
      * @param move the move for which the seeing will be undone.
      */
     private void unseedStones(MancalaMove move) {
-        // pick up seed stones
+
         byte numStones = move.getNumStonesSeeded();
         Location currentLocation = move.getFromLocation();
-        //currentLocation = board.getNthLocation(currentLocation, -numStones);
         MancalaBin startBin = board.getBin(currentLocation);
         startBin.increment(numStones);
 
@@ -103,7 +105,7 @@ public class MoveUndoer extends MoveAction {
             currentLocation = board.getNextLocation(currentLocation);
             MancalaBin nextBin = board.getBin(currentLocation);
             if (!(nextBin.isHome() && move.isPlayer1() != nextBin.isOwnedByPlayer1())) {
-                assert nextBin.getNumStones() > 0 : "Cannot undo move "+ move
+                assert nextBin.getNumStones() > 0 : "Cannot undo move " + move
                         + ". Cannot unseed " + currentLocation + " because it is already at 0.";
                 nextBin.increment(-1);
             }
