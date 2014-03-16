@@ -74,6 +74,18 @@ public class MoveUndoerTest {
         checkOriginalState();
     }
 
+    @Test
+    public void testUndoCompoundPlayer2Move() {
+
+        MancalaMove move = new MancalaMove(false, new ByteLocation(2, 4), (byte)3, 0);
+        MancalaMove followUp = new MancalaMove(false, new ByteLocation(2, 5), (byte)4, 0);
+        move.setFollowUpMove(followUp);
+
+        new MoveMaker(board).makeMove(move);
+        moveUndoer.undoMove(move);
+
+        checkOriginalState();
+    }
 
     @Test
     public void testUndoPlayer1CapturingMove() {
@@ -81,10 +93,38 @@ public class MoveUndoerTest {
         board.getBin(new ByteLocation(1, 2)).takeStones();
         MancalaMove move = new MancalaMove(true, new ByteLocation(1, 5), (byte)3, 0);
 
+        // this fills in the captures
         new MoveMaker(board).makeMove(move);
-        System.out.println("board after move = " + board);
+
+        Captures expCaptures = new Captures();
+        expCaptures.put(new ByteLocation(1, 2), (byte)1);
+        expCaptures.put(new ByteLocation(2, 2), (byte)3);
+        assertEquals("Unexpected captures.", expCaptures, move.getCaptures());
+
+        // put back the 3 stones originally removed.
+        board.getBin(new ByteLocation(1, 2)).increment(3);
         moveUndoer.undoMove(move);
-        System.out.println("board after undo = " + board);
+
+        checkOriginalState();
+    }
+
+    @Test
+    public void testUndoPlayer2CapturingMove() {
+
+        board.getBin(new ByteLocation(2, 5)).takeStones();
+        MancalaMove move = new MancalaMove(false, new ByteLocation(2, 2), (byte)3, 0);
+
+        // this fills in the captures
+        new MoveMaker(board).makeMove(move);
+
+        Captures expCaptures = new Captures();
+        expCaptures.put(new ByteLocation(1, 5), (byte)3);
+        expCaptures.put(new ByteLocation(2, 5), (byte)1);
+        assertEquals("Unexpected captures.", expCaptures, move.getCaptures());
+
+        // put back the 3 stones originally removed.
+        board.getBin(new ByteLocation(2, 5)).increment(3);
+        moveUndoer.undoMove(move);
 
         checkOriginalState();
     }
@@ -105,7 +145,7 @@ public class MoveUndoerTest {
         assertEquals("P2 home not empty", 0, board.getHomeBin(false).getNumStones());
         for (int i=2; i<board.getNumCols() - 1; i++)
         {
-            assertEquals("Unexpected p1 stones at col " + i, 3, board.getBin(new ByteLocation(2, i)).getNumStones());
+            assertEquals("Unexpected p1 stones at col " + i, 3, board.getBin(new ByteLocation(1, i)).getNumStones());
             assertEquals("Unexpected p2 stones at col " + i, 3, board.getBin(new ByteLocation(2, i)).getNumStones());
         }
     }
