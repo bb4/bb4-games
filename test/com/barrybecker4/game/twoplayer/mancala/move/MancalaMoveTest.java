@@ -27,6 +27,20 @@ public class MancalaMoveTest {
     }
 
     @Test
+    public void testSerializeMoveWithCaptures() {
+
+        move = new MancalaMove(true, new ByteLocation(1, 5), (byte)3, 0);
+        move.getCaptures().put(new ByteLocation(2, 6), (byte) 2);
+
+        assertEquals("Unexpected serialized form.",
+                "Player 1 val:0 inhrtd:0 piece: X((row=1, column=5)) \n" +
+                "stones moved = 3\n" +
+                "captures = {(row=2, column=6)=2}",
+                move.toString());
+    }
+
+
+    @Test
     public void testSerializeCompoundMove() {
 
         move = new MancalaMove(true, new ByteLocation(1, 4), (byte)3, 0);

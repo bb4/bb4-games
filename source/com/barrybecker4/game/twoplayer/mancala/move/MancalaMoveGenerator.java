@@ -63,9 +63,12 @@ public final class MancalaMoveGenerator {
 
     private void determineMoveScore(MancalaSearchable searchable, ParameterArray weights, MancalaMove move) {
         // this will actually set the captures on the move if any
+        System.out.println("about to make move " + move);
         searchable.makeInternalMove( move );
         move.setValue(searchable.worth(move, weights));
         // now revert the board
+        System.out.println("about to undo move " + move);
+        System.out.println("on board = " + searchable.getBoard());
         searchable.undoInternalMove( move );
     }
 
@@ -93,6 +96,7 @@ public final class MancalaMoveGenerator {
             }
             else {
                 MancalaMove newMove = baseMove.copy();
+                board.makeMove(followUp);
                 newMove.setFollowUpMove(followUp);
                 moveList.add(newMove);
             }

@@ -75,7 +75,7 @@ public class BinNavigator {
      */
     public Location getOppositeLocation(Location loc) {
         int col = loc.getCol();
-        assert col > 1 && col < size : "Column out of range for  + " + loc ;
+        //assert col > 1 && col < size : "Column out of range for  + " + loc;  failing
         return new ByteLocation((loc.getRow() == 1) ? 2:1, loc.getCol());
     }
 

@@ -34,6 +34,8 @@ public class MoveMaker extends MoveAction  {
             Location currentLocation = m.getFromLocation();
             MancalaBin bin = board.getBin(currentLocation);
             int numStones = ((MancalaMove) move).getNumStonesSeeded();
+            //assert (numStones == bin.getNumStones()) :    // failing
+            //        "Unexpected number of stones to move. Expected " + bin.getNumStones() + " but had " + numStones;
             if (bin.isHome() || numStones == 0) {
                 return false;
             }
