@@ -42,8 +42,7 @@ public abstract class TwoPlayerBoard extends Board {
             assert(m.getPiece() != null) : "move's piece was null :" + m;
             pos.setPiece(m.getPiece());
             GamePiece piece = pos.getPiece();
-            assert (piece != null):
-                    "The piece was " + piece + ". Moved to " + m.getToRow() + ", " + m.getToCol();
+
             if ( GameContext.getDebugMode() > 0 ) {
                 piece.setAnnotation( Integer.toString(getMoveList().getNumMoves()) );
             }

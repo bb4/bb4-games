@@ -75,7 +75,7 @@ public class BoardValidator {
 
     /**
      * verify that all the stones are marked unvisited.
-     * @return position that is still marked visited.
+     * @return position that is still marked visited if any, else null.
      */
     private GoBoardPosition areAllUnvisited()  {
 

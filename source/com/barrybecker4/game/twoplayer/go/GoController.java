@@ -8,6 +8,7 @@ import com.barrybecker4.game.common.player.PlayerList;
 import com.barrybecker4.game.common.player.PlayerOptions;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerController;
+import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerOptions;
 import com.barrybecker4.game.twoplayer.common.cache.ScoreCache;
 import com.barrybecker4.game.twoplayer.common.persistence.TwoPlayerGameExporter;
@@ -174,7 +175,7 @@ public final class GoController extends TwoPlayerController {
 
     @Override
     public void computerMovesFirst()  {
-        List moveList = getSearchable().generateMoves( null, weights_.getPlayer1Weights());
+        List moveList = getSearchable().generateMoves(null, weights_.getPlayer1Weights());
         // select the best (first move, since they are sorted) move to use
         GoMove m = (GoMove) moveList.get( 0 );
 
