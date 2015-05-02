@@ -60,7 +60,7 @@ public final class BattleDialog extends OptionsDialog
      * @param viewer send in the viewer so we can give feedback about the battle while it is occurring
      */
     public BattleDialog( Component parent, BattleSimulation battle, GalaxyViewer viewer ) {
-        super( parent );
+        super(parent);
         this.setResizable(false);
         this.setModal(true);
 
@@ -81,7 +81,7 @@ public final class BattleDialog extends OptionsDialog
     @Override
     protected JComponent createDialogContent() {
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout( new BorderLayout() );
+        mainPanel.setLayout(new BorderLayout());
 
         JPanel viewerPanel = new JPanel();
         viewerPanel.setLayout(new BorderLayout());
@@ -106,6 +106,7 @@ public final class BattleDialog extends OptionsDialog
 
         canvas_.setPreferredSize(new Dimension(WIDTH, 120));
         JPanel canvasPanel = new JPanel();
+        canvasPanel.setDoubleBuffered(true);  // do anything?
         canvasPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(5,5,5,5),
                               BorderFactory.createLineBorder(Color.black, 1)));
         canvasPanel.add(canvas_);
@@ -175,12 +176,12 @@ public final class BattleDialog extends OptionsDialog
     /**
      * Canvas for showing the animation ----------------------------------
      */
-    private class BattleCanvas extends Canvas implements Runnable {
+    private class BattleCanvas extends JPanel implements Runnable {
         private int attackers_;
         private int defenders_;
 
         private BattleCanvas() {
-            //this.setDoubleBuffered(false);
+            this.setDoubleBuffered(true);
         }
 
         public void setFleetSizes(int attackers, int defenders) {
@@ -214,7 +215,7 @@ public final class BattleDialog extends OptionsDialog
                  while (it.hasNext()) {
                      GalacticPlayer p = (GalacticPlayer)it.next();
                      int total = numAttackShips + numDefendShips;
-                     int time = 1 + BATTLE_SPEED / (1+total);
+                     int time = 1 + BATTLE_SPEED / (1 + total);
                      if (p == battle_.getOrder().getOwner()) {
                          if (useSound)
                              GameContext.getMusicMaker().playNote(100, time, 800);
@@ -229,6 +230,7 @@ public final class BattleDialog extends OptionsDialog
                      refresh(numAttackShips, numDefendShips);
                      ThreadUtil.sleep(time);
                  }
+
                  assert(numAttackShips == 0 || numDefendShips == 0):
                          "numAttackShips="+numAttackShips+" numDefendShips="+numDefendShips;
                  String winMessage;
@@ -242,8 +244,6 @@ public final class BattleDialog extends OptionsDialog
 
              viewer_.showPlanetUnderAttack(battle_.getPlanet(), false);  // battle is done
              //closeButton_.setEnabled(true);
-
-             canvas_.repaint();
          }
 
 

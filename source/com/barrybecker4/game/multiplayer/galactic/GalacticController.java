@@ -91,7 +91,7 @@ public class GalacticController extends MultiGameController<GalacticTurn, Galaxy
         }
         currentPlayerIndex_ = 0;
 
-        getBoard().initPlanets(getPlayers(), (GalacticOptions)getOptions());
+        getBoard().initPlanets(getPlayers(), (GalacticOptions) getOptions());
     }
 
     /**
@@ -116,7 +116,9 @@ public class GalacticController extends MultiGameController<GalacticTurn, Galaxy
             return false;
         }
         // add one so indexed by 1 instead of 0, add 1 because its the "last" move
-        if ((this.getNumMoves() + 2) >= ((GalacticOptions)getOptions()).getMaxYearsToPlay()) {
+        int numMoves =  getNumMoves();
+        System.out.println("num moves = "+ numMoves);
+        if ((numMoves + 2) >= ((GalacticOptions)getOptions()).getMaxYearsToPlay()) {
             return true; // done
         }
         return Galaxy.allPlanetsOwnedByOnePlayer();
