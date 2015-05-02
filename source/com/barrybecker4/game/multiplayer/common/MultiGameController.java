@@ -6,6 +6,7 @@ import com.barrybecker4.game.common.GameController;
 import com.barrybecker4.game.common.GameOptions;
 import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.MoveList;
+import com.barrybecker4.game.common.board.Board;
 import com.barrybecker4.game.common.board.IBoard;
 import com.barrybecker4.game.common.online.server.IServerConnection;
 import com.barrybecker4.game.common.online.server.connection.ServerConnection;
@@ -80,7 +81,8 @@ public abstract class MultiGameController<M extends Move, B extends IBoard> exte
 
     @Override
     public MoveList<M> getMoveList() {
-        return null; //getBoard().getMoveList();
+        //throw new UnsupportedOperationException("no move list for multi player games");
+        return ((Board)getBoard()).getMoveList();
     }
 
     /**
@@ -97,7 +99,7 @@ public abstract class MultiGameController<M extends Move, B extends IBoard> exte
         startingPlayerIndex_ = 0;
         playIndex_ = 0;
         currentPlayerIndex_ = 0;
-        recentRobotActions_ = new ArrayList<PlayerAction>();
+        recentRobotActions_ = new ArrayList<>();
         initPlayers();
     }
 

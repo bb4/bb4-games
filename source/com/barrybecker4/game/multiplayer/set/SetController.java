@@ -9,6 +9,7 @@ import com.barrybecker4.game.multiplayer.common.MultiGameController;
 import com.barrybecker4.game.multiplayer.common.MultiGamePlayer;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -205,6 +206,6 @@ public class SetController extends MultiGameController {
             }
         }
 
-        return Arrays.asList(winner);
+        return Collections.singletonList(winner);
     }
 }

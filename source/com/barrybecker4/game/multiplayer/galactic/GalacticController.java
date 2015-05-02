@@ -170,7 +170,7 @@ public class GalacticController extends MultiGameController<GalacticTurn, Galaxy
             // @@ I would really like to
             // Precalculate the battle sequence on the server and store it in the move, then send
             // the result in the move to the client.
-            // however, there are problems with that, so I just calculate it in the veiwer for now.
+            // however, there are problems with that, so I just calculate it in the viewer for now.
 
             GalacticTurn gmove = gviewer.createMove(null); //getLastMove());
             //gviewer.showMove(gmove);
@@ -193,7 +193,7 @@ public class GalacticController extends MultiGameController<GalacticTurn, Galaxy
      */
     @Override
     protected int advanceToNextPlayerIndex() {
-        currentPlayerIndex_ = (currentPlayerIndex_+1) % getPlayers().size();
+        currentPlayerIndex_ = (currentPlayerIndex_ + 1) % getPlayers().size();
         return currentPlayerIndex_;
     }
 

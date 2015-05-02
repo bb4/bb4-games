@@ -2,7 +2,7 @@
 package com.barrybecker4.game.multiplayer.galactic;
 
 import com.barrybecker4.game.common.GameContext;
-import com.barrybecker4.game.common.Move;
+import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.board.Board;
 import com.barrybecker4.game.common.board.BoardPosition;
 import com.barrybecker4.game.common.player.Player;
@@ -48,7 +48,8 @@ public class Galaxy extends Board<GalacticTurn> {
     // Does not change during the game.
     private static List<Planet> planets_ = null;
 
-    private static Map<Character,Planet> hmPlanets_ = new HashMap<Character,Planet>();
+    private static Map<Character,Planet> hmPlanets_ = new HashMap<>();
+
 
 
     /** constructor
@@ -190,8 +191,8 @@ public class Galaxy extends Board<GalacticTurn> {
         // first allow all the planets to build for the year
         build();
         // go through all the battle results in order and adjust the planets to account for one elapsed year.
+        getMoveList().add(move);
 
-        //GalacticTurn gmove = (GalacticTurn)move;
         //destPlanet.setOwner( battle.getOwnerAfterAttack());
         //destPlanet.setNumShips( battle.getNumShipsAfterAttack() );
         return true;
