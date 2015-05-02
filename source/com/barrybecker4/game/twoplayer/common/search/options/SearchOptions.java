@@ -1,6 +1,8 @@
 /** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.common.search.options;
 
+import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
+import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.search.Searchable;
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy;
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategyType;
@@ -13,7 +15,7 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  *
  * @author Barry Becker
  */
-public class SearchOptions {
+public class SearchOptions<M extends TwoPlayerMove, B extends TwoPlayerBoard> {
 
     public static final SearchStrategyType DEFAULT_STRATEGY_METHOD = SearchStrategyType.NEGASCOUT;
 
@@ -101,9 +103,10 @@ public class SearchOptions {
      * @param searchable  something that can be searched.
      * @return the search strategy to use given a searchable object.
      */
-    public SearchStrategy getSearchStrategy(Searchable searchable, ParameterArray weights) {
+    public SearchStrategy<M> getSearchStrategy(Searchable<M, B> searchable, ParameterArray weights) {
 
-        return getSearchStrategyMethod().createStrategy(searchable, weights);
+        SearchStrategyType type = getSearchStrategyMethod();
+        return (SearchStrategy<M>) type.createStrategy(searchable, weights);
     }
 
     public String toString() {

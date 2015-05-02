@@ -3,7 +3,6 @@ package com.barrybecker4.game.twoplayer.checkers;
 
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.player.PlayerList;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerSearchable;
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy;
 import com.barrybecker4.optimization.parameter.ParameterArray;
@@ -13,12 +12,12 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  *
  * @author Barry Becker
  */
-public class CheckersSearchable extends TwoPlayerSearchable<CheckersMove> {
+public class CheckersSearchable extends TwoPlayerSearchable<CheckersMove, CheckersBoard> {
 
     /**
      * Constructor
      */
-    public CheckersSearchable(TwoPlayerBoard board, PlayerList players) {
+    public CheckersSearchable(CheckersBoard board, PlayerList players) {
         super(board, players);
     }
 
@@ -35,10 +34,10 @@ public class CheckersSearchable extends TwoPlayerSearchable<CheckersMove> {
      * Generate all possible next moves
      */
     @Override
-    public MoveList generateMoves(CheckersMove lastMove, ParameterArray weights) {
+    public MoveList<CheckersMove> generateMoves(CheckersMove lastMove, ParameterArray weights) {
 
         MoveGenerator generator = new MoveGenerator(this, weights);
-        MoveList moveList = generator.generateMoves(lastMove);
+        MoveList<CheckersMove> moveList = generator.generateMoves(lastMove);
 
         return bestMoveFinder_.getBestMoves(moveList);
     }
@@ -58,7 +57,7 @@ public class CheckersSearchable extends TwoPlayerSearchable<CheckersMove> {
         if (move == null)  {
             // for checkers this means that the other player won.
             if (recordWin)  {
-                CheckersMove lastMove = (CheckersMove) getMoveList().getLastMove();
+                CheckersMove lastMove = getMoveList().getLastMove();
                 recordPlayerWin(lastMove.isPlayer1());
             }
             return true;
@@ -106,8 +105,8 @@ public class CheckersSearchable extends TwoPlayerSearchable<CheckersMove> {
      * @return list of urgent moves
      */
     @Override
-    public MoveList generateUrgentMoves(
+    public MoveList<CheckersMove> generateUrgentMoves(
             CheckersMove lastMove, ParameterArray weights) {
-        return new MoveList();
+        return new MoveList<>();
     }
 }

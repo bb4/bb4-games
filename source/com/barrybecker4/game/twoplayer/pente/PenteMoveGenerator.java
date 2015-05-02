@@ -2,7 +2,6 @@
 package com.barrybecker4.game.twoplayer.pente;
 
 import com.barrybecker4.common.geometry.Location;
-import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.board.GamePiece;
 import com.barrybecker4.game.twoplayer.common.BestMoveFinder;
@@ -27,8 +26,9 @@ final class PenteMoveGenerator {
     /**
      * @return all reasonably good next moves.
      */
-    public final MoveList generateMoves(PenteSearchable searchable, TwoPlayerMove lastMove, ParameterArray weights) {
-        MoveList moveList = new MoveList();
+    public final MoveList<TwoPlayerMove> generateMoves(PenteSearchable searchable,
+                                                       TwoPlayerMove lastMove, ParameterArray weights) {
+        MoveList<TwoPlayerMove> moveList = new MoveList<>();
 
         PenteBoard pb = searchable.getBoard();
         CandidateMoves candMoves = pb.getCandidateMoves();
@@ -52,26 +52,27 @@ final class PenteMoveGenerator {
                 }
             }
         }
-        BestMoveFinder finder = new BestMoveFinder(searchable.getSearchOptions().getBestMovesSearchOptions());
+        BestMoveFinder<TwoPlayerMove> finder =
+                new BestMoveFinder<>(searchable.getSearchOptions().getBestMovesSearchOptions());
         return finder.getBestMoves(moveList);
     }
 
     /**
      * @return a list of urgent moves (i.e positions that can result in a win for either player.
      */
-    public MoveList generateUrgentMoves(PenteSearchable searchable, TwoPlayerMove lastMove, ParameterArray weights) {
+    public MoveList<TwoPlayerMove> generateUrgentMoves(
+            PenteSearchable searchable, TwoPlayerMove lastMove, ParameterArray weights) {
         // no urgent moves at start of game.
         if (lastMove == null)  {
-            return new MoveList();
+            return new MoveList<>();
         }
-        MoveList allMoves = findMovesForBothPlayers(searchable, lastMove, weights);
+        MoveList<TwoPlayerMove> allMoves = findMovesForBothPlayers(searchable, lastMove, weights);
 
         // now keep only those that result in a win or loss.
-        MoveList urgentMoves = new MoveList();
+        MoveList<TwoPlayerMove> urgentMoves = new MoveList<>();
         boolean currentPlayer = !lastMove.isPlayer1();
 
-        for (Move m : allMoves) {
-            TwoPlayerMove move = (TwoPlayerMove) m;
+        for (TwoPlayerMove move : allMoves) {
             // if its not a winning move or we already have it, then skip
             if ( Math.abs(move.getValue()) >= WINNING_VALUE  && !contains(move, urgentMoves)) {
                 move.setUrgent(true);
@@ -87,21 +88,20 @@ final class PenteMoveGenerator {
      * Consider both our moves and opponent moves.
      * @return Set of all next moves.
      */
-    private MoveList findMovesForBothPlayers(
+    private MoveList<TwoPlayerMove> findMovesForBothPlayers(
             PenteSearchable searchable, TwoPlayerMove lastMove, ParameterArray weights) {
-        MoveList allMoves = new MoveList();
+        MoveList<TwoPlayerMove> allMoves = new MoveList<>();
 
-        MoveList moves = generateMoves(searchable, lastMove, weights);
+        MoveList<TwoPlayerMove> moves = generateMoves(searchable, lastMove, weights);
         allMoves.addAll(moves);
 
         // unlike go, I don't know if we need this
         TwoPlayerMove oppLastMove = lastMove.copy();
         oppLastMove.setPlayer1(!lastMove.isPlayer1());
-        MoveList opponentMoves =
+        MoveList<TwoPlayerMove> opponentMoves =
                 generateMoves(searchable, oppLastMove, weights);
-        for (Move m : opponentMoves){
-            TwoPlayerMove move = (TwoPlayerMove) m;
-            allMoves.add(move);
+        for (TwoPlayerMove m : opponentMoves){
+            allMoves.add(m);
         }
 
         return allMoves;
@@ -111,9 +111,9 @@ final class PenteMoveGenerator {
      * This version of contains does not consider the player when determining containment.
      * @return true of the {@link MoveList} contains the specified move.
      */
-    private boolean contains(TwoPlayerMove move, MoveList moves) {
-        for (Move m : moves) {
-            Location moveLocation = ((TwoPlayerMove)m).getToLocation();
+    private boolean contains(TwoPlayerMove move, MoveList<TwoPlayerMove> moves) {
+        for (TwoPlayerMove m : moves) {
+            Location moveLocation = m.getToLocation();
             if (moveLocation.equals(move.getToLocation())) {
                 return true;
             }

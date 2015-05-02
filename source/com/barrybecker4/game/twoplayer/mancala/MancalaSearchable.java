@@ -3,7 +3,6 @@ package com.barrybecker4.game.twoplayer.mancala;
 
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.player.PlayerList;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerSearchable;
 import com.barrybecker4.game.twoplayer.mancala.board.MancalaBoard;
 import com.barrybecker4.game.twoplayer.mancala.move.MancalaMove;
@@ -16,13 +15,13 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  *
  * @author Barry Becker
 */
-public class MancalaSearchable extends TwoPlayerSearchable<MancalaMove> {
+public class MancalaSearchable extends TwoPlayerSearchable<MancalaMove, MancalaBoard> {
 
     private MoveEvaluator moveEvaluator;
     private MancalaMoveGenerator generator;
 
     /** Constructor */
-    public MancalaSearchable(TwoPlayerBoard board, PlayerList players) {
+    public MancalaSearchable(MancalaBoard board, PlayerList players) {
         super(board, players);
         init();
     }
@@ -44,7 +43,7 @@ public class MancalaSearchable extends TwoPlayerSearchable<MancalaMove> {
 
     @Override
     public MancalaBoard getBoard() {
-        return (MancalaBoard) board_;
+        return board_;
     }
 
 
@@ -62,7 +61,7 @@ public class MancalaSearchable extends TwoPlayerSearchable<MancalaMove> {
      * generate all possible next moves.
      */
     @Override
-    public MoveList generateMoves(MancalaMove lastMove, ParameterArray weights) {
+    public MoveList<MancalaMove> generateMoves(MancalaMove lastMove, ParameterArray weights) {
         return generator.generateMoves(this, lastMove, weights);
     }
 
@@ -72,7 +71,7 @@ public class MancalaSearchable extends TwoPlayerSearchable<MancalaMove> {
      * @return Set of moves the moves that result in a certain win or a certain loss.
      */
     @Override
-    public MoveList generateUrgentMoves(MancalaMove lastMove, ParameterArray weights) {
+    public MoveList<MancalaMove> generateUrgentMoves(MancalaMove lastMove, ParameterArray weights) {
         return generator.generateUrgentMoves(this, lastMove, weights);
     }
 

@@ -16,8 +16,8 @@ import com.barrybecker4.game.common.player.PlayerList;
  *
  *  @author Barry Becker
  */
-public abstract class GameController<B extends IBoard>
-           implements IGameController {
+public abstract class GameController<M extends Move, B extends IBoard>
+           implements IGameController<M, B> {
 
     /** the board has the layout of the pieces. */
     private B board_;
@@ -63,7 +63,7 @@ public abstract class GameController<B extends IBoard>
     /**
      * @return the last move played.
      */
-    public Move getLastMove() {
+    public M getLastMove() {
         return getMoveList().getLastMove();
     }
 
@@ -112,8 +112,8 @@ public abstract class GameController<B extends IBoard>
 
 
     @Override
-    public void makeMove(Move move) {
-        ((IRectangularBoard)getBoard()).makeMove(move);
+    public void makeMove(M move) {
+        ((IRectangularBoard<M>)getBoard()).makeMove(move);
     }
 
     /**
@@ -121,8 +121,8 @@ public abstract class GameController<B extends IBoard>
      * @return  the move which was undone (null returned if no prior move)
      */
     @Override
-    public Move undoLastMove() {
-        return ((IRectangularBoard)getBoard()).undoMove();
+    public M undoLastMove() {
+        return ((IRectangularBoard<M>)getBoard()).undoMove();
     }
 
     /**

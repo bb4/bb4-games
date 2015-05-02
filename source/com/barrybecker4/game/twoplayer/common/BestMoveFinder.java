@@ -1,7 +1,6 @@
-/** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
+/** Copyright by Barry G. Becker, 2000-2015. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.common;
 
-import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.twoplayer.common.search.options.BestMovesSearchOptions;
 
@@ -13,7 +12,7 @@ import java.util.Collections;
  *
  * @author Barry Becker
  */
-public class BestMoveFinder {
+public class BestMoveFinder<M extends TwoPlayerMove> {
 
     private BestMovesSearchOptions searchOptions_;
 
@@ -37,12 +36,12 @@ public class BestMoveFinder {
      * @param moveList the list of all generated moves
      * @return the best moves in order of how good they are.
      */
-    public MoveList getBestMoves(MoveList moveList) {
+    public MoveList<M> getBestMoves(MoveList<M> moveList) {
 
         Collections.sort(moveList);
 
         // reverse the order so the best (highest scoring) move (using static board evaluation) is first.
-        isPlayer1 = moveList.isEmpty() || ((TwoPlayerMove)moveList.getFirstMove()).isPlayer1();
+        isPlayer1 = moveList.isEmpty() || (moveList.getFirstMove()).isPlayer1();
         if (isPlayer1) {
             Collections.reverse( moveList );
         }
@@ -58,7 +57,7 @@ public class BestMoveFinder {
      * @param moveList a sorted list of reasonable next moves.
      * @return set of best moves from the original list
      */
-    private MoveList determineBestMoves(MoveList moveList) {
+    private MoveList<M> determineBestMoves(MoveList<M> moveList) {
 
         int minBest = searchOptions_.getMinBestMoves();
         int requestedBest = getNumRequestedBest(moveList);
@@ -71,7 +70,7 @@ public class BestMoveFinder {
     /**
      * @return number of moves corresponding to percent of best.
      */
-    private int getNumRequestedBest(MoveList moveList) {
+    private int getNumRequestedBest(MoveList<M> moveList) {
         int numMoves = moveList.size();
         int topPercent = searchOptions_.getPercentageBestMoves();
         return (int) ((float) topPercent / 100.0 * numMoves + 0.5);
@@ -83,7 +82,7 @@ public class BestMoveFinder {
      * then the threshold will be 90 - 0.2 (200) = 50. So only 90, 80, 70 would be included.
      * @return score that needs to be exceeded to be considered an acceptable move.
      */
-    private double getThresholdValue(MoveList moveList) {
+    private double getThresholdValue(MoveList<M> moveList) {
         double thresholdValue = 0;
         if (!moveList.isEmpty()) {
             double highValue = moveList.getFirstMove().getValue();
@@ -102,16 +101,15 @@ public class BestMoveFinder {
      * @param thresholdValue percent of best score to exceed to get included
      * @return best moves that satisfy requirements
      */
-    private MoveList getBestMoves(MoveList moveList, int minToGet, double thresholdValue) {
+    private MoveList<M> getBestMoves(MoveList<M> moveList, int minToGet, double thresholdValue) {
 
-        MoveList bestMoves = new MoveList();
+        MoveList<M> bestMoves = new MoveList<>();
 
         if (!moveList.isEmpty()) {
-            for (Move move : moveList) {
-                TwoPlayerMove currentMove = (TwoPlayerMove) move;
+            for (M move : moveList) {
                 boolean threshExceeded = isPlayer1 ?
-                        currentMove.getValue() >= thresholdValue :
-                        currentMove.getValue() <= thresholdValue;
+                        move.getValue() >= thresholdValue :
+                        move.getValue() <= thresholdValue;
                 if (bestMoves.size() < minToGet || threshExceeded) {
                     bestMoves.add(move);
                 }

@@ -17,12 +17,12 @@ import java.awt.event.MouseEvent;
  *
  *  @author Barry Becker
  */
-class MancalaViewerMouseListener extends ViewerMouseListener {
+class MancalaViewerMouseListener extends ViewerMouseListener<MancalaMove, MancalaBoard> {
 
     /**
      * Constructor.
      */
-    MancalaViewerMouseListener(GameBoardViewer viewer) {
+    MancalaViewerMouseListener(GameBoardViewer<MancalaMove, MancalaBoard> viewer) {
         super(viewer);
     }
 
@@ -42,7 +42,7 @@ class MancalaViewerMouseListener extends ViewerMouseListener {
         }
         Location loc = getRenderer().createLocation(e);
 
-        MancalaBoard board = (MancalaBoard) controller.getBoard();
+        MancalaBoard board = controller.getBoard();
 
         // If the player click on a home base, an opponent bin, or some invalid location, just return
         BoardPosition p = board.getPosition(loc);

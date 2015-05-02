@@ -2,7 +2,6 @@
 package com.barrybecker4.game.twoplayer.mancala.move;
 
 import com.barrybecker4.common.geometry.Location;
-import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.board.GamePiece;
 import com.barrybecker4.game.twoplayer.common.BestMoveFinder;
@@ -25,17 +24,17 @@ public final class MancalaMoveGenerator {
     /**
      * @return all reasonably good next moves.
      */
-    public final MoveList generateMoves(
+    public final MoveList<MancalaMove> generateMoves(
             MancalaSearchable searchable, TwoPlayerMove lastMove, ParameterArray weights) {
 
         boolean player1 = (lastMove == null) || !lastMove.isPlayer1();
         return generateMovesForPlayer(searchable, player1, weights);
     }
 
-    private MoveList generateMovesForPlayer(
+    private MoveList<MancalaMove> generateMovesForPlayer(
             MancalaSearchable searchable, boolean player1, ParameterArray weights) {
 
-        MoveList moveList = new MoveList();
+        MoveList<MancalaMove> moveList = new MoveList<>();
         MancalaBoard board = searchable.getBoard();
         List<Location> candidateStarts = board.getCandidateStartLocations(player1);
 
@@ -45,9 +44,8 @@ public final class MancalaMoveGenerator {
 
             // if the last move is in a players home bin, then they need to make a follow up move (potentially > 1).
             if (board.moveAgainAfterMove(move) && candidateStarts.size() > 1) {
-                MoveList compoundMoves = generateMovesWithFollowUpForPlayer(move, board.copy());
-                for (Move m : compoundMoves) {
-                    MancalaMove compoundMove = (MancalaMove) m;
+                MoveList<MancalaMove> compoundMoves = generateMovesWithFollowUpForPlayer(move, board.copy());
+                for (MancalaMove compoundMove : compoundMoves) {
                     determineMoveScore(searchable, weights, compoundMove);
                     moveList.add( compoundMove );
                 }
@@ -57,7 +55,7 @@ public final class MancalaMoveGenerator {
                 moveList.add( move );
             }
         }
-        BestMoveFinder finder = new BestMoveFinder(searchable.getSearchOptions().getBestMovesSearchOptions());
+        BestMoveFinder<MancalaMove> finder = new BestMoveFinder<>(searchable.getSearchOptions().getBestMovesSearchOptions());
         return finder.getBestMoves(moveList);
     }
 
@@ -75,9 +73,9 @@ public final class MancalaMoveGenerator {
     /**
      * @return list of compound moves based on an initial move that requires at least one follow up.
      */
-    private MoveList generateMovesWithFollowUpForPlayer(MancalaMove baseMove, MancalaBoard board) {
+    private MoveList<MancalaMove> generateMovesWithFollowUpForPlayer(MancalaMove baseMove, MancalaBoard board) {
 
-        MoveList moveList = new MoveList();
+        MoveList<MancalaMove> moveList = new MoveList<>();
         board.makeMove(baseMove);
         List<Location> candidateStarts = board.getCandidateStartLocations(baseMove.isPlayer1());
 
@@ -87,10 +85,10 @@ public final class MancalaMoveGenerator {
 
             // there may be follow ups to the follow up.
             if (board.moveAgainAfterMove(followUp) && candidateStarts.size() > 1) {
-                MoveList followUps = generateMovesWithFollowUpForPlayer(followUp, board.copy());
-                for (Move m : followUps) {
+                MoveList<MancalaMove> followUps = generateMovesWithFollowUpForPlayer(followUp, board.copy());
+                for (MancalaMove m : followUps) {
                     MancalaMove newMove = baseMove.copy();
-                    newMove.setFollowUpMove((MancalaMove) m);
+                    newMove.setFollowUpMove(m);
                     moveList.add(newMove);
                 }
             }
@@ -109,19 +107,18 @@ public final class MancalaMoveGenerator {
     /**
      * @return a list of urgent moves (i.e positions that can result in a win for either player.
      */
-    public MoveList generateUrgentMoves(MancalaSearchable searchable, TwoPlayerMove lastMove, ParameterArray weights) {
+    public MoveList<MancalaMove> generateUrgentMoves(MancalaSearchable searchable, MancalaMove lastMove, ParameterArray weights) {
         // no urgent moves at start of game.
         if (lastMove == null)  {
-            return new MoveList();
+            return new MoveList<>();
         }
-        MoveList allMoves = findMovesForBothPlayers(searchable, lastMove, weights);
+        MoveList<MancalaMove> allMoves = findMovesForBothPlayers(searchable, lastMove, weights);
 
         // now keep only those that result in a win or loss.
-        MoveList urgentMoves = new MoveList();
+        MoveList<MancalaMove> urgentMoves = new MoveList<>();
         boolean currentPlayer = !lastMove.isPlayer1();
 
-        for (Move m : allMoves) {
-            TwoPlayerMove move = (TwoPlayerMove) m;
+        for (MancalaMove move : allMoves) {
             // if it is not a winning move, or we already have it, then skip
             if ( Math.abs(move.getValue()) >= WINNING_VALUE  && !contains(move, urgentMoves)) {
                 move.setUrgent(true);
@@ -137,20 +134,19 @@ public final class MancalaMoveGenerator {
      * Consider both our moves and opponent moves.
      * @return Set of all next moves.
      */
-    private MoveList findMovesForBothPlayers(
-            MancalaSearchable searchable, TwoPlayerMove lastMove, ParameterArray weights) {
-        MoveList allMoves = new MoveList();
+    private MoveList<MancalaMove> findMovesForBothPlayers(
+            MancalaSearchable searchable, MancalaMove lastMove, ParameterArray weights) {
+        MoveList<MancalaMove> allMoves = new MoveList<>();
 
-        MoveList moves = generateMoves(searchable, lastMove, weights);
+        MoveList<MancalaMove> moves = generateMoves(searchable, lastMove, weights);
         allMoves.addAll(moves);
 
         // unlike go, I don't know if we need this
         TwoPlayerMove oppLastMove = lastMove.copy();
         oppLastMove.setPlayer1(!lastMove.isPlayer1());
-        MoveList opponentMoves =
+        MoveList<MancalaMove> opponentMoves =
                 generateMoves(searchable, oppLastMove, weights);
-        for (Move m : opponentMoves){
-            TwoPlayerMove move = (TwoPlayerMove) m;
+        for (MancalaMove move : opponentMoves){
             allMoves.add(move);
         }
 
@@ -161,9 +157,9 @@ public final class MancalaMoveGenerator {
      * This version of contains does not consider the player when determining containment.
      * @return true of the {@link MoveList} contains the specified move.
      */
-    private boolean contains(TwoPlayerMove move, MoveList moves) {
-        for (Move m : moves) {
-            Location moveLocation = ((TwoPlayerMove)m).getToLocation();
+    private boolean contains(MancalaMove move, MoveList<MancalaMove> moves) {
+        for (MancalaMove m : moves) {
+            Location moveLocation = m.getToLocation();
             if (moveLocation.equals(move.getToLocation())) {
                 return true;
             }

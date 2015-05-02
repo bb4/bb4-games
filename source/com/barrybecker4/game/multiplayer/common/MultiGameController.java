@@ -43,7 +43,7 @@ import java.util.List;
  *  </ul>
  * @author Barry Becker
  */
-public abstract class MultiGameController extends GameController<IBoard> {
+public abstract class MultiGameController<M extends Move, B extends IBoard> extends GameController<M, B> {
 
     protected int currentPlayerIndex_;
 
@@ -72,14 +72,14 @@ public abstract class MultiGameController extends GameController<IBoard> {
     }
 
     @Override
-    protected IBoard createBoard() {
+    protected B createBoard() {
         return createTable(size.width, size.height);
     }
 
-    protected abstract IBoard createTable(int nrows, int ncols);
+    protected abstract B createTable(int nrows, int ncols);
 
     @Override
-    public MoveList getMoveList() {
+    public MoveList<M> getMoveList() {
         return null; //getBoard().getMoveList();
     }
 
@@ -235,7 +235,7 @@ public abstract class MultiGameController extends GameController<IBoard> {
      *  @return the lastMoves value modified by the value add of the new move.
      *   a large positive value means that the move is good from the specified players viewpoint
      */
-    protected double worth( Move lastMove, ParameterArray weights ) {
+    protected double worth( M lastMove, ParameterArray weights ) {
         return lastMove.getValue();
     }
 
@@ -243,14 +243,14 @@ public abstract class MultiGameController extends GameController<IBoard> {
      * generate all possible next moves.
      * impossible for this game.
      */
-    public MoveList generateMoves( Move lastMove, ParameterArray weights) {
+    public MoveList generateMoves( M lastMove, ParameterArray weights) {
         return new MoveList();
     }
 
     /**
      * return any moves that result in a win
      */
-    public List generateUrgentMoves( Move lastMove, ParameterArray weights) {
+    public List generateUrgentMoves( M lastMove, ParameterArray weights) {
         return null;
     }
 }

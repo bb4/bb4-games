@@ -1,7 +1,6 @@
-/** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
+/** Copyright by Barry G. Becker, 2000-2015. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.pente;
 
-import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 
@@ -10,7 +9,7 @@ import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
  *
  * @author Barry Becker
  */
-public class PenteBoard extends TwoPlayerBoard {
+public class PenteBoard extends TwoPlayerBoard<TwoPlayerMove> {
 
     /**
      * Constructor
@@ -48,11 +47,11 @@ public class PenteBoard extends TwoPlayerBoard {
 
     /**
      *  For pente, undoing a move is just changing that space back to a blank.
+     *  @param move the move to undo
      */
     @Override
-    protected void undoInternalMove( Move move ) {
-        TwoPlayerMove m = (TwoPlayerMove)move;
-        getPosition(m.getToRow(), m.getToCol()).clear();
+    protected void undoInternalMove( TwoPlayerMove move ) {
+        getPosition(move.getToRow(), move.getToCol()).clear();
     }
 
     /**

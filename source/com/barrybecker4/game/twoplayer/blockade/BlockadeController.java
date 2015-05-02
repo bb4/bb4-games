@@ -11,9 +11,7 @@ import com.barrybecker4.game.twoplayer.blockade.board.BlockadeBoardPosition;
 import com.barrybecker4.game.twoplayer.blockade.board.move.BlockadeMove;
 import com.barrybecker4.game.twoplayer.blockade.persistence.BlockadeGameExporter;
 import com.barrybecker4.game.twoplayer.blockade.persistence.BlockadeGameImporter;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerController;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerOptions;
 import com.barrybecker4.game.twoplayer.common.persistence.TwoPlayerGameExporter;
 import com.barrybecker4.game.twoplayer.common.search.Searchable;
@@ -32,7 +30,7 @@ import java.util.List;
  *
  * @author Barry Becker
  */
-public class BlockadeController extends TwoPlayerController {
+public class BlockadeController extends TwoPlayerController<BlockadeMove, BlockadeBoard> {
 
     /** the default Blockade board is 14 by 11 */
     private static final int NUM_ROWS = 14;
@@ -74,7 +72,7 @@ public class BlockadeController extends TwoPlayerController {
     @Override
     public void computerMovesFirst() {
         // determine the possible moves and choose one at random.
-        MoveList moveList = getSearchable().generateMoves(null, weights_.getPlayer1Weights());
+        MoveList<BlockadeMove> moveList = getSearchable().generateMoves(null, weights_.getPlayer1Weights());
 
         makeMove( moveList.getRandomMove() );
     }
@@ -90,7 +88,7 @@ public class BlockadeController extends TwoPlayerController {
         if (!getPlayers().anyPlayerWon()) {
              return 0;
         }
-        return getSearchable().worth((TwoPlayerMove) getLastMove(), weights_.getDefaultWeights());
+        return getSearchable().worth(getLastMove(), weights_.getDefaultWeights());
     }
 
     /**
@@ -113,12 +111,12 @@ public class BlockadeController extends TwoPlayerController {
      * @return a possible list of moves based on position passed in.
      */
     public List<BlockadeMove> getPossibleMoveList(BoardPosition position) {
-        return ((BlockadeBoard)getBoard()).getPossibleMoveList(
+        return (getBoard()).getPossibleMoveList(
                 (BlockadeBoardPosition)position, !position.getPiece().isOwnedByPlayer1());
     }
 
     @Override
-    public Searchable createSearchable(TwoPlayerBoard board, PlayerList players) {
+    public Searchable<BlockadeMove, BlockadeBoard> createSearchable(BlockadeBoard board, PlayerList players) {
         return new BlockadeSearchable(board, players);
     }
 }

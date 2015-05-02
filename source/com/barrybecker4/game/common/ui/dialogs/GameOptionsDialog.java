@@ -254,7 +254,7 @@ public abstract class GameOptionsDialog extends OptionsDialog
 
         //call super methods to add color select entries
         boardColorButton_ = new JButton("...");
-        GameBoardViewer v = ((GameBoardViewer)controller_.getViewer());
+        GameBoardViewer v = (GameBoardViewer) controller_.getViewer();
         boardColorButton_.setBackground(v.getBackground());
         gridColorButton_ = new JButton("...");
         gridColorButton_.setBackground(v.getGridColor());

@@ -6,7 +6,6 @@ import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.board.BoardPosition;
 import com.barrybecker4.game.common.player.PlayerList;
 import com.barrybecker4.game.twoplayer.checkers.CheckersBoard;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerSearchable;
 import com.barrybecker4.optimization.parameter.ParameterArray;
 
@@ -19,9 +18,9 @@ import java.util.List;
  *
  * @author Barry Becker
  */
-public class ChessSearchable extends TwoPlayerSearchable<ChessMove> {
+public class ChessSearchable extends TwoPlayerSearchable<ChessMove, ChessBoard> {
 
-    public ChessSearchable(TwoPlayerBoard board, PlayerList players) {
+    public ChessSearchable(ChessBoard board, PlayerList players) {
         super(board, players);
     }
 
@@ -36,7 +35,7 @@ public class ChessSearchable extends TwoPlayerSearchable<ChessMove> {
 
     @Override
     public ChessBoard getBoard() {
-        return (ChessBoard) board_;
+        return board_;
     }
     /**
      *  The primary way of computing the score for Chess is to just add up the pieces
@@ -73,8 +72,8 @@ public class ChessSearchable extends TwoPlayerSearchable<ChessMove> {
      *  generate all possible next moves.
      */
    @Override
-   public MoveList generateMoves(ChessMove lastMove, ParameterArray weights) {
-       MoveList moveList = new MoveList();
+   public MoveList<ChessMove> generateMoves(ChessMove lastMove, ParameterArray weights) {
+       MoveList<ChessMove> moveList = new MoveList<>();
        int row, col;
 
        boolean player1 = (lastMove == null) || !(lastMove.isPlayer1());
@@ -101,8 +100,8 @@ public class ChessSearchable extends TwoPlayerSearchable<ChessMove> {
     * @return those moves that result in check or getting out of check.
     */
    @Override
-   public MoveList generateUrgentMoves(ChessMove lastMove, ParameterArray weights) {
-       return new MoveList();
+   public MoveList<ChessMove> generateUrgentMoves(ChessMove lastMove, ParameterArray weights) {
+       return new MoveList<>();
    }
 
     /**
@@ -113,7 +112,7 @@ public class ChessSearchable extends TwoPlayerSearchable<ChessMove> {
      * @param weights to use.
      * @return the number of moves added.
      */
-    int addMoves(BoardPosition pos, MoveList moveList, ChessMove lastMove, ParameterArray weights) {
+    int addMoves(BoardPosition pos, MoveList<ChessMove> moveList, ChessMove lastMove, ParameterArray weights) {
         List<ChessMove> moves =
                 ((ChessPiece)pos.getPiece()).findPossibleMoves(getBoard(), pos.getRow(), pos.getCol(), lastMove);
 

@@ -3,7 +3,6 @@ package com.barrybecker4.game.twoplayer.pente;
 
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.player.PlayerList;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerSearchable;
 import com.barrybecker4.game.twoplayer.pente.analysis.MoveEvaluator;
@@ -17,19 +16,18 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  *
  * @author Barry Becker
 */
-public class PenteSearchable extends TwoPlayerSearchable<TwoPlayerMove> {
+public class PenteSearchable<B extends PenteBoard> extends TwoPlayerSearchable<TwoPlayerMove, B> {
 
     private MoveEvaluator moveEvaluator;
     private PenteMoveGenerator generator;
-    private Patterns patterns;
 
     /** Constructor */
-    public PenteSearchable(TwoPlayerBoard board, PlayerList players) {
+    public PenteSearchable(B board, PlayerList players) {
         super(board, players);
         init();
     }
 
-    public PenteSearchable(PenteSearchable searchable) {
+    public PenteSearchable(PenteSearchable<B> searchable) {
         super(searchable);
         init();
     }
@@ -40,13 +38,13 @@ public class PenteSearchable extends TwoPlayerSearchable<TwoPlayerMove> {
     }
 
     @Override
-    public PenteSearchable copy() {
-        return new PenteSearchable(this);
+    public PenteSearchable<B> copy() {
+        return new PenteSearchable<>(this);
     }
 
     @Override
-    public PenteBoard getBoard() {
-        return (PenteBoard) board_;
+    public B getBoard() {
+        return board_;
     }
 
     protected Patterns createPatterns() {
@@ -67,7 +65,7 @@ public class PenteSearchable extends TwoPlayerSearchable<TwoPlayerMove> {
      * generate all possible next moves.
      */
     @Override
-    public MoveList generateMoves(TwoPlayerMove lastMove,
+    public MoveList<TwoPlayerMove> generateMoves(TwoPlayerMove lastMove,
                                   ParameterArray weights) {
         return generator.generateMoves(this, lastMove, weights);
     }
@@ -78,7 +76,7 @@ public class PenteSearchable extends TwoPlayerSearchable<TwoPlayerMove> {
      * @return Set of moves the moves that result in a certain win or a certain loss.
      */
     @Override
-    public MoveList generateUrgentMoves(TwoPlayerMove lastMove, ParameterArray weights) {
+    public MoveList<TwoPlayerMove> generateUrgentMoves(TwoPlayerMove lastMove, ParameterArray weights) {
         return generator.generateUrgentMoves(this, lastMove, weights);
     }
 

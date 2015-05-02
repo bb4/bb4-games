@@ -3,15 +3,14 @@ package com.barrybecker4.game.twoplayer.go.board.move;
 
 import com.barrybecker4.common.geometry.ByteLocation;
 import com.barrybecker4.game.common.GameContext;
-import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.board.Board;
 import com.barrybecker4.game.common.board.CaptureList;
 import com.barrybecker4.game.twoplayer.common.BestMoveFinder;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
-import com.barrybecker4.game.twoplayer.common.search.Searchable;
 import com.barrybecker4.game.twoplayer.go.board.GoBoard;
 import com.barrybecker4.game.twoplayer.go.board.GoProfiler;
+import com.barrybecker4.game.twoplayer.go.board.GoSearchable;
 import com.barrybecker4.game.twoplayer.go.board.analysis.CandidateMoveAnalyzer;
 import com.barrybecker4.game.twoplayer.go.board.elements.position.GoBoardPosition;
 import com.barrybecker4.game.twoplayer.go.board.elements.position.GoStone;
@@ -24,27 +23,27 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  */
 public final class GoMoveGenerator {
 
-    private final Searchable searchable_;
+    private final GoSearchable searchable_;
 
     /**
      * Constructor.
      */
-    public GoMoveGenerator(Searchable searchable) {
+    public GoMoveGenerator(GoSearchable searchable) {
         searchable_ = searchable;
     }
 
     /**
      * @return all reasonably good next moves with statically evaluated scores.
      */
-    public final MoveList generateEvaluatedMoves(TwoPlayerMove lastMove, ParameterArray weights) {
+    public final MoveList<GoMove> generateEvaluatedMoves(GoMove lastMove, ParameterArray weights) {
 
         GoProfiler prof = GoProfiler.getInstance();
         prof.startGenerateMoves();
 
-        MoveList moveList = generatePossibleMoves(lastMove);
+        MoveList<GoMove> moveList = generatePossibleMoves(lastMove);
 
-        for (Move move : moveList)  {
-            setMoveValue(weights, (GoMove)move);
+        for (GoMove move : moveList)  {
+            setMoveValue(weights, move);
         }
         BestMoveFinder finder = new BestMoveFinder(searchable_.getSearchOptions().getBestMovesSearchOptions());
         moveList = finder.getBestMoves(moveList);
@@ -59,10 +58,10 @@ public final class GoMoveGenerator {
      * @return all possible reasonable next moves. We try to limit to reasonable moves as best we can, but that
      * is difficult without static evaluation. At least no illegal moves will be returned.
      */
-    final MoveList generatePossibleMoves(TwoPlayerMove lastMove) {
+    final MoveList<GoMove> generatePossibleMoves(GoMove lastMove) {
 
         GoBoard board = (GoBoard) searchable_.getBoard();
-        MoveList moveList = new MoveList();
+        MoveList<GoMove> moveList = new MoveList<>();
         int nCols = board.getNumCols();
         int nRows = board.getNumRows();
 
@@ -109,7 +108,7 @@ public final class GoMoveGenerator {
      * if none of the generated moves have an inherited value better than the passing move
      * (which just uses the value of the current move) then we should pass.
      */
-    private void addPassingMoveIfNeeded(TwoPlayerMove lastMove, MoveList moveList) {
+    private void addPassingMoveIfNeeded(TwoPlayerMove lastMove, MoveList<GoMove> moveList) {
 
         Board b = searchable_.getBoard();
         if (searchable_.getNumMoves() > (b.getNumCols() + b.getNumRows()))  {

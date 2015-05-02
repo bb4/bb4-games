@@ -6,7 +6,6 @@ import com.barrybecker4.game.common.board.Board;
 import com.barrybecker4.game.common.board.GamePiece;
 import com.barrybecker4.game.common.player.PlayerList;
 import com.barrybecker4.game.common.player.PlayerOptions;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerController;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerOptions;
@@ -21,7 +20,7 @@ import java.awt.Dimension;
  *
  * @author Barry Becker
 */
-public class PenteController extends TwoPlayerController {
+public class PenteController<B extends PenteBoard> extends TwoPlayerController<TwoPlayerMove, B> {
 
     private static final int DEFAULT_NUM_ROWS = 20;
 
@@ -46,8 +45,8 @@ public class PenteController extends TwoPlayerController {
     }
 
     @Override
-    protected PenteBoard createBoard() {
-        return new PenteBoard(size.width, size.height);
+    protected B createBoard() {
+        return (B)new PenteBoard(size.width, size.height);
     }
 
     @Override
@@ -74,7 +73,7 @@ public class PenteController extends TwoPlayerController {
     @Override
     public void computerMovesFirst() {
         int delta = getWinRunLength() - 1;
-        Board board = (Board) getBoard();
+        Board board = getBoard();
         int col = (int) (GameContext.random().nextFloat() * (board.getNumCols() - 2 * delta) + delta + 1);
         int row = (int) (GameContext.random().nextFloat() * (board.getNumRows() - 2 * delta) + delta + 1);
         TwoPlayerMove move = TwoPlayerMove.createMove( row, col, 0, new GamePiece(true) );
@@ -85,12 +84,12 @@ public class PenteController extends TwoPlayerController {
         return PentePatterns.WIN_RUN_LENGTH;
     }
 
-    public synchronized PenteSearchable getSearchable() {
-        return (PenteSearchable) super.getSearchable();
+    public synchronized PenteSearchable<B> getSearchable() {
+        return (PenteSearchable<B>) super.getSearchable();
     }
 
     @Override
-    protected PenteSearchable createSearchable(TwoPlayerBoard board, PlayerList players) {
-        return new PenteSearchable(board, players);
+    protected PenteSearchable<B> createSearchable(B board, PlayerList players) {
+        return new PenteSearchable<>(board, players);
     }
 }

@@ -2,7 +2,6 @@
 package com.barrybecker4.game.twoplayer.common.search.strategy;
 
 import com.barrybecker4.common.format.FormatUtil;
-import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.WinProbabilityCaclulator;
@@ -104,11 +103,11 @@ public class UctNode {
      * @param moves child moves to add.
      * @return the number of children added
      */
-    public int addChildren(MoveList moves) {
+    public int addChildren(MoveList<TwoPlayerMove> moves) {
         int numKids = 0;
-        children = new LinkedList<UctNode>();
-        for (Move m : moves) {
-            UctNode newNode = new UctNode((TwoPlayerMove) m);
+        children = new LinkedList<>();
+        for (TwoPlayerMove m : moves) {
+            UctNode newNode = new UctNode(m);
             children.add(newNode);
             numKids++;
         }

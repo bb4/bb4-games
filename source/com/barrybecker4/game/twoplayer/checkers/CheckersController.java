@@ -1,14 +1,11 @@
-/** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
+/** Copyright by Barry G. Becker, 2000-2015. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.checkers;
 
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.player.PlayerList;
 import com.barrybecker4.game.common.player.PlayerOptions;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerController;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerOptions;
-import com.barrybecker4.game.twoplayer.common.search.Searchable;
 
 import java.awt.*;
 
@@ -17,7 +14,7 @@ import java.awt.*;
  *
  * @author Barry Becker
  */
-public class CheckersController extends TwoPlayerController {
+public class CheckersController extends TwoPlayerController<CheckersMove, CheckersBoard> {
 
     /**
      *  Constructor.
@@ -55,7 +52,7 @@ public class CheckersController extends TwoPlayerController {
     @Override
     public void computerMovesFirst() {
         // determine the possible moves and choose one at random.
-        MoveList moveList = getSearchable().generateMoves( null, weights_.getPlayer1Weights());
+        MoveList<CheckersMove> moveList = getSearchable().generateMoves( null, weights_.getPlayer1Weights());
 
         assert (!moveList.isEmpty());
         makeMove( moveList.getRandomMove() );
@@ -73,11 +70,11 @@ public class CheckersController extends TwoPlayerController {
         if (!getPlayers().anyPlayerWon())  {
             return 0;
         }
-        return getSearchable().worth((TwoPlayerMove) getLastMove(), weights_.getDefaultWeights());
+        return getSearchable().worth(getLastMove(), weights_.getDefaultWeights());
     }
 
     @Override
-    protected Searchable createSearchable(TwoPlayerBoard board, PlayerList players) {
+    protected CheckersSearchable createSearchable(CheckersBoard board, PlayerList players) {
         return new CheckersSearchable(board, players);
     }
 }

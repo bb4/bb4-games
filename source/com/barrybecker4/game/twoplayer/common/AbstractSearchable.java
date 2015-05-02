@@ -17,22 +17,22 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  *
  * @author Barry Becker
  */
-public abstract class AbstractSearchable<M extends TwoPlayerMove> implements Searchable<M> {
+public abstract class AbstractSearchable<M extends TwoPlayerMove, B extends TwoPlayerBoard> implements Searchable<M, B> {
 
-    protected MoveList moveList_;
+    protected MoveList<M> moveList_;
     protected SearchStrategy<M> strategy_;
 
     /**
      * Constructor.
      * @param moveList list of moves that have been made so far.
      */
-    public AbstractSearchable(MoveList moveList) {
+    public AbstractSearchable(MoveList<M> moveList) {
 
         moveList_ = moveList;
     }
 
     public M searchForNextMove(ParameterArray weights, M lastMove,
-                                           IGameTreeViewable treeViewer) {
+                               IGameTreeViewable treeViewer) {
         getProfiler().startProfiling();
 
         strategy_ = getSearchOptions().getSearchStrategy(this, weights);
@@ -48,7 +48,7 @@ public abstract class AbstractSearchable<M extends TwoPlayerMove> implements Sea
         return nextMove;
     }
 
-    public SearchStrategy getSearchStrategy() {
+    public SearchStrategy<M> getSearchStrategy() {
         return strategy_;
     }
 
@@ -56,12 +56,12 @@ public abstract class AbstractSearchable<M extends TwoPlayerMove> implements Sea
         return moveList_.getNumMoves();
     }
 
-    public MoveList getMoveList() {
+    public MoveList<M> getMoveList() {
         return moveList_;
     }
 
     /** @return the search options to use */
-    public abstract SearchOptions getSearchOptions();
+    public abstract SearchOptions<M, B> getSearchOptions();
 
     protected AbstractGameProfiler getProfiler() {
         return GameProfiler.getInstance();

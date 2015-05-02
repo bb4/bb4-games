@@ -38,16 +38,16 @@ import java.util.List;
  *
  *  @author Barry Becker
  */
-public abstract class GameBoardViewer extends JPanel
+public abstract class GameBoardViewer<M extends Move, B extends Board> extends JPanel
                                       implements GameViewModel, GameChangedListener {
 
     /** every GameBoardViewer must contain a controller. */
-    protected GameController controller_;
+    protected GameController<M, B> controller_;
 
     /** for restoring undone moves. */
-    protected final MoveList undoneMoves_ = new MoveList();
+    protected final MoveList<M> undoneMoves_ = new MoveList<>();
 
-    private ViewerMouseListener mouseListener_;
+    private ViewerMouseListener<M, B> mouseListener_;
 
     /** list of listeners for handling those events. */
     private final List<GameChangedListener> gameListeners_ = new ArrayList<>();
@@ -77,20 +77,20 @@ public abstract class GameBoardViewer extends JPanel
         addGameChangedListener(this);
     }
 
-    protected ViewerMouseListener createViewerMouseListener() {
-        return new ViewerMouseListener(this);
+    protected ViewerMouseListener<M, B> createViewerMouseListener() {
+        return new ViewerMouseListener<>(this);
     }
 
     /**
      * @return the game specific controller for this viewer.
      */
-    protected abstract GameController createController();
+    protected abstract GameController<M, B> createController();
 
     /**
      * @return our game controller.
      */
     @Override
-    public GameController getController() {
+    public GameController<M, B> getController() {
        return controller_;
     }
 
@@ -168,7 +168,7 @@ public abstract class GameBoardViewer extends JPanel
     @Override
     public void reset() {
         controller_.reset();  //clear what's there and start over
-        Board board = (Board) controller_.getBoard();
+        B board = controller_.getBoard();
         commonReset(board);
     }
 
@@ -178,7 +178,7 @@ public abstract class GameBoardViewer extends JPanel
      */
     protected abstract GameBoardRenderer getBoardRenderer();
 
-    protected void commonReset(Board board) {
+    protected void commonReset(B board) {
         int nrows = board.getNumRows();
         int ncols = board.getNumCols();
 

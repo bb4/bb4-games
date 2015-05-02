@@ -17,12 +17,12 @@ import java.awt.event.MouseEvent;
  *
  *  @author Barry Becker
  */
-class PenteViewerMouseListener extends ViewerMouseListener {
+class PenteViewerMouseListener extends ViewerMouseListener<TwoPlayerMove, PenteBoard> {
 
     /**
      * Constructor.
      */
-    PenteViewerMouseListener(GameBoardViewer viewer) {
+    PenteViewerMouseListener(GameBoardViewer<TwoPlayerMove, PenteBoard> viewer) {
         super(viewer);
     }
 

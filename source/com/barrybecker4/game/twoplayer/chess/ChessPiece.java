@@ -1,7 +1,6 @@
 /** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.chess;
 
-import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.board.Board;
 import com.barrybecker4.game.common.board.BoardPosition;
 import com.barrybecker4.game.common.board.GamePiece;
@@ -13,9 +12,6 @@ import java.util.List;
  *  The ChessChessBoardPosition describes the physical marker at a location on the board.
  *  A ChessPiece is either empty or contains one of the standard chess pieces.
  *  This class has in it the rules for how each chess move can move.
- *
- * TODO: make this an enum with findMoves as an abstract method.
- *  The images and label could also be part of the enum.
  *
  * @see ChessBoard
  * @author Barry Becker
@@ -77,7 +73,7 @@ public class ChessPiece extends GamePiece {
      * @param lastMove the most recently made move.
      * @return a list of legal moves for this piece to make
      */
-    public List<ChessMove> findPossibleMoves(Board board, int row, int col, Move lastMove) {
+    public List<ChessMove> findPossibleMoves(Board board, int row, int col, ChessMove lastMove) {
         return pieceType_.findPossibleMoves(board, row, col, lastMove, this);
     }
 

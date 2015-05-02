@@ -9,7 +9,6 @@ import com.barrybecker4.game.twoplayer.blockade.board.BlockadeBoardPosition;
 import com.barrybecker4.game.twoplayer.blockade.board.move.wall.WallPlacementFinder;
 import com.barrybecker4.game.twoplayer.blockade.board.path.Path;
 import com.barrybecker4.game.twoplayer.blockade.board.path.PathList;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.optimization.parameter.ParameterArray;
 
 import java.util.LinkedList;
@@ -41,9 +40,9 @@ public class MoveGenerator {
      * @param lastMove last move that was made on the board
      * @return list of generated moves.
      */
-    public MoveList generateMoves(TwoPlayerMove lastMove) {
+    public MoveList<BlockadeMove> generateMoves(BlockadeMove lastMove) {
 
-        MoveList moveList = new MoveList();
+        MoveList<BlockadeMove> moveList = new MoveList<>();
         boolean player1 = (lastMove == null) || !lastMove.isPlayer1();
 
         // There is one path from every piece to every opponent home (i.e. n*NUM_HOMES)
@@ -74,7 +73,8 @@ public class MoveGenerator {
      * @param weights to use.
      * @return the number of moves added.
      */
-    private int addMoves( BoardPosition position, MoveList moveList, PathList opponentPaths, ParameterArray weights) {
+    private int addMoves( BoardPosition position, MoveList<BlockadeMove> moveList,
+                          PathList opponentPaths, ParameterArray weights) {
         int numMovesAdded = 0;
 
         // first find the NUM_HOMES shortest paths for p.
@@ -100,7 +100,7 @@ public class MoveGenerator {
      * Add reasonable next moves.
      * @return the number of moves added.
      */
-    private int addPotentialMoves(MoveList moveList, WallPlacementFinder wallFinder, Path path) {
+    private int addPotentialMoves(MoveList<BlockadeMove> moveList, WallPlacementFinder wallFinder, Path path) {
 
         BlockadeMove firstStep = path.get(0);
         // make the move

@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author Barry Becker
  */
-public class MancalaBoard extends TwoPlayerBoard {
+public class MancalaBoard extends TwoPlayerBoard<MancalaMove> {
 
     /** traditionally each bin starts with 3 stones. */
     private static final byte INITIAL_STONES_PER_BIN = 3;
@@ -97,7 +97,7 @@ public class MancalaBoard extends TwoPlayerBoard {
      * {@inheritDoc}
      */
     @Override
-    protected boolean makeInternalMove( Move move ) {
+    protected boolean makeInternalMove( MancalaMove move ) {
         return new MoveMaker(this).makeMove(move);
     }
 
@@ -105,7 +105,7 @@ public class MancalaBoard extends TwoPlayerBoard {
      * {@inheritDoc}
      */
     @Override
-    protected void undoInternalMove( Move move ) {
+    protected void undoInternalMove( MancalaMove move ) {
         new MoveUndoer(this).undoMove(move);
     }
 

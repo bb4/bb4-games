@@ -20,14 +20,12 @@ import java.awt.*;
  *
  *  @author Barry Becker
  */
-public class GalacticPanel extends GamePanel
-{
+public class GalacticPanel extends GamePanel  {
 
     /**
      *  Construct the panel.
      */
-    public GalacticPanel()
-    {}
+    public GalacticPanel()  {}
 
 
     @Override
@@ -38,34 +36,29 @@ public class GalacticPanel extends GamePanel
 
 
     @Override
-    protected GameBoardViewer createBoardViewer()
-    {
+    protected GameBoardViewer createBoardViewer() {
         return new GalaxyViewer();
     }
 
     @Override
-    protected NewGameDialog createNewGameDialog(Component parent, GameViewModel viewer )
-    {
+    protected NewGameDialog createNewGameDialog(Component parent, GameViewModel viewer ) {
         return new GalacticNewGameDialog( parent, viewer );
     }
 
     @Override
-    protected GameOptionsDialog createOptionsDialog(Component parent, GameController controller )
-    {
+    protected GameOptionsDialog createOptionsDialog(Component parent, GameController controller ) {
         return new GalacticOptionsDialog( parent, controller );
     }
 
     @Override
-    protected GameInfoPanel createInfoPanel(GameController controller)
-    {
+    protected GameInfoPanel createInfoPanel(GameController controller) {
 
         return new GalacticInfoPanel( controller);
     }
 
     // Display the help dialog to give instructions
     @Override
-    protected void showHelpDialog()
-    {
+    protected void showHelpDialog() {
         String name = getTitle();
         String comments = GameContext.getLabel("GALACTIC_TITLE");
         String overview = GameContext.getLabel("GALACTIC_OVERVIEW");

@@ -18,7 +18,7 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  *
  * @author Barry Becker
  */
-public interface Searchable<M extends TwoPlayerMove> {
+public interface Searchable<M extends TwoPlayerMove, B extends TwoPlayerBoard> {
 
     /**
      * @return the search options having to do with search parameters.
@@ -78,7 +78,7 @@ public interface Searchable<M extends TwoPlayerMove> {
      * @param weights  the polynomial weights to use in the polynomial evaluation function.
      * @return list of possible next moves.
      */
-    MoveList generateMoves(M lastMove, ParameterArray weights);
+    MoveList<M> generateMoves(M lastMove, ParameterArray weights);
 
     /**
      * generate those moves that are critically urgent
@@ -89,7 +89,7 @@ public interface Searchable<M extends TwoPlayerMove> {
      * @param weights  the polynomial weights to use in the polynomial evaluation function
      * @return a list of moves that the current player needs to urgently play or face imminent defeat.
      */
-    MoveList generateUrgentMoves(M lastMove, ParameterArray weights);
+    MoveList<M> generateUrgentMoves(M lastMove, ParameterArray weights);
 
     /**
      * returns true if the specified move caused one or more opponent pieces to become jeopardized
@@ -98,13 +98,13 @@ public interface Searchable<M extends TwoPlayerMove> {
     boolean inJeopardy(M move, ParameterArray weights);
 
     /** The current board state. */
-    TwoPlayerBoard getBoard();
+    B getBoard();
 
     /**
      * List of moves made so far.
      * @return list of moves made on the board.
      */
-    MoveList getMoveList();
+    MoveList<M> getMoveList();
 
     /**
      * @return num moves played so far
@@ -114,7 +114,7 @@ public interface Searchable<M extends TwoPlayerMove> {
     /**
      * @return a copy of our current state so we can make moves and not worry about undoing them.
      */
-    Searchable copy();
+    Searchable<M, B> copy();
 
     /**
      * @return  the Zobrist hash for the currently searched position

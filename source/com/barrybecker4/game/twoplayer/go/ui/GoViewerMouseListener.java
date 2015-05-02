@@ -30,7 +30,7 @@ public class GoViewerMouseListener extends ViewerMouseListener {
     /**
      * Constructor.
      */
-    public GoViewerMouseListener(GameBoardViewer viewer) {
+    public GoViewerMouseListener(GameBoardViewer<GoMove, GoBoard> viewer) {
         super(viewer);
 
         GoController controller = (GoController) viewer.getController();

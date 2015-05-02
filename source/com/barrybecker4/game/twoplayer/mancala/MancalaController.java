@@ -3,12 +3,9 @@ package com.barrybecker4.game.twoplayer.mancala;
 
 import com.barrybecker4.common.geometry.ByteLocation;
 import com.barrybecker4.common.geometry.Location;
-import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.player.PlayerList;
 import com.barrybecker4.game.common.player.PlayerOptions;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerController;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerOptions;
 import com.barrybecker4.game.twoplayer.mancala.board.MancalaBoard;
 import com.barrybecker4.game.twoplayer.mancala.move.MancalaMove;
@@ -21,7 +18,7 @@ import java.awt.Dimension;
  *
  * @author Barry Becker
 */
-public class MancalaController extends TwoPlayerController {
+public class MancalaController extends TwoPlayerController<MancalaMove, MancalaBoard> {
 
     private static final int DEFAULT_NUM_ROWS = 2;
     private static final int DEFAULT_NUM_COLS = 8;
@@ -72,19 +69,18 @@ public class MancalaController extends TwoPlayerController {
 
     /**
      * If the players storage bin got the last stone, then they go again.
-     * @param m the move to play.
+     * @param move the move to play.
      */
     @Override
-    public void makeMove( Move m ) {
-        MancalaMove move = (MancalaMove) m;
+    public void makeMove( MancalaMove move ) {
         getSearchable().makeInternalMove(move);
 
-        MancalaBoard board = (MancalaBoard) getBoard();
-        System.out.println("human= " + getCurrentPlayer().isHuman() + " move Again = " + board.moveAgainAfterMove(move));
+        MancalaBoard board = getBoard();
+        //System.out.println("human= " + getCurrentPlayer().isHuman() + " move Again = " + board.moveAgainAfterMove(move));
         if (!(getCurrentPlayer().isHuman() && board.moveAgainAfterMove(move))) {
            player1sTurn_ = !move.isPlayer1();
         }
-        System.out.println(("player1sTurn_="+ player1sTurn_));
+        //System.out.println(("player1sTurn_="+ player1sTurn_));
 
         if (board.isEmpty())  {
             determineWinner(board);
@@ -113,8 +109,7 @@ public class MancalaController extends TwoPlayerController {
     @Override
     public void computerMovesFirst() {
         Location loc = new ByteLocation(1, 1);
-        MancalaBoard board = (MancalaBoard) getBoard();
-        TwoPlayerMove move = MancalaMove.createMove(true, loc, 0, board.getBin(loc));
+        MancalaMove move = MancalaMove.createMove(true, loc, 0, getBoard().getBin(loc));
         makeMove( move );
     }
 
@@ -123,7 +118,7 @@ public class MancalaController extends TwoPlayerController {
     }
 
     @Override
-    protected MancalaSearchable createSearchable(TwoPlayerBoard board, PlayerList players) {
+    protected MancalaSearchable createSearchable(MancalaBoard board, PlayerList players) {
         return new MancalaSearchable(board, players);
     }
 }

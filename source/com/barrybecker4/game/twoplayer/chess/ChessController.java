@@ -5,10 +5,8 @@ import com.barrybecker4.game.common.GameContext;
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.player.PlayerList;
 import com.barrybecker4.game.common.player.PlayerOptions;
-import com.barrybecker4.game.twoplayer.checkers.CheckersController;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
+import com.barrybecker4.game.twoplayer.common.TwoPlayerController;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerOptions;
-import com.barrybecker4.game.twoplayer.common.search.Searchable;
 
 import java.awt.*;
 import java.util.Iterator;
@@ -34,7 +32,7 @@ import java.util.List;
  *
  * @author Barry Becker
  */
-public class ChessController extends CheckersController {
+public class ChessController extends TwoPlayerController<ChessMove, ChessBoard> {
 
     /**
      *  Constructor.
@@ -63,7 +61,8 @@ public class ChessController extends CheckersController {
     public void computerMovesFirst() {
 
         // determine the possible moves and choose one at random.
-        MoveList moveList = getSearchable().generateMoves( null, weights_.getPlayer1Weights());
+        MoveList<ChessMove> moveList =
+                getSearchable().generateMoves( null, weights_.getPlayer1Weights());
 
         makeMove( moveList.getRandomMove() );
         player1sTurn_ = false;
@@ -84,7 +83,7 @@ public class ChessController extends CheckersController {
      * @param moveList list of moves to examine.
      */
     public void removeSelfCheckingMoves(List moveList) {
-        ChessBoard b = (ChessBoard)getBoard();
+        ChessBoard b = getBoard();
         Iterator it = moveList.iterator();
         while (it.hasNext()) {
            ChessMove move = (ChessMove)it.next();
@@ -96,7 +95,7 @@ public class ChessController extends CheckersController {
     }
 
     @Override
-    protected Searchable createSearchable(TwoPlayerBoard board, PlayerList players) {
+    protected ChessSearchable createSearchable(ChessBoard board, PlayerList players) {
         return new ChessSearchable(board, players);
     }
 }

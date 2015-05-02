@@ -1,17 +1,22 @@
 /** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.chess.ui;
 
+import com.barrybecker4.common.geometry.Location;
 import com.barrybecker4.game.common.GameContext;
 import com.barrybecker4.game.common.GameController;
 import com.barrybecker4.game.common.board.BoardPosition;
+import com.barrybecker4.game.common.board.IRectangularBoard;
 import com.barrybecker4.game.common.ui.viewer.GameBoardRenderer;
 import com.barrybecker4.game.common.ui.viewer.ViewerMouseListener;
 import com.barrybecker4.game.twoplayer.checkers.ui.CheckersBoardViewer;
 import com.barrybecker4.game.twoplayer.chess.ChessBoard;
 import com.barrybecker4.game.twoplayer.chess.ChessController;
+import com.barrybecker4.game.twoplayer.chess.ChessMove;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
+import com.barrybecker4.game.twoplayer.common.ui.AbstractTwoPlayerBoardViewer;
 
 import javax.swing.*;
+import java.awt.event.MouseEvent;
 
 
 /**
@@ -23,13 +28,12 @@ import javax.swing.*;
  *
  *  @author Barry Becker
  */
-public class ChessBoardViewer extends CheckersBoardViewer
+public class ChessBoardViewer extends AbstractTwoPlayerBoardViewer
 {
     /**
      * Construct the viewer
      */
-    public ChessBoardViewer()
-    {}
+    public ChessBoardViewer() {}
 
 
     @Override
@@ -72,7 +76,7 @@ public class ChessBoardViewer extends CheckersBoardViewer
                 assert (pos != null) : "pos at row="+row+" col="+col +" is null";
                 if ( pos.isOccupied() && pos.getPiece().isOwnedByPlayer1() == m.isPlayer1() ) {
                     // @@ second arg is not technically correct. it should be last move, but I don't think it matters.
-                    checked = b.isKingCheckedByPosition(pos, m);
+                    checked = b.isKingCheckedByPosition(pos, (ChessMove) m);
                 }
                 if (checked) {
                     JOptionPane.showMessageDialog( this,
@@ -87,5 +91,24 @@ public class ChessBoardViewer extends CheckersBoardViewer
     public void showLastMove()
     {
         refresh();
+    }
+
+    /**
+     * @return the tooltip for the panel given a mouse event
+     */
+    @Override
+    public String getToolTipText( MouseEvent e ) {
+
+        Location loc = getBoardRenderer().createLocation(e);
+        StringBuilder sb = new StringBuilder( "<html><font=-3>" );
+
+        BoardPosition space = ((IRectangularBoard) controller_.getBoard()).getPosition( loc );
+        if ( space != null && space.isOccupied() && GameContext.getDebugMode() > 0 ) {
+            sb.append( loc );
+            sb.append("<br>");
+            sb.append(space.toString());
+        }
+        sb.append("</font></html>");
+        return sb.toString();
     }
 }

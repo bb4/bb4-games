@@ -1,4 +1,4 @@
-/** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
+/** Copyright by Barry G. Becker, 2000-2015. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.checkers;
 
 import com.barrybecker4.common.geometry.ByteLocation;
@@ -9,7 +9,6 @@ import com.barrybecker4.game.common.board.CaptureList;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.optimization.parameter.ParameterArray;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -17,7 +16,7 @@ import java.util.List;
  *
  * @author Barry Becker
  */
-public class MoveGenerator  {
+public class MoveGenerator<M extends TwoPlayerMove>  {
 
     private CheckersSearchable searchable_;
     private CheckersBoard board_;
@@ -32,15 +31,15 @@ public class MoveGenerator  {
      */
     public MoveGenerator(CheckersSearchable searchable, ParameterArray weights) {
         searchable_ = searchable;
-        board_ = (CheckersBoard) searchable_.getBoard();
+        board_ = searchable_.getBoard();
         weights_ = weights;
     }
 
-    public MoveList generateMoves(TwoPlayerMove lastMove) {
+    public MoveList<CheckersMove> generateMoves(CheckersMove lastMove) {
 
         int j, row,col;
         boolean player1 = (lastMove == null) || !(lastMove.isPlayer1());
-        MoveList moveList = new MoveList();
+        MoveList<CheckersMove> moveList = new MoveList<>();
 
         // scan through the board positions. For each each piece of the current player's,
         // add all the moves that it can make.
@@ -63,7 +62,7 @@ public class MoveGenerator  {
      * @param p the piece to check.
      * @return the number of moves added.
      */
-    public int addMoves( BoardPosition p, TwoPlayerMove lastMove, MoveList moveList) {
+    public int addMoves( BoardPosition p, TwoPlayerMove lastMove, MoveList<CheckersMove> moveList) {
 
         int direction = -1;
         if ( p.getPiece().isOwnedByPlayer1() )
@@ -91,7 +90,7 @@ public class MoveGenerator  {
      * @return the number of moves added
      */
     private int addMovesForDirection( BoardPosition pos,
-                                      int rowInc, int colInc, TwoPlayerMove lastMove, MoveList moveList) {
+                                      int rowInc, int colInc, TwoPlayerMove lastMove, MoveList<CheckersMove> moveList) {
         BoardPosition next = board_.getPosition( pos.getRow() + rowInc, pos.getCol() + colInc );
         if (next!=null)
         {
@@ -112,7 +111,8 @@ public class MoveGenerator  {
     }
 
 
-    private void addSimpleMove(BoardPosition pos, int rowInc, int colInc, TwoPlayerMove lastMove, MoveList moveList) {
+    private void addSimpleMove(BoardPosition pos, int rowInc, int colInc,
+                               TwoPlayerMove lastMove, MoveList<CheckersMove> moveList) {
         CheckersMove m;
         int val = 0;
         if ( lastMove != null ) {
@@ -128,7 +128,7 @@ public class MoveGenerator  {
 
 
     private int addJumpMoves(BoardPosition pos, int rowInc, TwoPlayerMove lastMove,
-                             BoardPosition next, BoardPosition beyondNext, MoveList moveList) {
+                             BoardPosition next, BoardPosition beyondNext, MoveList<CheckersMove> moveList) {
        CheckersMove m;
        CaptureList capture = new CaptureList();
        capture.add( next.copy() );
@@ -205,7 +205,7 @@ public class MoveGenerator  {
     private List<CheckersMove> findJumpMoves( BoardPosition current,
                                       int rowInc, CheckersMove m,
                                       ParameterArray weights )  {
-        List<CheckersMove> jumpMoves = new LinkedList<CheckersMove>();
+        MoveList<CheckersMove> jumpMoves = new MoveList<>();
         // if there are jumps beyond this we have to make them.
         // We have at least the current jump m.
 
@@ -243,7 +243,8 @@ public class MoveGenerator  {
      * @return number of king moves added.
      */
     private int addMovesForKing(BoardPosition p, TwoPlayerMove lastMove,
-                                int direction, int numMovesAdded, int initialNumMoves, MoveList moveList) {
+                                int direction, int numMovesAdded, int initialNumMoves,
+                                MoveList<CheckersMove> moveList) {
         int numKingMoves = 0;
         numKingMoves += addMovesForDirection( p, -direction, -1, lastMove, moveList);
         numKingMoves += addMovesForDirection( p, -direction, 1, lastMove, moveList);
@@ -254,12 +255,12 @@ public class MoveGenerator  {
         int numMoves = searchable_.getNumMoves();
 
         if ( numMoves - 4 > 1 ) {
-            CheckersMove moveToCheck = (CheckersMove) searchable_.getMoveList().get( numMoves - 4 );
+            CheckersMove moveToCheck = searchable_.getMoveList().get( numMoves - 4 );
             if ( moveToCheck.captureList == null ) {
                 int i = 0;
 
                 while ( i < numKingMoves ) {
-                    CheckersMove m = (CheckersMove)moveList.get( initialNumMoves + numMovesAdded + i );
+                    CheckersMove m = moveList.get( initialNumMoves + numMovesAdded + i );
                     GameContext.log( 1, "lastMove="+ lastMove);
                     assert ( m.isPlayer1() == moveToCheck.isPlayer1()):
                             "player ownership not equal comparing \n"+m+" with \n"+moveToCheck;

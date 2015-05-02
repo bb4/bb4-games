@@ -41,7 +41,8 @@ import java.io.InputStream;
  *
  *  @author Barry Becker
  */
-public abstract class TwoPlayerController extends GameController<TwoPlayerBoard> {
+public abstract class TwoPlayerController<M extends TwoPlayerMove, B extends TwoPlayerBoard>
+        extends GameController<M, B> {
 
     protected boolean player1sTurn_ = true;
 
@@ -57,7 +58,7 @@ public abstract class TwoPlayerController extends GameController<TwoPlayerBoard>
     private TwoPlayerSearchWorker worker_;
 
     /** Capable of searching for the best next move */
-    private Searchable searchable_;
+    private Searchable<M, B> searchable_;
 
 
     /**
@@ -108,7 +109,7 @@ public abstract class TwoPlayerController extends GameController<TwoPlayerBoard>
     }
 
     @Override
-    public MoveList getMoveList() {
+    public MoveList<M> getMoveList() {
         return getBoard().getMoveList();
     }
 
@@ -139,7 +140,7 @@ public abstract class TwoPlayerController extends GameController<TwoPlayerBoard>
     public void restoreFromStream( InputStream iStream ) throws IOException, SGFException {
         TwoPlayerGameImporter importer = new TwoPlayerGameImporter(this);
         importer.restoreFromStream(iStream);
-        TwoPlayerMove m = (TwoPlayerMove)(getLastMove());
+        M m = getLastMove();
         if (m != null) {
             int value = getSearchable().worth( m, weights_.getDefaultWeights());
             m.setValue(value);
@@ -222,8 +223,8 @@ public abstract class TwoPlayerController extends GameController<TwoPlayerBoard>
      * @return  the move which was undone (null returned if no prior move)
      */
     @Override
-    public Move undoLastMove() {
-        TwoPlayerMove lastMove = (TwoPlayerMove)getLastMove();
+    public M undoLastMove() {
+        M lastMove = getLastMove();
         getSearchable().undoInternalMove(lastMove);
         if (lastMove != null) {
             player1sTurn_ = lastMove.isPlayer1();
@@ -246,22 +247,22 @@ public abstract class TwoPlayerController extends GameController<TwoPlayerBoard>
      * @param player1 if true then the computer moving is player1
      * @return the move the computer selected (may return null if no move possible)
      */
-    TwoPlayerMove findComputerMove( boolean player1 ) {
+    M findComputerMove( boolean player1 ) {
         ParameterArray weights;
         player1sTurn_ = player1;
 
         // we cannot find a computer move if no move played yet.
         if (getMoveList().isEmpty()) return null;
 
-        TwoPlayerMove move = (TwoPlayerMove) getMoveList().getLastMove();
-        TwoPlayerMove lastMove = move.copy();
+        M move = getMoveList().getLastMove();
+        M lastMove = (M) move.copy();
 
         weights = player1 ? weights_.getPlayer1Weights() : weights_.getPlayer2Weights();
 
         if ( gameTreeViewer_ != null ) {
             gameTreeViewer_.resetTree(lastMove);
         }
-        TwoPlayerMove selectedMove = getSearchable().searchForNextMove(weights, lastMove, gameTreeViewer_);
+        M selectedMove = getSearchable().searchForNextMove(weights, lastMove, gameTreeViewer_);
 
         if ( selectedMove != null ) {
             makeMove( selectedMove);
@@ -273,14 +274,14 @@ public abstract class TwoPlayerController extends GameController<TwoPlayerBoard>
 
     /**
      * record the humans move p.
-     * @param m the move the player made
+     * @param move the move the player made
      * @return the same move with some of the fields filled in
      */
-    public final Move manMoves( Move m ) {
-        makeMove( m );
+    public final Move manMoves( M move ) {
+        makeMove( move );
         // we pass the default weights because we just need to know if the game is over
-        m.setValue(getSearchable().worth( (TwoPlayerMove)m, weights_.getDefaultWeights() ));
-        return m;
+        move.setValue(getSearchable().worth(move, weights_.getDefaultWeights()));
+        return move;
     }
 
     /**
@@ -290,9 +291,9 @@ public abstract class TwoPlayerController extends GameController<TwoPlayerBoard>
      * @param move the move to play.
      */
     @Override
-    public void makeMove( Move move ) {
-        getSearchable().makeInternalMove((TwoPlayerMove)move);
-        player1sTurn_ = !((TwoPlayerMove)move).isPlayer1();
+    public void makeMove( M move ) {
+        getSearchable().makeInternalMove(move);
+        player1sTurn_ = !(move).isPlayer1();
     }
 
     /**
@@ -378,7 +379,7 @@ public abstract class TwoPlayerController extends GameController<TwoPlayerBoard>
 
     @Override
     public boolean isDone() {
-        TwoPlayerMove lastMove = (TwoPlayerMove)getLastMove();
+        M lastMove = getLastMove();
         return getSearchable().done(lastMove, false);
     }
 
@@ -386,7 +387,7 @@ public abstract class TwoPlayerController extends GameController<TwoPlayerBoard>
         return new TwoPlayerOptimizee(this);
     }
 
-    public synchronized Searchable getSearchable() {
+    public synchronized Searchable<M, B> getSearchable() {
         if (searchable_ == null) {
             searchable_ = createSearchable(getBoard(), getPlayers());
         }
@@ -394,5 +395,6 @@ public abstract class TwoPlayerController extends GameController<TwoPlayerBoard>
         return searchable_;
     }
 
-    protected abstract Searchable createSearchable(TwoPlayerBoard board, PlayerList players);
+    protected abstract Searchable<M, B> createSearchable(
+            B board, PlayerList players);
 }

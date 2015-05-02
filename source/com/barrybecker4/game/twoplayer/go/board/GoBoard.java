@@ -2,7 +2,6 @@
 package com.barrybecker4.game.twoplayer.go.board;
 
 import com.barrybecker4.game.common.GameContext;
-import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.board.BoardPosition;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.go.board.analysis.CornerChecker;
@@ -26,7 +25,7 @@ import java.util.List;
  *
  * @author Barry Becker
  */
-public final class GoBoard extends TwoPlayerBoard {
+public final class GoBoard extends TwoPlayerBoard<GoMove> {
 
     /** This is a set of active groups. Groups are composed of strings. */
     private GoGroupSet groups_;
@@ -201,20 +200,19 @@ public final class GoBoard extends TwoPlayerBoard {
      * @return false if the move is somehow invalid
      */
     @Override
-    protected boolean makeInternalMove( Move move ) {
+    protected boolean makeInternalMove( GoMove move ) {
         getProfiler().startMakeMove();
 
-        GoMove m = (GoMove)move;
 
         // if its a passing move, there is nothing to do
-        if ( m.isPassOrResignation() ) {
-            GameContext.log(2, m.isPassingMove() ? "Making passing move" : "Resigning");   // NON-NLS
+        if ( move.isPassOrResignation() ) {
+            GameContext.log(2, move.isPassingMove() ? "Making passing move" : "Resigning");   // NON-NLS
             getProfiler().stopMakeMove();
             return true;
         }
 
-        boolean valid = super.makeInternalMove( m );
-        boardUpdater_.updateAfterMove(m);
+        boolean valid = super.makeInternalMove( move );
+        boardUpdater_.updateAfterMove(move);
 
         getProfiler().stopMakeMove();
         return valid;
@@ -225,18 +223,17 @@ public final class GoBoard extends TwoPlayerBoard {
      * @param move  the move to undo.
      */
     @Override
-    protected void undoInternalMove( Move move ) {
+    protected void undoInternalMove( GoMove move ) {
 
         getProfiler().startUndoMove();
-        GoMove m = (GoMove) move;
 
         // there is nothing to do if it is a pass
-        if ( m.isPassingMove() ) {
+        if ( move.isPassingMove() ) {
             getProfiler().stopUndoMove();
             return;
         }
 
-        boardUpdater_.updateAfterRemove(m);
+        boardUpdater_.updateAfterRemove(move);
         getProfiler().stopUndoMove();
     }
 

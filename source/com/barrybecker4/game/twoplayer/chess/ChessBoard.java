@@ -1,11 +1,10 @@
 /** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.chess;
 
-import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.board.BoardPosition;
 import com.barrybecker4.game.common.board.CaptureList;
 import com.barrybecker4.game.twoplayer.checkers.CheckersBoard;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
+import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 
 import java.util.List;
 
@@ -17,7 +16,9 @@ import java.util.List;
  *
  * @author Barry Becker
  */
-public class ChessBoard extends CheckersBoard {
+public class ChessBoard extends TwoPlayerBoard<ChessMove> {
+
+    public static final int SIZE = 8;
 
     /** arrangement of pieces on the back line. */
     private static final ChessPieceType[] PIECE_ARRANGEMENT = {
@@ -26,8 +27,9 @@ public class ChessBoard extends CheckersBoard {
         ChessPieceType.BISHOP, ChessPieceType.KNIGHT, ChessPieceType.ROOK
     };
 
-    public ChessBoard()
-    {}
+    public ChessBoard() {
+        setSize(SIZE, SIZE);
+    }
 
     /** Copy constructor */
     public ChessBoard(ChessBoard b) {
@@ -40,9 +42,25 @@ public class ChessBoard extends CheckersBoard {
     }
 
     /**
+     * If a checkers game has more than this many moves, then we assume it is a draw.
+     */
+    @Override
+    public int getMaxNumMoves() {
+        return 4 * SIZE * SIZE;
+    }
+
+    /**
      * reset the board to its initial state.
      */
     @Override
+    public void reset() {
+        super.reset();
+        fillRows();
+    }
+
+    /**
+     * reset the board to its initial state.
+     */
     protected void fillRows() {
         setupPlayerPieces(true); // player1
         setupPlayerPieces(false); // player2
@@ -67,19 +85,19 @@ public class ChessBoard extends CheckersBoard {
      * @param pos the opponent position to misc
      * @return true if the king is in check as a result of the last move.
      */
-    public boolean isKingCheckedByPosition(BoardPosition pos, Move lastMove)
+    public boolean isKingCheckedByPosition(BoardPosition pos, ChessMove lastMove)
     {
         boolean checked = false;
 
         if (pos.isUnoccupied())
             return false;
-        List moves = ((ChessPiece)pos.getPiece()).findPossibleMoves(this, pos.getRow(), pos.getCol(), lastMove);
+        List<ChessMove> moves = ((ChessPiece)pos.getPiece()).findPossibleMoves(this, pos.getRow(), pos.getCol(), lastMove);
 
         // loop through the possible moves.
         // if any of them capture the king then the opponents king is in check.
-        for (Object move : moves) {
-            ChessMove nextMove = (ChessMove) move;
-            CaptureList cl = nextMove.captureList;
+        for (ChessMove move : moves) {
+
+            CaptureList cl = move.captureList;
             if (null != cl && !cl.isEmpty()) {
                 ChessPiece piece = (ChessPiece)cl.getFirst().getPiece();
                 if (piece.is(ChessPieceType.KING)) {
@@ -98,23 +116,23 @@ public class ChessBoard extends CheckersBoard {
      * @param move to make
      */
     @Override
-    protected boolean makeInternalMove( Move move )
+    protected boolean makeInternalMove( ChessMove move )
     {
-        ChessMove m = (ChessMove) move;
-        BoardPosition oldPos = getPosition(m.getFromRow(), m.getFromCol());
-        BoardPosition newPos = getPosition(m.getToRow(), m.getToCol());
+
+        BoardPosition oldPos = getPosition(move.getFromRow(), move.getFromCol());
+        BoardPosition newPos = getPosition(move.getToRow(), move.getToCol());
 
         // remove the captures before we place the moved piece since it may be underneath.
-        removeCaptures( m.captureList );
+        removeCaptures( move.captureList );
 
         if (oldPos.getPiece() != null) {
-            m.setFirstTimeMoved(((ChessPiece)oldPos.getPiece()).isFirstTimeMoved());
-            newPos.setPiece(m.getPiece());
+            move.setFirstTimeMoved(((ChessPiece) oldPos.getPiece()).isFirstTimeMoved());
+            newPos.setPiece(move.getPiece());
 
             // once its been moved its no longer the first time its been moved
             ((ChessPiece)newPos.getPiece()).setFirstTimeMoved(false);
 
-            getPosition(m.getFromRow(), m.getFromCol()).clear();
+            getPosition(move.getFromRow(), move.getFromCol()).clear();
         }
         return true;
     }
@@ -125,19 +143,19 @@ public class ChessBoard extends CheckersBoard {
      * @param move to undo
      */
     @Override
-    protected void undoInternalMove( Move move )
+    protected void undoInternalMove( ChessMove move )
     {
-        ChessMove m = (ChessMove) move;
-        BoardPosition start = getPosition(m.getFromRow(), m.getFromCol());
-        start.setPiece(m.getPiece());
 
-        getPosition(m.getToRow(), m.getToCol()).clear();
+        BoardPosition start = getPosition(move.getFromRow(), move.getFromCol());
+        start.setPiece(move.getPiece());
+
+        getPosition(move.getToRow(), move.getToCol()).clear();
         // restore the firstTimeMoved status of the piece since we
         // may be moving it back to its original position.
-        ((ChessPiece)start.getPiece()).setFirstTimeMoved(m.isFirstTimeMoved());
+        ((ChessPiece)start.getPiece()).setFirstTimeMoved(move.isFirstTimeMoved());
 
         // restore the captured pieces to the board
-        restoreCaptures( m.captureList );
+        restoreCaptures( move.captureList );
     }
 
      void removeCaptures( CaptureList captureList )
@@ -155,7 +173,7 @@ public class ChessBoard extends CheckersBoard {
     /**
      * @return true if the move puts the player who made the move into check (his king gets put in check).
      */
-    public boolean causesSelfCheck(TwoPlayerMove m)
+    public boolean causesSelfCheck(ChessMove m)
     {
         // need to check all opponent pieces to see if they can capture the piece after it has moved.
         assert (null != m);
@@ -171,7 +189,7 @@ public class ChessBoard extends CheckersBoard {
                 }
                 if (checked) {
                     undoMove();
-                    return checked;
+                    return true;
                 }
             }
         }
@@ -179,7 +197,6 @@ public class ChessBoard extends CheckersBoard {
         undoMove();
         return false;
     }
-
 
     /**
      * Num different states. E.g. black queen.

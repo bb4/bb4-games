@@ -25,7 +25,7 @@ import java.util.List;
  *
  *  @author Barry Becker
  */
-class BlockadeViewerMouseListener extends ViewerMouseListener {
+class BlockadeViewerMouseListener extends ViewerMouseListener<BlockadeMove, BlockadeBoard> {
 
     private BlockadeMove currentMove;
 
@@ -41,7 +41,7 @@ class BlockadeViewerMouseListener extends ViewerMouseListener {
     /**
      * Constructor.
      */
-    public BlockadeViewerMouseListener(GameBoardViewer viewer) {
+    public BlockadeViewerMouseListener(GameBoardViewer<BlockadeMove, BlockadeBoard> viewer) {
         super(viewer);
         reset();
         wallPlacer = new WallPlacer((BlockadeBoard) viewer.getBoard());
@@ -125,7 +125,7 @@ class BlockadeViewerMouseListener extends ViewerMouseListener {
     /**
      * If we are in wallPlacingMode, then we show the wall being dragged around.
      * When the player clicks the wall is irrevocably placed.
-     * @param e
+     * @param e mouse event
      */
     @Override
     public void mouseMoved( MouseEvent e )
@@ -163,7 +163,7 @@ class BlockadeViewerMouseListener extends ViewerMouseListener {
         }
 
         BlockadeController controller = (BlockadeController)viewer_.getController();
-        BlockadeBoard board = (BlockadeBoard) controller.getBoard();
+        BlockadeBoard board = controller.getBoard();
         // get the original position.
         BlockadeBoardPosition position =
                 board.getPosition(getRenderer().getDraggedPiece().getLocation());
@@ -206,7 +206,7 @@ class BlockadeViewerMouseListener extends ViewerMouseListener {
      */
     private BlockadeMove checkAndGetValidMove(BlockadeBoardPosition origPosition, Location placedLocation) {
         BlockadeController controller = (BlockadeController)viewer_.getController();
-        BlockadeBoard board = (BlockadeBoard) controller.getBoard();
+        BlockadeBoard board = controller.getBoard();
         List<BlockadeMove> possibleMoveList = controller.getPossibleMoveList(origPosition);
 
         BlockadeBoardPosition destpos = board.getPosition( placedLocation );

@@ -20,7 +20,7 @@ import java.util.Map;
  *
  * @author Barry Becker
  */
-public class Galaxy extends Board {
+public class Galaxy extends Board<GalacticTurn> {
 
     private static final int DEFAULT_NUM_PLANETS = 20;
     public static final int MAX_NUM_PLANETS = 80;
@@ -132,7 +132,7 @@ public class Galaxy extends Board {
     {
         if (player==null)
             return getPlanets();
-        List<Planet> playerPlanets = new ArrayList<Planet>();
+        List<Planet> playerPlanets = new ArrayList<>();
         for (Planet planet : planets_) {
 
             if (planet.getOwner() == player)
@@ -169,7 +169,7 @@ public class Galaxy extends Board {
      */
     public static Planet getPlanet(char name) {
         Planet p = hmPlanets_.get(name);
-        assert(p!=null);
+        assert (p != null);
         return p;
     }
 
@@ -186,7 +186,7 @@ public class Galaxy extends Board {
      * @return false if the move is illegal.
      */
     @Override
-    protected boolean makeInternalMove( Move move ) {
+    protected boolean makeInternalMove( GalacticTurn move ) {
         // first allow all the planets to build for the year
         build();
         // go through all the battle results in order and adjust the planets to account for one elapsed year.
@@ -207,7 +207,7 @@ public class Galaxy extends Board {
      * restoring the state of the game one full turn earlier
      */
     @Override
-    protected void undoInternalMove( Move move ) {
+    protected void undoInternalMove( GalacticTurn move ) {
         GameContext.log(0,  "undo no implemented yet." );
     }
 

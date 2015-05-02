@@ -1,6 +1,11 @@
 /** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.common.ui.viewer;
 
+import com.barrybecker4.game.common.Move;
+import com.barrybecker4.game.common.board.Board;
+import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
+import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -10,14 +15,15 @@ import java.awt.event.MouseMotionListener;
  *
  *  @author Barry Becker
  */
-public class ViewerMouseListener implements MouseListener, MouseMotionListener {
+public class ViewerMouseListener<M extends Move, B extends Board>
+        implements MouseListener, MouseMotionListener {
 
-    protected GameBoardViewer viewer_;
+    protected GameBoardViewer<M, B> viewer_;
 
     /**
      * Constructor.
      */
-    public ViewerMouseListener(GameBoardViewer viewer) {
+    public ViewerMouseListener(GameBoardViewer<M, B> viewer) {
         viewer_ =  viewer;
     }
 

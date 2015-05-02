@@ -6,13 +6,10 @@ import com.barrybecker4.game.common.GameContext;
 import com.barrybecker4.game.common.player.Player;
 import com.barrybecker4.game.common.player.PlayerList;
 import com.barrybecker4.game.common.player.PlayerOptions;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerController;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerOptions;
 import com.barrybecker4.game.twoplayer.common.cache.ScoreCache;
 import com.barrybecker4.game.twoplayer.common.persistence.TwoPlayerGameExporter;
-import com.barrybecker4.game.twoplayer.common.search.Searchable;
 import com.barrybecker4.game.twoplayer.go.board.GoBoard;
 import com.barrybecker4.game.twoplayer.go.board.GoProfiler;
 import com.barrybecker4.game.twoplayer.go.board.GoSearchable;
@@ -34,7 +31,7 @@ import java.util.List;
  *
  * @author Barry Becker
  */
-public final class GoController extends TwoPlayerController {
+public final class GoController extends TwoPlayerController<GoMove, GoBoard> {
 
     public static final String VERSION = "0.99";
 
@@ -114,7 +111,7 @@ public final class GoController extends TwoPlayerController {
      * @param handicap number of handicap stones to place on the board at star points.
      */
     public void setHandicap( int handicap ) {
-        ((GoBoard) getBoard()).setHandicap( handicap );
+        getBoard().setHandicap( handicap );
         player1sTurn_ = false;
     }
 
@@ -123,7 +120,7 @@ public final class GoController extends TwoPlayerController {
      */
     @Override
     public boolean doesComputerMoveFirst() {
-        int handicap = ((GoBoard) getBoard()).getHandicap();
+        int handicap = getBoard().getHandicap();
         Player player1 = getPlayers().getPlayer1();
         return ((!player1.isHuman() && (handicap == 0)) ||
                 (player1.isHuman() && (handicap > 0)));
@@ -167,7 +164,7 @@ public final class GoController extends TwoPlayerController {
     @Override
     public void reset() {
         super.reset();
-        if ( ((GoBoard) getBoard()).getHandicap() > 0 )   {
+        if ( getBoard().getHandicap() > 0 )   {
             player1sTurn_ = false;
         }
         scoreCache_ = new ScoreCache();
@@ -198,7 +195,7 @@ public final class GoController extends TwoPlayerController {
     }
 
     @Override
-    protected Searchable createSearchable(TwoPlayerBoard board, PlayerList players) {
+    protected GoSearchable createSearchable(GoBoard board, PlayerList players) {
         return new GoSearchable(board, players, scoreCache_);
     }
 

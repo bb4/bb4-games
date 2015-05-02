@@ -1,7 +1,6 @@
 // Copyright by Barry G. Becker, 2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 package com.barrybecker4.game.twoplayer.go.board.move;
 
-import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.go.board.GoBoard;
@@ -36,14 +35,14 @@ public final class UrgentMoveGenerator {
      * @param lastMove  last stone placed on board
      * @return urgent moves from this position.
      */
-    public final MoveList generateUrgentMoves( MoveList moves, TwoPlayerMove lastMove) {
+    public final MoveList<GoMove> generateUrgentMoves( MoveList<GoMove> moves, TwoPlayerMove lastMove) {
 
         GoMove lastMovePlayed = (GoMove) lastMove;
 
         // just keep the moves that take captures
-        Iterator<Move> it = moves.iterator();
+        Iterator<GoMove> it = moves.iterator();
         while ( it.hasNext() ) {
-            GoMove move = (GoMove) it.next();
+            GoMove move = it.next();
 
             // urgent if we capture or atari other stones.
             boolean isUrgent = move.getNumCaptures() > 0 || putsGroupInAtari(lastMovePlayed);

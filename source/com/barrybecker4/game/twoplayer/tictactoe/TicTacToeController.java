@@ -3,7 +3,6 @@ package com.barrybecker4.game.twoplayer.tictactoe;
 
 import com.barrybecker4.game.common.player.PlayerList;
 import com.barrybecker4.game.common.player.PlayerOptions;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerOptions;
 import com.barrybecker4.game.twoplayer.pente.PenteController;
 
@@ -18,7 +17,7 @@ import java.awt.Color;
  *
  * @author Barry Becker
 */
-public class TicTacToeController extends PenteController {
+public class TicTacToeController extends PenteController<TicTacToeBoard> {
 
     /**
      *  Constructor
@@ -61,7 +60,7 @@ public class TicTacToeController extends PenteController {
     }
 
     @Override
-    protected TicTacToeSearchable createSearchable(TwoPlayerBoard board, PlayerList players) {
+    protected TicTacToeSearchable createSearchable(TicTacToeBoard board, PlayerList players) {
         return new TicTacToeSearchable(board, players);
     }
 }

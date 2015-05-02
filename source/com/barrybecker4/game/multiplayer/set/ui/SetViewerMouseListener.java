@@ -1,9 +1,11 @@
 /** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.multiplayer.set.ui;
 
+import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.ui.viewer.GameBoardViewer;
 import com.barrybecker4.game.common.ui.viewer.ViewerMouseListener;
 import com.barrybecker4.game.multiplayer.set.Card;
+import com.barrybecker4.game.multiplayer.set.SetBoard;
 import com.barrybecker4.game.multiplayer.set.SetController;
 import com.barrybecker4.game.multiplayer.set.SetPlayer;
 import com.barrybecker4.game.multiplayer.set.ui.render.SetGameRenderer;

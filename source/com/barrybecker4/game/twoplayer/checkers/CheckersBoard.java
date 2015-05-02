@@ -2,7 +2,6 @@
 package com.barrybecker4.game.twoplayer.checkers;
 
 import com.barrybecker4.game.common.GameContext;
-import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.board.BoardPosition;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 
@@ -11,7 +10,7 @@ import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
  *
  * @author Barry Becker
  */
-public class CheckersBoard extends TwoPlayerBoard {
+public class CheckersBoard extends TwoPlayerBoard<CheckersMove> {
 
     public static final int SIZE = 8;
     private static final int TWO = 2;
@@ -90,13 +89,12 @@ public class CheckersBoard extends TwoPlayerBoard {
      * This places the players symbol at the position specified by move.
      */
     @Override
-    protected boolean makeInternalMove( Move move ) {
-        CheckersMove m = (CheckersMove) move;
-        getPosition(m.getToRow(), m.getToCol()).setPiece(m.getPiece());
+    protected boolean makeInternalMove( CheckersMove move ) {
+        getPosition(move.getToRow(), move.getToCol()).setPiece(move.getPiece());
 
         // we also need to remove the captures from the board
-        m.removeCaptures( this );
-        getPosition(m.getFromRow(), m.getFromCol()).clear();
+        move.removeCaptures( this );
+        getPosition(move.getFromRow(), move.getFromCol()).clear();
 
         return true;
     }
@@ -105,22 +103,19 @@ public class CheckersBoard extends TwoPlayerBoard {
      * for checkers, undoing a move means moving the piece back and restoring any captures.
      */
     @Override
-    protected void undoInternalMove( Move move ) {
+    protected void undoInternalMove( CheckersMove move ) {
+        BoardPosition startPos = getPosition(move.getFromRow(), move.getFromCol());
 
-        CheckersMove m = (CheckersMove) move;
-        BoardPosition startPos = getPosition(m.getFromRow(), m.getFromCol());
-
-        startPos.setPiece( m.getPiece().copy() );
-        if ( m.kinged ) {
+        startPos.setPiece(move.getPiece().copy());
+        if ( move.kinged ) {
             // then it was just kinged and we need to undo it
-            startPos.setPiece(new CheckersPiece(m.isPlayer1(), CheckersPiece.REGULAR_PIECE));
+            startPos.setPiece(new CheckersPiece(move.isPlayer1(), CheckersPiece.REGULAR_PIECE));
         }
         // restore the captured pieces to the board
-        m.restoreCaptures( this );
+        move.restoreCaptures(this);
 
-        getPosition(m.getToRow(), m.getToCol()).clear();
+        getPosition(move.getToRow(), move.getToCol()).clear();
     }
-
 
     /**
      * Num different states. E.g. regular piece or king or no pieces at the position.

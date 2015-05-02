@@ -4,7 +4,6 @@ package com.barrybecker4.game.twoplayer.blockade.board;
 import com.barrybecker4.common.geometry.Location;
 import com.barrybecker4.game.common.AbstractGameProfiler;
 import com.barrybecker4.game.common.GameProfiler;
-import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.board.BoardPosition;
 import com.barrybecker4.game.twoplayer.blockade.board.analysis.BoardAnalyzer;
 import com.barrybecker4.game.twoplayer.blockade.board.analysis.PossibleMoveAnalyzer;
@@ -24,7 +23,7 @@ import java.util.Set;
  *
  * @author Barry Becker
  */
-public class BlockadeBoard extends TwoPlayerBoard {
+public class BlockadeBoard extends TwoPlayerBoard<BlockadeMove> {
 
     /** Home base positions for both players. */
     private Homes homes;
@@ -138,7 +137,6 @@ public class BlockadeBoard extends TwoPlayerBoard {
         return new PossibleMoveAnalyzer(this).getPossibleMoveList(position, op1);
     }
 
-
     /**
      * @param player1 the last player to make a move.
      * @return all the opponent's shortest paths to your home bases.
@@ -225,21 +223,20 @@ public class BlockadeBoard extends TwoPlayerBoard {
      * @return true if the move was made successfully
      */
     @Override
-    protected boolean makeInternalMove( Move move ) {
+    protected boolean makeInternalMove( BlockadeMove move ) {
         getProfiler().startMakeMove();
-        BlockadeMove m = (BlockadeMove) move;
-        BlockadeBoardPosition toPos = getPosition(m.getToLocation());
+        BlockadeBoardPosition toPos = getPosition(move.getToLocation());
         // in the rare event that we capture an opponent on his base, remember it so it can be undone.
-        if (toPos.isOccupiedHomeBase(!m.isPlayer1())) {
-            m.capturedOpponentPawn = toPos.getPiece();
+        if (toPos.isOccupiedHomeBase(!move.isPlayer1())) {
+            move.capturedOpponentPawn = toPos.getPiece();
         }
-        toPos.setPiece(m.getPiece());
+        toPos.setPiece(move.getPiece());
 
         // we also need to place a wall.
-        if (m.getWall() != null) {
-            addWall(m.getWall());
+        if (move.getWall() != null) {
+            addWall(move.getWall());
         }
-        getPosition(m.getFromRow(), m.getFromCol()).clear();
+        getPosition(move.getFromRow(), move.getFromCol()).clear();
         getProfiler().stopMakeMove();
         return true;
     }
@@ -250,21 +247,20 @@ public class BlockadeBoard extends TwoPlayerBoard {
      * It can only happen on the final winning move.
      */
     @Override
-    protected void undoInternalMove( Move move ) {
+    protected void undoInternalMove( BlockadeMove move ) {
         getProfiler().startUndoMove();
-        BlockadeMove m = (BlockadeMove) move;
-        BoardPosition startPos = getPosition(m.getFromRow(), m.getFromCol());
-        startPos.setPiece( m.getPiece() );
-        BlockadeBoardPosition toPos = getPosition(m.getToLocation());
+        BoardPosition startPos = getPosition(move.getFromRow(), move.getFromCol());
+        startPos.setPiece( move.getPiece() );
+        BlockadeBoardPosition toPos = getPosition(move.getToLocation());
         toPos.clear();
-        if (m.capturedOpponentPawn != null) {
-            toPos.setPiece(m.capturedOpponentPawn);
-            m.capturedOpponentPawn = null;
+        if (move.capturedOpponentPawn != null) {
+            toPos.setPiece(move.capturedOpponentPawn);
+            move.capturedOpponentPawn = null;
         }
 
         // remove the wall that was placed by this move.
-        if (m.getWall() != null) {
-            removeWall(m.getWall());
+        if (move.getWall() != null) {
+            removeWall(move.getWall());
         }
         getProfiler().stopUndoMove();
     }

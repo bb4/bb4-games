@@ -16,13 +16,13 @@ import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy;
  *
  * @author Barry Becker
  */
-public abstract class TwoPlayerSearchable<M extends TwoPlayerMove> extends AbstractSearchable<M> {
+public abstract class TwoPlayerSearchable<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>> extends AbstractSearchable<M, B> {
 
-    protected final TwoPlayerBoard board_;
+    protected final B board_;
     protected final PlayerList players_;
 
     /** helps to find the best moves. */
-    protected final BestMoveFinder bestMoveFinder_;
+    protected final BestMoveFinder<M> bestMoveFinder_;
 
     /** Used to generate hashkeys. */
     protected final ZobristHash hash;
@@ -31,25 +31,25 @@ public abstract class TwoPlayerSearchable<M extends TwoPlayerMove> extends Abstr
     /**
      * Constructor.
      */
-    public TwoPlayerSearchable(final TwoPlayerBoard board,  PlayerList players) {
+    public TwoPlayerSearchable(final B board,  PlayerList players) {
 
         super(board.getMoveList());
         board_ = board;
         players_ = players;
 
         hash = new ZobristHash(board_);
-        bestMoveFinder_ = new BestMoveFinder(getSearchOptions().getBestMovesSearchOptions());
+        bestMoveFinder_ = new BestMoveFinder<>(getSearchOptions().getBestMovesSearchOptions());
     }
 
     /**
      * Copy constructor.
      */
-    public TwoPlayerSearchable(TwoPlayerSearchable searchable) {
+    public TwoPlayerSearchable(TwoPlayerSearchable<M, B> searchable) {
 
-        this(searchable.getBoard().copy(), (PlayerList)searchable.players_.clone());
+        this((B)searchable.getBoard().copy(), (PlayerList)searchable.players_.clone());
     }
 
-    public TwoPlayerBoard getBoard() {
+    public B getBoard() {
         return board_;
     }
 
@@ -75,7 +75,7 @@ public abstract class TwoPlayerSearchable<M extends TwoPlayerMove> extends Abstr
      * @param move move to undo
      */
     public void undoInternalMove(M move) {
-        TwoPlayerMove lastMove = (TwoPlayerMove) moveList_.getLastMove();
+        TwoPlayerMove lastMove = moveList_.getLastMove();
         assert move.equals(lastMove) : "The move we are trying to undo ("+ move +") in list="
                 + moveList_ + " was not equal to the last move (" + lastMove + "). all move=" + getBoard().getMoveList();
 
@@ -97,7 +97,7 @@ public abstract class TwoPlayerSearchable<M extends TwoPlayerMove> extends Abstr
 
 
     @Override
-    public SearchOptions getSearchOptions() {
+    public SearchOptions<M, B> getSearchOptions() {
         return ((TwoPlayerPlayerOptions) getCurrentPlayer().getOptions()).getSearchOptions();
     }
 
@@ -145,7 +145,7 @@ public abstract class TwoPlayerSearchable<M extends TwoPlayerMove> extends Abstr
      * @return the player who's turn it is to move next.
      */
     private Player getCurrentPlayer()  {
-        TwoPlayerMove move =  (TwoPlayerMove) moveList_.getLastMove();
+        TwoPlayerMove move = moveList_.getLastMove();
         return (move==null || !move.isPlayer1()) ?  players_.getPlayer1() : players_.getPlayer2();
     }
 

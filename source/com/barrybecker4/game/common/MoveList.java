@@ -10,7 +10,7 @@ import java.util.ArrayList;
  *
  * @author Barry Becker
  */
-public class MoveList extends ArrayList<Move> {
+public class MoveList<M extends Move> extends ArrayList<M> {
 
     private final Object lock = new Object();
 
@@ -23,7 +23,7 @@ public class MoveList extends ArrayList<Move> {
      * Copy constructor. Does not make a deep copy.
      * @param list list of moves to initialize with
      */
-    public MoveList(MoveList list) {
+    public MoveList(MoveList<M> list) {
         super(list);
     }
 
@@ -31,25 +31,25 @@ public class MoveList extends ArrayList<Move> {
      * Copies the constituent moves as well.
      * @return a deep copy of the movelist.
      */
-    public MoveList copy() {
-        MoveList copiedList = new MoveList();
+    public MoveList<M> copy() {
+        MoveList<M> copiedList = new MoveList<>();
         synchronized (lock) {
-            for (Move m : this) {
-                copiedList.add(m.copy());
+            for (M m : this) {
+                copiedList.add((M)m.copy());
             }
         }
         return copiedList;
     }
 
     @Override
-    public boolean add(Move m) {
+    public boolean add(M m) {
         synchronized (lock) {
            return super.add(m);
         }
     }
 
     @Override
-    public void add(int index, Move move) {
+    public void add(int index, M move) {
          synchronized (lock) {
            super.add(index, move);
         }
@@ -58,18 +58,18 @@ public class MoveList extends ArrayList<Move> {
     /**
      *  @return the player that goes first.
      */
-    public Move getFirstMove() {
+    public M getFirstMove() {
         return get(0);
     }
 
-    public synchronized Move getLastMove() {
+    public synchronized M getLastMove() {
         if ( isEmpty() ) {
             return null;
         }
         return get(size()-1);
     }
 
-    public Move removeLast() {
+    public M removeLast() {
         synchronized (lock) {
            return remove(this.size()-1);
         }
@@ -83,8 +83,8 @@ public class MoveList extends ArrayList<Move> {
     }
 
     @Override
-    public MoveList subList(int first, int last) {
-        MoveList subList = new MoveList();
+    public MoveList<M> subList(int first, int last) {
+        MoveList<M> subList = new MoveList<>();
         synchronized (lock) {
             subList.addAll(super.subList(first, last));
         }
@@ -94,8 +94,7 @@ public class MoveList extends ArrayList<Move> {
     /**
      * @return a random move from the list.
      */
-    public Move getRandomMove() {
-
+    public M getRandomMove() {
         return getRandomMove(size());
     }
 
@@ -105,7 +104,7 @@ public class MoveList extends ArrayList<Move> {
      * @param ofFirstN the first n to choose randomly from.
      * @return a random move from the list.
      */
-    public Move getRandomMove(int ofFirstN) {
+    public M getRandomMove(int ofFirstN) {
 
         int r = GameContext.random().nextInt(Math.min(ofFirstN, size()));
         return get( r );
@@ -118,12 +117,12 @@ public class MoveList extends ArrayList<Move> {
      * not more than this percent less that the first..
      * @return a random move from the list.
      */
-    public Move getRandomMoveForThresh(int percentLessThanBestThresh) {
+    public M getRandomMoveForThresh(int percentLessThanBestThresh) {
 
         // first find the index of the last move that is still above the thresh
         double thresh = getFirstMove().getValue() * (1.0 - (float)percentLessThanBestThresh/100.0);
         int ct = 1;
-        Move currentMove = getFirstMove();
+        M currentMove = getFirstMove();
         int numMoves = size();
         while (currentMove.getValue() > thresh && ct < numMoves) {
             currentMove = get(ct++);
@@ -135,7 +134,7 @@ public class MoveList extends ArrayList<Move> {
     public String toString() {
         StringBuilder bldr = new StringBuilder();
         int ct = 1;
-        for (Move m : this) {
+        for (M m : this) {
             bldr.append(ct++).append(") ").append(m.toString()).append("\n");
         }
         return bldr.toString();

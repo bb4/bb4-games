@@ -1,31 +1,25 @@
-/** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
+/** Copyright by Barry G. Becker, 2000-2015. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.go.board;
 
 import com.barrybecker4.game.common.GameContext;
-import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.board.BoardPosition;
 import com.barrybecker4.game.common.player.PlayerList;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerSearchable;
 import com.barrybecker4.game.twoplayer.common.cache.ScoreCache;
 import com.barrybecker4.game.twoplayer.go.board.analysis.BoardEvaluator;
-import com.barrybecker4.game.twoplayer.go.board.analysis.group.GroupAnalyzer;
-import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup;
 import com.barrybecker4.game.twoplayer.go.board.move.GoMove;
 import com.barrybecker4.game.twoplayer.go.board.move.GoMoveGenerator;
 import com.barrybecker4.game.twoplayer.go.board.move.UrgentMoveGenerator;
 import com.barrybecker4.game.twoplayer.go.board.update.DeadStoneUpdater;
 import com.barrybecker4.optimization.parameter.ParameterArray;
 
-import java.util.List;
-
 /**
  * For searching go game's search space.
  *
  * @author Barry Becker
  */
-public class GoSearchable extends TwoPlayerSearchable<GoMove> {
+public class GoSearchable extends TwoPlayerSearchable<GoMove, GoBoard> {
 
     /** keeps track of dead stones.  */
     private DeadStoneUpdater deadStoneUpdater_;
@@ -36,7 +30,7 @@ public class GoSearchable extends TwoPlayerSearchable<GoMove> {
     /**
      * Constructor.
      */
-    public GoSearchable(TwoPlayerBoard board, PlayerList players, ScoreCache cache) {
+    public GoSearchable(GoBoard board, PlayerList players, ScoreCache cache) {
         super(board, players);
         init(cache);
     }
@@ -53,7 +47,7 @@ public class GoSearchable extends TwoPlayerSearchable<GoMove> {
 
     @Override
     public GoBoard getBoard() {
-        return (GoBoard) board_;
+        return board_;
     }
 
     public ScoreCache getScoreCache() {
@@ -61,9 +55,9 @@ public class GoSearchable extends TwoPlayerSearchable<GoMove> {
     }
 
     /** don't really want to expose this, but renderer needs it */
-    public GroupAnalyzer getGroupAnalyzer(IGoGroup group) {
-        return boardEvaluator_.getGroupAnalyzer(group);
-    }
+    //public GroupAnalyzer getGroupAnalyzer(IGoGroup group) {
+    //    return boardEvaluator_.getGroupAnalyzer(group);
+    //}
 
     private void init(ScoreCache cache) {
         deadStoneUpdater_ = new DeadStoneUpdater(getBoard());
@@ -201,9 +195,8 @@ public class GoSearchable extends TwoPlayerSearchable<GoMove> {
      */
     private boolean twoPasses(GoMove move) {
 
-        List moves = moveList_;
-        if ( move.isPassingMove() && moves.size() > 2 ) {
-            GoMove secondToLast = (GoMove) moves.get( moves.size() - 2 );
+        if ( move.isPassingMove() && moveList_.size() > 2 ) {
+            GoMove secondToLast = moveList_.get( moveList_.size() - 2 );
             if ( secondToLast.isPassingMove() ) {
                 GameContext.log( 0, "Done: The last 2 moves were passes :" + move + ", " + secondToLast );
                 return true;
@@ -237,7 +230,7 @@ public class GoSearchable extends TwoPlayerSearchable<GoMove> {
      * @return estimate of the amount of territory the player has
      */
     public int getTerritoryEstimate( boolean forPlayer1 ) {
-        Move m = moveList_.getLastMove();
+        GoMove m = moveList_.getLastMove();
         if ( m == null )
             return 0;
 
@@ -285,7 +278,7 @@ public class GoSearchable extends TwoPlayerSearchable<GoMove> {
      * @return any moves that take captures or get out of atari.
      */
     @Override
-    public final MoveList generateUrgentMoves(GoMove lastMove, ParameterArray weights) {
+    public final MoveList<GoMove> generateUrgentMoves(GoMove lastMove, ParameterArray weights) {
 
         UrgentMoveGenerator generator = new UrgentMoveGenerator(getBoard());
         return generator.generateUrgentMoves(generateMoves(lastMove, weights), lastMove);
@@ -306,7 +299,7 @@ public class GoSearchable extends TwoPlayerSearchable<GoMove> {
      * generate all good next moves (statically evaluated)
      */
     @Override
-    public final MoveList generateMoves(GoMove lastMove, ParameterArray weights) {
+    public final MoveList<GoMove> generateMoves(GoMove lastMove, ParameterArray weights) {
         GoMoveGenerator generator = new GoMoveGenerator(this);
         return generator.generateEvaluatedMoves(lastMove, weights);
     }
