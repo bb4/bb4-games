@@ -43,7 +43,7 @@ class RankGrouping {
      */
     public List<Rank> getRanks() {
 
-        List<Rank> ranks = new ArrayList<Rank>();
+        List<Rank> ranks = new ArrayList<>();
         for (RankGroup group : groups) {
             ranks.add(group.rank);
         }
@@ -83,7 +83,7 @@ class RankGrouping {
      */
     private List<RankGroup> init(List<Card> hand) {
 
-        Map<Rank, RankGroup> map = new HashMap<Rank, RankGroup>();
+        Map<Rank, RankGroup> map = new HashMap<>();
 
         for (Card card : hand) {
             RankGroup group = map.get(card.rank());
@@ -95,7 +95,7 @@ class RankGrouping {
             }
         }
 
-        List<RankGroup> groups = new ArrayList<RankGroup>(map.values());
+        List<RankGroup> groups = new ArrayList<>(map.values());
         Collections.sort(groups);
         return groups;
     }

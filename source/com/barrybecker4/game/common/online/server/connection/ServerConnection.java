@@ -39,7 +39,7 @@ public class ServerConnection implements IServerConnection {
      * @param port to open the connection on.
      */
     public ServerConnection(int port) {
-        changeListeners_ = new CopyOnWriteArrayList<OnlineChangeListener>();
+        changeListeners_ = new CopyOnWriteArrayList<>();
         socket = new ListenerSocket();
         socket.start(DEFAULT_HOST, port, changeListeners_);
     }

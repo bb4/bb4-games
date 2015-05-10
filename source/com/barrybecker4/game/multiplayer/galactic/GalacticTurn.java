@@ -50,7 +50,7 @@ public class GalacticTurn extends Move {
      */
     public void addSimulation(BattleSimulation battle)  {
         if (battles_ == null) {
-            battles_ = new ArrayList<BattleSimulation>();
+            battles_ = new ArrayList<>();
         }
         battles_.add(battle);
     }

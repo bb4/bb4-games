@@ -51,11 +51,11 @@ class ShortestPathFinder {
         boolean opponentIsPlayer1 = !position.getPiece().isOwnedByPlayer1();
         // set of home bases
         // use a LinkedHashMap so the iteration order is predictable.
-        Set<MutableTreeNode> homeSet = new LinkedHashSet<MutableTreeNode>();
+        Set<MutableTreeNode> homeSet = new LinkedHashSet<>();
         // mark position visited so we don't circle back to it.
         position.setVisited(true);
 
-        List<DefaultMutableTreeNode> queue = new LinkedList<DefaultMutableTreeNode>();
+        List<DefaultMutableTreeNode> queue = new LinkedList<>();
         // the user object at the root is null, because there is no move there.
         DefaultMutableTreeNode root = new DefaultMutableTreeNode(null);
         // if we are sitting on a home, then need to add it to the homeBase set.
@@ -102,7 +102,7 @@ class ShortestPathFinder {
     private List<DefaultMutableTreeNode> findPathChildren(
             BlockadeBoardPosition pos, MutableTreeNode parent, boolean oppPlayer1) {
         List<BlockadeMove> moves = moveAnalyzer.getPossibleMoveList(pos, oppPlayer1);
-        List<DefaultMutableTreeNode> children = new ArrayList<DefaultMutableTreeNode>();
+        List<DefaultMutableTreeNode> children = new ArrayList<>();
 
         for (BlockadeMove move : moves) {
             DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(move);

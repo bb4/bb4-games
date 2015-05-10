@@ -23,7 +23,7 @@ public class GroupAnalyzerMap {
      * keeps it around when it is no longer on the board.
      */
     public GroupAnalyzerMap() {
-        analyzerMap =  new WeakHashMap<IGoGroup, GroupAnalyzer>();
+        analyzerMap =  new WeakHashMap<>();
         // new LRUCache<IGoGroup, GroupAnalyzer>(2000);
     }
 

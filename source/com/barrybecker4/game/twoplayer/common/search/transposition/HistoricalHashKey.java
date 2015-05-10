@@ -34,8 +34,8 @@ public class HistoricalHashKey extends HashKey {
     }
 
     private void init() {
-        moveHistory = new LinkedList<String>();
-        keyHistory = new LinkedList<Long>();
+        moveHistory = new LinkedList<>();
+        keyHistory = new LinkedList<>();
     }
 
     /**

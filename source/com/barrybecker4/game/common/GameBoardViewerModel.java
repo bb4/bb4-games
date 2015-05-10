@@ -31,7 +31,7 @@ public abstract class GameBoardViewerModel
     protected final MoveList undoneMoves_ = new MoveList();
 
     /** list of listeners for handling those events. */
-    private final List<GameChangedListener> gameListeners_ = new ArrayList<GameChangedListener>();
+    private final List<GameChangedListener> gameListeners_ = new ArrayList<>();
 
     /** optional UI manifestation of this viewer model */
     private IGameBoardViewer viewer;

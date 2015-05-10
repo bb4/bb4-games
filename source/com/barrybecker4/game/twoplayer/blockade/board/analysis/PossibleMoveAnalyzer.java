@@ -89,7 +89,7 @@ public class PossibleMoveAnalyzer {
     /** initialize global properties of the class */
     private void initialize(BlockadeBoardPosition position, boolean oppIsPlayer1) {
         this.position = position;
-        possibleMoveList = new LinkedList<BlockadeMove>();
+        possibleMoveList = new LinkedList<>();
 
         opponentPlayer1 = oppIsPlayer1;
         fromLocation = position.getLocation();

@@ -66,7 +66,7 @@ public class BattleSimulation {
      * @param destPlanet planet to which the armada is headed.
      */
     void createSimulation(Order order, Planet destPlanet) {
-        hits_ = new LinkedList<Player>();
+        hits_ = new LinkedList<>();
 
         if (order.getOwner()==destPlanet.getOwner()) {
             addReinforcements(order, destPlanet);

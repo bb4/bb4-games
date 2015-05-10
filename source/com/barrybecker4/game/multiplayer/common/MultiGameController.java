@@ -210,7 +210,7 @@ public abstract class MultiGameController<M extends Move, B extends IBoard> exte
 
     /** get all the actions since last asked and clear them out */
     public List<PlayerAction> getRecentRobotActions() {
-        List<PlayerAction> actions = new ArrayList<PlayerAction>();
+        List<PlayerAction> actions = new ArrayList<>();
         GameContext.log(0, "There were " + recentRobotActions_.size() +"recent robot actions.");
         actions.addAll(recentRobotActions_);
         recentRobotActions_.clear();

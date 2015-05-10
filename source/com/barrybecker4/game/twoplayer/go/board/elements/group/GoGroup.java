@@ -70,7 +70,7 @@ public final class GoGroup extends GoSet
     }
 
     private void commonInit() {
-       changeListeners = new LinkedList<GroupChangeListener>();
+       changeListeners = new LinkedList<>();
     }
 
     @Override

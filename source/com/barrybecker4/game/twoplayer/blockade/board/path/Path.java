@@ -26,7 +26,7 @@ public class Path {
      * Creates a new instance of Path
      */
     private Path() {
-        moves = new LinkedList<BlockadeMove>();
+        moves = new LinkedList<>();
     }
 
     public Path(DefaultMutableTreeNode node) {

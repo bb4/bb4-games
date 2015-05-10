@@ -115,7 +115,7 @@ public class SetBoard implements IBoard {
     }
 
     private List<Card> getCardsOnBoard() {
-        List<Card> cardsOnBoard = new LinkedList<Card>();
+        List<Card> cardsOnBoard = new LinkedList<>();
         for (int i = 0; i < getNumCardsShowing(); i++ ) {
             cardsOnBoard.add(getDeck().get(i));
         }
@@ -127,7 +127,7 @@ public class SetBoard implements IBoard {
     }
 
     public List<Card> getSelectedCards(){
-        List<Card> selected = new ArrayList<Card>();
+        List<Card> selected = new ArrayList<>();
         for (int i = 0; i<getNumCardsShowing(); i++ ) {
             Card card = getDeck().get(i);
             if (card.isSelected()) {

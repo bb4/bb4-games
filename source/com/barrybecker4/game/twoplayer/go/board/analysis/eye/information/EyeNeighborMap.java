@@ -75,7 +75,7 @@ public class EyeNeighborMap {
      * @return the new neighbor map
      */
     private Map<GoBoardPosition, GoBoardPositionList> createMap() {
-        Map<GoBoardPosition, GoBoardPositionList> nbrMap = new HashMap<GoBoardPosition, GoBoardPositionList>();
+        Map<GoBoardPosition, GoBoardPositionList> nbrMap = new HashMap<>();
         // we should probably be able to assume that the eye spaces_ are unvisited, but apparently not. assert instead?
         eye_.setVisited(false);
 

@@ -35,7 +35,7 @@ public class GoGameExporter extends TwoPlayerGameExporter<GoMove, GoBoard> {
     public void saveToFile(String fileName, AssertionError ae )
     {
         GameContext.log( 1, "saving state to :" + fileName );
-        GoBoard b = (GoBoard) board_;
+        GoBoard b = board_;
 
         try {
             Writer out = createWriter(fileName);

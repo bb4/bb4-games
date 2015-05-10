@@ -17,7 +17,7 @@ public abstract class AbstractGameMenu extends JMenu
     protected String currentGameName;
 
     protected List<GameMenuListener> listeners =
-            new ArrayList<GameMenuListener>();
+            new ArrayList<>();
 
     /**
      * Game file menu constructor

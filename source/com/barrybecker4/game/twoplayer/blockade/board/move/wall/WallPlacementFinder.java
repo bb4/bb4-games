@@ -48,7 +48,7 @@ public class WallPlacementFinder {
      * @return all move variations on firstStep based on different wall placements.
      */
     public List<BlockadeMove> findWallPlacementsForMove(BlockadeMove firstStep, PathList paths) {
-        List<BlockadeMove> moves = new LinkedList<BlockadeMove>();
+        List<BlockadeMove> moves = new LinkedList<>();
 
         GameContext.log(2, firstStep + "\nopponent paths="+ opponentPaths + "\n [[");
 

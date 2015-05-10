@@ -52,7 +52,7 @@ public class TwoPlayerGameExporter<M extends TwoPlayerMove, B extends TwoPlayerB
     public void saveToFile( String fileName, AssertionError ae ) {
 
         GameContext.log( 1, "saving state to :" + fileName );
-        TwoPlayerBoard b = (TwoPlayerBoard) board_;
+        TwoPlayerBoard b = board_;
 
         try {
             Writer out = createWriter(fileName);

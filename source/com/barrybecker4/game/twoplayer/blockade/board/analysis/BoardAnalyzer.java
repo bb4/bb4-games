@@ -39,7 +39,7 @@ public class BoardAnalyzer {
 
         int numShortestPaths = Homes.NUM_HOMES * Homes.NUM_HOMES;
         PathList opponentPaths = new PathList();
-        Set<BlockadeBoardPosition> hsPawns = new LinkedHashSet<BlockadeBoardPosition>();
+        Set<BlockadeBoardPosition> hsPawns = new LinkedHashSet<>();
         for ( int row = 1; row <= board.getNumRows(); row++ ) {
             for ( int col = 1; col <= board.getNumCols(); col++ ) {
                 BlockadeBoardPosition pos = board.getPosition( row, col );

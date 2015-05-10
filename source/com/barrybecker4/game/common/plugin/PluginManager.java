@@ -54,9 +54,9 @@ public class PluginManager {
     private void initializePlugins(Document document) {
         Node root = document.getDocumentElement();    // games element
         NodeList children = root.getChildNodes();
-        plugins_ = new ArrayList<GamePlugin>();
-        hmNameToPlugin_ = new HashMap<String, GamePlugin>();
-        hmLabelToPlugin_ = new HashMap<String, GamePlugin>();
+        plugins_ = new ArrayList<>();
+        hmNameToPlugin_ = new HashMap<>();
+        hmLabelToPlugin_ = new HashMap<>();
         GamePlugin defaultGame = null;
 
         int num = children.getLength();
@@ -119,7 +119,7 @@ public class PluginManager {
      * @return a list of plugins filtered by the specified type.
      */
     public List<GamePlugin> getPlugins(PluginType type) {
-        List<GamePlugin> plugins = new ArrayList<GamePlugin>();
+        List<GamePlugin> plugins = new ArrayList<>();
         for (GamePlugin plugin : plugins_) {
             if (plugin.getType() == type)  {
                 plugins.add(plugin);

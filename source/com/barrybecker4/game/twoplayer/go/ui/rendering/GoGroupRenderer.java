@@ -44,7 +44,7 @@ final class GoGroupRenderer {
      * so that we don't have to recompute them if they have not changed.
      * Is this optimization needed? Is it dangerous?
      */
-    private static final Map<IGoGroup, GroupRegion> hmRegionCache_ = new HashMap<IGoGroup, GroupRegion>();
+    private static final Map<IGoGroup, GroupRegion> hmRegionCache_ = new HashMap<>();
 
     private ColorMap colormap_;
     private final float cellSize_;
@@ -138,7 +138,7 @@ final class GoGroupRenderer {
 
         GoBoard boardCopy = board_.copy();
 
-        List<BoardPosition> q = new ArrayList<BoardPosition>();
+        List<BoardPosition> q = new ArrayList<>();
         GoBoardPositionSet qset = new GoBoardPositionSet();
         GoBoardPositionList visitedSet = new GoBoardPositionList();
 

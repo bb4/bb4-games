@@ -60,7 +60,7 @@ public final class GoMoveGenerator {
      */
     final MoveList<GoMove> generatePossibleMoves(GoMove lastMove) {
 
-        GoBoard board = (GoBoard) searchable_.getBoard();
+        GoBoard board = searchable_.getBoard();
         MoveList<GoMove> moveList = new MoveList<>();
         int nCols = board.getNumCols();
         int nRows = board.getNumRows();
@@ -73,7 +73,7 @@ public final class GoMoveGenerator {
         for (int i = 1; i <= nCols; i++ )  {
             for (int j = 1; j <= nRows; j++ )  {
                 // if its a candidate move and not an immediate take-back (which would break the rule of ko)
-                if ( candidateMoves.isCandidateMove( j, i ) && !isTakeBack( j, i, (GoMove) lastMove, board ) ) {
+                if ( candidateMoves.isCandidateMove( j, i ) && !isTakeBack( j, i, lastMove, board ) ) {
                     GoMove m = new GoMove( new ByteLocation(j, i), lastMoveValue, new GoStone(player1) );
 
                     if ( m.isSuicidal(board) ) {

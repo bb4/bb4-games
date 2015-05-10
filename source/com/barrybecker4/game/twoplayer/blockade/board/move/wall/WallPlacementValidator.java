@@ -71,7 +71,7 @@ public class WallPlacementValidator {
 
     private Map<BlockadeBoardPosition, BlockadeWall> getOldWalls(BlockadeWall wall) {
 
-        Map<BlockadeBoardPosition, BlockadeWall> oldWalls = new HashMap<BlockadeBoardPosition, BlockadeWall>();
+        Map<BlockadeBoardPosition, BlockadeWall> oldWalls = new HashMap<>();
         boolean vertical = wall.isVertical();
 
         for (BlockadeBoardPosition pos: wall.getPositions())  {

@@ -53,7 +53,7 @@ public class GoViewerMouseListener extends ViewerMouseListener {
             return;
         }
         Location loc = getRenderer().createLocation(e);
-        GoBoard board = (GoBoard) controller.getBoard();
+        GoBoard board = controller.getBoard();
         boolean player1sTurn = controller.isPlayer1sTurn();
 
         GameContext.log( 3, "BoardViewer: mousePressed: player1sTurn()=" + player1sTurn);
@@ -76,7 +76,7 @@ public class GoViewerMouseListener extends ViewerMouseListener {
     private void processStonePlacement(Location loc, GoMove m, GoBoardPosition stone) {
 
         GoController controller = (GoController) viewer_.getController();
-        GoBoard board = (GoBoard) controller.getBoard();
+        GoBoard board = controller.getBoard();
         boolean player1sTurn = controller.isPlayer1sTurn();
 
         if ( stone.isOccupied() ) {
@@ -84,7 +84,7 @@ public class GoViewerMouseListener extends ViewerMouseListener {
             GameContext.log( 0, "BoardViewer: There is already a stone there: " + stone );
             return;
         }
-        if ( GoMoveGenerator.isTakeBack(m.getToRow(), m.getToCol(), (GoMove) controller.getLastMove(), board) ) {
+        if ( GoMoveGenerator.isTakeBack(m.getToRow(), m.getToCol(), controller.getLastMove(), board) ) {
             JOptionPane.showMessageDialog( null, GameContext.getLabel("NO_TAKEBACKS"));
             return;
         }

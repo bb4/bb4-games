@@ -48,7 +48,7 @@ class BigEyeAnalyzer {
      */
     EyeInformation determineEyeInformation()
     {
-        List<Integer> counts = new ArrayList<Integer>(7);
+        List<Integer> counts = new ArrayList<>(7);
 
         for (GoBoardPosition space : spaces_) {
             counts.add(getNumEyeNobiNeighbors(space));

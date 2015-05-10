@@ -25,7 +25,7 @@ public enum ChessPieceType {
     PAWN('P') {
         @Override
         public List<ChessMove> findPossibleMoves(Board board, int row, int col, Move lastMove, ChessPiece piece) {
-             List<ChessMove> moveList = new LinkedList<ChessMove>();
+             List<ChessMove> moveList = new LinkedList<>();
 
             int direction = -1;
             if ( piece.isOwnedByPlayer1() )
@@ -78,7 +78,7 @@ public enum ChessPieceType {
     ROOK('R') {
         @Override
         public List<ChessMove> findPossibleMoves(Board board, int row, int col, Move lastMove, ChessPiece piece) {
-            List<ChessMove> moveList = new LinkedList<ChessMove>();
+            List<ChessMove> moveList = new LinkedList<>();
 
             // consider horizontal and vertical directions.
             checkRunDirection(row, col, 1, 0,  board, moveList, piece);
@@ -112,7 +112,7 @@ public enum ChessPieceType {
     BISHOP('B') {
         @Override
         public List<ChessMove> findPossibleMoves(Board board, int row, int col, Move lastMove, ChessPiece piece) {
-            List<ChessMove> moveList = new LinkedList<ChessMove>();
+            List<ChessMove> moveList = new LinkedList<>();
 
             // consider the 4 diagonal directions.
             checkRunDirection(row, col, 1, 1,  board, moveList, piece);
@@ -131,7 +131,7 @@ public enum ChessPieceType {
     QUEEN('Q') {
         @Override
         public List<ChessMove> findPossibleMoves(Board board, int row, int col, Move lastMove, ChessPiece piece) {
-            List<ChessMove> moveList = new LinkedList<ChessMove>();
+            List<ChessMove> moveList = new LinkedList<>();
 
             // the set of queen moves equals rook type moves and bishop type moves.
             // all 8 directions are covered by this.
@@ -206,7 +206,7 @@ public enum ChessPieceType {
      */
     private static List<ChessMove> getEightDirectionalMoves(Board board, int row, int col,
                                                             int[] rowOffsets, int[] colOffsets, ChessPiece piece) {
-        List<ChessMove> moveList = new LinkedList<ChessMove>();
+        List<ChessMove> moveList = new LinkedList<>();
 
         for (int i=0; i<8; i++) {
             BoardPosition next =

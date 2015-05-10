@@ -54,7 +54,7 @@ public class GalacticPlayer extends MultiGamePlayer
         super(name, color, isHuman);
         homePlanet_ = homePlanet;
         homePlanet_.setOwner(this);
-        orders_ = new LinkedList<Order>();
+        orders_ = new LinkedList<>();
     }
 
     /**

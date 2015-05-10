@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public class PokerChips extends LinkedHashMap<PokerChip, Integer> {
 
-    private static final Map<PokerChip, Range> THRESHOLDS = new LinkedHashMap<PokerChip, Range>();
+    private static final Map<PokerChip, Range> THRESHOLDS = new LinkedHashMap<>();
     static {
         THRESHOLDS.put(PokerChip.FIVE_HUNDRED, new Range(500, 1000));
         THRESHOLDS.put(PokerChip.TWENTY_FIVE, new Range(200, 300));

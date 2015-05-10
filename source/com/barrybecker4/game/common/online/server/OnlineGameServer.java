@@ -46,7 +46,7 @@ public class OnlineGameServer  {
     public OnlineGameServer(String gameType, Appendable textArea) {
 
         this.text = textArea;
-        clientConnections = new LinkedList<ClientWorker>();
+        clientConnections = new LinkedList<>();
         openListenSocket(gameType);
     }
 

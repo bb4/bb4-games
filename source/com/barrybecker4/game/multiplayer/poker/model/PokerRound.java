@@ -124,7 +124,7 @@ public class PokerRound extends Move {
      * @return the player with the best poker hand for this round
      */
     public List<PokerPlayer> determineWinners(PlayerList players) {
-        List<PokerPlayer> winners = new ArrayList<PokerPlayer>();
+        List<PokerPlayer> winners = new ArrayList<>();
         int first = 0;
 
         while (((PokerPlayer) players.get(first).getActualPlayer()).hasFolded() && first < players.size()) {

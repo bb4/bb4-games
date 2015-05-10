@@ -40,7 +40,7 @@ public class Hand {
 
     /** @return a copy so the client cannot change our state out from under us. */
     public List<Card> getCards() {
-        return new ArrayList<Card>(hand);
+        return new ArrayList<>(hand);
     }
 
     /**
@@ -60,7 +60,7 @@ public class Hand {
     }
 
     private static List<Card> dealCards(final Deck deck, int numCards) {
-        List<Card> hand = new ArrayList<Card>();
+        List<Card> hand = new ArrayList<>();
         assert(numCards <= deck.size()) : "you can't deal more cards than you have in the deck";
         for (int i = 0; i < numCards; i++)  {
             hand.add(deck.remove(0));

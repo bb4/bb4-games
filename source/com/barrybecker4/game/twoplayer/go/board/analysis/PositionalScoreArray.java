@@ -15,7 +15,7 @@ public final class PositionalScoreArray {
      * Keep a cache of the immutable score arrays.
      * We create them only when needed, and probably will never create more than one.
      */
-    private static Map<Integer, PositionalScoreArray> scoreArrays = new HashMap<Integer, PositionalScoreArray>();
+    private static Map<Integer, PositionalScoreArray> scoreArrays = new HashMap<>();
 
     /** a lookup table of scores to attribute to the board positions when calculating the worth */
     private final float[][] positionalScores_;

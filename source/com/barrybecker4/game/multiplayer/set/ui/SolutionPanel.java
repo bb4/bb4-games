@@ -63,7 +63,7 @@ class SolutionPanel extends JPanel
      * @return the ith set.
      */
     private List<Card> getSet(int i) {
-        List<Card> set = new ArrayList<Card>(getNumColumns());
+        List<Card> set = new ArrayList<>(getNumColumns());
         int numCardsInSet = getNumColumns();
         int index = i * numCardsInSet;
         for (int j=0; j<numCardsInSet; j++) {

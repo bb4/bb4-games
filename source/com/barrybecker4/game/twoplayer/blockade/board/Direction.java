@@ -49,7 +49,7 @@ public enum Direction {
      */
     private static void initHash(int hashKey, Direction d) {
         if (map_ == null) {
-            map_ =  new HashMap<Integer, Direction>(12);
+            map_ =  new HashMap<>(12);
         }
         map_.put(hashKey, d);
     }

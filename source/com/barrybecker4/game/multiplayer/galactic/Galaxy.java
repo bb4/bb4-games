@@ -76,7 +76,7 @@ public class Galaxy extends Board<GalacticTurn> {
         numPlanets_ = options.getNumPlanets();
 
         if (planets_ == null)  {
-            planets_ = new ArrayList<Planet>();
+            planets_ = new ArrayList<>();
         }
 
         planets_.clear();
@@ -122,7 +122,7 @@ public class Galaxy extends Board<GalacticTurn> {
      */
     public static List<Planet> getPlanets()
     {
-        return new ArrayList<Planet>(planets_);
+        return new ArrayList<>(planets_);
     }
 
     /**

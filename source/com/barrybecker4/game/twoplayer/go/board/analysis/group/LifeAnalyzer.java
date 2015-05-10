@@ -73,8 +73,8 @@ public class LifeAnalyzer {
     }
 
     private void initMaps() {
-        eyeStringNbrMap = new HashMap<IGoEye, List<IGoString>>();
-        stringEyeNbrMap = new HashMap<IGoString, GoEyeList>();
+        eyeStringNbrMap = new HashMap<>();
+        stringEyeNbrMap = new HashMap<>();
     }
 
     /**
@@ -94,7 +94,7 @@ public class LifeAnalyzer {
      * @return living neighbor strings. May be empty, but never null.
      */
     private List<IGoString> findNeighborStringsForEye(IGoEye eye) {
-        List<IGoString> nbrStrings = new LinkedList<IGoString>();
+        List<IGoString> nbrStrings = new LinkedList<>();
         for (GoBoardPosition pos : eye.getMembers()) {
             if (pos.isUnoccupied()) {
                 findNeighborStringsForEyeSpace(eye, pos, nbrStrings);

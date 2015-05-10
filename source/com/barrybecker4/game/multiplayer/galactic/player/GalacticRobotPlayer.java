@@ -44,7 +44,7 @@ public abstract class GalacticRobotPlayer extends GalacticPlayer
      */
     List<Order> getOrders(Planet origin, int numAttacks, int numShipsToLeaveBehind, int numYearsRemaining)
     {
-        List<Order> orders = new ArrayList<Order>();
+        List<Order> orders = new ArrayList<>();
 
         int numShipsToSend = origin.getNumShips() - numShipsToLeaveBehind;
 
@@ -53,7 +53,7 @@ public abstract class GalacticRobotPlayer extends GalacticPlayer
         Collections.sort(planets, new PlanetComparator(origin));
 
         // find the numAttack closest planets
-        List<Planet> closestEnemies = new ArrayList<Planet>();
+        List<Planet> closestEnemies = new ArrayList<>();
         Iterator it = planets.iterator();
         int ct = 0;
         while (it.hasNext() && ct<numAttacks) {

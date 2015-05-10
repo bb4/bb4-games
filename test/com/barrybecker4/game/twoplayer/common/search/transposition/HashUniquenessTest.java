@@ -145,7 +145,7 @@ public class HashUniquenessTest extends TestCase {
     private int score(TicTacToeBoard b) {
 
         double score = 0;
-        boolean player1 = ((TwoPlayerMove)b.getMoveList().getLastMove()).isPlayer1();
+        boolean player1 = (b.getMoveList().getLastMove()).isPlayer1();
         for (int i=1; i<=rowMax; i++) {
             for (int j=1; j<=colMax; j++) {
                 if (board.getPosition(i, j).isOccupied())  {

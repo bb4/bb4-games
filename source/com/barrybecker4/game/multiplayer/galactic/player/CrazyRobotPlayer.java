@@ -40,7 +40,7 @@ public class CrazyRobotPlayer extends GalacticRobotPlayer {
      */
     @Override
     public List<Order> makeOrders(Galaxy galaxy, int numYearsRemaining) {
-        List<Order> newOrders = new ArrayList<Order>();
+        List<Order> newOrders = new ArrayList<>();
 
         List<Planet> ownedPlanets = Galaxy.getPlanets(this);
         for (Planet origin : ownedPlanets) {

@@ -75,7 +75,7 @@ class ServerCommandProcessor {
      */
     public List<GameCommand> processCommand(GameCommand cmd) {
 
-        List<GameCommand> responses = new LinkedList<GameCommand>();
+        List<GameCommand> responses = new LinkedList<>();
         boolean useUpdateTable = true;
 
         switch (cmd.getName()) {

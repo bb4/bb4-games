@@ -45,7 +45,7 @@ public abstract class PlayerTable extends TableBase {
     protected PlayerTable(PlayerList players, String[] columnNames) {
         super(players, columnNames);
 
-        deletedRows_ = new ArrayList<Vector>();
+        deletedRows_ = new ArrayList<>();
     }
 
     @Override

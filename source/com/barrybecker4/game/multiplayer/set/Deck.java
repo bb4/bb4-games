@@ -13,7 +13,7 @@ import static com.barrybecker4.game.multiplayer.set.Card.AttributeValue;
  */
 public class Deck extends ArrayList<Card> {
 
-    private static final List<Card> protoDeck = new ArrayList<Card>();
+    private static final List<Card> protoDeck = new ArrayList<>();
 
     // Initialize prototype deck
     static {

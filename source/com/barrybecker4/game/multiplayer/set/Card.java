@@ -129,7 +129,7 @@ public class Card {
      * @return the number of sets in cards (unless terminateEarly is true in which case we return 0 or 1)
      */
      private static List<Card> getSetsInternal(List<Card> cards, boolean terminateEarly) {
-        List<Card> sets = new LinkedList<Card>();
+        List<Card> sets = new LinkedList<>();
         if (cards == null || cards.size() < 3) {
             return sets;  // empty list
         }
@@ -137,7 +137,7 @@ public class Card {
         // worst case: 20 cards without a set - we need to check 20 * 19 * 18 = ~8000
         // for each attribute, verify that the values are either all the same or all different.
         for (int i = 0; i < cards.size(); i++) {
-            List<Card> candidate = new LinkedList<Card>();
+            List<Card> candidate = new LinkedList<>();
             candidate.add(cards.get(i));
             for (int j = i+1; j < cards.size(); j++) {
                 candidate.add(cards.get(j));

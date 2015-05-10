@@ -91,7 +91,7 @@ class OrdersTable extends TableBase {
 
         TableModel model = table_.getModel();
         int nRows = model.getRowCount();
-        List<Order> orders = new ArrayList<Order>(nRows);
+        List<Order> orders = new ArrayList<>(nRows);
         int numOldOrders = lastOrders_.size();
 
         for (int i=0; i<nRows; i++) {
@@ -122,7 +122,7 @@ class OrdersTable extends TableBase {
      * @return total outgoing ships for new orders (excluding existing)
      */
     Map getCurrentOutGoingShips() {
-        Map<Planet,Integer> outgoingMap = new HashMap<Planet,Integer>();
+        Map<Planet,Integer> outgoingMap = new HashMap<>();
         TableModel model = table_.getModel();
         int nRows = model.getRowCount();
 

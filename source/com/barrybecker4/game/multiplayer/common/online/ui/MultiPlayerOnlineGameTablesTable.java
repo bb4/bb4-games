@@ -60,7 +60,7 @@ public abstract class MultiPlayerOnlineGameTablesTable extends TableBase  {
         assert(tableButtonListener != null);
         tableButtonListener_ = tableButtonListener;
         selectedTable_ = null;
-        tableList_ = new ArrayList<OnlineGameTable>();
+        tableList_ = new ArrayList<>();
 
         initializeTable(null);
     }

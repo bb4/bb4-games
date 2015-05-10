@@ -41,7 +41,7 @@ public class BlockadeWall {
     }
 
     private void init(BlockadeBoardPosition p1, BlockadeBoardPosition p2) {
-        HashSet<BlockadeBoardPosition> hsPositions = new LinkedHashSet<BlockadeBoardPosition>( 2 );
+        HashSet<BlockadeBoardPosition> hsPositions = new LinkedHashSet<>( 2 );
         hsPositions.add( p1 );
         hsPositions.add( p2 );
         isVertical_ = p1.getCol() == p2.getCol();
