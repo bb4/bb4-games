@@ -52,7 +52,7 @@ public class TwoPlayerSGFLoader extends SGFLoader {
         String tokenName = st.sval.toUpperCase();
 
         // moves are the most common token in an SGF file.
-        if( tokenName.equals( "P1" ) )
+        if ( tokenName.equals( "P1" ) )
             token = createPlayer1MoveToken();
         else if( tokenName.equals( "P2" ) )
             token = createPlayer2MoveToken();

@@ -16,6 +16,7 @@ import com.barrybecker4.game.common.board.IRectangularBoard;
 import com.barrybecker4.game.common.persistence.GameImporter;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerController;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
+import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.persistence.tokens.Player1MoveToken;
 import com.barrybecker4.game.twoplayer.common.persistence.tokens.Player1NameToken;
 import com.barrybecker4.game.twoplayer.common.persistence.tokens.Player2NameToken;
@@ -31,9 +32,9 @@ import java.util.Enumeration;
  *
  * @author Barry Becker
  */
-public class TwoPlayerGameImporter extends GameImporter {
+public class TwoPlayerGameImporter<M extends TwoPlayerMove, B extends TwoPlayerBoard> extends GameImporter<M, B> {
 
-    public TwoPlayerGameImporter(TwoPlayerController controller) {
+    public TwoPlayerGameImporter(TwoPlayerController<M, B> controller) {
         super(controller);
     }
 
@@ -94,7 +95,7 @@ public class TwoPlayerGameImporter extends GameImporter {
      *
      */
     @Override
-    protected boolean processToken(SGFToken token, MoveList moveList) {
+    protected boolean processToken(SGFToken token, MoveList<M> moveList) {
 
         boolean found = false;
         if (token instanceof PlacementToken ) {
@@ -115,11 +116,11 @@ public class TwoPlayerGameImporter extends GameImporter {
      * Create a move from the two player move Token
      */
     @Override
-    protected Move createMoveFromToken( SGFToken token)
+    protected M createMoveFromToken( SGFToken token)
     {
         TwoPlayerMoveToken mvToken = (TwoPlayerMoveToken) token;
         boolean player1 = token instanceof Player1MoveToken;
 
-        return TwoPlayerMove.createMove(mvToken.getToY(), mvToken.getToX(), 0, new GamePiece(player1));
+        return (M) TwoPlayerMove.createMove(mvToken.getToY(), mvToken.getToX(), 0, new GamePiece(player1));
     }
 }

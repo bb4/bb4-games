@@ -18,7 +18,7 @@ import com.barrybecker4.game.twoplayer.common.search.transposition.HashKey;
  */
 public class ScoreCache extends LRUCache<HashKey, ScoreEntry> {
 
-    /** Size of the table. If bigger, will take longer before we have to recycle positions. */
+    /** Size of the table. If bigger, it will take longer before we have to recycle positions. */
     private static final int MAX_ENTRIES = 110000;
 
     private int cacheHits = 0;

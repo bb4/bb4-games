@@ -16,7 +16,7 @@ import static com.barrybecker4.game.twoplayer.common.search.options.MonteCarloSe
 public class UctNodeTest extends TestCase  {
 
     /** instance under test */
-    UctNode  uctNode;
+    UctNode<TwoPlayerMove> uctNode;
 
     /** a Player2 move to put in the node */
     private static final TwoPlayerMove P1_MOVE = new TwoPlayerMoveStub(10, true, new ByteLocation(1,1), null);
@@ -29,7 +29,7 @@ public class UctNodeTest extends TestCase  {
 
     public void testConstructionOfNodeWithNoChildren() {
 
-        uctNode = new UctNode(P2_MOVE);
+        uctNode = new UctNode<>(P2_MOVE);
 
         assertEquals("Unexpected move", P2_MOVE, uctNode.move);
         assertEquals("Unexpected bestNode", null, uctNode.findBestChildMove(WIN_RATE));
@@ -44,7 +44,7 @@ public class UctNodeTest extends TestCase  {
 
     public void testUpdateWinP1() {
 
-        uctNode = new UctNode(P1_MOVE);
+        uctNode = new UctNode<>(P1_MOVE);
 
         uctNode.update(1.0);
         assertEquals("Unexpected numWins", 1.0f, uctNode.getWinRate());
@@ -56,7 +56,7 @@ public class UctNodeTest extends TestCase  {
 
     public void testUpdateWinP2() {
 
-        uctNode = new UctNode(P2_MOVE);
+        uctNode = new UctNode<>(P2_MOVE);
 
         uctNode.update(1.0);
         assertEquals("Unexpected numWins", 0.0f, uctNode.getWinRate());
@@ -67,9 +67,9 @@ public class UctNodeTest extends TestCase  {
 
     public void testSetBestNodeWithAllZeroWinrate() {
 
-        uctNode = new UctNode(P2_MOVE);
+        uctNode = new UctNode<>(P2_MOVE);
 
-        MoveList moves = new MoveList();
+        MoveList<TwoPlayerMove> moves = new MoveList<>();
         TwoPlayerMove firstMove = new TwoPlayerMoveStub(5, false, new ByteLocation(1,1), null);
         TwoPlayerMove goodMove = new TwoPlayerMoveStub(10, false, new ByteLocation(1,2), null);
         moves.add(firstMove);
@@ -84,9 +84,9 @@ public class UctNodeTest extends TestCase  {
 
     public void testSetBestNode() {
 
-        uctNode = new UctNode(P2_MOVE);
+        uctNode = new UctNode<>(P2_MOVE);
 
-        MoveList moves = new MoveList();
+        MoveList<TwoPlayerMove> moves = new MoveList<>();
         TwoPlayerMove firstMove = new TwoPlayerMoveStub(5, false, new ByteLocation(1,1), null);
         TwoPlayerMove goodMove = new TwoPlayerMoveStub(10, false, new ByteLocation(1,2), null);
         moves.add(firstMove);
@@ -105,14 +105,14 @@ public class UctNodeTest extends TestCase  {
 
     /** It should be a large value in this case so it gets selected to be visited first. */
     public void testCalcUctValueWhenNoVisits() {
-        uctNode = new UctNode(P2_MOVE);
+        uctNode = new UctNode<>(P2_MOVE);
 
         assertTrue("Unexpected uctValue",
                 uctNode.calculateUctValue(1.0, 1) > 100);
     }
 
     public void testCalcUctValueWithOneVisitNoWinsOneParentVisitP1() {
-        uctNode = new UctNode(P1_MOVE);
+        uctNode = new UctNode<>(P1_MOVE);
         uctNode.update(0.0);
 
         assertEquals("Unexpected uctValue",
@@ -120,7 +120,7 @@ public class UctNodeTest extends TestCase  {
     }
 
     public void testCalcUctValueWithOneVisitNoWinsOneParentVisitP2() {
-        uctNode = new UctNode(P2_MOVE);
+        uctNode = new UctNode<>(P2_MOVE);
         uctNode.update(1.0);
 
         assertEquals("Unexpected uctValue",
@@ -128,7 +128,7 @@ public class UctNodeTest extends TestCase  {
     }
 
     public void testCalcUctValueWithOneVisitNoWinsTwoParentVisits() {
-        uctNode = new UctNode(P2_MOVE);
+        uctNode = new UctNode<>(P2_MOVE);
         uctNode.update(1.0);
 
         assertEquals("Unexpected uctValue",
@@ -136,7 +136,7 @@ public class UctNodeTest extends TestCase  {
     }
 
     public void testCalcUctValueWithOneVisitNoWins32ParentVisitsP1Won() {
-        uctNode = new UctNode(P2_MOVE);
+        uctNode = new UctNode<>(P2_MOVE);
         uctNode.update(1.0);
 
         assertEquals("Unexpected uctValue",
@@ -144,7 +144,7 @@ public class UctNodeTest extends TestCase  {
     }
 
     public void testCalcUctValueWithOneVisitNoWins32ParentVisitsP2Won() {
-        uctNode = new UctNode(P2_MOVE);
+        uctNode = new UctNode<>(P2_MOVE);
         uctNode.update(0.0);
 
         assertEquals("Unexpected uctValue",
@@ -152,7 +152,7 @@ public class UctNodeTest extends TestCase  {
     }
 
     public void testCalcUctValueWith10Visits1Win32ParentVisitsP1WonAll() {
-        uctNode = new UctNode(P2_MOVE);
+        uctNode = new UctNode<>(P2_MOVE);
         for (int i=0; i<10; i++) {
             uctNode.update(1.0);
         }
@@ -161,7 +161,7 @@ public class UctNodeTest extends TestCase  {
     }
 
     public void testCalcUctValueWith10Visits1Win32ParentVisitsP2WonAll() {
-        uctNode = new UctNode(P2_MOVE);
+        uctNode = new UctNode<>(P2_MOVE);
         for (int i=0; i<10; i++) {
             uctNode.update(0.0);
         }
@@ -185,7 +185,7 @@ public class UctNodeTest extends TestCase  {
 
     /**
      * Used to produce data for visualizing the effect of parameters on the UCT value.
-     */
+     *
     public void CalcUctTable() {
         //int parentVisits = 1024; // 2^25 = 33,554,432
         System.out.println("parentVisits, numVisits, winRate, eeRatio, uctValue");
@@ -193,11 +193,11 @@ public class UctNodeTest extends TestCase  {
         calcUctTable(32);
         calcUctTable(1024);
         System.out.println("done");
-    }
+    } */
 
     private void calcUctTable(int parentVisits) {
-        for (int numVisits=5; numVisits<=25; numVisits+=5) {
-            uctNode = new UctNode(P2_MOVE);
+        for (int numVisits = 5; numVisits <= 25; numVisits += 5) {
+            uctNode = new UctNode<>(P2_MOVE);
             uctNode.update(1.0);
             for (double winRate = 0; winRate <=1.0; winRate+=0.20) {
 

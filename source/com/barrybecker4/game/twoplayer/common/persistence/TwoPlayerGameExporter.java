@@ -3,7 +3,6 @@ package com.barrybecker4.game.twoplayer.common.persistence;
 
 import com.barrybecker4.game.common.GameContext;
 import com.barrybecker4.game.common.IGameController;
-import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.persistence.GameExporter;
 import com.barrybecker4.game.common.player.Player;
@@ -21,13 +20,13 @@ import java.util.Iterator;
  *
  * @author Barry Becker
  */
-public class TwoPlayerGameExporter extends GameExporter {
+public class TwoPlayerGameExporter<M extends TwoPlayerMove, B extends TwoPlayerBoard> extends GameExporter<M, B> {
 
     protected PlayerList players;
 
     /** make a copy of the board and players in case they change */
-    public TwoPlayerGameExporter(IGameController controller) {
-        super(controller.getBoard().copy());
+    public TwoPlayerGameExporter(IGameController<M, B> controller) {
+        super((B) controller.getBoard().copy());
 
         players = new PlayerList();
         players.addAll(controller.getPlayers());
@@ -36,7 +35,7 @@ public class TwoPlayerGameExporter extends GameExporter {
     /**
      * Use this version if you have only the board and not the controller.
      */
-    public TwoPlayerGameExporter(TwoPlayerBoard board) {
+    public TwoPlayerGameExporter(B board) {
         super(board);
         players = new PlayerList();
         players.add(new Player("player1", Color.BLACK, false));
@@ -77,11 +76,11 @@ public class TwoPlayerGameExporter extends GameExporter {
         }
     }
 
-    protected void writeMoves(MoveList moves, Writer out) throws IOException {
-        Iterator<Move> it = moves.iterator();
+    protected void writeMoves(MoveList<M> moves, Writer out) throws IOException {
+        Iterator<M> it = moves.iterator();
         GameContext.log(1, "movelist size= " + moves.size() );
         while ( it.hasNext() ) {
-            Move move = it.next();
+            M move = it.next();
             out.write( getSgfForMove(move) );
         }
     }
@@ -104,19 +103,17 @@ public class TwoPlayerGameExporter extends GameExporter {
      * SGF stands for Smart Game Format and is commonly used for Go
      */
     @Override
-    protected String getSgfForMove(Move move) {
-        TwoPlayerMove m = (TwoPlayerMove) move;
+    protected String getSgfForMove(M move) {
         // passes are not represented in SGF - so just skip it if the piece is null.
 
         StringBuilder buf = new StringBuilder("");
         String player = "P2";
-        if ( m.isPlayer1() )
-        {
+        if ( move.isPlayer1() ) {
             player = "P1";
         }
         buf.append( ';' );
         buf.append( player );
-        serializePosition(m.getToLocation(), buf);
+        serializePosition(move.getToLocation(), buf);
         buf.append( '\n' );
         return buf.toString();
     }

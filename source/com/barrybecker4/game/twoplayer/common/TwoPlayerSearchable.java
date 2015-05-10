@@ -16,7 +16,8 @@ import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy;
  *
  * @author Barry Becker
  */
-public abstract class TwoPlayerSearchable<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>> extends AbstractSearchable<M, B> {
+public abstract class TwoPlayerSearchable<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>>
+        extends AbstractSearchable<M, B> {
 
     protected final B board_;
     protected final PlayerList players_;
@@ -97,7 +98,7 @@ public abstract class TwoPlayerSearchable<M extends TwoPlayerMove, B extends Two
 
 
     @Override
-    public SearchOptions<M, B> getSearchOptions() {
+    public SearchOptions getSearchOptions() {
         return ((TwoPlayerPlayerOptions) getCurrentPlayer().getOptions()).getSearchOptions();
     }
 

@@ -55,7 +55,7 @@ public interface Searchable<M extends TwoPlayerMove, B extends TwoPlayerBoard> {
      * @param recordWin if true then the controller state will record wins
      * @return  true if the game is over.
      */
-    boolean done( M move, boolean recordWin );
+    boolean done(M move, boolean recordWin );
 
      /**
       *  Statically evaluate a boards state to compute the value of the last move

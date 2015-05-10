@@ -3,6 +3,7 @@ package com.barrybecker4.game.twoplayer.common.search.strategy;
 
 import com.barrybecker4.game.common.GameContext;
 import com.barrybecker4.game.common.MoveList;
+import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.WinProbabilityCaclulator;
 import com.barrybecker4.game.twoplayer.common.search.Searchable;
@@ -21,7 +22,7 @@ import java.util.List;
  *
  *  @author Barry Becker
  */
-public class UctStrategy extends AbstractSearchStrategy {
+public class UctStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard> extends AbstractSearchStrategy<M, B> {
 
     /** ratio of exploration to exploitation (of known good moves) while searching.  */
     private double exploreExploitRatio;
@@ -38,7 +39,7 @@ public class UctStrategy extends AbstractSearchStrategy {
      * @param searchable the thing to be searched that has options and can make/undo moves.
      * @param weights coefficients for the evaluation polynomial that indirectly determines the best move.
      */
-    UctStrategy( Searchable searchable, ParameterArray weights ) {
+    UctStrategy( Searchable<M,B> searchable, ParameterArray weights ) {
         super(searchable, weights);
         exploreExploitRatio = getOptions().getMonteCarloSearchOptions().getExploreExploitRatio();
         numRandomLookAhead = getOptions().getMonteCarloSearchOptions().getRandomLookAhead();
@@ -66,11 +67,11 @@ public class UctStrategy extends AbstractSearchStrategy {
      * }
      */
     @Override
-    public TwoPlayerMove search(TwoPlayerMove lastMove, SearchTreeNode parent) {
+    public M search(M lastMove, SearchTreeNode parent) {
 
         int numSimulations = 0;
         int maxSimulations = getOptions().getMonteCarloSearchOptions().getMaxSimulations();
-        UctNode root = new UctNode(lastMove);
+        UctNode<M> root = new UctNode<>(lastMove);
 
         while (numSimulations < maxSimulations ) {
             playSimulation(root, parent);
@@ -104,7 +105,7 @@ public class UctStrategy extends AbstractSearchStrategy {
      * @return chance of player1 winning when running a simulation from this board position.
      *   This probability is a number between 0 and 1 inclusive.
      */
-    public float playSimulation(UctNode lastMoveNode, SearchTreeNode parent) {
+    public float playSimulation(UctNode<M> lastMoveNode, SearchTreeNode parent) {
 
         float player1Score;
         if (lastMoveNode.getNumVisits() == 0) {
@@ -112,7 +113,7 @@ public class UctStrategy extends AbstractSearchStrategy {
             movesConsidered++;
         }
         else {
-            UctNode nextNode = null;
+            UctNode<M> nextNode = null;
 
             if (!searchable.done(lastMoveNode.move, false))  {
                if (!lastMoveNode.hasChildren()) {
@@ -163,11 +164,11 @@ public class UctStrategy extends AbstractSearchStrategy {
     }
      * @return the best child of parentNode. May be null if there are no next moves.
      */
-    private UctNode uctSelect(UctNode parentNode) {
+    private UctNode<M> uctSelect(UctNode<M> parentNode) {
         double bestUct = -1.0;
-        UctNode selected = null;
+        UctNode<M> selected = null;
 
-        for (UctNode child : parentNode.getChildren()) {
+        for (UctNode<M> child : parentNode.getChildren()) {
             double uctValue = child.calculateUctValue(exploreExploitRatio, parentNode.getNumVisits());
             if (uctValue > bestUct) {
                 bestUct = uctValue;
@@ -182,9 +183,9 @@ public class UctStrategy extends AbstractSearchStrategy {
      * Its semi random in the sense that we try to avoid obviously bad moves.
      * @return a score (0 = p1 lost; 0.5 = tie; or 1= p1 won) indication p1 advantage.
      */
-    private float playRandomGame(TwoPlayerMove lastMove) {
+    private float playRandomGame(M lastMove) {
 
-        Searchable s = searchable.copy();
+        Searchable<M, B> s = searchable.copy();
         return playRandomMove(lastMove, s, s.getNumMoves());
     }
 
@@ -215,7 +216,8 @@ public class UctStrategy extends AbstractSearchStrategy {
      * @param startNumMoves how many moves have already been played.
      * @return a score (0 = p1 lost; 0.5 = tie; or 1= p1 won) indication p1 advantage.
      */
-    private float playRandomMove(TwoPlayerMove lastMove, Searchable searchable, int startNumMoves) {
+    private float playRandomMove(
+            M lastMove, Searchable<M, B> searchable, int startNumMoves) {
 
         int numRandMoves = searchable.getNumMoves() - startNumMoves;
         if (numRandMoves >= numRandomLookAhead || searchable.done(lastMove, false)) {
@@ -223,11 +225,11 @@ public class UctStrategy extends AbstractSearchStrategy {
             lastMove.setValue(score);
             return WinProbabilityCaclulator.getChanceOfPlayer1Winning(score);
         }
-        MoveList moves = searchable.generateMoves(lastMove, weights_);
+        MoveList<M> moves = searchable.generateMoves(lastMove, weights_);
         if (moves.size() == 0) {
             return WinProbabilityCaclulator.getChanceOfPlayer1Winning(lastMove.getValue());
         }
-        TwoPlayerMove randomMove = (TwoPlayerMove) moves.getRandomMoveForThresh(percentLessThanBestThresh);
+        M randomMove = moves.getRandomMoveForThresh(percentLessThanBestThresh);
 
         searchable.makeInternalMove(randomMove);
         return playRandomMove(randomMove, searchable, startNumMoves);
@@ -237,11 +239,11 @@ public class UctStrategy extends AbstractSearchStrategy {
      * add a move to the visual game tree (if parent not null).
      * If the new node is already in the tree, do not add it, but maybe update values.
      */
-    protected void addNodesToTree(SearchTreeNode parent, List<UctNode> childUctNodes) {
+    protected void addNodesToTree(SearchTreeNode parent, List<UctNode<M>> childUctNodes) {
 
         if (parent == null) return;
 
-        for (UctNode child : childUctNodes)  {
+        for (UctNode<M> child : childUctNodes)  {
            addNodeToTree(parent, child.move, child.getAttributes());
         }
     }

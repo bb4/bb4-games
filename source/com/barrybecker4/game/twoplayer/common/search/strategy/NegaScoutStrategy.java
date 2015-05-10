@@ -3,6 +3,7 @@ package com.barrybecker4.game.twoplayer.common.search.strategy;
 
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
+import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.search.SearchWindow;
 import com.barrybecker4.game.twoplayer.common.search.Searchable;
 import com.barrybecker4.game.twoplayer.common.search.tree.SearchTreeNode;
@@ -71,25 +72,24 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  *
  *  @author Barry Becker
  */
-public class NegaScoutStrategy extends NegaMaxStrategy
-{
+public class NegaScoutStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard> extends NegaMaxStrategy<M, B> {
     /**
      * Construct NegaScout strategy given a controller interface.
      */
-    public NegaScoutStrategy( Searchable controller, ParameterArray weights) {
+    public NegaScoutStrategy( Searchable<M, B> controller, ParameterArray weights) {
         super( controller, weights );
     }
 
     @Override
-    protected TwoPlayerMove findBestMove(TwoPlayerMove lastMove, int depth, MoveList list,
+    protected M findBestMove(M lastMove, int depth, MoveList<M> list,
                                          SearchWindow window, SearchTreeNode parent) {
         int i = 0;
         int newBeta = window.beta;
-        TwoPlayerMove selectedMove;
-        TwoPlayerMove bestMove = (TwoPlayerMove)list.getFirstMove();
+        M selectedMove;
+        M bestMove = list.getFirstMove();
 
         while ( !list.isEmpty() ) {
-            TwoPlayerMove theMove = getNextMove(list);
+            M theMove = getNextMove(list);
             if (pauseInterrupted())
                 return lastMove;
             updatePercentDone(depth, list);

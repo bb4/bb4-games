@@ -2,6 +2,7 @@
 package com.barrybecker4.game.twoplayer.common.search.strategy;
 
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
+import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.search.SearchWindow;
 import com.barrybecker4.game.twoplayer.common.search.options.SearchOptions;
 import com.barrybecker4.game.twoplayer.common.search.tree.IGameTreeViewable;
@@ -30,18 +31,19 @@ import com.barrybecker4.game.twoplayer.common.search.tree.SearchTreeNode;
  *
  * @author Barry Becker
  */
-public final class MtdStrategy implements SearchStrategy
+public final class MtdStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard>
+        implements SearchStrategy<M, B>
 {
     /**
      * The "memory" search strategy to use. Must use memory/cache to avoid researching overhead.
      * Either a memory enhanced NegaMax or memory enhanced NegaScout would work.
      */
-    private MemorySearchStrategy searchWithMemory_;
+    private MemorySearchStrategy<M, B> searchWithMemory_;
 
     /**
      * Constructor.
     */
-    public MtdStrategy(MemorySearchStrategy testSearchStrategy) {
+    public MtdStrategy(MemorySearchStrategy<M, B> testSearchStrategy) {
         searchWithMemory_ = testSearchStrategy;
     }
 
@@ -51,8 +53,8 @@ public final class MtdStrategy implements SearchStrategy
     }
 
     @Override
-    public TwoPlayerMove search( TwoPlayerMove lastMove, SearchTreeNode parent ) {
-        TwoPlayerMove selectedMove = searchInternal( lastMove, 0, parent);
+    public M search(M lastMove, SearchTreeNode parent ) {
+        M selectedMove = searchInternal( lastMove, 0, parent);
         return (selectedMove != null) ? selectedMove : lastMove;
     }
 
@@ -62,13 +64,12 @@ public final class MtdStrategy implements SearchStrategy
      * @param parent non-null if showing game tree.
      * @return best next move
      */
-    private TwoPlayerMove searchInternal( TwoPlayerMove lastMove,
-                                          int f, SearchTreeNode parent ) {
+    private M searchInternal(M lastMove, int f, SearchTreeNode parent ) {
         int g = f;
         int upperBound = INFINITY;
         int lowerBound = -INFINITY;
 
-        TwoPlayerMove selectedMove;
+        M selectedMove;
         do  {
             int beta = (g == lowerBound) ? g + 1 : g;
 

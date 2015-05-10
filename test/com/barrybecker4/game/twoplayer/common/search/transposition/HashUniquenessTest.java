@@ -95,10 +95,10 @@ public class HashUniquenessTest extends TestCase {
     private void playAllMoves(int depth) {
 
         boolean player1ToMove = depth % 2 == 0;
-        MoveList openMoves = findOpenMoves(player1ToMove);
+        MoveList<TwoPlayerMove> openMoves = findOpenMoves(player1ToMove);
 
-        for (Move m : openMoves) {
-            TwoPlayerMove move = (TwoPlayerMove) m;
+        for (TwoPlayerMove m : openMoves) {
+            TwoPlayerMove move =  m;
             board.makeMove(move);
 
             applyMoveToHash(move.getToLocation());
@@ -129,9 +129,9 @@ public class HashUniquenessTest extends TestCase {
         }
     }
 
-    private MoveList findOpenMoves(boolean player1) {
+    private MoveList<TwoPlayerMove> findOpenMoves(boolean player1) {
 
-        MoveList moves = new MoveList();
+        MoveList<TwoPlayerMove> moves = new MoveList<>();
         for (int i=1; i<=rowMax; i++) {
             for (int j=1; j<=colMax; j++) {
                 if (board.getPosition(i, j).isUnoccupied())  {

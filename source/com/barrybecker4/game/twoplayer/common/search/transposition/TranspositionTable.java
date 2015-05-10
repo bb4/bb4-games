@@ -17,7 +17,7 @@ import com.barrybecker4.game.twoplayer.common.search.SearchWindow;
  *
  * @author Barry Becker
  */
-public class TranspositionTable extends LRUCache<HashKey, Entry> {
+public class TranspositionTable<M extends TwoPlayerMove> extends LRUCache<HashKey, Entry<M>> {
 
     /** Size of the table. If bigger, will take longer before we have to recycle positions. */
     private static final int MAX_ENTRIES = 100000;
@@ -35,7 +35,7 @@ public class TranspositionTable extends LRUCache<HashKey, Entry> {
      * Has side effect of updating the lastMove with the correct boundary if cache hit.
      * @return saved best move in entry
      */
-    public boolean entryExists(Entry entry, TwoPlayerMove lastMove, int depth, SearchWindow window) {
+    public boolean entryExists(Entry entry, M lastMove, int depth, SearchWindow window) {
         if (entry != null && entry.depth >= depth) {
             cacheHits++;
             //System.out.println("Cache hit. \nentry.depth=" + entry.depth + " depth=" + depth  + "\n" + entry);
@@ -80,13 +80,10 @@ public class TranspositionTable extends LRUCache<HashKey, Entry> {
     }
 
     public String toString() {
-        StringBuilder bldr = new StringBuilder("TranspositionTable [\n");
-        bldr.append("numEntries=").append(numEntries());
-        bldr.append(" hits").append(this.getCacheHits());
-        bldr.append(" nearHits=").append(this.getNearCacheHits());
-        bldr.append(" misses=").append(this.getCacheMisses());
-        bldr.append("\n]");
-        return bldr.toString();
+        return "TranspositionTable [\n" + "numEntries=" + numEntries()
+                + " hits" + this.getCacheHits()
+                + " nearHits=" + this.getNearCacheHits()
+                + " misses=" + this.getCacheMisses() + "\n]";
     }
 
 }

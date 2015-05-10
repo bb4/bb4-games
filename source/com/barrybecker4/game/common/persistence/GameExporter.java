@@ -16,12 +16,11 @@ import java.io.Writer;
  *
  * @author Barry Becker
  */
-public abstract class GameExporter {
+public abstract class GameExporter<M extends Move, B extends IBoard> {
 
-    protected IBoard board_;
+    protected B board_;
 
-
-    protected GameExporter(IBoard board) {
+    protected GameExporter(B board) {
         board_ = board;
     }
 
@@ -36,7 +35,7 @@ public abstract class GameExporter {
      * @param move the move to format
      * @return the sgf (smart game format) representation for the move.
      */
-    protected abstract String getSgfForMove(Move move);
+    protected abstract String getSgfForMove(M move);
 
     protected Writer createWriter(String fileName) throws IOException {
        return new FileWriter( ensureSuffix(fileName) );

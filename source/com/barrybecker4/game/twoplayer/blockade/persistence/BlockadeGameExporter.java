@@ -5,6 +5,7 @@ import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.twoplayer.blockade.BlockadeController;
 import com.barrybecker4.game.twoplayer.blockade.board.BlockadeBoardPosition;
 import com.barrybecker4.game.twoplayer.blockade.board.move.BlockadeMove;
+import com.barrybecker4.game.twoplayer.blockade.board.BlockadeBoard;
 import com.barrybecker4.game.twoplayer.common.persistence.TwoPlayerGameExporter;
 
 /**
@@ -12,8 +13,7 @@ import com.barrybecker4.game.twoplayer.common.persistence.TwoPlayerGameExporter;
  *
  * @author Barry Becker Date: Oct 28, 2006
  */
-public class BlockadeGameExporter extends TwoPlayerGameExporter {
-
+public class BlockadeGameExporter extends TwoPlayerGameExporter<BlockadeMove, BlockadeBoard> {
 
     public BlockadeGameExporter(BlockadeController controller) {
         super(controller);
@@ -25,31 +25,31 @@ public class BlockadeGameExporter extends TwoPlayerGameExporter {
      * SGF stands for Smart Game Format and is commonly used for Go
      */
     @Override
-    protected String getSgfForMove(Move move) {
-        BlockadeMove m = (BlockadeMove) move;
+    protected String getSgfForMove(BlockadeMove move) {
+
         // passes are not represented in SGF - so just skip it if the piece is null.
-        if (m.getPiece() == null)
+        if (move.getPiece() == null)
              return "[]";
         StringBuilder buf = new StringBuilder("");
         String player = "P2";
-        if ( m.getPiece().isOwnedByPlayer1() )
+        if ( move.getPiece().isOwnedByPlayer1() )
         {
             player = "P1";
         }
         buf.append( ';' );
         buf.append( player );
          buf.append( '[' );
-        buf.append( (char) ('a' + m.getFromCol() - 1) );
-        buf.append( (char) ('a' + m.getFromRow() - 1) );
+        buf.append( (char) ('a' + move.getFromCol() - 1) );
+        buf.append( (char) ('a' + move.getFromRow() - 1) );
         buf.append( ']' );
         buf.append( '[' );
-        buf.append( (char) ('a' + m.getToCol() - 1) );
-        buf.append( (char) ('a' + m.getToRow() - 1) );
+        buf.append( (char) ('a' + move.getToCol() - 1) );
+        buf.append( (char) ('a' + move.getToRow() - 1) );
         buf.append( ']' );
         // also print the wall placement if there is one
-        if (m.getWall() != null) {
+        if (move.getWall() != null) {
             buf.append("wall");
-            for (BlockadeBoardPosition pos : m.getWall().getPositions()) {
+            for (BlockadeBoardPosition pos : move.getWall().getPositions()) {
                 serializePosition(pos.getLocation(), buf);
             }
         }

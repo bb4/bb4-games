@@ -17,11 +17,11 @@ import java.io.Writer;
  *
  * @author Barry Becker
  */
-public class GoGameExporter extends TwoPlayerGameExporter {
+public class GoGameExporter extends TwoPlayerGameExporter<GoMove, GoBoard> {
 
     float komi = 0.5f;
 
-    public GoGameExporter(TwoPlayerController controller) {
+    public GoGameExporter(TwoPlayerController<GoMove, GoBoard> controller) {
         super(controller);
         komi = ((GoOptions) controller.getOptions()).getKomi();
     }
@@ -32,7 +32,7 @@ public class GoGameExporter extends TwoPlayerGameExporter {
      * @param ae the exception that occurred causing us to want to save state
      */
     @Override
-    public void saveToFile( String fileName, AssertionError ae )
+    public void saveToFile(String fileName, AssertionError ae )
     {
         GameContext.log( 1, "saving state to :" + fileName );
         GoBoard b = (GoBoard) board_;
@@ -71,21 +71,21 @@ public class GoGameExporter extends TwoPlayerGameExporter {
      * SGF stands for Smart Game Format and is commonly used for Go
      */
     @Override
-    protected String getSgfForMove(Move move) {
-        GoMove m = (GoMove) move;
+    protected String getSgfForMove(GoMove move) {
+
         // passes are not represented in SGF - so just skip it if the piece is null.
-        if (m.getPiece() == null)
+        if (move.getPiece() == null)
              return "[]";
         StringBuilder buf = new StringBuilder("");
         char player = 'W';
-        if ( m.getPiece().isOwnedByPlayer1() ) {
+        if ( move.getPiece().isOwnedByPlayer1() ) {
             player = 'B';
         }
         buf.append( ';' );
         buf.append( player );
         buf.append( '[' );
-        buf.append( (char) ('a' + m.getToCol() - 1) );
-        buf.append( (char) ('a' + m.getToRow() - 1) );
+        buf.append( (char) ('a' + move.getToCol() - 1) );
+        buf.append( (char) ('a' + move.getToRow() - 1) );
         buf.append( ']' );
         buf.append( '\n' );
         return buf.toString();

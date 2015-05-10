@@ -15,7 +15,7 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  *
  * @author Barry Becker
  */
-public class SearchOptions<M extends TwoPlayerMove, B extends TwoPlayerBoard> {
+public class SearchOptions {
 
     public static final SearchStrategyType DEFAULT_STRATEGY_METHOD = SearchStrategyType.NEGASCOUT;
 
@@ -103,10 +103,10 @@ public class SearchOptions<M extends TwoPlayerMove, B extends TwoPlayerBoard> {
      * @param searchable  something that can be searched.
      * @return the search strategy to use given a searchable object.
      */
-    public SearchStrategy<M> getSearchStrategy(Searchable<M, B> searchable, ParameterArray weights) {
+    public SearchStrategy getSearchStrategy(Searchable<? extends TwoPlayerMove, ? extends TwoPlayerBoard> searchable, ParameterArray weights) {
 
         SearchStrategyType type = getSearchStrategyMethod();
-        return (SearchStrategy<M>) type.createStrategy(searchable, weights);
+        return type.createStrategy(searchable, weights);
     }
 
     public String toString() {

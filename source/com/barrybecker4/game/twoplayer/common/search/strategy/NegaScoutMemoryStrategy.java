@@ -3,6 +3,7 @@ package com.barrybecker4.game.twoplayer.common.search.strategy;
 
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
+import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.search.SearchWindow;
 import com.barrybecker4.game.twoplayer.common.search.Searchable;
 import com.barrybecker4.game.twoplayer.common.search.transposition.Entry;
@@ -50,17 +51,19 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  * </pre>
  *  @author Barry Becker
  */
-public final class NegaScoutMemoryStrategy extends NegaScoutStrategy
-                                           implements MemorySearchStrategy {
+public final class NegaScoutMemoryStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard>
+        extends NegaScoutStrategy<M, B>
+        implements MemorySearchStrategy<M, B> {
+
     /** Stores positions that have already been evaluated, so we do not need to repeat work. */
-    private TranspositionTable lookupTable;
+    private TranspositionTable<M> lookupTable;
 
     /**
      * Constructor.
      */
-    public NegaScoutMemoryStrategy(Searchable controller, ParameterArray weights) {
+    public NegaScoutMemoryStrategy(Searchable<M, B> controller, ParameterArray weights) {
         super( controller, weights );
-        lookupTable = new TranspositionTable();
+        lookupTable = new TranspositionTable<>();
     }
 
     @Override
@@ -69,32 +72,32 @@ public final class NegaScoutMemoryStrategy extends NegaScoutStrategy
     }
 
     @Override
-    protected TwoPlayerMove searchInternal( TwoPlayerMove lastMove, int depth,
-                                          SearchWindow window, SearchTreeNode parent ) {
+    protected M searchInternal( M lastMove, int depth,
+                                SearchWindow window, SearchTreeNode parent ) {
         //System.out.println("moves="+ searchable.getMoveList());
         HashKey key = searchable.getHashKey();
-        Entry entry = lookupTable.get(key);
+        Entry<M> entry = lookupTable.get(key);
         if (lookupTable.entryExists(entry, lastMove, depth, window))
             return entry.bestMove;
 
         boolean done = searchable.done( lastMove, false);
         if ( depth <= 0 || done ) {
             if (doQuiescentSearch(depth, done, lastMove))  {
-                TwoPlayerMove qMove = quiescentSearch(lastMove, depth, window, parent);
+                M qMove = quiescentSearch(lastMove, depth, window, parent);
                 if (qMove != null)  {
-                    entry = new Entry(qMove, qMove.getInheritedValue());
+                    entry = new Entry<>(qMove, qMove.getInheritedValue());
                     lookupTable.put(key, entry);
                     return qMove;
                 }
             }
             int sign = fromPlayer1sPerspective(lastMove) ? 1 : -1;
             lastMove.setInheritedValue(sign * lastMove.getValue());
-            entry = new Entry(lastMove, -lastMove.getInheritedValue());
+            entry = new Entry<>(lastMove, -lastMove.getInheritedValue());
             lookupTable.put(key, entry);
             return lastMove;
         }
 
-        MoveList list = searchable.generateMoves(lastMove, weights_);
+        MoveList<M> list = searchable.generateMoves(lastMove, weights_);
 
         if (depth == lookAhead_)
             numTopLevelMoves_ = list.size();
@@ -106,17 +109,16 @@ public final class NegaScoutMemoryStrategy extends NegaScoutStrategy
 
 
     @Override
-    protected TwoPlayerMove findBestMove(TwoPlayerMove lastMove,int depth,  MoveList list,
+    protected M findBestMove(M lastMove,int depth, MoveList<M> list,
                                          SearchWindow window, SearchTreeNode parent) {
-        int i = 0;
         int newBeta = window.beta;
         TwoPlayerMove selectedMove;
 
-        TwoPlayerMove bestMove = (TwoPlayerMove) list.get(0);
-        Entry entry = new Entry(bestMove, depth, window);
+        M bestMove = list.get(0);
+        Entry<M> entry = new Entry<>(bestMove, depth, window);
 
         while ( !list.isEmpty() ) {
-            TwoPlayerMove theMove = getNextMove(list);
+            M theMove = getNextMove(list);
             if (pauseInterrupted())
                 return lastMove;
             updatePercentDone(depth, list);
@@ -155,7 +157,6 @@ public final class NegaScoutMemoryStrategy extends NegaScoutStrategy
                         break;
                     }
                 }
-                i++;
                 newBeta = window.alpha + 1;
             }
         }
@@ -168,7 +169,7 @@ public final class NegaScoutMemoryStrategy extends NegaScoutStrategy
     /**
      * Store off the best move so we do not need to analyze it again.
      */
-    private void storeBestMove(SearchWindow window, Entry entry, int bestValue) {
+    private void storeBestMove(SearchWindow window, Entry<M> entry, int bestValue) {
         if (bestValue <= window.alpha) {
             entry.upperValue = bestValue;
         }

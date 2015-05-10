@@ -20,7 +20,7 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
 public abstract class AbstractSearchable<M extends TwoPlayerMove, B extends TwoPlayerBoard> implements Searchable<M, B> {
 
     protected MoveList<M> moveList_;
-    protected SearchStrategy<M> strategy_;
+    protected SearchStrategy strategy_;
 
     /**
      * Constructor.
@@ -43,12 +43,12 @@ public abstract class AbstractSearchable<M extends TwoPlayerMove, B extends TwoP
             root = treeViewer.getRootNode();
         }
 
-        M nextMove = strategy_.search( lastMove, root );
+        TwoPlayerMove nextMove = strategy_.search( lastMove, root );
         getProfiler().stopProfiling(strategy_.getNumMovesConsidered());
-        return nextMove;
+        return (M) nextMove;
     }
 
-    public SearchStrategy<M> getSearchStrategy() {
+    public SearchStrategy getSearchStrategy() {
         return strategy_;
     }
 
@@ -61,7 +61,7 @@ public abstract class AbstractSearchable<M extends TwoPlayerMove, B extends TwoP
     }
 
     /** @return the search options to use */
-    public abstract SearchOptions<M, B> getSearchOptions();
+    public abstract SearchOptions getSearchOptions();
 
     protected AbstractGameProfiler getProfiler() {
         return GameProfiler.getInstance();

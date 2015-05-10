@@ -8,13 +8,12 @@ import com.barrybecker4.ca.dj.jigo.sgf.tokens.SGFToken;
 import com.barrybecker4.ca.dj.jigo.sgf.tokens.TextToken;
 import com.barrybecker4.common.geometry.ByteLocation;
 import com.barrybecker4.game.common.GameContext;
-import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.board.GamePiece;
-import com.barrybecker4.game.common.board.IRectangularBoard;
 import com.barrybecker4.game.twoplayer.blockade.BlockadeController;
 import com.barrybecker4.game.twoplayer.blockade.board.BlockadeBoardPosition;
 import com.barrybecker4.game.twoplayer.blockade.board.move.BlockadeMove;
+import com.barrybecker4.game.twoplayer.blockade.board.BlockadeBoard;
 import com.barrybecker4.game.twoplayer.blockade.board.move.wall.BlockadeWall;
 import com.barrybecker4.game.twoplayer.blockade.persistence.tokens.BlockadeMoveToken;
 import com.barrybecker4.game.twoplayer.blockade.persistence.tokens.Player1BlockadeMoveToken;
@@ -30,7 +29,7 @@ import java.util.Enumeration;
  *
  * @author Barry Becker Date: Oct 28, 2006
  */
-public class BlockadeGameImporter extends TwoPlayerGameImporter {
+public class BlockadeGameImporter extends TwoPlayerGameImporter<BlockadeMove, BlockadeBoard> {
 
     public BlockadeGameImporter(BlockadeController controller) {
         super(controller);
@@ -69,14 +68,14 @@ public class BlockadeGameImporter extends TwoPlayerGameImporter {
                 gc.getPlayers().getPlayer1().setName(nameToken.getName());
             }
         }
-        ((IRectangularBoard)gc.getBoard()).setSize(numRows, numCols);
+        gc.getBoard().setSize(numRows, numCols);
     }
 
     /**
      *
      */
     @Override
-    protected boolean processToken(SGFToken token, MoveList moveList) {
+    protected boolean processToken(SGFToken token, MoveList<BlockadeMove> moveList) {
 
         boolean found = false;
         if (token instanceof BlockadeMoveToken ) {
@@ -97,7 +96,7 @@ public class BlockadeGameImporter extends TwoPlayerGameImporter {
      * Create a cblockade more from the MoveToken
      */
     @Override
-    protected Move createMoveFromToken( SGFToken token) {
+    protected BlockadeMove createMoveFromToken( SGFToken token) {
 
          BlockadeMoveToken mvToken = (BlockadeMoveToken) token;
 

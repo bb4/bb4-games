@@ -1,6 +1,8 @@
 /** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.common.search;
 
+import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
+import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,7 +15,7 @@ import org.junit.Test;
 public abstract class SearchableBaseTst {
 
     /** The searchable instance under test. */
-    protected Searchable searchable;
+    protected Searchable<TwoPlayerMove, TwoPlayerBoard> searchable;
 
     protected ISearchableHelper helper;
 

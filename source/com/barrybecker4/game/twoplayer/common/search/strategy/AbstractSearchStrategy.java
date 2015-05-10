@@ -1,9 +1,10 @@
-/** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
+/** Copyright by Barry G. Becker, 2000-2015. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.common.search.strategy;
 
 import com.barrybecker4.game.common.GameContext;
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
+import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.search.Searchable;
 import com.barrybecker4.game.twoplayer.common.search.options.SearchOptions;
 import com.barrybecker4.game.twoplayer.common.search.tree.IGameTreeViewable;
@@ -17,10 +18,11 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  *
  *  @author Barry Becker
  */
-public abstract class AbstractSearchStrategy implements SearchStrategy<TwoPlayerMove> {
+public abstract class AbstractSearchStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard>
+        implements SearchStrategy<M, B> {
 
     /** the interface implemented by the generic game controller that provides standard methods. */
-    protected Searchable searchable;
+    protected Searchable<M, B> searchable;
 
     /** keep track of the number of moves searched so far. Long because there could be quite a few. */
     protected long movesConsidered = 0;
@@ -44,7 +46,7 @@ public abstract class AbstractSearchStrategy implements SearchStrategy<TwoPlayer
      * @param searchable the game controller that has options and can make/undo moves.
      * @param weights coefficients for the evaluation polynomial that indirectly determines the best move.
      */
-    AbstractSearchStrategy( Searchable searchable, ParameterArray weights ) {
+    AbstractSearchStrategy( Searchable<M, B> searchable, ParameterArray weights ) {
         this.searchable = searchable;
         weights_ = weights;
     }
@@ -63,7 +65,7 @@ public abstract class AbstractSearchStrategy implements SearchStrategy<TwoPlayer
      * @param attributes name value pairs
      *   type either PRUNE_ALPHA or PRUNE_BETA - pruned by comparison with Alpha or Beta.
      */
-    protected void addPrunedNodesInTree( MoveList list, SearchTreeNode parent,
+    protected void addPrunedNodesInTree( MoveList<M> list, SearchTreeNode parent,
                                           int i, NodeAttributes attributes) {
         if (gameTree_ != null) {
            gameTree_.addPrunedNodes(list, parent, i, attributes);
@@ -77,8 +79,8 @@ public abstract class AbstractSearchStrategy implements SearchStrategy<TwoPlayer
      * @param attributes arbitrary name value pairs to display for the new node in the tree.
      * @return the node added to the tree.
      */
-    protected SearchTreeNode addNodeToTree( SearchTreeNode parent, TwoPlayerMove theMove,
-                                            NodeAttributes attributes) {
+    protected SearchTreeNode addNodeToTree(SearchTreeNode parent, M theMove,
+                                           NodeAttributes attributes) {
         SearchTreeNode child = null;
         if (gameTree_ != null) {
             child = new SearchTreeNode(theMove, attributes);
@@ -91,7 +93,7 @@ public abstract class AbstractSearchStrategy implements SearchStrategy<TwoPlayer
     /**
      * @return true if the move list is empty.
      */
-    protected static boolean emptyMoveList( MoveList list, TwoPlayerMove lastMove ) {
+    protected boolean emptyMoveList(MoveList<M> list, M lastMove ) {
         if ( !list.isEmpty() ) return false;
 
         //If there are no next moves, the game is over and the last player to move won
@@ -126,7 +128,7 @@ public abstract class AbstractSearchStrategy implements SearchStrategy<TwoPlayer
      * For minimax this is always true, but it depends on the player for the nega type searches.
      * @return true if we should evaluate the board from the point of view of player one.
      */
-    protected boolean fromPlayer1sPerspective(TwoPlayerMove lastMove) {
+    protected boolean fromPlayer1sPerspective(M lastMove) {
         return true;
     }
 

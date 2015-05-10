@@ -3,6 +3,7 @@ package com.barrybecker4.game.twoplayer.common.search.strategy;
 
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
+import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.search.SearchWindow;
 import com.barrybecker4.game.twoplayer.common.search.Searchable;
 import com.barrybecker4.game.twoplayer.common.search.tree.SearchTreeNode;
@@ -13,31 +14,32 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  * This is the simplest search strategy to which the other variants are compared.
  * @author Barry Becker
  */
-public final class MiniMaxStrategy extends AbstractBruteSearchStrategy
+public final class MiniMaxStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard>
+        extends AbstractBruteSearchStrategy<M, B>
 {
     /**
      * Constructor for the strategy.
      */
-    public MiniMaxStrategy(Searchable controller, ParameterArray weights) {
+    public MiniMaxStrategy(Searchable<M, B> controller, ParameterArray weights) {
         super(controller, weights);
     }
 
     @Override
-    protected TwoPlayerMove findBestMove(TwoPlayerMove lastMove, int depth, MoveList list,
+    protected M findBestMove(M lastMove, int depth, MoveList<M> list,
                                          SearchWindow window, SearchTreeNode parent) {
         int i = 0;
         int selectedValue;
-        TwoPlayerMove selectedMove;
+        M selectedMove;
         // if player 1, then search for a high score, else search for a low score.
         boolean player1 = lastMove.isPlayer1();
         int bestInheritedValue = player1? SearchStrategy.INFINITY: -SearchStrategy.INFINITY;
 
-        TwoPlayerMove bestMove = (TwoPlayerMove)list.get(0);
+        M bestMove = list.get(0);
         while ( !list.isEmpty() ) {
             if (pauseInterrupted())
                 return lastMove;
 
-            TwoPlayerMove theMove = getNextMove(list);
+            M theMove = getNextMove(list);
             updatePercentDone(depth, list);
 
             searchable.makeInternalMove( theMove );
@@ -98,7 +100,7 @@ public final class MiniMaxStrategy extends AbstractBruteSearchStrategy
     }
 
     @Override
-    protected boolean fromPlayer1sPerspective(TwoPlayerMove lastMove) {
+    protected boolean fromPlayer1sPerspective(M lastMove) {
         return true;
     }
 }

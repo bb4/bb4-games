@@ -49,11 +49,7 @@ public class PlayerOptions implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("name = ").append(name_).append("* ");
-        sb.append(additionalInfo()).append(" ]");
-        return sb.toString();
+        return "name = " + name_ + "* " + additionalInfo() + " ]";
     }
 
     protected String additionalInfo() {

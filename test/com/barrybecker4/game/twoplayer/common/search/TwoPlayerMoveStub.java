@@ -2,7 +2,6 @@
 package com.barrybecker4.game.twoplayer.common.search;
 
 import com.barrybecker4.common.geometry.Location;
-import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.board.GamePiece;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
@@ -19,7 +18,7 @@ public class TwoPlayerMoveStub extends TwoPlayerMove {
     public static final String ROOT_ID = "root";
 
     /** child moves */
-    private MoveList children_;
+    private MoveList<TwoPlayerMove> children_;
 
     /** every move but the root of the tree has a parent_ */
     private TwoPlayerMoveStub parent_;
@@ -30,19 +29,19 @@ public class TwoPlayerMoveStub extends TwoPlayerMove {
     public TwoPlayerMoveStub(int val, boolean isPlayer1, Location toLocation, TwoPlayerMoveStub parent) {
         super(toLocation, val, new GamePiece(isPlayer1));
         this.parent_ = parent;
-        this.children_ = new MoveList();
+        this.children_ = new MoveList<>();
     }
 
     public TwoPlayerMoveStub getParent() {
         return parent_;
     }
 
-    public void setChildren(MoveList children) {
+    public void setChildren(MoveList<TwoPlayerMove> children) {
         children_.clear();
         children_.addAll(children);
     }
 
-    public MoveList getChildren() {
+    public MoveList<TwoPlayerMove> getChildren() {
         return children_;
     }
 
@@ -86,19 +85,17 @@ public class TwoPlayerMoveStub extends TwoPlayerMove {
 
     private void print(String indent, TwoPlayerMoveStub subtreeRoot)  {
 
-        MoveList childList = subtreeRoot.getChildren();
+        MoveList<TwoPlayerMove> childList = subtreeRoot.getChildren();
         System.out.println(indent + subtreeRoot);
-        for (Move move : childList) {
+        for (TwoPlayerMove move : childList) {
             print("  " + indent, (TwoPlayerMoveStub)move);
         }
     }
 
 
     public String toString() {
-        StringBuilder bldr = new StringBuilder();
-        bldr.append("id:").append(getId()).append(" value:").append(getValue());
-        bldr.append(" inh val:").append(getInheritedValue());
-        bldr.append(isUrgent()?" urgent":" ").append(causedUrgency()?"jeopardy":"");
-        return bldr.toString();
+        return "id:" + getId() + " value:" + getValue()
+                + " inh val:" + getInheritedValue() + (isUrgent() ? " urgent" : " ")
+                + (causedUrgency() ? "jeopardy" : "");
     }
 }

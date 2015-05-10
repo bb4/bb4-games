@@ -2,7 +2,6 @@
 package com.barrybecker4.game.twoplayer.pente;
 
 import com.barrybecker4.common.geometry.ByteLocation;
-import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.board.GamePiece;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
@@ -47,10 +46,10 @@ public class PenteMoveGeneratorTest {
     @Test
     public void testNextMoveWhenNoMovesOnBoard() throws Exception {
 
-        MoveList actMoves = generator.generateMoves(
+        MoveList<TwoPlayerMove> actMoves = generator.generateMoves(
                 controller.getSearchable(), (TwoPlayerMove) controller.getLastMove(), weights);
 
-        MoveList expMoves = new MoveList();
+        MoveList<TwoPlayerMove> expMoves = new MoveList<>();
         expMoves.add(TwoPlayerMove.createMove(new ByteLocation(6, 6), 0, new GamePiece(true)));
 
         assertEquals("Unexpected first move.", expMoves, actMoves);
@@ -60,11 +59,11 @@ public class PenteMoveGeneratorTest {
     public void testGeneratedMovesSomeMovesAlready() throws Exception {
         restore("midGameP1ToPlay");
 
-        MoveList actMoves = generator.generateMoves(
+        MoveList<TwoPlayerMove> actMoves = generator.generateMoves(
                 controller.getSearchable(), (TwoPlayerMove) controller.getLastMove(), weights);
 
         System.out.println("move=" + printMoves(actMoves));
-        MoveList expMoves = new MoveList();
+        MoveList<TwoPlayerMove> expMoves = new MoveList<>();
         expMoves.add(TwoPlayerMove.createMove(new ByteLocation(13, 10), 0, new GamePiece(true)));
         expMoves.add(TwoPlayerMove.createMove(new ByteLocation(9, 13), -14, new GamePiece(true)));
         expMoves.add(TwoPlayerMove.createMove(new ByteLocation(11, 13), -24, new GamePiece(true)));
@@ -97,10 +96,10 @@ public class PenteMoveGeneratorTest {
     public void testGeneratedMovesAfterFirstMove() throws Exception {
         restore("p2ToPlayAfterFirstMove");
 
-        MoveList actMoves = generator.generateMoves(
+        MoveList<TwoPlayerMove> actMoves = generator.generateMoves(
                 controller.getSearchable(), (TwoPlayerMove) controller.getLastMove(), weights);
 
-        MoveList expMoves = new MoveList();
+        MoveList<TwoPlayerMove> expMoves = new MoveList<>();
         expMoves.add(TwoPlayerMove.createMove(new ByteLocation(1, 1), 0, new GamePiece(false)));
         expMoves.add(TwoPlayerMove.createMove(new ByteLocation(1, 2), 0, new GamePiece(false)));
         expMoves.add(TwoPlayerMove.createMove(new ByteLocation(1, 3), 0, new GamePiece(false)));
@@ -117,10 +116,10 @@ public class PenteMoveGeneratorTest {
     public void testGeneratedMovesAfterSecondMove() throws Exception {
         restore("p1ToPlayAfterSecondMove");
 
-        MoveList actMoves = generator.generateMoves(
+        MoveList<TwoPlayerMove> actMoves = generator.generateMoves(
                 controller.getSearchable(), (TwoPlayerMove) controller.getLastMove(), weights);
 
-        MoveList expMoves = new MoveList();
+        MoveList<TwoPlayerMove> expMoves = new MoveList<>();
         expMoves.add(TwoPlayerMove.createMove(new ByteLocation(4, 4), 0, new GamePiece(true)));
         expMoves.add(TwoPlayerMove.createMove(new ByteLocation(4, 3), 0, new GamePiece(true)));
         expMoves.add(TwoPlayerMove.createMove(new ByteLocation(4, 2), 0, new GamePiece(true)));
@@ -142,10 +141,10 @@ public class PenteMoveGeneratorTest {
 
         restore("../analysis/differencers/exampleBoard");
 
-        MoveList actMoves = generator.generateMoves(
+        MoveList<TwoPlayerMove> actMoves = generator.generateMoves(
                 controller.getSearchable(), (TwoPlayerMove) controller.getLastMove(), weights);
 
-        MoveList expMoves = new MoveList();
+        MoveList<TwoPlayerMove> expMoves = new MoveList<>();
         expMoves.add(TwoPlayerMove.createMove(new ByteLocation(5, 3), 4597, new GamePiece(true)));
         expMoves.add(TwoPlayerMove.createMove(new ByteLocation(5, 8), 4565, new GamePiece(true)));
         expMoves.add(TwoPlayerMove.createMove(new ByteLocation(8, 2), 46, new GamePiece(true)));
@@ -203,11 +202,11 @@ public class PenteMoveGeneratorTest {
         controller.restoreFromStream(helper.getTestResource(problemFileBase));
     }
 
-    protected String printMoves(MoveList moves) {
+    protected String printMoves(MoveList<TwoPlayerMove> moves) {
         StringBuilder bldr = new StringBuilder();
-        for (Move m : moves) {
+        for (TwoPlayerMove m : moves) {
             bldr.append("expMoves.add(");
-            bldr.append(((TwoPlayerMove)m).getConstructorString());
+            bldr.append((m).getConstructorString());
             bldr.append(");\n");
         }
         return bldr.toString();

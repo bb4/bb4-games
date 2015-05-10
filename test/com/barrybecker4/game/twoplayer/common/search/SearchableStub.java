@@ -18,20 +18,19 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  *
  * @author Barry Becker
  */
-public class SearchableStub extends AbstractSearchable<TwoPlayerMove> {
+public class SearchableStub extends AbstractSearchable<TwoPlayerMove, TwoPlayerBoard> {
 
-    protected SearchStrategy strategy_;
     private SearchOptions options_;
 
     public SearchableStub(SearchOptions options) {
-        super(new MoveList());
+        super(new MoveList<TwoPlayerMove>());
         options_ = options;
     }
 
     /** Copy constructor */
     public SearchableStub(SearchableStub stub) {
         this(stub.getSearchOptions());
-        moveList_ = new MoveList(stub.getMoveList());
+        moveList_ = new MoveList<>(stub.getMoveList());
     }
 
     @Override
@@ -41,7 +40,7 @@ public class SearchableStub extends AbstractSearchable<TwoPlayerMove> {
 
     /** @return a copy of this instnace */
     @Override
-    public Searchable copy() {
+    public Searchable<TwoPlayerMove, TwoPlayerBoard> copy() {
         return new SearchableStub(this);
     }
 
@@ -76,13 +75,13 @@ public class SearchableStub extends AbstractSearchable<TwoPlayerMove> {
     }
 
     @Override
-    public MoveList generateMoves(TwoPlayerMove lastMove, ParameterArray weights) {
-        return new MoveList(((TwoPlayerMoveStub) lastMove).getChildren());
+    public MoveList<TwoPlayerMove> generateMoves(TwoPlayerMove lastMove, ParameterArray weights) {
+        return new MoveList<>(((TwoPlayerMoveStub) lastMove).getChildren());
     }
 
     @Override
-    public MoveList generateUrgentMoves(TwoPlayerMove lastMove, ParameterArray weights) {
-        MoveList urgentMoves = new MoveList();
+    public MoveList<TwoPlayerMove> generateUrgentMoves(TwoPlayerMove lastMove, ParameterArray weights) {
+        MoveList<TwoPlayerMove> urgentMoves = new MoveList<>();
         for (Move m : ((TwoPlayerMoveStub) lastMove).getChildren()) {
             TwoPlayerMove move = (TwoPlayerMove)m;
             if (move.isUrgent())  {

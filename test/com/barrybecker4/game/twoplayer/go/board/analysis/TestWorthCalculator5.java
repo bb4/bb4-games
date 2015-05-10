@@ -2,6 +2,7 @@
 package com.barrybecker4.game.twoplayer.go.board.analysis;
 
 import com.barrybecker4.game.common.Move;
+import com.barrybecker4.game.twoplayer.go.board.move.GoMove;
 
 /**
  * Verify that we calculate the expected worth for a given board position.
@@ -24,7 +25,7 @@ public class TestWorthCalculator5 extends WorthCalculatorBase {
 
         restore(PREFIX  + "worth5x5");
 
-        Move move = controller_.undoLastMove();
+        GoMove move = controller_.undoLastMove();
         controller_.makeMove(move);
 
         int actWorth = calculator.worth(move, WEIGHTS.getDefaultWeights());

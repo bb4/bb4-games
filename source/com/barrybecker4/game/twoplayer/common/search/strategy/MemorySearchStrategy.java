@@ -2,6 +2,7 @@
 package com.barrybecker4.game.twoplayer.common.search.strategy;
 
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
+import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.search.transposition.TranspositionTable;
 
 /**
@@ -9,7 +10,8 @@ import com.barrybecker4.game.twoplayer.common.search.transposition.Transposition
  *
  * @author Barry Becker
  */
-public interface MemorySearchStrategy extends SearchStrategy<TwoPlayerMove> {
+public interface MemorySearchStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard>
+        extends SearchStrategy<M, B> {
 
     /**
      * @return the internal transposition table cache. It's used to avoid recomputing move scores.

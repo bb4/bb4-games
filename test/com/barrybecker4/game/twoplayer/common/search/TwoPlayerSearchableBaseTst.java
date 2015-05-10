@@ -7,6 +7,7 @@ import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.player.PlayerList;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerController;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
+import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerOptions;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerPlayerOptions;
 import com.barrybecker4.game.twoplayer.common.search.options.BestMovesSearchOptions;
@@ -35,7 +36,7 @@ public abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst {
     private static final int DEFAULT_LOOKAHEAD = 2;
     private static final int DEFAULT_BEST_PERCENTAGE = 100;
 
-    private TwoPlayerController controller;
+    private TwoPlayerController<TwoPlayerMove, TwoPlayerBoard> controller;
     private SearchOptions searchOptions_;
 
     /**
@@ -89,7 +90,7 @@ public abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst {
         }
     }
 
-    protected TwoPlayerController getController() {
+    protected TwoPlayerController<TwoPlayerMove, TwoPlayerBoard> getController() {
         if (controller == null)
             controller = helper.createController();
         return controller;
@@ -215,7 +216,7 @@ public abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst {
    public void testGenerateMovesAfterFirstMove() {
        controller.computerMovesFirst();
        ParameterArray wts = weights();
-       TwoPlayerMove lastMove = (TwoPlayerMove)controller.getLastMove();
+       TwoPlayerMove lastMove = controller.getLastMove();
        List moves = searchable.generateMoves(lastMove, wts);
 
        assertTrue("We expect the move list to be non-null very start of the game.", moves!= null);
@@ -313,7 +314,7 @@ public abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst {
 
 
     protected void checkMoveListAgainstExpected(String title, TwoPlayerMove[] expectedMoves,
-                                                MoveList moves) {
+                                                MoveList<TwoPlayerMove> moves) {
         if (expectedMoves.length != moves.size()) {
             printMoves(title, moves);
         }
@@ -323,7 +324,7 @@ public abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst {
 
         StringBuilder diffs = new StringBuilder("");
         for (int i=0; i<moves.size(); i++) {
-            TwoPlayerMove move = (TwoPlayerMove) moves.get(i);
+            TwoPlayerMove move = moves.get(i);
             TwoPlayerMove expMove = expectedMoves[i];
             if (!move.equals(expMove)) {
                 diffs.append(i);
@@ -345,7 +346,7 @@ public abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst {
        return getController().getComputerWeights().getPlayer1Weights();
     }
 
-    protected void printMoves(String name, MoveList moves) {
+    protected void printMoves(String name, MoveList<TwoPlayerMove> moves) {
         System.out.println("generated moves for "+ name + " were:" );
         for (Move m : moves) {
              System.out.println(((TwoPlayerMove)m).getConstructorString());

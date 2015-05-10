@@ -14,6 +14,7 @@ import com.barrybecker4.game.common.GameContext;
 import com.barrybecker4.game.common.GameController;
 import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.MoveList;
+import com.barrybecker4.game.common.board.IBoard;
 import com.barrybecker4.game.common.board.IRectangularBoard;
 
 import java.io.IOException;
@@ -25,11 +26,11 @@ import java.util.Enumeration;
  *
  * @author Barry Becker
  */
-public abstract class GameImporter {
+public abstract class GameImporter<M extends Move, B extends IBoard> {
 
-    protected GameController controller_;
+    protected GameController<M, B> controller_;
 
-    protected GameImporter(GameController controller) {
+    protected GameImporter(GameController<M, B> controller) {
         controller_ = controller;
     }
 
@@ -42,16 +43,15 @@ public abstract class GameImporter {
     /**
      * This will restore a game from an SGF structure to the controller
      */
-    protected void restoreGame( SGFGame game )
-    {
+    protected void restoreGame( SGFGame game ) {
         parseSGFGameInfo(game);
 
-        MoveList<Move> moveSequence = new MoveList<>();
+        MoveList<M> moveSequence = new MoveList<>();
         extractMoveList( game.getTree(), moveSequence );
         GameContext.log( 1, "move sequence= " + moveSequence );
         controller_.reset();
 
-        for (Move m : moveSequence) {
+        for (M m : moveSequence) {
             GameContext.log(1, "now making:" + m);
             controller_.makeMove(m);
         }
@@ -80,7 +80,7 @@ public abstract class GameImporter {
      * create a Move from an SGF token.
      * @return move that was created from the token.
      */
-    protected abstract Move createMoveFromToken( SGFToken token );
+    protected abstract M createMoveFromToken( SGFToken token );
 
     /**
      * Given an SGFTree and a place to store the moves of a game, this
@@ -91,8 +91,7 @@ public abstract class GameImporter {
      * @param moveList - The place to store the moves for the game's main
      * variation.
      */
-    private void extractMoveList( SGFTree tree, MoveList<Move> moveList )
-    {
+    private void extractMoveList( SGFTree tree, MoveList<M> moveList ) {
         Enumeration trees = tree.getTrees();
         Enumeration leaves = tree.getLeaves();
         Enumeration tokens;
@@ -122,11 +121,11 @@ public abstract class GameImporter {
      * @param moveList to add the processed token to
      * @return true if the token is an instance of PlacementToken.
      */
-    protected boolean processToken(SGFToken token, MoveList<Move> moveList) {
+    protected boolean processToken(SGFToken token, MoveList<M> moveList) {
 
         boolean found = false;
         if (token instanceof PlacementToken ) {
-            Move move = createMoveFromToken( token );
+            M move = createMoveFromToken( token );
             GameContext.log(2, "creating move="+ move);
             moveList.add( move );
             found = true;
