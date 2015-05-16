@@ -22,7 +22,8 @@ import java.util.List;
  *
  *  @author Barry Becker
  */
-public class UctStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard> extends AbstractSearchStrategy<M, B> {
+public class UctStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>>
+        extends AbstractSearchStrategy<M, B> {
 
     /** ratio of exploration to exploitation (of known good moves) while searching.  */
     private double exploreExploitRatio;

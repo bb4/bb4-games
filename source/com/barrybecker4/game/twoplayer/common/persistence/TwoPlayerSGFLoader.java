@@ -52,48 +52,70 @@ public class TwoPlayerSGFLoader extends SGFLoader {
         String tokenName = st.sval.toUpperCase();
 
         // moves are the most common token in an SGF file.
-        if ( tokenName.equals( "P1" ) )
-            token = createPlayer1MoveToken();
-        else if( tokenName.equals( "P2" ) )
-            token = createPlayer2MoveToken();
+        switch (tokenName) {
+            case "P1":
+                token = createPlayer1MoveToken();
+                break;
+            case "P2":
+                token = createPlayer2MoveToken();
+                break;
 
-        // Comments, notes, and figures are next most common.
-        else if( tokenName.equals( "C" ) || tokenName.equals( "COMMENT" ) )
-          token = new CommentToken();
-        else if( tokenName.equals( "N" ) || tokenName.equals( "NAME" ) )
-          token = new NodeNameToken();
+            // Comments, notes, and figures are next most common.
+            case "C":
+            case "COMMENT":
+                token = new CommentToken();
+                break;
+            case "N":
+            case "NAME":
+                token = new NodeNameToken();
+                break;
 
-        // Lastly, tokens that belong to the first leaf of the first variation
-        // appear once.  These are intentionally placed in this position as a
-        // standard convention for JiGo's SGF API.
-        //
-        else if( tokenName.equals( "FF" ) )
-            token = new FileFormatToken();
-        else if( tokenName.equals( "GM" ) || tokenName.equals( "GAME" ) )
-            token = new GameTypeToken();
-        else if( tokenName.equals( "SZ2" ) || tokenName.equals( "SIZE" ) )
-            token = new Size2Token();
-        else if( tokenName.equals( "PLAYER1" ) )
-            token = new Player1NameToken();
-        else if( tokenName.equals( "PLAYER2" ) )
-            token = new Player2NameToken();
-        else if( tokenName.equals( "DT" ) || tokenName.equals( "DATE" ) )
-            token = new DateToken();
-        else if( tokenName.equals( "RE" ) || tokenName.equals( "RESULT" ) )
-            token = new ResultToken();
-        else if( tokenName.equals( "GC" ) )
-            token = new GameCommentToken();
-        else if( tokenName.equals( "GN" ) || tokenName.equals( "GAMENAME" ) )
-            token = new GameNameToken();
-        else if( tokenName.equals( "ID" ) )
-            token = new GameIDToken();
-        else if( tokenName.equals( "CA" ) )
-            //  token = new CharsetToken();   // where did this token class go?
-            token = new TextToken();
+            // Lastly, tokens that belong to the first leaf of the first variation
+            // appear once.  These are intentionally placed in this position as a
+            // standard convention for JiGo's SGF API.
+            case "FF":
+                token = new FileFormatToken();
+                break;
+            case "GM":
+            case "GAME":
+                token = new GameTypeToken();
+                break;
+            case "SZ2":
+            case "SIZE":
+                token = new Size2Token();
+                break;
+            case "PLAYER1":
+                token = new Player1NameToken();
+                break;
+            case "PLAYER2":
+                token = new Player2NameToken();
+                break;
+            case "DT":
+            case "DATE":
+                token = new DateToken();
+                break;
+            case "RE":
+            case "RESULT":
+                token = new ResultToken();
+                break;
+            case "GC":
+                token = new GameCommentToken();
+                break;
+            case "GN":
+            case "GAMENAME":
+                token = new GameNameToken();
+                break;
+            case "ID":
+                token = new GameIDToken();
+                break;
+            case "CA":
+                //  token = new CharsetToken();   // where did this token class go?
+                token = new TextToken();
+                break;
 
-        // If all else fails, fail
-        else {
-            throw new SGFException("unexpected token name:"+ tokenName);
+            // If all else fails, fail
+            default:
+                throw new SGFException("unexpected token name:" + tokenName);
         }
 
         parseToken(token, st);

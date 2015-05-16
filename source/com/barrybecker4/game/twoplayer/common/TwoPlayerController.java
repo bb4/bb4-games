@@ -41,7 +41,7 @@ import java.io.InputStream;
  *
  *  @author Barry Becker
  */
-public abstract class TwoPlayerController<M extends TwoPlayerMove, B extends TwoPlayerBoard>
+public abstract class TwoPlayerController<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>>
         extends GameController<M, B> {
 
     protected boolean player1sTurn_ = true;
@@ -55,7 +55,7 @@ public abstract class TwoPlayerController<M extends TwoPlayerMove, B extends Two
     private IGameTreeViewable gameTreeViewer_;
 
     /** Worker represents a separate thread for finding the next move. */
-    private TwoPlayerSearchWorker worker_;
+    private TwoPlayerSearchWorker<M, B> worker_;
 
     /** Capable of searching for the best next move */
     private Searchable<M, B> searchable_;
@@ -66,7 +66,7 @@ public abstract class TwoPlayerController<M extends TwoPlayerMove, B extends Two
      */
     public TwoPlayerController() {
         setPlayers(createPlayers());
-        worker_ = new TwoPlayerSearchWorker(this);
+        worker_ = new TwoPlayerSearchWorker<>(this);
     }
 
     @Override
@@ -83,7 +83,7 @@ public abstract class TwoPlayerController<M extends TwoPlayerMove, B extends Two
     protected abstract TwoPlayerOptions createOptions();
 
 
-    public TwoPlayerViewModel getViewer() {
+    public TwoPlayerViewModel<M, B> getViewer() {
        return (TwoPlayerViewModel)viewer_;
     }
 
@@ -104,8 +104,8 @@ public abstract class TwoPlayerController<M extends TwoPlayerMove, B extends Two
      *This should some day be xml (xgf)
      */
     @Override
-    public TwoPlayerGameExporter getExporter() {
-        return new TwoPlayerGameExporter(this);
+    public TwoPlayerGameExporter<M, B> getExporter() {
+        return new TwoPlayerGameExporter<>(this);
     }
 
     @Override
@@ -138,7 +138,7 @@ public abstract class TwoPlayerController<M extends TwoPlayerMove, B extends Two
     }
 
     public void restoreFromStream( InputStream iStream ) throws IOException, SGFException {
-        TwoPlayerGameImporter importer = new TwoPlayerGameImporter(this);
+        TwoPlayerGameImporter<M, B> importer = new TwoPlayerGameImporter<>(this);
         importer.restoreFromStream(iStream);
         M m = getLastMove();
         if (m != null) {

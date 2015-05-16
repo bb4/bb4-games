@@ -16,7 +16,8 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  *  The game tree it produces should be identical to minimax, but it is slightly more efficient.
  *  @author Barry Becker
  */
-public class NegaMaxStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard> extends AbstractBruteSearchStrategy<M, B> {
+public class NegaMaxStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>>
+        extends AbstractBruteSearchStrategy<M, B> {
     /**
      * Construct NegaMax the strategy given a controller interface.
      */

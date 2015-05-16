@@ -9,7 +9,6 @@ import com.barrybecker4.ca.dj.jigo.sgf.tokens.PlacementToken;
 import com.barrybecker4.ca.dj.jigo.sgf.tokens.SGFToken;
 import com.barrybecker4.ca.dj.jigo.sgf.tokens.TextToken;
 import com.barrybecker4.game.common.GameContext;
-import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.board.GamePiece;
 import com.barrybecker4.game.common.board.IRectangularBoard;
@@ -32,7 +31,7 @@ import java.util.Enumeration;
  *
  * @author Barry Becker
  */
-public class TwoPlayerGameImporter<M extends TwoPlayerMove, B extends TwoPlayerBoard> extends GameImporter<M, B> {
+public class TwoPlayerGameImporter<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>> extends GameImporter<M, B> {
 
     public TwoPlayerGameImporter(TwoPlayerController<M, B> controller) {
         super(controller);

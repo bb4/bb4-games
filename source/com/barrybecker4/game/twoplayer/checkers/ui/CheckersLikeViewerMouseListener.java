@@ -4,14 +4,11 @@ package com.barrybecker4.game.twoplayer.checkers.ui;
 import com.barrybecker4.common.geometry.Location;
 import com.barrybecker4.game.common.GameContext;
 import com.barrybecker4.game.common.GameController;
-import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.board.Board;
 import com.barrybecker4.game.common.board.BoardPosition;
 import com.barrybecker4.game.common.board.GamePiece;
 import com.barrybecker4.game.common.ui.viewer.GameBoardViewer;
 import com.barrybecker4.game.common.ui.viewer.ViewerMouseListener;
-import com.barrybecker4.game.twoplayer.checkers.CheckersSearchable;
-import com.barrybecker4.game.twoplayer.checkers.MoveGenerator;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerController;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
@@ -27,7 +24,7 @@ import java.util.List;
  *
  *  @author Barry Becker
  */
-public abstract class CheckersLikeViewerMouseListener<M extends TwoPlayerMove, B extends TwoPlayerBoard>
+public abstract class CheckersLikeViewerMouseListener<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>>
         extends ViewerMouseListener<M, B> {
 
     /**

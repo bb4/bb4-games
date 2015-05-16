@@ -26,56 +26,64 @@ public enum SearchStrategyType {
     MINIMAX("MINIMAX_SEARCH",
             new SearchAttribute[] {BRUTE_FORCE}) {
         @Override
-        public SearchStrategy createStrategy(Searchable<? extends TwoPlayerMove, ? extends TwoPlayerBoard> s, ParameterArray weights) {
+        public SearchStrategy<? extends TwoPlayerMove> createStrategy(
+                Searchable<? extends TwoPlayerMove, ? extends TwoPlayerBoard<? extends TwoPlayerMove>> s, ParameterArray weights) {
             return new MiniMaxStrategy<>(s, weights);
         }
     },
     NEGAMAX("NEGAMAX_SEARCH",
             new SearchAttribute[] {BRUTE_FORCE}) {
         @Override
-        public SearchStrategy createStrategy(Searchable<? extends TwoPlayerMove, ? extends TwoPlayerBoard> s, ParameterArray weights) {
+        public SearchStrategy<? extends TwoPlayerMove> createStrategy(
+                Searchable<? extends TwoPlayerMove, ? extends TwoPlayerBoard<? extends TwoPlayerMove>> s, ParameterArray weights) {
             return new NegaMaxStrategy<>(s, weights);
         }
     },
     NEGAMAX_W_MEMORY("NEGAMAX_W_MEMORY_SEARCH",
             new SearchAttribute[] {BRUTE_FORCE, MEMORY}) {
         @Override
-        public SearchStrategy createStrategy(Searchable<? extends TwoPlayerMove, ? extends TwoPlayerBoard> s, ParameterArray weights) {
+        public SearchStrategy<? extends TwoPlayerMove> createStrategy(
+                Searchable<? extends TwoPlayerMove, ? extends TwoPlayerBoard<? extends TwoPlayerMove>> s, ParameterArray weights) {
             return new NegaMaxMemoryStrategy<>(s, weights);
         }
     },
     NEGASCOUT("NEGASCOUT_SEARCH",
             new SearchAttribute[] {BRUTE_FORCE, ASPIRATION}) {
         @Override
-        public SearchStrategy createStrategy(Searchable<? extends TwoPlayerMove, ? extends TwoPlayerBoard> s, ParameterArray weights) {
+        public SearchStrategy<? extends TwoPlayerMove> createStrategy(
+                Searchable<? extends TwoPlayerMove, ? extends TwoPlayerBoard<? extends TwoPlayerMove>> s, ParameterArray weights) {
             return new NegaScoutStrategy<>(s, weights);
         }
     },
     NEGASCOUT_W_MEMORY("NEGASCOUT_W_MEMORY_SEARCH",
             new SearchAttribute[] {BRUTE_FORCE, MEMORY, ASPIRATION}) {
         @Override
-        public SearchStrategy createStrategy(Searchable<? extends TwoPlayerMove, ? extends TwoPlayerBoard> s, ParameterArray weights) {
+        public SearchStrategy<? extends TwoPlayerMove> createStrategy(
+                Searchable<? extends TwoPlayerMove, ? extends TwoPlayerBoard<? extends TwoPlayerMove>> s, ParameterArray weights) {
             return new NegaScoutMemoryStrategy<>(s, weights);
         }
     },
     MTD_NEGASCOUT("MTD_NEGASCOUT_SEARCH",
             new SearchAttribute[] {BRUTE_FORCE, MEMORY, ASPIRATION}){
         @Override
-        public SearchStrategy createStrategy(Searchable<? extends TwoPlayerMove, ? extends TwoPlayerBoard> s, ParameterArray weights) {
+        public SearchStrategy<? extends TwoPlayerMove> createStrategy(
+                Searchable<? extends TwoPlayerMove, ? extends TwoPlayerBoard<? extends TwoPlayerMove>> s, ParameterArray weights) {
             return new MtdStrategy<>(new NegaScoutMemoryStrategy<>(s, weights));
         }
     },
     MTD_NEGAMAX("MTD_NEGAMAX_SEARCH",
             new SearchAttribute[] {BRUTE_FORCE, MEMORY, ASPIRATION}){
         @Override
-        public SearchStrategy createStrategy(Searchable<? extends TwoPlayerMove, ? extends TwoPlayerBoard> s, ParameterArray weights) {
+        public SearchStrategy<? extends TwoPlayerMove> createStrategy(
+                Searchable<? extends TwoPlayerMove, ? extends TwoPlayerBoard<? extends TwoPlayerMove>> s, ParameterArray weights) {
             return new MtdStrategy<>(new NegaMaxMemoryStrategy<>(s, weights));
         }
     },
     UCT("UCT_SEARCH",
             new SearchAttribute[] {MONTE_CARLO}){
         @Override
-        public SearchStrategy createStrategy(Searchable<? extends TwoPlayerMove, ? extends TwoPlayerBoard> s, ParameterArray weights) {
+        public SearchStrategy<? extends TwoPlayerMove> createStrategy(
+                Searchable<? extends TwoPlayerMove, ? extends TwoPlayerBoard<? extends TwoPlayerMove>> s, ParameterArray weights) {
             return new UctStrategy<>(s, weights);
         }
     };
@@ -123,6 +131,6 @@ public enum SearchStrategyType {
      *
      * @return the search method to use
      */
-    public abstract SearchStrategy createStrategy(
-            Searchable<? extends TwoPlayerMove, ? extends TwoPlayerBoard> s, ParameterArray weights);
+    public abstract SearchStrategy<? extends TwoPlayerMove> createStrategy(
+            Searchable<? extends TwoPlayerMove, ? extends TwoPlayerBoard<? extends TwoPlayerMove>> s, ParameterArray weights);
 }

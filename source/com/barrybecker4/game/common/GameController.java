@@ -2,7 +2,6 @@
 package com.barrybecker4.game.common;
 
 import com.barrybecker4.game.common.board.IBoard;
-import com.barrybecker4.game.common.board.IRectangularBoard;
 import com.barrybecker4.game.common.online.server.IServerConnection;
 import com.barrybecker4.game.common.persistence.GameExporter;
 import com.barrybecker4.game.common.player.PlayerAction;
@@ -16,7 +15,7 @@ import com.barrybecker4.game.common.player.PlayerList;
  *
  *  @author Barry Becker
  */
-public abstract class GameController<M extends Move, B extends IBoard>
+public abstract class GameController<M extends Move, B extends IBoard<M>>
            implements IGameController<M, B> {
 
     /** the board has the layout of the pieces. */
@@ -113,7 +112,7 @@ public abstract class GameController<M extends Move, B extends IBoard>
 
     @Override
     public void makeMove(M move) {
-        ((IRectangularBoard<M>)getBoard()).makeMove(move);
+        getBoard().makeMove(move);
     }
 
     /**
@@ -122,7 +121,7 @@ public abstract class GameController<M extends Move, B extends IBoard>
      */
     @Override
     public M undoLastMove() {
-        return ((IRectangularBoard<M>)getBoard()).undoMove();
+        return getBoard().undoMove();
     }
 
     /**

@@ -5,7 +5,6 @@ import com.barrybecker4.game.common.GameContext;
 import com.barrybecker4.game.common.IGameController;
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.persistence.GameExporter;
-import com.barrybecker4.game.common.player.Player;
 import com.barrybecker4.game.common.player.PlayerList;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
@@ -20,7 +19,7 @@ import java.util.Iterator;
  *
  * @author Barry Becker
  */
-public class TwoPlayerGameExporter<M extends TwoPlayerMove, B extends TwoPlayerBoard> extends GameExporter<M, B> {
+public class TwoPlayerGameExporter<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>> extends GameExporter<M, B> {
 
     protected PlayerList players;
 
@@ -33,16 +32,6 @@ public class TwoPlayerGameExporter<M extends TwoPlayerMove, B extends TwoPlayerB
     }
 
     /**
-     * Use this version if you have only the board and not the controller.
-     */
-    public TwoPlayerGameExporter(B board) {
-        super(board);
-        players = new PlayerList();
-        players.add(new Player("player1", Color.BLACK, false));
-        players.add(new Player("player2", Color.WHITE, false));
-    }
-
-    /**
      * save the current state of the game to a file in SGF (4) format.
      * SGF stands for Smart Game Format. Its text based but should be xml.
      * @param fileName name of the file to save the state to
@@ -52,7 +41,6 @@ public class TwoPlayerGameExporter<M extends TwoPlayerMove, B extends TwoPlayerB
     public void saveToFile( String fileName, AssertionError ae ) {
 
         GameContext.log( 1, "saving state to :" + fileName );
-        TwoPlayerBoard b = board_;
 
         try {
             Writer out = createWriter(fileName);
@@ -61,12 +49,12 @@ public class TwoPlayerGameExporter<M extends TwoPlayerMove, B extends TwoPlayerB
             out.write( "FF[4]\n" );
             out.write( "GM[1]\n" );
             //out.write( "CA[UTF-8]\n" );
-            out.write( "SZ2[" + b.getNumRows() + "][" + b.getNumCols() + "]\n" );
+            out.write( "SZ2[" + board_.getNumRows() + "][" + board_.getNumCols() + "]\n" );
             out.write( "Player1[" + players.getPlayer1().getName() + "]\n" );
             out.write( "Player2[" + players.getPlayer2().getName() + "]\n" );
             out.write( "GN[test1]\n" );
 
-            writeMoves(b.getMoveList(), out);
+            writeMoves(board_.getMoveList(), out);
             writeExceptionIfAny(ae, out);
 
             out.write( ')' );

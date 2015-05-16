@@ -31,8 +31,8 @@ import com.barrybecker4.game.twoplayer.common.search.tree.SearchTreeNode;
  *
  * @author Barry Becker
  */
-public final class MtdStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard>
-        implements SearchStrategy<M, B>
+public final class MtdStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>>
+        implements SearchStrategy<M>
 {
     /**
      * The "memory" search strategy to use. Must use memory/cache to avoid researching overhead.

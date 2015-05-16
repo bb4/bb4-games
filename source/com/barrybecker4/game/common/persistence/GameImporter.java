@@ -26,7 +26,7 @@ import java.util.Enumeration;
  *
  * @author Barry Becker
  */
-public abstract class GameImporter<M extends Move, B extends IBoard> {
+public abstract class GameImporter<M extends Move, B extends IBoard<M>> {
 
     protected GameController<M, B> controller_;
 

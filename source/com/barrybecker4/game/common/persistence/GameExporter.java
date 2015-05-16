@@ -16,7 +16,7 @@ import java.io.Writer;
  *
  * @author Barry Becker
  */
-public abstract class GameExporter<M extends Move, B extends IBoard> {
+public abstract class GameExporter<M extends Move, B extends IBoard<M>> {
 
     protected B board_;
 

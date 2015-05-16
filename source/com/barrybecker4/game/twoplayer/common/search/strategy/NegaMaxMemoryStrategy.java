@@ -19,8 +19,8 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  *
  *  @author Barry Becker
  */
-public final class NegaMaxMemoryStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard> extends NegaMaxStrategy<M, B>
-                                         implements MemorySearchStrategy<M, B> {
+public final class NegaMaxMemoryStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>>
+        extends NegaMaxStrategy<M, B> implements MemorySearchStrategy<M, B> {
 
     /** Stores positions that have already been evaluated, so we do not need to repeat work. */
     private TranspositionTable<M> lookupTable;

@@ -14,7 +14,7 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  * This is the simplest search strategy to which the other variants are compared.
  * @author Barry Becker
  */
-public final class MiniMaxStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard>
+public final class MiniMaxStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>>
         extends AbstractBruteSearchStrategy<M, B>
 {
     /**

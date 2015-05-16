@@ -72,7 +72,8 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  *
  *  @author Barry Becker
  */
-public class NegaScoutStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard> extends NegaMaxStrategy<M, B> {
+public class NegaScoutStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>>
+        extends NegaMaxStrategy<M, B> {
     /**
      * Construct NegaScout strategy given a controller interface.
      */

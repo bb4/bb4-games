@@ -10,9 +10,9 @@ import com.barrybecker4.game.common.Move;
  *
  * @author Barry Becker
  */
-class TwoPlayerSearchWorker {
+class TwoPlayerSearchWorker<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>> {
 
-    private TwoPlayerController controller;
+    private TwoPlayerController<M, B> controller;
 
     /** Worker represents a separate thread for computing the next move. */
     private Worker worker;
@@ -24,7 +24,7 @@ class TwoPlayerSearchWorker {
     /**
      * Construct the search worker.
      */
-    public TwoPlayerSearchWorker(TwoPlayerController controller) {
+    public TwoPlayerSearchWorker(TwoPlayerController<M, B> controller) {
         this.controller = controller;
     }
 
@@ -38,7 +38,7 @@ class TwoPlayerSearchWorker {
                 worker.interrupt();
                 processing_ = false;
                 // make the move even though we did not finish computing it
-                Move move = (Move) worker.get();
+                M move = (M) worker.get();
                 if (move != null) {
                     controller.getViewer().computerMoved(move);
                 }
@@ -59,7 +59,7 @@ class TwoPlayerSearchWorker {
 
          worker = new Worker() {
 
-             private Move move;
+             private M move;
 
              @Override
              public Object construct() {
@@ -84,7 +84,7 @@ class TwoPlayerSearchWorker {
          if (synchronous) {
 
              // this blocks until the value is available
-             TwoPlayerMove m = (TwoPlayerMove) worker.get();
+             M m = (M) worker.get();
              return controller.getSearchable().done(m, true);
          }
          return false;

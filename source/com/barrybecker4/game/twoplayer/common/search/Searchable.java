@@ -18,7 +18,7 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  *
  * @author Barry Becker
  */
-public interface Searchable<M extends TwoPlayerMove, B extends TwoPlayerBoard> {
+public interface Searchable<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>> {
 
     /**
      * @return the search options having to do with search parameters.

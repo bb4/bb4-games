@@ -5,6 +5,7 @@ import com.barrybecker4.game.common.GameContext;
 import com.barrybecker4.game.common.board.Board;
 import com.barrybecker4.game.common.board.BoardPosition;
 import com.barrybecker4.game.common.board.GamePiece;
+import com.barrybecker4.game.common.board.IBoard;
 
 import java.util.List;
 

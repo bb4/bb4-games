@@ -18,8 +18,8 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  *
  *  @author Barry Becker
  */
-public abstract class AbstractSearchStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard>
-        implements SearchStrategy<M, B> {
+public abstract class AbstractSearchStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>>
+        implements SearchStrategy<M> {
 
     /** the interface implemented by the generic game controller that provides standard methods. */
     protected Searchable<M, B> searchable;

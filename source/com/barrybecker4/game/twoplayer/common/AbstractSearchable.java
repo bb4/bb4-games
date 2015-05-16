@@ -17,10 +17,11 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  *
  * @author Barry Becker
  */
-public abstract class AbstractSearchable<M extends TwoPlayerMove, B extends TwoPlayerBoard> implements Searchable<M, B> {
+public abstract class AbstractSearchable<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>>
+        implements Searchable<M, B> {
 
     protected MoveList<M> moveList_;
-    protected SearchStrategy<M, B> strategy_;
+    protected SearchStrategy<M> strategy_;
 
     /**
      * Constructor.
@@ -48,7 +49,7 @@ public abstract class AbstractSearchable<M extends TwoPlayerMove, B extends TwoP
         return nextMove;
     }
 
-    public SearchStrategy<M, B> getSearchStrategy() {
+    public SearchStrategy<M> getSearchStrategy() {
         return strategy_;
     }
 

@@ -1,8 +1,7 @@
-/** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
+/** Copyright by Barry G. Becker, 2000-2015. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.common;
 
 import com.barrybecker4.game.common.GameViewModel;
-import com.barrybecker4.game.common.Move;
 
 /**
  * The TwoPlayerController communicates with the viewer via this interface.
@@ -11,13 +10,13 @@ import com.barrybecker4.game.common.Move;
  *
  * @author Barry Becker
  */
-public interface TwoPlayerViewModel extends GameViewModel {
+public interface TwoPlayerViewModel<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>> extends GameViewModel {
 
     /**
      * Called when the controller has found the next computer move and needs to make the viewer aware of it.
-     * @param m the computers move
+     * @param move the computers move
      */
-    void computerMoved(Move m);
+    void computerMoved(M move);
 
     /**
      * Used when the computer is playing against itself, and you want the game to show up in the viewer and

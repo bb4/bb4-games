@@ -44,7 +44,7 @@ import java.util.List;
  *  </ul>
  * @author Barry Becker
  */
-public abstract class MultiGameController<M extends Move, B extends IBoard> extends GameController<M, B> {
+public abstract class MultiGameController<M extends Move, B extends IBoard<M>> extends GameController<M, B> {
 
     protected int currentPlayerIndex_;
 

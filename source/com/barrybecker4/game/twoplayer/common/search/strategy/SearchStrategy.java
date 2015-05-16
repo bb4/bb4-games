@@ -12,7 +12,7 @@ import com.barrybecker4.game.twoplayer.common.search.tree.SearchTreeNode;
  *
  * @author Barry Becker
  */
-public interface SearchStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard> extends SearchProgress {
+public interface SearchStrategy<M extends TwoPlayerMove> extends SearchProgress {
 
     /** anything greater than this is considered a won game. */
     int WINNING_VALUE = 4096;

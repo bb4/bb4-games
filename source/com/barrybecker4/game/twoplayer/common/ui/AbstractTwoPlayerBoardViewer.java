@@ -2,8 +2,6 @@
 package com.barrybecker4.game.twoplayer.common.ui;
 
 import com.barrybecker4.game.common.GameContext;
-import com.barrybecker4.game.common.Move;
-import com.barrybecker4.game.common.board.Board;
 import com.barrybecker4.game.common.player.PlayerList;
 import com.barrybecker4.game.common.ui.ComputerMoveProgressBar;
 import com.barrybecker4.game.common.ui.panel.GameChangedEvent;
@@ -51,9 +49,9 @@ import java.util.List;
  *
  *  @author Barry Becker
  */
-public abstract class AbstractTwoPlayerBoardViewer<M extends TwoPlayerMove, B extends TwoPlayerBoard>
+public abstract class AbstractTwoPlayerBoardViewer<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>>
         extends GameBoardViewer<M, B>
-        implements GameChangedListener, TwoPlayerViewModel {
+        implements GameChangedListener<M>, TwoPlayerViewModel<M, B> {
 
     /** Responsible for showing move progress visually (with a progress bar). */
     private ComputerMoveRequester moveRequester_;
@@ -264,7 +262,7 @@ public abstract class AbstractTwoPlayerBoardViewer<M extends TwoPlayerMove, B ex
      * @param m the move that was selected by the computer.
      */
     @Override
-    public void computerMoved(final Move m) {
+    public void computerMoved(M m) {
 
         final Runnable postMoveCleanup = new PostMoveCleanup(m);
         SwingUtilities.invokeLater(postMoveCleanup);
@@ -276,19 +274,19 @@ public abstract class AbstractTwoPlayerBoardViewer<M extends TwoPlayerMove, B ex
      * @param evt change event
      */
     @Override
-    public void gameChanged(GameChangedEvent evt) {
+    public void gameChanged(GameChangedEvent<M> evt) {
         TwoPlayerController<M, B> c = get2PlayerController();
         assert c == evt.getController();
 
         // note: we don't show the winner dialog if we are having the computer play against itself.
-        if (c.getSearchable().done((M)evt.getMove(), true)
+        if (c.getSearchable().done(evt.getMove(), true)
                 && c.getOptions().getShowGameOverDialog()) {
             showWinnerDialog();
             //c.reset();
         }
         else {
             if (get2PlayerController().getPlayers().allPlayersComputer() && evt.getMove() != null) {
-                continuePlay((M)evt.getMove());
+                continuePlay(evt.getMove());
             }
         }
     }
@@ -428,9 +426,9 @@ public abstract class AbstractTwoPlayerBoardViewer<M extends TwoPlayerMove, B ex
     }
 
     private class PostMoveCleanup implements Runnable {
-        private final Move lastMove;
+        private final M lastMove;
 
-        public PostMoveCleanup(Move lastMove) {
+        public PostMoveCleanup(M lastMove) {
             this.lastMove = lastMove;
         }
 

@@ -10,15 +10,15 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  *
  * @author Barry Becker
  */
-class TwoPlayerOptimizee implements Optimizee {
+class TwoPlayerOptimizee<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>> implements Optimizee {
 
-    private TwoPlayerController controller_;
+    private TwoPlayerController<M, B> controller_;
 
     /**
      * Constructor.
      * @param controller game controller
      */
-    public TwoPlayerOptimizee(TwoPlayerController controller) {
+    public TwoPlayerOptimizee(TwoPlayerController<M, B> controller) {
         controller_ = controller;
     }
 

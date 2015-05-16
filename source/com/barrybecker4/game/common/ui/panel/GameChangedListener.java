@@ -1,6 +1,8 @@
 /** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.common.ui.panel;
 
+import com.barrybecker4.game.common.Move;
+
 import java.util.EventListener;
 
 /**
@@ -8,7 +10,7 @@ import java.util.EventListener;
  *
  * @author Barry Becker
  */
-public interface GameChangedListener extends EventListener {
+public interface GameChangedListener<M extends Move> extends EventListener {
 
-    void gameChanged( GameChangedEvent evt );
+    void gameChanged( GameChangedEvent<M> evt );
 }

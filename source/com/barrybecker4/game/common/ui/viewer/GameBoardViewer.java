@@ -38,8 +38,8 @@ import java.util.List;
  *
  *  @author Barry Becker
  */
-public abstract class GameBoardViewer<M extends Move, B extends Board> extends JPanel
-                                      implements GameViewModel, GameChangedListener {
+public abstract class GameBoardViewer<M extends Move, B extends Board<M>> extends JPanel
+                                      implements GameViewModel, GameChangedListener<M> {
 
     /** every GameBoardViewer must contain a controller. */
     protected GameController<M, B> controller_;
@@ -50,7 +50,7 @@ public abstract class GameBoardViewer<M extends Move, B extends Board> extends J
     private ViewerMouseListener<M, B> mouseListener_;
 
     /** list of listeners for handling those events. */
-    private final List<GameChangedListener> gameListeners_ = new ArrayList<>();
+    private final List<GameChangedListener<M>> gameListeners_ = new ArrayList<>();
 
     protected final Cursor waitCursor_ = new Cursor( Cursor.WAIT_CURSOR );
     protected Cursor origCursor_ = null;
@@ -211,7 +211,7 @@ public abstract class GameBoardViewer<M extends Move, B extends Board> extends J
      * Called when the game has changed in some way
      */
     @Override
-    public void gameChanged(GameChangedEvent evt) {
+    public void gameChanged(GameChangedEvent<M> evt) {
         GameContext.log(1, "game changed. refreshing viewer.");
         refresh();
     }
@@ -220,9 +220,9 @@ public abstract class GameBoardViewer<M extends Move, B extends Board> extends J
      * This method gets called when the game has changed in some way.
      * Most likely because a move has been played. It does not need to be on the eventDispatch thread.
      */
-    public void sendGameChangedEvent(Move m) {
-        GameChangedEvent gce = new GameChangedEvent( m, controller_, this );
-        for (GameChangedListener gcl : gameListeners_) {
+    public void sendGameChangedEvent(M m) {
+        GameChangedEvent<M> gce = new GameChangedEvent<>(m, controller_, this );
+        for (GameChangedListener<M> gcl : gameListeners_) {
             gcl.gameChanged(gce);
         }
     }
@@ -293,7 +293,7 @@ public abstract class GameBoardViewer<M extends Move, B extends Board> extends J
      * This is how the client can register itself to receive these events.
      * @param gcl the listener to add
      */
-    public void addGameChangedListener( GameChangedListener gcl ) {
+    public void addGameChangedListener( GameChangedListener<M> gcl ) {
         gameListeners_.add(gcl);
     }
 
@@ -301,6 +301,7 @@ public abstract class GameBoardViewer<M extends Move, B extends Board> extends J
      * This is how the client can unregister itself to receive these events.
      * @param gcl the listener  to remove
      */
+    @SuppressWarnings("unused")
     private void removeGameChangedListener( GameChangedListener gcl ) {
         gameListeners_.remove(gcl);
     }
@@ -338,12 +339,4 @@ public abstract class GameBoardViewer<M extends Move, B extends Board> extends J
         saveGame();
     }
 
-    /**
-     * do any needed cleanup.
-     */
-    public void dispose() {
-        removeMouseListener( mouseListener_ );
-        removeMouseMotionListener( mouseListener_);
-        removeGameChangedListener( this );
-    }
 }

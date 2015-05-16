@@ -21,7 +21,7 @@ import java.util.List;
  *
  *  @author Barry Becker
  */
-public abstract class AbstractBruteSearchStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard>
+public abstract class AbstractBruteSearchStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>>
         extends AbstractSearchStrategy<M, B>
 {
     /** if true, then use alpha-beta pruning. */

@@ -1,5 +1,7 @@
-// Copyright by Barry G. Becker, 2013. Licensed under MIT License: http://www.opensource.org/licenses/MIT
+// Copyright by Barry G. Becker, 2013-2015. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 package com.barrybecker4.game.common.board;
+
+import com.barrybecker4.game.common.Move;
 
 /**
  * This is the interface that all game boards should implement.
@@ -13,7 +15,7 @@ package com.barrybecker4.game.common.board;
  *
  * @author Barry Becker
  */
-public interface IBoard {
+public interface IBoard<M extends Move> {
 
     /**
      *  Reset the board to its initial starting state.
@@ -26,4 +28,22 @@ public interface IBoard {
      * @return deep copy of the board.
      */
     IBoard copy();
+
+
+    /**
+     * given a move specification, execute it on the board
+     * This places the players symbol at the position specified by move.
+     *
+     * @param move the move to make, if possible.
+     * @return false if the move is illegal.
+     */
+    boolean makeMove(M move);
+
+    /**
+     * Allow reverting a move so we can step backwards in time.
+     * Board is returned to the exact state it was in before the last move was made.
+     * @return the move that was just undone.
+     */
+    M undoMove();
+
 }

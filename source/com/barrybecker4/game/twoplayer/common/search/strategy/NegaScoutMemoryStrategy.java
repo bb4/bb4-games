@@ -51,7 +51,7 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  * </pre>
  *  @author Barry Becker
  */
-public final class NegaScoutMemoryStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard>
+public final class NegaScoutMemoryStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>>
         extends NegaScoutStrategy<M, B>
         implements MemorySearchStrategy<M, B> {
 

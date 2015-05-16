@@ -27,7 +27,7 @@ import java.util.Enumeration;
 /**
  * Imports the stat of a Go game from a file.
  *
- * @author Barry Becker Date: Oct 28, 2006
+ * @author Barry Becker Date
  */
 public class BlockadeGameImporter extends TwoPlayerGameImporter<BlockadeMove, BlockadeBoard> {
 

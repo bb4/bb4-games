@@ -15,7 +15,7 @@ import java.awt.event.MouseMotionListener;
  *
  *  @author Barry Becker
  */
-public class ViewerMouseListener<M extends Move, B extends Board>
+public class ViewerMouseListener<M extends Move, B extends Board<M>>
         implements MouseListener, MouseMotionListener {
 
     protected GameBoardViewer<M, B> viewer_;

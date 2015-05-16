@@ -4,6 +4,7 @@ package com.barrybecker4.game.multiplayer.common.ui;
 import com.barrybecker4.common.geometry.Location;
 import com.barrybecker4.game.common.GameContext;
 import com.barrybecker4.game.common.Move;
+import com.barrybecker4.game.common.board.Board;
 import com.barrybecker4.game.common.board.BoardPosition;
 import com.barrybecker4.game.common.board.IRectangularBoard;
 import com.barrybecker4.game.common.player.Player;
@@ -23,7 +24,7 @@ import java.awt.event.MouseEvent;
  *
  * @author Barry Becker
  */
-public abstract class MultiGameViewer extends GameBoardViewer {
+public abstract class MultiGameViewer<M extends Move, B extends Board<M>> extends GameBoardViewer<M, B> {
 
     private boolean winnerDialogShown_;
 
@@ -31,7 +32,7 @@ public abstract class MultiGameViewer extends GameBoardViewer {
     protected MultiGameViewer() {}
 
     @Override
-    protected abstract MultiGameController createController();
+    protected abstract MultiGameController<M, B> createController();
 
     /**
      * start over with a new game using the current options.
@@ -105,7 +106,7 @@ public abstract class MultiGameViewer extends GameBoardViewer {
      * Called when the game has changed in some way
      */
     @Override
-    public void gameChanged(GameChangedEvent evt) {
+    public void gameChanged(GameChangedEvent<M> evt) {
         if (controller_.isDone() && !winnerDialogShown_)  {
             winnerDialogShown_ = true;
             showWinnerDialog();

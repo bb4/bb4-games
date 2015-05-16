@@ -20,7 +20,7 @@ import com.barrybecker4.game.common.player.PlayerList;
  *
  * @author Barry Becker
  */
-public interface IGameController<M extends Move, B extends IBoard> {
+public interface IGameController<M extends Move, B extends IBoard<M>> {
 
     /**
      * @return the board representation object.

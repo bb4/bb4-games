@@ -13,9 +13,9 @@ import java.util.EventObject;
  *
  * @author Barry Becker
  */
-public final class GameChangedEvent extends EventObject {
+public final class GameChangedEvent<M extends Move> extends EventObject {
 
-    private final Move move_;
+    private final M move_;
     private final IGameController controller_;
 
     /**
@@ -23,7 +23,7 @@ public final class GameChangedEvent extends EventObject {
      * @param mv the most recently played move
      * @param controller the controller
      */
-    public GameChangedEvent(Move mv, IGameController controller, Object source ) {
+    public GameChangedEvent(M mv, IGameController controller, Object source ) {
         super(source);
         move_ = mv;
         controller_ = controller;
@@ -39,7 +39,7 @@ public final class GameChangedEvent extends EventObject {
     /**
      * @return the move that just caused the game changed event to fire.
      */
-    public Move getMove() {
+    public M getMove() {
         return move_;
     }
 

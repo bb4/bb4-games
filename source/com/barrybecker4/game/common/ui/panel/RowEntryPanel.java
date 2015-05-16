@@ -26,9 +26,4 @@ public class RowEntryPanel extends JPanel {
             add( secondComp );
         }
     }
-
-    /** alternate constructor */
-    public RowEntryPanel( JComponent firstComp ) {
-        this( firstComp, null );
-    }
 }
