@@ -24,9 +24,9 @@ task runGalactic(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task runPente(type: JavaExec) {
+task runGoMoku(type: JavaExec) {
     main = gameApp
-    args = ["-name", "pente", "-locale", "ENGLISH"]
+    args = ["-name", "gomoku", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
@@ -128,7 +128,7 @@ task runPokerServer(type: JavaExec) {
 
 task runGameComparisons(type: JavaExec) {
     main = "com.barrybecker4.game.twoplayer.comparison.GameComparisonApp"
-    args = ["-name", "pente", "-locale", "ENGLISH"]
+    args = ["-name", "gomoku", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
@@ -222,7 +222,7 @@ appMap.put('multiplayer',[include:['com/barrybecker4/game/multiplayer/common/**'
 appMap.put('blockade',   [include:['com/barrybecker4/game/twoplayer/blockade/**']])
 appMap.put('chess',      [include:['com/barrybecker4/game/twoplayer/chess/**', 'com/barrybecker4/game/twoplayer/checkers/**']])
 appMap.put('go',         [include:['com/barrybecker4/game/twoplayer/go/**']])
-appMap.put('pente',      [include:['com/barrybecker4/game/twoplayer/pente/**']])
+appMap.put('gomoku',      [include:['com/barrybecker4/game/twoplayer/gomoku/**']])
 appMap.put('tictactoe',  [include:['com/barrybecker4/game/twoplayer/tictactoe/**']])
 appMap.put('galactic',   [include:['com/barrybecker4/game/multiplayer/galactic/**']])
 appMap.put('poker',      [include:['com/barrybecker4/game/multiplayer/poker/**']])

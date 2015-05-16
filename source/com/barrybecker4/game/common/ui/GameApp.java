@@ -67,7 +67,7 @@ public class GameApp {
     /**
      * Static method to start up the game playing application.
      * The arguments allowed are :
-     *  gameName : one of the supported games (eg "go", "checkers", "pente", etc).
+     *  gameName : one of the supported games (eg "go", "checkers", "gomoku", etc).
      *      If unspecified, the default specified in plugins.xml is used.
      *  locale : The locale (language) to run in. If unspecified, the locale will be "ENGLISH".
      *

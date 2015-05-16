@@ -6,12 +6,12 @@
 
     <!-- whenever you add a new game to the framework, you need to add an extra entry here -->
     <!-- here are the 2 player games -->
-    <game name="pente"
-          msgKey="PENTE"
+    <game name="gomoku"
+          msgKey="GO_MOKU"
           type="TWO_PLAYER_GAME"
-          msgBundleBase="com.barrybecker4.game.twoplayer.pente.resources.penteMessages"
-          panelClass="com.barrybecker4.game.twoplayer.pente.ui.PentePanel"
-          controllerClass="com.barrybecker4.game.twoplayer.pente.PenteController" />
+          msgBundleBase="com.barrybecker4.game.twoplayer.gomoku.resources.gomokuMessages"
+          panelClass="com.barrybecker4.game.twoplayer.gomoku.ui.GoMokuPanel"
+          controllerClass="com.barrybecker4.game.twoplayer.gomoku.GoMokuController" />
     <game name="tictactoe"
           msgKey="TIC_TAC_TOE"
           type="TWO_PLAYER_GAME"

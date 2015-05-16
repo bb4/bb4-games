@@ -1,14 +1,14 @@
 /** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.tictactoe;
 
-import com.barrybecker4.game.twoplayer.pente.PenteBoard;
+import com.barrybecker4.game.twoplayer.gomoku.GoMokuBoard;
 
 /**
  * Representation of a TicTacToe Game Board
  *
  * @author Barry Becker
  */
-public class TicTacToeBoard extends PenteBoard {
+public class TicTacToeBoard extends GoMokuBoard {
 
     /**
      * Constructor.

@@ -146,7 +146,7 @@ public abstract class GameBoardRenderer {
         return BOARD_MARGIN;
     }
     /**
-     * @return whether or not to draw the pieces on cell centers or vertices (like go or pente, but not like checkers).
+     * @return whether or not to draw the pieces on cell centers or vertices (like go or gomoku, but not like checkers).
      */
     protected boolean offsetGrid() {
         return false;

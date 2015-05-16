@@ -11,7 +11,7 @@ import com.barrybecker4.game.twoplayer.comparison.model.config.SearchOptionsConf
 
 /**
  * Test negamax lookahead configurations where we always consider all possible moves.
- * Good for testing TicTacToe or Pente.
+ * Good for testing TicTacToe or GoMoku.
  *
  * @author Barry Becker
  */

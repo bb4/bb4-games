@@ -2,11 +2,11 @@
 package com.barrybecker4.game.twoplayer.tictactoe.ui;
 
 import com.barrybecker4.game.common.GameViewModel;
-import com.barrybecker4.game.twoplayer.pente.ui.PenteNewGameDialog;
+import com.barrybecker4.game.twoplayer.gomoku.ui.GoMokuNewGameDialog;
 
 import java.awt.*;
 
-class TicTacToeNewGameDialog extends PenteNewGameDialog {
+class TicTacToeNewGameDialog extends GoMokuNewGameDialog {
 
     public TicTacToeNewGameDialog(Component parent, GameViewModel viewer ) {
         super( parent, viewer );

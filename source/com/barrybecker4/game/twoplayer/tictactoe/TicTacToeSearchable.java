@@ -2,15 +2,15 @@
 package com.barrybecker4.game.twoplayer.tictactoe;
 
 import com.barrybecker4.game.common.player.PlayerList;
-import com.barrybecker4.game.twoplayer.pente.PenteSearchable;
-import com.barrybecker4.game.twoplayer.pente.pattern.Patterns;
+import com.barrybecker4.game.twoplayer.gomoku.GoMokuSearchable;
+import com.barrybecker4.game.twoplayer.gomoku.pattern.Patterns;
 
 /**
  * Defines everything the computer needs to know to play TicTacToe.
  *
  * @author Barry Becker
 */
-public class TicTacToeSearchable extends PenteSearchable<TicTacToeBoard> {
+public class TicTacToeSearchable extends GoMokuSearchable<TicTacToeBoard> {
 
     /**
      *  Constructor

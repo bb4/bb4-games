@@ -24,7 +24,7 @@ public class GameComparisonApp {
 
     private static final int WIDTH = 1200;
     private static final int HEIGHT = 900;
-    private static final String DEFAULT_GAME = "pente";
+    private static final String DEFAULT_GAME = "gomoku";
 
     private JFrame frame_;
     private GameComparisonPanel gameComparisonPanel;
@@ -71,7 +71,7 @@ public class GameComparisonApp {
     /**
      * Static method to start up the game playing application.
      * The arguments allowed are :
-     *  gameName : one of the supported games (eg "go", "checkers", "pente", etc).
+     *  gameName : one of the supported games (eg "go", "checkers", "gomoku", etc).
      *      If unspecified, the default is DEFAULT_GAME.
      *  locale : The locale (language) to run in. If unspecified, the locale will be "ENGLISH".
      *

@@ -3,7 +3,7 @@ package com.barrybecker4.game.twoplayer.tictactoe.ui;
 
 import com.barrybecker4.game.common.ui.viewer.GameBoardRenderer;
 import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerPieceRenderer;
-import com.barrybecker4.game.twoplayer.pente.ui.PenteBoardRenderer;
+import com.barrybecker4.game.twoplayer.gomoku.ui.GoMokuBoardRenderer;
 
 /**
  * Singleton class that takes a game board and renders it for the GameBoardViewer.
@@ -12,7 +12,7 @@ import com.barrybecker4.game.twoplayer.pente.ui.PenteBoardRenderer;
  *
  * @author Barry Becker
  */
-class TicTacToeBoardRenderer extends PenteBoardRenderer {
+class TicTacToeBoardRenderer extends GoMokuBoardRenderer {
 
     private static GameBoardRenderer renderer_;
 

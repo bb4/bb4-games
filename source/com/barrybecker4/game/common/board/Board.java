@@ -13,7 +13,7 @@ import com.barrybecker4.game.common.MoveList;
  *  Assumes an M*N grid.
  *  Legal positions are [1, numRows_][1, numCols_]
  *
- *  Games like pente, go, chess, checkers, go-moku,
+ *  Games like gomoku, go, chess, checkers, go-moku,
  *  shoji, othello, connect4, squares, Stratego, Blockade fit this pattern.
  *  Other games like Risk, Galactic Empire, or Monopoly and might be supportable in the future.
  *  They are harder because they do not have perfect information (i.e. they use dice).

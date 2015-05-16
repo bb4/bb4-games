@@ -2,16 +2,16 @@
 package com.barrybecker4.game.twoplayer.tictactoe.ui;
 
 import com.barrybecker4.game.common.ui.viewer.GameBoardRenderer;
-import com.barrybecker4.game.twoplayer.pente.ui.PenteBoardViewer;
+import com.barrybecker4.game.twoplayer.gomoku.ui.GoMokuBoardViewer;
 import com.barrybecker4.game.twoplayer.tictactoe.TicTacToeController;
 
 /**
  *  Takes a TicTacToeController as input and displays the
- *  current state of the Pente Game.
+ *  current state of the TicTactToe Game.
  *
  *  @author Barry Becker
  */
-public class TicTacToeBoardViewer extends PenteBoardViewer {
+public class TicTacToeBoardViewer extends GoMokuBoardViewer {
 
     /**
       *  Constructor

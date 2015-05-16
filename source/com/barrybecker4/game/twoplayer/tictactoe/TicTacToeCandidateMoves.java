@@ -1,8 +1,8 @@
 // Copyright by Barry G. Becker, 2012. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 package com.barrybecker4.game.twoplayer.tictactoe;
 
-import com.barrybecker4.game.twoplayer.pente.CandidateMoves;
-import com.barrybecker4.game.twoplayer.pente.PenteBoard;
+import com.barrybecker4.game.twoplayer.gomoku.CandidateMoves;
+import com.barrybecker4.game.twoplayer.gomoku.GoMokuBoard;
 
 /**
  * Representation of the candidate next moves on a TicTacToe Game Board.
@@ -18,7 +18,7 @@ public class TicTacToeCandidateMoves extends CandidateMoves {
 
     /**
      * Constructor
-     * @param board the pente board to determine candidate moves for
+     * @param board the gomoku board to determine candidate moves for
      */
     TicTacToeCandidateMoves(TicTacToeBoard board) {
         this.numRows = board.getNumRows();
@@ -40,10 +40,10 @@ public class TicTacToeCandidateMoves extends CandidateMoves {
 
     /**
      * All empty positions are candidate moves dor tic tac toe.
-     * This is a bit similar than what we do for pente.
+     * This is a bit similar than what we do for gomoku.
      */
     @Override
-    protected void determineCandidateMoves(PenteBoard board) {
+    protected void determineCandidateMoves(GoMokuBoard board) {
 
         for (int i = 1; i <= numRows; i++ )  {
             for (int j = 1; j <= numCols; j++ )  {

@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
 
 
 /**
- * Verify that all the methods in PenteSearchable work as expected
+ * Verify that all the methods in GoMokuSearchable work as expected
  * @author Barry Becker
  */
 public class TicTacToeSearchableTest extends TwoPlayerSearchableBaseTst {

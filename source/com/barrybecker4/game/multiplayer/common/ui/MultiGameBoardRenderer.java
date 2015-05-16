@@ -37,7 +37,7 @@ public abstract class MultiGameBoardRenderer extends GameBoardRenderer {
     }
 
     /**
-     * whether or not to draw the pieces on cell centers or vertices (like go or pente, but not like checkers).
+     * whether or not to draw the pieces on cell centers or vertices (like go or gomoku, but not like checkers).
      */
     @Override
     protected boolean offsetGrid()  {

@@ -3,8 +3,8 @@ package com.barrybecker4.game.twoplayer.tictactoe;
 
 import com.barrybecker4.game.common.board.GamePiece;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
-import com.barrybecker4.game.twoplayer.pente.analysis.Direction;
-import com.barrybecker4.game.twoplayer.pente.analysis.MoveEvaluator;
+import com.barrybecker4.game.twoplayer.gomoku.analysis.Direction;
+import com.barrybecker4.game.twoplayer.gomoku.analysis.MoveEvaluator;
 import junit.framework.TestCase;
 
 /**

@@ -8,7 +8,7 @@ import com.barrybecker4.game.common.ui.dialogs.NewGameDialog;
 import com.barrybecker4.game.common.ui.panel.GameInfoPanel;
 import com.barrybecker4.game.common.ui.viewer.GameBoardViewer;
 import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerInfoPanel;
-import com.barrybecker4.game.twoplayer.pente.ui.PentePanel;
+import com.barrybecker4.game.twoplayer.gomoku.ui.GoMokuPanel;
 
 import java.awt.*;
 
@@ -17,7 +17,7 @@ import java.awt.*;
  *
  *  @author Barry Becker
  */
-public class TicTacToePanel extends PentePanel {
+public class TicTacToePanel extends GoMokuPanel {
 
     /**
      *  Construct the panel.

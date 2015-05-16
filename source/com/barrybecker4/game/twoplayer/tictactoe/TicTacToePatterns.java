@@ -1,7 +1,7 @@
 /** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.tictactoe;
 
-import com.barrybecker4.game.twoplayer.pente.pattern.Patterns;
+import com.barrybecker4.game.twoplayer.gomoku.pattern.Patterns;
 
 /**
  *  Encapsulates the domain knowledge for TicTacToe.

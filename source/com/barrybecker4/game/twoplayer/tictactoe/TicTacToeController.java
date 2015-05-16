@@ -4,7 +4,7 @@ package com.barrybecker4.game.twoplayer.tictactoe;
 import com.barrybecker4.game.common.player.PlayerList;
 import com.barrybecker4.game.common.player.PlayerOptions;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerOptions;
-import com.barrybecker4.game.twoplayer.pente.PenteController;
+import com.barrybecker4.game.twoplayer.gomoku.GoMokuController;
 
 import java.awt.Color;
 
@@ -17,7 +17,7 @@ import java.awt.Color;
  *
  * @author Barry Becker
 */
-public class TicTacToeController extends PenteController<TicTacToeBoard> {
+public class TicTacToeController extends GoMokuController<TicTacToeBoard> {
 
     /**
      *  Constructor
