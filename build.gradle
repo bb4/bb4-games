@@ -222,7 +222,7 @@ appMap.put('multiplayer',[include:['com/barrybecker4/game/multiplayer/common/**'
 appMap.put('blockade',   [include:['com/barrybecker4/game/twoplayer/blockade/**']])
 appMap.put('chess',      [include:['com/barrybecker4/game/twoplayer/chess/**', 'com/barrybecker4/game/twoplayer/checkers/**']])
 appMap.put('go',         [include:['com/barrybecker4/game/twoplayer/go/**']])
-appMap.put('gomoku',      [include:['com/barrybecker4/game/twoplayer/gomoku/**']])
+appMap.put('gomoku',     [include:['com/barrybecker4/game/twoplayer/gomoku/**']])
 appMap.put('tictactoe',  [include:['com/barrybecker4/game/twoplayer/tictactoe/**']])
 appMap.put('galactic',   [include:['com/barrybecker4/game/multiplayer/galactic/**']])
 appMap.put('poker',      [include:['com/barrybecker4/game/multiplayer/poker/**']])

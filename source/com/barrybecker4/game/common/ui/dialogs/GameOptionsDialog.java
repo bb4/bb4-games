@@ -298,7 +298,7 @@ public abstract class GameOptionsDialog extends OptionsDialog
      }
 
     private JComboBox createLocaleCombo() {
-        JComboBox localeComboBox = new JComboBox();
+        JComboBox<String> localeComboBox = new JComboBox<>();
         localeComboBox.setToolTipText( GameContext.getLabel("LOCALE_TIP") );
 
         // add the available locales to the dropdown

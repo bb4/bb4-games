@@ -70,10 +70,6 @@ public class GamePlugin {
        GamePanel gamePanel = null;
         try {
             gamePanel = (GamePanel)gameClass.newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -91,11 +87,8 @@ public class GamePlugin {
     @SuppressWarnings("HardCodedStringLiteral")
     @Override
     public String toString() {
-        StringBuilder bldr = new StringBuilder(name_);
-        bldr.append('(').append(getLabel());
-        bldr.append("panelClass=").append(panelClass_).append(' ');
-        bldr.append("controllerClass=").append(controllerClass_).append(")\n");
-        return bldr.toString();
+        return name_ + '(' + getLabel() + "panelClass=" + panelClass_ + ' '
+                + "controllerClass=" + controllerClass_ + ")\n";
     }
 
 }

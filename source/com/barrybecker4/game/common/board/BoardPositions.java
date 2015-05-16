@@ -32,13 +32,16 @@ public class BoardPositions {
     /**
      * Copy constructor.
      * Makes a deep copy of the board and all its parts.
+     *
+     *         }
+
      */
     protected BoardPositions(BoardPositions b) {
         this(b.getNumRows(), b.getNumCols());
 
         for ( int i = 1; i <= getNumRows(); i++ )  {
            for ( int j = 1; j <= getNumCols(); j++ ) {
-              positions_[i][j] = b.getPosition(i, j).copy();
+               positions_[i][j] = b.getPosition(i, j).copy();
            }
         }
     }
@@ -120,11 +123,13 @@ public class BoardPositions {
             for ( int j = 1; j <= getNumCols(); j++ ) {
                 BoardPosition p1 = this.getPosition(i,j);
                 BoardPosition p2 = board.getPosition(i,j);
+                assert p1 != null;
+                assert p2 != null;
                 if (p1.isOccupied() != p2.isOccupied()) {
                     GameContext.log(2, "Inconsistent occupation status  p1="+p1+ " and p2="+p2 );
                     return false;
                 }
-                if (p1.isOccupied() && p2.isOccupied()) {
+                if (p1.isOccupied()) {
                     GamePiece piece1 = p1.getPiece();
                     GamePiece piece2 = p2.getPiece();
                     if (piece1.isOwnedByPlayer1() != piece2.isOwnedByPlayer1() ||
@@ -147,6 +152,7 @@ public class BoardPositions {
           int pos = (i-1) * nCols;
           for ( int j = 1; j <= nCols; j++ ) {
               BoardPosition p1 = this.getPosition(i,j);
+              assert p1 != null;
               if (p1.isOccupied()) {
                   hash += 2 *(pos + j) + (p1.getPiece().isOwnedByPlayer1()? 1: 2);
               }

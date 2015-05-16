@@ -130,7 +130,7 @@ public final class HelpDialog extends AbstractDialog
         final JLabel label4 = new JLabel();
         label1.setText( gameName_ );
         label2.setText( VERSION );
-        //label3.setText( COPYRIGHT );
+        label3.setText( COPYRIGHT );
         label4.setText( comments_ );
 
         summaryInsetsPanel.add( label1, null );

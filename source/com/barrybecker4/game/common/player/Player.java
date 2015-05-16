@@ -105,6 +105,12 @@ public class Player implements Serializable, OnlinePlayer {
      */
     @Override
     public boolean equals(Object p) {
+        if (p == null) {
+            return false;
+        }
+        else if (!(p instanceof Player)) {
+            return false;
+        }
         Player p1 = (Player) p;
         return (getName().equals(p1.getName()) && isHuman() == p1.isHuman());
     }
