@@ -18,7 +18,7 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  *
  * @author Barry Becker
  */
-public class SearchableStub extends AbstractSearchable<TwoPlayerMove, TwoPlayerBoard> {
+public class SearchableStub extends AbstractSearchable<TwoPlayerMove, TwoPlayerBoard<TwoPlayerMove>> {
 
     private SearchOptions options_;
 
@@ -40,7 +40,7 @@ public class SearchableStub extends AbstractSearchable<TwoPlayerMove, TwoPlayerB
 
     /** @return a copy of this instnace */
     @Override
-    public Searchable<TwoPlayerMove, TwoPlayerBoard> copy() {
+    public Searchable<TwoPlayerMove, TwoPlayerBoard<TwoPlayerMove>> copy() {
         return new SearchableStub(this);
     }
 
@@ -70,7 +70,7 @@ public class SearchableStub extends AbstractSearchable<TwoPlayerMove, TwoPlayerB
     } */
 
     @Override
-    public TwoPlayerBoard getBoard() {
+    public TwoPlayerBoard<TwoPlayerMove> getBoard() {
         return null;
     }
 

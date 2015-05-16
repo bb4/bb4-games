@@ -36,7 +36,7 @@ public abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst {
     private static final int DEFAULT_LOOKAHEAD = 2;
     private static final int DEFAULT_BEST_PERCENTAGE = 100;
 
-    private TwoPlayerController<TwoPlayerMove, TwoPlayerBoard> controller;
+    private TwoPlayerController<TwoPlayerMove, TwoPlayerBoard<TwoPlayerMove>> controller;
     private SearchOptions searchOptions_;
 
     /**
@@ -90,7 +90,7 @@ public abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst {
         }
     }
 
-    protected TwoPlayerController<TwoPlayerMove, TwoPlayerBoard> getController() {
+    protected TwoPlayerController<TwoPlayerMove, TwoPlayerBoard<TwoPlayerMove>> getController() {
         if (controller == null)
             controller = helper.createController();
         return controller;

@@ -22,7 +22,7 @@ public interface ISearchableHelper {
     /**
      * @return the controller containing the searchable to test.
      */
-    TwoPlayerController<TwoPlayerMove, TwoPlayerBoard> createController();
+    TwoPlayerController<TwoPlayerMove, TwoPlayerBoard<TwoPlayerMove>> createController();
 
     /**
      * @return test file containing state of saved game to restore.

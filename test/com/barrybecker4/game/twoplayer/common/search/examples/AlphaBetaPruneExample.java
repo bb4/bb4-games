@@ -15,6 +15,8 @@ import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub;
  *   (((3 17)   (2 12))  ((15)  (25 0)))    (((2 5) (3))     ((2 14)))
  *
  *  Should return 3 with 6 terminal nodes examined.
+ *  Get additional test cases from
+ *  http://will.thimbleby.net/algorithms/doku.php?id=minimax_search_with_alpha-beta_pruning
  *
  * @author Barry Becker
  */

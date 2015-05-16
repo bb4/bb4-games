@@ -2,6 +2,8 @@
 package com.barrybecker4.game.twoplayer.common.search.strategy;
 
 import com.barrybecker4.game.twoplayer.common.search.Searchable;
+import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub;
+import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.search.examples.EvaluationPerspective;
 import com.barrybecker4.optimization.parameter.ParameterArray;
 

@@ -15,7 +15,7 @@ import org.junit.Test;
 public abstract class SearchableBaseTst {
 
     /** The searchable instance under test. */
-    protected Searchable<TwoPlayerMove, TwoPlayerBoard> searchable;
+    protected Searchable<TwoPlayerMove, TwoPlayerBoard<TwoPlayerMove>> searchable;
 
     protected ISearchableHelper helper;
 
