@@ -1,4 +1,4 @@
-/** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
+/** Copyright by Barry G. Becker, 2000-2015. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.common.search.strategy;
 
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
@@ -42,4 +42,10 @@ public interface SearchStrategy<M extends TwoPlayerMove> extends SearchProgress 
      * @param listener event listener
      */
     void setGameTreeEventListener(IGameTreeViewable listener);
+
+    /**
+     * Moves are either evaluated from the current player's perspective, or always from player 1's perspective.
+     * Currently only used by tests to understand how to evaluate moves at a given ply.
+     */
+    EvaluationPerspective getEvaluationPerspective();
 }

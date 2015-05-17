@@ -20,9 +20,9 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  */
 public class SearchableStub extends AbstractSearchable<TwoPlayerMove, TwoPlayerBoard<TwoPlayerMove>> {
 
-    private SearchOptions options_;
+    private SearchOptions<TwoPlayerMove, TwoPlayerBoard<TwoPlayerMove>> options_;
 
-    public SearchableStub(SearchOptions options) {
+    public SearchableStub(SearchOptions<TwoPlayerMove, TwoPlayerBoard<TwoPlayerMove>> options) {
         super(new MoveList<TwoPlayerMove>());
         options_ = options;
     }
@@ -34,7 +34,7 @@ public class SearchableStub extends AbstractSearchable<TwoPlayerMove, TwoPlayerB
     }
 
     @Override
-    public SearchOptions getSearchOptions() {
+    public SearchOptions<TwoPlayerMove, TwoPlayerBoard<TwoPlayerMove>> getSearchOptions() {
        return options_;
     }
 
@@ -63,11 +63,6 @@ public class SearchableStub extends AbstractSearchable<TwoPlayerMove, TwoPlayerB
     public int worth(TwoPlayerMove lastMove, ParameterArray weights) {
         return lastMove.getValue();
     }
-
-    /*
-    public int worth(Move lastMove, ParameterArray weights, boolean player1sPerspective) {
-        return lastMove.getValue();
-    } */
 
     @Override
     public TwoPlayerBoard<TwoPlayerMove> getBoard() {

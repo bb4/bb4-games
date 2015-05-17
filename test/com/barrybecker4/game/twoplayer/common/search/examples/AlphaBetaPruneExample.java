@@ -22,8 +22,8 @@ import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub;
  */
 public class AlphaBetaPruneExample extends AbstractGameTreeExample  {
 
-    public AlphaBetaPruneExample(boolean player1PlaysNext, EvaluationPerspective persp) {
-        super(persp);
+    public AlphaBetaPruneExample(boolean player1PlaysNext) {
+        super();
 
         initialMove = moveCreator.createMove(10, !player1PlaysNext, null);
 

@@ -98,7 +98,7 @@ public abstract class TwoPlayerSearchable<M extends TwoPlayerMove, B extends Two
 
 
     @Override
-    public SearchOptions getSearchOptions() {
+    public SearchOptions<M, B> getSearchOptions() {
         return ((TwoPlayerPlayerOptions) getCurrentPlayer().getOptions()).getSearchOptions();
     }
 

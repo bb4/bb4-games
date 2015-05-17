@@ -105,6 +105,11 @@ public final class MtdStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard
     }
 
     @Override
+    public EvaluationPerspective getEvaluationPerspective() {
+        return EvaluationPerspective.CURRENT_PLAYER;
+    }
+
+    @Override
     public void pause() {
        searchWithMemory_.pause();
     }

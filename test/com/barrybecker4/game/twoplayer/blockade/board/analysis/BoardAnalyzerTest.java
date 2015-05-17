@@ -4,7 +4,6 @@ package com.barrybecker4.game.twoplayer.blockade.board.analysis;
 import com.barrybecker4.game.common.board.GamePiece;
 import com.barrybecker4.game.twoplayer.blockade.BlockadeTestCase;
 import com.barrybecker4.game.twoplayer.blockade.board.BlockadeBoard;
-
 import com.barrybecker4.game.twoplayer.blockade.board.BlockadeTstUtil;
 import com.barrybecker4.game.twoplayer.blockade.board.move.BlockadeMove;
 import com.barrybecker4.game.twoplayer.blockade.board.path.Path;

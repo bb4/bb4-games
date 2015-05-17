@@ -20,9 +20,7 @@ import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub;
 public class TwoLevelGameTreeExample extends AbstractGameTreeExample  {
 
 
-    public TwoLevelGameTreeExample(boolean player1PlaysNext, EvaluationPerspective persp) {
-
-        super(persp);
+    public TwoLevelGameTreeExample(boolean player1PlaysNext) {
 
         initialMove = moveCreator.createMove(6, !player1PlaysNext, null);
 

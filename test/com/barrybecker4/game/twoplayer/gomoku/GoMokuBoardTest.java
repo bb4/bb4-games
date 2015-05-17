@@ -2,6 +2,7 @@
 package com.barrybecker4.game.twoplayer.gomoku;
 
 import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 
 

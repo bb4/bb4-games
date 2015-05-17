@@ -15,12 +15,9 @@ public class MoveCreator {
 
     private static final int FAKE_BOARD_SIZE = 19;
 
-    EvaluationPerspective evalPerspective;
-
     int moveCount = 0;
 
-    public MoveCreator(EvaluationPerspective evalPersp) {
-        evalPerspective = evalPersp;
+    public MoveCreator() {
     }
 
     public TwoPlayerMoveStub createMove(int value, boolean player1Move, TwoPlayerMoveStub parent) {

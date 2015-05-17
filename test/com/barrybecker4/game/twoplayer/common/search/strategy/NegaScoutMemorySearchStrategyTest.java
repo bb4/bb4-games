@@ -2,6 +2,7 @@
 package com.barrybecker4.game.twoplayer.common.search.strategy;
 
 import com.barrybecker4.game.twoplayer.common.search.Searchable;
+import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub;
 import com.barrybecker4.optimization.parameter.ParameterArray;
 
 /**
@@ -12,7 +13,7 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
 public class NegaScoutMemorySearchStrategyTest extends NegaScoutSearchStrategyTest {
 
     @Override
-    protected SearchStrategy createSearchStrategy(Searchable searchable, ParameterArray weights) {
+    protected SearchStrategy<TwoPlayerMoveStub> createSearchStrategy(Searchable searchable, ParameterArray weights) {
         return new NegaScoutMemoryStrategy(searchable, weights);
     }
 

@@ -2,6 +2,7 @@
 package com.barrybecker4.game.twoplayer.common.search.examples;
 
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
+import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub;
 
 /**
  * An abstract game tree for testing search strategies.
@@ -16,7 +17,7 @@ public interface GameTreeExample {
     /**
      * @return  the root move in the game tree.
      */
-    TwoPlayerMove getInitialMove();
+    TwoPlayerMoveStub getInitialMove();
 
     /**
      * Print the tree in depth first search for debugging purposes

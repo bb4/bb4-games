@@ -3,8 +3,6 @@ package com.barrybecker4.game.twoplayer.common.search.strategy;
 
 import com.barrybecker4.game.twoplayer.common.search.Searchable;
 import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
-import com.barrybecker4.game.twoplayer.common.search.examples.EvaluationPerspective;
 import com.barrybecker4.optimization.parameter.ParameterArray;
 
 /**
@@ -15,13 +13,9 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
 public class MiniMaxSearchStrategyTest extends AbstractBruteSearchStrategyTst {
 
     @Override
-    protected SearchStrategy createSearchStrategy(Searchable searchable, ParameterArray weights) {
-        return new MiniMaxStrategy(searchable, weights);
+    protected SearchStrategy<TwoPlayerMoveStub> createSearchStrategy(Searchable searchable, ParameterArray weights) {
+        return new MiniMaxStrategy<>(searchable, weights);
     }
 
-    @Override
-    protected EvaluationPerspective getEvaluationPerspective() {
-        return EvaluationPerspective.ALWAYS_PLAYER1;
-    }
 }
 

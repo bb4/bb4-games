@@ -1,7 +1,9 @@
 /** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.common.search.strategy;
 
+import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.search.Searchable;
+import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub;
 import com.barrybecker4.game.twoplayer.common.search.examples.OneLevelGameTreeExample;
 import com.barrybecker4.optimization.parameter.ParameterArray;
 
@@ -13,8 +15,8 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
 public class MtdNegaScoutSearchStrategyTest extends NegaScoutMemorySearchStrategyTest {
 
     @Override
-    protected SearchStrategy createSearchStrategy(Searchable searchable, ParameterArray weights) {
-        return new MtdStrategy(new NegaScoutMemoryStrategy(searchable, weights));
+    protected SearchStrategy<TwoPlayerMoveStub> createSearchStrategy(Searchable searchable, ParameterArray weights) {
+        return new MtdStrategy<>(new NegaScoutMemoryStrategy(searchable, weights));
     }
 
     /**
@@ -23,7 +25,7 @@ public class MtdNegaScoutSearchStrategyTest extends NegaScoutMemorySearchStrateg
     @Override
     public void testOneLevelLookAheadPlayer1Search() {
         bruteSearchOptions.setLookAhead(1);
-        verifyResult(new OneLevelGameTreeExample(true, getEvaluationPerspective()),
+        verifyResult(new OneLevelGameTreeExample(true),
                 getOneLevelLookAheadPlayer1Result());
     }
 

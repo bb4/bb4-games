@@ -21,8 +21,8 @@ public abstract class AbstractGameTreeExample implements GameTreeExample {
 
     protected MoveCreator moveCreator;
 
-    public AbstractGameTreeExample(EvaluationPerspective persp) {
-        moveCreator = new MoveCreator(persp);
+    public AbstractGameTreeExample() {
+        moveCreator = new MoveCreator();
     }
 
     protected MoveList<TwoPlayerMove> createList(TwoPlayerMoveStub... moves) {
@@ -32,7 +32,7 @@ public abstract class AbstractGameTreeExample implements GameTreeExample {
     }
 
     @Override
-    public TwoPlayerMove getInitialMove() {
+    public TwoPlayerMoveStub getInitialMove() {
         return initialMove;
     }
 

@@ -11,9 +11,7 @@ package com.barrybecker4.game.twoplayer.common.search.examples;
 public class ZeroLevelGameTreeExample extends AbstractGameTreeExample  {
 
 
-    public ZeroLevelGameTreeExample(boolean player1PlaysNext, EvaluationPerspective persp) {
-
-        super(persp);
+    public ZeroLevelGameTreeExample(boolean player1PlaysNext) {
 
         initialMove = moveCreator.createMove(6, !player1PlaysNext, null);
     }

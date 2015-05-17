@@ -7,8 +7,8 @@ import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.board.GamePiece;
 import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub;
 import com.barrybecker4.game.twoplayer.common.search.options.BestMovesSearchOptions;
-import org.junit.Test;
 import org.junit.Before;
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 

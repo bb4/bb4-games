@@ -6,12 +6,12 @@ import com.barrybecker4.game.common.GameWeightsStub;
 import com.barrybecker4.game.twoplayer.common.search.Searchable;
 import com.barrybecker4.game.twoplayer.common.search.SearchableStub;
 import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub;
-import com.barrybecker4.game.twoplayer.common.search.examples.EvaluationPerspective;
 import com.barrybecker4.game.twoplayer.common.search.examples.GameTreeExample;
 import com.barrybecker4.game.twoplayer.common.search.options.SearchOptions;
 import com.barrybecker4.game.twoplayer.common.search.transposition.TranspositionTable;
 import com.barrybecker4.optimization.parameter.ParameterArray;
 import junit.framework.TestCase;
+import static com.barrybecker4.game.twoplayer.common.search.strategy.EvaluationPerspective.CURRENT_PLAYER;
 
 /**
  * Test minimax strategy independent of any particular game implementation.
@@ -30,7 +30,7 @@ public abstract class AbstractSearchStrategyTst extends TestCase {
         searchOptions = createSearchOptions();
     }
 
-    protected SearchStrategy createSearchStrategy() {
+    protected SearchStrategy<TwoPlayerMoveStub> createSearchStrategy() {
 
         Searchable searchable = new SearchableStub(searchOptions);
         GameWeights weights = new GameWeightsStub();
@@ -38,7 +38,8 @@ public abstract class AbstractSearchStrategyTst extends TestCase {
     }
 
     /** @return the Search strategy to test. */
-    protected abstract SearchStrategy createSearchStrategy(Searchable searchable, ParameterArray weights);
+    protected abstract SearchStrategy<TwoPlayerMoveStub> createSearchStrategy(
+            Searchable searchable, ParameterArray weights);
 
     /**
      * @return default search options for all games
@@ -50,9 +51,6 @@ public abstract class AbstractSearchStrategyTst extends TestCase {
         return opts;
     }
 
-    /** @return Describes the way that we should evaluate moves at each ply. */
-    protected abstract EvaluationPerspective getEvaluationPerspective();
-
     /**
      * Verify move that was found using search strategy under test.
      * @param example  game tree to use
@@ -60,13 +58,13 @@ public abstract class AbstractSearchStrategyTst extends TestCase {
      */
     protected void verifyResult(GameTreeExample example, SearchResult expectedSearchResult) {
 
-        SearchStrategy searchStrategy = createSearchStrategy();
+        SearchStrategy<TwoPlayerMoveStub> searchStrategy = createSearchStrategy();
         TwoPlayerMoveStub foundMove =
-                (TwoPlayerMoveStub)searchStrategy.search(example.getInitialMove(), null);
+                searchStrategy.search(example.getInitialMove(), null);
 
         String prefix = searchStrategy.getClass().getName();
 
-        int inheritedValue = determineInheritedValue(foundMove.getInheritedValue(), example);
+        int inheritedValue = determineInheritedValue(foundMove.getInheritedValue(), searchStrategy, example);
 
         SearchResult actualResult =
                 new SearchResult(foundMove.getId(), inheritedValue, searchStrategy.getNumMovesConsidered());
@@ -82,10 +80,9 @@ public abstract class AbstractSearchStrategyTst extends TestCase {
      * This does not need to be as complicated as I once thought.
      * @return  adjusted inherited value
      */
-    protected int determineInheritedValue(int value, GameTreeExample example) {
-
-        if (getEvaluationPerspective() == EvaluationPerspective.CURRENT_PLAYER) {
-            return   example.getInitialMove().isPlayer1() ? -value : value;
+    protected int determineInheritedValue(int value, SearchStrategy searchStrategy, GameTreeExample example) {
+        if (searchStrategy.getEvaluationPerspective() == CURRENT_PLAYER) {
+            return example.getInitialMove().isPlayer1() ? -value : value;
         }
         return value;
     }

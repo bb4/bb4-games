@@ -21,8 +21,7 @@ import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub;
 public class FourLevelGameTreeExample extends AbstractGameTreeExample  {
 
 
-    public FourLevelGameTreeExample(boolean player1PlaysNext, EvaluationPerspective persp) {
-        super(persp);
+    public FourLevelGameTreeExample(boolean player1PlaysNext) {
 
         initialMove = moveCreator.createMove(6, !player1PlaysNext, null);
 

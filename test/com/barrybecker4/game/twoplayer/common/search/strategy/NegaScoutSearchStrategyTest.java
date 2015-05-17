@@ -2,7 +2,7 @@
 package com.barrybecker4.game.twoplayer.common.search.strategy;
 
 import com.barrybecker4.game.twoplayer.common.search.Searchable;
-import com.barrybecker4.game.twoplayer.common.search.examples.EvaluationPerspective;
+import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub;
 import com.barrybecker4.optimization.parameter.ParameterArray;
 
 /**
@@ -13,15 +13,9 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
 public class NegaScoutSearchStrategyTest extends AbstractBruteSearchStrategyTst {
 
     @Override
-    protected SearchStrategy createSearchStrategy(Searchable searchable, ParameterArray weights) {
+    protected SearchStrategy<TwoPlayerMoveStub> createSearchStrategy(Searchable searchable, ParameterArray weights) {
         return new NegaScoutStrategy(searchable, weights);
     }
-
-    @Override
-    protected EvaluationPerspective getEvaluationPerspective() {
-        return EvaluationPerspective.CURRENT_PLAYER;
-    }
-
 
     @Override
     protected SearchResult getTwoLevelPlayer1Result() {

@@ -4,7 +4,9 @@ package com.barrybecker4.game.twoplayer.go.board.analysis.eye.information;
 import com.barrybecker4.game.twoplayer.go.board.GoBoard;
 import com.barrybecker4.game.twoplayer.go.board.analysis.eye.TestEyeTypeAnalyzer;
 
-import static com.barrybecker4.game.twoplayer.go.board.analysis.eye.information.E4Information.Eye4Type.*;
+import static com.barrybecker4.game.twoplayer.go.board.analysis.eye.information.E4Information.Eye4Type.E1113;
+import static com.barrybecker4.game.twoplayer.go.board.analysis.eye.information.E4Information.Eye4Type.E1122;
+import static com.barrybecker4.game.twoplayer.go.board.analysis.eye.information.E4Information.Eye4Type.E2222;
 
 /**
  * Test that we can get the correct type and status for all the different 4 space eyes that can arise.

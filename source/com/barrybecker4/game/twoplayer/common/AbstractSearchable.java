@@ -62,7 +62,7 @@ public abstract class AbstractSearchable<M extends TwoPlayerMove, B extends TwoP
     }
 
     /** @return the search options to use */
-    public abstract SearchOptions getSearchOptions();
+    public abstract SearchOptions<M, B> getSearchOptions();
 
     protected AbstractGameProfiler getProfiler() {
         return GameProfiler.getInstance();

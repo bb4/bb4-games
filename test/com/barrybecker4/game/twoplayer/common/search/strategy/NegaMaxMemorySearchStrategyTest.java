@@ -2,6 +2,7 @@
 package com.barrybecker4.game.twoplayer.common.search.strategy;
 
 import com.barrybecker4.game.twoplayer.common.search.Searchable;
+import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub;
 import com.barrybecker4.game.twoplayer.common.search.examples.GameTreeExample;
 import com.barrybecker4.game.twoplayer.common.search.examples.TwoLevelQuiescentExample;
 import com.barrybecker4.optimization.parameter.ParameterArray;
@@ -14,7 +15,7 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
 public class NegaMaxMemorySearchStrategyTest extends NegaMaxSearchStrategyTest {
 
     @Override
-    protected SearchStrategy createSearchStrategy(Searchable searchable, ParameterArray weights) {
+    protected SearchStrategy<TwoPlayerMoveStub> createSearchStrategy(Searchable searchable, ParameterArray weights) {
         return new NegaMaxMemoryStrategy(searchable, weights);
     }
 
@@ -24,7 +25,7 @@ public class NegaMaxMemorySearchStrategyTest extends NegaMaxSearchStrategyTest {
         bruteSearchOptions.setLookAhead(2);
         bruteSearchOptions.setQuiescence(true);
         bruteSearchOptions.setAlphaBeta(true);
-        GameTreeExample eg = new TwoLevelQuiescentExample(false, getEvaluationPerspective());
+        GameTreeExample eg = new TwoLevelQuiescentExample(false);
         verifyResult(eg, getTwoLevelQuiescenseABPlayer2Result());
     }
 

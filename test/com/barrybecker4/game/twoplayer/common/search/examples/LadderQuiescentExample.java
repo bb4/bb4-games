@@ -31,9 +31,7 @@ import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub;
 public class LadderQuiescentExample extends AbstractGameTreeExample  {
 
 
-    public LadderQuiescentExample(boolean player1PlaysNext, EvaluationPerspective persp) {
-
-        super(persp);
+    public LadderQuiescentExample(boolean player1PlaysNext) {
 
         initialMove = moveCreator.createMove(6, !player1PlaysNext, null);
 

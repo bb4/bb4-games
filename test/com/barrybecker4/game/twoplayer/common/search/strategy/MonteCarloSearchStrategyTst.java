@@ -2,7 +2,6 @@
 package com.barrybecker4.game.twoplayer.common.search.strategy;
 
 import com.barrybecker4.game.common.GameContext;
-import com.barrybecker4.game.twoplayer.common.search.examples.EvaluationPerspective;
 import com.barrybecker4.game.twoplayer.common.search.examples.FourLevelGameTreeExample;
 import com.barrybecker4.game.twoplayer.common.search.examples.OneLevelGameTreeExample;
 import com.barrybecker4.game.twoplayer.common.search.examples.TwoLevelGameTreeExample;
@@ -41,112 +40,105 @@ public abstract class MonteCarloSearchStrategyTst extends AbstractSearchStrategy
        return opts;
    }
 
-
-    @Override
-    protected EvaluationPerspective getEvaluationPerspective() {
-        return EvaluationPerspective.ALWAYS_PLAYER1;
-    }
-
-
     /** It fails if you try with just one random simulation. */
     public void testTwoSimulationSearch1LevelPlayer1() {
         monteCarloOptions.setMaxSimulations(2);
-        verifyResult(new OneLevelGameTreeExample(true, getEvaluationPerspective()),
+        verifyResult(new OneLevelGameTreeExample(true),
                 getTwoSimulationSearch1LevelPlayer1Result());
     }
     public void testTwoSimulationSearch1LevelPlayer2() {
         monteCarloOptions.setMaxSimulations(2);
-        verifyResult(new OneLevelGameTreeExample(false, getEvaluationPerspective()),
+        verifyResult(new OneLevelGameTreeExample(false),
                 getTwoSimulationSearch1LevelPlayer2Result());
     }
 
     /** It fails if you try with just one random simulation. */
     public void testTwoSimulationSearch2LevelPlayer1() {
         monteCarloOptions.setMaxSimulations(2);
-        verifyResult(new TwoLevelGameTreeExample(true, getEvaluationPerspective()),
+        verifyResult(new TwoLevelGameTreeExample(true),
                 getTwoSimulationSearch2LevelPlayer1Result());
     }
     public void testTwoSimulationSearch2LevelPlayer2() {
         monteCarloOptions.setMaxSimulations(2);
-        verifyResult(new TwoLevelGameTreeExample(false, getEvaluationPerspective()),
+        verifyResult(new TwoLevelGameTreeExample(false),
                 getTwoSimulationSearch2LevelPlayer2Result());
     }
 
     /** It fails if you try with just one random simulation. */
     public void testTwoSimulationSearch4LevelPlayer1() {
         monteCarloOptions.setMaxSimulations(2);
-        verifyResult(new FourLevelGameTreeExample(true, getEvaluationPerspective()),
+        verifyResult(new FourLevelGameTreeExample(true),
                 getTwoSimulationSearch4LevelPlayer1Result());
     }
     public void testTwoSimulationSearch4LevelPlayer2() {
         monteCarloOptions.setMaxSimulations(2);
-        verifyResult(new FourLevelGameTreeExample(false, getEvaluationPerspective()),
+        verifyResult(new FourLevelGameTreeExample(false),
                 getTwoSimulationSearch4LevelPlayer2Result());
     }
 
     public void testFiveSimulationSearch2LevelPlayer1() {
         monteCarloOptions.setMaxSimulations(5);
-        verifyResult(new TwoLevelGameTreeExample(true, getEvaluationPerspective()),
+        verifyResult(new TwoLevelGameTreeExample(true),
                 getFiveSimulationSearch2LevelPlayer1Result());
     }
     public void testFiveSimulationSearch2LevelPlayer2() {
         monteCarloOptions.setMaxSimulations(5);
-        verifyResult(new TwoLevelGameTreeExample(false, getEvaluationPerspective()),
+        verifyResult(new TwoLevelGameTreeExample(false),
                 getFiveSimulationSearch2LevelPlayer2Result());
     }
 
     public void testFiveSimulationSearch4LevelPlayer1() {
         monteCarloOptions.setMaxSimulations(5);
-        verifyResult(new FourLevelGameTreeExample(true, getEvaluationPerspective()),
+        verifyResult(new FourLevelGameTreeExample(true),
                 getFiveSimulationSearch4LevelPlayer1Result());
     }
     public void testFiveSimulationSearch4LevelPlayer2() {
         monteCarloOptions.setMaxSimulations(5);
-        verifyResult(new FourLevelGameTreeExample(false, getEvaluationPerspective()),
+        verifyResult(new FourLevelGameTreeExample(false),
                 getFiveSimulationSearch4LevelPlayer2Result());
     }
 
     public void testTenSimulationSearch2LevelPlayer1() {
         monteCarloOptions.setMaxSimulations(10);
-        verifyResult(new TwoLevelGameTreeExample(true, getEvaluationPerspective()),
+        verifyResult(new TwoLevelGameTreeExample(true),
                 getTenSimulationSearch2LevelPlayer1Result());
     }
     public void testTenSimulationSearch2LevelPlayer2() {
         monteCarloOptions.setMaxSimulations(10);
-        verifyResult(new TwoLevelGameTreeExample(false, getEvaluationPerspective()),
+        verifyResult(new TwoLevelGameTreeExample(false),
                 getTenSimulationSearch2LevelPlayer2Result());
     }
 
     public void testTenSimulationSearch4LevelPlayer1() {
         monteCarloOptions.setMaxSimulations(10);
-        verifyResult(new FourLevelGameTreeExample(true, getEvaluationPerspective()),
+        verifyResult(new FourLevelGameTreeExample(true),
                 getTenSimulationSearch4LevelPlayer1Result());
     }
     public void testTenSimulationSearch4LevelPlayer2() {
         monteCarloOptions.setMaxSimulations(10);
-        verifyResult(new FourLevelGameTreeExample(false, getEvaluationPerspective()),
+        verifyResult(new FourLevelGameTreeExample(false),
                 getTenSimulationSearch4LevelPlayer2Result());
     }
 
     public void testFiftySimulationSearch2LevelPlayer1() {
         monteCarloOptions.setMaxSimulations(10);
-        verifyResult(new TwoLevelGameTreeExample(true, getEvaluationPerspective()),
+        verifyResult(new TwoLevelGameTreeExample(true),
                 getFiftySimulationSearch2LevelPlayer1Result());
     }
     public void testFiftySimulationSearch2LevelPlayer2() {
         monteCarloOptions.setMaxSimulations(10);
-        verifyResult(new TwoLevelGameTreeExample(false, getEvaluationPerspective()),
+        verifyResult(new TwoLevelGameTreeExample(false),
                 getFiftySimulationSearch2LevelPlayer2Result());
     }
 
     public void testFiftySimulationSearch4LevelPlayer1() {
         monteCarloOptions.setMaxSimulations(50);
-        verifyResult(new FourLevelGameTreeExample(true, getEvaluationPerspective()),
+        verifyResult(new FourLevelGameTreeExample(true),
                 getFiftySimulationSearch4LevelPlayer1Result());
     }
     public void testFiftySimulationSearch4LevelPlayer2() {
         monteCarloOptions.setMaxSimulations(50);
-        verifyResult(new FourLevelGameTreeExample(false, getEvaluationPerspective()),
+        verifyResult(new FourLevelGameTreeExample(false),
                 getFiftySimulationSearch4LevelPlayer2Result());
     }
 

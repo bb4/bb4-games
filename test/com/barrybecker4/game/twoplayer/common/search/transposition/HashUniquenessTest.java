@@ -2,7 +2,6 @@
 package com.barrybecker4.game.twoplayer.common.search.transposition;
 
 import com.barrybecker4.common.geometry.Location;
-import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.board.GamePiece;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;

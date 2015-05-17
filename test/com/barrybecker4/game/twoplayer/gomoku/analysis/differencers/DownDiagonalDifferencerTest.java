@@ -1,10 +1,10 @@
 // Copyright by Barry G. Becker, 2012. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 package com.barrybecker4.game.twoplayer.gomoku.analysis.differencers;
 
-import org.junit.Test;
 import com.barrybecker4.game.twoplayer.gomoku.GoMokuBoard;
 import com.barrybecker4.game.twoplayer.gomoku.analysis.Direction;
 import com.barrybecker4.game.twoplayer.gomoku.pattern.Patterns;
+import org.junit.Test;
 
 
 /**

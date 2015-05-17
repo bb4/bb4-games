@@ -47,6 +47,11 @@ public final class NegaMaxMemoryStrategy<M extends TwoPlayerMove, B extends TwoP
     }
 
     @Override
+    public EvaluationPerspective getEvaluationPerspective() {
+        return EvaluationPerspective.CURRENT_PLAYER;
+    }
+
+    @Override
     protected M searchInternal(M lastMove, int depth,
                                SearchWindow window, SearchTreeNode parent ) {
         HashKey key = searchable.getHashKey();

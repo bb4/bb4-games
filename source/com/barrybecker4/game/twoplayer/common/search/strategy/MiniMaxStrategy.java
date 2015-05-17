@@ -103,4 +103,9 @@ public final class MiniMaxStrategy<M extends TwoPlayerMove, B extends TwoPlayerB
     protected boolean fromPlayer1sPerspective(M lastMove) {
         return true;
     }
+
+    @Override
+    public EvaluationPerspective getEvaluationPerspective() {
+        return EvaluationPerspective.ALWAYS_PLAYER1;
+    }
 }

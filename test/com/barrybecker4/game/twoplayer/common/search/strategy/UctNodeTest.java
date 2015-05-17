@@ -7,6 +7,7 @@ import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub;
 import junit.framework.TestCase;
+
 import static com.barrybecker4.game.twoplayer.common.search.options.MonteCarloSearchOptions.MaximizationStyle.WIN_RATE;
 
 /**

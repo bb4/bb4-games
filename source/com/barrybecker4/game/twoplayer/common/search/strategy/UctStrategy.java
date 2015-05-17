@@ -52,6 +52,11 @@ public class UctStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>>
         return searchable.getSearchOptions();
     }
 
+    @Override
+    public EvaluationPerspective getEvaluationPerspective() {
+        return EvaluationPerspective.ALWAYS_PLAYER1;
+    }
+
     /**
      * {@inheritDoc}
      *

@@ -2,7 +2,7 @@
 package com.barrybecker4.game.twoplayer.common.search.strategy;
 
 import com.barrybecker4.game.twoplayer.common.search.Searchable;
-import com.barrybecker4.game.twoplayer.common.search.examples.EvaluationPerspective;
+import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub;
 import com.barrybecker4.optimization.parameter.ParameterArray;
 
 /**
@@ -13,13 +13,8 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
 public class UctSearchStrategyTest extends MonteCarloSearchStrategyTst {
 
     @Override
-    protected SearchStrategy createSearchStrategy(Searchable searchable, ParameterArray weights) {
+    protected SearchStrategy<TwoPlayerMoveStub> createSearchStrategy(Searchable searchable, ParameterArray weights) {
         return new UctStrategy(searchable, weights);
-    }
-
-    @Override
-    protected EvaluationPerspective getEvaluationPerspective() {
-        return EvaluationPerspective.ALWAYS_PLAYER1;
     }
 
 }

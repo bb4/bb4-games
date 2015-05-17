@@ -33,6 +33,11 @@ public class NegaMaxStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard<M
     }
 
     @Override
+    public EvaluationPerspective getEvaluationPerspective() {
+        return EvaluationPerspective.CURRENT_PLAYER;
+    }
+
+    @Override
     protected M findBestMove(M lastMove, int depth, MoveList<M> list,
                                        SearchWindow window, SearchTreeNode parent) {
         int i = 0;

@@ -18,7 +18,9 @@ import java.util.Arrays;
 import static com.barrybecker4.game.twoplayer.go.board.analysis.eye.information.E4Information.Eye4Type.E2222;
 import static com.barrybecker4.game.twoplayer.go.board.analysis.eye.information.E5Information.Eye5Type.E12223;
 import static com.barrybecker4.game.twoplayer.go.board.analysis.eye.information.E6Information.Eye6Type.E222233;
-import static com.barrybecker4.game.twoplayer.go.board.analysis.eye.information.EyeType.*;
+import static com.barrybecker4.game.twoplayer.go.board.analysis.eye.information.EyeType.E4;
+import static com.barrybecker4.game.twoplayer.go.board.analysis.eye.information.EyeType.E5;
+import static com.barrybecker4.game.twoplayer.go.board.analysis.eye.information.EyeType.E6;
 
 
 /**
