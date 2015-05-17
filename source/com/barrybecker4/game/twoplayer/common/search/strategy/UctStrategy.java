@@ -40,7 +40,7 @@ public class UctStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>>
      * @param searchable the thing to be searched that has options and can make/undo moves.
      * @param weights coefficients for the evaluation polynomial that indirectly determines the best move.
      */
-    UctStrategy( Searchable<M,B> searchable, ParameterArray weights ) {
+    public UctStrategy( Searchable<M,B> searchable, ParameterArray weights ) {
         super(searchable, weights);
         exploreExploitRatio = getOptions().getMonteCarloSearchOptions().getExploreExploitRatio();
         numRandomLookAhead = getOptions().getMonteCarloSearchOptions().getRandomLookAhead();

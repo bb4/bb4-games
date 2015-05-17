@@ -1,5 +1,5 @@
 /** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
-package com.barrybecker4.game.twoplayer.common.search.strategy;
+package com.barrybecker4.game.twoplayer.common.search.strategy.example;
 
 import com.barrybecker4.game.common.GameWeights;
 import com.barrybecker4.game.common.GameWeightsStub;
@@ -8,6 +8,9 @@ import com.barrybecker4.game.twoplayer.common.search.SearchableStub;
 import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub;
 import com.barrybecker4.game.twoplayer.common.search.examples.GameTreeExample;
 import com.barrybecker4.game.twoplayer.common.search.options.SearchOptions;
+import com.barrybecker4.game.twoplayer.common.search.strategy.MemorySearchStrategy;
+import com.barrybecker4.game.twoplayer.common.search.strategy.testcase.SearchResult;
+import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy;
 import com.barrybecker4.game.twoplayer.common.search.transposition.TranspositionTable;
 import com.barrybecker4.optimization.parameter.ParameterArray;
 import junit.framework.TestCase;

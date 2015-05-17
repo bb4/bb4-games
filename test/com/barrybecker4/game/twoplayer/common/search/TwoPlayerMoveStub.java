@@ -18,7 +18,7 @@ public class TwoPlayerMoveStub extends TwoPlayerMove {
     public static final String ROOT_ID = "root";
 
     /** child moves */
-    private MoveList<TwoPlayerMove> children_;
+    private MoveList<TwoPlayerMoveStub> children_;
 
     /** every move but the root of the tree has a parent_ */
     private TwoPlayerMoveStub parent_;
@@ -36,12 +36,12 @@ public class TwoPlayerMoveStub extends TwoPlayerMove {
         return parent_;
     }
 
-    public void setChildren(MoveList<TwoPlayerMove> children) {
+    public void setChildren(MoveList<TwoPlayerMoveStub> children) {
         children_.clear();
         children_.addAll(children);
     }
 
-    public MoveList<TwoPlayerMove> getChildren() {
+    public MoveList<TwoPlayerMoveStub> getChildren() {
         return children_;
     }
 
@@ -54,7 +54,6 @@ public class TwoPlayerMoveStub extends TwoPlayerMove {
     }
 
     /**
-     *
      * Unique move id that defines where in the game tree this move resides.
      * Something we can match against when testing.
      *
@@ -85,7 +84,7 @@ public class TwoPlayerMoveStub extends TwoPlayerMove {
 
     private void print(String indent, TwoPlayerMoveStub subtreeRoot)  {
 
-        MoveList<TwoPlayerMove> childList = subtreeRoot.getChildren();
+        MoveList<TwoPlayerMoveStub> childList = subtreeRoot.getChildren();
         System.out.println(indent + subtreeRoot);
         for (TwoPlayerMove move : childList) {
             print("  " + indent, (TwoPlayerMoveStub)move);

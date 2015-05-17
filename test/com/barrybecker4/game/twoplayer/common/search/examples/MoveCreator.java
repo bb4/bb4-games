@@ -34,18 +34,4 @@ public class MoveCreator {
         return new ByteLocation(moveCount / FAKE_BOARD_SIZE, moveCount % FAKE_BOARD_SIZE);
     }
 
-    /**
-     * We can tell our depth in the tree by looking at the number of ancestors we have.
-     * @param parent parent move
-     * @return depth in game tree.
-     */
-    private int getDepth(TwoPlayerMoveStub parent) {
-        int depth = 0;
-        TwoPlayerMoveStub nextParent = parent;
-        while (nextParent != null) {
-            nextParent = nextParent.getParent();
-            depth++;
-        }
-        return depth;
-    }
 }

@@ -3,21 +3,20 @@
     @author Barry Becker
 -->
 
-<!ELEMENT search-test-case    (expected-results, tree)>
-<!ELEMENT expected-results    (method)+>
-<!ELEMENT method              (brute-force-options|monte-carlo-options,search-result)>
-<!ELEMENT brute-force-options  EMPTY>
-<!ELEMENT monte-carlo-options  EMPTY>
-<!ELEMENT search-result        EMPTY>
-<!ELEMENT tree                (node)>
-<!ELEMENT node                (node)*>
+<!ELEMENT search-tester          (test-cases, node)>
+<!ELEMENT test-cases             (test-case)+>
+<!ELEMENT test-case              (brute-force-options|monte-carlo-options,expected-search-result)>
+<!ELEMENT brute-force-options    EMPTY>
+<!ELEMENT monte-carlo-options    EMPTY>
+<!ELEMENT expected-search-result EMPTY>
+<!ELEMENT node                   (node)*>
 
 
-<!ATTLIST search-test-case
+<!ATTLIST search-tester
     name     NMTOKEN     #REQUIRED
 >
-<!ATTLIST method
-    name       NMTOKEN          #REQUIRED
+<!ATTLIST test-case
+    name     NMTOKEN     #REQUIRED
 >
 
 <!ATTLIST brute-force-options
@@ -34,7 +33,7 @@
     max-style (WIN_RATE, NUM_VISITS) "WIN_RATE"
 >
 
-<!ATTLIST search-result
+<!ATTLIST expected-search-result
     move-id              CDATA    #REQUIRED
     inherited-value      CDATA    #REQUIRED
     num-moves-considered CADATA   #REQUIRED
