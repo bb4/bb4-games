@@ -2,17 +2,17 @@
 <!DOCTYPE search-test-case SYSTEM "http://barrybecker4.com/schema/search-test-case.dtd">
 <search-test-case name="zero-level-game-tree">
     <expected-results>
-        <method name="MiniMaxSearchStrategy"
-                look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3">
-              <search-result move-id="" inherited-value="" num-moves-considered=""/>
+        <method name="MiniMaxSearchStrategy" >
+              <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
+              <search-result move-id="0" inherited-value="6" num-moves-considered="1"/>
         </method>
-        <method name="NegaMaxSearchStrategy"
-                look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3">
-              <search-result move-id="" inherited-value="" num-moves-considered=""/>
+        <method name="NegaMaxSearchStrategy">
+              <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
+              <search-result move-id="0" inherited-value="6" num-moves-considered="1"/>
         </method>
     </expected-results>
 
     <tree>
-        <node value="0" player1Move="true"/>
+        <node value="6" />
     </tree>
 </search-test-case>

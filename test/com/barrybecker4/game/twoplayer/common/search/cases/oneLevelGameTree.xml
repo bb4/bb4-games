@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE search-test-case SYSTEM "http://barrybecker4.com/schema/search-test-case.dtd">
+<search-test-case name="zero-level-game-tree">
+    <expected-results>
+        <method name="MiniMaxSearchStrategy">
+            <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
+            <search-result move-id="1" inherited-value="8" num-moves-considered="3"/>
+        </method>
+
+    </expected-results>
+
+    <tree>
+        <node value="6">
+            <node value="-8"/>
+            <node value="-2"/>
+        </node>
+    </tree>
+</search-test-case>
