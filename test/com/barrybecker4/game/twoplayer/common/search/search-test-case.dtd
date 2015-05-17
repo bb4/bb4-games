@@ -1,0 +1,40 @@
+<!--DTD for search test cases
+    if you change this doc, you must also update it on http://barrybecker4.com
+    @author Barry Becker
+-->
+
+<!ELEMENT search-test-case    (expected-results, tree)>
+<!ELEMENT expected-results    (method)+>
+<!ELEMENT method              (search-result)>
+<!ELEMENT search-result        EMPTY>
+<!ELEMENT tree                (node)>
+<!ELEMENT node                (node)*>
+
+
+<!ATTLIST search-test-case
+    name     NMTOKEN     #REQUIRED
+>
+<!ATTLIST method
+    name       NMTOKEN          #REQUIRED
+    look-ahead CDATA            "3"
+    alpha-beta (true|false)     "false"
+    quiescence (true|false)     "false"
+    max-quiescent-depth CDATA   "3"
+    max-simulations CDATA       "100"
+    expore-exploit-ratio CADATA "1.0"
+    random-look-ahead CDATA     "3"
+    max-style (WIN_RATE, NUM_VISITS) "WIN_RATE"
+>
+
+<!ATTLIST search-result
+    move-id              CDATA    #REQUIRED
+    inherited-value      CDATA    #REQUIRED
+    num-moves-considered CADATA   #REQUIRED
+>
+
+<!ATTLIST node
+    value       CADATA          #REQUIRED
+    player1Move (true|false)    #REQUIRED
+    notes        CDATA          #IMPLIED
+>
+

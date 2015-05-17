@@ -23,7 +23,7 @@ public class ZobristHashTest extends TestCase {
     private static final HashKey CORNER_O_HASH = new HashKey(-6688467811848818630L);
 
     private ZobristHash hash;
-    private TwoPlayerBoard board;
+    private TwoPlayerBoard<TwoPlayerMove> board;
 
     @Override
     public void setUp() {
@@ -180,7 +180,6 @@ public class ZobristHashTest extends TestCase {
     private void applyMoveToHash(int row, int col, boolean player1) {
         GamePiece p = new GamePiece(player1);
         Location loc = new ByteLocation(row, col);
-        TwoPlayerMove m = TwoPlayerMove.createMove(loc, 0, p);
         int stateIndex = board.getStateIndex(new BoardPosition(row, col, p));
         hash.applyMove(loc, stateIndex);
     }

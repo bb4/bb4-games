@@ -36,11 +36,11 @@ public class BestMoveFinderTest {
 
     /**
      * MinbestMoves must be greater than 0.
-     *
+     */
     @Test(expected=AssertionError.class)
     public void testMinBestMoves0() {
         options.setMinBestMoves(0);
-    }  */
+    }
 
     /**
      * if all the thresholds are set to 0, we still get one move (teh best one)

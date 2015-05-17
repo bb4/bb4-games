@@ -19,10 +19,12 @@ public class UctNodeTest extends TestCase  {
     UctNode<TwoPlayerMove> uctNode;
 
     /** a Player2 move to put in the node */
-    private static final TwoPlayerMove P1_MOVE = new TwoPlayerMoveStub(10, true, new ByteLocation(1,1), null);
+    private static final TwoPlayerMove P1_MOVE =
+            new TwoPlayerMoveStub(10, true, new ByteLocation(1,1), null);
 
     /** a Player2 move to put in the node */
-    private static final TwoPlayerMove P2_MOVE = new TwoPlayerMoveStub(10, false, new ByteLocation(1,1), null);
+    private static final TwoPlayerMove P2_MOVE =
+            new TwoPlayerMoveStub(10, false, new ByteLocation(1,1), null);
 
     private static final double TOL = 0.0001;
 
@@ -207,7 +209,9 @@ public class UctNodeTest extends TestCase  {
                 }
                 for (double eeRatio = 0; eeRatio<=2.0; eeRatio += 0.5) {
                     double v = uctNode.calculateUctValue(eeRatio, parentVisits);
-                    System.out.println("t"+parentVisits + "\tt" + numVisits + "\tt"+uctNode.getWinRate() +"\tt" + eeRatio + "\t"  + FormatUtil.formatNumber(v));
+                    System.out.println("t"+parentVisits + "\tt"
+                            + numVisits + "\tt"+uctNode.getWinRate()
+                            +"\tt" + eeRatio + "\t"  + FormatUtil.formatNumber(v));
                 }
             }
         }
