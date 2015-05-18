@@ -1,10 +1,24 @@
 package com.barrybecker4.game.twoplayer.common.search.strategy.testcase;
 
 import com.barrybecker4.common.xml.DomUtil;
+import com.barrybecker4.game.common.GameWeights;
+import com.barrybecker4.game.common.GameWeightsStub;
+import com.barrybecker4.game.twoplayer.common.search.Searchable;
+import com.barrybecker4.game.twoplayer.common.search.SearchableStub;
+import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub;
+import com.barrybecker4.game.twoplayer.common.search.options.BestMovesSearchOptions;
 import com.barrybecker4.game.twoplayer.common.search.options.BruteSearchOptions;
 import com.barrybecker4.game.twoplayer.common.search.options.MonteCarloSearchOptions;
+import com.barrybecker4.game.twoplayer.common.search.options.SearchOptions;
+import com.barrybecker4.game.twoplayer.common.search.strategy.MiniMaxStrategy;
+import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy;
+import com.barrybecker4.optimization.parameter.ParameterArray;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.NoSuchElementException;
+
 import static com.barrybecker4.game.twoplayer.common.search.options.MonteCarloSearchOptions.MaximizationStyle;
 
 /**
@@ -12,10 +26,12 @@ import static com.barrybecker4.game.twoplayer.common.search.options.MonteCarloSe
  */
 public class SearchTestCase {
 
-    String className;
-    BruteSearchOptions bruteSearchOptions;
-    MonteCarloSearchOptions monteCarloSearchOptions;
-    SearchResult expectedResult;
+    /** the tests assume all the moves are used. We might want to also vary this later */
+    private static final BestMovesSearchOptions BEST_MOVE_OPTIONS = new BestMovesSearchOptions(100, 0, 20);
+    private String className;
+    private BruteSearchOptions bruteSearchOptions;
+    private MonteCarloSearchOptions monteCarloSearchOptions;
+    private SearchResult expectedResult;
 
     SearchTestCase(Node testCaseNode) {
         className = DomUtil.getAttribute(testCaseNode, "name");
@@ -27,6 +43,26 @@ public class SearchTestCase {
         for (int i=0; i<children.getLength(); i++) {
             processNode(children.item(i));
         }
+    }
+
+    public SearchStrategy<TwoPlayerMoveStub> createSearchStrategy()
+            throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException,
+            InvocationTargetException, InstantiationException {
+
+        SearchOptions searchOptions =
+                new SearchOptions(bruteSearchOptions, BEST_MOVE_OPTIONS, monteCarloSearchOptions);
+        Searchable searchable = new SearchableStub(searchOptions);
+        GameWeights weights = new GameWeightsStub();
+
+        // create the strategy using reflection
+
+        return (SearchStrategy<TwoPlayerMoveStub>) Class.forName(className)
+                .getConstructor(Searchable.class, ParameterArray.class)
+                .newInstance(searchable, weights.getDefaultWeights());
+    }
+
+    public SearchResult getExpectedResult() {
+        return expectedResult;
     }
 
     private void processNode(Node child) {

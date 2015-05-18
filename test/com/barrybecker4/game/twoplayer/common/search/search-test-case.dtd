@@ -3,7 +3,7 @@
     @author Barry Becker
 -->
 
-<!ELEMENT search-tester          (test-cases, node)>
+<!ELEMENT search-test-example    (test-cases, node)>
 <!ELEMENT test-cases             (test-case)+>
 <!ELEMENT test-case              (brute-force-options|monte-carlo-options,expected-search-result)>
 <!ELEMENT brute-force-options    EMPTY>
@@ -12,7 +12,7 @@
 <!ELEMENT node                   (node)*>
 
 
-<!ATTLIST search-tester
+<!ATTLIST search-test-example
     name     NMTOKEN     #REQUIRED
 >
 <!ATTLIST test-case

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE search-tester SYSTEM "http://barrybecker4.com/schema/search-test-case.dtd">
-<search-tester name="zero-level-game-tree">
+<!DOCTYPE search-test-example SYSTEM "http://barrybecker4.com/schema/search-test-case.dtd">
+<search-test-example name="zero-level-game-tree">
     <test-cases>
         <test-case name="MiniMaxSearchStrategy">
             <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
@@ -12,4 +12,4 @@
         <node value="-8"/>
         <node value="-2"/>
     </node>
-</search-tester>
+</search-test-example>

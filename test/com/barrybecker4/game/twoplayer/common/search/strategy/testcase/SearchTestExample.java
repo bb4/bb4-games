@@ -1,6 +1,7 @@
 package com.barrybecker4.game.twoplayer.common.search.strategy.testcase;
 
 import com.barrybecker4.common.xml.DomUtil;
+import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -8,15 +9,16 @@ import org.w3c.dom.NodeList;
 import java.io.File;
 
 /**
- * Reads in the test case definition from a file, runs the search methods specified and verifies the expected results.
+ * Reads in the test case definition from a file
+ * runs the search methods specified and verifies the expected results.
  * @author Barry Becker
  */
-public class SearchTester {
+public class SearchTestExample {
     String name;
     SearchTestCases testCases;
     GameTree gameTree;
 
-    public SearchTester(File file) {
+    public SearchTestExample(File file) {
         Document doc = DomUtil.parseXMLFile(file);
 
         Node root = doc.getDocumentElement();
@@ -30,4 +32,14 @@ public class SearchTester {
         System.out.println("TREE = ");
         gameTree.print();
     }
+
+
+    public SearchTestCases getTestCases() {
+        return testCases;
+    }
+
+    public TwoPlayerMoveStub getInitialMove() {
+        return gameTree.getInitialMove();
+    }
+
 }

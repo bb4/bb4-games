@@ -1,6 +1,8 @@
 package com.barrybecker4.game.twoplayer.common.search.strategy;
 
 import com.barrybecker4.common.util.FileUtil;
+import com.barrybecker4.game.twoplayer.common.search.strategy.testcase.SearchTestExample;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -29,28 +31,36 @@ public class AllStrategiesTest {
     /** the test case file */
     private File file;
 
+    @Before
+    public void initialize() {
+      //primeNumberChecker = new PrimeNumberChecker();
+    }
+
     public AllStrategiesTest(File file) {
         this.file = file;
     }
 
     @Parameterized.Parameters
-    public static Collection<Object[]> data() {
+    public static Collection<Object[]> testCases() {
 
-        List<File> testCases = FileUtil.getFilesInDirectory(TEST_CASE_DIR);
+        List<File> testCaseFiles = FileUtil.getFilesInDirectory(TEST_CASE_DIR);
 
-        Collection<Object[]> data = new ArrayList<>();
-        for (File file : testCases) {
+        Collection<Object[]> testCases = new ArrayList<>();
+        for (File file : testCaseFiles) {
             Object[] fileArg = new Object[] { file };
-            data.add(fileArg);
+            testCases.add(fileArg);
         }
 
-        return data;
+        return testCases;
     }
 
     /** This test will be run once for each xml test case file in TEST_CASE_DIR */
-   @Test
-   public void testCaseRunner() {
-       System.out.println("Filename is : " + file);
-       assertTrue("file = " + file.getAbsolutePath(), true);
-   }
+    @Test
+    public void testCaseRunner() {
+        SearchTestExample test = new SearchTestExample(file);
+
+
+        System.out.println("Filename is : " + file);
+        assertTrue("file = " + file.getAbsolutePath(), false);
+    }
 }
