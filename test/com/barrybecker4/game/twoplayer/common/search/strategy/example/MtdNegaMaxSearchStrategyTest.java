@@ -36,7 +36,7 @@ public class MtdNegaMaxSearchStrategyTest extends NegaMaxMemorySearchStrategyTes
     // seems wrong
     @Override
     protected SearchResult getPruneFourLevelWithABSearchPlayer1() {
-        return new SearchResult( "0", 3, 14);
+        return new SearchResult( "0", 3, 8);
     }
 
     /*

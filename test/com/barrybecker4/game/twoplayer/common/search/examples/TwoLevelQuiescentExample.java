@@ -62,15 +62,5 @@ public class TwoLevelQuiescentExample extends AbstractGameTreeExample  {
         TwoPlayerMoveStub move1011 = moveCreator.createMove(6, !player1PlaysNext, move101);
         TwoPlayerMoveStub move1012 = moveCreator.createMove(4, !player1PlaysNext, move101);
         move1011.setUrgent(true);
-
-        initialMove.setChildren(createList(move0, move1));
-
-        move0.setChildren(createList(move00, move01));
-        move1.setChildren(createList(move10, move11));
-
-        move00.setChildren(createList(move000, move001, move002));
-        move10.setChildren(createList(move100, move101));
-
-        move101.setChildren(createList(move1010, move1011, move1012));
     }
 }

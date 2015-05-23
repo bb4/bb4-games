@@ -69,7 +69,7 @@ public class AllStrategiesTestRunner {
         System.out.println("Filename is : " + file);
 
         for (SearchTestCase testCase : test.getTestCases()) {
-            System.out.println("testCase = "+ testCase.toString());
+            //System.out.println("testCase = "+ testCase.toString());
 
             SearchStrategy<TwoPlayerMoveStub> searchStrategy = testCase.createSearchStrategy();
 

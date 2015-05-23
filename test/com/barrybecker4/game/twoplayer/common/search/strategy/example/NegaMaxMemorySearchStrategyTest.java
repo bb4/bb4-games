@@ -54,12 +54,12 @@ public class NegaMaxMemorySearchStrategyTest extends NegaMaxSearchStrategyTest {
     // seems wrong
     @Override
     protected SearchResult getPruneFourLevelWithABSearchPlayer1() {
-        return new SearchResult( "0", 0, 10);
+        return new SearchResult( "0", 3, 8);
     }
     // seems wrong
     @Override
     protected SearchResult getPruneFourLevelWithABSearchPlayer2() {
-        return new SearchResult( "0", 2, 11);
+        return new SearchResult( "0", 2, 12);
     }
 
     @Override

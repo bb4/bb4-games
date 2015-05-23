@@ -29,6 +29,9 @@ public class TwoPlayerMoveStub extends TwoPlayerMove {
     public TwoPlayerMoveStub(int val, boolean isPlayer1, Location toLocation, TwoPlayerMoveStub parent) {
         super(toLocation, val, new GamePiece(isPlayer1));
         this.parent_ = parent;
+        if (this.parent_ != null)  {
+            this.parent_.addChild(this);
+        }
         this.children_ = new MoveList<>();
     }
 
@@ -36,9 +39,8 @@ public class TwoPlayerMoveStub extends TwoPlayerMove {
         return parent_;
     }
 
-    public void setChildren(MoveList<TwoPlayerMoveStub> children) {
-        children_.clear();
-        children_.addAll(children);
+    private void addChild(TwoPlayerMoveStub move) {
+        this.children_.add(move);
     }
 
     public MoveList<TwoPlayerMoveStub> getChildren() {

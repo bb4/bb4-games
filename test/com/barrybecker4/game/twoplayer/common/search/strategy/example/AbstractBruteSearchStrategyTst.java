@@ -280,11 +280,11 @@ public abstract class AbstractBruteSearchStrategyTst extends AbstractSearchStrat
     }
     // probably wrong
     protected SearchResult getPruneFourLevelWithABSearchPlayer1() {
-        return new SearchResult( "1", 2, 19);
+        return new SearchResult( "0", 3, 19);
     }
     // probably wrong
     protected SearchResult getPruneFourLevelWithABSearchPlayer2() {
-        return new SearchResult( "1", 5, 20);
+        return new SearchResult( "1", 14, 24);
     }
     protected SearchResult getThreeLevelPlayer1Result() {
         return new SearchResult("0", -4, 14);

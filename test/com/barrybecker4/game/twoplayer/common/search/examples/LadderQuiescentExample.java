@@ -87,19 +87,5 @@ public class LadderQuiescentExample extends AbstractGameTreeExample  {
         TwoPlayerMoveStub move1010000 = moveCreator.createMove(8, player1PlaysNext, move101000);
         move1010000.setCausedUrgency(true);
         move1010000.setUrgent(true);
-
-        // parenting
-        initialMove.setChildren(createList(move0, move1));
-
-        move0.setChildren(createList(move00, move01));
-        move1.setChildren(createList(move10, move11));
-
-        move00.setChildren(createList(move000, move001, move002));
-        move10.setChildren(createList(move100, move101));
-
-        move101.setChildren(createList(move1010, move1011, move1012));
-        move1010.setChildren(createList(move10100));
-        move10100.setChildren(createList(move101000, move101001));
-        move101000.setChildren(createList(move1010000));
     }
 }

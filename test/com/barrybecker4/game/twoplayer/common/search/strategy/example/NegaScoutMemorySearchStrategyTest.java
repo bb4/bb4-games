@@ -38,12 +38,16 @@ public class NegaScoutMemorySearchStrategyTest extends NegaScoutSearchStrategyTe
     // seems wrong
     @Override
     protected SearchResult getPruneFourLevelWithABSearchPlayer2() {
-        return new SearchResult( "1", 2, 18);
+        return new SearchResult( "1", 2, 22);
     }
 
     @Override
     protected SearchResult getTwoLevelQuiescenseABPlayer2Result() {
         return new SearchResult("1", 4, 9);
+    }
+
+    protected SearchResult getPruneFourLevelWithABSearchPlayer1() {
+        return new SearchResult( "0", 3, 16);
     }
 
     @Override

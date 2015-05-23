@@ -2,17 +2,29 @@
 <!DOCTYPE search-test-example SYSTEM "http://barrybecker4.com/schema/search-test-case.dtd">
 <search-test-example name="one-level-game-tree">
     <test-cases>
-        <test-case strategy="MiniMaxStrategy" notes="no move for look ahead 3">
+        <test-case strategy="MiniMaxStrategy" notes="Winning move for look ahead 3">
             <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
-            <expected-search-result move-id="NO_MOVE" inherited-value="0" num-moves-considered="0"/>
+            <expected-search-result move-id="0" inherited-value="-4096" num-moves-considered="2"/>
         </test-case>
         <test-case strategy="MiniMaxStrategy" notes="some move for look ahead 2">
             <brute-force-options look-ahead="2" alpha-beta="false" quiescence="false" max-quiescent-depth="2"/>
-            <expected-search-result move-id="root" inherited-value="6" num-moves-considered="0"/>
+            <expected-search-result move-id="0" inherited-value="-4096" num-moves-considered="2"/>
         </test-case>
         <test-case strategy="MiniMaxStrategy" notes="No move for look ahead 1">
             <brute-force-options look-ahead="1" alpha-beta="false" quiescence="false" max-quiescent-depth="1"/>
-            <expected-search-result move-id="NO_MOVE" inherited-value="0" num-moves-considered="0"/>
+            <expected-search-result move-id="0" inherited-value="-8" num-moves-considered="2"/>
+        </test-case>
+        <test-case strategy="NegaMaxStrategy" notes="Winning next move for depth 3">
+              <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
+              <expected-search-result move-id="0" inherited-value="4096" num-moves-considered="2"/>
+        </test-case>
+        <test-case strategy="NegaMaxStrategy" notes="no next move for depth 2">
+              <brute-force-options look-ahead="2" alpha-beta="false" quiescence="false" max-quiescent-depth="2"/>
+              <expected-search-result move-id="root" inherited-value="6" num-moves-considered="0"/>
+        </test-case>
+        <test-case strategy="NegaMaxStrategy" notes="no next move for depth 1">
+              <brute-force-options look-ahead="1" alpha-beta="false" quiescence="false" max-quiescent-depth="1"/>
+              <expected-search-result move-id="0" inherited-value="-8" num-moves-considered="2"/>
         </test-case>
     </test-cases>
 

@@ -25,12 +25,6 @@ public abstract class AbstractGameTreeExample implements GameTreeExample {
         moveCreator = new MoveCreator();
     }
 
-    protected MoveList<TwoPlayerMoveStub> createList(TwoPlayerMoveStub... moves) {
-        MoveList<TwoPlayerMoveStub> moveList = new MoveList<>();
-        moveList.addAll(Arrays.asList(moves));
-        return moveList;
-    }
-
     @Override
     public TwoPlayerMoveStub getInitialMove() {
         return initialMove;

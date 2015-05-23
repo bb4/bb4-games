@@ -65,7 +65,6 @@ public class GameTree {
         return new TwoPlayerMoveStub(val, isPlayer1, createToLocation(), parent);
     }
 
-
     /**
      * The location is not really used, just give it something unique so the hash works.
      * @return new to location

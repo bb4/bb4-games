@@ -34,11 +34,5 @@ public class AlphaPruneExample extends AbstractGameTreeExample  {
         TwoPlayerMoveStub move10 = moveCreator.createMove(4, !player1PlaysNext, move1);
         // this should get alpha pruned when player1 is to play
         TwoPlayerMoveStub move11 = moveCreator.createMove(3, !player1PlaysNext, move1);
-
-
-        initialMove.setChildren(createList(move0, move1));
-
-        move0.setChildren(createList(move00, move01));
-        move1.setChildren(createList(move10, move11));
     }
 }

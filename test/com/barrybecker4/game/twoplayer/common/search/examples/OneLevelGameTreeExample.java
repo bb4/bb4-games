@@ -25,9 +25,7 @@ public class OneLevelGameTreeExample extends AbstractGameTreeExample  {
         initialMove = moveCreator.createMove(6, !player1PlaysNext, null);
 
         // first ply
-        TwoPlayerMoveStub move0 = moveCreator.createMove(-8, player1PlaysNext, initialMove);
-        TwoPlayerMoveStub move1 = moveCreator.createMove(-2, player1PlaysNext, initialMove);
-
-        initialMove.setChildren(createList(move0, move1));
+        moveCreator.createMove(-8, player1PlaysNext, initialMove);
+        moveCreator.createMove(-2, player1PlaysNext, initialMove);
     }
 }

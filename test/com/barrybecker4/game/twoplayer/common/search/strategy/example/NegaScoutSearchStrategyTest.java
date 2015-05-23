@@ -45,12 +45,12 @@ public class NegaScoutSearchStrategyTest extends AbstractBruteSearchStrategyTst 
     // wrong
     @Override
     protected SearchResult getPruneFourLevelWithABSearchPlayer1() {
-        return new SearchResult( "0", 3, 17);
+        return new SearchResult( "0", 3, 16);
     }
     // wrong
     @Override
     protected SearchResult getPruneFourLevelWithABSearchPlayer2() {
-        return new SearchResult( "0", -8, 18);
+        return new SearchResult( "1", 2, 28);
     }
 
     @Override

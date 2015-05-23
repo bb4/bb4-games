@@ -53,17 +53,5 @@ public class ThreeLevelGameTreeExample extends AbstractGameTreeExample  {
 
         TwoPlayerMoveStub move110 = moveCreator.createMove(-4, player1PlaysNext, move11);
         TwoPlayerMoveStub move111 = moveCreator.createMove(-4, player1PlaysNext, move11);
-
-
-        initialMove.setChildren(createList(move0, move1));
-
-        move0.setChildren(createList(move00, move01));
-        move1.setChildren(createList(move10, move11));
-
-        move00.setChildren(createList(move000, move001));
-        move01.setChildren(createList(move010, move011));
-
-        move10.setChildren(createList(move100, move101));
-        move11.setChildren(createList(move110, move111));
     }
 }

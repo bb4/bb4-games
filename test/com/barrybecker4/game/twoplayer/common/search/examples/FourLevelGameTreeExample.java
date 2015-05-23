@@ -73,31 +73,5 @@ public class FourLevelGameTreeExample extends AbstractGameTreeExample  {
 
         TwoPlayerMoveStub move1110 = moveCreator.createMove(24, !player1PlaysNext, move111);
         TwoPlayerMoveStub move1111 = moveCreator.createMove(48, !player1PlaysNext, move111);
-
-        initialMove.setChildren(createList(move0, move1));
-
-        // ply 1 children
-        move0.setChildren(createList(move00, move01));
-        move1.setChildren(createList(move10, move11));
-
-        // ply 2 children
-        move00.setChildren(createList(move000, move001));
-        move01.setChildren(createList(move010, move011));
-
-        move10.setChildren(createList(move100, move101));
-        move11.setChildren(createList(move110, move111));
-
-        // ply 3 children
-        move000.setChildren(createList(move0000, move0001));
-        move001.setChildren(createList(move0010, move0011));
-
-        move010.setChildren(createList(move0100, move0101));
-        move011.setChildren(createList(move0110, move0111));
-
-        move100.setChildren(createList(move1000, move1001));
-        move101.setChildren(createList(move1010, move1011));
-
-        move110.setChildren(createList(move1100, move1101));
-        move111.setChildren(createList(move1110, move1111));
     }
 }

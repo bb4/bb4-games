@@ -61,6 +61,7 @@ public abstract class AbstractSearchStrategyTst extends TestCase {
      */
     protected void verifyResult(GameTreeExample example, SearchResult expectedSearchResult) {
 
+        example.print();
         SearchStrategy<TwoPlayerMoveStub> searchStrategy = createSearchStrategy();
         TwoPlayerMoveStub foundMove =
                 searchStrategy.search(example.getInitialMove(), null);
