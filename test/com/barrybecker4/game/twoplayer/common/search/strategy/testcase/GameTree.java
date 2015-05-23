@@ -1,10 +1,8 @@
 package com.barrybecker4.game.twoplayer.common.search.strategy.testcase;
 
-import com.barrybecker4.ca.dj.jigo.sgf.tokens.SourceToken;
 import com.barrybecker4.common.geometry.ByteLocation;
 import com.barrybecker4.common.geometry.Location;
 import com.barrybecker4.common.xml.DomUtil;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;

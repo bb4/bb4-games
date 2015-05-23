@@ -9,7 +9,7 @@ import com.barrybecker4.game.common.ui.panel.GeneralInfoPanel;
 import com.barrybecker4.game.common.ui.panel.InfoLabel;
 import com.barrybecker4.game.common.ui.panel.RowEntryPanel;
 import com.barrybecker4.game.common.ui.panel.SectionPanel;
-import com.barrybecker4.game.twoplayer.common.WinProbabilityCaclulator;
+import com.barrybecker4.game.twoplayer.common.WinProbabilityCalculator;
 
 import javax.swing.*;
 import java.text.MessageFormat;
@@ -65,7 +65,7 @@ public class TwoPlayerGeneralInfoPanel extends GeneralInfoPanel {
         if ( controller.getLastMove() != null ) {
             setPlayerLabel(controller.getCurrentPlayer());
             moveNumLabel_.setText( controller.getNumMoves() + " " );
-            WinProbabilityCaclulator calc = new WinProbabilityCaclulator();
+            WinProbabilityCalculator calc = new WinProbabilityCalculator();
             String formattedPropability =
                     FormatUtil.formatNumber(calc.getChanceOfPlayer1Winning(controller.getMoveList().copy()));
             chanceOfWinningLabel_.setText(  formattedPropability + ' ' );

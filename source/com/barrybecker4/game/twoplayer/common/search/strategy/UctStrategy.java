@@ -5,7 +5,7 @@ import com.barrybecker4.game.common.GameContext;
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
-import com.barrybecker4.game.twoplayer.common.WinProbabilityCaclulator;
+import com.barrybecker4.game.twoplayer.common.WinProbabilityCalculator;
 import com.barrybecker4.game.twoplayer.common.search.Searchable;
 import com.barrybecker4.game.twoplayer.common.search.options.SearchOptions;
 import com.barrybecker4.game.twoplayer.common.search.tree.SearchTreeNode;
@@ -139,7 +139,7 @@ public class UctStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>>
                 player1Score = playSimulation(nextNode, nextParent);
                 searchable.undoInternalMove(nextNode.move);
             } else {
-                player1Score = WinProbabilityCaclulator.getChanceOfPlayer1Winning(lastMoveNode.move.getValue());
+                player1Score = WinProbabilityCalculator.getChanceOfPlayer1Winning(lastMoveNode.move.getValue());
             }
         }
 
@@ -229,11 +229,11 @@ public class UctStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>>
         if (numRandMoves >= numRandomLookAhead || searchable.done(lastMove, false)) {
             int score = searchable.worth(lastMove, weights_);
             lastMove.setValue(score);
-            return WinProbabilityCaclulator.getChanceOfPlayer1Winning(score);
+            return WinProbabilityCalculator.getChanceOfPlayer1Winning(score);
         }
         MoveList<M> moves = searchable.generateMoves(lastMove, weights_);
         if (moves.size() == 0) {
-            return WinProbabilityCaclulator.getChanceOfPlayer1Winning(lastMove.getValue());
+            return WinProbabilityCalculator.getChanceOfPlayer1Winning(lastMove.getValue());
         }
         M randomMove = moves.getRandomMoveForThresh(percentLessThanBestThresh);
 

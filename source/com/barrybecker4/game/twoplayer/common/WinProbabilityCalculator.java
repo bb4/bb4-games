@@ -10,12 +10,12 @@ import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy;
  *
  * @author Barry Becker
  */
-public class WinProbabilityCaclulator {
+public class WinProbabilityCalculator {
 
     /**
      * Constructor.
      */
-    public WinProbabilityCaclulator() {}
+    public WinProbabilityCalculator() {}
 
     /**
      * Returns a number between 0 and 1 representing the estimated probability of player 1 winning the game.

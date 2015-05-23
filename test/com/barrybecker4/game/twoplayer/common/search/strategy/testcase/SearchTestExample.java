@@ -9,7 +9,7 @@ import org.w3c.dom.NodeList;
 import java.io.File;
 
 /**
- * Reads in the test case definition from a file
+ * Reads in the test case definition from the xml case file and
  * runs the search methods specified and verifies the expected results.
  * @author Barry Becker
  */
@@ -23,7 +23,7 @@ public class SearchTestExample {
 
         Node root = doc.getDocumentElement();
 
-        name =  DomUtil.getAttribute(root, "name");
+        name = DomUtil.getAttribute(root, "name");
         NodeList children = root.getChildNodes();
 
         testCases = new SearchTestCases(children.item(0));

@@ -4,7 +4,7 @@ package com.barrybecker4.game.twoplayer.common.search.strategy;
 import com.barrybecker4.common.format.FormatUtil;
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
-import com.barrybecker4.game.twoplayer.common.WinProbabilityCaclulator;
+import com.barrybecker4.game.twoplayer.common.WinProbabilityCalculator;
 import com.barrybecker4.game.twoplayer.common.search.options.MonteCarloSearchOptions;
 import com.barrybecker4.game.twoplayer.common.search.tree.NodeAttributes;
 
@@ -73,7 +73,7 @@ public class UctNode<M extends TwoPlayerMove> {
      */
     public float getWinRate() {
         return (numVisits == 0) ?
-            WinProbabilityCaclulator.getChanceOfPlayer1Winning(move.getValue()) :
+            WinProbabilityCalculator.getChanceOfPlayer1Winning(move.getValue()) :
             numWins / (float)numVisits;
     }
 

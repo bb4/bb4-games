@@ -6,22 +6,23 @@ import com.barrybecker4.game.common.GameWeightsStub;
 import com.barrybecker4.game.twoplayer.common.search.Searchable;
 import com.barrybecker4.game.twoplayer.common.search.SearchableStub;
 import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub;
+import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.search.options.BestMovesSearchOptions;
 import com.barrybecker4.game.twoplayer.common.search.options.BruteSearchOptions;
 import com.barrybecker4.game.twoplayer.common.search.options.MonteCarloSearchOptions;
 import com.barrybecker4.game.twoplayer.common.search.options.SearchOptions;
-import com.barrybecker4.game.twoplayer.common.search.strategy.MiniMaxStrategy;
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy;
 import com.barrybecker4.optimization.parameter.ParameterArray;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.NoSuchElementException;
 
 import static com.barrybecker4.game.twoplayer.common.search.options.MonteCarloSearchOptions.MaximizationStyle;
 
 /**
+ * Corresponds to a test-case node in the case xml. It describes which search algorithm
+ * with what
  * @author Barry Becker
  */
 public class SearchTestCase {
@@ -45,17 +46,20 @@ public class SearchTestCase {
         }
     }
 
+    /**
+     * Create teh strategy using reflection and pass it the searchable.
+     * @return the search strategy to test
+     */
     public SearchStrategy<TwoPlayerMoveStub> createSearchStrategy()
             throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException,
             InvocationTargetException, InstantiationException {
 
-        SearchOptions searchOptions =
-                new SearchOptions(bruteSearchOptions, BEST_MOVE_OPTIONS, monteCarloSearchOptions);
+        SearchOptions<TwoPlayerMoveStub, TwoPlayerBoard<TwoPlayerMoveStub>> searchOptions =
+                new SearchOptions<>(bruteSearchOptions, BEST_MOVE_OPTIONS, monteCarloSearchOptions);
         Searchable searchable = new SearchableStub(searchOptions);
         GameWeights weights = new GameWeightsStub();
 
         // create the strategy using reflection
-
         return (SearchStrategy<TwoPlayerMoveStub>) Class.forName(className)
                 .getConstructor(Searchable.class, ParameterArray.class)
                 .newInstance(searchable, weights.getDefaultWeights());

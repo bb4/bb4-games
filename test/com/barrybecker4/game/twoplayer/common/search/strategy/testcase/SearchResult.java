@@ -1,4 +1,4 @@
-/** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
+/** Copyright by Barry G. Becker, 2000-2015. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.common.search.strategy.testcase;
 
 /**
@@ -14,6 +14,10 @@ public class SearchResult {
 
     /**
      * The result of a search.
+     * @param moveId a unique identifier for this move. Usually it encodes the position in the game tree.
+     * @param inheritedValue at the leaf, this is the result of board evaluation.
+     *                       At interior nodes it is determined by the search algorithm.
+     * @param numConsideredMoves the total number of moves considered to arrive at this result.
      */
     public SearchResult(String moveId, int inheritedValue, long numConsideredMoves) {
         this.moveId = moveId;
