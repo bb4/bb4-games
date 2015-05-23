@@ -15,7 +15,7 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  *
  * @author Barry Becker
  */
-public class MtdNegaMaxSearchStrategyTest extends NegaMaxMemorySearchStrategyTest {
+public class MtdNegaMaxStrategyTest extends NegaMaxMemoryStrategyTest {
 
     @Override
     protected SearchStrategy<TwoPlayerMoveStub> createSearchStrategy(Searchable searchable, ParameterArray weights) {

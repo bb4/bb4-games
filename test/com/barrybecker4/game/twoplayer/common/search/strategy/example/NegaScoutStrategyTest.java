@@ -13,7 +13,7 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  *
  * @author Barry Becker
  */
-public class NegaScoutSearchStrategyTest extends AbstractBruteSearchStrategyTst {
+public class NegaScoutStrategyTest extends AbstractBruteSearchStrategyTst {
 
     @Override
     protected SearchStrategy<TwoPlayerMoveStub> createSearchStrategy(Searchable searchable, ParameterArray weights) {

@@ -3,8 +3,8 @@ package com.barrybecker4.game.twoplayer.common.search.strategy.example;
 
 import com.barrybecker4.game.twoplayer.common.search.Searchable;
 import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub;
-import com.barrybecker4.game.twoplayer.common.search.strategy.MiniMaxStrategy;
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy;
+import com.barrybecker4.game.twoplayer.common.search.strategy.UctStrategy;
 import com.barrybecker4.optimization.parameter.ParameterArray;
 
 /**
@@ -12,11 +12,11 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  *
  * @author Barry Becker
  */
-public class MiniMaxSearchStrategyTest extends AbstractBruteSearchStrategyTst {
+public class UctStrategyTest extends MonteCarloSearchStrategyTst {
 
     @Override
     protected SearchStrategy<TwoPlayerMoveStub> createSearchStrategy(Searchable searchable, ParameterArray weights) {
-        return new MiniMaxStrategy<>(searchable, weights);
+        return new UctStrategy(searchable, weights);
     }
 
 }

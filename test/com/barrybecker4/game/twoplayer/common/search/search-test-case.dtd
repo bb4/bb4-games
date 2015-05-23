@@ -21,23 +21,23 @@
 >
 
 <!ATTLIST brute-force-options
-    look-ahead CDATA            "3"
-    alpha-beta (true|false)     "false"
-    quiescence (true|false)     "false"
-    max-quiescent-depth CDATA   "3"
+    look-ahead           CDATA           "3"
+    alpha-beta          (true|false)     "false"
+    quiescence          (true|false)     "false"
+    max-quiescent-depth  CDATA            "3"
 >
 
 <!ATTLIST monte-carlo-options
-    max-simulations      CDATA     "100"
-    expore-exploit-ratio CDATA     "1.0"
-    random-look-ahead    CDATA     "3"
-    max-style           (WIN_RATE|NUM_VISITS) "WIN_RATE"
+    max-simulations        CDATA         "100"
+    explore-exploit-ratio   CDATA         "1.0"
+    random-look-ahead      CDATA          "3"
+    max-style             (WIN_RATE|NUM_VISITS) "WIN_RATE"
 >
 
 <!ATTLIST expected-search-result
-    move-id              CDATA    #REQUIRED
-    inherited-value      CDATA    #REQUIRED
-    num-moves-considered CDATA    #REQUIRED
+    move-id                CDATA      #REQUIRED
+    inherited-value        CDATA      #REQUIRED
+    num-moves-considered   CDATA      #REQUIRED
 >
 
 <!ATTLIST node
