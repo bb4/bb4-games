@@ -14,6 +14,10 @@
               <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
               <expected-search-result move-id="root" inherited-value="4096" num-moves-considered="0"/>
         </test-case>
+        <test-case strategy="NegaMaxStrategy" notes="Winning root move found (with alpha/beta) (correct?)">
+              <brute-force-options look-ahead="3" alpha-beta="true" quiescence="false" max-quiescent-depth="3"/>
+              <expected-search-result move-id="NO_MOVE" inherited-value="0" num-moves-considered="0"/>
+        </test-case>
     </test-cases>
 
     <node value="4096" />

@@ -14,6 +14,11 @@
             <brute-force-options look-ahead="1" alpha-beta="false" quiescence="false" max-quiescent-depth="1"/>
             <expected-search-result move-id="0" inherited-value="-8" num-moves-considered="2"/>
         </test-case>
+        <test-case strategy="MiniMaxStrategy" notes="No move for look ahead 0">
+            <brute-force-options look-ahead="0" alpha-beta="false" quiescence="false" max-quiescent-depth="0"/>
+            <expected-search-result move-id="root" inherited-value="6" num-moves-considered="0"/>
+        </test-case>
+
         <test-case strategy="NegaMaxStrategy" notes="Winning next move for depth 3">
               <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
               <expected-search-result move-id="0" inherited-value="4096" num-moves-considered="2"/>
@@ -25,6 +30,10 @@
         <test-case strategy="NegaMaxStrategy" notes="no next move for depth 1">
               <brute-force-options look-ahead="1" alpha-beta="false" quiescence="false" max-quiescent-depth="1"/>
               <expected-search-result move-id="0" inherited-value="-8" num-moves-considered="2"/>
+        </test-case>
+        <test-case strategy="NegaMaxStrategy" notes="No move for look ahead 0">
+            <brute-force-options look-ahead="0" alpha-beta="false" quiescence="false" max-quiescent-depth="0"/>
+            <expected-search-result move-id="root" inherited-value="6" num-moves-considered="0"/>
         </test-case>
     </test-cases>
 
