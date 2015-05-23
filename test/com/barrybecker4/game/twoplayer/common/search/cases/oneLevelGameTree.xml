@@ -2,7 +2,7 @@
 <!DOCTYPE search-test-example SYSTEM "http://barrybecker4.com/schema/search-test-case.dtd">
 <search-test-example name="zero-level-game-tree">
     <test-cases>
-        <test-case name="MiniMaxSearchStrategy">
+        <test-case name="MiniMaxStrategy">
             <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
             <expected-search-result move-id="1" inherited-value="8" num-moves-considered="3"/>
         </test-case>

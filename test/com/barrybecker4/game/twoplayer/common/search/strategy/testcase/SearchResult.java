@@ -1,6 +1,12 @@
 /** Copyright by Barry G. Becker, 2000-2015. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.common.search.strategy.testcase;
 
+import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
+import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub;
+import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy;
+
+import static com.barrybecker4.game.twoplayer.common.search.strategy.EvaluationPerspective.CURRENT_PLAYER;
+
 /**
  * Meta information about a move made during search.
  *
@@ -23,6 +29,26 @@ public class SearchResult {
         this.moveId = moveId;
         this.inheritedValue = inheritedValue;
         this.numMovesConsidered = numConsideredMoves;
+    }
+
+    /**
+     * This does the actual search for the found move given the strategy to use
+     * @param initialMove the root move in the game tree
+     * @param searchStrategy the search strategy to use to find the result move
+     */
+    public SearchResult(TwoPlayerMoveStub initialMove, SearchStrategy<TwoPlayerMoveStub> searchStrategy) {
+
+        TwoPlayerMoveStub foundMove = searchStrategy.search(initialMove, null);
+
+        int inheritedValue = foundMove.getInheritedValue();
+
+        if (searchStrategy.getEvaluationPerspective() == CURRENT_PLAYER) {
+            inheritedValue = initialMove.isPlayer1() ? -inheritedValue : inheritedValue;
+        }
+
+        this.moveId = foundMove.getId();
+        this.inheritedValue = inheritedValue;
+        this.numMovesConsidered = searchStrategy.getNumMovesConsidered();
     }
 
     public String getMoveId() {

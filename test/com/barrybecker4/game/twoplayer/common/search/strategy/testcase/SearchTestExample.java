@@ -33,6 +33,9 @@ public class SearchTestExample {
         gameTree.print();
     }
 
+    public String getName() {
+        return name;
+    }
 
     public SearchTestCases getTestCases() {
         return testCases;

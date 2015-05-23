@@ -27,6 +27,9 @@ import static com.barrybecker4.game.twoplayer.common.search.options.MonteCarloSe
  */
 public class SearchTestCase {
 
+    /** It is assumed that all the strategy classes come from this package */
+    private static final String STRATEGY_PACKAGE = "com.barrybecker4.game.twoplayer.common.search.strategy.";
+
     /** the tests assume all the moves are used. We might want to also vary this later */
     private static final BestMovesSearchOptions BEST_MOVE_OPTIONS = new BestMovesSearchOptions(100, 0, 20);
     private String className;
@@ -60,9 +63,14 @@ public class SearchTestCase {
         GameWeights weights = new GameWeightsStub();
 
         // create the strategy using reflection
-        return (SearchStrategy<TwoPlayerMoveStub>) Class.forName(className)
+        return (SearchStrategy<TwoPlayerMoveStub>) Class.forName(STRATEGY_PACKAGE + className)
                 .getConstructor(Searchable.class, ParameterArray.class)
                 .newInstance(searchable, weights.getDefaultWeights());
+    }
+
+    /** @return name of the search strategy class fo this test case */
+    public String getName() {
+        return className;
     }
 
     public SearchResult getExpectedResult() {
@@ -87,7 +95,7 @@ public class SearchTestCase {
             case "expected-search-result":
                 String moveId = DomUtil.getAttribute(child, "move-id");
                 int inheritedValue = Integer.parseInt(DomUtil.getAttribute(child, "inherited-value"));
-                int numConsideredMoves = Integer.parseInt(DomUtil.getAttribute(child, "num-considered-moves"));
+                int numConsideredMoves = Integer.parseInt(DomUtil.getAttribute(child, "num-moves-considered"));
                 expectedResult = new SearchResult(moveId, inheritedValue, numConsideredMoves);
                 break;
             default:

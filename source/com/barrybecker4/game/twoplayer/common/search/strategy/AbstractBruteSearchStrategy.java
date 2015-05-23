@@ -69,7 +69,7 @@ public abstract class AbstractBruteSearchStrategy<M extends TwoPlayerMove, B ext
     public M search(M lastMove, SearchTreeNode parent) {
 
         SearchWindow window = getOptions().getBruteSearchOptions().getInitialSearchWindow();
-        return searchInternal(lastMove, lookAhead_, window,  parent );
+        return searchInternal(lastMove, lookAhead_, window,  parent);
     }
 
     M searchInternal(M lastMove, int depth, SearchWindow window, SearchTreeNode parent) {

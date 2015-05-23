@@ -5,7 +5,7 @@
 
 <!ELEMENT search-test-example    (test-cases, node)>
 <!ELEMENT test-cases             (test-case)+>
-<!ELEMENT test-case              (brute-force-options|monte-carlo-options,expected-search-result)>
+<!ELEMENT test-case              ((brute-force-options|monte-carlo-options),expected-search-result)>
 <!ELEMENT brute-force-options    EMPTY>
 <!ELEMENT monte-carlo-options    EMPTY>
 <!ELEMENT expected-search-result EMPTY>
@@ -27,20 +27,20 @@
 >
 
 <!ATTLIST monte-carlo-options
-    max-simulations CDATA       "100"
-    expore-exploit-ratio CADATA "1.0"
-    random-look-ahead CDATA     "3"
-    max-style (WIN_RATE, NUM_VISITS) "WIN_RATE"
+    max-simulations      CDATA     "100"
+    expore-exploit-ratio CDATA     "1.0"
+    random-look-ahead    CDATA     "3"
+    max-style           (WIN_RATE|NUM_VISITS) "WIN_RATE"
 >
 
 <!ATTLIST expected-search-result
     move-id              CDATA    #REQUIRED
     inherited-value      CDATA    #REQUIRED
-    num-moves-considered CADATA   #REQUIRED
+    num-moves-considered CDATA    #REQUIRED
 >
 
 <!ATTLIST node
-    value       CADATA          #REQUIRED
-    notes        CDATA          #IMPLIED
+    value          CDATA          #REQUIRED
+    notes          CDATA          #IMPLIED
 >
 
