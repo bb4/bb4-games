@@ -76,7 +76,7 @@ public class AllStrategiesTestRunner {
             SearchResult actualResult =
                 new SearchResult(test.getInitialMove(), searchStrategy);
 
-            assertEquals("Wrong result found for " +test.getName() + " " + testCase.getName(),
+            assertEquals("Wrong result found for " +test.getName() + " " + testCase.toString(),
                     testCase.getExpectedResult(), actualResult);
 
             /* maybe check the transposition table too

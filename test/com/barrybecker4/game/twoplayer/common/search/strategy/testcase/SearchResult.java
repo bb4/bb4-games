@@ -14,6 +14,9 @@ import static com.barrybecker4.game.twoplayer.common.search.strategy.EvaluationP
  */
 public class SearchResult {
 
+    /** this is the move id when there is no next move at all */
+    public static final String NO_MOVE = "NO_MOVE";
+
     String moveId;
     int inheritedValue;
     long numMovesConsidered;
@@ -40,13 +43,19 @@ public class SearchResult {
 
         TwoPlayerMoveStub foundMove = searchStrategy.search(initialMove, null);
 
-        int inheritedValue = foundMove.getInheritedValue();
+        int inheritedValue = 0;
+        if (foundMove != null)  {
+            inheritedValue = foundMove.getInheritedValue();
 
-        if (searchStrategy.getEvaluationPerspective() == CURRENT_PLAYER) {
-            inheritedValue = initialMove.isPlayer1() ? -inheritedValue : inheritedValue;
+            if (searchStrategy.getEvaluationPerspective() == CURRENT_PLAYER) {
+                inheritedValue = initialMove.isPlayer1() ? -inheritedValue : inheritedValue;
+            }
+            this.moveId = foundMove.getId();
+        }
+        else {
+            this.moveId = NO_MOVE;
         }
 
-        this.moveId = foundMove.getId();
         this.inheritedValue = inheritedValue;
         this.numMovesConsidered = searchStrategy.getNumMovesConsidered();
     }

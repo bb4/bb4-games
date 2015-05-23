@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE search-test-example SYSTEM "http://barrybecker4.com/schema/search-test-case.dtd">
-<search-test-example name="zero-level-game-tree">
+<search-test-example name="one-level-game-tree">
     <test-cases>
-        <test-case name="MiniMaxStrategy">
+        <test-case strategy="MiniMaxStrategy" notes="no move for look ahead 3">
             <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
-            <expected-search-result move-id="1" inherited-value="8" num-moves-considered="3"/>
+            <expected-search-result move-id="NO_MOVE" inherited-value="0" num-moves-considered="0"/>
+        </test-case>
+        <test-case strategy="MiniMaxStrategy" notes="some move for look ahead 2">
+            <brute-force-options look-ahead="2" alpha-beta="false" quiescence="false" max-quiescent-depth="2"/>
+            <expected-search-result move-id="root" inherited-value="6" num-moves-considered="0"/>
+        </test-case>
+        <test-case strategy="MiniMaxStrategy" notes="No move for look ahead 1">
+            <brute-force-options look-ahead="1" alpha-beta="false" quiescence="false" max-quiescent-depth="1"/>
+            <expected-search-result move-id="NO_MOVE" inherited-value="0" num-moves-considered="0"/>
         </test-case>
     </test-cases>
 

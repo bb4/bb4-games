@@ -13,10 +13,11 @@
 
 
 <!ATTLIST search-test-example
-    name     NMTOKEN     #REQUIRED
+    name         NMTOKEN     #REQUIRED
 >
 <!ATTLIST test-case
-    name     NMTOKEN     #REQUIRED
+    strategy     NMTOKEN     #REQUIRED
+    notes        CDATA       #IMPLIED
 >
 
 <!ATTLIST brute-force-options

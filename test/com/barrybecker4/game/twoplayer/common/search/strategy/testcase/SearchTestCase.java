@@ -33,12 +33,14 @@ public class SearchTestCase {
     /** the tests assume all the moves are used. We might want to also vary this later */
     private static final BestMovesSearchOptions BEST_MOVE_OPTIONS = new BestMovesSearchOptions(100, 0, 20);
     private String className;
+    private String notes;
     private BruteSearchOptions bruteSearchOptions;
     private MonteCarloSearchOptions monteCarloSearchOptions;
     private SearchResult expectedResult;
 
     SearchTestCase(Node testCaseNode) {
-        className = DomUtil.getAttribute(testCaseNode, "name");
+        className = DomUtil.getAttribute(testCaseNode, "strategy");
+        notes = DomUtil.getAttribute(testCaseNode, "notes");
         bruteSearchOptions = new BruteSearchOptions();
         monteCarloSearchOptions = new MonteCarloSearchOptions();
 
@@ -73,8 +75,16 @@ public class SearchTestCase {
         return className;
     }
 
+    public String toString() {
+        return getName() + " " + getNotes();
+    }
+
     public SearchResult getExpectedResult() {
         return expectedResult;
+    }
+
+    private String getNotes() {
+        return notes == null ? "" : notes;
     }
 
     private void processNode(Node child) {
