@@ -42,15 +42,15 @@
         </test-case>
         <test-case strategy="NegaScoutMemoryStrategy" notes="Winning next move for depth 3">
               <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
-              <expected-search-result move-id="0" inherited-value="4096" num-moves-considered="2"/>
+              <expected-search-result move-id="root" inherited-value="6" num-moves-considered="0"/>
         </test-case>
         <test-case strategy="UctStrategy" notes="Winning next move for depth 3">
               <monte-carlo-options max-simulations="10" explore-exploit-ratio="1.0" random-look-ahead="3" />
-              <expected-search-result move-id="0" inherited-value="8" num-moves-considered="3"/>
+              <expected-search-result move-id="0" inherited-value="-4096" num-moves-considered="3"/>
         </test-case>
         <test-case strategy="UctStrategy" notes="Winning next move for depth 1">
               <monte-carlo-options max-simulations="10" explore-exploit-ratio="1.0" random-look-ahead="1" />
-              <expected-search-result move-id="0" inherited-value="8" num-moves-considered="3"/>
+              <expected-search-result move-id="0" inherited-value="-4096" num-moves-considered="3"/>
         </test-case>
 
     </test-cases>
