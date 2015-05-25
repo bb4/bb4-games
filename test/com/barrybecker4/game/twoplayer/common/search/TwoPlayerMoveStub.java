@@ -58,6 +58,8 @@ public class TwoPlayerMoveStub extends TwoPlayerMove {
     /**
      * Unique move id that defines where in the game tree this move resides.
      * Something we can match against when testing.
+     * Each character in the id is a digit that corresponds to traveling a path
+     * from the nth child from root to this node.
      *
      * @return unique id for move in tree
      */
@@ -71,9 +73,10 @@ public class TwoPlayerMoveStub extends TwoPlayerMove {
         String id = "";
         while (parentMove != null) {
             int index = parentMove.getChildren().indexOf(current);
-            if (index < 0)
-                System.out.println(getValue() + " not found among " + getParent().getChildren().size() + " parent children of " + getParent());
-            id += Integer.toString(index);
+            assert (index >= 0) :
+                getValue() + " not found among " + getParent().getChildren().size()
+                        + " parent children of " + getParent();
+            id = Integer.toString(index) + id;
             current = parentMove;
             parentMove = parentMove.getParent();
         }
@@ -92,7 +95,6 @@ public class TwoPlayerMoveStub extends TwoPlayerMove {
             print("  " + indent, (TwoPlayerMoveStub)move);
         }
     }
-
 
     public String toString() {
         return "id:" + getId() + " value:" + getValue()

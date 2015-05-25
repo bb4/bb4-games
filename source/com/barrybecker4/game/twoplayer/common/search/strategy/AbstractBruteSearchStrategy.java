@@ -94,8 +94,8 @@ public abstract class AbstractBruteSearchStrategy<M extends TwoPlayerMove, B ext
 
         if (emptyMoveList(list, lastMove)) {
             updatePercentDone(depth, list);
-            // if there are no possible next moves, return null (we hit the end of the game).
-            return null;
+            // if there are no possible next moves, return th lastMove (we hit the end of the game).
+            return lastMove;
         }
 
         return findBestMove(lastMove, depth, list, window, parent);
@@ -117,11 +117,9 @@ public abstract class AbstractBruteSearchStrategy<M extends TwoPlayerMove, B ext
      * @return true of we should continue searching a bit to find a stable/quiescent move.
      */
     protected boolean doQuiescentSearch(int depth, boolean done, M lastMove) {
+        if (!quiescence_) return false;
         boolean inJeopardy = searchable.inJeopardy(lastMove, weights_);
-        return quiescence_
-                 && depth > -maxQuiescentDepth_
-                 && !done
-                 && inJeopardy;
+        return depth > -maxQuiescentDepth_ && !done && inJeopardy;
     }
 
 

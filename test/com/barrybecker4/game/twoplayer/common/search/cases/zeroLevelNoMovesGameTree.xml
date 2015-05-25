@@ -4,7 +4,7 @@
     <test-cases>
         <test-case strategy="MiniMaxStrategy" notes="no next move for depth 3">
               <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
-              <expected-search-result move-id="NO_MOVE" inherited-value="0" num-moves-considered="0"/>
+              <expected-search-result move-id="root" inherited-value="6" num-moves-considered="0"/>
         </test-case>
         <test-case strategy="MiniMaxStrategy" notes="root next move for depth 1">
               <brute-force-options look-ahead="1" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
@@ -16,7 +16,7 @@
         </test-case>
         <test-case strategy="NegaMaxStrategy" notes="no next move for depth 1">
               <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
-              <expected-search-result move-id="NO_MOVE" inherited-value="0" num-moves-considered="0"/>
+              <expected-search-result move-id="root" inherited-value="-6" num-moves-considered="0"/>
         </test-case>
     </test-cases>
 

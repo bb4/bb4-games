@@ -66,8 +66,8 @@ public class SearchTestCase {
         // create the strategy using reflection
         if (className.startsWith("MtdStrategy:")) {
             // If mtd based strategy, the memory strategy gets wrapped.
-            className = className.substring("MtdStrategy:".length());
-            return new MtdStrategy<>((MemorySearchStrategy)createInstanceForClass(className, searchable));
+            String theClassName = className.substring("MtdStrategy:".length());
+            return new MtdStrategy<>((MemorySearchStrategy)createInstanceForClass(theClassName, searchable));
         }
         return createInstanceForClass(className, searchable);
     }

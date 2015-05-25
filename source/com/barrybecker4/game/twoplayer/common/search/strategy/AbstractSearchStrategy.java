@@ -96,12 +96,12 @@ public abstract class AbstractSearchStrategy<M extends TwoPlayerMove, B extends 
     protected boolean emptyMoveList(MoveList<M> list, M lastMove ) {
         if ( !list.isEmpty() ) return false;
 
-        //If there are no next moves, the game is over and the last player to move won
-        if ( lastMove.isPlayer1() )
-            lastMove.setInheritedValue(WINNING_VALUE);
+        // If there are no next moves, the inherited value is the value
+        lastMove.setInheritedValue(lastMove.getValue());
+        /*if (lastMove.isPlayer1())
+            lastMove.setInheritedValue(lastMove.getValue());
         else
-            lastMove.setInheritedValue(-WINNING_VALUE);
-
+            lastMove.setInheritedValue(-lastMove.getValue());*/
         return true;
     }
 

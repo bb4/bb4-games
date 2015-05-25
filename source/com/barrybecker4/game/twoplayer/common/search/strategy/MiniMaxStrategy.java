@@ -15,8 +15,8 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  * @author Barry Becker
  */
 public final class MiniMaxStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>>
-        extends AbstractBruteSearchStrategy<M, B>
-{
+        extends AbstractBruteSearchStrategy<M, B> {
+
     /**
      * Constructor for the strategy.
      */
@@ -26,16 +26,17 @@ public final class MiniMaxStrategy<M extends TwoPlayerMove, B extends TwoPlayerB
 
     @Override
     protected M findBestMove(M lastMove, int depth, MoveList<M> list,
-                                         SearchWindow window, SearchTreeNode parent) {
+                             SearchWindow window, SearchTreeNode parent) {
         int i = 0;
         int selectedValue;
         M selectedMove;
         // if player 1, then search for a high score, else search for a low score.
         boolean player1 = lastMove.isPlayer1();
-        int bestInheritedValue = player1? SearchStrategy.INFINITY: -SearchStrategy.INFINITY;
+        int bestInheritedValue = player1 ? SearchStrategy.INFINITY: -SearchStrategy.INFINITY;
+        //System.out.println("(depth = " + depth + ")"+window+"  Find best moves among \n" + list);
 
         M bestMove = list.get(0);
-        while ( !list.isEmpty() ) {
+        while (!list.isEmpty()) {
             if (pauseInterrupted())
                 return lastMove;
 
@@ -43,7 +44,8 @@ public final class MiniMaxStrategy<M extends TwoPlayerMove, B extends TwoPlayerB
             updatePercentDone(depth, list);
 
             searchable.makeInternalMove( theMove );
-            SearchTreeNode child = addNodeToTree(parent, theMove, window); i++;
+            SearchTreeNode child = addNodeToTree(parent, theMove, window);
+            i++;
 
             // recursive call
             selectedMove = searchInternal( theMove, depth-1, window.copy(), child );
@@ -70,6 +72,7 @@ public final class MiniMaxStrategy<M extends TwoPlayerMove, B extends TwoPlayerB
             }
         }
 
+        //System.out.println("(" + depth + ")Best move selected = " + bestMove);
         bestMove.setSelected(true);
         lastMove.setInheritedValue(bestMove.getInheritedValue());
         return bestMove;
@@ -80,7 +83,7 @@ public final class MiniMaxStrategy<M extends TwoPlayerMove, B extends TwoPlayerB
      * @return  whether or not we should prune the current subtree.
      */
     private boolean pruneAtCurrentNode(SearchWindow window, int selectedValue, boolean player1) {
-        if ( player1 && (selectedValue < window.alpha) ) {
+        if (player1 && (selectedValue < window.alpha)) {
             if ( selectedValue < window.beta ) {
                 return true;
             }
@@ -88,7 +91,7 @@ public final class MiniMaxStrategy<M extends TwoPlayerMove, B extends TwoPlayerB
                 window.alpha = selectedValue;
             }
         }
-        if ( !player1 && (selectedValue > window.beta) ) {
+        if (!player1 && (selectedValue > window.beta)) {
             if ( selectedValue > window.alpha ) {
                 return true;
             }
