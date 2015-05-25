@@ -25,7 +25,7 @@ public class AlphaBetaPruneExample extends AbstractGameTreeExample  {
     public AlphaBetaPruneExample(boolean player1PlaysNext) {
         super();
 
-        initialMove = moveCreator.createMove(10, !player1PlaysNext, null);
+        initialMove = moveCreator.createMove(0, !player1PlaysNext, null);
 
         // first ply
         TwoPlayerMoveStub move0 = moveCreator.createMove(1, player1PlaysNext, initialMove);

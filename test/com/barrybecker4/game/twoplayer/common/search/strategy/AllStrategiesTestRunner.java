@@ -54,8 +54,10 @@ public class AllStrategiesTestRunner {
 
         Collection<Object[]> testCases = new ArrayList<>();
         for (File file : testCaseFiles) {
-            Object[] fileArg = new Object[] { file };
-            testCases.add(fileArg);
+            if (file.getPath().endsWith(".xml")) {
+                 Object[] fileArg = new Object[] { file };
+                testCases.add(fileArg);
+            }
         }
 
         return testCases;
@@ -69,14 +71,13 @@ public class AllStrategiesTestRunner {
         System.out.println("Filename is : " + file);
 
         for (SearchTestCase testCase : test.getTestCases()) {
-            //System.out.println("testCase = "+ testCase.toString());
 
             SearchStrategy<TwoPlayerMoveStub> searchStrategy = testCase.createSearchStrategy();
 
             SearchResult actualResult =
                 new SearchResult(test.getInitialMove(), searchStrategy);
 
-            assertEquals("Wrong result found for " +test.getName() + " " + testCase.toString(),
+            assertEquals("Wrong result found for " +test.getName() + "\n " + testCase.toString() + "\n",
                     testCase.getExpectedResult(), actualResult);
 
             /* maybe check the transposition table too

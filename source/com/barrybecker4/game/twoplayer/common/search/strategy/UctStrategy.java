@@ -89,9 +89,9 @@ public class UctStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>>
     }
 
     /**
-     * This recursive method ultimately expands the in memory game trying by one node and updates that nodes parents.
+     * This recursive method ultimately expands the in-memory game tree by one node and updates that node's parents.
      *
-     *  return 0=lose 1=win for current player to move
+     * return 0=lose 1=win for current player to move
      * int playSimulation(Node n) {
            int randomresult=0;
            if (n.child==null && n.visits<10) { // 10 simulations until chilren are expanded (saves memory)
@@ -152,22 +152,22 @@ public class UctStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>>
     /**
      * Selects the best child of parentNode.
      *
-     *  // Larger values give uniform search
-    // Smaller values give very selective search
-    public Node UCTSelect(Node node) {
-        Node res=null;
-        Node next = node.child;
-        double best_uct=0;
-        while (next!=null) { // for all children
-            uctvalue = next.calcUctValue(exploreExploit, numVisists)
-            if (uctvalue > best_uct) { // get max uctvalue of all children
-                    best_uct = uctvalue;
-                    res = next;
-            }
-            next = next.sibling;
-        }
-        return res;
-    }
+     * // Larger values give uniform search
+     * // Smaller values give very selective search
+     * public Node UCTSelect(Node node) {
+     *    Node res=null;
+     *    Node next = node.child;
+     *    double best_uct=0;
+     *    while (next!=null) { // for all children
+     *        uctvalue = next.calcUctValue(exploreExploit, numVisists)
+     *        if (uctvalue > best_uct) { // get max uctvalue of all children
+     *                best_uct = uctvalue;
+     *                res = next;
+     *        }
+     *        next = next.sibling;
+     *    }
+     *    return res;
+     * }
      * @return the best child of parentNode. May be null if there are no next moves.
      */
     private UctNode<M> uctSelect(UctNode<M> parentNode) {

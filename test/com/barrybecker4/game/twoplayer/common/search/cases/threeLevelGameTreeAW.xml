@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE search-test-example SYSTEM "http://barrybecker4.com/schema/search-test-case.dtd">
+<search-test-example name="three-level-game-tree-AlgorithWiki">
+    <test-cases>
+        <test-case strategy="MiniMaxStrategy" notes="Winning move for look ahead 3">
+            <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
+            <expected-search-result move-id="0" inherited-value="11" num-moves-considered="15"/>
+        </test-case>
+        <!--test-case strategy="MiniMaxStrategy" notes="Winning move for look ahead 3">
+            <brute-force-options look-ahead="3" alpha-beta="true" quiescence="false" max-quiescent-depth="3"/>
+            <expected-search-result move-id="0" inherited-value="11" num-moves-considered="15"/>
+        </test-case>
+
+        <test-case strategy="NegaMaxStrategy" notes="Winning next move for depth 3">
+              <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
+              <expected-search-result move-id="0" inherited-value="11" num-moves-considered="2"/>
+        </test-case>
+
+        <test-case strategy="NegaMaxMemoryStrategy" notes="Winning next move for depth 3">
+              <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
+              <expected-search-result move-id="0" inherited-value="11" num-moves-considered="15"/>
+        </test-case>
+        <test-case strategy="NegaScoutMemoryStrategy" notes="Winning next move for depth 3">
+              <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
+              <expected-search-result move-id="root" inherited-value="11" num-moves-considered="0"/>
+        </test-case>
+        <test-case strategy="UctStrategy" notes="Winning next move for depth 3">
+              <monte-carlo-options max-simulations="10" explore-exploit-ratio="1.0" random-look-ahead="3" />
+              <expected-search-result move-id="0" inherited-value="11" num-moves-considered="3"/>
+        </test-case-->
+
+
+    </test-cases>
+
+    <node value="6">
+        <node value="8">
+            <node value="12"/>
+            <node value="9"/>
+        </node>
+        <node value="14">
+             <node value="3">
+                <node value="2"/>
+             </node>
+             <node value="12">
+                <node value="1"/>
+                <node value="19"/>
+             </node>
+        </node>
+        <node value="2">
+            <node value="17">
+                <node value="16"/>
+            </node>
+            <node value="11"/>
+            <node value="10">
+                <node value="18"/>
+            </node>
+        </node>
+    </node>
+</search-test-example>
+
+
+

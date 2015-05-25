@@ -53,6 +53,16 @@
               <expected-search-result move-id="0" inherited-value="-4096" num-moves-considered="3"/>
         </test-case>
 
+        <test-case strategy="MtdStrategy:NegaMaxMemoryStrategy" notes="Winning next move for depth 3">
+              <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
+              <expected-search-result move-id="0" inherited-value="4096" num-moves-considered="2"/>
+        </test-case>
+        <test-case strategy="MtdStrategy:NegaScoutMemoryStrategy" notes="Winning next move for depth 3">
+              <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
+              <expected-search-result move-id="0" inherited-value="4096" num-moves-considered="2"/>
+        </test-case>
+
+
     </test-cases>
 
     <node value="6">

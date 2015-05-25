@@ -11,6 +11,8 @@ import com.barrybecker4.game.twoplayer.common.search.options.BestMovesSearchOpti
 import com.barrybecker4.game.twoplayer.common.search.options.BruteSearchOptions;
 import com.barrybecker4.game.twoplayer.common.search.options.MonteCarloSearchOptions;
 import com.barrybecker4.game.twoplayer.common.search.options.SearchOptions;
+import com.barrybecker4.game.twoplayer.common.search.strategy.MemorySearchStrategy;
+import com.barrybecker4.game.twoplayer.common.search.strategy.MtdStrategy;
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy;
 import com.barrybecker4.optimization.parameter.ParameterArray;
 import org.w3c.dom.Node;
@@ -55,19 +57,36 @@ public class SearchTestCase {
      * Create teh strategy using reflection and pass it the searchable.
      * @return the search strategy to test
      */
-    public SearchStrategy<TwoPlayerMoveStub> createSearchStrategy()
-            throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException,
-            InvocationTargetException, InstantiationException {
+    public SearchStrategy<TwoPlayerMoveStub> createSearchStrategy() {
 
         SearchOptions<TwoPlayerMoveStub, TwoPlayerBoard<TwoPlayerMoveStub>> searchOptions =
                 new SearchOptions<>(bruteSearchOptions, BEST_MOVE_OPTIONS, monteCarloSearchOptions);
         Searchable searchable = new SearchableStub(searchOptions);
-        GameWeights weights = new GameWeightsStub();
 
         // create the strategy using reflection
-        return (SearchStrategy<TwoPlayerMoveStub>) Class.forName(STRATEGY_PACKAGE + className)
-                .getConstructor(Searchable.class, ParameterArray.class)
-                .newInstance(searchable, weights.getDefaultWeights());
+        if (className.startsWith("MtdStrategy:")) {
+            // If mtd based strategy, the memory strategy gets wrapped.
+            className = className.substring("MtdStrategy:".length());
+            return new MtdStrategy<>((MemorySearchStrategy)createInstanceForClass(className, searchable));
+        }
+        return createInstanceForClass(className, searchable);
+    }
+
+    private SearchStrategy<TwoPlayerMoveStub> createInstanceForClass(
+            String className, Searchable searchable)  {
+
+        SearchStrategy<TwoPlayerMoveStub> newStrategy = null;
+        GameWeights weights = new GameWeightsStub();
+
+        try {
+            newStrategy = (SearchStrategy<TwoPlayerMoveStub>) Class.forName(STRATEGY_PACKAGE + className)
+                    .getConstructor(Searchable.class, ParameterArray.class)
+                    .newInstance(searchable, weights.getDefaultWeights());
+        } catch (InstantiationException | IllegalAccessException
+                | NoSuchMethodException | InvocationTargetException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return newStrategy;
     }
 
     /** @return name of the search strategy class fo this test case */
