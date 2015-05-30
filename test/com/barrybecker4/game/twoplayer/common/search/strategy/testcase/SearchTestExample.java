@@ -29,8 +29,8 @@ public class SearchTestExample {
         testCases = new SearchTestCases(children.item(0));
         gameTree = new GameTree(children.item(1));
 
-        System.out.println("TREE = ");
-        gameTree.print();
+        //System.out.println("TREE = ");
+        //gameTree.print();
     }
 
     public String getName() {

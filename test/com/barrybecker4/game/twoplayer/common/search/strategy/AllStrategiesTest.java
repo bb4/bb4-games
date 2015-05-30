@@ -22,9 +22,12 @@ public class AllStrategiesTest  {
     @Test
     public void runAllTestCases() {
         Result result = JUnitCore.runClasses(AllStrategiesTestRunner.class);
-        System.out.println("Num failures = " + result.getFailureCount());
-        for (Failure failure : result.getFailures()) {
-             System.out.println(failure.toString());
+        if (!result.wasSuccessful()) {
+            System.out.println(" *** FAILURES (" + result.getFailureCount() + ") ***\n");
+            for (Failure failure : result.getFailures()) {
+                System.out.println(failure.getException().getMessage());
+                //System.out.println(failure.toString());
+            }
         }
         assertTrue("There were failures.", result.wasSuccessful());
     }

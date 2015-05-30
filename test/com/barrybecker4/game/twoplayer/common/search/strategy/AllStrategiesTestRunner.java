@@ -40,7 +40,6 @@ public class AllStrategiesTestRunner {
 
     @Before
     public void initialize() {
-      //primeNumberChecker = new PrimeNumberChecker();
     }
 
     public AllStrategiesTestRunner(File file) {
@@ -77,7 +76,7 @@ public class AllStrategiesTestRunner {
             SearchResult actualResult =
                 new SearchResult(test.getInitialMove(), searchStrategy);
 
-            assertEquals("Wrong result found for " +test.getName() + "\n " + testCase.toString() + "\n",
+            assertEquals("\nWrong result found for " +test.getName() + "\n " + testCase.toString() + "\n",
                     testCase.getExpectedResult(), actualResult);
 
             /* maybe check the transposition table too

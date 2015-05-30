@@ -95,7 +95,7 @@ public class SearchTestCase {
     }
 
     public String toString() {
-        return getName() + " " + getNotes();
+        return getName() + ": " + getNotes();
     }
 
     public SearchResult getExpectedResult() {
