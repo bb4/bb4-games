@@ -32,8 +32,8 @@ public final class MiniMaxStrategy<M extends TwoPlayerMove, B extends TwoPlayerB
         M selectedMove;
         // if player 1, then search for a high score, else search for a low score.
         boolean player1 = lastMove.isPlayer1();
-        int bestInheritedValue = player1 ? SearchStrategy.INFINITY: -SearchStrategy.INFINITY;
-        //System.out.println("(depth = " + depth + ")"+window+"  Find best moves among \n" + list);
+        int bestInheritedValue = player1 ? -SearchStrategy.INFINITY: SearchStrategy.INFINITY;
+        System.out.println("(depth = " + depth + ")"+window+"  Find best moves among \n" + list);
 
         M bestMove = list.get(0);
         while (!list.isEmpty()) {
@@ -55,12 +55,12 @@ public final class MiniMaxStrategy<M extends TwoPlayerMove, B extends TwoPlayerB
             if (selectedMove != null) {
                 selectedValue = selectedMove.getInheritedValue();
                 if ( player1 ) {
-                    if ( selectedValue < bestInheritedValue ) {
+                    if ( selectedValue > bestInheritedValue ) {
                         bestMove = theMove;
                         bestInheritedValue = bestMove.getInheritedValue();
                     }
                 }
-                else if ( selectedValue > bestInheritedValue ) {
+                else if ( selectedValue < bestInheritedValue ) {
                     bestMove = theMove;
                     bestInheritedValue = bestMove.getInheritedValue();
                 }
@@ -72,7 +72,7 @@ public final class MiniMaxStrategy<M extends TwoPlayerMove, B extends TwoPlayerB
             }
         }
 
-        //System.out.println("(" + depth + ")Best move selected = " + bestMove);
+        System.out.println("(" + depth + ")Best move selected = " + bestMove);
         bestMove.setSelected(true);
         lastMove.setInheritedValue(bestMove.getInheritedValue());
         return bestMove;
@@ -83,20 +83,20 @@ public final class MiniMaxStrategy<M extends TwoPlayerMove, B extends TwoPlayerB
      * @return  whether or not we should prune the current subtree.
      */
     private boolean pruneAtCurrentNode(SearchWindow window, int selectedValue, boolean player1) {
-        if (player1 && (selectedValue < window.alpha)) {
-            if ( selectedValue < window.beta ) {
-                return true;
-            }
-            else {
-                window.alpha = selectedValue;
-            }
-        }
-        if (!player1 && (selectedValue > window.beta)) {
+        if (player1 && (selectedValue > window.beta)) {
             if ( selectedValue > window.alpha ) {
                 return true;
             }
             else {
                 window.beta = selectedValue;
+            }
+        }
+        if (!player1 && (selectedValue < window.alpha)) {
+            if ( selectedValue < window.beta ) {
+                return true;
+            }
+            else {
+                window.alpha = selectedValue;
             }
         }
         return false;

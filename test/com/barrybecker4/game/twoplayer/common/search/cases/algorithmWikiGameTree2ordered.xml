@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE search-test-example SYSTEM "http://barrybecker4.com/schema/search-test-case.dtd">
-<search-test-example name="algorithm-wiki-game-tree2">
+<search-test-example name="algorithm-wiki-game-tree2-ordered">
     <test-cases>
         <test-case strategy="MiniMaxStrategy" notes="Winning move for look ahead 4">
             <brute-force-options look-ahead="4" alpha-beta="false" quiescence="false" max-quiescent-depth="4"/>
-            <expected-search-result move-id="2" inherited-value="11" num-moves-considered="15"/>
+            <expected-search-result move-id="0" inherited-value="11" num-moves-considered="15"/>
         </test-case>
         <test-case strategy="MiniMaxStrategy" notes="Winning move for look ahead 4 (with alpha/beta)">
             <brute-force-options look-ahead="4" alpha-beta="true" quiescence="false" max-quiescent-depth="4"/>
-            <expected-search-result move-id="2" inherited-value="11" num-moves-considered="12"/>
+            <expected-search-result move-id="0" inherited-value="11" num-moves-considered="6"/>
         </test-case>
 
         <!--test-case strategy="NegaMaxStrategy" notes="Winning next move for depth 3">
@@ -33,13 +33,20 @@
     </test-cases>
 
     <node value="6">
+        <node value="11"/>
+        <node value="14">
+             <node value="11">
+                <node value="9"/>
+             </node>
+            <node value="19"/>
+        </node>
         <node value="8">
             <node value="1"/>
             <node value="6">
-                <node value="3"/>
                 <node value="2">
                     <node value="11"/>
                 </node>
+                <node value="3"/>
             </node>
             <node value="8">
                 <node value="4">
@@ -48,13 +55,6 @@
                 <node value="11"/>
             </node>
         </node>
-        <node value="14">
-             <node value="19"/>
-             <node value="11">
-                <node value="9"/>
-             </node>
-        </node>
-        <node value="11"/>
     </node>
 </search-test-example>
 

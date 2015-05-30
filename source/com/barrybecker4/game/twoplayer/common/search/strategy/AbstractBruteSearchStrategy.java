@@ -94,7 +94,7 @@ public abstract class AbstractBruteSearchStrategy<M extends TwoPlayerMove, B ext
 
         if (emptyMoveList(list, lastMove)) {
             updatePercentDone(depth, list);
-            // if there are no possible next moves, return th lastMove (we hit the end of the game).
+            // if there are no possible next moves, return the lastMove (we hit the end of the game).
             return lastMove;
         }
 

@@ -12,20 +12,9 @@ import static org.junit.Assert.assertTrue;
 /**
  * Test node in in-memory UCT tree.
  *
+ * Special notation for Mtd strategies because they take a memory strategy as a parameter:
+ * "MtdStrategy:NegaScoutMemoryStrategy"
  *
- * Need to add notation for Mtd . Something like strategy="MtdStrategy(NegaScoutMemoryStrategy)"
- *
- *
-        <test-case strategy="MtdNegaMaxStrategy" notes="Winning next move for depth 3">
-              <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
-              <expected-search-result move-id="0" inherited-value="4096" num-moves-considered="2"/>
-        </test-case>
-        <test-case strategy="MtdNegaScoutStrategy" notes="Winning next move for depth 3">
-              <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
-              <expected-search-result move-id="0" inherited-value="4096" num-moves-considered="2"/>
-        </test-case>
-
-
  * @author Barry Becker
  */
 public class AllStrategiesTest  {
