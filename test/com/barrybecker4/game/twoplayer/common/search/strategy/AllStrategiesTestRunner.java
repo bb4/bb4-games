@@ -17,9 +17,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static com.barrybecker4.game.twoplayer.common.search.strategy.EvaluationPerspective.CURRENT_PLAYER;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Read the case xml files and run the tests described by them.
@@ -35,15 +33,20 @@ public class AllStrategiesTestRunner {
     /** location of xml test cases for all search strategies */
     private static final String TEST_CASE_DIR = "test/com/barrybecker4/game/twoplayer/common/search/cases";
 
-    /** the test case file */
-    private File file;
+    String exampleName;
+    SearchTestCase testCase;
+    TwoPlayerMoveStub initialMove;
+
 
     @Before
     public void initialize() {
     }
 
-    public AllStrategiesTestRunner(File file) {
-        this.file = file;
+    public AllStrategiesTestRunner(
+            String exampleName, SearchTestCase testCase, TwoPlayerMoveStub initialMove) {
+        this.exampleName = exampleName;
+        this.testCase = testCase;
+        this.initialMove = initialMove;
     }
 
     @Parameterized.Parameters
@@ -54,8 +57,11 @@ public class AllStrategiesTestRunner {
         Collection<Object[]> testCases = new ArrayList<>();
         for (File file : testCaseFiles) {
             if (file.getPath().endsWith(".xml")) {
-                 Object[] fileArg = new Object[] { file };
-                testCases.add(fileArg);
+                SearchTestExample test = new SearchTestExample(file);
+                for (SearchTestCase tcase : test.getTestCases()) {
+                     Object[] tcaseArg = new Object[] {test.getName(),  tcase, test.getInitialMove() };
+                     testCases.add(tcaseArg);
+                }
             }
         }
 
@@ -65,26 +71,22 @@ public class AllStrategiesTestRunner {
     /** This test will be run once for each xml test case file in TEST_CASE_DIR */
     @Test
     public void testCaseRunner() throws Exception {
-        SearchTestExample test = new SearchTestExample(file);
 
-        System.out.println("Filename is : " + file);
+        System.out.println(exampleName + " : " + testCase.toString());
 
-        for (SearchTestCase testCase : test.getTestCases()) {
+        SearchStrategy<TwoPlayerMoveStub> searchStrategy = testCase.createSearchStrategy();
 
-            SearchStrategy<TwoPlayerMoveStub> searchStrategy = testCase.createSearchStrategy();
+        SearchResult actualResult =
+            new SearchResult(initialMove, searchStrategy);
 
-            SearchResult actualResult =
-                new SearchResult(test.getInitialMove(), searchStrategy);
+        assertEquals("\n" + exampleName + "\nWrong result found for " + testCase.getName() + "\n " + testCase.toString() + "\n",
+                testCase.getExpectedResult(), actualResult);
 
-            assertEquals("\nWrong result found for " +test.getName() + "\n " + testCase.toString() + "\n",
-                    testCase.getExpectedResult(), actualResult);
-
-            /* maybe check the transposition table too
-            if (searchStrategy instanceof MemorySearchStrategy) {
-                TranspositionTable table = ((MemorySearchStrategy) searchStrategy ).getTranspositionTable();
-                System.out.println("table=" + table);
-            }   */
-        }
+        /* maybe check the transposition table too
+        if (searchStrategy instanceof MemorySearchStrategy) {
+            TranspositionTable table = ((MemorySearchStrategy) searchStrategy ).getTranspositionTable();
+            System.out.println("table=" + table);
+        }   */
     }
 
 }
