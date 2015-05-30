@@ -30,10 +30,10 @@ public final class MiniMaxStrategy<M extends TwoPlayerMove, B extends TwoPlayerB
         int i = 0;
         int selectedValue;
         M selectedMove;
+        // lastMove is the opponent player.
         // if player 1, then search for a high score, else search for a low score.
-        boolean player1 = lastMove.isPlayer1();
-        int bestInheritedValue = player1 ? -SearchStrategy.INFINITY: SearchStrategy.INFINITY;
-        System.out.println("(depth = " + depth + ")"+window+"  Find best moves among \n" + list);
+        boolean player1ToMove = !lastMove.isPlayer1();
+        int bestInheritedValue = player1ToMove ? -SearchStrategy.INFINITY: SearchStrategy.INFINITY;
 
         M bestMove = list.get(0);
         while (!list.isEmpty()) {
@@ -54,7 +54,7 @@ public final class MiniMaxStrategy<M extends TwoPlayerMove, B extends TwoPlayerB
 
             if (selectedMove != null) {
                 selectedValue = selectedMove.getInheritedValue();
-                if ( player1 ) {
+                if ( player1ToMove ) {
                     if ( selectedValue > bestInheritedValue ) {
                         bestMove = theMove;
                         bestInheritedValue = bestMove.getInheritedValue();
@@ -65,14 +65,13 @@ public final class MiniMaxStrategy<M extends TwoPlayerMove, B extends TwoPlayerB
                     bestInheritedValue = bestMove.getInheritedValue();
                 }
 
-                if (alphaBeta_ && pruneAtCurrentNode(window, selectedValue, player1)) {
+                if (alphaBeta_ && pruneAtCurrentNode(window, selectedValue, player1ToMove)) {
                     showPrunedNodesInTree(list, parent, i, selectedValue, window);
                     break;
                 }
             }
         }
 
-        System.out.println("(" + depth + ")Best move selected = " + bestMove);
         bestMove.setSelected(true);
         lastMove.setInheritedValue(bestMove.getInheritedValue());
         return bestMove;
@@ -80,10 +79,11 @@ public final class MiniMaxStrategy<M extends TwoPlayerMove, B extends TwoPlayerB
 
     /**
      * Note: The SearchWindow may be adjusted as a side effect.
-     * @return  whether or not we should prune the current subtree.
+     * @param player1ToMove true if player one's turn to move
+     * @return whether or not we should prune the current subtree.
      */
-    private boolean pruneAtCurrentNode(SearchWindow window, int selectedValue, boolean player1) {
-        if (player1 && (selectedValue > window.beta)) {
+    private boolean pruneAtCurrentNode(SearchWindow window, int selectedValue, boolean player1ToMove) {
+        if (player1ToMove && (selectedValue > window.beta)) {
             if ( selectedValue > window.alpha ) {
                 return true;
             }
@@ -91,7 +91,7 @@ public final class MiniMaxStrategy<M extends TwoPlayerMove, B extends TwoPlayerB
                 window.beta = selectedValue;
             }
         }
-        if (!player1 && (selectedValue < window.alpha)) {
+        if (!player1ToMove && (selectedValue < window.alpha)) {
             if ( selectedValue < window.beta ) {
                 return true;
             }

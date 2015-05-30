@@ -49,7 +49,7 @@ public class MoveEvaluator  {
     }
 
     /**
-     * Statically evaluate the board position.
+     * Statically evaluate the board position from player1's point of view. Larger values are good for player1.
      * @return the lastMove's value modified by the value add of the new move.
      *  a large positive value means that the move is good from player1's viewpoint.
      */

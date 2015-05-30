@@ -52,7 +52,7 @@ public class GoMokuSearchable<B extends GoMokuBoard> extends TwoPlayerSearchable
     }
 
     /**
-     * Statically evaluate the board position.
+     * Statically evaluate the board position from player1's point of view.
      * @return the lastMoves value modified by the value add of the new move.
      *  a large positive value means that the move is good from player1's viewpoint
      */

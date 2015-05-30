@@ -81,7 +81,6 @@ class TwoPlayerOptimizee<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>> i
         double run2 = runComputerVsComputer();
 
         double delta = run1 - run2;
-        System.out.println("delta fitness = "+ run1 + " - " + run2 +" = " + delta );
         return delta;
     }
 

@@ -128,8 +128,7 @@ public abstract class AbstractBruteSearchStrategy<M extends TwoPlayerMove, B ext
      * For example, perhaps we are in the middle of a piece exchange (chess), or a large group is in atari (go).
      * @return best quiescent move
      */
-    M quiescentSearch(M lastMove,
-                                  int depth, SearchWindow window, SearchTreeNode parent) {
+    M quiescentSearch(M lastMove, int depth, SearchWindow window, SearchTreeNode parent) {
 
         MoveList<M> urgentMoves = searchable.generateUrgentMoves(lastMove, weights_);
         if (emptyMoveList(urgentMoves, lastMove)) return null;

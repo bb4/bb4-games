@@ -29,7 +29,7 @@ public class GameTree {
      * @return the new move node (with children if any)
      */
     private TwoPlayerMoveStub createTreeFromNode(Node node, TwoPlayerMoveStub parent) {
-        boolean isPlayer1 = parent == null || !parent.isPlayer1();
+        boolean isPlayer1 = (parent == null || !parent.isPlayer1());
         TwoPlayerMoveStub current = createMoveFromNode(node, isPlayer1, parent);
         NodeList children = node.getChildNodes();
         for (int i=0; i<children.getLength(); i++) {
