@@ -199,22 +199,22 @@ final class GameTreeRenderer {
      */
     private synchronized void drawNode( SearchTreeNode node, int depth, int offset, Graphics2D g2) {
         TwoPlayerMove m = (TwoPlayerMove)node.getUserObject();
-        g2.setColor( colormap_.getColorForValue(m.getValue()));
+        g2.setColor(colormap_.getColorForValue(m.getValue()));
         int x = MARGIN + (int)(width_ * (offset + node.getSpaceAllocation() / 2.0) / totalAtLevel_[depth]);
         int y = MARGIN + depth * levelHeight_;
         node.setLocation(x, y);
 
-        int nodeWidth = 2;
-        if (m.isSelected()) {
-            nodeWidth = 3;
-            g2.fillRect(x, y, nodeWidth, 3);
+        int nodeWidth = m.isSelected() ? 3 : 2;
+        g2.fillRect(x, y, nodeWidth, 3);
+
+        g2.setColor(Color.black);
+        if (depth < 2) {
+             g2.drawString(m.getValue()+ "  " + m.getInheritedValue(), x-15, y + 5);
+
         }
-        else {
-            g2.fillRect(x, y, nodeWidth, 3);
-        }
+
         if (node.isPruned())  {
            // draw a marker to show that it has been pruned
-           g2.setColor(Color.black);
            g2.fillRect(x, y+3, nodeWidth, 1);
         }
     }

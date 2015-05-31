@@ -4,7 +4,6 @@ package com.barrybecker4.game.twoplayer.go.ui;
 import com.barrybecker4.common.geometry.Location;
 import com.barrybecker4.game.common.GameContext;
 import com.barrybecker4.game.common.GameController;
-import com.barrybecker4.game.common.board.IRectangularBoard;
 import com.barrybecker4.game.common.ui.viewer.GameBoardRenderer;
 import com.barrybecker4.game.common.ui.viewer.ViewerMouseListener;
 import com.barrybecker4.game.twoplayer.common.ui.AbstractTwoPlayerBoardViewer;

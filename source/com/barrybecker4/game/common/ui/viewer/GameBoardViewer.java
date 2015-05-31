@@ -57,7 +57,6 @@ public abstract class GameBoardViewer<M extends Move, B extends Board<M>> extend
     protected JFrame parent_ = null;
     private File lastFileAccessed;
 
-
     /**
      * Construct the viewer.
      */

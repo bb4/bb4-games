@@ -177,7 +177,7 @@ public abstract class AbstractTwoPlayerBoardViewer<M extends TwoPlayerMove, B ex
 
         // Second arg was true, but then we did final update twice.
         boolean done = c.getSearchable().done(move, false);
-        sendGameChangedEvent(move);
+        //sendGameChangedEvent(move);
         return done;
     }
 
@@ -444,11 +444,12 @@ public abstract class AbstractTwoPlayerBoardViewer<M extends TwoPlayerMove, B ex
             if (!get2PlayerController().getOptions().isAutoOptimize()) {
                 // show a pop-up for certain exceptional cases.
                 // For example, in chess we warn on a checking move.
-                warnOnSpecialMoves((TwoPlayerMove) lastMove);
+                warnOnSpecialMoves(lastMove);
                 sendGameChangedEvent(lastMove);
             }
-            if (progressBar != null)
+            if (progressBar != null) {
                 progressBar.cleanup();
+            }
        }
     }
 }
