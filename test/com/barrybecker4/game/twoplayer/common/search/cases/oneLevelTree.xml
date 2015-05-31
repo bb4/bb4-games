@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE search-test-example SYSTEM "http://barrybecker4.com/schema/search-test-case.dtd">
-<search-test-example name="one-level-game-tree">
+<search-test-example name="one-level-tree">
     <test-cases>
         <test-case strategy="MiniMaxStrategy" rootPlayer1="true" notes="Winning move for look ahead 3">
             <brute-force-options look-ahead="3" alpha-beta="false" />
@@ -33,6 +33,14 @@
         </test-case>
         <test-case strategy="NegaMaxStrategy" rootPlayer1="false"  notes="Winning next move for depth 3">
               <brute-force-options look-ahead="3" alpha-beta="false" />
+              <expected-search-result move-id="1" inherited-value="-2" num-moves-considered="2"/>
+        </test-case>
+        <test-case strategy="NegaMaxStrategy" rootPlayer1="true"  notes="Winning next move for depth 4">
+              <brute-force-options look-ahead="4" alpha-beta="false"/>
+              <expected-search-result move-id="1" inherited-value="2" num-moves-considered="2"/>
+        </test-case>
+        <test-case strategy="NegaMaxStrategy" rootPlayer1="false"  notes="Winning next move for depth 4">
+              <brute-force-options look-ahead="4" alpha-beta="false" />
               <expected-search-result move-id="1" inherited-value="-2" num-moves-considered="2"/>
         </test-case>
 

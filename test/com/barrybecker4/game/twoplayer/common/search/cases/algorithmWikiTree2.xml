@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE search-test-example SYSTEM "http://barrybecker4.com/schema/search-test-case.dtd">
-<search-test-example name="algorithm-wiki-game-tree2">
+<search-test-example name="algorithm-wiki-tree2">
     <test-cases>
         <test-case strategy="MiniMaxStrategy" rootPlayer1="true" notes="Winning move for look ahead 4">
             <brute-force-options look-ahead="4" alpha-beta="false" quiescence="false" max-quiescent-depth="4"/>

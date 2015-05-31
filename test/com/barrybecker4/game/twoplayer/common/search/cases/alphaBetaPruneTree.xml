@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE search-test-example SYSTEM "http://barrybecker4.com/schema/search-test-case.dtd">
+<search-test-example name="alpha-beta-prune-tree">
+    <test-cases>
+
+        <test-case strategy="MiniMaxStrategy" rootPlayer1="false" notes="Winning move for look ahead 4 p2">
+            <brute-force-options look-ahead="4" alpha-beta="false" />
+            <expected-search-result move-id="0" inherited-value="3" num-moves-considered="25"/>
+        </test-case>
+        <test-case strategy="MiniMaxStrategy" rootPlayer1="true" notes="Winning move for look ahead 4 p1">
+            <brute-force-options look-ahead="4" alpha-beta="false" />
+            <expected-search-result move-id="1" inherited-value="14" num-moves-considered="25"/>
+        </test-case>
+        <test-case strategy="MiniMaxStrategy" rootPlayer1="false" notes="Winning move for look ahead 4 (alpha/beta) p2">
+            <brute-force-options look-ahead="4" alpha-beta="true" />
+            <expected-search-result move-id="0" inherited-value="3" num-moves-considered="19"/>
+        </test-case>
+        <test-case strategy="MiniMaxStrategy" rootPlayer1="true" notes="Winning move for look ahead 4 (alpha/beta) p1">
+            <brute-force-options look-ahead="4" alpha-beta="true" />
+            <expected-search-result move-id="1" inherited-value="14" num-moves-considered="24"/>
+        </test-case>
+
+        <test-case strategy="NegaMaxStrategy" rootPlayer1="true" notes="Winning next move for depth 4 p1">
+              <brute-force-options look-ahead="4" alpha-beta="false" />
+              <expected-search-result move-id="1" inherited-value="14" num-moves-considered="25"/>
+        </test-case>
+        <test-case strategy="NegaMaxStrategy" rootPlayer1="true" notes="Winning next move for depth 4 p1">
+              <brute-force-options look-ahead="4" alpha-beta="true" />
+              <expected-search-result move-id="1" inherited-value="14" num-moves-considered="24"/>
+        </test-case>
+        <test-case strategy="NegaMaxStrategy" rootPlayer1="false" notes="Winning next move for depth 4 p2">
+              <brute-force-options look-ahead="4" alpha-beta="false" />
+              <expected-search-result move-id="0" inherited-value="3" num-moves-considered="25"/>
+        </test-case>
+        <test-case strategy="NegaMaxStrategy" rootPlayer1="false" notes="Winning next move for depth 4 p2">
+              <brute-force-options look-ahead="4" alpha-beta="true" />
+              <expected-search-result move-id="0" inherited-value="3" num-moves-considered="19"/>
+        </test-case>
+
+        <test-case strategy="NegaScoutStrategy" rootPlayer1="true" notes="Winning next move for depth 4 p1">
+              <brute-force-options look-ahead="4" alpha-beta="false" />
+              <expected-search-result move-id="1" inherited-value="2" num-moves-considered="28"/>
+        </test-case>
+        <test-case strategy="NegaScoutStrategy" rootPlayer1="true" notes="Winning next move for depth 4 p1">
+              <brute-force-options look-ahead="4" alpha-beta="true" />
+              <expected-search-result move-id="1" inherited-value="2" num-moves-considered="28"/>
+        </test-case>
+        <test-case strategy="NegaScoutStrategy" rootPlayer1="false" notes="Winning next move for depth 4 p0">
+              <brute-force-options look-ahead="4" alpha-beta="false" />
+              <expected-search-result move-id="0" inherited-value="3" num-moves-considered="19"/>
+        </test-case>
+        <test-case strategy="NegaScoutStrategy" rootPlayer1="false" notes="Winning next move for depth 4 p0">
+              <brute-force-options look-ahead="4" alpha-beta="true" />
+              <expected-search-result move-id="0" inherited-value="3" num-moves-considered="19"/>
+        </test-case>
+
+
+        <test-case strategy="MiniMaxStrategy" rootPlayer1="false" notes="Winning move for look ahead 3 p2">
+            <brute-force-options look-ahead="3" alpha-beta="false" />
+            <expected-search-result move-id="0" inherited-value="5" num-moves-considered="13"/>
+        </test-case>
+        <test-case strategy="MiniMaxStrategy" rootPlayer1="true" notes="Winning move for look ahead 3 p1">
+            <brute-force-options look-ahead="3" alpha-beta="false" />
+            <expected-search-result move-id="0" inherited-value="5" num-moves-considered="13"/>
+        </test-case>
+        <test-case strategy="MiniMaxStrategy" rootPlayer1="false" notes="Winning move for look ahead 3 (alpha/beta) p2">
+            <brute-force-options look-ahead="3" alpha-beta="true" />
+            <expected-search-result move-id="0" inherited-value="5" num-moves-considered="13"/>
+        </test-case>
+        <test-case strategy="MiniMaxStrategy" rootPlayer1="true" notes="Winning move for look ahead 3 (alpha/beta) p1">
+            <brute-force-options look-ahead="3" alpha-beta="true" />
+            <expected-search-result move-id="0" inherited-value="5" num-moves-considered="13"/>
+        </test-case>
+
+        <test-case strategy="NegaMaxStrategy" rootPlayer1="true" notes="Winning next move for depth 3 p1">
+              <brute-force-options look-ahead="3" alpha-beta="false" />
+              <expected-search-result move-id="0" inherited-value="5" num-moves-considered="13"/>
+        </test-case>
+        <test-case strategy="NegaMaxStrategy" rootPlayer1="true" notes="Winning next move for depth 3 (alpha/beta) p1">
+              <brute-force-options look-ahead="3" alpha-beta="true" />
+              <expected-search-result move-id="0" inherited-value="5" num-moves-considered="13"/>
+        </test-case>
+        <test-case strategy="NegaMaxStrategy" rootPlayer1="false" notes="Winning next move for depth 3 p2">
+              <brute-force-options look-ahead="3" alpha-beta="false" />
+              <expected-search-result move-id="0" inherited-value="5" num-moves-considered="13"/>
+        </test-case>
+        <test-case strategy="NegaMaxStrategy" rootPlayer1="false" notes="Winning next move for depth 3 (alpha/beta) p2">
+              <brute-force-options look-ahead="3" alpha-beta="true" />
+              <expected-search-result move-id="0" inherited-value="5" num-moves-considered="10"/>
+        </test-case>
+
+        <test-case strategy="NegaScoutStrategy" rootPlayer1="true" notes="Winning next move for depth 3 p1">
+              <brute-force-options look-ahead="3" alpha-beta="false" />
+              <expected-search-result move-id="0" inherited-value="5" num-moves-considered="13"/>
+        </test-case>
+        <test-case strategy="NegaScoutStrategy" rootPlayer1="true" notes="Winning next move for depth 3 (alpha/beta) p1">
+              <brute-force-options look-ahead="3" alpha-beta="true" />
+              <expected-search-result move-id="0" inherited-value="5" num-moves-considered="13"/>
+        </test-case>
+        <test-case strategy="NegaScoutStrategy" rootPlayer1="false" notes="Winning next move for depth 3 p2">
+              <brute-force-options look-ahead="3" alpha-beta="false" />
+              <expected-search-result move-id="0" inherited-value="5" num-moves-considered="10"/>
+        </test-case>
+        <test-case strategy="NegaScoutStrategy" rootPlayer1="false" notes="Winning next move for depth 3 (alpha/beta) p2">
+              <brute-force-options look-ahead="3" alpha-beta="true" />
+              <expected-search-result move-id="0" inherited-value="5" num-moves-considered="10"/>
+        </test-case>
+    </test-cases>
+
+    <!-- Some branches get pruned by alpha/beta (marked below) -->
+    <node value="10">
+        <node value="1">
+             <node value="9">
+                 <node value="5">
+                     <node value="3"/>
+                     <node value="17"/>
+                 </node>
+                 <node value="4">    <!-- gets pruned -->
+                     <node value="2"/>
+                    <node value="12"/>
+                 </node>
+             </node>
+             <node value="-8"> <!-- gets pruned -->
+                <node value="5">
+                     <node value="15"/>
+                 </node>
+                <node value="6">
+                     <node value="25"/>
+                    <node value="0"/>
+                 </node>
+             </node>
+        </node>
+        <node value="11">  <!-- gets pruned -->
+             <node value="23">
+                 <node value="3"> <!-- gets pruned -->
+                     <node value="2"/>
+                     <node value="5"/>
+                 </node>
+                 <node value="5">
+                     <node value="4"/>
+                 </node>
+             </node>
+             <node value="12">
+                <node value="6">
+                     <node value="2"/>
+                     <node value="14"/>
+                 </node>
+             </node>
+        </node>
+    </node><!--                          10
+ *                      1                            11(p)
+ *               9           -8(p)                23          12
+ *        5        4(p)     5      6           3(p)   5         6
+ *   (((3 17)   (2 12))  ((15)  (25 0)))    (((2 5) (4))     ((2 14)))   -->
+</search-test-example>
+
+
+

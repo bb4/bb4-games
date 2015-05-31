@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE search-test-example SYSTEM "http://barrybecker4.com/schema/search-test-case.dtd">
-<search-test-example name="zero-level-no-moves-game-tree">
+<search-test-example name="zero-level-no-moves-tree">
     <test-cases>
         <test-case strategy="MiniMaxStrategy" notes="no next move for depth 3">
               <brute-force-options look-ahead="3" alpha-beta="false" />
