@@ -3,24 +3,24 @@
 <search-test-example name="smallest-uniform-game-tree">
     <test-cases>
         <test-case strategy="MiniMaxStrategy" notes="Winning move for look ahead 3">
-            <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
+            <brute-force-options look-ahead="3" alpha-beta="false" />
             <expected-search-result move-id="0" inherited-value="-5" num-moves-considered="13"/>
         </test-case>
-        <!--test-case strategy="MiniMaxStrategy" notes="Winning move for look ahead 3 (alpha/beta)">
-            <brute-force-options look-ahead="3" alpha-beta="true" quiescence="false" max-quiescent-depth="3"/>
-            <expected-search-result move-id="2" inherited-value="-11" num-moves-considered="12"/>
-        </test-case-->
+        <test-case strategy="MiniMaxStrategy" notes="Winning move for look ahead 3 (alpha/beta)">
+            <brute-force-options look-ahead="3" alpha-beta="true" />
+            <expected-search-result move-id="0" inherited-value="-5" num-moves-considered="12"/>
+        </test-case>
 
         <!-- wrong -->
         <test-case strategy="NegaMaxStrategy" notes="Winning next move for depth 3">
-              <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
+              <brute-force-options look-ahead="3" alpha-beta="false" />
               <expected-search-result move-id="0" inherited-value="-5" num-moves-considered="13"/>
         </test-case>
 
-        <!--test-case strategy="NegaScoutStrategy" notes="Winning next move for depth 3">
-              <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
-              <expected-search-result move-id="2" inherited-value="-11" num-moves-considered="2"/>
-        </test-case -->
+        <test-case strategy="NegaScoutStrategy" notes="Winning next move for depth 3">
+              <brute-force-options look-ahead="3" alpha-beta="false" />
+              <expected-search-result move-id="0" inherited-value="-5" num-moves-considered="12"/>
+        </test-case>
 
         <!--test-case strategy="NegaMaxMemoryStrategy" notes="Winning next move for depth 3">
               <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>

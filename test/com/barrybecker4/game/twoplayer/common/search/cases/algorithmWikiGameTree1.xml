@@ -3,38 +3,58 @@
 <search-test-example name="algorithm-wiki-game-tree1">
     <test-cases>
         <test-case strategy="MiniMaxStrategy" notes="Winning move for look ahead 3">
-            <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
+            <brute-force-options look-ahead="3" alpha-beta="false" />
             <expected-search-result move-id="2" inherited-value="-11" num-moves-considered="15"/>
         </test-case>
-        <!--test-case strategy="MiniMaxStrategy" notes="Winning move for look ahead 3 (alpha/beta)">
-            <brute-force-options look-ahead="3" alpha-beta="true" quiescence="false" max-quiescent-depth="3"/>
+        <test-case strategy="MiniMaxStrategy" notes="Winning move for look ahead 3 (alpha/beta)">
+            <brute-force-options look-ahead="3" alpha-beta="true" />
             <expected-search-result move-id="2" inherited-value="-11" num-moves-considered="12"/>
-        </test-case-->
+        </test-case>
 
-        <!-- wrong
-        <test-case strategy="NegaMaxStrategy" notes="Winning next move for depth 3">
-              <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
-              <expected-search-result move-id="2" inherited-value="-11" num-moves-considered="2"/>
-        </test-case -->
+        <!-- wrong? -->
+        <test-case strategy="NegaMaxStrategy" rootPlayer1="true" notes="Winning next move for depth 3">
+              <brute-force-options look-ahead="3" alpha-beta="false" />
+              <expected-search-result move-id="1" inherited-value="-2" num-moves-considered="15"/>
+        </test-case>
+        <test-case strategy="NegaMaxStrategy" rootPlayer1="false" notes="Winning next move for depth 3">
+              <brute-force-options look-ahead="3" alpha-beta="false" />
+              <expected-search-result move-id="1" inherited-value="-2" num-moves-considered="15"/>
+        </test-case>
 
-        <!--test-case strategy="NegaScoutStrategy" notes="Winning next move for depth 3">
-              <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
-              <expected-search-result move-id="2" inherited-value="-11" num-moves-considered="2"/>
-        </test-case -->
+        <test-case strategy="NegaScoutStrategy" rootPlayer1="true" notes="Winning next move for depth 3">
+              <brute-force-options look-ahead="3" alpha-beta="false" />
+              <expected-search-result move-id="1" inherited-value="-2" num-moves-considered="14"/>
+        </test-case>
+        <test-case strategy="NegaScoutStrategy" rootPlayer1="false" notes="Winning next move for depth 3">
+              <brute-force-options look-ahead="3" alpha-beta="false" />
+              <expected-search-result move-id="1" inherited-value="-2" num-moves-considered="13"/>
+        </test-case>
 
-        <!--test-case strategy="NegaMaxMemoryStrategy" notes="Winning next move for depth 3">
+        <test-case strategy="NegaMaxMemoryStrategy" notes="Winning next move for depth 3">
               <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
               <expected-search-result move-id="2" inherited-value="-16" num-moves-considered="15"/>
         </test-case>
         <test-case strategy="NegaScoutMemoryStrategy" notes="Winning next move for depth 3">
-              <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
+              <brute-force-options look-ahead="3" alpha-beta="false" />
               <expected-search-result move-id="2" inherited-value="-16" num-moves-considered="12"/>
         </test-case>
-        <test-case strategy="UctStrategy" notes="Winning next move for depth 3">
-              <monte-carlo-options max-simulations="10" explore-exploit-ratio="1.0" random-look-ahead="3" />
-              <expected-search-result move-id="2" inherited-value="16" num-moves-considered="10"/>
-        </test-case-->
 
+        <test-case strategy="UctStrategy" rootPlayer1="true" notes="Winning move for max 10 moves">
+              <monte-carlo-options max-simulations="10" explore-exploit-ratio="1.0" random-look-ahead="3" />
+              <expected-search-result move-id="2" inherited-value="-2" num-moves-considered="10"/>
+        </test-case>
+        <test-case strategy="UctStrategy" rootPlayer1="false" notes="Winning move for max 10 moves">
+              <monte-carlo-options max-simulations="20" explore-exploit-ratio="1.0" random-look-ahead="3" />
+              <expected-search-result move-id="1" inherited-value="-14" num-moves-considered="16"/>
+        </test-case>
+        <test-case strategy="UctStrategy" rootPlayer1="true" notes="Winning move for max 20 moves">
+              <monte-carlo-options max-simulations="10" explore-exploit-ratio="1.0" random-look-ahead="3" />
+              <expected-search-result move-id="2" inherited-value="-2" num-moves-considered="10"/>
+        </test-case>
+        <test-case strategy="UctStrategy" rootPlayer1="false" notes="Winning move for max 20 moves">
+              <monte-carlo-options max-simulations="20" explore-exploit-ratio="1.0" random-look-ahead="3" />
+              <expected-search-result move-id="1" inherited-value="-14" num-moves-considered="16"/>
+        </test-case>
 
     </test-cases>
 

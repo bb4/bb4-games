@@ -19,6 +19,18 @@ import static org.junit.Assert.assertTrue;
  *  - add default expected values in the xml
  *  - remove the old inheritance based examples and cases
  *
+ *  What is working and what is not:
+ *                  p1    p2   a/b   quiescense
+ *                 ----  ----  ----  ------
+ *  MiniMax        yes   yes
+ *  NegaMax        yes   yes
+ *  NegaScout
+ *  NegaMaxMem
+ *  NegaScoutMem
+ *  UCT
+ *  MtdNegaMax
+ *  MtdNegaScout
+ *
  * @author Barry Becker
  */
 public class AllStrategiesTest  {

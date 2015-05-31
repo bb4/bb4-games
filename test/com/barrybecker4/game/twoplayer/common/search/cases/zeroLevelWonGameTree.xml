@@ -3,19 +3,23 @@
 <search-test-example name="zero-level-won-game-tree">
     <test-cases>
         <test-case strategy="MiniMaxStrategy" notes="Wining root move found for lookahead 1" >
-              <brute-force-options look-ahead="1" alpha-beta="false" quiescence="false" max-quiescent-depth="1"/>
+              <brute-force-options look-ahead="1" alpha-beta="false" />
+              <expected-search-result move-id="root" inherited-value="4096" num-moves-considered="0"/>
+        </test-case>
+        <test-case strategy="MiniMaxStrategy" notes="Wining root move found for lookahead 1" >
+              <brute-force-options look-ahead="1" alpha-beta="true" />
               <expected-search-result move-id="root" inherited-value="4096" num-moves-considered="0"/>
         </test-case>
         <test-case strategy="MiniMaxStrategy" notes="Winning root move found for lookahead 3" >
-              <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
+              <brute-force-options look-ahead="3" alpha-beta="false" />
               <expected-search-result move-id="root" inherited-value="4096" num-moves-considered="0"/>
         </test-case>
         <test-case strategy="NegaMaxStrategy" notes="Winning root move found">
-              <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
+              <brute-force-options look-ahead="3" alpha-beta="false" />
               <expected-search-result move-id="root" inherited-value="4096" num-moves-considered="0"/>
         </test-case>
         <test-case strategy="NegaMaxStrategy" notes="Winning root move found (with alpha/beta)">
-              <brute-force-options look-ahead="3" alpha-beta="true" quiescence="false" max-quiescent-depth="3"/>
+              <brute-force-options look-ahead="3" alpha-beta="true" />
               <expected-search-result move-id="root" inherited-value="4096" num-moves-considered="0"/>
         </test-case>
     </test-cases>

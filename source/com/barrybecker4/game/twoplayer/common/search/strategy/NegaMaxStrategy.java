@@ -14,6 +14,7 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  *  Negamax is very much like minimax, but it avoids having separate
  *  sections of code for minimizing and maximizing search.
  *  The game tree it produces should be identical to minimax, but it is slightly more efficient.
+ *
  *  @author Barry Becker
  */
 public class NegaMaxStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>>
@@ -27,7 +28,6 @@ public class NegaMaxStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard<M
 
     @Override
     public M search(M lastMove, SearchTreeNode parent ) {
-
         SearchWindow window = getOptions().getBruteSearchOptions().getInitialSearchWindow();
         return searchInternal(lastMove, lookAhead_, new SearchWindow(window.beta, window.alpha), parent);
     }
@@ -52,7 +52,8 @@ public class NegaMaxStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard<M
             updatePercentDone(depth, list);
 
             searchable.makeInternalMove(theMove);
-            SearchTreeNode child = addNodeToTree(parent, theMove, window); i++;
+            SearchTreeNode child = addNodeToTree(parent, theMove, window);
+            i++;
 
             selectedMove = searchInternal( theMove, depth-1,
                      new SearchWindow(-window.beta, -Math.max(window.alpha, bestInheritedValue)), child );

@@ -21,6 +21,7 @@ public class SearchTestExample {
     public SearchTestExample(File file) {
         Document doc = DomUtil.parseXMLFile(file);
 
+        assert doc != null : "Check contents of " + file.getAbsolutePath();
         Node root = doc.getDocumentElement();
 
         name = DomUtil.getAttribute(root, "name");
