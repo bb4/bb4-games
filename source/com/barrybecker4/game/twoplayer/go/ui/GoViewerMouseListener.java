@@ -22,7 +22,7 @@ import java.awt.event.MouseEvent;
  *
  *  @author Barry Becker
  */
-public class GoViewerMouseListener extends ViewerMouseListener {
+public class GoViewerMouseListener extends ViewerMouseListener<GoMove, GoBoard> {
 
     /** Remember the dragged show piece when the players mouse goes off the board. */
     private BoardPosition savedShowPiece_;

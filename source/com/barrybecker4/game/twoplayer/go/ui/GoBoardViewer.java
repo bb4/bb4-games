@@ -25,7 +25,7 @@ import java.awt.event.MouseEvent;
  *
  *  @author Barry Becker
  */
-public final class GoBoardViewer extends AbstractTwoPlayerBoardViewer {
+public final class GoBoardViewer extends AbstractTwoPlayerBoardViewer<GoMove, GoBoard> {
 
     /**
      * Construct the viewer given the controller.
@@ -33,7 +33,7 @@ public final class GoBoardViewer extends AbstractTwoPlayerBoardViewer {
     GoBoardViewer() {}
 
     @Override
-    protected ViewerMouseListener createViewerMouseListener() {
+    protected ViewerMouseListener<GoMove, GoBoard> createViewerMouseListener() {
         return new GoViewerMouseListener(this);
     }
     /**
@@ -46,7 +46,7 @@ public final class GoBoardViewer extends AbstractTwoPlayerBoardViewer {
     }
 
     @Override
-    protected GameController createController()  {
+    protected GameController<GoMove, GoBoard> createController()  {
         return new GoController();
     }
 
@@ -96,7 +96,7 @@ public final class GoBoardViewer extends AbstractTwoPlayerBoardViewer {
         Location loc = getBoardRenderer().createLocation(e);
         StringBuilder sb = new StringBuilder( "<html><font=-3>" );  // NON_NLS
 
-        GoBoardPosition space = (GoBoardPosition) ((IRectangularBoard)controller_.getBoard()).getPosition( loc );
+        GoBoardPosition space = (GoBoardPosition) controller_.getBoard().getPosition( loc );
         if ( space != null && GameContext.getDebugMode() > 0 ) {
             String spaceText = space.getDescription();
             sb.append( spaceText);
@@ -129,7 +129,7 @@ public final class GoBoardViewer extends AbstractTwoPlayerBoardViewer {
 
     private void appendStringText(StringBuilder sb, String spaceText, IGoString string) {
         sb.append( "<br>" );
-        sb.append("string liberties = ").append(string.getNumLiberties((GoBoard) controller_.getBoard()));
+        sb.append("string liberties = ").append(string.getNumLiberties(controller_.getBoard()));
         String stringText = string.toString();
         if ( string.getGroup() != null ) {
             sb.append( "<br>" );
