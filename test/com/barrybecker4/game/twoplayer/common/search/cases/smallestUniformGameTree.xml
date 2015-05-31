@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE search-test-example SYSTEM "http://barrybecker4.com/schema/search-test-case.dtd">
-<search-test-example name="algorithm-wiki-game-tree1">
+<search-test-example name="smallest-uniform-game-tree">
     <test-cases>
         <test-case strategy="MiniMaxStrategy" notes="Winning move for look ahead 3">
             <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
-            <expected-search-result move-id="2" inherited-value="-11" num-moves-considered="15"/>
+            <expected-search-result move-id="0" inherited-value="-5" num-moves-considered="13"/>
         </test-case>
         <!--test-case strategy="MiniMaxStrategy" notes="Winning move for look ahead 3 (alpha/beta)">
             <brute-force-options look-ahead="3" alpha-beta="true" quiescence="false" max-quiescent-depth="3"/>
             <expected-search-result move-id="2" inherited-value="-11" num-moves-considered="12"/>
         </test-case-->
 
-        <!-- wrong
+        <!-- wrong -->
         <test-case strategy="NegaMaxStrategy" notes="Winning next move for depth 3">
               <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
-              <expected-search-result move-id="2" inherited-value="-11" num-moves-considered="2"/>
-        </test-case -->
+              <expected-search-result move-id="0" inherited-value="-5" num-moves-considered="13"/>
+        </test-case>
 
         <!--test-case strategy="NegaScoutStrategy" notes="Winning next move for depth 3">
               <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
@@ -38,28 +38,26 @@
 
     </test-cases>
 
-    <node value="-6">
-        <node value="-8">
-            <node value="-12"/>
-            <node value="-9"/>
-        </node>
-        <node value="-14">
-             <node value="-3">
-                <node value="-2"/>
+    <!-- according to  https://chessprogramming.wikispaces.com/NegaScout alpha-beta visits a node that negascout does not -->
+    <node value="6">
+        <node value="5">
+             <node value="4">
+                <node value="-5"/>
+                 <node value="-4"/>
              </node>
-             <node value="-12">
-                <node value="-1"/>
-                <node value="-19"/>
+             <node value="3">
+                <node value="-6"/>
+                <node value="-20"/>
              </node>
         </node>
-        <node value="-2">
-            <node value="-17">
-                <node value="-16"/>
-            </node>
-            <node value="-11"/>
-            <node value="-10">
-                <node value="-18"/>
-            </node>
+        <node value="7">
+             <node value="-7">
+                <node value="-30"/>
+             </node>
+             <node value="9">
+                <node value="-4"/>
+                <node value="-4"/>
+             </node>
         </node>
     </node>
 </search-test-example>

@@ -33,6 +33,8 @@ public class AllStrategiesTestRunner {
     /** location of xml test cases for all search strategies */
     private static final String TEST_CASE_DIR = "test/com/barrybecker4/game/twoplayer/common/search/cases";
 
+    private static final String TEST_CASE_SUFFIX = ".xml";
+
     String exampleName;
     SearchTestCase testCase;
     TwoPlayerMoveStub initialMove;
@@ -56,7 +58,7 @@ public class AllStrategiesTestRunner {
 
         Collection<Object[]> testCases = new ArrayList<>();
         for (File file : testCaseFiles) {
-            if (file.getPath().endsWith(".xml")) {
+            if (file.getPath().endsWith(TEST_CASE_SUFFIX )) {
                 SearchTestExample test = new SearchTestExample(file);
                 for (SearchTestCase tcase : test.getTestCases()) {
                      Object[] tcaseArg = new Object[] {test.getName(),  tcase, test.getInitialMove() };

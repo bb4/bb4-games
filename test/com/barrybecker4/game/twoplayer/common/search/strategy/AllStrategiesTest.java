@@ -15,6 +15,10 @@ import static org.junit.Assert.assertTrue;
  * Special notation for Mtd strategies because they take a memory strategy as a parameter:
  * "MtdStrategy:NegaScoutMemoryStrategy"
  *
+ * TODO:
+ *  - add default expected values in the xml
+ *  - remove the old inheritance based examples and cases
+ *
  * @author Barry Becker
  */
 public class AllStrategiesTest  {
