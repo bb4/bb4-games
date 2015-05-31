@@ -41,8 +41,9 @@ public class SearchTestExample {
         return testCases;
     }
 
-    public TwoPlayerMoveStub getInitialMove() {
-        return gameTree.getInitialMove();
+    public TwoPlayerMoveStub getTree(boolean rootPlayer1) {
+
+        return gameTree.getCloneWithRootPlayer1(rootPlayer1);
     }
 
 }

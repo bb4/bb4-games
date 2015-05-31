@@ -2,11 +2,9 @@ package com.barrybecker4.game.twoplayer.common.search.strategy;
 
 import com.barrybecker4.common.util.FileUtil;
 import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub;
-import com.barrybecker4.game.twoplayer.common.search.examples.GameTreeExample;
 import com.barrybecker4.game.twoplayer.common.search.strategy.testcase.SearchResult;
 import com.barrybecker4.game.twoplayer.common.search.strategy.testcase.SearchTestCase;
 import com.barrybecker4.game.twoplayer.common.search.strategy.testcase.SearchTestExample;
-import com.barrybecker4.game.twoplayer.common.search.transposition.TranspositionTable;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -61,7 +59,7 @@ public class AllStrategiesTestRunner {
             if (file.getPath().endsWith(TEST_CASE_SUFFIX )) {
                 SearchTestExample test = new SearchTestExample(file);
                 for (SearchTestCase tcase : test.getTestCases()) {
-                     Object[] tcaseArg = new Object[] {test.getName(),  tcase, test.getInitialMove() };
+                     Object[] tcaseArg = new Object[] {test.getName(),  tcase, test.getTree(tcase.getRootPlayer1()) };
                      testCases.add(tcaseArg);
                 }
             }

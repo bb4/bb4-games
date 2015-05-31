@@ -2,20 +2,28 @@
 <!DOCTYPE search-test-example SYSTEM "http://barrybecker4.com/schema/search-test-case.dtd">
 <search-test-example name="basic-WPI-game-tree">
     <test-cases>
-        <test-case strategy="MiniMaxStrategy" notes="Winning move for look ahead 3">
+        <test-case strategy="MiniMaxStrategy" rootPlayer1="false" notes="Winning move for look ahead 3">
             <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
             <expected-search-result move-id="2" inherited-value="5" num-moves-considered="9"/>
+        </test-case>
+        <test-case strategy="MiniMaxStrategy" rootPlayer1="true" notes="Winning move for look ahead 3">
+            <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
+            <expected-search-result move-id="1" inherited-value="4" num-moves-considered="9"/>
         </test-case>
         <!--test-case strategy="MiniMaxStrategy" notes="Winning move for look ahead 3 (alpha/beta)">
             <brute-force-options look-ahead="3" alpha-beta="true" quiescence="false" max-quiescent-depth="3"/>
             <expected-search-result move-id="2" inherited-value="-11" num-moves-considered="12"/>
         </test-case-->
 
-        <!-- wrong --
-        <test-case strategy="NegaMaxStrategy" notes="Winning next move for depth 3">
+        <!-- reversed ? -->
+        <test-case strategy="NegaMaxStrategy" rootPlayer1="false" notes="Winning next move for depth 3">
               <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
+              <expected-search-result move-id="2" inherited-value="5" num-moves-considered="9"/>
+        </test-case>
+        <test-case strategy="NegaMaxStrategy" rootPlayer1="true" notes="Winning next move for depth 3">
+              <brute-force-options look-ahead="3" alpha-beta="true" quiescence="false" max-quiescent-depth="3"/>
               <expected-search-result move-id="2" inherited-value="-5" num-moves-considered="9"/>
-        </test-case -->
+        </test-case>
 
         <!--test-case strategy="NegaScoutStrategy" notes="Winning next move for depth 3">
               <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>

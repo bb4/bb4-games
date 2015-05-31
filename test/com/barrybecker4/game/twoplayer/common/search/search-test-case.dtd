@@ -16,8 +16,9 @@
     name         NMTOKEN     #REQUIRED
 >
 <!ATTLIST test-case
-    strategy     NMTOKEN     #REQUIRED
-    notes        CDATA       #IMPLIED
+    strategy      NMTOKEN         #REQUIRED
+    notes         CDATA           #IMPLIED
+    rootPlayer1  (true|false)     "true"
 >
 
 <!ATTLIST brute-force-options

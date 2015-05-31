@@ -39,6 +39,25 @@ public class GameTree {
     }
 
     /**
+     * Make a clone of the game tree with the specified player at the root
+     * @param player1 if true, then player1 went last (it is their move at the root), else player2 went last
+     */
+    public TwoPlayerMoveStub getCloneWithRootPlayer1(boolean player1) {
+        return getCloneWithRootPlayer1(player1, getInitialMove(), null);
+    }
+
+    private TwoPlayerMoveStub getCloneWithRootPlayer1(
+            boolean player1, TwoPlayerMoveStub parent, TwoPlayerMoveStub grandParent) {
+
+        TwoPlayerMoveStub newParent =
+                new TwoPlayerMoveStub(parent.getValue(), player1, parent.getToLocation().copy(), grandParent);
+        for (TwoPlayerMoveStub child : parent.getChildren()) {
+            getCloneWithRootPlayer1(!player1, child, newParent);
+        }
+        return newParent;
+    }
+
+    /**
      * @return  the root move in the game tree.
      */
     public TwoPlayerMoveStub getInitialMove() {
@@ -51,6 +70,14 @@ public class GameTree {
     public void print() {
         print(root, "");
     }
+
+    /**
+     * Print the tree in depth first search for debugging purposes
+     */
+    public void print(TwoPlayerMoveStub subtree) {
+        print(subtree, "");
+    }
+
 
     private void print(TwoPlayerMoveStub moveNode, String indent) {
         System.out.println(indent + "Move: " + moveNode);

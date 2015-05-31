@@ -36,6 +36,7 @@ public class SearchTestCase {
     private static final BestMovesSearchOptions BEST_MOVE_OPTIONS = new BestMovesSearchOptions(100, 0, 20);
     private String className;
     private String notes;
+    private boolean rootPlayer1;
     private BruteSearchOptions bruteSearchOptions;
     private MonteCarloSearchOptions monteCarloSearchOptions;
     private SearchResult expectedResult;
@@ -43,6 +44,7 @@ public class SearchTestCase {
     SearchTestCase(Node testCaseNode) {
         className = DomUtil.getAttribute(testCaseNode, "strategy");
         notes = DomUtil.getAttribute(testCaseNode, "notes");
+        rootPlayer1 = Boolean.parseBoolean(DomUtil.getAttribute(testCaseNode, "rootPlayer1"));
         bruteSearchOptions = new BruteSearchOptions();
         monteCarloSearchOptions = new MonteCarloSearchOptions();
 
@@ -94,8 +96,12 @@ public class SearchTestCase {
         return className;
     }
 
+    public boolean getRootPlayer1() {
+        return rootPlayer1;
+    }
+
     public String toString() {
-        return getName() + ": " + getNotes();
+        return getName() + ": root is " + (rootPlayer1? "player1": "player2") + ": " + getNotes();
     }
 
     public SearchResult getExpectedResult() {
@@ -105,6 +111,7 @@ public class SearchTestCase {
     private String getNotes() {
         return notes == null ? "" : notes;
     }
+
 
     private void processNode(Node child) {
         String name = child.getNodeName();
