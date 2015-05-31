@@ -209,8 +209,7 @@ final class GameTreeRenderer {
 
         g2.setColor(Color.black);
         if (depth < 2) {
-             g2.drawString(m.getValue()+ "  " + m.getInheritedValue(), x-15, y + 5);
-
+             g2.drawString(m.getValue()+ "  " + m.getInheritedValue(), x - 15, y + 5);
         }
 
         if (node.isPruned())  {

@@ -2,13 +2,21 @@
 <!DOCTYPE search-test-example SYSTEM "http://barrybecker4.com/schema/search-test-case.dtd">
 <search-test-example name="algorithm-wiki-game-tree1">
     <test-cases>
-        <test-case strategy="MiniMaxStrategy" notes="Winning move for look ahead 3">
+        <test-case strategy="MiniMaxStrategy" rootPlayer1="true" notes="Winning move for look ahead 3">
             <brute-force-options look-ahead="3" alpha-beta="false" />
             <expected-search-result move-id="2" inherited-value="-11" num-moves-considered="15"/>
         </test-case>
-        <test-case strategy="MiniMaxStrategy" notes="Winning move for look ahead 3 (alpha/beta)">
+        <test-case strategy="MiniMaxStrategy" rootPlayer1="true" notes="Winning move for look ahead 3 (alpha/beta)">
             <brute-force-options look-ahead="3" alpha-beta="true" />
             <expected-search-result move-id="2" inherited-value="-11" num-moves-considered="12"/>
+        </test-case>
+         <test-case strategy="MiniMaxStrategy" rootPlayer1="false" notes="Winning move for look ahead 3">
+            <brute-force-options look-ahead="3" alpha-beta="false" />
+            <expected-search-result move-id="1" inherited-value="-2" num-moves-considered="15"/>
+        </test-case>
+        <test-case strategy="MiniMaxStrategy" rootPlayer1="false" notes="Winning move for look ahead 3 (alpha/beta)">
+            <brute-force-options look-ahead="3" alpha-beta="true" />
+            <expected-search-result move-id="1" inherited-value="-2" num-moves-considered="11"/>
         </test-case>
 
         <!-- wrong? -->
