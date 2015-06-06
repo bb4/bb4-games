@@ -11,9 +11,34 @@
             <expected-search-result move-id="0" inherited-value="-11" num-moves-considered="6"/>
         </test-case>
 
-        <test-case strategy="NegaMaxStrategy" notes="Winning next move for depth 3">
-              <brute-force-options look-ahead="3" alpha-beta="false" />
+        <test-case strategy="NegaMaxStrategy" rootPlayer1="true" notes="Winning next move for depth 3">
+              <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
               <expected-search-result move-id="0" inherited-value="-11" num-moves-considered="13"/>
+        </test-case>
+        <test-case strategy="NegaMaxStrategy" rootPlayer1="false" notes="Winning next move for depth 3">
+              <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
+              <expected-search-result move-id="0" inherited-value="11" num-moves-considered="13"/>
+        </test-case>
+        <test-case strategy="NegaMaxStrategy" rootPlayer1="true" notes="Winning next move for depth 3 (alpha/beta)">
+              <brute-force-options look-ahead="3" alpha-beta="true" quiescence="false" max-quiescent-depth="3"/>
+              <expected-search-result move-id="0" inherited-value="-11" num-moves-considered="6"/>
+        </test-case>
+        <test-case strategy="NegaMaxStrategy" rootPlayer1="false" notes="Winning next move for depth 3 (alpha/beta)">
+              <brute-force-options look-ahead="3" alpha-beta="true" quiescence="false" max-quiescent-depth="3"/>
+              <expected-search-result move-id="0" inherited-value="11" num-moves-considered="6"/>
+        </test-case>
+
+        <test-case strategy="NegaScoutStrategy" rootPlayer1="true" notes="Winning next move for depth 3">
+              <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
+              <expected-search-result move-id="0" inherited-value="-11" num-moves-considered="6"/>
+        </test-case>
+        <test-case strategy="NegaScoutStrategy" rootPlayer1="false" notes="Winning next move for depth 3">
+              <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
+              <expected-search-result move-id="0" inherited-value="11" num-moves-considered="6"/>
+        </test-case>
+        <test-case strategy="NegaScoutStrategy" rootPlayer1="false" notes="Winning next move for depth 3">
+              <brute-force-options look-ahead="3" alpha-beta="true" quiescence="false" max-quiescent-depth="3"/>
+              <expected-search-result move-id="0" inherited-value="11" num-moves-considered="6"/>
         </test-case>
 
         <test-case strategy="NegaMaxMemoryStrategy" notes="Winning next move for depth 3">
