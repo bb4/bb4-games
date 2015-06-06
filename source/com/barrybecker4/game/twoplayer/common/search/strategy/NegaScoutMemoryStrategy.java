@@ -74,7 +74,7 @@ public final class NegaScoutMemoryStrategy<M extends TwoPlayerMove, B extends Tw
     @Override
     protected M searchInternal( M lastMove, int depth,
                                 SearchWindow window, SearchTreeNode parent ) {
-        //System.out.println("moves="+ searchable.getMoveList());
+
         HashKey key = searchable.getHashKey();
         Entry<M> entry = lookupTable.get(key);
         if (lookupTable.entryExists(entry, lastMove, depth, window))
@@ -102,7 +102,7 @@ public final class NegaScoutMemoryStrategy<M extends TwoPlayerMove, B extends Tw
         if (depth == lookAhead_)
             numTopLevelMoves_ = list.size();
 
-        if ( emptyMoveList(list, lastMove) )  return null;
+        if (emptyMoveList(list, lastMove))  return null;
 
         return findBestMove(lastMove, depth, list, window, parent);
     }

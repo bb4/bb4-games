@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE search-test-example SYSTEM "http://barrybecker4.com/schema/search-test-case.dtd">
+<!--
+ * A game tree where some of the moves should get alpha or beta pruned when alpha beta pruning is on.
+ * See http://cs.ucla.edu/~rosen/161/notes/alphabeta.html for a very detailed explanation.
+ *
+ *  the tree is defined by
+ *                                     10
+ *                      1                            11(p)
+ *               9           -8(p)                23          12
+ *        5        4(p)     5      6           3(p)   4         6
+ *   (((3 17)   (2 12))  ((15)  (25 0)))    (((2 5) (3))     ((2 14)))
+ *
+ *  Should return 3 with 6 terminal nodes examined.
+ *  Get additional test cases from
+ *  http://will.thimbleby.net/algorithms/doku.php?id=minimax_search_with_alpha-beta_pruning
+-->
 <search-test-example name="alpha-beta-prune-tree">
     <test-cases>
 
@@ -140,7 +155,7 @@
               <expected-search-result move-id="0" inherited-value="3" num-moves-considered="19"/>
         </test-case>
 
-        <test-case strategy="UctStrategy" rootPlayer1="true" notes="Winning next move for p1 look3">
+        <test-case strategy="UctStrategy" rootPlayer1="true" notes="Winning next move for p1 look2">
               <monte-carlo-options max-simulations="10" explore-exploit-ratio="1.0" random-look-ahead="2"/>
               <expected-search-result move-id="1" inherited-value="11" num-moves-considered="10"/>
         </test-case>
@@ -198,11 +213,7 @@
                  </node>
              </node>
         </node>
-    </node><!--                          10
- *                      1                            11(p)
- *               9           -8(p)                23          12
- *        5        4(p)     5      6           3(p)   5         6
- *   (((3 17)   (2 12))  ((15)  (25 0)))    (((2 5) (4))     ((2 14)))   -->
+    </node>
 </search-test-example>
 
 
