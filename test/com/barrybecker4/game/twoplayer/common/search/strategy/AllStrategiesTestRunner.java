@@ -31,7 +31,7 @@ public class AllStrategiesTestRunner {
     /** location of xml test cases for all search strategies */
     private static final String TEST_CASE_DIR = "test/com/barrybecker4/game/twoplayer/common/search/cases";
 
-    private static final String TEST_CASE_SUFFIX = "Ladder.xml";
+    private static final String TEST_CASE_SUFFIX = ".xml";
 
     String exampleName;
     SearchTestCase testCase;
