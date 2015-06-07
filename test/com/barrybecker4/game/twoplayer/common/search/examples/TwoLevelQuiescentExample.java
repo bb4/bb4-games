@@ -36,11 +36,11 @@ public class TwoLevelQuiescentExample extends AbstractGameTreeExample  {
 
         // second ply
         TwoPlayerMoveStub move00 = moveCreator.createMove(-1, !player1PlaysNext, move0);
-        move00.setCausedUrgency(true);
+        move00.setCausesUrgency(true);
         TwoPlayerMoveStub move01 = moveCreator.createMove(7, !player1PlaysNext, move0);
 
         TwoPlayerMoveStub move10 = moveCreator.createMove(8, !player1PlaysNext, move1);
-        move10.setCausedUrgency(true);
+        move10.setCausesUrgency(true);
         TwoPlayerMoveStub move11 = moveCreator.createMove(2, !player1PlaysNext, move1);
 
         // third ply
@@ -53,7 +53,7 @@ public class TwoLevelQuiescentExample extends AbstractGameTreeExample  {
         TwoPlayerMoveStub move100 = moveCreator.createMove(4, player1PlaysNext, move10);
         move100.setUrgent(true);
         TwoPlayerMoveStub move101 = moveCreator.createMove(5, player1PlaysNext, move10);
-        move101.setCausedUrgency(true);
+        move101.setCausesUrgency(true);
         move101.setUrgent(true);
 
         // fourth ply

@@ -50,7 +50,8 @@ public class GameTree {
             boolean player1, TwoPlayerMoveStub parent, TwoPlayerMoveStub grandParent) {
 
         TwoPlayerMoveStub newParent =
-                new TwoPlayerMoveStub(parent.getValue(), player1, parent.getToLocation().copy(), grandParent);
+                new TwoPlayerMoveStub(parent.getValue(), player1, parent.getToLocation().copy(),
+                        parent.isUrgent(), parent.causedUrgency(), grandParent);
         for (TwoPlayerMoveStub child : parent.getChildren()) {
             getCloneWithRootPlayer1(!player1, child, newParent);
         }
@@ -89,7 +90,10 @@ public class GameTree {
     private TwoPlayerMoveStub createMoveFromNode(Node node, boolean isPlayer1, TwoPlayerMoveStub parent) {
 
         int val = Integer.parseInt(DomUtil.getAttribute(node, "value"));
-        return new TwoPlayerMoveStub(val, isPlayer1, createToLocation(), parent);
+        TwoPlayerMoveStub move = new TwoPlayerMoveStub(val, isPlayer1, createToLocation(), parent);
+        move.setCausesUrgency(Boolean.parseBoolean(DomUtil.getAttribute(node, "causesUrgency", "false")));
+        move.setUrgent(Boolean.parseBoolean(DomUtil.getAttribute(node, "urgent", "false")));
+        return move;
     }
 
     /**

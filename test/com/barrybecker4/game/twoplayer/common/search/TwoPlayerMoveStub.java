@@ -23,7 +23,7 @@ public class TwoPlayerMoveStub extends TwoPlayerMove {
     /** every move but the root of the tree has a parent_ */
     private TwoPlayerMoveStub parent_;
 
-    private boolean causedUrgency;
+    private boolean causesUrgency;
 
 
     public TwoPlayerMoveStub(int val, boolean isPlayer1, Location toLocation, TwoPlayerMoveStub parent) {
@@ -33,6 +33,13 @@ public class TwoPlayerMoveStub extends TwoPlayerMove {
             this.parent_.addChild(this);
         }
         this.children_ = new MoveList<>();
+    }
+
+    public TwoPlayerMoveStub(int val, boolean isPlayer1, Location toLocation, boolean
+            isUrgent, boolean causesUrgency, TwoPlayerMoveStub parent) {
+        this(val, isPlayer1, toLocation, parent);
+        this.setUrgent(isUrgent);
+        this.setCausesUrgency(causesUrgency);
     }
 
     public TwoPlayerMoveStub getParent() {
@@ -47,12 +54,12 @@ public class TwoPlayerMoveStub extends TwoPlayerMove {
         return children_;
     }
 
-    public void setCausedUrgency(boolean value) {
-        causedUrgency = value;
+    public void setCausesUrgency(boolean value) {
+        causesUrgency = value;
     }
 
     public boolean causedUrgency() {
-        return causedUrgency;
+        return causesUrgency;
     }
 
     /**

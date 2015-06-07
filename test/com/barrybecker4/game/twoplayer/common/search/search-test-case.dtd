@@ -42,7 +42,10 @@
 >
 
 <!ATTLIST node
-    value          CDATA          #REQUIRED
-    notes          CDATA          #IMPLIED
+    value              CDATA          #REQUIRED
+    urgent            (true|false)    "false"
+    causesUrgency     (true|false)    "false"
+    notes             CDATA           #IMPLIED
+
 >
 
