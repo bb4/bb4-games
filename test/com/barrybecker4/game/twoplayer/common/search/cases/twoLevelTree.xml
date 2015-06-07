@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE search-test-example SYSTEM "http://barrybecker4.com/schema/search-test-case.dtd">
+<!--
+A simple game tree for testing search strategies.
+ * Should add more than 2 children at each branch
+ * It looks something like this
+ *                 ____ []_____
+ *                /            \
+ *            [-8]             [-2]
+ *          /     \           /    \
+ *      [-1]      [7]       [8]     [2]
+ *
+ * Move scores are evaluated from player one's perspective.
+-->
+<search-test-example name="two-level-tree">
+    <test-cases>
+        <test-case strategy="MiniMaxStrategy" rootPlayer1="true" notes="Winning move for look ahead 3">
+            <brute-force-options look-ahead="3" alpha-beta="false" />
+            <expected-search-result move-id="0" inherited-value="7" num-moves-considered="6"/>
+        </test-case>
+        <test-case strategy="MiniMaxStrategy" rootPlayer1="false" notes="Winning move for look ahead 3">
+            <brute-force-options look-ahead="3" alpha-beta="false" />
+            <expected-search-result move-id="1" inherited-value="2" num-moves-considered="6"/>
+        </test-case>
+        <test-case strategy="MiniMaxStrategy" notes="Move for look ahead 2">
+            <brute-force-options look-ahead="2" alpha-beta="false" />
+            <expected-search-result move-id="0" inherited-value="7" num-moves-considered="6"/>
+        </test-case>
+        <test-case strategy="MiniMaxStrategy" rootPlayer1="true" notes="Move for look ahead 1">
+            <brute-force-options look-ahead="1" alpha-beta="false" />
+            <expected-search-result move-id="0" inherited-value="-8" num-moves-considered="2"/>
+        </test-case>
+        <test-case strategy="MiniMaxStrategy" rootPlayer1="false" notes="Move for look ahead 1">
+            <brute-force-options look-ahead="1" alpha-beta="false" />
+            <expected-search-result move-id="1" inherited-value="-2" num-moves-considered="2"/>
+        </test-case>
+        <test-case strategy="MiniMaxStrategy" notes="No move for look ahead 0">
+            <brute-force-options look-ahead="0" alpha-beta="false" />
+            <expected-search-result move-id="root" inherited-value="-6" num-moves-considered="0"/>
+        </test-case>
+
+        <test-case strategy="NegaMaxStrategy" rootPlayer1="true" notes="Winning next move for depth 3">
+              <brute-force-options look-ahead="3" alpha-beta="false"/>
+              <expected-search-result move-id="1" inherited-value="-2" num-moves-considered="6"/>
+        </test-case>
+        <test-case strategy="NegaMaxStrategy" rootPlayer1="false"  notes="Winning next move for depth 3">
+              <brute-force-options look-ahead="3" alpha-beta="false" />
+              <expected-search-result move-id="1" inherited-value="2" num-moves-considered="6"/>
+        </test-case>
+        <test-case strategy="NegaMaxStrategy" rootPlayer1="true"  notes="Winning next move for depth 4">
+              <brute-force-options look-ahead="4" alpha-beta="false"/>
+              <expected-search-result move-id="1" inherited-value="-2" num-moves-considered="6"/>
+        </test-case>
+        <test-case strategy="NegaMaxStrategy" rootPlayer1="false"  notes="Winning next move for depth 4">
+              <brute-force-options look-ahead="4" alpha-beta="false" />
+              <expected-search-result move-id="1" inherited-value="2" num-moves-considered="6"/>
+        </test-case>
+
+        <test-case strategy="NegaMaxStrategy" notes="Winning move for depth 2">
+              <brute-force-options look-ahead="2" alpha-beta="false"/>
+              <expected-search-result move-id="0" inherited-value="7" num-moves-considered="6"/>
+        </test-case>
+        <test-case strategy="NegaMaxStrategy" rootPlayer1="true" notes="Winning move for depth 1">
+              <brute-force-options look-ahead="1" alpha-beta="false"/>
+              <expected-search-result move-id="0" inherited-value="-8" num-moves-considered="2"/>
+        </test-case>
+        <!-- wrong? -->
+        <test-case strategy="NegaMaxStrategy" rootPlayer1="false" notes="Winning move for depth 1">
+              <brute-force-options look-ahead="1" alpha-beta="false" />
+              <expected-search-result move-id="1" inherited-value="-2" num-moves-considered="2"/>
+        </test-case>
+        <test-case strategy="NegaMaxStrategy" notes="No move for look ahead 0">
+            <brute-force-options look-ahead="0" alpha-beta="false" quiescence="false" max-quiescent-depth="0"/>
+            <expected-search-result move-id="root" inherited-value="-6" num-moves-considered="0"/>
+        </test-case>
+
+
+        <!--test-case strategy="NegaMaxMemoryStrategy" rootPlayer1="true" notes="Winning next move for depth 3">
+              <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
+              <expected-search-result move-id="0" inherited-value="-8" num-moves-considered="2"/>
+        </test-case>
+        <test-case strategy="NegaScoutMemoryStrategy" rootPlayer1="true" notes="Winning next move for depth 3">
+              <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
+              <expected-search-result move-id="0" inherited-value="-8" num-moves-considered="2"/>
+        </test-case-->
+        <test-case strategy="UctStrategy" rootPlayer1="true" notes="Winning next move for depth 3">
+              <monte-carlo-options max-simulations="10" explore-exploit-ratio="1.0" random-look-ahead="3" />
+              <expected-search-result move-id="0" inherited-value="-8" num-moves-considered="7"/>
+        </test-case>
+        <test-case strategy="UctStrategy" rootPlayer1="true" notes="Winning next move for depth 1">
+              <monte-carlo-options max-simulations="10" explore-exploit-ratio="1.0" random-look-ahead="1" />
+              <expected-search-result move-id="0" inherited-value="-8" num-moves-considered="7"/>
+        </test-case>
+        <test-case strategy="UctStrategy" rootPlayer1="false" notes="Winning next move for depth 3">
+              <monte-carlo-options max-simulations="10" explore-exploit-ratio="1.0" random-look-ahead="3" />
+              <expected-search-result move-id="1" inherited-value="-2" num-moves-considered="7"/>
+        </test-case>
+        <test-case strategy="UctStrategy" rootPlayer1="false" notes="Winning next move for depth 1">
+              <monte-carlo-options max-simulations="10" explore-exploit-ratio="1.0" random-look-ahead="1" />
+              <expected-search-result move-id="1" inherited-value="-2" num-moves-considered="7"/>
+        </test-case>
+
+        <test-case strategy="MtdStrategy:NegaMaxMemoryStrategy" rootPlayer1="true" notes="Winning next move for depth 3">
+              <brute-force-options look-ahead="3" alpha-beta="false" />
+              <expected-search-result move-id="0" inherited-value="-1" num-moves-considered="6"/>
+        </test-case>
+        <test-case strategy="MtdStrategy:NegaScoutMemoryStrategy" rootPlayer1="true" notes="Winning next move for depth 3">
+              <brute-force-options look-ahead="3" alpha-beta="false" />
+              <expected-search-result move-id="0" inherited-value="0" num-moves-considered="3"/>
+        </test-case>
+        <test-case strategy="MtdStrategy:NegaMaxMemoryStrategy" rootPlayer1="false" notes="Winning next move for depth 3">
+              <brute-force-options look-ahead="3" alpha-beta="false" />
+              <expected-search-result move-id="0" inherited-value="1" num-moves-considered="6"/>
+        </test-case>
+        <test-case strategy="MtdStrategy:NegaScoutMemoryStrategy" rootPlayer1="false" notes="Winning next move for depth 3">
+              <brute-force-options look-ahead="3" alpha-beta="false" />
+              <expected-search-result move-id="0" inherited-value="0" num-moves-considered="3"/>
+        </test-case>
+    </test-cases>
+
+    <node value="-6">
+        <node value="-8">
+            <node value="-1"/>
+            <node value="7"/>
+        </node>
+        <node value="-2">
+            <node value="8"/>
+            <node value="2"/>
+        </node>
+    </node>
+</search-test-example>
