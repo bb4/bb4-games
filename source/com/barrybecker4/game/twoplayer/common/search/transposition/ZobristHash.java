@@ -40,7 +40,6 @@ public final class ZobristHash {
      * @param board game board
      */
     public ZobristHash(TwoPlayerBoard board) {
-
         this(board, 0, false);  // always false unless debugging.
     }
 

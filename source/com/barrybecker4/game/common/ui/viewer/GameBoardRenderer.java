@@ -77,8 +77,9 @@ public abstract class GameBoardRenderer {
 
     public Dimension getPreferredSize(int nrows, int ncols) {
 
-        return new Dimension( 2*getMargin() + ncols * getPreferredCellSize(),
-                                         2*getMargin() + nrows * getPreferredCellSize());
+        return new Dimension(
+                2*getMargin() + ncols * getPreferredCellSize(),
+                2*getMargin() + nrows * getPreferredCellSize());
     }
 
     /**

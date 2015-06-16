@@ -31,7 +31,7 @@ public class HexBoard extends TwoPlayerBoard<TwoPlayerMove> {
 
     @Override
     public int getNumPositionStates() {
-        return 0;
+        return 3;
     }
 
     private HexBoard(HexBoard pb) {

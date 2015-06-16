@@ -3,14 +3,10 @@ package com.barrybecker4.game.twoplayer.hex;
 
 import com.barrybecker4.game.common.player.PlayerList;
 import com.barrybecker4.game.common.player.PlayerOptions;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerController;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerOptions;
 import com.barrybecker4.game.twoplayer.common.search.Searchable;
-import com.barrybecker4.game.twoplayer.gomoku.GoMokuController;
-import com.barrybecker4.game.twoplayer.tictactoe.TicTacToeBoard;
-import com.barrybecker4.game.twoplayer.tictactoe.TicTacToePatterns;
 
 import java.awt.Color;
 
@@ -63,6 +59,5 @@ public class HexController extends TwoPlayerController<TwoPlayerMove, HexBoard> 
 
     @Override
     public void computerMovesFirst() {
-
     }
 }

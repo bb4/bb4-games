@@ -39,6 +39,7 @@ public class HexSearchable extends TwoPlayerSearchable<TwoPlayerMove, HexBoard> 
 
     @Override
     public MoveList<TwoPlayerMove> generateMoves(TwoPlayerMove lastMove, ParameterArray weights) {
+        // TODO
         return null;
     }
 

@@ -27,8 +27,7 @@ import java.util.List;
  *
  * @author Barry Becker
  */
-public class GoBoardRenderer extends TwoPlayerBoardRenderer
-{
+public class GoBoardRenderer extends TwoPlayerBoardRenderer {
     private static GameBoardRenderer renderer_;
 
     public static final ColorMap COLORMAP = new GoColorMap();
@@ -121,10 +120,8 @@ public class GoBoardRenderer extends TwoPlayerBoardRenderer
      */
     @Override
     protected void drawBackground( Graphics g, Board b, int startPos, int rightEdgePos, int bottomEdgePos,
-                                   int panelWidth, int panelHeight)
-    {
+                                   int panelWidth, int panelHeight) {
         super.drawBackground( g, b,  startPos, rightEdgePos, bottomEdgePos, panelWidth, panelHeight);
-        //int t = (int)(cellSize/3.4f);
         int t = (int)(cellSize /2.0f);
         g.drawImage(woodGrainImage_.getImage(), (startPos-t), (startPos-t),
                                                 (rightEdgePos-startPos+2 * t), (bottomEdgePos-startPos+2 * t), null);
@@ -165,19 +162,6 @@ public class GoBoardRenderer extends TwoPlayerBoardRenderer
         super.drawMarkers(board, players, g2);
         //drawNextMoveMarkers(board, g2);
     }
-
-    /**
-     * draw markers for the next moves (if they have been specified)
-     *
-    void drawNextMoveMarkers(Board board, Graphics2D g2) {
-
-        //TwoPlayerMove[] nextMoves = ((AbstractTwoPlayerBoardViewer) controller.getViewer()).getNextMoves();
-        if (nextMoves != null) {
-            for (TwoPlayerMove move : nextMoves) {
-                ((TwoPlayerPieceRenderer) pieceRenderer_).renderNextMove(g2, move, cellSize, getMargin(), board);
-            }
-        }
-    }  */
 
 }
 
