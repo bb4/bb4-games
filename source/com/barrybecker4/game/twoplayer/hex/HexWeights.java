@@ -1,4 +1,4 @@
-/** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
+/** Copyright by Barry G. Becker, 2015. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.hex;
 
 import com.barrybecker4.game.common.GameWeights;
@@ -33,12 +33,12 @@ public class HexWeights extends GameWeights {
 
 
     private static final String[] WEIGHT_SHORT_DESCRIPTIONS = {
-        "centricity", "linkProximity",  "foo"};
+        "centricity", "linkProximity",  "fullPath"};
 
     private static final String[] WEIGHT_DESCRIPTIONS = {
         "Control of the center",
         "Number of blank spaces need to make full path",
-        "foo"
+        "Has a path that spsns the board"
     };
 
     public HexWeights() {

@@ -1,9 +1,9 @@
-/** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
+/** Copyright by Barry G. Becker, 2015. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.hex.ui;
 
 import com.barrybecker4.game.common.ui.viewer.GameBoardRenderer;
+import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerBoardRenderer;
 import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerPieceRenderer;
-import com.barrybecker4.game.twoplayer.gomoku.ui.GoMokuBoardRenderer;
 
 /**
  * Singleton class that takes a game board and renders it for the GameBoardViewer.
@@ -12,7 +12,7 @@ import com.barrybecker4.game.twoplayer.gomoku.ui.GoMokuBoardRenderer;
  *
  * @author Barry Becker
  */
-class HexBoardRenderer extends GoMokuBoardRenderer {
+class HexBoardRenderer extends TwoPlayerBoardRenderer {
 
     private static GameBoardRenderer renderer_;
 

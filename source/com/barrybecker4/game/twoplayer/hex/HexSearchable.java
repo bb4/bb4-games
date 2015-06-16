@@ -3,16 +3,16 @@ package com.barrybecker4.game.twoplayer.hex;
 
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.player.PlayerList;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerSearchable;
+import com.barrybecker4.optimization.parameter.ParameterArray;
 
 /**
- * Defines everything the computer needs to know to play TicTacToe.
+ * Defines everything the computer needs to know to play Hex.
  *
  * @author Barry Becker
 */
-public class HexSearchable extends TwoPlayerSearchable<TwoPlayerMove, TwoPlayerBoard<TwoPlayerMove>> {
+public class HexSearchable extends TwoPlayerSearchable<TwoPlayerMove, HexBoard> {
 
     /**
      *  Constructor

@@ -1,6 +1,8 @@
 /** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.common.ui;
 
+import com.barrybecker4.common.geometry.IntLocation;
+import com.barrybecker4.common.geometry.Location;
 import com.barrybecker4.game.common.board.Board;
 import com.barrybecker4.game.common.player.Player;
 import com.barrybecker4.game.common.ui.viewer.GameBoardRenderer;
@@ -23,6 +25,13 @@ public abstract class TwoPlayerBoardRenderer extends GameBoardRenderer {
      */
     protected TwoPlayerBoardRenderer()  {}
 
+    protected IntLocation getPosition(Location coords) {
+        return new IntLocation(
+                getMargin() + (coords.getCol() - 1) * cellSize + 1,
+                getMargin() + (coords.getRow() - 1) * cellSize + 1);
+
+    }
+
     @Override
     protected void drawLastMoveMarker(Graphics2D g2, Player player, Board board) {
 
@@ -32,9 +41,8 @@ public abstract class TwoPlayerBoardRenderer extends GameBoardRenderer {
             g2.setColor( LAST_MOVE_INDICATOR_COLOR );
             g2.setStroke(LAST_MOVE_INDICATOR_STROKE);
             int cellSize = getCellSize();
-            int xpos = getMargin() + (last.getToCol() - 1) * cellSize + 1;
-            int ypos = getMargin() + (last.getToRow() - 1) * cellSize + 1;
-            g2.drawOval( xpos, ypos, cellSize - 2, cellSize - 2 );
+            IntLocation pos = getPosition(last.getToLocation());
+            g2.drawOval(pos.getX(), pos.getY(), cellSize - 2, cellSize - 2 );
         }
     }
 }

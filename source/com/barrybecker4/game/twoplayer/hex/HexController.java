@@ -1,4 +1,4 @@
-/** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
+/** Copyright by Barry G. Becker, 2015. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.hex;
 
 import com.barrybecker4.game.common.player.PlayerList;
@@ -15,15 +15,11 @@ import com.barrybecker4.game.twoplayer.tictactoe.TicTacToePatterns;
 import java.awt.Color;
 
 /**
- * Defines everything the computer needs to know to play TicTacToe.
- *
- * Without taking symmetries into account, the number of possible games is 255,168 (Henry Bottomley, 2001)
- * Accounting for board symmetries, the number of games in these conditions is 26,830 (Schaeffer 2002)
- * See http://en.wikipedia.org/wiki/Tic-tac-toe
+ * Defines everything the computer needs to know to play Hex.
  *
  * @author Barry Becker
  */
-public class HexController<B extends HexBoard> extends TwoPlayerController<TwoPlayerMove, HexBoard> {
+public class HexController extends TwoPlayerController<TwoPlayerMove, HexBoard> {
 
     /**
      *  Constructor
@@ -60,9 +56,8 @@ public class HexController<B extends HexBoard> extends TwoPlayerController<TwoPl
         return (HexSearchable) super.getSearchable();
     }
 
-
-
-    protected HexSearchable createSearchable(B board, PlayerList players) {
+    @Override
+    protected Searchable<TwoPlayerMove, HexBoard> createSearchable(HexBoard board, PlayerList players) {
         return new HexSearchable(board, players);
     }
 
