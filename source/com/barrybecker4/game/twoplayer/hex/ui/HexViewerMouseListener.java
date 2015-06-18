@@ -4,12 +4,8 @@ package com.barrybecker4.game.twoplayer.hex.ui;
 import com.barrybecker4.common.geometry.Location;
 import com.barrybecker4.game.common.board.BoardPosition;
 import com.barrybecker4.game.common.board.GamePiece;
-import com.barrybecker4.game.common.ui.viewer.GameBoardViewer;
 import com.barrybecker4.game.common.ui.viewer.ViewerMouseListener;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
-import com.barrybecker4.game.twoplayer.gomoku.GoMokuBoard;
-import com.barrybecker4.game.twoplayer.gomoku.GoMokuController;
-import com.barrybecker4.game.twoplayer.gomoku.ui.GoMokuBoardViewer;
 import com.barrybecker4.game.twoplayer.hex.HexBoard;
 import com.barrybecker4.game.twoplayer.hex.HexController;
 
@@ -25,7 +21,7 @@ class HexViewerMouseListener extends ViewerMouseListener<TwoPlayerMove, HexBoard
     /**
      * Constructor.
      */
-    HexViewerMouseListener(GameBoardViewer<TwoPlayerMove, HexBoard> viewer) {
+    HexViewerMouseListener(HexBoardViewer viewer) {
         super(viewer);
     }
 

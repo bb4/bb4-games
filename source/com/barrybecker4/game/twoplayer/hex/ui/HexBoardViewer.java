@@ -37,7 +37,7 @@ public class HexBoardViewer extends AbstractTwoPlayerBoardViewer {
     }
 
     @Override
-    protected ViewerMouseListener createViewerMouseListener() {
+    protected HexViewerMouseListener createViewerMouseListener() {
         return new HexViewerMouseListener(this);
     }
 

@@ -8,7 +8,6 @@ import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerBoardRenderer;
 import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerPieceRenderer;
 
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
 
 /**
  * Singleton class that takes a game board and renders it for the GameBoardViewer.
@@ -21,9 +20,9 @@ class HexBoardRenderer extends TwoPlayerBoardRenderer {
 
     private static GameBoardRenderer renderer_;
 
-    private static final int BOARD_MARGIN = 25;
-    private static final Color TILE_BORDER_COLOR = new Color(20, 20, 50);
-    private static final Stroke TILE_STROKE = new BasicStroke(1);
+    private static final int BOARD_MARGIN = 30;
+    private static final Color TILE_BORDER_COLOR = new Color(30, 30, 90,50);
+    private static final Stroke TILE_STROKE = new BasicStroke(2);
 
     /**
      * private constructor because this class is a singleton.
@@ -52,6 +51,11 @@ class HexBoardRenderer extends TwoPlayerBoardRenderer {
         return BOARD_MARGIN;
     }
 
+    @Override
+    protected double getBoardAspectRatio() {
+        return 1.5;
+    }
+
     /**
      * whether to draw the pieces on cell centers or vertices (the way go requires).
      */
@@ -67,6 +71,8 @@ class HexBoardRenderer extends TwoPlayerBoardRenderer {
     protected void drawGrid(Graphics2D g2, int startPos, int rightEdgePos, int bottomEdgePos, int start,
                             int nrows1, int ncols1, int gridOffset) {
 
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor( getGridColor() );
         int xpos, ypos;
         int cellSizeD2 = cellSize/2;
@@ -74,10 +80,10 @@ class HexBoardRenderer extends TwoPlayerBoardRenderer {
         for (int i = start; i <= nrows1; i++ ) {
             for (int j = start; j <= ncols1; j++ ) {
                 xpos = getMargin() + j * cellSize + gridOffset + (i-1) * cellSizeD2;
-                ypos = getMargin() + i * cellSize + gridOffset;
+                ypos = getMargin() + (int)(i * cellSize * HexUtil.ROOT3D2) + gridOffset;
                 //g2.drawLine( startPos, ypos, rightEdgePos, ypos );
                 Point point = new Point(xpos, ypos);
-                drawHexagon(g2, point, cellSizeD2);
+                drawHexagon(g2, point, cellSizeD2 / HexUtil.ROOT3D2);
             }
         }
     }
@@ -109,7 +115,6 @@ class HexBoardRenderer extends TwoPlayerBoardRenderer {
     protected void drawBackground( Graphics g, Board b, int startPos, int rightEdgePos, int bottomEdgePos,
                                    int panelWidth, int panelHeight) {
         super.drawBackground( g, b,  startPos, rightEdgePos, bottomEdgePos, panelWidth, panelHeight);
-        int t = (int)(cellSize /2.0f);
     }
 
 

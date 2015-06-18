@@ -189,22 +189,31 @@ public abstract class GameBoardRenderer {
      * The viewer window may be resized causing the cell size to change dynamically
      * @return the current cell size given the board and panel dimensions.
      */
-    int calcCellSize( Board board, int panelWidth, int panelHeight )  {
+    protected int calcCellSize( Board board, int panelWidth, int panelHeight )  {
         int size;
         int nrows = board.getNumRows();
         int ncols = board.getNumCols();
 
+        double aspect = getBoardAspectRatio();
         float panelAspect = (float) panelWidth / (float) panelHeight;
-        float boardAspect = (float) ncols / (float) nrows;
+        float boardAspect = (float) aspect *  ncols /  nrows;
 
         //GameContext.log(0, "compare "+boardAspect+"("+ncols+","+nrows+") to "
         //    + panelAspect + "("+panelWidth+","+panelHeight+") to ");
         if ( boardAspect < panelAspect )
-            size = ((panelHeight - 2 * getMargin() + 1) / nrows);
+            size = (int)((panelHeight - 2 * getMargin() + 1) / nrows);
         else
-            size = ((panelWidth - 2 * getMargin() + 1) / ncols);
+            size = (int)((panelWidth - 2 * getMargin() + 1) / (aspect * ncols));
 
         return Math.max( size, MINIMUM_CELL_SIZE );
+    }
+
+    /**
+     * Usually this is one, but some boards (like hex) have unusual shapes.
+     * @return the ideal width / height ratio
+     */
+    protected double getBoardAspectRatio() {
+        return 1.0;
     }
 
     /**
