@@ -32,9 +32,6 @@ public class BoardPositions {
     /**
      * Copy constructor.
      * Makes a deep copy of the board and all its parts.
-     *
-     *         }
-
      */
     protected BoardPositions(BoardPositions b) {
         this(b.getNumRows(), b.getNumCols());
@@ -51,7 +48,8 @@ public class BoardPositions {
     }
 
     /**
-     *  Change the dimensions of this game board.
+     * Change the dimensions of this game board.
+     * Note that there are sentinels around the border
      */
     public void setSize( int numRows, int numCols ) {
         numRows_ = numRows;

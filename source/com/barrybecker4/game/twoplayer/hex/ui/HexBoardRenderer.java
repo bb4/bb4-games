@@ -53,7 +53,7 @@ class HexBoardRenderer extends TwoPlayerBoardRenderer {
 
     @Override
     protected double getBoardAspectRatio() {
-        return 1.5;
+        return 1.4;
     }
 
     /**
@@ -73,19 +73,53 @@ class HexBoardRenderer extends TwoPlayerBoardRenderer {
 
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setColor( getGridColor() );
+
         int xpos, ypos;
         int cellSizeD2 = cellSize/2;
 
         for (int i = start; i <= nrows1; i++ ) {
             for (int j = start; j <= ncols1; j++ ) {
+                g2.setColor( getGridColor() );
                 xpos = getMargin() + j * cellSize + gridOffset + (i-1) * cellSizeD2;
                 ypos = getMargin() + (int)(i * cellSize * HexUtil.ROOT3D2) + gridOffset;
                 //g2.drawLine( startPos, ypos, rightEdgePos, ypos );
                 Point point = new Point(xpos, ypos);
-                drawHexagon(g2, point, cellSizeD2 / HexUtil.ROOT3D2);
+                double rad = cellSizeD2 / HexUtil.ROOT3D2;
+                drawHexagon(g2, point, rad);
+
+                if (i == start ) {
+                    drawEdge(g2, getPieceRenderer().getPlayer1Color(), point, rad, 210, 270, 330);
+                }
+                if (i == nrows1) {
+                    drawEdge(g2, getPieceRenderer().getPlayer1Color(), point, rad, 30, 90, 150);
+                }
+                if (j == start) {
+                    drawEdge(g2, getPieceRenderer().getPlayer2Color(), point, rad, 90, 150, 210);
+                }
+                if (j == ncols1) {
+                    drawEdge(g2, getPieceRenderer().getPlayer2Color(), point, rad, 270, 330, 390);
+                }
             }
         }
+    }
+
+    private void drawEdge(Graphics2D g2, Color color, Point point, double rad, int a1, int a2, int a3) {
+        g2.setColor(color);
+        double ang1 = HexUtil.rad(a1);
+        int x1 = (int)(point.getX() + rad * Math.cos(ang1));
+        int y1 = (int)(point.getY() + rad * Math.sin(ang1));
+        double ang2 = HexUtil.rad(a2);
+        int x2 = (int)(point.getX() + rad * Math.cos(ang2));
+        int y2 = (int)(point.getY() + rad * Math.sin(ang2));
+        double ang3 = HexUtil.rad(a3);
+        int x3 = (int)(point.getX() + rad * Math.cos(ang3));
+        int y3 = (int)(point.getY() + rad * Math.sin(ang3));
+        g2.drawLine(x1, y1, x2, y2);
+        g2.drawLine(x2, y2, x3, y3);
+    }
+
+    public TwoPlayerPieceRenderer getPieceRenderer() {
+        return (TwoPlayerPieceRenderer) pieceRenderer_;
     }
 
     private void drawHexagon(Graphics2D g2, Point point, double radius) {

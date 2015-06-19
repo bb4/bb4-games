@@ -5,7 +5,7 @@ import com.barrybecker4.common.geometry.ByteLocation;
 import com.barrybecker4.common.geometry.Location;
 
 /**
- *  the BoardPosition describes the physical marker at a location on the board.
+ *  The BoardPosition describes the physical marker at a location on the board.
  *  It may be empty if there is no piece there.
  *
  * @see Board
