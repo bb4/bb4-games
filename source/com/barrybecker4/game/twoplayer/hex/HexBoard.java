@@ -1,9 +1,13 @@
 /** Copyright by Barry G. Becker, 2015. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.hex;
 
+import com.barrybecker4.common.geometry.Location;
 import com.barrybecker4.game.common.board.BoardPosition;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Representation of a Hex Game Board
@@ -68,7 +72,43 @@ public class HexBoard extends TwoPlayerBoard<TwoPlayerMove> {
     }
 
     @Override
+    protected boolean makeInternalMove(TwoPlayerMove move) {
+        boolean legal = super.makeInternalMove(move);
+        if (legal) {
+            // add connections to friendly neighbors
+            List<BoardPosition> friendlyNbrs = getFriendlyNbrs(move);
+            int idx1 = getPositionIdx(move.getToLocation());
+            for (BoardPosition nbr : friendlyNbrs) {
+                union.union(idx1, getPositionIdx(nbr.getLocation()));
+            }
+        }
+        return legal;
+    }
+
+    private int getPositionIdx(Location loc) {
+        return loc.getCol() + (getNumCols() + 2) * loc.getRow();
+    }
+
+    private List<BoardPosition> getFriendlyNbrs(TwoPlayerMove move) {
+        int dir = 0;
+        List<BoardPosition> nbrs = new LinkedList<>();
+        Location loc = move.getToLocation();
+        boolean p1 = move.isPlayer1();
+
+        while (dir < 6) {
+            Location nbrLoc = HexBoardUtil.getNeighborLocation(loc, dir);
+            BoardPosition pos = this.getPosition(nbrLoc);
+            if (pos.isOccupied() && pos.getPiece().isOwnedByPlayer1() == p1) {
+                nbrs.add(pos);
+            }
+            dir++;
+        }
+        return nbrs;
+    }
+
+    @Override
     protected void undoInternalMove(TwoPlayerMove move) {
+        getPosition(move.getToRow(), move.getToCol()).clear();
     }
 
     @Override
@@ -87,7 +127,7 @@ public class HexBoard extends TwoPlayerBoard<TwoPlayerMove> {
 
     @Override
     public int getMaxNumMoves() {
-        return 9;
+        return getNumCols() * getNumRows();
     }
 
     public HexCandidateMoves getCandidateMoves() {

@@ -1,6 +1,8 @@
 /** Copyright by Barry G. Becker, 2015. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.hex.ui;
 
+import com.barrybecker4.common.geometry.ByteLocation;
+import com.barrybecker4.common.geometry.Location;
 import com.barrybecker4.game.common.board.Board;
 import com.barrybecker4.game.common.player.PlayerList;
 import com.barrybecker4.game.common.ui.viewer.GameBoardRenderer;
@@ -9,6 +11,7 @@ import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerPieceRenderer;
 import com.barrybecker4.game.twoplayer.hex.HexPieceRenderer;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
 /**
  * Singleton class that takes a game board and renders it for the GameBoardViewer.
@@ -63,6 +66,20 @@ class HexBoardRenderer extends TwoPlayerBoardRenderer {
     @Override
     protected boolean offsetGrid() {
         return true;
+    }
+
+
+    /**
+     * Constructs a new Location given a MouseEvent
+     *
+     * @param e event containing the coordinates.
+     * @return new location based on mouse position.
+     */
+    public Location createLocation( MouseEvent e) {
+        int size = Math.max(1, getCellSize());
+        int row = (int)((e.getY() - getMargin()) / (HexUtil.ROOT3D2 * size) + 1);
+        int col = (e.getX() - getMargin() - (row - 2) * cellSize/2) / size + 1;
+        return new ByteLocation(row, col);
     }
 
     /**

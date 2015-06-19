@@ -6,7 +6,6 @@ import com.barrybecker4.game.common.GameContext;
 import com.barrybecker4.game.common.board.BoardPosition;
 import com.barrybecker4.game.common.board.IRectangularBoard;
 import com.barrybecker4.game.common.ui.viewer.GameBoardRenderer;
-import com.barrybecker4.game.common.ui.viewer.ViewerMouseListener;
 import com.barrybecker4.game.twoplayer.common.ui.AbstractTwoPlayerBoardViewer;
 import com.barrybecker4.game.twoplayer.hex.HexController;
 

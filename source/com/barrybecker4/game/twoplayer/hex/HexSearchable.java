@@ -1,6 +1,7 @@
 /** Copyright by Barry G. Becker, 2015. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.hex;
 
+import com.barrybecker4.common.math.MathUtil;
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.player.PlayerList;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
@@ -37,7 +38,7 @@ public class HexSearchable extends TwoPlayerSearchable<TwoPlayerMove, HexBoard> 
 
     @Override
     public int worth(TwoPlayerMove lastMove, ParameterArray weights) {
-        int value = 0;
+        int value = MathUtil.RANDOM.nextInt(100);
         if (board_.isPlayer1Connected()) {
             value = SearchStrategy.WINNING_VALUE;
         }
