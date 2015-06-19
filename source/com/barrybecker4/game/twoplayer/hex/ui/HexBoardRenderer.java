@@ -6,6 +6,7 @@ import com.barrybecker4.game.common.player.PlayerList;
 import com.barrybecker4.game.common.ui.viewer.GameBoardRenderer;
 import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerBoardRenderer;
 import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerPieceRenderer;
+import com.barrybecker4.game.twoplayer.hex.HexPieceRenderer;
 
 import java.awt.*;
 
@@ -29,7 +30,7 @@ class HexBoardRenderer extends TwoPlayerBoardRenderer {
      * Use getRenderer instead
      */
     private HexBoardRenderer() {
-        pieceRenderer_ = TwoPlayerPieceRenderer.getRenderer();
+        pieceRenderer_ = HexPieceRenderer.getRenderer();
     }
 
     /**
@@ -82,10 +83,10 @@ class HexBoardRenderer extends TwoPlayerBoardRenderer {
                 g2.setColor( getGridColor() );
                 xpos = getMargin() + j * cellSize + gridOffset + (i-1) * cellSizeD2;
                 ypos = getMargin() + (int)(i * cellSize * HexUtil.ROOT3D2) + gridOffset;
-                //g2.drawLine( startPos, ypos, rightEdgePos, ypos );
+
                 Point point = new Point(xpos, ypos);
                 double rad = cellSizeD2 / HexUtil.ROOT3D2;
-                drawHexagon(g2, point, rad);
+                HexagonRenderer.drawHexagon(g2, point, rad, TILE_BORDER_COLOR, TILE_STROKE);
 
                 if (i == start ) {
                     drawEdge(g2, getPieceRenderer().getPlayer1Color(), point, rad, 210, 270, 330);
@@ -120,26 +121,6 @@ class HexBoardRenderer extends TwoPlayerBoardRenderer {
 
     public TwoPlayerPieceRenderer getPieceRenderer() {
         return (TwoPlayerPieceRenderer) pieceRenderer_;
-    }
-
-    private void drawHexagon(Graphics2D g2, Point point, double radius) {
-
-        int numPoints = 7;
-        int[] xpoints = new int[numPoints];
-        int[] ypoints = new int[numPoints];
-
-        for (int i = 0; i <= 6; i++) {
-            double angStart = HexUtil.rad(30 + 60 * i);
-            xpoints[i] = (int)(point.getX() + radius * Math.cos(angStart));
-            ypoints[i] = (int)(point.getY() + radius * Math.sin(angStart));
-        }
-
-        Polygon poly = new Polygon(xpoints, ypoints, numPoints);
-        //g2.setColor(TILE_BG_COLOR);
-        //g2.fillPolygon(poly);
-        g2.setColor(TILE_BORDER_COLOR);
-        g2.setStroke(TILE_STROKE);
-        g2.drawPolygon(poly);
     }
 
     /**

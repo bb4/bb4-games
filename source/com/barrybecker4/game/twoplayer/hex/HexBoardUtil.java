@@ -14,6 +14,8 @@ import java.awt.geom.Point2D;
  *    1,0   1,1   1,2   1,3
  *    2,0   2,1   2,2
  *
+ *   TODO: move this and HexUtil to common/geometry
+ *
  *  @author Barry Becker
  */
 public class HexBoardUtil {

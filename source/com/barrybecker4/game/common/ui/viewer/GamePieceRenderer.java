@@ -27,7 +27,7 @@ public abstract class GamePieceRenderer {
     protected static final Point2D.Double SPEC_HIGHLIGHT_RADIUS = new Point2D.Double(0, 7);
 
     /** use static to avoid creating a lot of new objects. */
-    private static final Point position_ = new Point(0, 0);
+    protected final Point position_ = new Point(0, 0);
 
 
     /**
@@ -55,7 +55,7 @@ public abstract class GamePieceRenderer {
     }
 
 
-    protected static Point getPosition(BoardPosition position, int cellSize, int pieceSize, int margin) {
+    protected Point getPosition(BoardPosition position, int cellSize, int pieceSize, int margin) {
         int offset = (cellSize - pieceSize) >> 1;
         position_.x = margin + cellSize*(position.getCol()-1) + offset;
         position_.y = margin + cellSize*(position.getRow()-1) + offset;

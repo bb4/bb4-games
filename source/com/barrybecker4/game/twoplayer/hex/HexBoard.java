@@ -13,6 +13,9 @@ import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 public class HexBoard extends TwoPlayerBoard<TwoPlayerMove> {
 
     private static final int DEFAULT_SIZE = 11;
+
+    private UnionFindTemp union;
+
     /**
      * Constructor.
      * Tic tac toe is always 3x3
@@ -35,10 +38,34 @@ public class HexBoard extends TwoPlayerBoard<TwoPlayerMove> {
     @Override
     public void reset() {
         super.reset();
+        int rowMax = getNumRows() + 1;
+        int colMax = getNumCols() + 1;
+        int n = (rowMax + 1) * (colMax + 1);
+        union = new UnionFindTemp(n);
 
-         
+        int lastRowStart = (colMax + 1) * (rowMax);
+        for (int i = 1; i <= colMax; i++) {
+            union.union(i, i-1);
+            union.union(lastRowStart + i, lastRowStart + i - 1);
+        }
+        for (int j = 2; j < rowMax; j++) {
+            int idx = j * (colMax + 1);
+            int lastIdx = (j - 1) * (colMax + 1);
+            union.union(idx, lastIdx);
+            union.union(idx + colMax, lastIdx + colMax);
+        }
     }
 
+    public boolean isPlayer1Connected() {
+        int positionInLastRow = (getNumRows() + 1) * (getNumCols() + 2) + 2;
+        return union.connected(2, positionInLastRow);
+    }
+
+    public boolean isPlayer2Connected() {
+        int positionInFirstCol = getNumCols() + 2;
+        int positionInLastCol = (2 * getNumCols() - 1);
+        return union.connected(positionInFirstCol, positionInLastCol);
+    }
 
     @Override
     protected void undoInternalMove(TwoPlayerMove move) {

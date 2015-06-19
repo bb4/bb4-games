@@ -5,6 +5,8 @@ import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.player.PlayerList;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerSearchable;
+import com.barrybecker4.game.twoplayer.common.search.Searchable;
+import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy;
 import com.barrybecker4.optimization.parameter.ParameterArray;
 
 /**
@@ -13,6 +15,8 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  * @author Barry Becker
 */
 public class HexSearchable extends TwoPlayerSearchable<TwoPlayerMove, HexBoard> {
+
+    private HexMoveGenerator generator = new HexMoveGenerator();
 
     /**
      *  Constructor
@@ -33,14 +37,22 @@ public class HexSearchable extends TwoPlayerSearchable<TwoPlayerMove, HexBoard> 
 
     @Override
     public int worth(TwoPlayerMove lastMove, ParameterArray weights) {
-        // TODO
-        return 0;
+        int value = 0;
+        if (board_.isPlayer1Connected()) {
+            value = SearchStrategy.WINNING_VALUE;
+        }
+        else if (board_.isPlayer2Connected()) {
+            value = -SearchStrategy.WINNING_VALUE;
+        }
+        return value;
     }
 
+    /**
+     * @return some good legal next moves
+     */
     @Override
     public MoveList<TwoPlayerMove> generateMoves(TwoPlayerMove lastMove, ParameterArray weights) {
-        // TODO
-        return null;
+        return generator.generateMoves(this, lastMove, weights);
     }
 
     @Override

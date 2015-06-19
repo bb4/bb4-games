@@ -36,7 +36,7 @@ public class HexCandidateMoves {
 
     /**
      * Constructor
-     * @param board the gomoku board to determine candidate moves for
+     * @param board the hex board to determine candidate moves for
      */
     public HexCandidateMoves(HexBoard board) {
         this.numRows = board.getNumRows();
@@ -46,7 +46,7 @@ public class HexCandidateMoves {
     }
 
     /** For internal use only */
-    protected HexCandidateMoves() {}
+    private HexCandidateMoves() {}
 
     /**
      * We consider only those spaces bordering on non-empty spaces.
@@ -87,7 +87,7 @@ public class HexCandidateMoves {
         }
 
         // select 20 random moves around the board to include
-        for (int k = 0; k< NUM_RANDOM_PLACEMENTS; k++) {
+        for (int k = 0; k < NUM_RANDOM_PLACEMENTS; k++) {
             Location loc = new ByteLocation(
                     MathUtil.RANDOM.nextInt(numRows) + 1,
                     MathUtil.RANDOM.nextInt(numCols) + 1);
