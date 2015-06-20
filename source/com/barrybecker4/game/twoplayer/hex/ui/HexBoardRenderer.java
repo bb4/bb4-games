@@ -2,10 +2,13 @@
 package com.barrybecker4.game.twoplayer.hex.ui;
 
 import com.barrybecker4.common.geometry.ByteLocation;
+import com.barrybecker4.common.geometry.IntLocation;
 import com.barrybecker4.common.geometry.Location;
 import com.barrybecker4.game.common.board.Board;
+import com.barrybecker4.game.common.player.Player;
 import com.barrybecker4.game.common.player.PlayerList;
 import com.barrybecker4.game.common.ui.viewer.GameBoardRenderer;
+import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerBoardRenderer;
 import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerPieceRenderer;
 
@@ -81,6 +84,14 @@ class HexBoardRenderer extends TwoPlayerBoardRenderer {
         return new ByteLocation(row, col);
     }
 
+
+    @Override
+    protected IntLocation getPosition(Location coords) {
+        double cellSizeD2 = cellSize/2.0;
+        return new IntLocation(getMargin() + (int)(coords.getRow() * cellSize * HexUtil.ROOT3D2 - cellSizeD2) + 3,
+                (int)(getMargin() + (coords.getCol() - 1) * cellSize + (coords.getRow() - 1) * cellSizeD2));
+    }
+
     /**
      * draw the hex game grid
      */
@@ -97,7 +108,7 @@ class HexBoardRenderer extends TwoPlayerBoardRenderer {
         for (int i = start; i <= nrows1; i++ ) {
             for (int j = start; j <= ncols1; j++ ) {
                 g2.setColor( getGridColor() );
-                xpos = getMargin() + j * cellSize + gridOffset + (i-1) * cellSizeD2;
+                xpos = getMargin() + j * cellSize + gridOffset + (i - 1) * cellSizeD2;
                 ypos = getMargin() + (int)(i * cellSize * HexUtil.ROOT3D2) + gridOffset;
 
                 Point point = new Point(xpos, ypos);
@@ -156,6 +167,22 @@ class HexBoardRenderer extends TwoPlayerBoardRenderer {
     protected void drawMarkers(Board board, PlayerList players, Graphics2D g2 ) {
 
         super.drawMarkers(board, players, g2);
+    }
+
+    @Override
+    protected void drawLastMoveMarker(Graphics2D g2, Player player, Board board) {
+
+        TwoPlayerMove last = (TwoPlayerMove) board.getMoveList().getLastMove();
+        // this draws a small indicator on the last move to show where it was played
+        if ( last != null ) {
+            int cellSize = getCellSize();
+            IntLocation pos = getPosition(last.getToLocation());
+            System.out.println("last toloc = " + last.getToLocation() + " pos = " + pos);
+            int rad = cellSize/2;
+            HexagonRenderer.drawHexagon(g2,
+                    new Point(pos.getX(), pos.getY()), rad,
+                    LAST_MOVE_INDICATOR_COLOR, LAST_MOVE_INDICATOR_STROKE);
+        }
     }
 }
 

@@ -118,7 +118,6 @@ public class HexBoard extends TwoPlayerBoard<TwoPlayerMove> {
                 nbrs.add(pos);
             }
         }
-        System.out.println("nbrs="+ nbrs);
         return nbrs;
     }
 
