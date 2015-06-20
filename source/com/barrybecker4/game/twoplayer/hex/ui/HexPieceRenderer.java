@@ -1,5 +1,5 @@
 /** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
-package com.barrybecker4.game.twoplayer.hex;
+package com.barrybecker4.game.twoplayer.hex.ui;
 
 import com.barrybecker4.game.common.GameContext;
 import com.barrybecker4.game.common.board.Board;
@@ -7,8 +7,6 @@ import com.barrybecker4.game.common.board.BoardPosition;
 import com.barrybecker4.game.common.board.GamePiece;
 import com.barrybecker4.game.common.ui.viewer.GamePieceRenderer;
 import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerPieceRenderer;
-import com.barrybecker4.game.twoplayer.hex.ui.HexUtil;
-import com.barrybecker4.game.twoplayer.hex.ui.HexagonRenderer;
 
 import java.awt.*;
 
@@ -43,8 +41,8 @@ public class HexPieceRenderer extends TwoPlayerPieceRenderer {
         int col = position.getCol() - 1;
         int offset = 0;//(cellSize - pieceSize) >> 1;
 
-        position_.x = margin + col * cellSize + offset + row * cellSize/2;
-        position_.y = margin + (int)((row + 0.5) * cellSize * HexUtil.ROOT3D2) + offset + 1;
+        position_.x = margin + col * cellSize + offset + (row * cellSize)/2;
+        position_.y = margin + (int)((row + 0.5) * cellSize * HexUtil.ROOT3D2 + offset + 1);
         return position_;
     }
 

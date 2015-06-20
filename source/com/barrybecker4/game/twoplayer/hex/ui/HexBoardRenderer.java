@@ -8,7 +8,6 @@ import com.barrybecker4.game.common.player.PlayerList;
 import com.barrybecker4.game.common.ui.viewer.GameBoardRenderer;
 import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerBoardRenderer;
 import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerPieceRenderer;
-import com.barrybecker4.game.twoplayer.hex.HexPieceRenderer;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -77,8 +76,8 @@ class HexBoardRenderer extends TwoPlayerBoardRenderer {
      */
     public Location createLocation( MouseEvent e) {
         int size = Math.max(1, getCellSize());
-        int row = (int)((e.getY() - getMargin()) / (HexUtil.ROOT3D2 * size) + 1);
-        int col = (e.getX() - getMargin() - (row - 2) * cellSize/2) / size + 1;
+        int row = (int)(((e.getY() - getMargin()) / (HexUtil.ROOT3D2 * size) + 1));
+        int col = (e.getX() - getMargin() - ((row - 2) * cellSize)/2) / size + 1;
         return new ByteLocation(row, col);
     }
 

@@ -26,6 +26,15 @@ public class HexBoardPosition extends BoardPosition {
         super(new ByteLocation(row, col), piece);
     }
 
+    /**
+     * constructor
+     * @param loc position on the board
+     * @param piece - the piece to put at this position (use null if there is none).
+     */
+    public HexBoardPosition(Location loc, GamePiece piece)  {
+        super(loc, piece);
+    }
+
     public HexBoardPosition(HexBoardPosition pos) {
         super(new ByteLocation(pos.getRow(), pos.getCol()), pos.getPiece());
     }
