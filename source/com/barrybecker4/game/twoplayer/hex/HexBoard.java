@@ -7,6 +7,7 @@ import com.barrybecker4.game.common.board.GamePiece;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.common.util.UnionFind;
+import com.barrybecker4.game.twoplayer.hex.pathsearch.ShortestPathSearch;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -77,6 +78,25 @@ public class HexBoard extends TwoPlayerBoard<TwoPlayerMove> {
         return union.connected(positionInFirstCol, positionInLastCol);
     }
 
+    public int getP1PathCost() {
+        return getPathCost(true);
+    }
+
+    public int getP2PathCost() {
+        return getPathCost(false);
+    }
+
+    /**
+     * Use A* to search for the lowest cost path for specified player
+     * @param player1 if true then find lowest cost path for p1, else p2.
+     * @return lowest cost path found for specified player
+     */
+    private int getPathCost(boolean player1) {
+        ShortestPathSearch searcher = new ShortestPathSearch(this, player1);
+        return searcher.getShortestPathCost();
+    }
+
+
     @Override
     protected boolean makeInternalMove(TwoPlayerMove move) {
         boolean legal = super.makeInternalMove(move);
@@ -96,6 +116,10 @@ public class HexBoard extends TwoPlayerBoard<TwoPlayerMove> {
         return loc.getCol() + (getNumCols() + 2) * loc.getRow();
     }
 
+    /**
+     * @param move most recent move
+     * @return neighbors that are the same color
+     */
     private List<BoardPosition> getFriendlyNbrs(TwoPlayerMove move) {
         List<BoardPosition> nbrs = new LinkedList<>();
         Location loc = move.getToLocation();

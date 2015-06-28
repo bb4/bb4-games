@@ -39,12 +39,21 @@ public class HexSearchable extends TwoPlayerSearchable<TwoPlayerMove, HexBoard> 
     @Override
     public int worth(TwoPlayerMove lastMove, ParameterArray weights) {
         int value = MathUtil.RANDOM.nextInt(100);
-        if (board_.isPlayer1Connected()) {
-            value = SearchStrategy.WINNING_VALUE;
+
+        boolean p1Connected = board_.isPlayer1Connected();
+        boolean p2Connected = board_.isPlayer2Connected();
+        if (p1Connected || p2Connected) {
+            if (p1Connected) {
+                value = SearchStrategy.WINNING_VALUE;
+            }
+            else if (p2Connected) {
+                value = -SearchStrategy.WINNING_VALUE;
+            }
         }
-        else if (board_.isPlayer2Connected()) {
-            value = -SearchStrategy.WINNING_VALUE;
+        else {
+            // value = board_.getP2PathCost() - board_.getP1PathCost();
         }
+
         return value;
     }
 
@@ -57,7 +66,8 @@ public class HexSearchable extends TwoPlayerSearchable<TwoPlayerMove, HexBoard> 
     }
 
     @Override
-    public MoveList<TwoPlayerMove> generateUrgentMoves(TwoPlayerMove lastMove, ParameterArray weights) {
+    public MoveList<TwoPlayerMove> generateUrgentMoves(
+            TwoPlayerMove lastMove, ParameterArray weights) {
         return null;
     }
 }
