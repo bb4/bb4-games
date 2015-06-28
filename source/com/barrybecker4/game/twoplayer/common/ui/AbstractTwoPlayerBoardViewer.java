@@ -177,9 +177,8 @@ public abstract class AbstractTwoPlayerBoardViewer<M extends TwoPlayerMove, B ex
 
         // Second arg was true, but then we did final update twice.
         boolean done = c.getSearchable().done(move, false);
-        if (done) {
-            sendGameChangedEvent(move);
-        }
+        // This is needed to update the current player info
+        sendGameChangedEvent(move);
         return done;
     }
 
