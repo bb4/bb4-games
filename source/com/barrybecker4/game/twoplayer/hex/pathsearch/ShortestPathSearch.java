@@ -8,19 +8,26 @@ import java.util.List;
 /**
  * @author Barry Becker
  */
-public class ShortestPathSearch extends AStarSearch<HexBoard, HexTransition> {
+public class ShortestPathSearch extends AStarSearch<HexState, HexTransition> {
 
-    public ShortestPathSearch(HexBoard board, boolean player1) {
-        super(new HexSearchSpace(board, player1));
+    public ShortestPathSearch(HexBoard state, boolean player1) {
+        super(new HexSearchSpace(state, player1));
     }
 
     public int getShortestPathCost() {
         List<HexTransition> path = solve();
 
         int totalCost = 0;
-        for (HexTransition move : path) {
-            totalCost += move.getCost();
+
+        if (path == null) {
+            totalCost = 1000;
         }
+        else {
+            for (HexTransition transition : path) {
+                totalCost += transition.getCost();
+            }
+        }
+        //System.out.println("shortest path =" + path + " COST = " + totalCost);
 
         return totalCost;
     }

@@ -21,8 +21,6 @@ public class HexBoard extends TwoPlayerBoard<TwoPlayerMove> {
 
     private static final int DEFAULT_SIZE = 11;
 
-    private UnionFind union;
-
     /**
      * Constructor.
      * Tic tac toe is always 3x3
@@ -48,6 +46,7 @@ public class HexBoard extends TwoPlayerBoard<TwoPlayerMove> {
         int rowMax = getNumRows() + 1;
         int colMax = getNumCols() + 1;
         int n = (rowMax + 1) * (colMax + 1);
+        /*
         union = new UnionFind(n);
 
         int lastRowStart = (colMax + 1) * (rowMax);
@@ -62,20 +61,7 @@ public class HexBoard extends TwoPlayerBoard<TwoPlayerMove> {
             int lastIdx = (j - 1) * (colMax + 1);
             union.union(idx, lastIdx);
             union.union(idx + colMax, lastIdx + colMax);
-        }
-    }
-
-    /** check for top to bottom path for player 1 win*/
-    public boolean isPlayer1Connected() {
-        int positionInLastRow = (getNumRows() + 1) * (getNumCols() + 2) + 2;
-        return union.connected(2, positionInLastRow);
-    }
-
-    /** check for left to right path for player 2 win */
-    public boolean isPlayer2Connected() {
-        int positionInFirstCol = getNumCols() + 2;
-        int positionInLastCol = 2 * (getNumCols() + 2) - 1;
-        return union.connected(positionInFirstCol, positionInLastCol);
+        }*/
     }
 
     public int getP1PathCost() {
@@ -94,26 +80,6 @@ public class HexBoard extends TwoPlayerBoard<TwoPlayerMove> {
     private int getPathCost(boolean player1) {
         ShortestPathSearch searcher = new ShortestPathSearch(this, player1);
         return searcher.getShortestPathCost();
-    }
-
-
-    @Override
-    protected boolean makeInternalMove(TwoPlayerMove move) {
-        boolean legal = super.makeInternalMove(move);
-        if (legal) {
-            // add connections to friendly neighbors
-            List<BoardPosition> friendlyNbrs = getFriendlyNbrs(move);
-            int idx1 = getPositionIdx(move.getToLocation());
-            for (BoardPosition nbr : friendlyNbrs) {
-                System.out.println("joining " + idx1 +" and " + getPositionIdx(nbr.getLocation()));
-                union.union(idx1, getPositionIdx(nbr.getLocation()));
-            }
-        }
-        return legal;
-    }
-
-    private int getPositionIdx(Location loc) {
-        return loc.getCol() + (getNumCols() + 2) * loc.getRow();
     }
 
     /**
@@ -173,8 +139,4 @@ public class HexBoard extends TwoPlayerBoard<TwoPlayerMove> {
         return new HexCandidateMoves(this);
     }
 
-    public String getDebugInfo(BoardPosition pos) {
-        int idx = getPositionIdx(pos.getLocation());
-        return  " idx=" + idx  + " item=" + union.find(idx);
-    }
 }

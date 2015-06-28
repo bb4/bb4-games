@@ -4,7 +4,6 @@ package com.barrybecker4.game.twoplayer.hex.ui;
 import com.barrybecker4.common.geometry.Location;
 import com.barrybecker4.game.common.GameContext;
 import com.barrybecker4.game.common.board.BoardPosition;
-import com.barrybecker4.game.common.board.IRectangularBoard;
 import com.barrybecker4.game.common.ui.viewer.GameBoardRenderer;
 import com.barrybecker4.game.twoplayer.common.ui.AbstractTwoPlayerBoardViewer;
 import com.barrybecker4.game.twoplayer.hex.HexBoard;
@@ -57,7 +56,7 @@ public class HexBoardViewer extends AbstractTwoPlayerBoardViewer {
         BoardPosition space = b.getPosition( loc );
         if ( space != null && GameContext.getDebugMode() > 0 ) {
 
-            sb.append(space.getLocation()).append(b.getDebugInfo(space));
+            sb.append(space.getLocation());
         }
         else {
             sb.append( loc );

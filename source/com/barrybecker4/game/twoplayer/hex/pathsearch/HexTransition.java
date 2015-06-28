@@ -1,17 +1,17 @@
 package com.barrybecker4.game.twoplayer.hex.pathsearch;
 
 import com.barrybecker4.common.geometry.Location;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 
 /**
  * @author Barry Becker
  */
 public class HexTransition {
-    private int cost;
-    private TwoPlayerMove move;
 
-    HexTransition(TwoPlayerMove move, int cost) {
-        this.move = move;
+    private int cost;
+    private Location location;
+
+    HexTransition(Location move, int cost) {
+        this.location = move;
         this.cost = cost;
     }
 
@@ -19,11 +19,11 @@ public class HexTransition {
         return cost;
     }
 
-    TwoPlayerMove getMove() {
-        return move;
+    Location getLocation() {
+        return location;
     }
 
-    Location getLocation() {
-        return move.getToLocation();
+    public String toString() {
+        return "[" + location + ": " + cost + "]";
     }
 }

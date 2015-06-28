@@ -1,17 +1,12 @@
 /** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.hex;
 
-import com.barrybecker4.common.geometry.Location;
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.board.GamePiece;
 import com.barrybecker4.game.twoplayer.common.BestMoveFinder;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
-import com.barrybecker4.game.twoplayer.gomoku.CandidateMoves;
-import com.barrybecker4.game.twoplayer.gomoku.GoMokuBoard;
 import com.barrybecker4.game.twoplayer.gomoku.GoMokuSearchable;
 import com.barrybecker4.optimization.parameter.ParameterArray;
-
-import static com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy.WINNING_VALUE;
 
 /**
  * Responsible for determining a set of reasonable next moves.

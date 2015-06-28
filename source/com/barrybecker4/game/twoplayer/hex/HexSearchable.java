@@ -6,7 +6,6 @@ import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.player.PlayerList;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerSearchable;
-import com.barrybecker4.game.twoplayer.common.search.Searchable;
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy;
 import com.barrybecker4.optimization.parameter.ParameterArray;
 
@@ -40,8 +39,10 @@ public class HexSearchable extends TwoPlayerSearchable<TwoPlayerMove, HexBoard> 
     public int worth(TwoPlayerMove lastMove, ParameterArray weights) {
         int value = MathUtil.RANDOM.nextInt(100);
 
-        boolean p1Connected = board_.isPlayer1Connected();
-        boolean p2Connected = board_.isPlayer2Connected();
+        int p1Cost = board_.getP1PathCost();
+        int p2Cost = board_.getP2PathCost();
+        boolean p1Connected = (p1Cost == 0);
+        boolean p2Connected = (p2Cost == 0);
         if (p1Connected || p2Connected) {
             if (p1Connected) {
                 value = SearchStrategy.WINNING_VALUE;
@@ -51,7 +52,8 @@ public class HexSearchable extends TwoPlayerSearchable<TwoPlayerMove, HexBoard> 
             }
         }
         else {
-            // value = board_.getP2PathCost() - board_.getP1PathCost();
+            System.out.println("worth for " + lastMove + " is " + p2Cost + " - " + p1Cost + " = " + (p2Cost - p1Cost));
+            value = p2Cost - p1Cost;
         }
 
         return value;

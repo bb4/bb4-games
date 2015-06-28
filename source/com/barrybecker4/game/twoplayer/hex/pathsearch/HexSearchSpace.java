@@ -1,12 +1,12 @@
 package com.barrybecker4.game.twoplayer.hex.pathsearch;
 
+import com.barrybecker4.common.geometry.IntLocation;
 import com.barrybecker4.common.geometry.Location;
 import com.barrybecker4.common.search.SearchSpace;
+import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.board.BoardPosition;
-import com.barrybecker4.game.common.board.GamePiece;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.hex.HexBoard;
-import com.barrybecker4.game.twoplayer.hex.HexBoardPosition;
 import com.barrybecker4.game.twoplayer.hex.HexBoardUtil;
 
 import java.util.LinkedList;
@@ -16,29 +16,33 @@ import java.util.Set;
 /**
  * @author Barry Becker
  */
-public class HexSearchSpace implements SearchSpace<HexBoard, HexTransition> {
+public class HexSearchSpace implements SearchSpace<HexState, HexTransition> {
 
-    HexBoard initialBoard;
+    HexState initialState;
     boolean player1;
 
     /**
      *
-     * @param initialBoard searchable containing the initial initialBoard state.
+     * @param board the board configuration to search for shortest path on.
      * @param player1 if true, then searching for player1 winning path
      */
-    HexSearchSpace(HexBoard initialBoard, boolean player1) {
-        this.initialBoard = initialBoard;
+    HexSearchSpace(HexBoard board, boolean player1) {
+        this.initialState = new HexState(board,
+                player1 ? new IntLocation(0, 1) : new IntLocation(1, 0)
+        );
         this.player1 = player1;
     }
 
     @Override
-    public HexBoard initialState() {
-        return initialBoard;
+    public HexState initialState() {
+        return initialState;
     }
 
     @Override
-    public boolean isGoal(HexBoard board) {
-        return player1 ? board.isPlayer1Connected() : board.isPlayer2Connected();
+    public boolean isGoal(HexState state) {
+        Location loc = state.getLocation();
+        return player1 ? loc.getRow() == state.getBoard().getNumRows() :
+                loc.getCol() == state.getBoard().getNumCols();
     }
 
     /**
@@ -46,52 +50,54 @@ public class HexSearchSpace implements SearchSpace<HexBoard, HexTransition> {
      *   friendly positions have a cost of 0, while empty ones have a cost of 1
      */
     @Override
-    public List<HexTransition> legalTransitions(HexBoard board) {
+    public List<HexTransition> legalTransitions(HexState state) {
 
         List<HexTransition> nbrs = new LinkedList<>();
-        /*
-        TwoPlayerMove lastMove = board.getMoveList().getLastMove();
-        Location loc = lastMove.getToLocation();
-        boolean player1 = lastMove.isPlayer1();
+
+        Location loc = state.getLocation();
+        HexBoard board = state.getBoard();
+        MoveList<TwoPlayerMove> moves = board.getMoveList();
+        boolean player1 = !(moves.isEmpty() || !moves.getLastMove().isPlayer1());
 
         for (int dir = 0; dir < 6; dir++) {
             Location nbrLoc = HexBoardUtil.getNeighborLocation(loc, dir);
-            BoardPosition pos = board.getPosition(nbrLoc);
-            if (pos == null) {
-                if (!player1 && (nbrLoc.getCol() < 1 || nbrLoc.getCol() > getNumCols())) {
-                    HexBoardPosition edgePos = new HexBoardPosition(nbrLoc, new GamePiece(false));
-                    nbrs.add(edgePos);
+            if (isValid(nbrLoc)) {
+               BoardPosition pos = board.getPosition(nbrLoc);
+                if (pos == null) {
+                    if ((!player1 && (nbrLoc.getCol() < 1 || nbrLoc.getCol() > board.getNumCols())) ||
+                            player1 && (nbrLoc.getRow() < 1 || nbrLoc.getRow() > board.getNumRows())) {
+                        nbrs.add(new HexTransition(nbrLoc, 0));
+                    }
                 }
-                else if (player1 && (nbrLoc.getRow() < 1 || nbrLoc.getRow() > getNumRows())) {
-                    HexBoardPosition edgePos = new HexBoardPosition(nbrLoc, new GamePiece(true));
-                    nbrs.add(edgePos);
+                else if (pos.isOccupied() && pos.getPiece().isOwnedByPlayer1() == player1) {
+                    nbrs.add(new HexTransition(pos.getLocation(), 0));
+                }
+                else if (!pos.isOccupied())  {
+                    nbrs.add(new HexTransition(pos.getLocation(), 1));
                 }
             }
-            else if (pos.isOccupied() && pos.getPiece().isOwnedByPlayer1() == player1) {
-                nbrs.add(pos);
-            }
-        }   */
-        return null;
+        }
+        return nbrs;
+    }
+
+    /** @return true if the move is in bounds of the board */
+    private boolean isValid(Location loc) {
+        int row = loc.getRow();
+        int col = loc.getCol();
+        int max = initialState.getBoard().getNumRows();
+        return row > 0 && row <= max && col > 0 && col <= max;
     }
 
     /** @return the board with the new move */
     @Override
-    public HexBoard transition(HexBoard board, HexTransition transition) {
-        // no need to do anything if new move to location already has that player there.
-        if (board.getPosition(transition.getLocation()).isOccupied()) {
-            return board;
-        }
-        else {
-            HexBoard boardCopy = board.copy();
-            boardCopy.makeMove(transition.getMove());
-            return boardCopy;
-        }
+    public HexState transition(HexState lastState, HexTransition transition) {
+        return new HexState(lastState.getBoard(), transition.getLocation());
     }
 
     @Override
-    public boolean alreadySeen(HexBoard board, Set<HexBoard> seen) {
-        if (!seen.contains(board)) {
-            seen.add(board);
+    public boolean alreadySeen(HexState state, Set<HexState> seen) {
+        if (!seen.contains(state)) {
+            seen.add(state);
             return false;
         }
         return true;
@@ -99,10 +105,10 @@ public class HexSearchSpace implements SearchSpace<HexBoard, HexTransition> {
 
     /** estimated distance to the goal state */
     @Override
-    public int distanceFromGoal(HexBoard state) {
-        Location lastLocation = state.getMoveList().getLastMove().getToLocation();
-        return player1 ? (initialBoard.getNumRows() - lastLocation.getRow()) :
-                (initialBoard.getNumCols() - lastLocation.getCol());
+    public int distanceFromGoal(HexState state) {
+        Location lastLocation = state.getLocation();
+        return player1 ? (initialState.getBoard().getNumRows() - lastLocation.getRow()) :
+                (initialState.getBoard().getNumCols() - lastLocation.getCol());
     }
 
     @Override
@@ -111,12 +117,12 @@ public class HexSearchSpace implements SearchSpace<HexBoard, HexTransition> {
     }
 
     @Override
-    public void refresh(HexBoard state, long numTries) {
+    public void refresh(HexState state, long numTries) {
          // intentionally do nothing
     }
 
     @Override
-    public void finalRefresh(List<HexTransition> path, HexBoard state, long numTries, long elapsedMillis) {
+    public void finalRefresh(List<HexTransition> path, HexState state, long numTries, long elapsedMillis) {
          // intentionally do nothing
     }
 }

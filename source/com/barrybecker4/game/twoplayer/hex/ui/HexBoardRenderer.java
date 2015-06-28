@@ -177,7 +177,7 @@ class HexBoardRenderer extends TwoPlayerBoardRenderer {
         if ( last != null ) {
             int cellSize = getCellSize();
             IntLocation pos = getPosition(last.getToLocation());
-            System.out.println("last toloc = " + last.getToLocation() + " pos = " + pos);
+            System.out.println("last to location = " + last.getToLocation() + " pos = " + pos);
             int rad = cellSize/2;
             HexagonRenderer.drawHexagon(g2,
                     new Point(pos.getX(), pos.getY()), rad,
