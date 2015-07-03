@@ -10,8 +10,11 @@ import java.util.List;
  */
 public class ShortestPathSearch extends AStarSearch<HexState, HexTransition> {
 
+    boolean p1;
+
     public ShortestPathSearch(HexBoard state, boolean player1) {
         super(new HexSearchSpace(state, player1));
+        p1 = player1;
     }
 
     public int getShortestPathCost() {
@@ -27,7 +30,7 @@ public class ShortestPathSearch extends AStarSearch<HexState, HexTransition> {
                 totalCost += transition.getCost();
             }
         }
-        //System.out.println("shortest path =" + path + " COST = " + totalCost);
+        System.out.println("shortest path for p1="+ p1 +" is " + path + "  COST = " + totalCost);
 
         return totalCost;
     }

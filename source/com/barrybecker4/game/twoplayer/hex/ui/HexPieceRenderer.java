@@ -39,10 +39,9 @@ public class HexPieceRenderer extends TwoPlayerPieceRenderer {
     protected Point getPosition(BoardPosition position, int cellSize, int pieceSize, int margin) {
         int row = position.getRow() - 1;
         int col = position.getCol() - 1;
-        int offset = 0;//(cellSize - pieceSize) >> 1;
 
-        position_.x = margin + col * cellSize + offset + (row * cellSize)/2;
-        position_.y = margin + (int)((row + 0.5) * cellSize * HexUtil.ROOT3D2 + offset + 1);
+        position_.x = margin + col * cellSize + (row * cellSize)/2;
+        position_.y = margin + (int)((row + 0.5) * cellSize * HexUtil.ROOT3D2 + 1);
         return position_;
     }
 

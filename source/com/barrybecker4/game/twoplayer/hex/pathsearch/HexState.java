@@ -33,7 +33,6 @@ public class HexState {
 
         if (board != null ? board != hexState.board : hexState.board != null) return false;
         return !(location != null ? !location.equals(hexState.location) : hexState.location != null);
-
     }
 
     @Override
