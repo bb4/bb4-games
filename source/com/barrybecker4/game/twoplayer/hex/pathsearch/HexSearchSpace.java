@@ -18,7 +18,7 @@ public class HexSearchSpace implements SearchSpace<HexState, HexTransition> {
 
     HexState initialState;
     boolean player1;
-    int maxP1;
+    int maxPlus1;
 
     /**
      * @param board the board configuration to search for shortest path on.
@@ -28,7 +28,7 @@ public class HexSearchSpace implements SearchSpace<HexState, HexTransition> {
         Location start = player1 ? new IntLocation(0, 2) : new IntLocation(2, 0);
         this.initialState = new HexState(board, start);
         this.player1 = player1;
-        this.maxP1 = board.getNumRows() + 1;
+        this.maxPlus1 = board.getNumRows() + 1;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class HexSearchSpace implements SearchSpace<HexState, HexTransition> {
     @Override
     public boolean isGoal(HexState state) {
         Location loc = state.getLocation();
-        return player1 ? loc.getRow() == maxP1 : loc.getCol() == maxP1;
+        return player1 ? loc.getRow() == maxPlus1 : loc.getCol() == maxPlus1;
     }
 
     /**
@@ -72,7 +72,6 @@ public class HexSearchSpace implements SearchSpace<HexState, HexTransition> {
                 }
             }
         }
-        System.out.println("nbrs of  " + state + " are " + nbrs);
         return nbrs;
     }
 
@@ -87,8 +86,8 @@ public class HexSearchSpace implements SearchSpace<HexState, HexTransition> {
         int col = loc.getCol();
         int max = initialState.getBoard().getNumRows();
         return player1 ?
-                (row >= 0 && row <= maxP1 && col > 0 && col <= max) :
-                (row > 0 && row <= max && col >= 0 && col <= maxP1);
+                (row >= 0 && row <= maxPlus1 && col > 0 && col <= max) :
+                (row > 0 && row <= max && col >= 0 && col <= maxPlus1);
     }
 
     /** @return the board with the new move */
@@ -110,7 +109,7 @@ public class HexSearchSpace implements SearchSpace<HexState, HexTransition> {
     @Override
     public int distanceFromGoal(HexState state) {
         Location lastLocation = state.getLocation();
-        return player1 ? (maxP1 - lastLocation.getRow()) : (maxP1 - lastLocation.getCol());
+        return player1 ? (maxPlus1 - lastLocation.getRow()) : (maxPlus1 - lastLocation.getCol());
     }
 
     /**
