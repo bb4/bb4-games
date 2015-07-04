@@ -24,6 +24,10 @@ public class HexState {
         return location;
     }
 
+    public String toString() {
+         return location.toString();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
