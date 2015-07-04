@@ -26,7 +26,7 @@ public class HexSearchSpace implements SearchSpace<HexState, HexTransition> {
      * @param player1 if true, then searching for player1 winning path
      */
     HexSearchSpace(HexBoard board, boolean player1) {
-        Location start = player1 ? new IntLocation(0, 1) : new IntLocation(1, 0);
+        Location start = player1 ? new IntLocation(0, 2) : new IntLocation(2, 0);
         this.initialState = new HexState(board, start);
         this.player1 = player1;
     }
