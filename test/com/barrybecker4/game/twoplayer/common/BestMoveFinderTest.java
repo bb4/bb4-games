@@ -35,7 +35,7 @@ public class BestMoveFinderTest {
     }
 
     /**
-     * MinbestMoves must be greater than 0.
+     * MinBestMoves must be greater than 0.
      */
     @Test(expected=AssertionError.class)
     public void testMinBestMoves0() {

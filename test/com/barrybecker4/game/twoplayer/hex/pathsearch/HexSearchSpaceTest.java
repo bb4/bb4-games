@@ -33,7 +33,7 @@ public class HexSearchSpaceTest {
         int distance = space.distanceFromGoal(new HexState(board, new IntLocation(5, 5)));
         assertEquals("Unexpected distance.", 7, distance);
 
-        HexState expInitialState = new HexState(board, new IntLocation(0, 1));
+        HexState expInitialState = new HexState(board, new IntLocation(0, 2));
         assertEquals("Unexpected initial state", expInitialState, space.initialState());
     }
 
