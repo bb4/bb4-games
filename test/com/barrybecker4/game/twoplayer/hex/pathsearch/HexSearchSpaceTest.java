@@ -31,7 +31,7 @@ public class HexSearchSpaceTest {
     @Test
     public void testConstruction() {
         int distance = space.distanceFromGoal(new HexState(board, new IntLocation(5, 5)));
-        assertEquals("Unexpected distance.", 7, distance);
+        assertEquals("Unexpected distance.", 63, distance);
 
         HexState expInitialState = new HexState(board, new IntLocation(0, 2));
         assertEquals("Unexpected initial state", expInitialState, space.initialState());
@@ -77,10 +77,10 @@ public class HexSearchSpaceTest {
         assertEquals("Unexpected number of transitions.", 4, transitions.size());
 
         assertEquals("Unexpected transitions.",
-                "[[(row=4, column=2): 1], " +
-                        "[(row=3, column=2): 1], " +
-                        "[(row=3, column=1): 1], " +
-                        "[(row=5, column=1): 1]]",
+                "[[(row=4, column=2): 10], " +
+                        "[(row=3, column=2): 10], " +
+                        "[(row=3, column=1): 10], " +
+                        "[(row=5, column=1): 10]]",
                 transitions.toString());
     }
 
@@ -92,12 +92,12 @@ public class HexSearchSpaceTest {
         List<HexTransition> transitions = space.legalTransitions(state);
 
         assertEquals("Unexpected transitions.",
-                "[[(row=4, column=2): 1], " +
-                        "[(row=3, column=2): 1], " +
-                        "[(row=3, column=1): 1], " +
+                "[[(row=4, column=2): 10], " +
+                        "[(row=3, column=2): 10], " +
+                        "[(row=3, column=1): 10], " +
                         "[(row=4, column=0): 0], " +
                         "[(row=5, column=0): 0], " +
-                        "[(row=5, column=1): 1]]",
+                        "[(row=5, column=1): 10]]",
                 transitions.toString());
     }
 
@@ -110,8 +110,8 @@ public class HexSearchSpaceTest {
         assertEquals("Unexpected transitions.",
                 "[[(row=0, column=7): 0], " +
                         "[(row=0, column=5): 0], " +
-                        "[(row=1, column=5): 1], " +
-                        "[(row=1, column=6): 1]]",
+                        "[(row=1, column=5): 10], " +
+                        "[(row=1, column=6): 10]]",
                 transitions.toString());
     }
 
@@ -122,8 +122,8 @@ public class HexSearchSpaceTest {
         List<HexTransition> transitions = space.legalTransitions(state);
 
         assertEquals("Unexpected transitions.",
-                "[[(row=4, column=1): 1], " +
-                        "[(row=3, column=1): 1]]",
+                "[[(row=4, column=1): 10], " +
+                        "[(row=3, column=1): 10]]",
                 transitions.toString());
     }
 
@@ -135,8 +135,8 @@ public class HexSearchSpaceTest {
         List<HexTransition> transitions = space.legalTransitions(state);
 
         assertEquals("Unexpected transitions.",
-                "[[(row=4, column=1): 1], " +
-                        "[(row=3, column=1): 1], " +
+                "[[(row=4, column=1): 10], " +
+                        "[(row=3, column=1): 10], " +
                         "[(row=3, column=0): 0], " +
                         "[(row=5, column=0): 0]]",
                 transitions.toString());
@@ -152,9 +152,9 @@ public class HexSearchSpaceTest {
         List<HexTransition> transitions = space.legalTransitions(state);
 
         assertEquals("Unexpected transitions.",
-                        "[[(row=3, column=2): 1], " +
+                        "[[(row=3, column=2): 10], " +
                         "[(row=3, column=1): 0], " +
-                        "[(row=5, column=1): 1]]",
+                        "[(row=5, column=1): 10]]",
                 transitions.toString());
     }
 
@@ -171,10 +171,10 @@ public class HexSearchSpaceTest {
 
         assertEquals("Unexpected transitions.",
                 "[[(row=4, column=2): 0], " +
-                    "[(row=3, column=2): 1], " +
+                    "[(row=3, column=2): 10], " +
                     "[(row=4, column=0): 0], " +
                     "[(row=5, column=0): 0], " +
-                    "[(row=5, column=1): 1]]",
+                    "[(row=5, column=1): 10]]",
                 transitions.toString());
     }
 
@@ -190,8 +190,8 @@ public class HexSearchSpaceTest {
         assertEquals("Unexpected transitions.",
                 "[[(row=0, column=7): 0], " +
                         "[(row=0, column=5): 0], " +
-                        "[(row=1, column=5): 1], " +
-                        "[(row=1, column=6): 1]]",
+                        "[(row=1, column=5): 10], " +
+                        "[(row=1, column=6): 10]]",
                 transitions.toString());
     }
 
@@ -205,7 +205,7 @@ public class HexSearchSpaceTest {
         List<HexTransition> transitions = space.legalTransitions(state);
 
         assertEquals("Unexpected transitions.",
-                "[[(row=4, column=1): 1], " +
+                "[[(row=4, column=1): 10], " +
                         "[(row=3, column=1): 0]]",
                 transitions.toString());
     }
@@ -222,7 +222,7 @@ public class HexSearchSpaceTest {
         List<HexTransition> transitions = space.legalTransitions(state);
 
         assertEquals("Unexpected transitions.",
-                "[[(row=4, column=1): 1], " +
+                "[[(row=4, column=1): 10], " +
                         "[(row=3, column=0): 0], " +
                         "[(row=5, column=0): 0]]",
                 transitions.toString());

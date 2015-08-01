@@ -16,9 +16,12 @@ import java.util.Set;
  */
 public class HexSearchSpace implements SearchSpace<HexState, HexTransition> {
 
-    HexState initialState;
-    boolean player1;
-    int maxPlus1;
+    // the cost of adding one tile to a path.
+    private static final int PATH_STEP_COST = 10;
+
+    private HexState initialState;
+    private boolean player1;
+    private int maxPlus1;
 
     /**
      * @param board the board configuration to search for shortest path on.
@@ -68,7 +71,7 @@ public class HexSearchSpace implements SearchSpace<HexState, HexTransition> {
                     nbrs.add(new HexTransition(nbrLoc, 0));
                 }
                 else if (!pos.isOccupied())  {
-                    nbrs.add(new HexTransition(nbrLoc, 1));
+                    nbrs.add(new HexTransition(nbrLoc, PATH_STEP_COST));
                 }
             }
         }
@@ -105,11 +108,16 @@ public class HexSearchSpace implements SearchSpace<HexState, HexTransition> {
         return true;
     }
 
-    /** estimated distance to the goal state */
+    /**
+     * Estimated distance to the goal state
+     * It is important that this distance underestimates the true distance, otherwise, we may get into a
+     * situation where it will pick a more direct path that is not the shortest cost.
+     */
     @Override
     public int distanceFromGoal(HexState state) {
         Location lastLocation = state.getLocation();
-        return player1 ? (maxPlus1 - lastLocation.getRow()) : (maxPlus1 - lastLocation.getCol());
+        return (PATH_STEP_COST -1 ) *
+                (player1 ? (maxPlus1 - lastLocation.getRow()) : (maxPlus1 - lastLocation.getCol()));
     }
 
     /**

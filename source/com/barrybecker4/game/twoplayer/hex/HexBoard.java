@@ -34,36 +34,6 @@ public class HexBoard extends TwoPlayerBoard<TwoPlayerMove> {
         return new HexBoardPosition(1, 1, null);
     }
 
-    /**
-     *  Reset the board to its initial state.
-     *  Initialize the hidden borders to have pieces of the appropriate type.
-     *  This is how we will tell when there is a winner.
-     *  Add these borders to UnionFind so we can tell when opposite sides are connected.
-     */
-    @Override
-    public void reset() {
-        super.reset();
-        int rowMax = getNumRows() + 1;
-        int colMax = getNumCols() + 1;
-        int n = (rowMax + 1) * (colMax + 1);
-        /*
-        union = new UnionFind(n);
-
-        int lastRowStart = (colMax + 1) * (rowMax);
-        // the top and bottom rows are connected sets.
-        for (int i = 1; i <= colMax; i++) {
-            union.union(i, i-1);
-            union.union(lastRowStart + i, lastRowStart + i - 1);
-        }
-        // the left and right edges for connected sets.
-        for (int j = 2; j < rowMax; j++) {
-            int idx = j * (colMax + 1);
-            int lastIdx = (j - 1) * (colMax + 1);
-            union.union(idx, lastIdx);
-            union.union(idx + colMax, lastIdx + colMax);
-        }*/
-    }
-
     public int getP1PathCost() {
         return getPathCost(true);
     }
