@@ -30,7 +30,7 @@ public class ShortestPathSearch extends AStarSearch<HexState, HexTransition> {
                 totalCost += transition.getCost();
             }
         }
-        System.out.println("shortest path for p1="+ p1 +" is " + path + "  COST = " + totalCost);
+        //System.out.println("shortest path for p1="+ p1 +" is " + path + "  COST = " + totalCost);
 
         return totalCost;
     }

@@ -15,7 +15,7 @@ import java.awt.*;
 public class HexPlayerOptions extends TwoPlayerPlayerOptions {
 
     /** initial look ahead factor. */
-    private static final int DEFAULT_LOOK_AHEAD = 4;
+    private static final int DEFAULT_LOOK_AHEAD = 3;
 
     /** for any given ply never consider more than this percentage of the top moves. */
     private static final int DEFAULT_PERCENTAGE_BEST_MOVES = 100;

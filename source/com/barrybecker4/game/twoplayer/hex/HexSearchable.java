@@ -52,7 +52,6 @@ public class HexSearchable extends TwoPlayerSearchable<TwoPlayerMove, HexBoard> 
             }
         }
         else {
-            System.out.println("worth for " + lastMove + " is " + p2Cost + " - " + p1Cost + " = " + (p2Cost - p1Cost));
             value = p2Cost - p1Cost;
         }
 

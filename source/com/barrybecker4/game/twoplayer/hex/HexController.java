@@ -1,6 +1,8 @@
 /** Copyright by Barry G. Becker, 2015. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.hex;
 
+import com.barrybecker4.game.common.GameContext;
+import com.barrybecker4.game.common.board.GamePiece;
 import com.barrybecker4.game.common.player.PlayerList;
 import com.barrybecker4.game.common.player.PlayerOptions;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerController;
@@ -59,5 +61,10 @@ public class HexController extends TwoPlayerController<TwoPlayerMove, HexBoard> 
 
     @Override
     public void computerMovesFirst() {
+        HexBoard board = getBoard();
+        int col = (int) (GameContext.random().nextFloat() * (board.getNumRows()) + 1);
+        int row = (int) (GameContext.random().nextFloat() * (board.getNumRows()) + 1);
+        TwoPlayerMove move = TwoPlayerMove.createMove(row, col, 0, new GamePiece(true));
+        makeMove( move);
     }
 }

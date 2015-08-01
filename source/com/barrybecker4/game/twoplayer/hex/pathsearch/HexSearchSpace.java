@@ -7,6 +7,7 @@ import com.barrybecker4.game.common.board.BoardPosition;
 import com.barrybecker4.game.twoplayer.hex.HexBoard;
 import com.barrybecker4.game.twoplayer.hex.HexBoardUtil;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -48,6 +49,7 @@ public class HexSearchSpace implements SearchSpace<HexState, HexTransition> {
     /**
      * @return transitions all adjacent positions that are either friendly or empty.
      *   Friendly positions have a cost of 0, while empty ones have a cost of 1
+     *   A good optimization would be to avoid adding the place that we just came from.
      */
     @Override
     public List<HexTransition> legalTransitions(HexState state) {
@@ -75,6 +77,8 @@ public class HexSearchSpace implements SearchSpace<HexState, HexTransition> {
                 }
             }
         }
+        // sorting the nbrs by path cost will speed up search
+        Collections.sort(nbrs);
         return nbrs;
     }
 

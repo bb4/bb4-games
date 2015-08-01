@@ -5,7 +5,7 @@ import com.barrybecker4.common.geometry.Location;
 /**
  * @author Barry Becker
  */
-public class HexTransition {
+public class HexTransition implements Comparable<HexTransition> {
 
     private int cost;
     private Location location;
@@ -25,5 +25,10 @@ public class HexTransition {
 
     public String toString() {
         return "[" + location + ": " + cost + "]";
+    }
+
+    @Override
+    public int compareTo(HexTransition that) {
+        return this.getCost() - that.getCost();
     }
 }
