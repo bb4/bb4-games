@@ -40,8 +40,8 @@ public class HexPieceRenderer extends TwoPlayerPieceRenderer {
         int row = position.getRow() - 1;
         int col = position.getCol() - 1;
 
-        position_.x = margin + col * cellSize + (row * cellSize)/2;
-        position_.y = margin + (int)((row + 0.5) * cellSize * HexUtil.ROOT3D2 + 1);
+        position_.x = margin + (int)(col * cellSize + (row * cellSize)/2.0);
+        position_.y = margin + (int)((row + 0.5) * cellSize * HexUtil.ROOT3D2 + cellSize/12);
         return position_;
     }
 

@@ -87,8 +87,8 @@ class HexBoardRenderer extends TwoPlayerBoardRenderer {
 
     @Override
     protected IntLocation getPosition(Location coords) {
-        double cellSizeD2 = cellSize/2.0;
-        int y = getMargin() + (int)(coords.getRow() * (cellSize - 0.5) * HexUtil.ROOT3D2) + 2;
+        double cellSizeD2 = cellSize / 2.0;
+        int y = getMargin() + (int)(coords.getRow() * (cellSize - 0.5) * HexUtil.ROOT3D2); // + 2;
         int x = (int)(getMargin() + (coords.getCol() - 1) * cellSize + (coords.getRow() - 1) * cellSizeD2);
         return new IntLocation(y, x);
     }
@@ -179,9 +179,9 @@ class HexBoardRenderer extends TwoPlayerBoardRenderer {
             int cellSize = getCellSize();
             IntLocation pos = getPosition(last.getToLocation());
             System.out.println("last to location = " + last.getToLocation() + " pos = " + pos);
-            int rad = cellSize/2;
+            double rad = cellSize / 2.0;
             HexagonRenderer.drawHexagon(g2,
-                    new Point(pos.getX(), pos.getY() - rad), rad,
+                    new Point(pos.getX(), (int)(pos.getY() - 0.65 * rad)), rad,
                     LAST_MOVE_INDICATOR_COLOR, LAST_MOVE_INDICATOR_STROKE);
         }
     }
