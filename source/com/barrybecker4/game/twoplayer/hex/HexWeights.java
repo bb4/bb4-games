@@ -13,12 +13,15 @@ import com.barrybecker4.game.common.GameWeights;
  */
 public class HexWeights extends GameWeights {
 
+    public static final int CENTRICITY_INDEX = 0;
+    public static final int PATH_COST_INDEX = 1;
+
     /** If greater than this threshold, then opponent is in jeopardy. */
-    public static final int JEOPARDY_WEIGHT = 10;
+    public static final int JEOPARDY_WEIGHT = 5;
 
     /** These defaults may be overridden in by the user in the UI. */
     private static final double[] DEFAULT_WEIGHTS = {
-         1.0,   JEOPARDY_WEIGHT,  2 * ASSUMED_WINNING_VALUE
+         0.1,   JEOPARDY_WEIGHT,  2 * ASSUMED_WINNING_VALUE
     };
 
     /** Don't allow the weights to go below these minimum values. Upper limit. */

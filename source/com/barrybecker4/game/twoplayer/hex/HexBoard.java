@@ -1,6 +1,7 @@
 /** Copyright by Barry G. Becker, 2015. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.hex;
 
+import com.barrybecker4.common.geometry.ByteLocation;
 import com.barrybecker4.common.geometry.Location;
 import com.barrybecker4.game.common.board.BoardPosition;
 import com.barrybecker4.game.common.board.GamePiece;
@@ -20,6 +21,7 @@ import java.util.List;
 public class HexBoard extends TwoPlayerBoard<TwoPlayerMove> {
 
     private static final int DEFAULT_SIZE = 11;
+
 
     /**
      * Constructor.
@@ -42,6 +44,10 @@ public class HexBoard extends TwoPlayerBoard<TwoPlayerMove> {
         return getPathCost(false);
     }
 
+    public Location getCenter() {
+        return new ByteLocation(getNumRows()/2, getNumCols()/2);
+    }
+
     /**
      * Use A* to search for the lowest cost path for specified player
      * @param player1 if true then find lowest cost path for p1, else p2.
@@ -55,7 +61,7 @@ public class HexBoard extends TwoPlayerBoard<TwoPlayerMove> {
     /**
      * @param move most recent move
      * @return neighbors that are the same color
-     */
+     *
     private List<BoardPosition> getFriendlyNbrs(TwoPlayerMove move) {
         List<BoardPosition> nbrs = new LinkedList<>();
         Location loc = move.getToLocation();
@@ -79,7 +85,7 @@ public class HexBoard extends TwoPlayerBoard<TwoPlayerMove> {
             }
         }
         return nbrs;
-    }
+    }  */
 
     @Override
     protected void undoInternalMove(TwoPlayerMove move) {

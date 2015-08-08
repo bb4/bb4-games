@@ -166,7 +166,6 @@ class HexBoardRenderer extends TwoPlayerBoardRenderer {
      */
     @Override
     protected void drawMarkers(Board board, PlayerList players, Graphics2D g2 ) {
-
         super.drawMarkers(board, players, g2);
     }
 
@@ -178,7 +177,6 @@ class HexBoardRenderer extends TwoPlayerBoardRenderer {
         if ( last != null ) {
             int cellSize = getCellSize();
             IntLocation pos = getPosition(last.getToLocation());
-            System.out.println("last to location = " + last.getToLocation() + " pos = " + pos);
             double rad = cellSize / 2.0;
             HexagonRenderer.drawHexagon(g2,
                     new Point(pos.getX(), (int)(pos.getY() - 0.65 * rad)), rad,

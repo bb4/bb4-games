@@ -17,6 +17,7 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
 public class HexSearchable extends TwoPlayerSearchable<TwoPlayerMove, HexBoard> {
 
     private HexMoveGenerator generator = new HexMoveGenerator();
+    private WorthCalculator worthCalculator = new WorthCalculator();
 
     /**
      *  Constructor
@@ -37,25 +38,7 @@ public class HexSearchable extends TwoPlayerSearchable<TwoPlayerMove, HexBoard> 
 
     @Override
     public int worth(TwoPlayerMove lastMove, ParameterArray weights) {
-        int value = MathUtil.RANDOM.nextInt(100);
-
-        int p1Cost = board_.getP1PathCost();
-        int p2Cost = board_.getP2PathCost();
-        boolean p1Connected = (p1Cost == 0);
-        boolean p2Connected = (p2Cost == 0);
-        if (p1Connected || p2Connected) {
-            if (p1Connected) {
-                value = SearchStrategy.WINNING_VALUE;
-            }
-            else if (p2Connected) {
-                value = -SearchStrategy.WINNING_VALUE;
-            }
-        }
-        else {
-            value = p2Cost - p1Cost;
-        }
-
-        return value;
+        return worthCalculator.calculateWorth(board_, lastMove, weights);
     }
 
     /**
