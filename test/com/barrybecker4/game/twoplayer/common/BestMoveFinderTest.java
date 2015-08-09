@@ -37,7 +37,7 @@ public class BestMoveFinderTest {
     /**
      * MinBestMoves must be greater than 0.
      */
-    @Test(expected=AssertionError.class)
+    @Test(expected=IllegalArgumentException.class)
     public void testMinBestMoves0() {
         options.setMinBestMoves(0);
     }

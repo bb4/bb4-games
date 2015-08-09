@@ -20,6 +20,7 @@ import java.awt.*;
 public class GameApplet extends JApplet {
 
     private GamePanel gamePanel_ = null;
+
     private static final long serialVersionUID = 0L;
     private static final Dimension INITIAL_SIZE =  new Dimension(600, 500);
 
@@ -29,11 +30,16 @@ public class GameApplet extends JApplet {
 
         String gameName = getParameter("name");
         String localeName = getParameter("locale");
+
         if (localeName == null) {
             localeName = "ENGLISH";
         }
+        if (gameName == null) {
+            gameName = "gomoku";
+        }
 
         LocaleType locale = GameContext.getLocale(localeName, true);
+        GameContext.log(0, "Game: " + gameName);
         GameContext.log(0, "setting the locale to " + locale + " for language=" + localeName);  // NON-NLS
 
         GameContext.loadResources(gameName);
@@ -44,6 +50,7 @@ public class GameApplet extends JApplet {
 
         gamePanel_.setSize(INITIAL_SIZE);
         this.getContentPane().add(gamePanel_);
+        GameContext.log(0, "Done applet init");
     }
 
     /**

@@ -46,19 +46,16 @@ public class ShortestPathSearchTest {
     public void testSearchForP2WhenEmpty() {
         search = new ShortestPathSearch(board, false);
         List<HexTransition> path = search.solve();
+        showSolvedPath(path, true);
         assertEquals("Unexpected path.",
-                "[[(row=3, column=0): 0], [(row=4, column=0): 0], " +
-                "[(row=5, column=0): 0], [(row=6, column=0): 0], " +
-                "[(row=7, column=0): 0], [(row=8, column=0): 0], " +
-                "[(row=9, column=0): 0], [(row=10, column=0): 0], " +
-                "[(row=11, column=0): 0], [(row=11, column=1): 10], " +
-                "[(row=11, column=2): 10], [(row=11, column=3): 10], " +
-                "[(row=11, column=4): 10], [(row=11, column=5): 10], " +
-                "[(row=11, column=6): 10], [(row=11, column=7): 10], " +
-                "[(row=11, column=8): 10], [(row=11, column=9): 10], " +
-                "[(row=11, column=10): 10], [(row=11, column=11): 10], " +
-                "[(row=11, column=12): 0]]",
+                "[[(row=3, column=0): 0], [(row=4, column=0): 0], [(row=5, column=0): 0], " +
+                "[(row=6, column=0): 0], [(row=7, column=0): 0], [(row=7, column=1): 10], " +
+                "[(row=7, column=2): 10], [(row=7, column=3): 10], [(row=6, column=4): 10], " +
+                "[(row=5, column=5): 10], [(row=4, column=6): 10], [(row=4, column=7): 10], " +
+                "[(row=3, column=8): 10], [(row=2, column=9): 10], [(row=2, column=10): 10], " +
+                "[(row=2, column=11): 10], [(row=2, column=12): 0]]",
                 path.toString());
+
     }
 
     @Test

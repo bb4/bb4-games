@@ -97,7 +97,9 @@ public class BestMovesSearchOptions {
     }
 
     public void setMinBestMoves(int minBest) {
-        assert minBest > 0 : "minBest must be greater than 0. It was " + minBest;
+        if (minBest <= 0) {
+            throw new IllegalArgumentException("minBest must be greater than 0. It was " + minBest);
+        }
         minBestMoves_ = minBest;
     }
 

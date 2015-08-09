@@ -150,6 +150,7 @@ public final class GameContext {
         messageContext_.setDebugMode(debug_);
         messageContext_.addResourcePath(resourcePath);
         messageContext_.addResourcePath("com.barrybecker4.ui.message");   // NON-NLS
+        log(0, "done loading resources");
     }
 
     /**
