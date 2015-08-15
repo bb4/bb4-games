@@ -57,15 +57,12 @@ public class MancalaBoardRenderer extends TwoPlayerBoardRenderer {
             g2.setStroke(LAST_MOVE_INDICATOR_STROKE);
             int cellSize = getCellSize();
             IntLocation pos = getPosition(last.getToLocation());
-            BoardPosition bpos = board.getPosition(last.getToLocation());
-            assert bpos != null : "No pos at location " + last.getToLocation();
-            MancalaBin bin = (MancalaBin) bpos.getPiece();
+            MancalaBin bin = (MancalaBin) board.getPosition(last.getToLocation()).getPiece();
 
             int yOffset = bin.isHome() ? cellSize >> 1 : 0;
 
             int x = pos.getRow();
             int y = pos.getCol() + yOffset;
-            System.out.println("last last.getToLocation()= " + last.getToLocation() + " x = "+ x + " y = " + y + " pos = " + pos);
                     g2.drawOval(x, y, cellSize - 2, cellSize - 2 );
         }
     }

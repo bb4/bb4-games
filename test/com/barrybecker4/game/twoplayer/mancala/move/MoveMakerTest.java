@@ -19,11 +19,14 @@ public class MoveMakerTest {
 
     private MancalaBoard board;
 
+    private Verifier verifier;
+
 
     @Before
     public void setUp() {
         board = new MancalaBoard();
         moveMaker = new MoveMaker(board);
+        verifier = new Verifier(board);
     }
 
     // 1,1  1,2  1,3  1,4  1,5  1,6  1,7  1,8
@@ -34,7 +37,7 @@ public class MoveMakerTest {
         MancalaMove move = new MancalaMove(true, new ByteLocation(1, 5), (byte)3, 0);
         moveMaker.makeMove(move);
 
-        checkOverallBoard(0, 4, 4, 4, 0, 3, 3, 0,
+        verifier.checkOverallBoard(0, 4, 4, 4, 0, 3, 3, 0,
                 3, 3, 3, 3, 3, 3);
     }
 
@@ -44,7 +47,7 @@ public class MoveMakerTest {
         MancalaMove move = new MancalaMove(true, new ByteLocation(1, 4), (byte)3, 0);
         moveMaker.makeMove(move);
 
-        checkOverallBoard(1, 4, 4, 0, 3, 3, 3, 0,
+        verifier.checkOverallBoard(1, 4, 4, 0, 3, 3, 3, 0,
                 3, 3, 3, 3, 3, 3);
     }
 
@@ -54,7 +57,7 @@ public class MoveMakerTest {
         MancalaMove move = new MancalaMove(true, new ByteLocation(1, 4), (byte)20, 0);
         moveMaker.makeMove(move);
 
-        checkOverallBoard(2, 5, 5, 1, 4, 4, 4, 0,
+        verifier.checkOverallBoard(2, 5, 5, 1, 4, 4, 4, 0,
                 5, 5, 5, 5, 4, 4);
     }
 
@@ -64,7 +67,7 @@ public class MoveMakerTest {
         MancalaMove move = new MancalaMove(false, new ByteLocation(2, 6), (byte)3, 0);
         moveMaker.makeMove(move);
 
-        checkOverallBoard(0, 3, 3, 3, 3, 3, 4, 1,
+        verifier.checkOverallBoard(0, 3, 3, 3, 3, 3, 4, 1,
                 3, 3, 3, 3, 0, 4);
     }
 
@@ -81,7 +84,7 @@ public class MoveMakerTest {
         move.setFollowUpMove(secondaryMove);
         moveMaker.makeMove(move);
 
-        checkOverallBoard(1, 4, 5, 1, 4, 0, 3, 0,
+        verifier.checkOverallBoard(1, 4, 5, 1, 4, 0, 3, 0,
                 3, 3, 3, 3, 3, 3);
     }
 
@@ -97,8 +100,8 @@ public class MoveMakerTest {
                 move.getCaptures().toString());
 
         // note that stones from 1, 2 and 2,2, are moved to p1's home
-        checkOverallBoard(4, 0, 4, 0, 3, 3, 3, 0,
-                             0, 3, 3, 3, 3, 3);
+        verifier.checkOverallBoard(4, 0, 4, 0, 3, 3, 3, 0,
+                0, 3, 3, 3, 3, 3);
     }
 
     @Test
@@ -112,7 +115,7 @@ public class MoveMakerTest {
                 move.getCaptures().toString());
 
         // note that stones from 1,2 and 2,2, are moved to p1's home
-        checkOverallBoard(0, 3, 3, 3, 0, 3, 3, 4,
+        verifier.checkOverallBoard(0, 3, 3, 3, 0, 3, 3, 4,
                 3, 0, 4, 0, 3, 3);
     }
 
@@ -132,7 +135,7 @@ public class MoveMakerTest {
                         "(row=2, column=7)=3, (row=2, column=6)=3, (row=2, column=3)=3, (row=2, column=2)=3}",
                 move.getCaptures().toString());
 
-        checkOverallBoard(4, 0, 0, 0, 0, 0, 0, 15,
+        verifier.checkOverallBoard(4, 0, 0, 0, 0, 0, 0, 15,
                 0, 0, 0, 0, 0, 0);
     }
 
@@ -152,7 +155,7 @@ public class MoveMakerTest {
                 "(row=1, column=6)=3, (row=1, column=7)=3, (row=1, column=4)=3, (row=1, column=5)=3}",
                 move.getCaptures().toString());
 
-        checkOverallBoard(15, 0, 0, 0, 0, 0, 0, 4,
+        verifier.checkOverallBoard(15, 0, 0, 0, 0, 0, 0, 4,
                 0, 0, 0, 0, 0, 0);
     }
 
@@ -170,7 +173,7 @@ public class MoveMakerTest {
                         "(row=2, column=6)=3, (row=2, column=3)=3, (row=2, column=2)=3}",
                 move.getCaptures().toString());
 
-        checkOverallBoard(1, 0, 0, 0, 0, 0, 0, 18,
+        verifier.checkOverallBoard(1, 0, 0, 0, 0, 0, 0, 18,
                 0, 0, 0, 0, 0, 0);
     }
 
@@ -187,36 +190,7 @@ public class MoveMakerTest {
                 "{(row=1, column=2)=3, (row=1, column=3)=3, (row=1, column=6)=3, " +
                         "(row=1, column=7)=3, (row=1, column=4)=3, (row=1, column=5)=3}",
                 move.getCaptures().toString());
-        checkOverallBoard(18, 0, 0, 0, 0, 0, 0, 1,
-                              0, 0, 0, 0, 0, 0);
+        verifier.checkOverallBoard(18, 0, 0, 0, 0, 0, 0, 1,
+                0, 0, 0, 0, 0, 0);
     }
-
-
-    private void checkOverallBoard(int stonesAt11,
-        int stonesAt12, int stonesAt13, int stonesAt14, int stonesAt15, int stonesAt16, int stonesAt17, int stonesAt18,
-        int stonesAt22, int stonesAt23, int stonesAt24, int stonesAt25, int stonesAt26, int stonesAt27) {
-        checkStones(new ByteLocation(1, 1), stonesAt11);
-        checkStones(new ByteLocation(1, 2), stonesAt12);
-        checkStones(new ByteLocation(1, 3), stonesAt13);
-        checkStones(new ByteLocation(1, 4), stonesAt14);
-        checkStones(new ByteLocation(1, 5), stonesAt15);
-        checkStones(new ByteLocation(1, 6), stonesAt16);
-        checkStones(new ByteLocation(1, 7), stonesAt17);
-        checkStones(new ByteLocation(1, 8), stonesAt18);
-        checkStones(new ByteLocation(2, 2), stonesAt22);
-        checkStones(new ByteLocation(2, 3), stonesAt23);
-        checkStones(new ByteLocation(2, 4), stonesAt24);
-        checkStones(new ByteLocation(2, 5), stonesAt25);
-        checkStones(new ByteLocation(2, 6), stonesAt26);
-        checkStones(new ByteLocation(2, 7), stonesAt27);
-    }
-
-    /**
-     * @param loc bin location to check
-     * @param expNumStones expected number of stones at bin location
-     */
-    private void checkStones(Location loc, int expNumStones) {
-        assertEquals("Unexpected stones at location " + loc, expNumStones, board.getBin(loc).getNumStones());
-    }
-
 }

@@ -25,11 +25,11 @@ public class MoveUndoer extends MoveAction {
 
     /**
      * For mancala, undoing a move means picking up all the stones that were
-     * placed and restoring them to their original bin.
+     * placed and restoring them to their original bins.
      * It can be a bit tricky for compound moves - ones it which the player goes again because
      * their last seeded bin was their store. In these cases, the moves must be undone in the reverse order.
      * Furthermore some moves capture stones in other bins, those must also be restored and deducted from the
-     * appropriate player storage.  Note recursive call.
+     * appropriate player storage.  Note: recursive.
      */
     public void undoMove(Move move) {
 
@@ -62,7 +62,7 @@ public class MoveUndoer extends MoveAction {
             if (bin.isOwnedByPlayer1() == move.isPlayer1()) {
                 bin.increment();
                 if (playerHome.getNumStones() == 0) {
-                    System.out.println("error undoing move=" + move.toString());
+                    throw new IllegalStateException("error undoing move=" + move.toString());
                 }
                 playerHome.increment(-1);
                 oppositeBinLocation = board.getOppositeLocation(loc);
@@ -71,7 +71,6 @@ public class MoveUndoer extends MoveAction {
         // next restore the opponent's captures.
         // Restoring opponent captures on a whole side can only happen on the last move of the round/game.
         for (Location loc : keys) {
-
             MancalaBin bin = board.getBin(loc);
             if (bin.isOwnedByPlayer1() == move.isPlayer1()) continue;
 
@@ -100,14 +99,16 @@ public class MoveUndoer extends MoveAction {
         Location currentLocation = move.getFromLocation();
         MancalaBin startBin = board.getBin(currentLocation);
         startBin.increment(numStones);
+        int stonesToPickup = numStones;
 
-        for (int i = 0; i < numStones; i++) {
+        while (stonesToPickup > 0) {
             currentLocation = board.getNextLocation(currentLocation);
             MancalaBin nextBin = board.getBin(currentLocation);
             if (!(nextBin.isHome() && move.isPlayer1() != nextBin.isOwnedByPlayer1())) {
                 assert nextBin.getNumStones() > 0 : "Cannot undo move " + move
                         + ". Cannot unseed " + currentLocation + " because it is already at 0.";
                 nextBin.increment(-1);
+                stonesToPickup--;
             }
         }
     }

@@ -69,7 +69,10 @@ public class MoveMaker extends MoveAction  {
         Captures captures = new Captures();
         MancalaBin lastBin = board.getBin(currentLocation);
         Location oppositeLoc = board.getOppositeLocation(currentLocation);
-        MancalaBin oppositeBin = board.getBin(oppositeLoc);
+        MancalaBin oppositeBin = null;
+        if (!lastBin.isHome()) {
+            oppositeBin = board.getBin(oppositeLoc);
+        }
 
         // if the last bin seeded
         //  - had no stones,
