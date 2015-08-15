@@ -55,7 +55,8 @@ public final class MancalaMoveGenerator {
                 moveList.add( move );
             }
         }
-        BestMoveFinder<MancalaMove> finder = new BestMoveFinder<>(searchable.getSearchOptions().getBestMovesSearchOptions());
+        BestMoveFinder<MancalaMove> finder =
+                new BestMoveFinder<>(searchable.getSearchOptions().getBestMovesSearchOptions());
         return finder.getBestMoves(moveList);
     }
 
@@ -107,7 +108,8 @@ public final class MancalaMoveGenerator {
     /**
      * @return a list of urgent moves (i.e positions that can result in a win for either player.
      */
-    public MoveList<MancalaMove> generateUrgentMoves(MancalaSearchable searchable, MancalaMove lastMove, ParameterArray weights) {
+    public MoveList<MancalaMove> generateUrgentMoves(
+            MancalaSearchable searchable, MancalaMove lastMove, ParameterArray weights) {
         // no urgent moves at start of game.
         if (lastMove == null)  {
             return new MoveList<>();

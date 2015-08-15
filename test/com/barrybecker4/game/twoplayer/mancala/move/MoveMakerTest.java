@@ -1,4 +1,4 @@
-// Copyright by Barry G. Becker, 2014. Licensed under MIT License: http://www.opensource.org/licenses/MIT
+// Copyright by Barry G. Becker, 2014-2015. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 package com.barrybecker4.game.twoplayer.mancala.move;
 
 import com.barrybecker4.common.geometry.ByteLocation;
@@ -34,10 +34,8 @@ public class MoveMakerTest {
         MancalaMove move = new MancalaMove(true, new ByteLocation(1, 5), (byte)3, 0);
         moveMaker.makeMove(move);
 
-        checkStones(new ByteLocation(1, 6), 3);
-        checkStones(new ByteLocation(1, 5), 0);
-        checkStones(new ByteLocation(1, 4), 4);
-        checkStones(new ByteLocation(1, 2), 4);
+        checkOverallBoard(0, 4, 4, 4, 0, 3, 3, 0,
+                3, 3, 3, 3, 3, 3);
     }
 
     @Test
@@ -46,11 +44,8 @@ public class MoveMakerTest {
         MancalaMove move = new MancalaMove(true, new ByteLocation(1, 4), (byte)3, 0);
         moveMaker.makeMove(move);
 
-        checkStones(new ByteLocation(1, 6), 3);
-        checkStones(new ByteLocation(1, 5), 3);
-        checkStones(new ByteLocation(1, 4), 0);
-        checkStones(new ByteLocation(1, 2), 4);
-        checkStones(new ByteLocation(1, 1), 1);  // storage
+        checkOverallBoard(1, 4, 4, 0, 3, 3, 3, 0,
+                3, 3, 3, 3, 3, 3);
     }
 
     @Test
@@ -59,11 +54,8 @@ public class MoveMakerTest {
         MancalaMove move = new MancalaMove(true, new ByteLocation(1, 4), (byte)20, 0);
         moveMaker.makeMove(move);
 
-        checkStones(new ByteLocation(1, 6), 4);
-        checkStones(new ByteLocation(1, 4), 1);
-        checkStones(new ByteLocation(2, 4), 5);
-        checkStones(new ByteLocation(1, 1), 2);  // storage
-        checkStones(new ByteLocation(1, 8), 0);  // storage
+        checkOverallBoard(2, 5, 5, 1, 4, 4, 4, 0,
+                5, 5, 5, 5, 4, 4);
     }
 
     @Test
@@ -72,15 +64,12 @@ public class MoveMakerTest {
         MancalaMove move = new MancalaMove(false, new ByteLocation(2, 6), (byte)3, 0);
         moveMaker.makeMove(move);
 
-        checkStones(new ByteLocation(2, 3), 3);
-        checkStones(new ByteLocation(2, 6), 0);
-        checkStones(new ByteLocation(2, 7), 4);
-        checkStones(new ByteLocation(1, 8), 1);  // storage
+        checkOverallBoard(0, 3, 3, 3, 3, 3, 4, 1,
+                3, 3, 3, 3, 0, 4);
     }
 
-
     /**
-     * The initial move results in the last see going into storage, so there is a secondary move.
+     * The initial move results in the last seed going into storage, so there is a secondary move.
      * 1,1  1,2  1,3  1,4  1,5  1,6  1,7  1,8
      *      2,2  2,3  2,4  2,5  2,6  2,7
      */
@@ -92,31 +81,39 @@ public class MoveMakerTest {
         move.setFollowUpMove(secondaryMove);
         moveMaker.makeMove(move);
 
-        checkStones(new ByteLocation(1, 6), 0);
-        checkStones(new ByteLocation(1, 5), 4);
-        checkStones(new ByteLocation(1, 4), 1);
-        checkStones(new ByteLocation(1, 3), 5);
-        checkStones(new ByteLocation(1, 2), 4);
-        checkStones(new ByteLocation(1, 1), 1);  // storage
+        checkOverallBoard(1, 4, 5, 1, 4, 0, 3, 0,
+                3, 3, 3, 3, 3, 3);
     }
 
     @Test
     public void testPlayer1CapturingMove() {
-
         board.getBin(new ByteLocation(1, 2)).takeStones();
         MancalaMove move = new MancalaMove(true, new ByteLocation(1, 4), (byte)2, 0);
-
         moveMaker.makeMove(move);
 
+        // The captures describe where the captures stones came from
         assertEquals("Unexpected captures.",
                 "{(row=1, column=2)=1, (row=2, column=2)=3}",
                 move.getCaptures().toString());
-        checkStones(new ByteLocation(1, 4), 0);
-        checkStones(new ByteLocation(1, 3), 4);
-        checkStones(new ByteLocation(1, 2), 0);
-        checkStones(new ByteLocation(1, 1), 4);
-        checkStones(new ByteLocation(2, 2), 0);
-        checkStones(new ByteLocation(2, 3), 3);
+
+        // note that stones from 1, 2 and 2,2, are moved to p1's home
+        checkOverallBoard(4, 0, 4, 0, 3, 3, 3, 0,
+                             0, 3, 3, 3, 3, 3);
+    }
+
+    @Test
+    public void testPlayer2CapturingMove() {
+        board.getBin(new ByteLocation(2, 5)).takeStones();
+        MancalaMove move = new MancalaMove(false, new ByteLocation(2, 3), (byte)2, 0);
+        moveMaker.makeMove(move);
+
+        assertEquals("Unexpected captures.",
+                "{(row=2, column=5)=1, (row=1, column=5)=3}",
+                move.getCaptures().toString());
+
+        // note that stones from 1,2 and 2,2, are moved to p1's home
+        checkOverallBoard(0, 3, 3, 3, 0, 3, 3, 4,
+                3, 0, 4, 0, 3, 3);
     }
 
     /** opposite side should get cleared on final move when on player side */
@@ -128,17 +125,15 @@ public class MoveMakerTest {
         }
 
         MancalaMove move = new MancalaMove(true, new ByteLocation(1, 4), (byte)1, 0);
-
         moveMaker.makeMove(move);
 
         assertEquals("Unexpected captures.",
                 "{(row=2, column=5)=3, (row=2, column=4)=3, (row=1, column=3)=1, " +
-                "(row=2, column=7)=3, (row=2, column=6)=3, (row=2, column=3)=3, (row=2, column=2)=3}",
+                        "(row=2, column=7)=3, (row=2, column=6)=3, (row=2, column=3)=3, (row=2, column=2)=3}",
                 move.getCaptures().toString());
-        checkStones(new ByteLocation(1, 4), 0);
-        checkStones(new ByteLocation(2, 4), 0);
-        assertEquals("Unexpected stones in p1 home.", 4, board.getHomeBin(true).getNumStones());
-        assertEquals("Unexpected stones in p2 home.", 15, board.getHomeBin(false).getNumStones());
+
+        checkOverallBoard(4, 0, 0, 0, 0, 0, 0, 15,
+                0, 0, 0, 0, 0, 0);
     }
 
 
@@ -149,9 +144,7 @@ public class MoveMakerTest {
         for (int i=2; i<8; i++) {
             board.getBin(new ByteLocation(2, i)).takeStones();
         }
-
         MancalaMove move = new MancalaMove(false, new ByteLocation(2, 4), (byte)1, 0);
-
         moveMaker.makeMove(move);
 
         assertEquals("Unexpected captures.",
@@ -159,67 +152,71 @@ public class MoveMakerTest {
                 "(row=1, column=6)=3, (row=1, column=7)=3, (row=1, column=4)=3, (row=1, column=5)=3}",
                 move.getCaptures().toString());
 
-        checkStones(new ByteLocation(1, 4), 0);
-        checkStones(new ByteLocation(2, 4), 0);
-        checkStones(new ByteLocation(2, 3), 0);
-        checkStones(new ByteLocation(1, 6), 0);
-        checkStones(new ByteLocation(2, 6), 0);
-        assertEquals("Unexpected stones in p1 home.", 15, board.getHomeBin(true).getNumStones());
-        assertEquals("Unexpected stones in p2 home.", 4, board.getHomeBin(false).getNumStones());
+        checkOverallBoard(15, 0, 0, 0, 0, 0, 0, 4,
+                0, 0, 0, 0, 0, 0);
     }
-
 
     /** opposite side should get cleared on final move */
     @Test
     public void testFinalPlayer1MoveInHomeBin() {
-
         for (int i=2; i<8; i++) {
             board.getBin(new ByteLocation(1, i)).takeStones();
         }
-
         MancalaMove move = new MancalaMove(true, new ByteLocation(1, 2), (byte)1, 0);
-
         moveMaker.makeMove(move);
 
         assertEquals("Unexpected captures.",
                 "{(row=2, column=5)=3, (row=2, column=4)=3, (row=2, column=7)=3, " +
-                "(row=2, column=6)=3, (row=2, column=3)=3, (row=2, column=2)=3}",
+                        "(row=2, column=6)=3, (row=2, column=3)=3, (row=2, column=2)=3}",
                 move.getCaptures().toString());
-        assertEquals("Unexpected stones", 0, board.getBin(new ByteLocation(1, 4)).getNumStones());
-        assertEquals("Unexpected stones", 0, board.getBin(new ByteLocation(2, 4)).getNumStones());
-        assertEquals("Unexpected stones", 1, board.getHomeBin(true).getNumStones());
-        assertEquals("Unexpected stones", 18, board.getHomeBin(false).getNumStones());
+
+        checkOverallBoard(1, 0, 0, 0, 0, 0, 0, 18,
+                0, 0, 0, 0, 0, 0);
     }
 
     /** opposite side should get cleared on final move */
     @Test
     public void testFinalPlayer2MoveInHomeBin() {
-
         for (int i=2; i<8; i++) {
             board.getBin(new ByteLocation(2, i)).takeStones();
         }
-
         MancalaMove move = new MancalaMove(false, new ByteLocation(2, 7), (byte)1, 0);
-
         moveMaker.makeMove(move);
 
         assertEquals("Unexpected captures.",
                 "{(row=1, column=2)=3, (row=1, column=3)=3, (row=1, column=6)=3, " +
-                "(row=1, column=7)=3, (row=1, column=4)=3, (row=1, column=5)=3}",
+                        "(row=1, column=7)=3, (row=1, column=4)=3, (row=1, column=5)=3}",
                 move.getCaptures().toString());
-        assertEquals("Unexpected stones", 0, board.getBin(new ByteLocation(1, 4)).getNumStones());
-        assertEquals("Unexpected stones", 0, board.getBin(new ByteLocation(2, 4)).getNumStones());
-        assertEquals("Unexpected stones", 18, board.getHomeBin(true).getNumStones());
-        assertEquals("Unexpected stones", 1, board.getHomeBin(false).getNumStones());
+        checkOverallBoard(18, 0, 0, 0, 0, 0, 0, 1,
+                              0, 0, 0, 0, 0, 0);
+    }
+
+
+    private void checkOverallBoard(int stonesAt11,
+        int stonesAt12, int stonesAt13, int stonesAt14, int stonesAt15, int stonesAt16, int stonesAt17, int stonesAt18,
+        int stonesAt22, int stonesAt23, int stonesAt24, int stonesAt25, int stonesAt26, int stonesAt27) {
+        checkStones(new ByteLocation(1, 1), stonesAt11);
+        checkStones(new ByteLocation(1, 2), stonesAt12);
+        checkStones(new ByteLocation(1, 3), stonesAt13);
+        checkStones(new ByteLocation(1, 4), stonesAt14);
+        checkStones(new ByteLocation(1, 5), stonesAt15);
+        checkStones(new ByteLocation(1, 6), stonesAt16);
+        checkStones(new ByteLocation(1, 7), stonesAt17);
+        checkStones(new ByteLocation(1, 8), stonesAt18);
+        checkStones(new ByteLocation(2, 2), stonesAt22);
+        checkStones(new ByteLocation(2, 3), stonesAt23);
+        checkStones(new ByteLocation(2, 4), stonesAt24);
+        checkStones(new ByteLocation(2, 5), stonesAt25);
+        checkStones(new ByteLocation(2, 6), stonesAt26);
+        checkStones(new ByteLocation(2, 7), stonesAt27);
     }
 
     /**
-     *
      * @param loc bin location to check
      * @param expNumStones expected number of stones at bin location
      */
     private void checkStones(Location loc, int expNumStones) {
-        assertEquals("Unexpected stones", expNumStones, board.getBin(loc).getNumStones());
+        assertEquals("Unexpected stones at location " + loc, expNumStones, board.getBin(loc).getNumStones());
     }
 
 }

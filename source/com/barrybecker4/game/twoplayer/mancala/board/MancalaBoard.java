@@ -202,4 +202,37 @@ public class MancalaBoard extends TwoPlayerBoard<MancalaMove> {
     public int getNumPositionStates() {
         return getNumCols() * INITIAL_STONES_PER_BIN;
     }
+
+    /*
+    @Override
+    public String toString() {
+        StringBuilder bldr = new StringBuilder(1000);
+        bldr.append("\n");
+        int nRows = getNumRows();
+        int nCols = getNumCols();
+        TwoPlayerMove lastMove = getMoveList().getLastMove();
+
+        for ( int i = 1; i <= nRows; i++ )   {
+            boolean followingLastMove = false;
+            for ( int j = 1; j <= nCols; j++ ) {
+                BoardPosition pos = this.getPosition(i,j);
+                if (pos.isOccupied()) {
+                    if (lastMove != null && pos.getLocation().equals(lastMove.getToLocation())) {
+                        bldr.append("[").append(pos.getPiece()).append("]");
+                        followingLastMove = true;
+                    }
+                    else  {
+                        bldr.append(followingLastMove ? "" : " ").append(pos.getPiece());
+                        followingLastMove = false;
+                    }
+                }
+                else {
+                    bldr.append(followingLastMove ? "" : " ").append("_");
+                    followingLastMove = false;
+                }
+            }
+            bldr.append("\n");
+        }
+        return bldr.toString();
+    }      */
 }

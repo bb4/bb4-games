@@ -4,8 +4,8 @@ package com.barrybecker4.game.twoplayer.mancala;
 import com.barrybecker4.game.common.GameWeights;
 
 /**
- * These weights determine how the computer values each pattern
- * if only one computer is playing, then only one of the weights arrays is used.
+ * These weights determine how the computer values each board position.
+ * If only one computer is playing, then only one of the weights arrays is used.
  *
  * @author Barry Becker
  */

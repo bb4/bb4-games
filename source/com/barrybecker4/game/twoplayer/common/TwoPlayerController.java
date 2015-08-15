@@ -44,7 +44,7 @@ import java.io.InputStream;
 public abstract class TwoPlayerController<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>>
         extends GameController<M, B> {
 
-    protected boolean player1sTurn_ = true;
+    protected boolean player1sTurn = true;
 
     /**
      * These weights determine how the computer values each move as parameters to a game dependent evaluation function.
@@ -96,7 +96,7 @@ public abstract class TwoPlayerController<M extends TwoPlayerMove, B extends Two
         super.reset();
         searchable_ = null;
         getPlayers().reset();
-        player1sTurn_ = true;
+        player1sTurn = true;
     }
 
     /**
@@ -187,7 +187,7 @@ public abstract class TwoPlayerController<M extends TwoPlayerMove, B extends Two
      * @return true if it is currently player1's turn.
      */
     public final boolean isPlayer1sTurn() {
-        return player1sTurn_;
+        return player1sTurn;
     }
 
     /**
@@ -195,7 +195,7 @@ public abstract class TwoPlayerController<M extends TwoPlayerMove, B extends Two
      */
     @Override
     public final Player getCurrentPlayer() {
-        return player1sTurn_ ? getPlayers().getPlayer1() : getPlayers().getPlayer2();
+        return player1sTurn ? getPlayers().getPlayer1() : getPlayers().getPlayer2();
     }
 
     /**
@@ -227,7 +227,7 @@ public abstract class TwoPlayerController<M extends TwoPlayerMove, B extends Two
         M lastMove = getLastMove();
         getSearchable().undoInternalMove(lastMove);
         if (lastMove != null) {
-            player1sTurn_ = lastMove.isPlayer1();
+            player1sTurn = lastMove.isPlayer1();
         }
         return lastMove;
     }
@@ -249,7 +249,7 @@ public abstract class TwoPlayerController<M extends TwoPlayerMove, B extends Two
      */
     M findComputerMove( boolean player1 ) {
         ParameterArray weights;
-        player1sTurn_ = player1;
+        player1sTurn = player1;
 
         // we cannot find a computer move if no move played yet.
         if (getMoveList().isEmpty()) return null;
@@ -293,7 +293,7 @@ public abstract class TwoPlayerController<M extends TwoPlayerMove, B extends Two
     @Override
     public void makeMove( M move ) {
         getSearchable().makeInternalMove(move);
-        player1sTurn_ = !(move).isPlayer1();
+        player1sTurn = !(move).isPlayer1();
     }
 
     /**

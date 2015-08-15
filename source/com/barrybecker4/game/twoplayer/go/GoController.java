@@ -112,7 +112,7 @@ public final class GoController extends TwoPlayerController<GoMove, GoBoard> {
      */
     public void setHandicap( int handicap ) {
         getBoard().setHandicap( handicap );
-        player1sTurn_ = false;
+        player1sTurn = false;
     }
 
     /**
@@ -165,7 +165,7 @@ public final class GoController extends TwoPlayerController<GoMove, GoBoard> {
     public void reset() {
         super.reset();
         if ( getBoard().getHandicap() > 0 )   {
-            player1sTurn_ = false;
+            player1sTurn = false;
         }
         scoreCache_ = new ScoreCache();
     }

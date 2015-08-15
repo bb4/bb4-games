@@ -38,7 +38,7 @@ public abstract class TwoPlayerBoardRenderer extends GameBoardRenderer {
         TwoPlayerMove last = (TwoPlayerMove) board.getMoveList().getLastMove();
         // this draws a small indicator on the last move to show where it was played
         if ( last != null ) {
-            g2.setColor( LAST_MOVE_INDICATOR_COLOR );
+            g2.setColor(LAST_MOVE_INDICATOR_COLOR );
             g2.setStroke(LAST_MOVE_INDICATOR_STROKE);
             int cellSize = getCellSize();
             IntLocation pos = getPosition(last.getToLocation());

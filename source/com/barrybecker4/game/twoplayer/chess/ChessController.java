@@ -65,7 +65,7 @@ public class ChessController extends TwoPlayerController<ChessMove, ChessBoard> 
                 getSearchable().generateMoves( null, weights_.getPlayer1Weights());
 
         makeMove( moveList.getRandomMove() );
-        player1sTurn_ = false;
+        player1sTurn = false;
     }
 
     @Override

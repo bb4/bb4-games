@@ -29,7 +29,6 @@ public class BinNavigatorTest {
      */
     @Test
     public void testGetNextLocation8() {
-
         checkNext(new ByteLocation(1, 1), new ByteLocation(2, 2));
         checkNext(new ByteLocation(2, 4), new ByteLocation(2, 5));
         checkNext(new ByteLocation(1, 6), new ByteLocation(1, 5));
@@ -48,13 +47,15 @@ public class BinNavigatorTest {
 
     @Test
     public void testGetNthLocation8() {
-
         checkNthLocation(new ByteLocation(1, 1), 1, new ByteLocation(2, 2));
         checkNthLocation(new ByteLocation(1, 1), -1, new ByteLocation(1, 2));
         checkNthLocation(new ByteLocation(2, 4), 2, new ByteLocation(2, 6));
         checkNthLocation(new ByteLocation(2, 4), -2, new ByteLocation(2, 2));
         checkNthLocation(new ByteLocation(2, 4), 4, new ByteLocation(1, 8));
         checkNthLocation(new ByteLocation(2, 4), -4, new ByteLocation(1, 2));
+        checkNthLocation(new ByteLocation(1, 3), 7, new ByteLocation(2, 6));
+        checkNthLocation(new ByteLocation(1, 3), -7, new ByteLocation(2, 6));
+        checkNthLocation(new ByteLocation(2, 4), 10, new ByteLocation(1, 2));
     }
 
     @Test
@@ -67,10 +68,11 @@ public class BinNavigatorTest {
 
     @Test
     public void testGetOppositeLocation1() {
-        checkOppositeLocation(new ByteLocation(1, 2), new ByteLocation(2, 2));
-        checkOppositeLocation(new ByteLocation(2, 3), new ByteLocation(1, 3));
-        checkOppositeLocation(new ByteLocation(1, 7), new ByteLocation(2, 7));
-        checkOppositeLocation(new ByteLocation(1, 1), new ByteLocation(2, 1));
+        checkOppositeLocation(new ByteLocation(2, 2), new ByteLocation(1, 2));
+        checkOppositeLocation(new ByteLocation(1, 3), new ByteLocation(2, 3));
+        checkOppositeLocation(new ByteLocation(2, 7), new ByteLocation(1, 7));
+        checkOppositeLocation(new ByteLocation(2, 1), new ByteLocation(1, 1));
+        checkOppositeLocation(new ByteLocation(2, 8), new ByteLocation(1, 8));
     }
 
     @Test

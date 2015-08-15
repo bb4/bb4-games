@@ -57,7 +57,7 @@ public class CheckersController extends TwoPlayerController<CheckersMove, Checke
         assert (!moveList.isEmpty());
         makeMove( moveList.getRandomMove() );
 
-        player1sTurn_ = false;
+        player1sTurn = false;
     }
 
     /**

@@ -104,13 +104,19 @@ public class MancalaMove extends TwoPlayerMove {
         if (!super.equals(o)) return false;
 
         MancalaMove that = (MancalaMove) o;
-        return stonesMoved == that.stonesMoved;
+
+        if (stonesMoved != that.stonesMoved) return false;
+        if (followUpMove != null ? !followUpMove.equals(that.followUpMove) : that.followUpMove != null) return false;
+        return !(captures != null ? !captures.equals(that.captures) : that.captures != null);
+
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
         result = 31 * result + (int) stonesMoved;
+        result = 31 * result + (followUpMove != null ? followUpMove.hashCode() : 0);
+        result = 31 * result + (captures != null ? captures.hashCode() : 0);
         return result;
     }
 

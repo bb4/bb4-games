@@ -22,40 +22,42 @@ public class MoveMaker extends MoveAction  {
     }
 
    /**
-     * Given a move specification, execute it on the board.
-     * See rules: http://boardgames.about.com/cs/mancala/ht/play_mancala.htm
-     * @param move the move to make, if possible.
-     * @return false if the move is illegal.
-     */
-    public boolean makeMove(Move move) {
+    * Given a move specification, execute it on the board.
+    * See rules: http://boardgames.about.com/cs/mancala/ht/play_mancala.htm
+    * @param move the move to make, if possible.
+    * @return false if the move is illegal.
+    */
+   public boolean makeMove(Move move) {
 
-        MancalaMove m = (MancalaMove)move;
-        do {
-            Location currentLocation = m.getFromLocation();
-            MancalaBin bin = board.getBin(currentLocation);
-            int numStones = ((MancalaMove) move).getNumStonesSeeded();
-            //assert (numStones == bin.getNumStones()) :    // failing
-            //        "Unexpected number of stones to move. Expected " + bin.getNumStones() + " but had " + numStones;
-            if (bin.isHome() || numStones == 0) {
-                return false;
-            }
-            bin.takeStones();
+       MancalaMove m = (MancalaMove)move;
+       do {
+           Location currentLocation = m.getFromLocation();
+           MancalaBin bin = board.getBin(currentLocation);
+           int numStones = ((MancalaMove) move).getNumStonesSeeded();
+           //assert (numStones == bin.getNumStones()) :    // failing
+           //        "Unexpected number of stones to move. Expected " + bin.getNumStones() + " but had " + numStones;
+           if (bin.isHome() || numStones == 0) {
+               return false;
+           }
+           bin.takeStones();
 
-            // march counter-clockwise around the board dropping stones into bins (but skipping the opponent home bin)
-            for (int i = 0; i<numStones; i++) {
+           // march counter-clockwise around the board dropping stones into bins (but skipping the opponent home bin)
+           int numStonesLeft = numStones;
+           while (numStonesLeft > 0) {
                 currentLocation = board.getNextLocation(currentLocation);
                 MancalaBin nextBin = board.getBin(currentLocation);
                 if (!(nextBin.isHome() && m.isPlayer1() != nextBin.isOwnedByPlayer1())) {
                     nextBin.increment();
+                    numStonesLeft--;
                 }
-            }
-            m.setCaptures(doCaptures(m, currentLocation));
-            m = m.getFollowUpMove();
+           }
+           m.setCaptures(doCaptures(m, currentLocation));
+           m = m.getFollowUpMove();
 
-        } while (m != null);
+       } while (m != null);
 
-        return true;
-    }
+       return true;
+   }
 
     /**
      * @param move the move that made the captures.
@@ -66,13 +68,19 @@ public class MoveMaker extends MoveAction  {
         // handle some special cases. like capturing
         Captures captures = new Captures();
         MancalaBin lastBin = board.getBin(currentLocation);
+        Location oppositeLoc = board.getOppositeLocation(currentLocation);
+        MancalaBin oppositeBin = board.getBin(oppositeLoc);
 
-        // if the last bin seeded had no stones, and was on the player's side, capture that piece
-        // and all the stones from the opposite bin and put in your store
-        if (!lastBin.isHome() && lastBin.getNumStones() == 1 && lastBin.isOwnedByPlayer1() == move.isPlayer1())  {
+        // if the last bin seeded
+        //  - had no stones,
+        //  - and was on the player's side,
+        //  - and there is at least one opponent stone opposite,
+        // capture that piece and all the stones from the opposite bin and put in your store
+        if (!lastBin.isHome()
+                && lastBin.getNumStones() == 1
+                && lastBin.isOwnedByPlayer1() == move.isPlayer1()
+                && oppositeBin.getNumStones() > 0)  {
 
-            Location oppositeLoc = board.getOppositeLocation(currentLocation);
-            MancalaBin oppositeBin = board.getBin(oppositeLoc);
             MancalaBin homeBin = board.getHomeBin(move.isPlayer1());
             captures.put(currentLocation, (byte)1);
             homeBin.increment(lastBin.takeStones());
@@ -80,11 +88,11 @@ public class MoveMaker extends MoveAction  {
             homeBin.increment(oppositeBin.takeStones());
         }
 
-        // if no stones left on players side, opponent captures all remaining stone on his side
+        // if no stones left on players side, opponent captures all remaining stones on his side
         if (board.isSideClear(move.isPlayer1())) {
             board.clearSide(!move.isPlayer1(), captures);
         }
-        if (board.isSideClear(!move.isPlayer1())) {
+        else if (board.isSideClear(!move.isPlayer1())) {
             board.clearSide(move.isPlayer1(), captures);
         }
         return captures;

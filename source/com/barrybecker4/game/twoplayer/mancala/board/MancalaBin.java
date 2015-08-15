@@ -59,7 +59,7 @@ public class MancalaBin extends GamePiece {
     }
 
     public String toString() {
-        return (this.isHome() ? "Home" : "")  + "Bin " + "stones="+ getNumStones();
+        return (this.isHome() ? "Home" : "")  + "Bin(" + getNumStones() + ")";
     }
 
 }

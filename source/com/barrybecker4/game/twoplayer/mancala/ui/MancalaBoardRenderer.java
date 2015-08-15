@@ -1,8 +1,14 @@
 /** Copyright by Barry G. Becker, 2014. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.mancala.ui;
 
+import com.barrybecker4.common.geometry.IntLocation;
+import com.barrybecker4.game.common.board.Board;
+import com.barrybecker4.game.common.board.BoardPosition;
+import com.barrybecker4.game.common.player.Player;
 import com.barrybecker4.game.common.ui.viewer.GameBoardRenderer;
+import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerBoardRenderer;
+import com.barrybecker4.game.twoplayer.mancala.board.MancalaBin;
 
 import java.awt.Graphics2D;
 
@@ -38,5 +44,30 @@ public class MancalaBoardRenderer extends TwoPlayerBoardRenderer {
     @Override
     protected void drawGrid(Graphics2D g2, int startPos, int rightEdgePos, int bottomEdgePos, int start,
                             int nrows1, int ncols1, int gridOffset) {}
+
+
+    @Override
+    protected void drawLastMoveMarker(Graphics2D g2, Player player, Board board) {
+
+        TwoPlayerMove last = (TwoPlayerMove) board.getMoveList().getLastMove();
+
+        // this draws a small indicator on the last move to show where it was played
+        if ( last != null ) {
+            g2.setColor(LAST_MOVE_INDICATOR_COLOR );
+            g2.setStroke(LAST_MOVE_INDICATOR_STROKE);
+            int cellSize = getCellSize();
+            IntLocation pos = getPosition(last.getToLocation());
+            BoardPosition bpos = board.getPosition(last.getToLocation());
+            assert bpos != null : "No pos at location " + last.getToLocation();
+            MancalaBin bin = (MancalaBin) bpos.getPiece();
+
+            int yOffset = bin.isHome() ? cellSize >> 1 : 0;
+
+            int x = pos.getRow();
+            int y = pos.getCol() + yOffset;
+            System.out.println("last last.getToLocation()= " + last.getToLocation() + " x = "+ x + " y = " + y + " pos = " + pos);
+                    g2.drawOval(x, y, cellSize - 2, cellSize - 2 );
+        }
+    }
 }
 
