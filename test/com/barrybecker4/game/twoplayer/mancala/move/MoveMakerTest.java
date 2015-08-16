@@ -253,7 +253,6 @@ public class MoveMakerTest {
         assertEquals("Unexpected captures.",
                 "{}",
                 move1.getCaptures().toString());
-        System.out.println("b=" + board);
 
         verifier.checkOverallBoard(5, 4, 0, 1, 0, 5, 3, 0,
                 3, 3, 3, 3, 3, 3);
@@ -294,7 +293,6 @@ public class MoveMakerTest {
                 "{(row=1, column=3)=1, (row=2, column=3)=3}",
                 move6.getCaptures().toString());
 
-        System.out.println("b=" + board);
         verifier.checkOverallBoard(9, 4, 0, 0, 0, 5, 6, 0,
                                       3, 0, 3, 3, 3, 3);
     }
