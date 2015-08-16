@@ -1,4 +1,4 @@
-/** Copyright by Barry G. Becker, 2014. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
+/** Copyright by Barry G. Becker, 2014-2015. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.mancala.move;
 
 import com.barrybecker4.common.geometry.Location;
@@ -43,7 +43,7 @@ public final class MancalaMoveGenerator {
             MancalaMove move = MancalaMove.createMove(player1, startLoc, 0, board.getBin(startLoc));
 
             // if the last move is in a players home bin, then they need to make a follow up move (potentially > 1).
-            if (board.moveAgainAfterMove(move) && candidateStarts.size() > 1) {
+            if (board.moveAgainAfterMove(move)) {
                 MoveList<MancalaMove> compoundMoves = generateMovesWithFollowUpForPlayer(move, board.copy());
                 for (MancalaMove compoundMove : compoundMoves) {
                     determineMoveScore(searchable, weights, compoundMove);

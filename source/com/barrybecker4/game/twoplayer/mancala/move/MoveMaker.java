@@ -29,11 +29,11 @@ public class MoveMaker extends MoveAction  {
     */
    public boolean makeMove(Move move) {
 
-       MancalaMove m = (MancalaMove)move;
+       MancalaMove currentMove = (MancalaMove)move;
        do {
-           Location currentLocation = m.getFromLocation();
+           Location currentLocation = currentMove.getFromLocation();
            MancalaBin bin = board.getBin(currentLocation);
-           int numStones = ((MancalaMove) move).getNumStonesSeeded();
+           int numStones = currentMove.getNumStonesSeeded();
            //assert (numStones == bin.getNumStones()) :    // failing
            //        "Unexpected number of stones to move. Expected " + bin.getNumStones() + " but had " + numStones;
            if (bin.isHome() || numStones == 0) {
@@ -46,15 +46,15 @@ public class MoveMaker extends MoveAction  {
            while (numStonesLeft > 0) {
                 currentLocation = board.getNextLocation(currentLocation);
                 MancalaBin nextBin = board.getBin(currentLocation);
-                if (!(nextBin.isHome() && m.isPlayer1() != nextBin.isOwnedByPlayer1())) {
+                if (!(nextBin.isHome() && currentMove.isPlayer1() != nextBin.isOwnedByPlayer1())) {
                     nextBin.increment();
                     numStonesLeft--;
                 }
            }
-           m.setCaptures(doCaptures(m, currentLocation));
-           m = m.getFollowUpMove();
+           currentMove.setCaptures(doCaptures(currentMove, currentLocation));
+           currentMove = currentMove.getFollowUpMove();
 
-       } while (m != null);
+       } while (currentMove != null);
 
        return true;
    }

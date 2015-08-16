@@ -35,6 +35,10 @@ public class MancalaMove extends TwoPlayerMove {
     /**
      * Constructor. This should not usually be called directly
      * use the factory method createMove instead.
+     * @param player1 player1
+     * @param origin from position
+     * @param numStonesMoved num stones to seed
+     * @param val the values of the move
      */
     public MancalaMove(boolean player1, Location origin, byte numStonesMoved, int val) {
         super(origin, val,  new GamePiece(player1));

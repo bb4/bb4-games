@@ -132,13 +132,30 @@ public class MancalaBoard extends TwoPlayerBoard<MancalaMove> {
      */
     public boolean moveAgainAfterMove(Move move) {
         MancalaMove m = (MancalaMove)move;
-        Location lastLoc = navigator.getNthLocation(m.getFromLocation(), m.getNumStonesSeeded());
+        Location lastLoc = findLastStop(m);
         MancalaBin bin = getBin(lastLoc);
         return bin.isHome() && bin.isOwnedByPlayer1() == m.isPlayer1();
     }
 
+    private Location findLastStop(MancalaMove move) {
+        int numSeeds = move.getNumStonesSeeded();
+
+        Location lastLoc = move.getFromLocation();
+        assert numSeeds > 0 : "Number of seeds must be positive. It was " + numSeeds;
+
+        while (numSeeds > 0) {
+            lastLoc = navigator.getNextLocation(lastLoc);
+            MancalaBin bin = this.getBin(lastLoc);
+            if (!(bin.isHome() && move.isPlayer1() != bin.isOwnedByPlayer1())) {
+                numSeeds--;
+            }
+        }
+
+        return lastLoc;
+    }
+
     /**
-     * @param player1  the player's who's bins to consider
+     * @param player1 the player's who's bins to consider
      * @return a list of all player bin locations that have one stone or more.
      */
     public List<Location> getCandidateStartLocations(boolean player1) {

@@ -56,7 +56,7 @@ public class BinNavigator {
      * @param location initial location
      * @param numHops number of hops. If negative, then hop backwards
      * @return the bin that is n hops counter clockwise from location
-     */
+     *
     public Location getNthLocation(Location location, int numHops) {
 
         Location lastLoc = location;
@@ -67,7 +67,7 @@ public class BinNavigator {
         }
 
         return lastLoc;
-    }
+    }  */
 
     /**
      * @param loc the location to look opposite of

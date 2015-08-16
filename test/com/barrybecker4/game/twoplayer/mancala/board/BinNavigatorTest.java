@@ -46,19 +46,6 @@ public class BinNavigatorTest {
     }
 
     @Test
-    public void testGetNthLocation8() {
-        checkNthLocation(new ByteLocation(1, 1), 1, new ByteLocation(2, 2));
-        checkNthLocation(new ByteLocation(1, 1), -1, new ByteLocation(1, 2));
-        checkNthLocation(new ByteLocation(2, 4), 2, new ByteLocation(2, 6));
-        checkNthLocation(new ByteLocation(2, 4), -2, new ByteLocation(2, 2));
-        checkNthLocation(new ByteLocation(2, 4), 4, new ByteLocation(1, 8));
-        checkNthLocation(new ByteLocation(2, 4), -4, new ByteLocation(1, 2));
-        checkNthLocation(new ByteLocation(1, 3), 7, new ByteLocation(2, 6));
-        checkNthLocation(new ByteLocation(1, 3), -7, new ByteLocation(2, 6));
-        checkNthLocation(new ByteLocation(2, 4), 10, new ByteLocation(1, 2));
-    }
-
-    @Test
     public void testGetOppositeLocation() {
         checkOppositeLocation(new ByteLocation(1, 2), new ByteLocation(2, 2));
         checkOppositeLocation(new ByteLocation(2, 3), new ByteLocation(1, 3));
@@ -87,10 +74,6 @@ public class BinNavigatorTest {
         assertEquals("Unexpected next location", expNext, navigator.getNextLocation(current));
     }
 
-    private void checkNthLocation(Location current, int numSteps, Location expNth) {
-        assertEquals("Unexpected ("+numSteps+")th location from " + current,
-                expNth, navigator.getNthLocation(current, numSteps));
-    }
 
     private void checkOppositeLocation(Location current, Location expOpposite) {
         assertEquals("Unexpected opposite location" ,
