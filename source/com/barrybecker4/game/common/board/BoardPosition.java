@@ -32,10 +32,7 @@ public class BoardPosition {
     public BoardPosition(BoardPosition p) {
 
         location_ = new ByteLocation(p.getRow(), p.getCol());
-        if (p.piece_ != null)
-            piece_ = p.piece_.copy();
-        else
-            piece_ = null;
+        piece_ = (p.piece_ != null) ? p.piece_.copy() : null;
     }
 
     /**

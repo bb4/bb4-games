@@ -90,11 +90,11 @@ public class ChessBoardViewer extends AbstractTwoPlayerBoardViewer {
      *  Animate the last move so the player does not lose orientation.
      */
     protected void showLastMove() {
+        //this.getBoardRenderer().setDraggedShowPiece();
 
-
-        for (int i=0; i< 20; i++) {
+        //for (int i=0; i< 20; i++) {
              this.refresh();
-        }
+        //}
 
     }
 

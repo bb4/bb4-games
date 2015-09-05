@@ -96,6 +96,9 @@ public abstract class GameBoardRenderer {
         return backgroundColor_;
     }
 
+    /**
+     * @param position The position containing the piec that is to be dragged
+     */
     public void setDraggedPiece(BoardPosition position)  {
         draggedPiece_ = position;
         if (position != null)  {
@@ -111,6 +114,9 @@ public abstract class GameBoardRenderer {
         return draggedPiece_;
     }
 
+    /**
+     * @param position position of fake overlay piece for show while dragging
+     */
     public void setDraggedShowPiece(BoardPosition position) {
         draggedShowPiece_ = position;
     }
@@ -131,7 +137,6 @@ public abstract class GameBoardRenderer {
         int col = (e.getX()- getMargin())/ size + 1;
         return new ByteLocation(row, col);
     }
-
 
     /**
      * @return  default cell size (override for specific games).

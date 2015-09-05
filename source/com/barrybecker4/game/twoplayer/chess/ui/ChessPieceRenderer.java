@@ -4,6 +4,8 @@ package com.barrybecker4.game.twoplayer.chess.ui;
 import com.barrybecker4.game.common.GameContext;
 import com.barrybecker4.game.common.board.Board;
 import com.barrybecker4.game.common.board.BoardPosition;
+import com.barrybecker4.game.common.board.GamePiece;
+import com.barrybecker4.game.twoplayer.checkers.CheckersPiece;
 import com.barrybecker4.game.twoplayer.chess.ChessPiece;
 import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerPieceRenderer;
 import com.barrybecker4.ui.util.GUIUtil;
@@ -89,30 +91,26 @@ public class ChessPieceRenderer extends TwoPlayerPieceRenderer
      * this draws the actual chess piece
      */
     @Override
-    public void render( Graphics2D g2, BoardPosition position, int cellSize, int margin, Board b) {
-        ChessPiece piece = (ChessPiece)position.getPiece();
-        if (piece==null)
-            return; // nothing to render
-        int p = (piece.isOwnedByPlayer1()? 0:1);
-        int pieceSize = getPieceSize(cellSize, piece);
-        Point pos = getPosition(position, cellSize, pieceSize, margin);
-        switch (piece.getPieceType()) {
+    public void renderForShow(Graphics2D g2, Point pos, GamePiece piece, int pieceSize) {
+
+        ChessPiece chessPiece = (ChessPiece) piece;
+        int playerIdx = (chessPiece.isOwnedByPlayer1()? 0:1);
+
+        switch (chessPiece.getPieceType()) {
             case PAWN :
-                g2.drawImage(pawnImage_[p].getImage(), pos.x, pos.y, pieceSize, pieceSize, null); break;
+                g2.drawImage(pawnImage_[playerIdx].getImage(), pos.x, pos.y, pieceSize, pieceSize, null); break;
             case ROOK :
-                g2.drawImage(rookImage_[p].getImage(), pos.x, pos.y, pieceSize, pieceSize, null); break;
+                g2.drawImage(rookImage_[playerIdx].getImage(), pos.x, pos.y, pieceSize, pieceSize, null); break;
             case KNIGHT :
-                g2.drawImage(knightImage_[p].getImage(), pos.x, pos.y, pieceSize, pieceSize, null); break;
+                g2.drawImage(knightImage_[playerIdx].getImage(), pos.x, pos.y, pieceSize, pieceSize, null); break;
             case BISHOP :
-                g2.drawImage(bishopImage_[p].getImage(), pos.x, pos.y, pieceSize, pieceSize, null); break;
+                g2.drawImage(bishopImage_[playerIdx].getImage(), pos.x, pos.y, pieceSize, pieceSize, null); break;
             case QUEEN :
-                g2.drawImage(queenImage_[p].getImage(), pos.x, pos.y, pieceSize, pieceSize, null); break;
+                g2.drawImage(queenImage_[playerIdx].getImage(), pos.x, pos.y, pieceSize, pieceSize, null); break;
             case KING :
-                g2.drawImage(kingImage_[p].getImage(), pos.x, pos.y, pieceSize, pieceSize, null); break;
+                g2.drawImage(kingImage_[playerIdx].getImage(), pos.x, pos.y, pieceSize, pieceSize, null); break;
             default:
                 assert false:("bad chess piece type: "+piece.getType());
         }
-        //if (this.isFirstTimeMoved())
-        //    g.drawRect(xpos, ypos, pieceSize/2, pieceSize/2);
     }
 }

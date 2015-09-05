@@ -75,35 +75,42 @@ public abstract class GamePieceRenderer {
    public void render(Graphics2D g2, BoardPosition position, int cellSize, int margin, Board b) {
        GamePiece piece = position.getPiece();
        // if there is no piece, then nothing to render
-       if (piece == null)
+       if (piece == null) {
            return;
-
+       }
        int pieceSize = getPieceSize(cellSize, piece);
        Point pos = getPosition(position, cellSize, pieceSize, margin);
-       Ellipse2D circle = new Ellipse2D.Float( pos.x, pos.y, pieceSize + 1, pieceSize + 1 );
+       renderForShow(g2, pos, piece, pieceSize);
+   }
+
+    public void renderForShow(Graphics2D g2, Point pos, GamePiece piece, int pieceSize) {
+
+        Ellipse2D circle = new Ellipse2D.Float(pos.x, pos.y, pieceSize + 1, pieceSize + 1);
 
        //spec highlight offset
        int hlOffset = (int) (pieceSize / 2.3 + 0.5);
        RoundGradientPaint rgp = new RoundGradientPaint(
-                pos.x + hlOffset, pos.y + hlOffset, Color.white, SPEC_HIGHLIGHT_RADIUS, getPieceColor(piece) );
+               pos.x + hlOffset, pos.y + hlOffset, Color.white, SPEC_HIGHLIGHT_RADIUS, getPieceColor(piece));
 
-       g2.setPaint( rgp );
-       g2.fill( circle );
+       g2.setPaint(rgp);
+       g2.fill(circle);
 
        // only draw the outline if we are not in a debug mode.
        // when in debug mode we want to emphasize other annotations instead of the piece
-       if ( piece.getTransparency() == 0 && (GameContext.getDebugMode() == 0) ) {
-           g2.setColor( Color.black );
-           g2.drawOval( pos.x, pos.y, pieceSize, pieceSize );
+       if (piece.getTransparency() == 0 && (GameContext.getDebugMode() == 0)) {
+           g2.setColor(Color.black);
+           g2.drawOval(pos.x, pos.y, pieceSize, pieceSize);
        }
 
-       if ( piece.getAnnotation() != null ) {
-           int offset = (cellSize - pieceSize) >> 1;
-           g2.setColor( getTextColor(piece) );
-           g2.setFont( BASE_FONT );
-           g2.drawString( piece.getAnnotation(), pos.x + 2*offset, pos.y + 3*offset);
+       if (piece.getAnnotation() != null) {
+           int offset = (int) (0.15 * pieceSize); //cellSize - pieceSize) >> 1;
+           g2.setColor(getTextColor(piece));
+           g2.setFont(BASE_FONT);
+           g2.drawString(piece.getAnnotation(), pos.x + 2 * offset, pos.y + 3 * offset);
        }
-   }
+    }
+
+
 
 }
 

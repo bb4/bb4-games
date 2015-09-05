@@ -1,8 +1,7 @@
-/** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
+/** Copyright by Barry G. Becker, 2000-2015. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.checkers.ui;
 
-import com.barrybecker4.game.common.board.Board;
-import com.barrybecker4.game.common.board.BoardPosition;
+import com.barrybecker4.game.common.board.GamePiece;
 import com.barrybecker4.game.twoplayer.checkers.CheckersPiece;
 import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerPieceRenderer;
 
@@ -31,25 +30,14 @@ public class CheckersPieceRenderer extends TwoPlayerPieceRenderer {
         return renderer_;
     }
 
-    /**
-     * this draws the actual piece.
-     */
-    @Override
-    public void render( Graphics2D g2, BoardPosition position, int cellSize, int margin, Board b) {
 
-        CheckersPiece piece = (CheckersPiece)position.getPiece();
-        if (piece == null)
-            return; // nothing to render
-
-        int pieceSize = getPieceSize(cellSize, piece);
+    public void renderForShow(Graphics2D g2, Point pos, GamePiece piece, int pieceSize) {
 
         if ( piece.getType() == CheckersPiece.REGULAR_PIECE ) {
-            super.render( g2, position, cellSize, margin, b);
+            super.renderForShow( g2, pos, piece, pieceSize);
         }
         else {  //draw a KING
             g2.setColor( getPieceColor(piece) );
-            Point pos = getPosition(position, cellSize, pieceSize, margin);
-
             g2.fillRect( pos.x, pos.y, pieceSize, pieceSize );
 
             if ( piece.getTransparency() == 0 ) {

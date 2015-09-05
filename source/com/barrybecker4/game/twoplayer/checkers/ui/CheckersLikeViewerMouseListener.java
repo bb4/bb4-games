@@ -122,7 +122,7 @@ public abstract class CheckersLikeViewerMouseListener<M extends TwoPlayerMove, B
         if ( getRenderer().getDraggedShowPiece() != null ) {
             getRenderer().getDraggedShowPiece().setLocation( loc );
         }
-        viewer_.repaint(); viewer_.refresh();
+        viewer_.refresh();
     }
 
     /**
