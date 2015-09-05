@@ -34,8 +34,7 @@ public abstract class GamePieceRenderer {
      * private constructor because this class is a singleton.
      * Use getRenderer instead
      */
-    protected GamePieceRenderer()
-    {}
+    protected GamePieceRenderer() {}
 
     /**
      * @return the game piece render color.

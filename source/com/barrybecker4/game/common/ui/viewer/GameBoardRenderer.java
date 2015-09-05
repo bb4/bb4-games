@@ -267,10 +267,6 @@ public abstract class GameBoardRenderer {
         Board b = (Board)board;
         cellSize = calcCellSize( b, panelWidth, panelHeight );
 
-        if ( draggedShowPiece_!=null) {
-            draggedShowPiece_.getPiece().setTransparency( DRAG_TRANSPARENCY );
-        }
-
         Graphics2D g2 = (Graphics2D)g;
 
         int gridOffset = 0;
@@ -301,6 +297,7 @@ public abstract class GameBoardRenderer {
 
         // if there is a piece being dragged, draw it
         if ( draggedShowPiece_ != null ) {
+            draggedShowPiece_.getPiece().setTransparency( DRAG_TRANSPARENCY );
             pieceRenderer_.render(g2, draggedShowPiece_, cellSize, getMargin(), b);
         }
 

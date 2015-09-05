@@ -16,7 +16,7 @@ import java.awt.*;
  * @see ChessBoardViewer
  * @author Barry Becker
  */
-public class ChessPieceRenderer  extends TwoPlayerPieceRenderer
+public class ChessPieceRenderer extends TwoPlayerPieceRenderer
 {
     private static TwoPlayerPieceRenderer renderer_ = null;
 

@@ -28,8 +28,8 @@ import java.awt.event.MouseEvent;
  *
  *  @author Barry Becker
  */
-public class ChessBoardViewer extends AbstractTwoPlayerBoardViewer
-{
+public class ChessBoardViewer extends AbstractTwoPlayerBoardViewer {
+
     /**
      * Construct the viewer
      */
@@ -84,6 +84,18 @@ public class ChessBoardViewer extends AbstractTwoPlayerBoardViewer
                 }
             }
         }
+    }
+
+    /**
+     *  Animate the last move so the player does not lose orientation.
+     */
+    protected void showLastMove() {
+
+
+        for (int i=0; i< 20; i++) {
+             this.refresh();
+        }
+
     }
 
     /**

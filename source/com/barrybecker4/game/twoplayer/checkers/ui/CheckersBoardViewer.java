@@ -44,6 +44,7 @@ public class CheckersBoardViewer extends AbstractTwoPlayerBoardViewer {
         return new CheckersViewerMouseListener(this);
     }
 
+
     /**
      * @return the tooltip for the panel given a mouse event
      */
