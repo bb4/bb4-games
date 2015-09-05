@@ -162,21 +162,21 @@ public abstract class AbstractTwoPlayerBoardViewer<M extends TwoPlayerMove, B ex
      */
     private boolean manMoves(M move) {
 
-        TwoPlayerController<M, B> c = get2PlayerController();
+        TwoPlayerController<M, B> controller = get2PlayerController();
         if ( GameContext.getUseSound() ) {
-            GameContext.getMusicMaker().playNote( c.getOptions().getPreferredTone(), 45, 0, 200, 1000 );
+            GameContext.getMusicMaker().playNote( controller.getOptions().getPreferredTone(), 45, 0, 200, 1000 );
         }
         // need to clear the cache, otherwise we may render a stale board.
         cachedGameBoard_ = null;
-        c.manMoves(move);
+        controller.manMoves(move);
 
         // need to refresh here to show man moves in human only game
-        if (c.getPlayers().allPlayersHuman())  {
+        if (controller.getPlayers().allPlayersHuman())  {
             refresh();
         }
 
         // Second arg was true, but then we did final update twice.
-        boolean done = c.getSearchable().done(move, false);
+        boolean done = controller.getSearchable().done(move, false);
         // This is needed to update the current player info
         sendGameChangedEvent(move);
         return done;
@@ -227,9 +227,7 @@ public abstract class AbstractTwoPlayerBoardViewer<M extends TwoPlayerMove, B ex
             if (progressBar != null) {
                 progressBar.doComputerMove(moveRequester_);
             }
-            boolean done = moveRequester_.requestComputerMove(isPlayer1);
-            repaint();
-            return done;
+            return moveRequester_.requestComputerMove(isPlayer1);
         }
         catch  (AssertionError ae) {
             // if any errors occur during search, I want to save the state of the game to
@@ -318,7 +316,7 @@ public abstract class AbstractTwoPlayerBoardViewer<M extends TwoPlayerMove, B ex
                      done = doComputerMove( true );
                  }
              }
-             refresh();
+             //refresh();    // causes rendering in intermediate state (while computer thinking)
          }
          return !done;
      }
@@ -436,7 +434,7 @@ public abstract class AbstractTwoPlayerBoardViewer<M extends TwoPlayerMove, B ex
         @Override
         public void run() {
 
-            setCursor( origCursor_ );
+            setCursor(origCursor_);
             if ( GameContext.getUseSound() )
                 GameContext.getMusicMaker().playNote(
                         get2PlayerController().getOptions().getPreferredTone(), 45, 0, 200, 1000 );

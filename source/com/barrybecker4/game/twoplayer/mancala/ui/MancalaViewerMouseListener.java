@@ -58,6 +58,7 @@ class MancalaViewerMouseListener extends ViewerMouseListener<MancalaMove, Mancal
         MancalaMove m =
             new MancalaMove(controller.isPlayer1sTurn(), loc, bin.getNumStones(), 0);
 
+        viewer.refresh(); // needed to get initial move to show
         viewer.continuePlay( m );
     }
 

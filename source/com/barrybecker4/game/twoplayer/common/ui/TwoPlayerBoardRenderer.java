@@ -43,8 +43,6 @@ public abstract class TwoPlayerBoardRenderer extends GameBoardRenderer {
             g2.setStroke(LAST_MOVE_INDICATOR_STROKE);
             int cellSize = getCellSize();
             IntLocation pos = getPosition(last.getToLocation());
-            System.out.println("drawing last move at " + pos + " which corresponds to " + last.getToLocation()
-                    + " numMoves=" + board.getMoveList().size());
             g2.drawOval(pos.getX(), pos.getY(), cellSize - 2, cellSize - 2 );
         }
     }
