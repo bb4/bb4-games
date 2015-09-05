@@ -61,8 +61,8 @@ public class MancalaBoardRenderer extends TwoPlayerBoardRenderer {
 
             int yOffset = bin.isHome() ? cellSize >> 1 : 0;
 
-            int x = pos.getRow();
-            int y = pos.getCol() + yOffset;
+            int x = pos.getX();
+            int y = pos.getY() + yOffset;
                     g2.drawOval(x, y, cellSize - 2, cellSize - 2 );
         }
     }

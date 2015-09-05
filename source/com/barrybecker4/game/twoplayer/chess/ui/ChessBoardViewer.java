@@ -60,8 +60,7 @@ public class ChessBoardViewer extends AbstractTwoPlayerBoardViewer
      * @param m the last move made
      */
     @Override
-    public void warnOnSpecialMoves( TwoPlayerMove m )
-    {
+    public void warnOnSpecialMoves( TwoPlayerMove m ) {
         super.warnOnSpecialMoves(m);
         // we don't show dialogs if both players are computers.
         if (get2PlayerController().getPlayers().allPlayersComputer())
@@ -85,12 +84,6 @@ public class ChessBoardViewer extends AbstractTwoPlayerBoardViewer
                 }
             }
         }
-    }
-
-    @Override
-    public void showLastMove()
-    {
-        refresh();
     }
 
     /**

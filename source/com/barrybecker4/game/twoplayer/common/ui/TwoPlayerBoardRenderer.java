@@ -27,8 +27,8 @@ public abstract class TwoPlayerBoardRenderer extends GameBoardRenderer {
 
     protected IntLocation getPosition(Location coords) {
         return new IntLocation(
-                getMargin() + (coords.getCol() - 1) * cellSize + 1,
-                getMargin() + (coords.getRow() - 1) * cellSize + 1);
+                getMargin() + (coords.getRow() - 1) * cellSize + 1,
+                getMargin() + (coords.getCol() - 1) * cellSize + 1);
 
     }
 
@@ -36,12 +36,15 @@ public abstract class TwoPlayerBoardRenderer extends GameBoardRenderer {
     protected void drawLastMoveMarker(Graphics2D g2, Player player, Board board) {
 
         TwoPlayerMove last = (TwoPlayerMove) board.getMoveList().getLastMove();
+
         // this draws a small indicator on the last move to show where it was played
         if ( last != null ) {
             g2.setColor(LAST_MOVE_INDICATOR_COLOR );
             g2.setStroke(LAST_MOVE_INDICATOR_STROKE);
             int cellSize = getCellSize();
             IntLocation pos = getPosition(last.getToLocation());
+            System.out.println("drawing last move at " + pos + " which corresponds to " + last.getToLocation()
+                    + " numMoves=" + board.getMoveList().size());
             g2.drawOval(pos.getX(), pos.getY(), cellSize - 2, cellSize - 2 );
         }
     }

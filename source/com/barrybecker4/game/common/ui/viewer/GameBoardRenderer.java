@@ -201,7 +201,7 @@ public abstract class GameBoardRenderer {
         //GameContext.log(0, "compare "+boardAspect+"("+ncols+","+nrows+") to "
         //    + panelAspect + "("+panelWidth+","+panelHeight+") to ");
         if ( boardAspect < panelAspect )
-            size = (int)((panelHeight - 2 * getMargin() + 1) / nrows);
+            size = ((panelHeight - 2 * getMargin() + 1) / nrows);
         else
             size = (int)((panelWidth - 2 * getMargin() + 1) / (aspect * ncols));
 
