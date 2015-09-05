@@ -110,7 +110,5 @@ public abstract class GamePieceRenderer {
        }
     }
 
-
-
 }
 

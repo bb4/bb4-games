@@ -67,28 +67,35 @@ public class MancalaBinRenderer extends TwoPlayerPieceRenderer {
     * @param position the position of the piece to render
     */
    public void render(Graphics2D g2, BoardPosition position, int cellSize, int margin, Board b) {
+
        MancalaBin bin = (MancalaBin) position.getPiece();
        // if there is no piece, then nothing to render
-       if (bin == null)
+       if (bin == null) {
            return;
-
-       int yOffset = bin.isHome() ? cellSize >> 1 : 0;
+       }
 
        int pieceSize = getPieceSize(cellSize, bin);
        Point pos = getPosition(position, cellSize, pieceSize, margin);
-       Ellipse2D circle = new Ellipse2D.Float( pos.x, pos.y + yOffset, pieceSize + 1, pieceSize + 1 );
+       renderForShow(g2, pos, bin, pieceSize);
+   }
 
-       g2.setStroke(BIN_STROKE);
-       g2.setColor(bin.isOwnedByPlayer1() ? getPlayer1Color() : getPlayer2Color());
-       g2.draw(circle);
+    public void renderForShow(Graphics2D g2, Point pos, GamePiece piece, int pieceSize) {
 
-       int offset = cellSize / 5;
+        MancalaBin bin = (MancalaBin) piece;
+        int yOffset = bin.isHome() ? pieceSize >> 1 : 0;
+        Ellipse2D circle = new Ellipse2D.Float( pos.x, pos.y + yOffset, pieceSize + 1, pieceSize + 1 );
+
+        g2.setStroke(BIN_STROKE);
+        g2.setColor(bin.isOwnedByPlayer1() ? getPlayer1Color() : getPlayer2Color());
+        g2.draw(circle);
+
+       int offset = (int) (0.22 * pieceSize);
        g2.setColor(getTextColor(bin));
 
-       Font font = new Font(GUIUtil.DEFAULT_FONT_FAMILY, Font.PLAIN, cellSize/2);
+       Font font = new Font(GUIUtil.DEFAULT_FONT_FAMILY, Font.PLAIN, pieceSize/2);
        g2.setFont(font);
 
        g2.drawString(Integer.toString(bin.getNumStones()), pos.x + offset, pos.y + 3 * offset + yOffset);
-   }
+    }
 }
 

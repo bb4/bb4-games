@@ -20,8 +20,7 @@ public class CheckersPieceRenderer extends TwoPlayerPieceRenderer {
      * private constructor because this class is a singleton.
      * Use getRenderer instead
      */
-    private CheckersPieceRenderer()
-    {}
+    private CheckersPieceRenderer() {}
 
     public static TwoPlayerPieceRenderer getRenderer() {
 
