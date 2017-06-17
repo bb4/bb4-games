@@ -132,8 +132,8 @@ public class MoveMakerTest {
         moveMaker.makeMove(move);
 
         assertEquals("Unexpected captures.",
-                "{(row=2, column=5)=3, (row=2, column=4)=3, (row=1, column=3)=1, " +
-                "(row=2, column=7)=3, (row=2, column=6)=3, (row=2, column=3)=3, (row=2, column=2)=3}",
+                "{(row=1, column=3)=1, (row=2, column=2)=3, (row=2, column=3)=3, (row=2, column=4)=3, " +
+                        "(row=2, column=5)=3, (row=2, column=6)=3, (row=2, column=7)=3}",
                 move.getCaptures().toString());
         checkStones(new ByteLocation(1, 4), 0);
         checkStones(new ByteLocation(2, 4), 0);
@@ -155,8 +155,8 @@ public class MoveMakerTest {
         moveMaker.makeMove(move);
 
         assertEquals("Unexpected captures.",
-                "{(row=1, column=2)=3, (row=2, column=5)=1, (row=1, column=3)=3, " +
-                "(row=1, column=6)=3, (row=1, column=7)=3, (row=1, column=4)=3, (row=1, column=5)=3}",
+                "{(row=1, column=2)=3, (row=1, column=3)=3, (row=1, column=4)=3, (row=1, column=5)=3, " +
+                        "(row=1, column=6)=3, (row=1, column=7)=3, (row=2, column=5)=1}",
                 move.getCaptures().toString());
 
         checkStones(new ByteLocation(1, 4), 0);
@@ -182,8 +182,8 @@ public class MoveMakerTest {
         moveMaker.makeMove(move);
 
         assertEquals("Unexpected captures.",
-                "{(row=2, column=5)=3, (row=2, column=4)=3, (row=2, column=7)=3, " +
-                "(row=2, column=6)=3, (row=2, column=3)=3, (row=2, column=2)=3}",
+                "{(row=2, column=2)=3, (row=2, column=3)=3, (row=2, column=4)=3, (row=2, column=5)=3, " +
+                        "(row=2, column=6)=3, (row=2, column=7)=3}",
                 move.getCaptures().toString());
         assertEquals("Unexpected stones", 0, board.getBin(new ByteLocation(1, 4)).getNumStones());
         assertEquals("Unexpected stones", 0, board.getBin(new ByteLocation(2, 4)).getNumStones());
@@ -204,8 +204,8 @@ public class MoveMakerTest {
         moveMaker.makeMove(move);
 
         assertEquals("Unexpected captures.",
-                "{(row=1, column=2)=3, (row=1, column=3)=3, (row=1, column=6)=3, " +
-                "(row=1, column=7)=3, (row=1, column=4)=3, (row=1, column=5)=3}",
+                "{(row=1, column=2)=3, (row=1, column=3)=3, (row=1, column=4)=3, (row=1, column=5)=3, " +
+                        "(row=1, column=6)=3, (row=1, column=7)=3}",
                 move.getCaptures().toString());
         assertEquals("Unexpected stones", 0, board.getBin(new ByteLocation(1, 4)).getNumStones());
         assertEquals("Unexpected stones", 0, board.getBin(new ByteLocation(2, 4)).getNumStones());

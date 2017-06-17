@@ -45,7 +45,7 @@ public class UctNodeTest {
         assertEquals("Unexpected numVisits", 0, uctNode.getNumVisits());
         // The winrate is 0.5 (tie) + 10/WINNING = 0.50122
         assertEquals("Unexpected winRate", 0.5012207f, uctNode.getWinRate(), TOL);
-        assertEquals("Unexpected attrs", "{winRate=0.50122, visits=0, wins=0.0}", uctNode.getAttributes().toString());
+        assertEquals("Unexpected attrs", "{wins=0.0, visits=0, winRate=0.50122}", uctNode.getAttributes().toString());
         assertEquals("Unexpected uctValue",
                 1000.50122, uctNode.calculateUctValue(1.0, 1), TOL);
     }
