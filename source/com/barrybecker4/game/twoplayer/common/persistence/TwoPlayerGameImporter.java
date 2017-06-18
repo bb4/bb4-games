@@ -31,7 +31,9 @@ import java.util.Enumeration;
  *
  * @author Barry Becker
  */
-public class TwoPlayerGameImporter<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>> extends GameImporter<M, B> {
+public class TwoPlayerGameImporter<M extends TwoPlayerMove, B
+        extends TwoPlayerBoard<M>>
+        extends GameImporter<M, B> {
 
     public TwoPlayerGameImporter(TwoPlayerController<M, B> controller) {
         super(controller);
@@ -42,7 +44,7 @@ public class TwoPlayerGameImporter<M extends TwoPlayerMove, B extends TwoPlayerB
      * @param iStream some input stream
      */
     public void restoreFromStream(InputStream iStream)
-            throws IOException, SGFException  {
+            throws IOException, SGFException {
 
         // If this ever fails from the IDE (and not gradle) its probably because
         // the IDE is not copying the sgf file to the classes directory.
@@ -74,7 +76,8 @@ public class TwoPlayerGameImporter<M extends TwoPlayerMove, B extends TwoPlayerB
             InfoToken token = (InfoToken) e.nextElement();
             if (token instanceof Size2Token) {
                 Size2Token sizeToken = (Size2Token)token;
-                GameContext.log(2, "info token columns =" + sizeToken.getNumColumns() +" rows=" + sizeToken.getNumRows());
+                GameContext.log(2, "info token columns =" +
+                        sizeToken.getNumColumns() +" rows=" + sizeToken.getNumRows());
                 numRows = sizeToken.getNumRows();
                 numCols = sizeToken.getNumColumns();
             }

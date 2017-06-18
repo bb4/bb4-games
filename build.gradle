@@ -18,70 +18,69 @@ dependencies {
     compile fileTree(dir: 'lib', include: '*.jar')
 }
 
-task runGalactic(type: JavaExec) {
+task runGalactic(type: JavaExec, group: "run") {
     main = gameApp
     args = ["-name", "galactic", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task runGoMoku(type: JavaExec) {
+task runGoMoku(type: JavaExec, group: "run") {
     main = gameApp
     args = ["-name", "gomoku", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task runTicTacToe(type: JavaExec) {
+task runTicTacToe(type: JavaExec, group: "run") {
     main = gameApp
     args = ["-name", "tictactoe", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task runMancala(type: JavaExec) {
+task runMancala(type: JavaExec, group: "run") {
     main = gameApp
     args = ["-name", "mancala", "-locale", "ENGLISH"]
     jvmArgs = ["-ea"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task runBlockade(type: JavaExec) {
+task runBlockade(type: JavaExec, group: "run") {
     main = gameApp
     args = ["-name", "blockade", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task runCheckers(type: JavaExec) {
+task runCheckers(type: JavaExec, group: "run") {
     main = gameApp
     args = ["-name", "checkers", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task runChess(type: JavaExec) {
+task runChess(type: JavaExec, group: "run") {
     main = gameApp
     args = ["-name", "chess", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task runSet(type: JavaExec) {
+task runSet(type: JavaExec, group: "run") {
     main = gameApp
     args = ["-name", "set", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task runGo(type: JavaExec) {
+task runGo(type: JavaExec, group: "run") {
     main = gameApp
     args = ["-name", "go", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task runGoJapanese(type: JavaExec) {
+task runGoJapanese(type: JavaExec, group: "run") {
     main = gameApp
     args = ["-name", "go", "-locale", "JAPANESE"]
     classpath = sourceSets.main.runtimeClasspath
     jvmArgs = ["-ea"]   // in gradle 1.7 default  jvmArgs can be set with applicationDefaultJvmArgs
 }
 
-
-task runKgsTesujisoftGoClient(type: JavaExec) {
+task runKgsTesujisoftGoClient(type: JavaExec, group: "run") {
     main = 'com.barrybecker4.game.twoplayer.go.GtpKgsTesujisoftGoClient'
     classpath = sourceSets.main.runtimeClasspath
 }
@@ -93,13 +92,13 @@ task runGoGui(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
 }     */
 
-task runTrivial(type: JavaExec) {
+task runTrivial(type: JavaExec, group: "run") {
     main = gameApp
     args = ["-name", "trivial", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task runTrivialServer(type: JavaExec) {
+task runTrivialServer(type: JavaExec, group: "run") {
     main = 'com.barrybecker4.game.common.online.ui.OnlineGameServerFrame'
     args = ["-game", "trivial"]
     classpath = sourceSets.main.runtimeClasspath
@@ -113,25 +112,23 @@ task runTrivialServerAndClients(type: JavaExec) {
     tasks.runTrivial.execute()
 }  */
 
-task runPoker(type: JavaExec) {
+task runPoker(type: JavaExec, group: "run") {
     main = 'com.barrybecker4.game.common.ui.GameApp'
     args = ["-name", "poker", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task runPokerServer(type: JavaExec) {
+task runPokerServer(type: JavaExec, group: "run") {
     main = 'com.barrybecker4.game.common.online.ui.OnlineGameServerFrame'
     args = ["-game", "poker", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
-
-task runGameComparisons(type: JavaExec) {
+task runGameComparisons(type: JavaExec, group: "run") {
     main = "com.barrybecker4.game.twoplayer.comparison.GameComparisonApp"
     args = ["-name", "gomoku", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
-
 
 /*
 task runPokerServerAndClients(type: JavaExec) {
