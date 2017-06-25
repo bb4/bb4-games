@@ -12,6 +12,7 @@ ext.gameApp = 'com.barrybecker4.game.common.ui.GameApp'
 dependencies {
     compile 'com.barrybecker4:bb4-sound:1.4-SNAPSHOT'
     compile 'com.barrybecker4:bb4-optimization:1.4-SNAPSHOT'
+    compile 'com.barrybecker4:bb4-A-star:1.4-SNAPSHOT'
     compile 'com.barrybecker4:bb4-sgf:1.1'
 
     // jars needed for go
@@ -19,24 +20,28 @@ dependencies {
 }
 
 task runGalactic(type: JavaExec) {
+    group = 'application'
     main = gameApp
     args = ["-name", "galactic", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
 task runGoMoku(type: JavaExec) {
+    group = 'application'
     main = gameApp
     args = ["-name", "gomoku", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
 task runTicTacToe(type: JavaExec) {
+    group = 'application'
     main = gameApp
     args = ["-name", "tictactoe", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
 task runHex(type: JavaExec) {
+    group = 'application'
     main = gameApp
     args = ["-name", "hex", "-locale", "ENGLISH"]
     jvmArgs = ["-ea"]
@@ -44,6 +49,7 @@ task runHex(type: JavaExec) {
 }
 
 task runMancala(type: JavaExec) {
+    group = 'application'
     main = gameApp
     args = ["-name", "mancala", "-locale", "ENGLISH"]
     jvmArgs = ["-ea"]
@@ -51,36 +57,42 @@ task runMancala(type: JavaExec) {
 }
 
 task runBlockade(type: JavaExec) {
+    group = 'application'
     main = gameApp
     args = ["-name", "blockade", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
 task runCheckers(type: JavaExec) {
+    group = 'application'
     main = gameApp
     args = ["-name", "checkers", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
 task runChess(type: JavaExec) {
+    group = 'application'
     main = gameApp
     args = ["-name", "chess", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
 task runSet(type: JavaExec) {
+    group = 'application'
     main = gameApp
     args = ["-name", "set", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
 task runGo(type: JavaExec) {
+    group = 'application'
     main = gameApp
     args = ["-name", "go", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
 task runGoJapanese(type: JavaExec) {
+    group = 'application'
     main = gameApp
     args = ["-name", "go", "-locale", "JAPANESE"]
     classpath = sourceSets.main.runtimeClasspath

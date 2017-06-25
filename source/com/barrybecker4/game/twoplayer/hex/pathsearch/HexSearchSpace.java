@@ -2,10 +2,13 @@ package com.barrybecker4.game.twoplayer.hex.pathsearch;
 
 import com.barrybecker4.common.geometry.IntLocation;
 import com.barrybecker4.common.geometry.Location;
-import com.barrybecker4.common.search.SearchSpace;
 import com.barrybecker4.game.common.board.BoardPosition;
 import com.barrybecker4.game.twoplayer.hex.HexBoard;
 import com.barrybecker4.game.twoplayer.hex.HexBoardUtil;
+import com.barrybecker4.search.SearchSpace;
+import scala.Option;
+import scala.collection.JavaConverters;
+import scala.collection.Seq;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -52,7 +55,7 @@ public class HexSearchSpace implements SearchSpace<HexState, HexTransition> {
      *   A good optimization would be to avoid adding the place that we just came from.
      */
     @Override
-    public List<HexTransition> legalTransitions(HexState state) {
+    public Seq<HexTransition> legalTransitions(HexState state) {
 
         List<HexTransition> nbrs = new LinkedList<>();
 
@@ -79,7 +82,7 @@ public class HexSearchSpace implements SearchSpace<HexState, HexTransition> {
         }
         // sorting the nbrs by path cost will speed up search
         Collections.sort(nbrs);
-        return nbrs;
+        return JavaConverters.asScalaBuffer(nbrs).toSeq();
     }
 
     /**
@@ -104,7 +107,7 @@ public class HexSearchSpace implements SearchSpace<HexState, HexTransition> {
     }
 
     @Override
-    public boolean alreadySeen(HexState state, Set<HexState> seen) {
+    public boolean alreadySeen(HexState state, scala.collection.mutable.Set<HexState> seen) {
         if (!seen.contains(state)) {
             seen.add(state);
             return false;
@@ -139,7 +142,7 @@ public class HexSearchSpace implements SearchSpace<HexState, HexTransition> {
     }
 
     @Override
-    public void finalRefresh(List<HexTransition> path, HexState state, long numTries, long elapsedMillis) {
-         // intentionally do nothing
+    public void finalRefresh(Option<Seq<HexTransition>> path, Option<HexState> state, long numTries, long elapsedMillis) {
+        // intentionally do nothing
     }
 }

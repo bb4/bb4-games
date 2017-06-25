@@ -9,6 +9,8 @@ Here are the game implementations added so far (hopefully others will contribute
       - [Go](http://barrybecker4.com/applets/go_en.html)
       - [GoMoku](http://barrybecker4.com/applets/gomoku_en.html)
       - [Blockade](http://barrybecker4.com/applets/blockade_en.html)
+      - [Mancala](http://barrybecker4.com/applets/mancala_en.html)
+      - [Hex](http://barrybecker4.com/applets/hex_en.html)
    - Multi-player
       - [Poker](http://barrybecker4.com/applets/poker_en.html)
       - [Galactic](http://barrybecker4.com/applets/galactic_en.html)
