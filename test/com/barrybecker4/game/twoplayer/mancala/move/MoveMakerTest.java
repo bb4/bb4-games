@@ -2,7 +2,6 @@
 package com.barrybecker4.game.twoplayer.mancala.move;
 
 import com.barrybecker4.common.geometry.ByteLocation;
-import com.barrybecker4.common.geometry.Location;
 import com.barrybecker4.game.twoplayer.mancala.board.MancalaBoard;
 import org.junit.Before;
 import org.junit.Test;
@@ -111,7 +110,7 @@ public class MoveMakerTest {
         moveMaker.makeMove(move);
 
         assertEquals("Unexpected captures.",
-                "{(row=2, column=5)=1, (row=1, column=5)=3}",
+                "{(row=1, column=5)=3, (row=2, column=5)=1}",
                 move.getCaptures().toString());
 
         // note that stones from 1,2 and 2,2, are moved to p1's home
@@ -131,7 +130,7 @@ public class MoveMakerTest {
         moveMaker.makeMove(move);
 
         assertEquals("Unexpected captures.",
-                "{(row=1, column=3)=1, (row=2, column=2)=3, (row=2, column=3)=3,(row=2, column=4)=3, " +
+                "{(row=1, column=3)=1, (row=2, column=2)=3, (row=2, column=3)=3, (row=2, column=4)=3, " +
                         "(row=2, column=5)=3, (row=2, column=6)=3, (row=2, column=7)=3}",
                 move.getCaptures().toString());
 

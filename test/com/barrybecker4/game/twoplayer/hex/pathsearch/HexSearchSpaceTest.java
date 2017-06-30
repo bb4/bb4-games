@@ -4,11 +4,9 @@ import com.barrybecker4.common.geometry.IntLocation;
 import com.barrybecker4.game.common.board.GamePiece;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.hex.HexBoard;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.List;
+import scala.collection.Seq;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -72,15 +70,15 @@ public class HexSearchSpaceTest {
     @Test
     public void testLegalTransitionsFromMiddleForP1() {
         HexState state = new HexState(board, new IntLocation(4, 1));
-        List<HexTransition> transitions = space.legalTransitions(state);
+        Seq<HexTransition> transitions = space.legalTransitions(state);
 
         assertEquals("Unexpected number of transitions.", 4, transitions.size());
 
         assertEquals("Unexpected transitions.",
-                "[[(row=4, column=2): 10], " +
+                "Buffer([(row=4, column=2): 10], " +
                         "[(row=3, column=2): 10], " +
                         "[(row=3, column=1): 10], " +
-                        "[(row=5, column=1): 10]]",
+                        "[(row=5, column=1): 10])",
                 transitions.toString());
     }
 
@@ -89,11 +87,11 @@ public class HexSearchSpaceTest {
         space = new HexSearchSpace(board, false);
 
         HexState state = new HexState(board, new IntLocation(4, 1));
-        List<HexTransition> transitions = space.legalTransitions(state);
+        Seq<HexTransition> transitions = space.legalTransitions(state);
 
         assertEquals("Unexpected transitions.",
-                "[[(row=4, column=0): 0], [(row=5, column=0): 0], [(row=4, column=2): 10], " +
-                "[(row=3, column=2): 10], [(row=3, column=1): 10], [(row=5, column=1): 10]]",
+                "Buffer([(row=4, column=0): 0], [(row=5, column=0): 0], [(row=4, column=2): 10], " +
+                "[(row=3, column=2): 10], [(row=3, column=1): 10], [(row=5, column=1): 10])",
                 transitions.toString());
     }
 
@@ -101,13 +99,13 @@ public class HexSearchSpaceTest {
     public void testLegalTransitionsFromTopEdgeForP1() {
 
         HexState state = new HexState(board, new IntLocation(0, 6));
-        List<HexTransition> transitions = space.legalTransitions(state);
+        Seq<HexTransition> transitions = space.legalTransitions(state);
 
         assertEquals("Unexpected transitions.",
-                "[[(row=0, column=7): 0], " +
+                "Buffer([(row=0, column=7): 0], " +
                         "[(row=0, column=5): 0], " +
                         "[(row=1, column=5): 10], " +
-                        "[(row=1, column=6): 10]]",
+                        "[(row=1, column=6): 10])",
                 transitions.toString());
     }
 
@@ -115,11 +113,11 @@ public class HexSearchSpaceTest {
     public void testLegalTransitionsFromLeftEdgeForP1() {
 
         HexState state = new HexState(board, new IntLocation(4, 0));
-        List<HexTransition> transitions = space.legalTransitions(state);
+        Seq<HexTransition> transitions = space.legalTransitions(state);
 
         assertEquals("Unexpected transitions.",
-                "[[(row=4, column=1): 10], " +
-                        "[(row=3, column=1): 10]]",
+                "Buffer([(row=4, column=1): 10], " +
+                        "[(row=3, column=1): 10])",
                 transitions.toString());
     }
 
@@ -128,10 +126,11 @@ public class HexSearchSpaceTest {
         space = new HexSearchSpace(board, false);
 
         HexState state = new HexState(board, new IntLocation(4, 0));
-        List<HexTransition> transitions = space.legalTransitions(state);
+        Seq<HexTransition> transitions = space.legalTransitions(state);
 
         assertEquals("Unexpected transitions.",
-                "[[(row=3, column=0): 0], [(row=5, column=0): 0], [(row=4, column=1): 10], [(row=3, column=1): 10]]",
+                "Buffer([(row=3, column=0): 0], [(row=5, column=0): 0], " +
+                        "[(row=4, column=1): 10], [(row=3, column=1): 10])",
                 transitions.toString());
     }
 
@@ -142,10 +141,10 @@ public class HexSearchSpaceTest {
         board.makeMove(TwoPlayerMove.createMove(4, 2, 0, new GamePiece(false)));
 
         HexState state = new HexState(board, new IntLocation(4, 1));
-        List<HexTransition> transitions = space.legalTransitions(state);
+        Seq<HexTransition> transitions = space.legalTransitions(state);
 
         assertEquals("Unexpected transitions.",
-                        "[[(row=3, column=1): 0], [(row=3, column=2): 10], [(row=5, column=1): 10]]",
+                        "Buffer([(row=3, column=1): 0], [(row=3, column=2): 10], [(row=5, column=1): 10])",
                 transitions.toString());
     }
 
@@ -158,11 +157,11 @@ public class HexSearchSpaceTest {
         space = new HexSearchSpace(board, false);
 
         HexState state = new HexState(board, new IntLocation(4, 1));
-        List<HexTransition> transitions = space.legalTransitions(state);
+        Seq<HexTransition> transitions = space.legalTransitions(state);
 
         assertEquals("Unexpected transitions.",
-                "[[(row=4, column=2): 0], [(row=4, column=0): 0], [(row=5, column=0): 0], " +
-                "[(row=3, column=2): 10], [(row=5, column=1): 10]]",
+                "Buffer([(row=4, column=2): 0], [(row=4, column=0): 0], [(row=5, column=0): 0], " +
+                "[(row=3, column=2): 10], [(row=5, column=1): 10])",
                 transitions.toString());
     }
 
@@ -173,13 +172,13 @@ public class HexSearchSpaceTest {
         board.makeMove(TwoPlayerMove.createMove(4, 1, 6, new GamePiece(false)));
 
         HexState state = new HexState(board, new IntLocation(0, 6));
-        List<HexTransition> transitions = space.legalTransitions(state);
+        Seq<HexTransition> transitions = space.legalTransitions(state);
 
         assertEquals("Unexpected transitions.",
-                "[[(row=0, column=7): 0], " +
+                "Buffer([(row=0, column=7): 0], " +
                         "[(row=0, column=5): 0], " +
                         "[(row=1, column=5): 10], " +
-                        "[(row=1, column=6): 10]]",
+                        "[(row=1, column=6): 10])",
                 transitions.toString());
     }
 
@@ -190,10 +189,10 @@ public class HexSearchSpaceTest {
         board.makeMove(TwoPlayerMove.createMove(4, 2, 0, new GamePiece(false)));
 
         HexState state = new HexState(board, new IntLocation(4, 0));
-        List<HexTransition> transitions = space.legalTransitions(state);
+        Seq<HexTransition> transitions = space.legalTransitions(state);
 
         assertEquals("Unexpected transitions.",
-                "[[(row=3, column=1): 0], [(row=4, column=1): 10]]",
+                "Buffer([(row=3, column=1): 0], [(row=4, column=1): 10])",
                 transitions.toString());
     }
 
@@ -206,10 +205,10 @@ public class HexSearchSpaceTest {
         space = new HexSearchSpace(board, false);
 
         HexState state = new HexState(board, new IntLocation(4, 0));
-        List<HexTransition> transitions = space.legalTransitions(state);
+        Seq<HexTransition> transitions = space.legalTransitions(state);
 
         assertEquals("Unexpected transitions.",
-                "[[(row=3, column=0): 0], [(row=5, column=0): 0], [(row=4, column=1): 10]]",
+                "Buffer([(row=3, column=0): 0], [(row=5, column=0): 0], [(row=4, column=1): 10])",
                 transitions.toString());
     }
 }
