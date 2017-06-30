@@ -1,4 +1,4 @@
-// Copyright by Barry G. Becker, 2014-2015. Licensed under MIT License: http://www.opensource.org/licenses/MIT
+// Copyright by Barry G. Becker, 2014. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 package com.barrybecker4.game.twoplayer.mancala.move;
 
 import com.barrybecker4.common.geometry.ByteLocation;
@@ -131,8 +131,8 @@ public class MoveMakerTest {
         moveMaker.makeMove(move);
 
         assertEquals("Unexpected captures.",
-                "{(row=2, column=5)=3, (row=2, column=4)=3, (row=1, column=3)=1, " +
-                 "(row=2, column=7)=3, (row=2, column=6)=3, (row=2, column=3)=3, (row=2, column=2)=3}",
+                "{(row=1, column=3)=1, (row=2, column=2)=3, (row=2, column=3)=3,(row=2, column=4)=3, " +
+                        "(row=2, column=5)=3, (row=2, column=6)=3, (row=2, column=7)=3}",
                 move.getCaptures().toString());
 
         verifier.checkOverallBoard(4, 0, 0, 0, 0, 0, 0, 15,
@@ -151,8 +151,8 @@ public class MoveMakerTest {
         moveMaker.makeMove(move);
 
         assertEquals("Unexpected captures.",
-                "{(row=1, column=2)=3, (row=2, column=5)=1, (row=1, column=3)=3, " +
-                "(row=1, column=6)=3, (row=1, column=7)=3, (row=1, column=4)=3, (row=1, column=5)=3}",
+                "{(row=1, column=2)=3, (row=1, column=3)=3, (row=1, column=4)=3, (row=1, column=5)=3, " +
+                        "(row=1, column=6)=3, (row=1, column=7)=3, (row=2, column=5)=1}",
                 move.getCaptures().toString());
 
         verifier.checkOverallBoard(15, 0, 0, 0, 0, 0, 0, 4,
@@ -169,8 +169,8 @@ public class MoveMakerTest {
         moveMaker.makeMove(move);
 
         assertEquals("Unexpected captures.",
-                "{(row=2, column=5)=3, (row=2, column=4)=3, (row=2, column=7)=3, " +
-                        "(row=2, column=6)=3, (row=2, column=3)=3, (row=2, column=2)=3}",
+                "{(row=2, column=2)=3, (row=2, column=3)=3, (row=2, column=4)=3, (row=2, column=5)=3, " +
+                        "(row=2, column=6)=3, (row=2, column=7)=3}",
                 move.getCaptures().toString());
 
         verifier.checkOverallBoard(1, 0, 0, 0, 0, 0, 0, 18,
@@ -187,8 +187,8 @@ public class MoveMakerTest {
         moveMaker.makeMove(move);
 
         assertEquals("Unexpected captures.",
-                "{(row=1, column=2)=3, (row=1, column=3)=3, (row=1, column=6)=3, " +
-                        "(row=1, column=7)=3, (row=1, column=4)=3, (row=1, column=5)=3}",
+                "{(row=1, column=2)=3, (row=1, column=3)=3, (row=1, column=4)=3, (row=1, column=5)=3, " +
+                        "(row=1, column=6)=3, (row=1, column=7)=3}",
                 move.getCaptures().toString());
         verifier.checkOverallBoard(18, 0, 0, 0, 0, 0, 0, 1,
                 0, 0, 0, 0, 0, 0);

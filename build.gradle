@@ -101,6 +101,7 @@ task runGoJapanese(type: JavaExec) {
 
 
 task runKgsTesujisoftGoClient(type: JavaExec) {
+    group = 'application'
     main = 'com.barrybecker4.game.twoplayer.go.GtpKgsTesujisoftGoClient'
     classpath = sourceSets.main.runtimeClasspath
 }
@@ -113,6 +114,7 @@ task runGoGui(type: JavaExec) {
 }     */
 
 task runTrivial(type: JavaExec) {
+    group = 'application'
     main = gameApp
     args = ["-name", "trivial", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
@@ -133,12 +135,14 @@ task runTrivialServerAndClients(type: JavaExec) {
 }  */
 
 task runPoker(type: JavaExec) {
+    group = 'application'
     main = 'com.barrybecker4.game.common.ui.GameApp'
     args = ["-name", "poker", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
 
 task runPokerServer(type: JavaExec) {
+    group = 'application'
     main = 'com.barrybecker4.game.common.online.ui.OnlineGameServerFrame'
     args = ["-game", "poker", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
@@ -146,6 +150,7 @@ task runPokerServer(type: JavaExec) {
 
 
 task runGameComparisons(type: JavaExec) {
+    group = 'application'
     main = "com.barrybecker4.game.twoplayer.comparison.GameComparisonApp"
     args = ["-name", "gomoku", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
