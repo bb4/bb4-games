@@ -60,7 +60,7 @@ public final class CardRenderer {
             case SECOND : return symbolColors.getCardColor(card);
             case THIRD :
                 return new GradientPaint(75, 75, BACKGROUND_COLOR, 80, 75,
-                                      symbolColors.getColorForValue(card.color(), HATCHED), true);
+                             symbolColors.getColorForValue(card.color(), HATCHED), true);
         }
         return  null;
     }

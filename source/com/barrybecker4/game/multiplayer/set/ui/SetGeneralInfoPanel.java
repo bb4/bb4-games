@@ -20,7 +20,6 @@ import javax.swing.*;
  */
 class SetGeneralInfoPanel extends GeneralInfoPanel {
 
-
     private JLabel numSetsOnBoardLabel_;
     private JLabel numCardsRemainingLabel_;
 
@@ -46,7 +45,7 @@ class SetGeneralInfoPanel extends GeneralInfoPanel {
 
     @Override
     protected void setPlayerLabel(Player player) {
-        assert false : "Did not expec this to be called";
+        assert false : "Did not expect this to be called";
     }
 
     /**

@@ -1,6 +1,7 @@
 /** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.multiplayer.set.ui;
 
+import com.barrybecker4.game.common.GameContext;
 import com.barrybecker4.game.common.GameController;
 import com.barrybecker4.game.common.GameViewModel;
 import com.barrybecker4.game.common.ui.dialogs.GameOptionsDialog;
@@ -69,23 +70,20 @@ public class SetPanel extends GamePanel
      * This method called whenever a move has been made.
      */
     @Override
-    public void gameChanged( GameChangedEvent gce )
-    {
+    public void gameChanged( GameChangedEvent gce ) {
         // do nothing for this.
     }
-
 
     /**
      * Display a help dialog.
      * This dialog should tell about the game and give instructions on how to play.
      */
     @Override
-    protected void showHelpDialog()
-    {
+    protected void showHelpDialog() {
         String name = getTitle();
-        String comments = "a Set game simulation by Barry Becker.";
-        showHelpDialog( name, comments, "Click on the cards to find sets (of three cards). "+
-                                        "Each of the attributes (color, shape, fill, and number) must be all the same or all different for the 3 cards.");
+        String comments = GameContext.getLabel("SET_COMMENTS");
+        String helpMsg = GameContext.getLabel("SET_OVERVIEW");
+        showHelpDialog(name, comments, helpMsg);
     }
 
     /**
@@ -95,8 +93,7 @@ public class SetPanel extends GamePanel
      * super.actionPerformed(e);
      */
     @Override
-    public void actionPerformed( ActionEvent e )
-    {
+    public void actionPerformed( ActionEvent e ) {
         Object source = e.getSource();
 
         SetToolBar setToolBar = ((SetToolBar)toolBar_);

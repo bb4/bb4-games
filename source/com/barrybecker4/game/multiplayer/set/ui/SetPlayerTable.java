@@ -19,8 +19,7 @@ import java.awt.*;
  *
  * @author Barry Becker
  */
-public class SetPlayerTable extends PlayerTable
-{
+public class SetPlayerTable extends PlayerTable {
 
     private static String[] setColumnNames_ =  {
        NAME,
@@ -43,8 +42,7 @@ public class SetPlayerTable extends PlayerTable
      * @return  the players represented by rows in the table
      */
     @Override
-    public PlayerList getPlayers()
-    {
+    public PlayerList getPlayers() {
         TableModel model = table_.getModel();
         int nRows = model.getRowCount();
         PlayerList players = new PlayerList();
@@ -63,8 +61,7 @@ public class SetPlayerTable extends PlayerTable
      * @param player to add
      */
     @Override
-    protected void addRow(Object player)
-    {
+    protected void addRow(Object player) {
         Player p = (Player) player;
         Object d[] = new Object[getNumColumns()];
         d[NAME_INDEX] = p.getName();

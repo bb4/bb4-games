@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Allow the user to specify an action
+ * Allow the user to specify an action - like which planets to attack
  * @author Barry Becker
  */
 public abstract class ActionDialog extends OptionsDialog {
@@ -67,7 +67,6 @@ public abstract class ActionDialog extends OptionsDialog {
 
         JPanel gameSpecificInstructions = createGameInstructionsPanel();
 
-        //panel.setPreferredSize(new Dimension(400, 100));
         panel.add(playerLabel_, BorderLayout.NORTH);
         panel.add(gameSpecificInstructions, BorderLayout.CENTER);
 
@@ -82,6 +81,5 @@ public abstract class ActionDialog extends OptionsDialog {
      */
     @Override
     protected abstract JPanel createButtonsPanel();
-
 }
 

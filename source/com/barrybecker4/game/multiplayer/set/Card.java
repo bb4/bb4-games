@@ -17,32 +17,32 @@ public class Card {
         COLOR, SHAPE, NUMBER, TEXTURE
     }
 
-    private final AttributeValue[] attributes_ = new AttributeValue[Attribute.values().length];
+    private final AttributeValue[] attributes = new AttributeValue[Attribute.values().length];
 
     private boolean isHighlighted_ = false;
     private boolean isSelected_ = false;
 
     Card(AttributeValue color, AttributeValue shape, AttributeValue number, AttributeValue texture) {
-        attributes_[Attribute.COLOR.ordinal()] = color;
-        attributes_[Attribute.SHAPE.ordinal()] = shape;
-        attributes_[Attribute.NUMBER.ordinal()] = number;
-        attributes_[Attribute.TEXTURE.ordinal()] = texture;
+        attributes[Attribute.COLOR.ordinal()] = color;
+        attributes[Attribute.SHAPE.ordinal()] = shape;
+        attributes[Attribute.NUMBER.ordinal()] = number;
+        attributes[Attribute.TEXTURE.ordinal()] = texture;
     }
 
 
     AttributeValue valueOfAttribute(Attribute a) {
-         return attributes_[a.ordinal()];
+         return attributes[a.ordinal()];
     }
 
-    public AttributeValue color() { return attributes_[Attribute.COLOR.ordinal()]; }
-    public AttributeValue shape() { return attributes_[Attribute.SHAPE.ordinal()]; }
-    public AttributeValue number() { return attributes_[Attribute.NUMBER.ordinal()]; }
-    public AttributeValue texture() { return attributes_[Attribute.TEXTURE.ordinal()]; }
+    public AttributeValue color() { return attributes[Attribute.COLOR.ordinal()]; }
+    public AttributeValue shape() { return attributes[Attribute.SHAPE.ordinal()]; }
+    public AttributeValue number() { return attributes[Attribute.NUMBER.ordinal()]; }
+    public AttributeValue texture() { return attributes[Attribute.TEXTURE.ordinal()]; }
 
     public String toString() {
         StringBuilder buf = new StringBuilder();
-        for (int i = 0; i < attributes_.length; i++) {
-            AttributeValue value = attributes_[i];
+        for (int i = 0; i < attributes.length; i++) {
+            AttributeValue value = attributes[i];
             buf.append(Attribute.values()[i]).append(":").append(value).append("  ");
         }
         return buf.toString();
@@ -69,7 +69,7 @@ public class Card {
     }
 
     /**
-     * reutrn true if the set of cards passed in is a set
+     * @return true if the set of cards passed in is a set
      */
     public static boolean isSet(List<Card> cards) {
         if (cards == null || cards.size() != 3) {

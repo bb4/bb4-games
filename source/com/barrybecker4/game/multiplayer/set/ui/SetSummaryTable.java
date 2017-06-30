@@ -16,8 +16,7 @@ import javax.swing.*;
  *
  * @author Barry Becker
  */
-class SetSummaryTable extends SummaryTable
-{
+class SetSummaryTable extends SummaryTable {
 
     private static final int NUM_SETS_INDEX = 2;
 
@@ -32,8 +31,7 @@ class SetSummaryTable extends SummaryTable
      * constructor
      * @param players to initializet the rows in the table with.
      */
-    public SetSummaryTable(PlayerList players)
-    {
+    public SetSummaryTable(PlayerList players) {
         super(players, COLUMN_NAMES);
         getTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
@@ -43,8 +41,7 @@ class SetSummaryTable extends SummaryTable
      * @param player to add
      */
     @Override
-    protected void addRow(Object player)
-    {
+    protected void addRow(Object player) {
         SetPlayer p = (SetPlayer)player;
         Object d[] = new Object[getNumColumns()];
 

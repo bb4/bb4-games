@@ -29,9 +29,7 @@ import java.util.List;
 public abstract class TallyDialog extends OptionsDialog {
 
     protected MultiGameController controller_;
-
     private GradientButton okButton_;
-
 
 
     /**

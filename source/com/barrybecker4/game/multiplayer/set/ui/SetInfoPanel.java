@@ -25,9 +25,9 @@ import java.awt.*;
 class SetInfoPanel extends GameInfoPanel
                    implements GameChangedListener, ListSelectionListener {
 
-    private SetSummaryTable playerTable_;
+    private SetSummaryTable playerTable;
 
-    private JPanel playerPanel_;
+    private JPanel playerPanel;
 
 
     /**
@@ -57,13 +57,13 @@ class SetInfoPanel extends GameInfoPanel
     protected JPanel createCustomInfoPanel() {
         JPanel pp = new SectionPanel("Players");
 
-        playerPanel_ = createPanel();
-        playerPanel_.setLayout(new BorderLayout());
-        playerPanel_.setBorder(createMarginBorder());
+        playerPanel = createPanel();
+        playerPanel.setLayout(new BorderLayout());
+        playerPanel.setBorder(createMarginBorder());
 
         insertPlayerTable();
 
-        pp.add(playerPanel_);
+        pp.add(playerPanel);
         return pp;
     }
 
@@ -72,14 +72,14 @@ class SetInfoPanel extends GameInfoPanel
         return new SetGeneralInfoPanel(player);
     }
 
-    void insertPlayerTable() {
+    private void insertPlayerTable() {
 
-        playerPanel_.removeAll();
+        playerPanel.removeAll();
 
-        playerTable_ = new SetSummaryTable(controller_.getPlayers());
-        playerTable_.addListSelectionListener(this);
+        playerTable = new SetSummaryTable(controller_.getPlayers());
+        playerTable.addListSelectionListener(this);
 
-        playerPanel_.add(playerTable_.getTable(), BorderLayout.CENTER);
+        playerPanel.add(playerTable.getTable(), BorderLayout.CENTER);
     }
 
     /**
@@ -106,9 +106,9 @@ class SetInfoPanel extends GameInfoPanel
 
         SetPlayer player = getSelectedPlayer();
         if (player != null) {
-            int r = playerTable_.getTable().getSelectedRow();
-            playerTable_.getTable().getModel().setValueAt("" + player.getNumSetsFound(), r, 2);
-            playerTable_.getTable().clearSelection();
+            int r = playerTable.getTable().getSelectedRow();
+            playerTable.getTable().getModel().setValueAt("" + player.getNumSetsFound(), r, 2);
+            playerTable.getTable().clearSelection();
         }
     }
 
@@ -117,7 +117,7 @@ class SetInfoPanel extends GameInfoPanel
      */
     private SetPlayer getSelectedPlayer() {
         SetController c = (SetController)controller_;
-        int selectedPlayerIndex = playerTable_.getTable().getSelectedRow();
+        int selectedPlayerIndex = playerTable.getTable().getSelectedRow();
         SetPlayer selectedPlayer = null;
         if (selectedPlayerIndex >= 0) {
             selectedPlayer = (SetPlayer) c.getPlayers().get(selectedPlayerIndex);

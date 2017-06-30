@@ -39,11 +39,11 @@ class SolutionPanel extends JPanel
     }
 
 
-    int getCanvasWidth() {
+    private int getCanvasWidth() {
         return getWidth() - 2 * CardRenderer.LEFT_MARGIN;
     }
 
-    int getNumColumns() {
+    private int getNumColumns() {
 
         return 3;
     }
@@ -82,11 +82,10 @@ class SolutionPanel extends JPanel
         int cardHeight = (int) cardDim.getHeight();
 
         int selectedIndex = -1;
-        for (int i = 0; i < (sets_.size() / numCols); i++ ) {
-            int row = i;
+        for (int row = 0; row < (sets_.size() / numCols); row++ ) {
             int rowPos = row * cardHeight + CardRenderer.TOP_MARGIN;
             if (y > rowPos && y <= rowPos + cardDim.getHeight()) {
-                selectedIndex = i;
+                selectedIndex = row;
                 break;
             }
         }

@@ -36,7 +36,6 @@ public class SetGameRenderer extends MultiGameBoardRenderer {
         return renderer_;
     }
 
-
     private int getCanvasWidth(int panelWidth) {
         return panelWidth - 2 * CardRenderer.LEFT_MARGIN;
     }
