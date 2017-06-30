@@ -30,7 +30,7 @@ public class SetPlayerTable extends PlayerTable {
 
     /**
      * constructor
-     * @param players to initializet the rows in the table with.
+     * @param players to initialize the rows in the table with.
      */
     public SetPlayerTable(PlayerList players)
     {

@@ -33,9 +33,10 @@ public class SetViewerMouseListener extends ViewerMouseListener {
     /**
      * Make the human move and show it on the screen.
      * If a player has been selected, highlight the card that was selected.
+     * Use mousePressed instead of mouseClicked so can detect the click even when moving.
      */
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mousePressed(MouseEvent e) {
 
         SetGameViewer viewer = (SetGameViewer)viewer_;
 
