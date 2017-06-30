@@ -6,4 +6,3 @@ classes/
 build/
 bin/
 *.iml
-*.class
