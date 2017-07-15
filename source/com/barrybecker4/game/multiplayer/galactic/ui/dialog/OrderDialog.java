@@ -78,6 +78,7 @@ final class OrderDialog extends OptionsDialog
 
         labelText = GameContext.getLabel("DESTINATION");
         destinationCombo = new JComboBox<>();
+        destinationCombo.addItemListener(this);
         JPanel destPanel = createComboInputPanel( labelText, destinationCombo);
         initPlanetSelect(destinationCombo, null);
         availableShips = new JLabel();
@@ -113,6 +114,7 @@ final class OrderDialog extends OptionsDialog
             sPlanets[i] = Character.toString(planet.getName());
         }
         ComboBoxModel<String> comboModel = new DefaultComboBoxModel<>(sPlanets);
+        combo.setOpaque(true);
         combo.setModel(comboModel);
     }
 
@@ -200,8 +202,7 @@ final class OrderDialog extends OptionsDialog
         if (source == originCombo)  {
             showAvailableShips(getOrigin());
         }
-        originCombo.hidePopup();
-        destinationCombo.hidePopup();
+        this.repaint(); // I don't think this should be necessary
     }
 
     /**
