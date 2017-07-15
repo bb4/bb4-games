@@ -35,7 +35,7 @@ class SurrogateMoveWorker {
      */
      public boolean requestSurrogateMove(final SurrogateMultiPlayer player) throws AssertionError {
 
-         /** Worker represents a separate thread for getting the next move. */
+         /* Worker represents a separate thread for getting the next move. */
          Worker worker = new Worker() {
 
              private PlayerAction action;

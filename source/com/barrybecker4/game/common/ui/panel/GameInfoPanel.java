@@ -100,7 +100,7 @@ public abstract class GameInfoPanel extends TexturedPanel
 
 
     protected final JPanel createPanel() {
-        JPanel p = new JPanel();
+        JPanel p = new JPanel(true);
         p.setOpaque(false);
         return p;
     }

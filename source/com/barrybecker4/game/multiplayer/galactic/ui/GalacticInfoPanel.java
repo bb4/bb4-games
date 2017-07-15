@@ -30,9 +30,9 @@ class GalacticInfoPanel extends GameInfoPanel
                         implements GameChangedListener, ActionListener {
 
     /** buttons to either give commands or pass  */
-    private JButton commandButton_;
-    private JButton passButton_;
-    private JPanel commandPanel_;
+    private JButton commandButton;
+    private JButton passButton;
+    private JPanel commandPanel;
 
 
     /**
@@ -57,7 +57,7 @@ class GalacticInfoPanel extends GameInfoPanel
 
     @Override
     protected GeneralInfoPanel createGeneralInfoPanel(Player player) {
-        return new GalacticGeneralInfoPanel(player, commandPanel_);
+        return new GalacticGeneralInfoPanel(player, commandPanel);
     }
 
     /**
@@ -68,23 +68,23 @@ class GalacticInfoPanel extends GameInfoPanel
     @Override
     protected JPanel createCustomInfoPanel() {
 
-        commandPanel_ = new SectionPanel();
+        commandPanel = new SectionPanel();
 
         //setCommandPanelTitle(Player player)
 
         JPanel bp = createPanel();
         bp.setBorder(createMarginBorder());
 
-        commandButton_ = new GradientButton(GameContext.getLabel("ORDERS"));
-        commandButton_.addActionListener(this);
-        bp.add(commandButton_);
+        commandButton = new GradientButton(GameContext.getLabel("ORDERS"));
+        commandButton.addActionListener(this);
+        bp.add(commandButton);
 
-        passButton_ = new GradientButton(GameContext.getLabel("PASS"));
-        passButton_.addActionListener(this);
-        bp.add(passButton_);
+        passButton = new GradientButton(GameContext.getLabel("PASS"));
+        passButton.addActionListener(this);
+        bp.add(passButton);
 
-        commandPanel_.add(bp);
-        return commandPanel_;
+        commandPanel.add(bp);
+        return commandPanel;
     }
 
     /**
@@ -96,7 +96,7 @@ class GalacticInfoPanel extends GameInfoPanel
         GalacticController gc = (GalacticController)controller_;
         gameChanged(null); // update the current player in the label
 
-        if (e.getSource() == commandButton_) {
+        if (e.getSource() == commandButton) {
 
             // if the current player does not own any planets, then advance to the next player
             if (Galaxy.getPlanets((GalacticPlayer) gc.getCurrentPlayer()).size() == 0)  {
@@ -105,7 +105,7 @@ class GalacticInfoPanel extends GameInfoPanel
 
             showOrdersDialog(gc);
         }
-        else if (e.getSource() == passButton_) {
+        else if (e.getSource() == passButton) {
            gc.advanceToNextPlayer();
         }
     }

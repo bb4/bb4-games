@@ -80,10 +80,10 @@ public final class BattleDialog extends OptionsDialog
      */
     @Override
     protected JComponent createDialogContent() {
-        JPanel mainPanel = new JPanel();
+        JPanel mainPanel = new JPanel(true);
         mainPanel.setLayout(new BorderLayout());
 
-        JPanel viewerPanel = new JPanel();
+        JPanel viewerPanel = new JPanel(true);
         viewerPanel.setLayout(new BorderLayout());
         viewerPanel.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
         infoLabel_.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),
@@ -105,7 +105,7 @@ public final class BattleDialog extends OptionsDialog
         descriptionLabel_.setText(text);
 
         canvas_.setPreferredSize(new Dimension(WIDTH, 120));
-        JPanel canvasPanel = new JPanel();
+        JPanel canvasPanel = new JPanel(true);
         canvasPanel.setDoubleBuffered(true);  // do anything?
         canvasPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(5,5,5,5),
                               BorderFactory.createLineBorder(Color.black, 1)));
@@ -127,7 +127,7 @@ public final class BattleDialog extends OptionsDialog
 
     @Override
     protected JPanel createButtonsPanel() {
-        JPanel buttonsPanel_=new JPanel( new BorderLayout());
+        JPanel buttonsPanel_=new JPanel( new BorderLayout(), true);
         buttonsPanel_.setBorder(BorderFactory.createEmptyBorder(0, 5, 5, 5));
 
         initBottomButton( startButton_, "Fight!", "Begin the battle sequence");

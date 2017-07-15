@@ -61,14 +61,14 @@ public final class HelpDialog extends AbstractDialog
         this.setTitle( MessageFormat.format(GameContext.getLabel("ABOUT"), arg));
 
         setResizable( false );
-        JPanel overviewPanel = new JPanel();
+        JPanel overviewPanel = new JPanel(true);
         overviewPanel.setLayout( new BorderLayout() );
 
         FlowLayout flowLayout1 = new FlowLayout();
-        JPanel bottomButtonPanel = new JPanel();
+        JPanel bottomButtonPanel = new JPanel(true);
         bottomButtonPanel.setLayout( flowLayout1 );
 
-        JPanel logoInsetsPanel = new JPanel();
+        JPanel logoInsetsPanel = new JPanel(true);
         logoInsetsPanel.setLayout( flowLayout1 );
         logoInsetsPanel.setBorder( new EmptyBorder( 10, 10, 10, 10 ) );
 
@@ -119,11 +119,11 @@ public final class HelpDialog extends AbstractDialog
     }
 
     private JPanel createSummaryPanel() {
-        final JPanel summaryPanel = new JPanel();
+        final JPanel summaryPanel = new JPanel(true);
 
         summaryPanel.setLayout( new BorderLayout() );
 
-        final JPanel summaryInsetsPanel = new JPanel();
+        final JPanel summaryInsetsPanel = new JPanel(true);
         final JLabel label1 = new JLabel();
         final JLabel label2 = new JLabel();
         final JLabel label3 = new JLabel();

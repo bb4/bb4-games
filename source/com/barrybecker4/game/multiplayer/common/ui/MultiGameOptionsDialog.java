@@ -15,7 +15,7 @@ import java.awt.event.KeyListener;
  * @author Barry Becker
  */
 public abstract class MultiGameOptionsDialog extends GameOptionsDialog
-                                             implements KeyListener  {
+                                             implements KeyListener {
 
     protected NumberInput maxNumPlayers_;
     protected NumberInput numRobotPlayers_;

@@ -22,7 +22,7 @@ public class GridBoardParamPanel extends JPanel {
      */
     public GridBoardParamPanel(int initialNumRows, int initialNumCols, JPanel customConfigPanel) {
         setLayout(new BorderLayout());
-        JPanel p = new JPanel();
+        JPanel p = new JPanel(true);
         p.setLayout( new BoxLayout( p, BoxLayout.Y_AXIS ) );
         p.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder(), "Board Configuration" ) );
         JLabel label = new JLabel( GameContext.getLabel("BOARD_SIZE") + ": " );
@@ -44,7 +44,7 @@ public class GridBoardParamPanel extends JPanel {
             p.add( customConfigPanel );
 
         add(p, BorderLayout.CENTER);
-        add(new JPanel(), BorderLayout.EAST);
+        add(new JPanel(true), BorderLayout.EAST);
     }
 
 

@@ -56,7 +56,7 @@ public abstract class NewGameDialog extends OptionsDialog implements ChangeListe
 
     @Override
     protected JComponent createDialogContent() {
-        JPanel mainPanel = new JPanel();
+        JPanel mainPanel = new JPanel(true);
         mainPanel.setLayout( new BorderLayout() );
 
         playLocalPanel_ = createNewLocalGamePanel();
@@ -80,7 +80,7 @@ public abstract class NewGameDialog extends OptionsDialog implements ChangeListe
     }
 
     protected JPanel createNewLocalGamePanel() {
-        JPanel playLocalPanel = new JPanel();
+        JPanel playLocalPanel = new JPanel(true);
         playLocalPanel.setLayout( new BoxLayout( playLocalPanel, BoxLayout.Y_AXIS ) );
         JPanel playerPanel = createPlayerAssignmentPanel();
         gridParamPanel_ = createBoardParamPanel();
@@ -104,7 +104,7 @@ public abstract class NewGameDialog extends OptionsDialog implements ChangeListe
 
     @Override
     protected JPanel createButtonsPanel() {
-        JPanel buttonsPanel = new JPanel( new FlowLayout() );
+        JPanel buttonsPanel = new JPanel( new FlowLayout(), true );
 
         startButton_ = new GradientButton();
         initBottomButton( startButton_, GameContext.getLabel("START_GAME"), GameContext.getLabel("START_GAME_TIP") );

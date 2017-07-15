@@ -15,7 +15,7 @@ import java.awt.*;
  */
 final class StatsDialog extends AbstractDialog {
 
-    private final JPanel mainPanel_ = new JPanel();
+    private final JPanel mainPanel_ = new JPanel(true);
 
     private final GradientButton closeButton_ = new GradientButton();
 
@@ -35,7 +35,7 @@ final class StatsDialog extends AbstractDialog {
      */
     @Override
     protected JComponent createDialogContent() {
-        return new JPanel();
+        return new JPanel(true);
     }
 }
 

@@ -61,7 +61,7 @@ public abstract class GameOptionsDialog extends OptionsDialog
 
     @Override
     protected JComponent createDialogContent()  {
-        JPanel mainPanel = new JPanel();
+        JPanel mainPanel = new JPanel(true);
         mainPanel.setLayout( new BorderLayout() );
 
         // contains tabs for Algorithm, Debugging, and Look and Feel
@@ -101,7 +101,7 @@ public abstract class GameOptionsDialog extends OptionsDialog
         if (comps == null)
             return null;
 
-        JPanel p = new JPanel();
+        JPanel p = new JPanel(true);
 
         p.setLayout( new BoxLayout( p, BoxLayout.Y_AXIS ) );
         p.setBorder( BorderFactory.createTitledBorder(
@@ -128,7 +128,7 @@ public abstract class GameOptionsDialog extends OptionsDialog
     /** create the OK Cancel buttons that go at the bottom */
     @Override
     protected JPanel createButtonsPanel() {
-        JPanel buttonsPanel = new JPanel( new FlowLayout() );
+        JPanel buttonsPanel = new JPanel( new FlowLayout(), true );
 
         okButton_ =  new GradientButton();
         initBottomButton( okButton_, GameContext.getLabel("OK"), GameContext.getLabel("USE_OPTIONS") );
@@ -154,7 +154,7 @@ public abstract class GameOptionsDialog extends OptionsDialog
     }
 
     protected JPanel createDebugOptionsPanel() {
-        JPanel p =  new JPanel();
+        JPanel p =  new JPanel(true);
         p.setLayout( new BoxLayout( p, BoxLayout.Y_AXIS ) );
         p.setAlignmentX( Component.LEFT_ALIGNMENT );
         p.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder(),
@@ -227,7 +227,7 @@ public abstract class GameOptionsDialog extends OptionsDialog
      */
     JPanel createLookAndFeelParamPanel() {
 
-        JPanel p = new JPanel();
+        JPanel p = new JPanel(true);
         p.setLayout( new BoxLayout( p, BoxLayout.Y_AXIS ) );
         p.setAlignmentX( Component.LEFT_ALIGNMENT );
         p.setBorder( BorderFactory.createTitledBorder(
@@ -266,7 +266,7 @@ public abstract class GameOptionsDialog extends OptionsDialog
                                                     gridColorButton_);
         p.add( boardColorPanel );
         p.add( gridColorPanel );
-        JPanel spacer = new JPanel();
+        JPanel spacer = new JPanel(true);
         spacer.setPreferredSize(new Dimension(100, 1));
         p.add( spacer );
 
@@ -279,7 +279,7 @@ public abstract class GameOptionsDialog extends OptionsDialog
      * @return locale tab panel.
      */
     JPanel createLocalePanel() {
-         JPanel p = new JPanel();
+         JPanel p = new JPanel(true);
          p.setLayout( new BorderLayout() );
          p.setAlignmentX( Component.LEFT_ALIGNMENT );
          p.setBorder(
@@ -292,7 +292,7 @@ public abstract class GameOptionsDialog extends OptionsDialog
          localeComboBox_ = createLocaleCombo();
          p.add( localeComboBox_,  BorderLayout.NORTH );
 
-         JPanel filler = new JPanel();
+         JPanel filler = new JPanel(true);
          p.add(filler, BorderLayout.CENTER);
          return p;
      }

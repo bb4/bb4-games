@@ -21,16 +21,15 @@ import java.util.List;
  */
 public final class OrdersDialog extends OptionsDialog  {
 
-    private GalacticPlayer player_;
-    //private Galaxy galaxy_;
-    private GradientButton addOrderButton_;
-    private GradientButton removeOrderButton_;
+    private GalacticPlayer player;
+    private GradientButton addOrderButton;
+    private GradientButton removeOrderButton;
 
-    private OrdersTable ordersTable_;
-    private GradientButton okButton_;
+    private OrdersTable ordersTable;
+    private GradientButton okButton;
 
-    private int numPreExistingOrders_;
-    private int numYearsRemaining_;
+    private int numPreExistingOrders;
+    private int numYearsRemaining;
 
     private static final long serialVersionUID = 0L;
 
@@ -41,10 +40,10 @@ public final class OrdersDialog extends OptionsDialog  {
      */
     public OrdersDialog(Component parent, GalacticPlayer player, int numYearsRemaining) {
         super(parent);
-        player_ = player;
-        ordersTable_ = new OrdersTable(player.getOrders());
-        numPreExistingOrders_ = ordersTable_.getNumRows();
-        numYearsRemaining_ = numYearsRemaining;
+        this.player = player;
+        ordersTable = new OrdersTable(player.getOrders());
+        numPreExistingOrders = ordersTable.getNumRows();
+        this.numYearsRemaining = numYearsRemaining;
 
         commonInit();
         showContent();
@@ -57,34 +56,33 @@ public final class OrdersDialog extends OptionsDialog  {
         JPanel buttonsPanel = createButtonsPanel();
 
         // the table title and add button
-        JPanel titlePanel = new JPanel(new BorderLayout());
+        JPanel titlePanel = new JPanel(new BorderLayout(), true);
         titlePanel.setBorder(AbstractDialog.createMarginBorder());
 
-        //String[] arg = {player_.getName()};
-        String title =  MessageFormat.format(GameContext.getLabel("CURRENT_ORDERS"), player_.getName());
+        String title =  MessageFormat.format(GameContext.getLabel("CURRENT_ORDERS"), player.getName());
 
         JLabel titleLabel = new JLabel(title);
-        titleLabel.setForeground(player_.getColor().darker());
-        titleLabel.setIcon(player_.getIcon());
+        titleLabel.setForeground(player.getColor().darker());
+        titleLabel.setIcon(player.getIcon());
         titlePanel.add(titleLabel, BorderLayout.WEST);
 
-        JPanel addremoveButtonsPanel = new JPanel();
+        JPanel addremoveButtonsPanel = new JPanel(true);
 
-        addOrderButton_ = new GradientButton(GameContext.getLabel("NEW_ORDER"));
-        addOrderButton_.addActionListener(this);
-        addremoveButtonsPanel.add(addOrderButton_, BorderLayout.CENTER);
+        addOrderButton = new GradientButton(GameContext.getLabel("NEW_ORDER"));
+        addOrderButton.addActionListener(this);
+        addremoveButtonsPanel.add(addOrderButton, BorderLayout.CENTER);
 
-        removeOrderButton_ = new GradientButton(GameContext.getLabel("REMOVE_ORDER"));
-        removeOrderButton_.addActionListener(this);
-        addremoveButtonsPanel.add(removeOrderButton_, BorderLayout.EAST);
+        removeOrderButton = new GradientButton(GameContext.getLabel("REMOVE_ORDER"));
+        removeOrderButton.addActionListener(this);
+        addremoveButtonsPanel.add(removeOrderButton, BorderLayout.EAST);
 
         titlePanel.add(addremoveButtonsPanel, BorderLayout.EAST);
 
-        JPanel mainPanel = new JPanel(new BorderLayout());
+        JPanel mainPanel = new JPanel(new BorderLayout(), true);
 
         mainPanel.add(titlePanel, BorderLayout.NORTH);
 
-        JScrollPane scrollPane = new JScrollPane(ordersTable_.getTable());
+        JScrollPane scrollPane = new JScrollPane(ordersTable.getTable());
         scrollPane.setPreferredSize(new Dimension(360,120));
         scrollPane.setBorder(
                 BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5),
@@ -105,13 +103,13 @@ public final class OrdersDialog extends OptionsDialog  {
      */
     @Override
     protected JPanel createButtonsPanel() {
-        JPanel buttonsPanel = new JPanel( new FlowLayout() );
+        JPanel buttonsPanel = new JPanel(true);
 
-        okButton_ = new GradientButton();
-        initBottomButton( okButton_, GameContext.getLabel("OK"), GameContext.getLabel("PLACE_ORDER_TIP") );
+        okButton = new GradientButton();
+        initBottomButton(okButton, GameContext.getLabel("OK"), GameContext.getLabel("PLACE_ORDER_TIP") );
         initBottomButton(cancelButton, GameContext.getLabel("CANCEL"), GameContext.getLabel("CANCEL") );
 
-        buttonsPanel.add( okButton_ );
+        buttonsPanel.add(okButton);
         buttonsPanel.add(cancelButton);
 
         return buttonsPanel;
@@ -122,7 +120,7 @@ public final class OrdersDialog extends OptionsDialog  {
      * @return  the orders in the table
      */
     public List<Order> getOrders() {
-        return ordersTable_.getOrders();
+        return ordersTable.getOrders();
     }
 
     @Override
@@ -130,18 +128,18 @@ public final class OrdersDialog extends OptionsDialog  {
 
         Object source = e.getSource();
 
-        if (source == okButton_) {
+        if (source == okButton) {
             this.setVisible(false);
         }
         else if ( source == cancelButton) {
             cancel();
         }
-        else if (source == addOrderButton_) {
+        else if (source == addOrderButton) {
             addOrder();
         }
-        else if (source == removeOrderButton_) {
-            if  (ordersTable_.getNumRows() > numPreExistingOrders_) {
-                ordersTable_.removeRow(ordersTable_.getNumRows()-1);
+        else if (source == removeOrderButton) {
+            if  (ordersTable.getNumRows() > numPreExistingOrders) {
+                ordersTable.removeRow(ordersTable.getNumRows()-1);
             }
             else {
                 JOptionPane.showMessageDialog(this, "Can't remove pre-existing orders",
@@ -156,7 +154,7 @@ public final class OrdersDialog extends OptionsDialog  {
     private void addOrder()  {
         // open a dlg to get an order
         OrderDialog orderDialog =
-                new OrderDialog(player_, ordersTable_.getCurrentOutGoingShips(), numYearsRemaining_);
+                new OrderDialog(player, ordersTable.getCurrentOutGoingShips(), numYearsRemaining);
 
         orderDialog.setLocation((int)(this.getLocation().getX() + 40), (int)(this.getLocation().getY() +170));
 
@@ -166,7 +164,7 @@ public final class OrdersDialog extends OptionsDialog  {
         if ( !canceled ) { // newGame a game with the newly defined options
             Order order = orderDialog.getOrder();
             if (order != null)
-                ordersTable_.addRow(order);
+                ordersTable.addRow(order);
         }
     }
 

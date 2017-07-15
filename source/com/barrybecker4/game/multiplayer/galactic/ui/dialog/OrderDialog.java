@@ -31,16 +31,16 @@ final class OrderDialog extends OptionsDialog
 
     private GradientButton okButton;
 
-    private JComboBox originCombo;
-    private JComboBox destinationCombo;
+    private JComboBox<String> originCombo;
+    private JComboBox<String> destinationCombo;
 
     private JLabel availableShips;
-    private NumberInput numShips_;
-    private GalacticPlayer player_;
+    private NumberInput numShips;
+    private GalacticPlayer player;
 
-    private int numYearsRemaining_;
+    private int numYearsRemaining;
     /** total number of outgoing ships for each planet for which there are orders */
-    private Map totalOutgoing_;
+    private Map totalOutgoing;
 
     private static final int DEFAULT_FLEET_SIZE = 10;
 
@@ -50,9 +50,9 @@ final class OrderDialog extends OptionsDialog
      */
     public OrderDialog(GalacticPlayer player, Map totalOutgoing, int numYearsRemaining) {
 
-        totalOutgoing_ = totalOutgoing;
-        numYearsRemaining_ = numYearsRemaining;
-        player_ = player;
+        this.totalOutgoing = totalOutgoing;
+        this.numYearsRemaining = numYearsRemaining;
+        this.player = player;
 
         showContent();
     }
@@ -63,7 +63,7 @@ final class OrderDialog extends OptionsDialog
     @Override
     protected JComponent createDialogContent() {
 
-        JPanel mainPanel = new JPanel();
+        JPanel mainPanel = new JPanel(true);
         setResizable(true);
         mainPanel.setLayout(new BorderLayout());
 
@@ -71,29 +71,29 @@ final class OrderDialog extends OptionsDialog
 
         // add the form elements
         String labelText = GameContext.getLabel("ORIGIN");
-        originCombo = new JComboBox();
+        originCombo = new JComboBox<>();
         originCombo.addItemListener(this);
-        initPlanetSelect(originCombo, player_);
+        initPlanetSelect(originCombo, player);
         JPanel originPanel = createComboInputPanel(labelText, originCombo);
 
         labelText = GameContext.getLabel("DESTINATION");
-        destinationCombo = new JComboBox();
+        destinationCombo = new JComboBox<>();
         JPanel destPanel = createComboInputPanel( labelText, destinationCombo);
         initPlanetSelect(destinationCombo, null);
         availableShips = new JLabel();
 
         showAvailableShips(getOrigin());
 
-        JPanel routePanel = new JPanel(new BorderLayout());
+        JPanel routePanel = new JPanel(new BorderLayout(), true);
         routePanel.setMinimumSize(new Dimension(30,60));
         routePanel.add(originPanel, BorderLayout.NORTH);
         routePanel.add(destPanel, BorderLayout.CENTER);
         routePanel.add(availableShips, BorderLayout.SOUTH);
 
-        numShips_ = new NumberInput(GameContext.getLabel("NUMBER_OF_SHIPS_TO_SEND"), DEFAULT_FLEET_SIZE);
+        numShips = new NumberInput(GameContext.getLabel("NUMBER_OF_SHIPS_TO_SEND"), DEFAULT_FLEET_SIZE);
 
         mainPanel.add(routePanel, BorderLayout.NORTH);
-        mainPanel.add(numShips_, BorderLayout.CENTER);
+        mainPanel.add(numShips, BorderLayout.CENTER);
         mainPanel.add(buttonsPanel, BorderLayout.SOUTH);
 
         return mainPanel;
@@ -104,15 +104,15 @@ final class OrderDialog extends OptionsDialog
      * @param combo the combo box to initialize valued for.
      * @param player show planets for specified player only. If null, show all planets.
      */
-    private void initPlanetSelect(JComboBox combo, GalacticPlayer player) {
+    private void initPlanetSelect(JComboBox<String> combo, GalacticPlayer player) {
 
-        List planets =  Galaxy.getPlanets(player);
+        List<Planet> planets =  Galaxy.getPlanets(player);
         String sPlanets[] = new String[planets.size()];
         for (int i=0; i<planets.size(); i++)  {
-            Planet planet = (Planet)planets.get(i);
+            Planet planet = planets.get(i);
             sPlanets[i] = Character.toString(planet.getName());
         }
-        ComboBoxModel comboModel = new DefaultComboBoxModel(sPlanets);
+        ComboBoxModel<String> comboModel = new DefaultComboBoxModel<>(sPlanets);
         combo.setModel(comboModel);
     }
 
@@ -122,7 +122,7 @@ final class OrderDialog extends OptionsDialog
     @Override
     protected JPanel createButtonsPanel() {
 
-        JPanel buttonsPanel = new JPanel( new FlowLayout() );
+        JPanel buttonsPanel = new JPanel(true );
 
         okButton = new GradientButton();
         initBottomButton(okButton, GameContext.getLabel("OK"), GameContext.getLabel("PLACE_ORDER_TIP") );
@@ -154,8 +154,8 @@ final class OrderDialog extends OptionsDialog
 
     private int getOutgoingShips(Planet planet) {
         int outgoing = 0;
-        if (totalOutgoing_.get(planet)!=null)  {
-           outgoing = (Integer) totalOutgoing_.get(planet);
+        if (totalOutgoing.get(planet) != null)  {
+           outgoing = (Integer) totalOutgoing.get(planet);
         }
         return outgoing;
     }
@@ -175,9 +175,9 @@ final class OrderDialog extends OptionsDialog
                 return;
             }
             double timeNeeded = order.getTimeNeeded();
-            if (timeNeeded > numYearsRemaining_) {
+            if (timeNeeded > numYearsRemaining) {
                 JOptionPane.showMessageDialog(this,
-                       "There are not enough years left (" + numYearsRemaining_ + ") in the game to reach that planet",
+                       "There are not enough years left (" + numYearsRemaining + ") in the game to reach that planet",
                        "Information", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 this.setVisible(false);
@@ -200,6 +200,8 @@ final class OrderDialog extends OptionsDialog
         if (source == originCombo)  {
             showAvailableShips(getOrigin());
         }
+        originCombo.hidePopup();
+        destinationCombo.hidePopup();
     }
 
     /**
@@ -228,7 +230,7 @@ final class OrderDialog extends OptionsDialog
     }
 
     private int getFleetSize() {
-        return numShips_.getIntValue();
+        return numShips.getIntValue();
     }
 
     /**
@@ -236,15 +238,15 @@ final class OrderDialog extends OptionsDialog
      * @param combo the dropdown of values
      * @return a combo element with a label on the left and a dropdown on the right.
      */
-    private JPanel createComboInputPanel(String labelText, JComboBox combo) {
+    private JPanel createComboInputPanel(String labelText, JComboBox<String> combo) {
 
-        JPanel comboPanel = new JPanel();
+        JPanel comboPanel = new JPanel(true);
         comboPanel.setLayout(new BoxLayout( comboPanel, BoxLayout.X_AXIS ));
         comboPanel.setAlignmentX( Component.LEFT_ALIGNMENT );
         JLabel label = new JLabel( labelText );
         comboPanel.add( label );
 
-        comboPanel.add(new JPanel());
+        comboPanel.add(new JPanel(true));
         comboPanel.add(combo);
         return comboPanel;
     }

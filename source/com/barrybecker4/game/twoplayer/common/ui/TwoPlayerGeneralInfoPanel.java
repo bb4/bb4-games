@@ -35,7 +35,7 @@ public class TwoPlayerGeneralInfoPanel extends GeneralInfoPanel {
 
         JLabel moveNumTextLabel = new InfoLabel( GameContext.getLabel("CURRENT_MOVE_NUM"));
         moveNumTextLabel.setHorizontalAlignment(JLabel.LEFT);
-        moveNumLabel_ = new JLabel("1");
+        moveNumLabel = new JLabel("1");
 
         Object[] args = {player.getName()};
         String m = MessageFormat.format(GameContext.getLabel("CHANCE_OF_WINNING"), args );
@@ -44,8 +44,8 @@ public class TwoPlayerGeneralInfoPanel extends GeneralInfoPanel {
         chanceOfWinningLabel_ = new InfoLabel( "   " );
         //showRecommendedMove_ = new JCheckBox( "Show recommended move", false );
 
-        add(new RowEntryPanel(turnLabel, playerLabel_));
-        add(new RowEntryPanel(moveNumTextLabel, moveNumLabel_));
+        add(new RowEntryPanel(turnLabel, playerLabel));
+        add(new RowEntryPanel(moveNumTextLabel, moveNumLabel));
         add(new RowEntryPanel(chanceOfWinningTextLabel, chanceOfWinningLabel_));
         // add this back in when it is implemented
         //generalPanel.add( createRowEntryPanel(showRecommendedMove_) );
@@ -55,8 +55,8 @@ public class TwoPlayerGeneralInfoPanel extends GeneralInfoPanel {
     @Override
     protected void setPlayerLabel(Player player) {
 
-        playerLabel_.setText(' ' + player.getName() + ' ');
-        playerLabel_.setBorder(getPlayerLabelBorder(player.getColor()));
+        playerLabel.setText(' ' + player.getName() + ' ');
+        playerLabel.setBorder(getPlayerLabelBorder(player.getColor()));
         repaint();
     }
 
@@ -64,7 +64,7 @@ public class TwoPlayerGeneralInfoPanel extends GeneralInfoPanel {
     public void update(GameController controller) {
         if ( controller.getLastMove() != null ) {
             setPlayerLabel(controller.getCurrentPlayer());
-            moveNumLabel_.setText( controller.getNumMoves() + " " );
+            moveNumLabel.setText( controller.getNumMoves() + " " );
             WinProbabilityCalculator calc = new WinProbabilityCalculator();
             String formattedPropability =
                     FormatUtil.formatNumber(calc.getChanceOfPlayer1Winning(controller.getMoveList().copy()));

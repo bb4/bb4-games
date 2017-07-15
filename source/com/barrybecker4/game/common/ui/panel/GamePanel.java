@@ -131,7 +131,7 @@ public abstract class GamePanel extends TexturedPanel
      */
     protected void initGui(Component parent) {
 
-        JPanel mainPanel = new JPanel( new BorderLayout() );
+        JPanel mainPanel = new JPanel( new BorderLayout(), true );
 
         toolBar_ = createToolbar();
 
@@ -171,7 +171,7 @@ public abstract class GamePanel extends TexturedPanel
     }
 
     private JPanel createViewerPanel(GameBoardViewer boardViewer) {
-        JPanel viewerPanel = new JPanel();
+        JPanel viewerPanel = new JPanel(true);
 
         // if the board is too big, allow it to be scrolled.
         JScrollPane boardViewerScrollPane = new JScrollPane();

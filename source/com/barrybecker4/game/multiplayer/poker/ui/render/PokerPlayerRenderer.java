@@ -30,15 +30,14 @@ public class PokerPlayerRenderer extends GamePieceRenderer {
     private HandRenderer handRenderer = new HandRenderer();
     private ChipRenderer chipRenderer = new ChipRenderer();
 
-    public static final Color HIGHLIGHT_COLOR = new Color(245, 255, 0, 50);
+    static final Color HIGHLIGHT_COLOR = new Color(245, 255, 0, 50);
     private static final Color FOLDED_COLOR = new Color(50, 50, 55, 30);
 
     /**
-     * private constructor because this class is a singleton.
+     * Private constructor because this class is a singleton.
      * Use getRenderer instead
      */
-    private PokerPlayerRenderer()
-    {}
+    private PokerPlayerRenderer() {}
 
     public static GamePieceRenderer getRenderer() {
         if (renderer_ == null)

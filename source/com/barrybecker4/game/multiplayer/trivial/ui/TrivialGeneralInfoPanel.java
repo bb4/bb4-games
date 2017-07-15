@@ -39,12 +39,12 @@ class TrivialGeneralInfoPanel extends GeneralInfoPanel {
     protected void setPlayerLabel(Player player) {
 
         String playerName = player.getName();
-        playerLabel_.setText(' ' + playerName + ' ');
+        playerLabel.setText(' ' + playerName + ' ');
 
         Color pColor = player.getColor();
 
         //Border playerLabelBorder = BorderFactory.createLineBorder(pColor, 2);
-        playerLabel_.setBorder(getPlayerLabelBorder(pColor));
+        playerLabel.setBorder(getPlayerLabelBorder(pColor));
 
         if (commandPanel_ != null) {
             commandPanel_.setForeground(pColor);
@@ -68,10 +68,10 @@ class TrivialGeneralInfoPanel extends GeneralInfoPanel {
         setPlayerLabel(controller.getCurrentPlayer());
         Move lastMove =  controller.getLastMove();
         if (lastMove != null)  {
-            moveNumLabel_.setText( (controller.getNumMoves() + 2) + " " );
+            moveNumLabel.setText( (controller.getNumMoves() + 2) + " " );
         }
         else {
-            moveNumLabel_.setText( 1 + " " );
+            moveNumLabel.setText( 1 + " " );
         }
     }
 

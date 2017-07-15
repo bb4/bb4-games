@@ -17,7 +17,7 @@ import java.awt.*;
  */
 final class PlanetDetailsDialog extends AbstractDialog {
 
-    private final JPanel mainPanel_ = new JPanel();
+    private final JPanel mainPanel_ = new JPanel(true);
 
     private final GradientButton closeButton_ = new GradientButton();
     private final JLabel infoLabel_ = new JLabel();
@@ -40,7 +40,7 @@ final class PlanetDetailsDialog extends AbstractDialog {
      */
     @Override
     protected JComponent createDialogContent() {
-        return new JPanel();
+        return new JPanel(true);
     }
 
 }

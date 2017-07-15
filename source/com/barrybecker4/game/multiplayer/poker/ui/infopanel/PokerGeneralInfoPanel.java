@@ -38,11 +38,11 @@ class PokerGeneralInfoPanel extends GeneralInfoPanel {
     public void setPlayerLabel(Player player) {
 
         String playerName = player.getName();
-        playerLabel_.setText(' ' + playerName + ' ');
+        playerLabel.setText(' ' + playerName + ' ');
 
         Color pColor = player.getColor();
 
-        playerLabel_.setBorder(getPlayerLabelBorder(pColor));
+        playerLabel.setBorder(getPlayerLabelBorder(pColor));
 
         if (commandPanel_ != null) {
             commandPanel_.setForeground(pColor);
@@ -69,10 +69,10 @@ class PokerGeneralInfoPanel extends GeneralInfoPanel {
         setPlayerLabel(controller.getCurrentPlayer());
         Move lastMove =  controller.getLastMove();
         if (lastMove != null)  {
-            moveNumLabel_.setText( (controller.getNumMoves() + 2) + " " );
+            moveNumLabel.setText( (controller.getNumMoves() + 2) + " " );
         }
         else {
-            moveNumLabel_.setText( 1 + " " );
+            moveNumLabel.setText( 1 + " " );
         }
     }
 

@@ -19,20 +19,20 @@ import java.awt.event.ActionEvent;
  */
 public final class BettingDialog extends ActionDialog {
 
-    private GradientButton foldButton_;
-    private GradientButton callButton_;    // call or check
-    private GradientButton raiseButton_;
+    private GradientButton foldButton;
+    private GradientButton callButton;    // call or check
+    private GradientButton raiseButton;
 
-    private int callAmount_;
-    private int raiseAmount_ = 0;
+    private int callAmount;
+    private int raiseAmount = 0;
 
     /**
-     * Constructor - create the tree dialog.
+     * Constructor - create the betting dialog.
      * @param pc pokerController
      */
     public BettingDialog(PokerController pc, Component parent) {
         super(pc, parent);
-        callAmount_ = ((PokerPlayer)player_).getCallAmount(pc);
+        callAmount = ((PokerPlayer)player_).getCallAmount(pc);
     }
 
     @Override
@@ -42,7 +42,7 @@ public final class BettingDialog extends ActionDialog {
 
     @Override
     protected JPanel createGameInstructionsPanel() {
-        return new GameInstructionsPanel((PokerPlayer) player_,  callAmount_);
+        return new GameInstructionsPanel((PokerPlayer) player_, callAmount);
     }
 
     /**
@@ -50,20 +50,20 @@ public final class BettingDialog extends ActionDialog {
      */
     @Override
     protected JPanel createButtonsPanel() {
-        JPanel buttonsPanel = new JPanel( new FlowLayout() );
+        JPanel buttonsPanel = new JPanel(true);
 
-        foldButton_ = new GradientButton();
-        initBottomButton( foldButton_, GameContext.getLabel("FOLD"), GameContext.getLabel("FOLD_TIP") );
+        foldButton = new GradientButton();
+        initBottomButton(foldButton, GameContext.getLabel("FOLD"), GameContext.getLabel("FOLD_TIP") );
 
-        callButton_ = new GradientButton();
-        initBottomButton( callButton_, GameContext.getLabel("CALL"), GameContext.getLabel("CALL_TIP") );
+        callButton = new GradientButton();
+        initBottomButton(callButton, GameContext.getLabel("CALL"), GameContext.getLabel("CALL_TIP") );
 
-        raiseButton_ = new GradientButton();
-        initBottomButton( raiseButton_, GameContext.getLabel("RAISE"), GameContext.getLabel("RAISE_TIP") );
+        raiseButton = new GradientButton();
+        initBottomButton(raiseButton, GameContext.getLabel("RAISE"), GameContext.getLabel("RAISE_TIP") );
 
-        buttonsPanel.add( foldButton_ );
-        buttonsPanel.add( callButton_ );
-        buttonsPanel.add( raiseButton_ );
+        buttonsPanel.add(foldButton);
+        buttonsPanel.add(callButton);
+        buttonsPanel.add(raiseButton);
 
         return buttonsPanel;
     }
@@ -80,16 +80,16 @@ public final class BettingDialog extends ActionDialog {
     public void actionPerformed( ActionEvent event ) {
         Object source = event.getSource();
         PokerAction.Name actionName = null;
-        if (source == foldButton_) {
+        if (source == foldButton) {
             actionName = PokerAction.Name.FOLD;
             ((PokerPlayer)player_).setFold(true);
             this.setVisible(false);
         }
-        else if ( source == callButton_ ) {
+        else if ( source == callButton) {
             actionName = PokerAction.Name.CALL;
             this.setVisible(false);
         }
-        else if ( source == raiseButton_ ) {
+        else if ( source == raiseButton) {
             actionName = PokerAction.Name.RAISE;
             showRaiseDialog();
         }
@@ -97,7 +97,7 @@ public final class BettingDialog extends ActionDialog {
             assert false :"actionPerformed source="+source+". not recognized";
         }
 
-        player_.setAction(new PokerAction(player_.getName(), actionName, raiseAmount_));
+        player_.setAction(new PokerAction(player_.getName(), actionName, raiseAmount));
     }
 
     void showRaiseDialog() {
@@ -105,7 +105,7 @@ public final class BettingDialog extends ActionDialog {
         PokerController pc = (PokerController)controller_;
         PokerOptions options = (PokerOptions)controller_.getOptions();
         RaiseDialog raiseDialog =
-                new RaiseDialog((PokerPlayer)player_, callAmount_, pc.getAllInAmount(),
+                new RaiseDialog((PokerPlayer)player_, callAmount, pc.getAllInAmount(),
                                 options.getMaxAbsoluteRaise(), options.getAnte());
 
         raiseDialog.setLocation((int)(this.getLocation().getX() + 40), (int)(this.getLocation().getY() +170));
@@ -113,7 +113,7 @@ public final class BettingDialog extends ActionDialog {
         boolean canceled = raiseDialog.showDialog();
 
         if ( !canceled ) {
-            raiseAmount_ = raiseDialog.getRaiseAmount();
+            raiseAmount = raiseDialog.getRaiseAmount();
             this.setVisible(false);
         }
     }

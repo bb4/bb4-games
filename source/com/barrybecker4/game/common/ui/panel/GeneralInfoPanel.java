@@ -19,8 +19,8 @@ public abstract class GeneralInfoPanel extends JPanel {
 
     private static final Font PLAYER_FONT = new Font(GUIUtil.DEFAULT_FONT_FAMILY, Font.BOLD, 12 );
 
-    protected JLabel moveNumLabel_;
-    protected JLabel playerLabel_;
+    protected JLabel moveNumLabel;
+    protected JLabel playerLabel;
 
     /**
      * Constructor
@@ -33,10 +33,10 @@ public abstract class GeneralInfoPanel extends JPanel {
 
         JLabel moveNumTextLabel = new InfoLabel( GameContext.getLabel("CURRENT_MOVE_NUM"));
         moveNumTextLabel.setHorizontalAlignment(JLabel.LEFT);
-        moveNumLabel_ = new JLabel( "1" );
+        moveNumLabel = new JLabel( "1" );
 
-        add(new RowEntryPanel( turnLabel, playerLabel_ ) );
-        add(new RowEntryPanel( moveNumTextLabel, moveNumLabel_ ) );
+        add(new RowEntryPanel( turnLabel, playerLabel) );
+        add(new RowEntryPanel( moveNumTextLabel, moveNumLabel) );
 
         // add this back in when it is implemented
         //generalPanel.add( new RowEntryPanel(showRecommendedMove_) );
@@ -46,16 +46,16 @@ public abstract class GeneralInfoPanel extends JPanel {
     protected GeneralInfoPanel() {}
 
     protected void initPlayerLabel(Player player) {
-        playerLabel_ = new JLabel();
-        playerLabel_.setOpaque(true);
-        playerLabel_.setFont(PLAYER_FONT);
+        playerLabel = new JLabel();
+        playerLabel.setOpaque(true);
+        playerLabel.setFont(PLAYER_FONT);
         setPlayerLabel(player);
     }
 
     public void update(GameController controller) {
         setPlayerLabel(controller.getCurrentPlayer());
         if ( controller.getLastMove() != null ) {
-            moveNumLabel_.setText( " " + controller.getNumMoves() );
+            moveNumLabel.setText( " " + controller.getNumMoves() );
         }
     }
 

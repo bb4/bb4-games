@@ -21,14 +21,14 @@ import java.text.MessageFormat;
  */
 class GalacticGeneralInfoPanel extends GeneralInfoPanel {
 
-    private JPanel commandPanel_;
+    private JPanel commandPanel;
 
     /**
      * Constructor
      */
     GalacticGeneralInfoPanel(Player player, JPanel commandPanel) {
         super(player);
-        commandPanel_ = commandPanel;
+        this.commandPanel = commandPanel;
         setCommandPanelTitle(player);
     }
 
@@ -39,14 +39,14 @@ class GalacticGeneralInfoPanel extends GeneralInfoPanel {
     protected void setPlayerLabel(Player player) {
 
         String playerName = player.getName();
-        playerLabel_.setText(' ' + playerName + ' ');
+        playerLabel.setText(' ' + playerName + ' ');
 
         Color pColor = player.getColor();
 
-        playerLabel_.setBorder(getPlayerLabelBorder(pColor));
+        playerLabel.setBorder(getPlayerLabelBorder(pColor));
 
-        if (commandPanel_ != null) {
-            commandPanel_.setForeground(pColor);
+        if (commandPanel != null) {
+            commandPanel.setForeground(pColor);
             setCommandPanelTitle(player);
         }
         this.repaint();
@@ -57,10 +57,10 @@ class GalacticGeneralInfoPanel extends GeneralInfoPanel {
         setPlayerLabel(controller.getCurrentPlayer());
         Move lastMove =  controller.getLastMove();
         if (lastMove != null)  {
-            moveNumLabel_.setText( (controller.getPlayers().getNumPlayers() + 2) + " " );
+            moveNumLabel.setText( (controller.getPlayers().getNumPlayers() + 2) + " " );
         }
         else {
-            moveNumLabel_.setText( 1 + " " );
+            moveNumLabel.setText( 1 + " " );
         }
     }
 
@@ -68,7 +68,7 @@ class GalacticGeneralInfoPanel extends GeneralInfoPanel {
         Object[] args = {player.getName()};
         String title = MessageFormat.format(GameContext.getLabel("GIVE_YOUR_ORDERS"), args);
 
-        TitledBorder b = (TitledBorder)commandPanel_.getBorder();
+        TitledBorder b = (TitledBorder) commandPanel.getBorder();
         b.setTitle(title);
     }
 }
