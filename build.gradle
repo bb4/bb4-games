@@ -3,16 +3,16 @@
 description = 'A game playing framework and a collection of two-player and multi-player games. ' +
         'In all games, one or more intelligent computer opponents are allowed to play.'
 group = 'com.barrybecker4'
-version = '1.4'
+version = '1.5-SNAPSHOT'
 apply from: 'https://raw.github.com/barrybecker4/bb4-common/master/bb4.gradle'
 project.archivesBaseName = 'bb4-game'
 mainClassName = "com.barrybecker4.game.common.ui.GameApp"
 ext.gameApp = 'com.barrybecker4.game.common.ui.GameApp'
 
 dependencies {
-    compile 'com.barrybecker4:bb4-sound:1.4'
-    compile 'com.barrybecker4:bb4-optimization:1.4'
-    compile 'com.barrybecker4:bb4-A-star:1.4'
+    compile 'com.barrybecker4:bb4-sound:1.5-SNAPSHOT'
+    compile 'com.barrybecker4:bb4-optimization:1.5-SNAPSHOT'
+    compile 'com.barrybecker4:bb4-A-star:1.5-SNAPSHOT'
     compile 'com.barrybecker4:bb4-sgf:1.1'
 
     // jars needed for go
@@ -24,6 +24,7 @@ task runGalactic(type: JavaExec) {
     main = gameApp
     args = ["-name", "galactic", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
+    jvmArgs = ["-Dsun.java2d.d3d=false"]  // without this, swing rendering messes up
 }
 
 task runGoMoku(type: JavaExec) {
@@ -139,6 +140,7 @@ task runPoker(type: JavaExec) {
     main = 'com.barrybecker4.game.common.ui.GameApp'
     args = ["-name", "poker", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
+    jvmArgs = ["-Dsun.java2d.d3d=false"]
 }
 
 task runPokerServer(type: JavaExec) {
