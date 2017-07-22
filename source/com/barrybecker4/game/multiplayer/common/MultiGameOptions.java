@@ -31,7 +31,7 @@ public class MultiGameOptions extends GameOptions {
     }
 
     /**
-     * usually 2 but we allow for override.
+     * Usually 2 but we allow for override.
      */
     public int getMinNumPlayers() {
         return 2;

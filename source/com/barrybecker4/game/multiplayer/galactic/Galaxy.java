@@ -2,7 +2,6 @@
 package com.barrybecker4.game.multiplayer.galactic;
 
 import com.barrybecker4.game.common.GameContext;
-import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.board.Board;
 import com.barrybecker4.game.common.board.BoardPosition;
 import com.barrybecker4.game.common.player.Player;
@@ -154,8 +153,7 @@ public class Galaxy extends Board<GalacticTurn> {
     /**
      * @param numPlanets to have in this galaxy
      */
-    public void setNumPlanets(int numPlanets)
-    {
+    public void setNumPlanets(int numPlanets) {
         if (numPlanets > MAX_NUM_PLANETS) {
             GameContext.log(0, "You are not allowed to have more than "+ MAX_NUM_PLANETS );
             numPlanets_ = MAX_NUM_PLANETS;
