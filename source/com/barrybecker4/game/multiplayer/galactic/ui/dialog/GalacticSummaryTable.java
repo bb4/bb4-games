@@ -49,7 +49,7 @@ class GalacticSummaryTable extends SummaryTable {
      * @param player to add
      */
     @Override
-    protected void addRow(Object player) {
+    public void addRow(Object player) {
         GalacticPlayer p = (GalacticPlayer)player;
         Object d[] = new Object[getNumColumns()];
         List planets = Galaxy.getPlanets(p);

@@ -34,7 +34,7 @@ final class StatsDialog extends AbstractDialog {
      * ui initialization of the tree control.
      */
     @Override
-    protected JComponent createDialogContent() {
+    public JComponent createDialogContent() {
         return new JPanel(true);
     }
 }

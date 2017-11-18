@@ -17,7 +17,7 @@ import java.awt.*;
  */
 public class PlayerHeadCellRenderer extends DefaultTableCellRenderer {
 
-    protected static final Font FONT = new Font(GUIUtil.DEFAULT_FONT_FAMILY, Font.BOLD, 16 );
+    protected static final Font FONT = new Font(GUIUtil.DEFAULT_FONT_FAMILY(), Font.BOLD, 16 );
 
     /**
      * This method gets called each time a column header is rendered.

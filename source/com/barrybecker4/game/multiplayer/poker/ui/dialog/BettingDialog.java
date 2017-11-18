@@ -49,7 +49,7 @@ public final class BettingDialog extends ActionDialog {
      *  create the OK/Cancel buttons that go at the bottom.
      */
     @Override
-    protected JPanel createButtonsPanel() {
+    public JPanel createButtonsPanel() {
         JPanel buttonsPanel = new JPanel(true);
 
         foldButton = new GradientButton();
@@ -100,7 +100,7 @@ public final class BettingDialog extends ActionDialog {
         player_.setAction(new PokerAction(player_.getName(), actionName, raiseAmount));
     }
 
-    void showRaiseDialog() {
+    private void showRaiseDialog() {
         // open a dlg to get an order
         PokerController pc = (PokerController)controller_;
         PokerOptions options = (PokerOptions)controller_.getOptions();

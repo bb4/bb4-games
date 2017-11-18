@@ -64,7 +64,7 @@ public final class RevealDialog extends ActionDialog {
      * Create the OK/Cancel buttons that go at the bottom.
      */
     @Override
-    protected JPanel createButtonsPanel() {
+    public JPanel createButtonsPanel() {
         JPanel buttonsPanel = new JPanel( new FlowLayout() );
 
         okButton_ = new GradientButton();

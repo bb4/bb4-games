@@ -34,7 +34,7 @@ public class GoBoardRenderer extends TwoPlayerBoardRenderer {
 
     private static final Color TICK_LABEL_COLOR = new Color(10, 10, 10);
     private static final int BOARD_MARGIN = 12;
-    private static final Font TICK_LABEL_FONT = new Font(GUIUtil.DEFAULT_FONT_FAMILY, Font.PLAIN, 11);
+    private static final Font TICK_LABEL_FONT = new Font(GUIUtil.DEFAULT_FONT_FAMILY(), Font.PLAIN, 11);
 
     /** the image for the wooden board. */
     private static final ImageIcon woodGrainImage_ =

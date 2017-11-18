@@ -95,7 +95,7 @@ public class TwoPlayerNewGameDialog extends NewGameDialog
 
     @Override
     protected PlayerAssignmentPanel createPlayerAssignmentPanel() {
-        return new PlayerAssignmentPanel(get2PlayerController(), parent_);
+        return new PlayerAssignmentPanel(get2PlayerController(), this.myParent());
     }
 
     @Override
@@ -119,7 +119,7 @@ public class TwoPlayerNewGameDialog extends NewGameDialog
         if ( source == startButton_ ) {
             ok();
         }
-        else if ( source == cancelButton) {
+        else if ( source == cancelButton()) {
             cancel();
         }
         else if (source == optimizationCheckbox_) {

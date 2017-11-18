@@ -46,7 +46,7 @@ public class RoundOverDialog extends OptionsDialog {
     }
 
     @Override
-    protected JComponent createDialogContent() {
+    public JComponent createDialogContent() {
         setResizable( true );
         JPanel mainPanel =  new JPanel();
         mainPanel.setLayout( new BorderLayout() );
@@ -89,7 +89,7 @@ public class RoundOverDialog extends OptionsDialog {
     }
 
     @Override
-    protected JPanel createButtonsPanel(){
+    public JPanel createButtonsPanel(){
         JPanel buttonsPanel = new JPanel( new FlowLayout() );
 
         closeButton_ = new GradientButton();

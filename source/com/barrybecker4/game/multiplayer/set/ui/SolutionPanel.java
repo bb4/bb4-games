@@ -25,7 +25,7 @@ class SolutionPanel extends JPanel
 
     private SetGameViewer viewer_;
 
-    private static final Color BACKGROUND_COLOR = BarryTheme.UI_COLOR_SECONDARY3;
+    private static final Color BACKGROUND_COLOR = BarryTheme.UI_COLOR_SECONDARY3();
 
     /**
      * Constructor.

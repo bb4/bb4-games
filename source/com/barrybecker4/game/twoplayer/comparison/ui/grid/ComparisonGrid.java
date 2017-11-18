@@ -11,6 +11,7 @@ import com.barrybecker4.game.twoplayer.comparison.ui.grid.cellrenderers.ResultHe
 import com.barrybecker4.ui.table.BasicTableModel;
 import com.barrybecker4.ui.table.TableBase;
 import com.barrybecker4.ui.table.TableColumnMeta;
+import scala.collection.Seq;
 
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
@@ -50,14 +51,14 @@ class ComparisonGrid extends TableBase {
      * @param optionsList to initialize the rows in the table with. May be null.
      */
     private ComparisonGrid(SearchOptionsConfigList optionsList, String[] colNames)  {
-        super(optionsList, colNames);
+        super((Seq<Object>) optionsList, colNames);
         this.colNames = colNames;
-        this.initializeTable(optionsList);
+        //this.initializeTable((Seq<Object>) optionsList);
         this.setRowHeight(60);
 
         for (int i = 1; i < getNumColumns(); i++) {
 
-            TableColumn col = table_.getColumnModel().getColumn(i);
+            TableColumn col = table().getColumnModel().getColumn(i);
             col.setHeaderRenderer(new ResultHeaderCellRenderer());
         }
     }
@@ -73,7 +74,7 @@ class ComparisonGrid extends TableBase {
     }
 
     @Override
-    protected void updateColumnMeta(TableColumnMeta[] columnMeta) {
+    public void updateColumnMeta(TableColumnMeta[] columnMeta) {
 
         columnMeta[0].setPreferredWidth(210);
         columnMeta[0].setMaxWidth(310);
@@ -82,20 +83,21 @@ class ComparisonGrid extends TableBase {
         for (int i = 1; i < getNumColumns(); i++) {
             columnMeta[i].setCellRenderer(new ResultGridCellRenderer());
 
-            TableColumn col = table_.getColumnModel().getColumn(i);
+            TableColumn col = table().getColumnModel().getColumn(i);
             col.setHeaderRenderer(new ResultHeaderCellRenderer());
         }
     }
 
 
     @Override
-    protected TableModel createTableModel(String[] columnNames) {
-        return new BasicTableModel(columnNames, 0, false);
+    public TableModel createTableModel(String[] columnNames) {
+        return new BasicTableModel(new String[][]{columnNames},
+                new Object[]{}, false);
     }
 
     @Override
     public BasicTableModel getModel() {
-        return (BasicTableModel)table_.getModel();
+        return (BasicTableModel)table().getModel();
     }
 
     /**

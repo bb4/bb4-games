@@ -14,18 +14,18 @@ import java.awt.*;
  */
 final class PokerHandViewer extends JPanel {
 
-    Hand hand_;
-    HandRenderer handRenderer = new HandRenderer();
+    private Hand hand;
+    private HandRenderer handRenderer = new HandRenderer();
 
     public PokerHandViewer(Hand hand) {
-        hand_ = new Hand(hand.getCards());
-        hand_.setFaceUp(true);
+        this.hand = new Hand(hand.getCards());
+        this.hand.setFaceUp(true);
         this.setPreferredSize(new Dimension(400, 120));
     }
 
     @Override
     protected void paintComponent(Graphics g) {
-         handRenderer.render((Graphics2D) g, new ByteLocation(0, 2), hand_, 22);
+         handRenderer.render((Graphics2D) g, new ByteLocation(0, 2), hand, 22);
     }
 }
 

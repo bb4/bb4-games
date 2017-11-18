@@ -15,7 +15,7 @@ import java.awt.*;
 public class SectionPanel extends JPanel {
 
 
-    private static final Font SECTION_TITLE_FONT = new Font(GUIUtil.DEFAULT_FONT_FAMILY, Font.BOLD, 12 );
+    private static final Font SECTION_TITLE_FONT = new Font(GUIUtil.DEFAULT_FONT_FAMILY(), Font.BOLD, 12 );
 
     /**
      * Constructor

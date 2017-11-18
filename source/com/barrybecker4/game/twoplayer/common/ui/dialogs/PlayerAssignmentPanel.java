@@ -85,11 +85,11 @@ public class PlayerAssignmentPanel extends JPanel
 
 
     protected String getPlayer1Label() {
-        return GameContext.getLabel("FIRST_PLAYER" ) + OptionsDialog.COLON;
+        return GameContext.getLabel("FIRST_PLAYER" ) + OptionsDialog.COLON();
     }
 
     protected String getPlayer2Label() {
-        return GameContext.getLabel("SECOND_PLAYER") + OptionsDialog.COLON;
+        return GameContext.getLabel("SECOND_PLAYER") + OptionsDialog.COLON();
     }
 
     private JPanel createPlayerEntry( String message,

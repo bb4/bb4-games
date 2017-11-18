@@ -138,14 +138,14 @@ public class PerformanceResults {
     /**
      * Write everything to the specified file.
      * @param path directory to write to
-     * @throws IOException
+     * @throws IOException if IO error
      */
     public void saveTo(String path) throws IOException {
         FileUtil.verifyDirectoryExistence(path);
 
         String baseName = path + FileUtil.FILE_SEPARATOR + getDescription();
         exporter.saveToFile(baseName, null);
-        ImageUtil.saveAsImage(baseName, getFinalImage(), ImageUtil.ImageType.PNG);
+        ImageUtil.saveAsImage(baseName, getFinalImage(), ImageUtil.ImageType$.MODULE$.PNG());
         PrintWriter writer = FileUtil.createPrintWriter(baseName + ".txt");
         writer.write(toString());
         writer.close();

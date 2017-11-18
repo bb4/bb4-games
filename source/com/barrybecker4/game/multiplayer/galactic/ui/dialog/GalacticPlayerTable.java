@@ -60,15 +60,14 @@ public class GalacticPlayerTable extends PlayerTable
      */
     public GalacticPlayerTable(PlayerList players) {
         super(players, galacticColumnNames_);
-        table_.getModel().addTableModelListener(this);
+        table().getModel().addTableModelListener(this);
 
         setRowHeight(ROW_HEIGHT);
     }
 
 
     @Override
-    protected void updateColumnMeta(TableColumnMeta[] columnMeta) {
-
+    public void updateColumnMeta(TableColumnMeta[] columnMeta) {
         columnMeta[ICON_INDEX].setPreferredWidth(48);
         columnMeta[HOME_PLANET_INDEX].setPreferredWidth(100);
         columnMeta[NUM_SHIPS_INDEX].setPreferredWidth(100);
@@ -82,7 +81,7 @@ public class GalacticPlayerTable extends PlayerTable
     @Override
     public PlayerList getPlayers() {
 
-        TableModel model = table_.getModel();
+        TableModel model = table().getModel();
         int nRows = model.getRowCount();
         PlayerList players = new PlayerList();
         for (int i=0; i<nRows; i++) {
@@ -106,7 +105,7 @@ public class GalacticPlayerTable extends PlayerTable
      * @param player to add
      */
     @Override
-    protected void addRow(Object player) {
+    public void addRow(Object player) {
 
         GalacticPlayer p = (GalacticPlayer) player;
         Object d[] = new Object[getNumColumns()];
@@ -123,7 +122,7 @@ public class GalacticPlayerTable extends PlayerTable
 
     @Override
     protected Player createPlayer() {
-        int ct = table_.getRowCount();
+        int ct = table().getRowCount();
         Planet planet = new Planet((char)('A'+ct), GalacticPlayer.DEFAULT_NUM_SHIPS, 10, new ByteLocation(0,0));
         Color newColor = MultiGamePlayer.getNewPlayerColor(getPlayers());
         GalacticPlayer player = GalacticPlayer.createGalacticPlayer(
@@ -141,7 +140,7 @@ public class GalacticPlayerTable extends PlayerTable
         GameContext.log(0, "table changed " + e.getFirstRow() + " col="+ e.getColumn());
         if (e.getColumn() == HUMAN_INDEX)  {
             int row = e.getFirstRow();
-            TableModel m = table_.getModel();
+            TableModel m = table().getModel();
             boolean isHuman = (Boolean) m.getValueAt(row, HUMAN_INDEX);
             char c = (Character) m.getValueAt(row, HOME_PLANET_INDEX);
             Planet p = Galaxy.getPlanet(c);

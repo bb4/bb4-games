@@ -16,7 +16,7 @@ import java.awt.*;
 public class StatusBar extends TexturedPanel {
 
     /** font for the undo/redo buttons    */
-    private static final Font STATUS_FONT = new Font(GUIUtil.DEFAULT_FONT_FAMILY, Font.PLAIN, 10 );
+    private static final Font STATUS_FONT = new Font(GUIUtil.DEFAULT_FONT_FAMILY(), Font.PLAIN, 10 );
 
     /**
      * Construct the panel.

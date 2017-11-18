@@ -8,6 +8,7 @@ import com.barrybecker4.ui.table.ColorCellEditor;
 import com.barrybecker4.ui.table.ColorCellRenderer;
 import com.barrybecker4.ui.table.TableBase;
 import com.barrybecker4.ui.table.TableColumnMeta;
+import scala.collection.Seq;
 
 import javax.swing.table.TableModel;
 
@@ -31,14 +32,13 @@ public abstract class SummaryTable extends TableBase  {
      * constructor
      * @param players to initializet the rows in the table with.
      */
-    protected SummaryTable(PlayerList players, String[] columnNames)
-    {
-        super(players, columnNames);
+    protected SummaryTable(PlayerList players, String[] columnNames) {
+        super((Seq<Object>) players, columnNames);
     }
 
 
     @Override
-    protected void updateColumnMeta(TableColumnMeta[] columnMeta) {
+    public void updateColumnMeta(TableColumnMeta[] columnMeta) {
 
         TableColumnMeta colorMeta = columnMeta[COLOR_INDEX];
         colorMeta.setCellRenderer(new ColorCellRenderer());
@@ -52,13 +52,13 @@ public abstract class SummaryTable extends TableBase  {
 
 
     @Override
-    protected TableModel createTableModel(String[] columnNames)  {
-        return  new BasicTableModel(columnNames, 0, false);
+    public TableModel createTableModel(String[] columnNames)  {
+        return  new BasicTableModel(new String[][]{columnNames}, new Object[]{}, false);
     }
 
 
     protected BasicTableModel getPlayerModel()
     {
-        return (BasicTableModel)table_.getModel();
+        return (BasicTableModel)table().getModel();
     }
 }

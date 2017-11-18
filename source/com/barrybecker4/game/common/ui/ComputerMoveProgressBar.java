@@ -38,7 +38,7 @@ public class ComputerMoveProgressBar extends JProgressBar {
         setOpaque(false);
         setMinimum(0);
         setMaximum(100);
-        setBackground(BarryTheme.UI_COLOR_SECONDARY2);
+        setBackground(BarryTheme.UI_COLOR_SECONDARY2());
         setForeground(PROGRESS_BAR_COLOR);
         setStringPainted(true);
         setBorderPainted(false);

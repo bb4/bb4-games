@@ -79,7 +79,7 @@ public final class BattleDialog extends OptionsDialog
      * ui initialization of the tree control.
      */
     @Override
-    protected JComponent createDialogContent() {
+    public JComponent createDialogContent() {
         JPanel mainPanel = new JPanel(true);
         mainPanel.setLayout(new BorderLayout());
 
@@ -126,7 +126,7 @@ public final class BattleDialog extends OptionsDialog
 
 
     @Override
-    protected JPanel createButtonsPanel() {
+    public JPanel createButtonsPanel() {
         JPanel buttonsPanel_=new JPanel( new BorderLayout(), true);
         buttonsPanel_.setBorder(BorderFactory.createEmptyBorder(0, 5, 5, 5));
 

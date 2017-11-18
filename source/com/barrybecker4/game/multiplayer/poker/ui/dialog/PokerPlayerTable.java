@@ -48,7 +48,7 @@ class PokerPlayerTable extends PlayerTable {
     @Override
     public PlayerList getPlayers() {
 
-        TableModel model = table_.getModel();
+        TableModel model = table().getModel();
         int nRows = model.getRowCount();
         PlayerList players = new PlayerList();
         for (int i = 0; i < nRows; i++) {
@@ -66,7 +66,7 @@ class PokerPlayerTable extends PlayerTable {
      * @param player to add
      */
     @Override
-    protected void addRow(Object player) {
+    public void addRow(Object player) {
         Player p = (Player) player;
         Object d[] = new Object[getNumColumns()];
         d[NAME_INDEX] = p.getName();
@@ -79,7 +79,7 @@ class PokerPlayerTable extends PlayerTable {
 
     @Override
     protected Player createPlayer() {
-        int ct = table_.getRowCount();
+        int ct = table().getRowCount();
         Color newColor = PokerPlayer.getNewPlayerColor(getPlayers());
         return PokerPlayer.createPokerPlayer(
                                              "Robot " + (ct+1), DEFAULT_CASH_AMOUNT, newColor, true);

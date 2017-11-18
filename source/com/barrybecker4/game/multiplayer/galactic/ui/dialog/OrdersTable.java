@@ -61,14 +61,14 @@ class OrdersTable extends TableBase {
      * @param orders to initialize the rows in the table with.
      */
     OrdersTable(List<Order> orders)  {
-        super(orders, columnNames_);
+        super((scala.collection.immutable.List<Object>) orders, columnNames_);
 
          lastOrders_ = orders;
     }
 
 
     @Override
-    protected void updateColumnMeta(TableColumnMeta[] columnMeta) {
+    public void updateColumnMeta(TableColumnMeta[] columnMeta) {
 
         for (int i = 0; i < getNumColumns(); i++) {
             columnMeta[i].setTooltip(columnTips_[i]);
@@ -76,8 +76,8 @@ class OrdersTable extends TableBase {
     }
 
     @Override
-    protected TableModel createTableModel(String[] columnNames) {
-        return  new BasicTableModel(columnNames_, 0, false);
+    public TableModel createTableModel(String[] columnNames) {
+        return  new BasicTableModel(new String[][]{columnNames_}, new Object[]{}, false);
     }
 
     public void removeRow(int rowIndex) {
@@ -89,7 +89,7 @@ class OrdersTable extends TableBase {
      */
     public List<Order> getOrders() {
 
-        TableModel model = table_.getModel();
+        TableModel model = table().getModel();
         int nRows = model.getRowCount();
         List<Order> orders = new ArrayList<>(nRows);
         int numOldOrders = lastOrders_.size();
@@ -123,7 +123,7 @@ class OrdersTable extends TableBase {
      */
     Map getCurrentOutGoingShips() {
         Map<Planet,Integer> outgoingMap = new HashMap<>();
-        TableModel model = table_.getModel();
+        TableModel model = table().getModel();
         int nRows = model.getRowCount();
 
         int numOldOrders = lastOrders_.size();

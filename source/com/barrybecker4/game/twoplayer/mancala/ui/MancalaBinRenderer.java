@@ -92,7 +92,7 @@ public class MancalaBinRenderer extends TwoPlayerPieceRenderer {
        int offset = (int) (0.22 * pieceSize);
        g2.setColor(getTextColor(bin));
 
-       Font font = new Font(GUIUtil.DEFAULT_FONT_FAMILY, Font.PLAIN, pieceSize/2);
+       Font font = new Font(GUIUtil.DEFAULT_FONT_FAMILY(), Font.PLAIN, pieceSize/2);
        g2.setFont(font);
 
        g2.drawString(Integer.toString(bin.getNumStones()), pos.x + offset, pos.y + 3 * offset + yOffset);

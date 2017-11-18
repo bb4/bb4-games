@@ -41,7 +41,7 @@ class SetSummaryTable extends SummaryTable {
      * @param player to add
      */
     @Override
-    protected void addRow(Object player) {
+    public void addRow(Object player) {
         SetPlayer p = (SetPlayer)player;
         Object d[] = new Object[getNumColumns()];
 

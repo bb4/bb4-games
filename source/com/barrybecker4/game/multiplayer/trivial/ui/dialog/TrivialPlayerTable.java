@@ -37,7 +37,7 @@ class TrivialPlayerTable extends PlayerTable {
      */
     @Override
     public PlayerList getPlayers() {
-        TableModel model = table_.getModel();
+        TableModel model = table().getModel();
         int nRows = model.getRowCount();
         PlayerList players = new PlayerList();
         for (int i = 0; i < nRows; i++) {
@@ -54,7 +54,7 @@ class TrivialPlayerTable extends PlayerTable {
      * @param player to add
      */
     @Override
-    protected void addRow(Object player) {
+    public void addRow(Object player) {
         Player p = (Player) player;
         Object d[] = new Object[getNumColumns()];
         d[NAME_INDEX] = p.getName();
@@ -66,7 +66,7 @@ class TrivialPlayerTable extends PlayerTable {
 
     @Override
     protected Player createPlayer() {
-        int ct = table_.getRowCount();
+        int ct = table().getRowCount();
         Color newColor = TrivialPlayer.getNewPlayerColor(getPlayers());
         return TrivialPlayer.createTrivialPlayer("Robot "+(ct+1), newColor, true);
     }

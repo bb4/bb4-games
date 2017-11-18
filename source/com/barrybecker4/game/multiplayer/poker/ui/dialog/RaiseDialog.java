@@ -47,7 +47,7 @@ final class RaiseDialog extends OptionsDialog {
      * ui initialization of the tree control.
      */
     @Override
-    protected JComponent createDialogContent() {
+    public JComponent createDialogContent() {
         JPanel mainPanel =  new JPanel();
         mainPanel.setLayout( new BorderLayout() );
 
@@ -93,15 +93,15 @@ final class RaiseDialog extends OptionsDialog {
      *  create the OK/Cancel buttons that go at the bottom.
      */
     @Override
-    protected JPanel createButtonsPanel() {
+    public JPanel createButtonsPanel() {
         JPanel buttonsPanel = new JPanel( new FlowLayout() );
 
         okButton_ = new GradientButton();
         initBottomButton( okButton_, GameContext.getLabel("OK"), GameContext.getLabel("RAISE_BUTTON_TIP") );
-        initBottomButton(cancelButton, GameContext.getLabel("CANCEL"), GameContext.getLabel("CANCEL") );
+        initBottomButton(cancelButton(), GameContext.getLabel("CANCEL"), GameContext.getLabel("CANCEL") );
 
         buttonsPanel.add( okButton_ );
-        buttonsPanel.add(cancelButton);
+        buttonsPanel.add(cancelButton());
 
         return buttonsPanel;
     }

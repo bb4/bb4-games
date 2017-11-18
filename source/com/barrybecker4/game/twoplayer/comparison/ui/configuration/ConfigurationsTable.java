@@ -8,6 +8,7 @@ import com.barrybecker4.ui.table.BasicCellRenderer;
 import com.barrybecker4.ui.table.BasicTableModel;
 import com.barrybecker4.ui.table.TableBase;
 import com.barrybecker4.ui.table.TableColumnMeta;
+import scala.collection.Seq;
 
 import javax.swing.table.TableModel;
 
@@ -57,11 +58,11 @@ class ConfigurationsTable extends TableBase {
      * @param optionsList to initialize the rows in the table with. May be null.
      */
     public ConfigurationsTable(SearchOptionsConfigList optionsList)  {
-        super(optionsList, columnNames_);
+        super((Seq<Object>) optionsList, columnNames_);
     }
 
     @Override
-    protected void updateColumnMeta(TableColumnMeta[] columnMeta) {
+    public void updateColumnMeta(TableColumnMeta[] columnMeta) {
 
         columnMeta[NAME_INDEX].setPreferredWidth(210);
         columnMeta[NAME_INDEX].setMaxWidth(310);
@@ -79,8 +80,9 @@ class ConfigurationsTable extends TableBase {
     }
 
     @Override
-    protected TableModel createTableModel(String[] columnNames) {
-        return  new BasicTableModel(columnNames_, 0, false);
+    public TableModel createTableModel(String[] columnNames) {
+        return  new BasicTableModel(new String[][]{columnNames_},
+                new Object[]{}, false);
     }
 
     public void removeRow(int rowIndex) {

@@ -23,8 +23,7 @@ public class GameRunnerDialog extends AbstractDialog {
     }
 
     @Override
-    protected JComponent createDialogContent() {
-
+    public JComponent createDialogContent() {
         return gamePanel;
     }
 

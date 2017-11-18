@@ -5,11 +5,18 @@ import com.barrybecker4.game.common.GameContext;
 import com.barrybecker4.game.multiplayer.galactic.Order;
 import com.barrybecker4.game.multiplayer.galactic.player.GalacticPlayer;
 import com.barrybecker4.ui.components.GradientButton;
-import com.barrybecker4.ui.dialogs.AbstractDialog;
+import com.barrybecker4.ui.dialogs.AbstractDialog$;
 import com.barrybecker4.ui.dialogs.OptionsDialog;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.BorderFactory;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.text.MessageFormat;
 import java.util.List;
@@ -50,14 +57,16 @@ public final class OrdersDialog extends OptionsDialog  {
     }
 
     @Override
-    protected JComponent createDialogContent() {
+    public JComponent createDialogContent() {
         setResizable( true );
 
         JPanel buttonsPanel = createButtonsPanel();
 
         // the table title and add button
         JPanel titlePanel = new JPanel(new BorderLayout(), true);
-        titlePanel.setBorder(AbstractDialog.createMarginBorder());
+        titlePanel.setBorder(
+                /*BorderFactory.createEmptyBorder(3, 3, 3, 3)*/
+                AbstractDialog$.MODULE$.createMarginBorder());
 
         String title =  MessageFormat.format(GameContext.getLabel("CURRENT_ORDERS"), player.getName());
 
@@ -102,15 +111,15 @@ public final class OrdersDialog extends OptionsDialog  {
      *  create the OK Cancel buttons that go at the button
      */
     @Override
-    protected JPanel createButtonsPanel() {
+    public JPanel createButtonsPanel() {
         JPanel buttonsPanel = new JPanel(true);
 
         okButton = new GradientButton();
         initBottomButton(okButton, GameContext.getLabel("OK"), GameContext.getLabel("PLACE_ORDER_TIP") );
-        initBottomButton(cancelButton, GameContext.getLabel("CANCEL"), GameContext.getLabel("CANCEL") );
+        initBottomButton(cancelButton(), GameContext.getLabel("CANCEL"), GameContext.getLabel("CANCEL") );
 
         buttonsPanel.add(okButton);
-        buttonsPanel.add(cancelButton);
+        buttonsPanel.add(cancelButton());
 
         return buttonsPanel;
     }
@@ -131,7 +140,7 @@ public final class OrdersDialog extends OptionsDialog  {
         if (source == okButton) {
             this.setVisible(false);
         }
-        else if ( source == cancelButton) {
+        else if ( source == cancelButton()) {
             cancel();
         }
         else if (source == addOrderButton) {

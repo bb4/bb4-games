@@ -23,7 +23,7 @@ import java.awt.geom.Ellipse2D;
 public class PokerPlayerRenderer extends GamePieceRenderer {
 
     static final int FONT_SIZE = 6;
-    static final Font POKER_FONT = new Font(GUIUtil.DEFAULT_FONT_FAMILY, Font.PLAIN, FONT_SIZE );
+    static final Font POKER_FONT = new Font(GUIUtil.DEFAULT_FONT_FAMILY(), Font.PLAIN, FONT_SIZE );
 
     private static GamePieceRenderer renderer_ = null;
 

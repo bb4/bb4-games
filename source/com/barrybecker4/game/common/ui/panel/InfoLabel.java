@@ -14,7 +14,7 @@ import java.awt.*;
 public class InfoLabel extends JLabel {
 
     private static final String COLON = ' ' + GameContext.getLabel("COLON")+ ' ';
-    private static final Font LABEL_FONT = new Font(GUIUtil.DEFAULT_FONT_FAMILY, Font.PLAIN, 12 );
+    private static final Font LABEL_FONT = new Font(GUIUtil.DEFAULT_FONT_FAMILY(), Font.PLAIN, 12 );
 
     public InfoLabel() {
        this(null);

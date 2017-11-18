@@ -28,7 +28,7 @@ public class PlanetRenderer extends GamePieceRenderer {
     private static final Color HIGHLIGHT_COLOR = new Color(245, 255, 0);
     private static final BasicStroke HIGHLIGHT_STROKE = new BasicStroke(2);
 
-    private static final Font PLANET_FONT = new Font(GUIUtil.DEFAULT_FONT_FAMILY, Font.PLAIN, 11 );
+    private static final Font PLANET_FONT = new Font(GUIUtil.DEFAULT_FONT_FAMILY(), Font.PLAIN, 11 );
 
     /**
      * private constructor because this class is a singleton.

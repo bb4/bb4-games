@@ -22,7 +22,7 @@ import java.awt.geom.Point2D;
  */
 public abstract class GamePieceRenderer {
 
-    protected static final Font BASE_FONT = new Font(GUIUtil.DEFAULT_FONT_FAMILY, Font.PLAIN, 12 );
+    protected static final Font BASE_FONT = new Font(GUIUtil.DEFAULT_FONT_FAMILY(), Font.PLAIN, 12 );
 
     protected static final Point2D.Double SPEC_HIGHLIGHT_RADIUS = new Point2D.Double(0, 7);
 

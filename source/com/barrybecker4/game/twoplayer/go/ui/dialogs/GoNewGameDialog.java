@@ -40,7 +40,7 @@ public final class GoNewGameDialog extends TwoPlayerNewGameDialog
 
     @Override
     protected PlayerAssignmentPanel createPlayerAssignmentPanel() {
-        return new GoPlayerAssignmentPanel(get2PlayerController(), parent_);
+        return new GoPlayerAssignmentPanel(get2PlayerController(), this.myParent());
     }
 
     @Override

@@ -52,7 +52,7 @@ public class TwoPlayerOptionsDialog extends GameOptionsDialog
     }
 
     @Override
-    protected JPanel createControllerParamPanel() {
+    public JPanel createControllerParamPanel() {
 
         return null;
     }

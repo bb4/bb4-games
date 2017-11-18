@@ -55,12 +55,11 @@ public abstract class GameOptionsDialog extends OptionsDialog
     protected GameOptionsDialog( Component parent, GameController controller ) {
         super(parent);
         controller_ = controller;
-
         showContent();
     }
 
     @Override
-    protected JComponent createDialogContent()  {
+    public JComponent createDialogContent()  {
         JPanel mainPanel = new JPanel(true);
         mainPanel.setLayout( new BorderLayout() );
 
@@ -96,7 +95,7 @@ public abstract class GameOptionsDialog extends OptionsDialog
     /**
      * @return game options tab panel.
      */
-    protected JPanel createControllerParamPanel() {
+    public JPanel createControllerParamPanel() {
         JComponent[] comps = getControllerParamComponents();
         if (comps == null)
             return null;
@@ -127,15 +126,15 @@ public abstract class GameOptionsDialog extends OptionsDialog
 
     /** create the OK Cancel buttons that go at the bottom */
     @Override
-    protected JPanel createButtonsPanel() {
+    public JPanel createButtonsPanel() {
         JPanel buttonsPanel = new JPanel( new FlowLayout(), true );
 
         okButton_ =  new GradientButton();
         initBottomButton( okButton_, GameContext.getLabel("OK"), GameContext.getLabel("USE_OPTIONS") );
-        initBottomButton(cancelButton, GameContext.getLabel("CANCEL"), GameContext.getLabel("RESUME") );
+        initBottomButton(cancelButton(), GameContext.getLabel("CANCEL"), GameContext.getLabel("RESUME") );
 
         buttonsPanel.add( okButton_ );
-        buttonsPanel.add(cancelButton);
+        buttonsPanel.add(cancelButton());
 
         return buttonsPanel;
     }
@@ -193,17 +192,18 @@ public abstract class GameOptionsDialog extends OptionsDialog
         p.add( new RadioButtonPanel( windowOutputButton_, buttonGroup, false ) );
         p.add( new RadioButtonPanel( fileOutputButton_, buttonGroup, false ) );
         logDestination_ = GameContext.getLogger().getDestination();
-        switch (logDestination_) {
-            case Log.LOG_TO_CONSOLE:
-                consoleOutputButton_.setSelected( true );
-                break;
-            case Log.LOG_TO_WINDOW:
-                windowOutputButton_.setSelected( true );
-                break;
-            case Log.LOG_TO_FILE:
-                fileOutputButton_.setSelected( true );
-                break;
-            default : assert false : "invalid destination : " + logDestination_;
+
+        // Not sure why a swith c statement will not work here. Scala constants not recognized as consts.
+        if (logDestination_ == Log.LOG_TO_CONSOLE()) {
+            consoleOutputButton_.setSelected( true );
+        }
+        else if (logDestination_ == Log.LOG_TO_WINDOW()) {
+            windowOutputButton_.setSelected( true );
+        }
+        else if (logDestination_ == Log.LOG_TO_FILE() ) {
+            fileOutputButton_.setSelected( true );
+        } else {
+            assert false  : "invalid destination : " + logDestination_;
         }
     }
 
@@ -362,11 +362,11 @@ public abstract class GameOptionsDialog extends OptionsDialog
      */
     public void itemStateChanged( ItemEvent e ) {
         if ( consoleOutputButton_ != null && consoleOutputButton_.isSelected() ) {
-            logDestination_ = Log.LOG_TO_CONSOLE;
+            logDestination_ = Log.LOG_TO_CONSOLE();
         } else if ( windowOutputButton_ != null && windowOutputButton_.isSelected() ) {
-            logDestination_ = Log.LOG_TO_WINDOW;
+            logDestination_ = Log.LOG_TO_WINDOW();
         } else if ( fileOutputButton_ != null && fileOutputButton_.isSelected() )    {
-            logDestination_ = Log.LOG_TO_FILE;
+            logDestination_ = Log.LOG_TO_FILE();
         }
     }
 

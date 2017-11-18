@@ -52,7 +52,7 @@ public class SearchOptionsDialog extends OptionsDialog {
     }
 
     @Override
-    protected JComponent createDialogContent() {
+    public JComponent createDialogContent() {
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout( new BorderLayout() );
@@ -74,15 +74,15 @@ public class SearchOptionsDialog extends OptionsDialog {
     }
 
     @Override
-    protected JPanel createButtonsPanel() {
+    public JPanel createButtonsPanel() {
         JPanel buttonsPanel = new JPanel( new FlowLayout() );
 
         okButton = new GradientButton();
         initBottomButton(okButton, GameContext.getLabel("OK"), GameContext.getLabel("ACCEPT_PLAYER_OPTIONS") );
-        initBottomButton(cancelButton, GameContext.getLabel("CANCEL"), GameContext.getLabel("CANCEL_EDITS") );
+        initBottomButton(cancelButton(), GameContext.getLabel("CANCEL"), GameContext.getLabel("CANCEL_EDITS") );
 
         buttonsPanel.add(okButton);
-        buttonsPanel.add(cancelButton);
+        buttonsPanel.add(cancelButton());
 
         return buttonsPanel;
     }

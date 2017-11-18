@@ -39,7 +39,7 @@ public class SolutionDialog extends OptionsDialog {
     }
 
     @Override
-    protected JComponent createDialogContent() {
+    public JComponent createDialogContent() {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout( new BorderLayout() );
 
@@ -65,7 +65,7 @@ public class SolutionDialog extends OptionsDialog {
 
     /** create the OK Cancel buttons that go at the botton  */
     @Override
-    protected JPanel createButtonsPanel() {
+    public JPanel createButtonsPanel() {
 
         JPanel buttonsPanel = new JPanel( new FlowLayout() );
 

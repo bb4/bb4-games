@@ -375,7 +375,7 @@ final class GoGroupRenderer {
      */
     private void drawEyes(GoEyeSet eyes) {
         if ( !eyes.isEmpty() ) {
-            Font font = new Font(GUIUtil.DEFAULT_FONT_FAMILY, Font.PLAIN, (int) (1.6 * Math.sqrt( cellSize_ ) - 1) );
+            Font font = new Font(GUIUtil.DEFAULT_FONT_FAMILY(), Font.PLAIN, (int) (1.6 * Math.sqrt( cellSize_ ) - 1) );
             g2_.setFont( font );
             g2_.setColor( EYE_TEXT_COLOR );
 

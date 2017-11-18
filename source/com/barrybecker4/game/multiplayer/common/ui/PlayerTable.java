@@ -9,6 +9,7 @@ import com.barrybecker4.ui.table.ColorCellEditor;
 import com.barrybecker4.ui.table.ColorCellRenderer;
 import com.barrybecker4.ui.table.TableBase;
 import com.barrybecker4.ui.table.TableColumnMeta;
+import scala.collection.Seq;
 
 import javax.swing.*;
 import javax.swing.table.TableModel;
@@ -43,13 +44,13 @@ public abstract class PlayerTable extends TableBase {
      * @param players to initialize the rows in the table with.
      */
     protected PlayerTable(PlayerList players, String[] columnNames) {
-        super(players, columnNames);
+        super((Seq<Object>) players, columnNames);
 
         deletedRows_ = new ArrayList<>();
     }
 
     @Override
-    protected void updateColumnMeta(TableColumnMeta[] columnMeta) {
+    public void updateColumnMeta(TableColumnMeta[] columnMeta) {
 
         columnMeta[NAME_INDEX].setPreferredWidth(130);
         columnMeta[HUMAN_INDEX].setPreferredWidth(80);
@@ -84,9 +85,9 @@ public abstract class PlayerTable extends TableBase {
      * remove the selected rows from the table
      */
     public void removeSelectedRows()  {
-        int nSelected = table_.getSelectedRowCount();
-        int[] selectedRows = table_.getSelectedRows();
-        if (selectedRows.length == table_.getRowCount()) {
+        int nSelected = table().getSelectedRowCount();
+        int[] selectedRows = table().getSelectedRows();
+        if (selectedRows.length == table().getRowCount()) {
             JOptionPane.showMessageDialog(null, "You are not allowed to delete all the players!");
             return;
         }
@@ -105,8 +106,8 @@ public abstract class PlayerTable extends TableBase {
     }
 
     @Override
-    protected TableModel createTableModel(String[] columnNames) {
-        return new BasicTableModel(columnNames, 0, true);
+    public TableModel createTableModel(String[] columnNames) {
+        return new BasicTableModel(new String[][]{columnNames}, new Object[]{}, true);
     }
 
 }

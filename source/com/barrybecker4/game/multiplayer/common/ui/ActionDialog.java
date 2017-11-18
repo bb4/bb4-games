@@ -36,7 +36,7 @@ public abstract class ActionDialog extends OptionsDialog {
      * ui initialization of the tree control.
      */
     @Override
-    protected JComponent createDialogContent() {
+    public JComponent createDialogContent() {
         setResizable( true );
         JPanel mainPanel = new JPanel();
 
@@ -80,6 +80,6 @@ public abstract class ActionDialog extends OptionsDialog {
      *  create the OK/Cancel buttons that go at the bottom.
      */
     @Override
-    protected abstract JPanel createButtonsPanel();
+    public abstract JPanel createButtonsPanel();
 }
 

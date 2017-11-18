@@ -43,7 +43,7 @@ public final class GoStoneRenderer extends TwoPlayerPieceRenderer
 
     private static final float[] scaleFactors_ = {1.0f, 1.0f, 1.0f, 1.0f};
     private static final float[] OFFSETS = {0.0f, 0.0f, 0.0f, 0.0f};
-    private static final Font ANNOTATION_FONT = new Font(GUIUtil.DEFAULT_FONT_FAMILY, Font.BOLD, 16 );
+    private static final Font ANNOTATION_FONT = new Font(GUIUtil.DEFAULT_FONT_FAMILY(), Font.BOLD, 16 );
 
     /**
      * protected constructor because this class is a singleton.

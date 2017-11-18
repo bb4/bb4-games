@@ -69,7 +69,7 @@ public abstract class MultiPlayerOnlineGameTablesTable extends TableBase  {
      * init the table of tables.
      */
     @Override
-    protected void updateColumnMeta(TableColumnMeta[] columnMeta) {
+    public void updateColumnMeta(TableColumnMeta[] columnMeta) {
 
         columnMeta[NUM_PLAYERS_INDEX].setTooltip(MIN_NUM_PLAYERS_TIP);
 
@@ -89,8 +89,9 @@ public abstract class MultiPlayerOnlineGameTablesTable extends TableBase  {
     }
 
     @Override
-    protected TableModel createTableModel(String[] columnNames) {
-        return new BasicTableModel(columnNames, 0, true);
+    public TableModel createTableModel(String[] columnNames) {
+        return new BasicTableModel(new String[][]{columnNames},
+                new Object[]{}, true);
     }
 
     public OnlineGameTable getGameTable(int i) {
@@ -152,7 +153,7 @@ public abstract class MultiPlayerOnlineGameTablesTable extends TableBase  {
     public abstract Player createPlayerForName(String playerName);
 
     @Override
-    protected void addRow(Object onlineTable) {
+    public void addRow(Object onlineTable) {
         addRow((OnlineGameTable) onlineTable, true);
     }
 

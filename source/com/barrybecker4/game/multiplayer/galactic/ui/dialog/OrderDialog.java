@@ -61,7 +61,7 @@ final class OrderDialog extends OptionsDialog
      * ui initialization of the tree control.
      */
     @Override
-    protected JComponent createDialogContent() {
+    public JComponent createDialogContent() {
 
         JPanel mainPanel = new JPanel(true);
         setResizable(true);
@@ -122,16 +122,16 @@ final class OrderDialog extends OptionsDialog
      *  create the OK/Cancel buttons that go at the bottom.
      */
     @Override
-    protected JPanel createButtonsPanel() {
+    public JPanel createButtonsPanel() {
 
         JPanel buttonsPanel = new JPanel(true );
 
         okButton = new GradientButton();
         initBottomButton(okButton, GameContext.getLabel("OK"), GameContext.getLabel("PLACE_ORDER_TIP") );
-        initBottomButton(cancelButton, GameContext.getLabel("CANCEL"), GameContext.getLabel("CANCEL") );
+        initBottomButton(cancelButton(), GameContext.getLabel("CANCEL"), GameContext.getLabel("CANCEL") );
 
         buttonsPanel.add(okButton);
-        buttonsPanel.add(cancelButton);
+        buttonsPanel.add(cancelButton());
 
         return buttonsPanel;
     }
@@ -185,7 +185,7 @@ final class OrderDialog extends OptionsDialog
                 this.setVisible(false);
             }
         }
-        else if ( source == cancelButton) {
+        else if ( source == cancelButton()) {
             cancel();
         }
         else {

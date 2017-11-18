@@ -17,7 +17,7 @@ import java.awt.*;
  */
 public abstract class GeneralInfoPanel extends JPanel {
 
-    private static final Font PLAYER_FONT = new Font(GUIUtil.DEFAULT_FONT_FAMILY, Font.BOLD, 12 );
+    private static final Font PLAYER_FONT = new Font(GUIUtil.DEFAULT_FONT_FAMILY(), Font.BOLD, 12 );
 
     protected JLabel moveNumLabel;
     protected JLabel playerLabel;

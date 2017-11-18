@@ -24,7 +24,7 @@ public final class HelpDialog extends AbstractDialog
 
     private static final String VERSION = GameContext.getLabel("VERSION");
     private static final String COPYRIGHT = GameContext.getLabel("COPYRIGHT");
-    private static final Font FONT = new Font(GUIUtil.DEFAULT_FONT_FAMILY, Font.PLAIN, 12 );
+    private static final Font FONT = new Font(GUIUtil.DEFAULT_FONT_FAMILY(), Font.PLAIN, 12 );
 
     private final GradientButton okButton_ = new GradientButton();
     private static final long serialVersionUID = 0L;
@@ -55,7 +55,7 @@ public final class HelpDialog extends AbstractDialog
      * builds the ui.
      */
     @Override
-    protected JComponent createDialogContent() {
+    public JComponent createDialogContent() {
 
         Object[] arg = {gameName_};
         this.setTitle( MessageFormat.format(GameContext.getLabel("ABOUT"), arg));

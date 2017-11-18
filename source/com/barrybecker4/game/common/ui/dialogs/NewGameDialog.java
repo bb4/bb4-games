@@ -55,7 +55,7 @@ public abstract class NewGameDialog extends OptionsDialog implements ChangeListe
     }
 
     @Override
-    protected JComponent createDialogContent() {
+    public JComponent createDialogContent() {
         JPanel mainPanel = new JPanel(true);
         mainPanel.setLayout( new BorderLayout() );
 
@@ -103,15 +103,15 @@ public abstract class NewGameDialog extends OptionsDialog implements ChangeListe
 
 
     @Override
-    protected JPanel createButtonsPanel() {
+    public JPanel createButtonsPanel() {
         JPanel buttonsPanel = new JPanel( new FlowLayout(), true );
 
         startButton_ = new GradientButton();
         initBottomButton( startButton_, GameContext.getLabel("START_GAME"), GameContext.getLabel("START_GAME_TIP") );
-        initBottomButton(cancelButton, GameContext.getLabel("CANCEL"), GameContext.getLabel("NGD_CANCEL_TIP") );
+        initBottomButton(cancelButton(), GameContext.getLabel("CANCEL"), GameContext.getLabel("NGD_CANCEL_TIP") );
 
         buttonsPanel.add( startButton_ );
-        buttonsPanel.add(cancelButton);
+        buttonsPanel.add(cancelButton());
 
         return buttonsPanel;
     }
@@ -143,9 +143,7 @@ public abstract class NewGameDialog extends OptionsDialog implements ChangeListe
     }
 
     protected void ok() {
-
-        canceled_ = false;
-        this.setVisible( false );
+        super.closeWithoutCanceling();
     }
 
     @Override
@@ -187,7 +185,7 @@ public abstract class NewGameDialog extends OptionsDialog implements ChangeListe
      * cancel button pressed
      */
     @Override
-    protected void cancel() {
+    public void cancel() {
         // You are only allowed to participate in only games when the dialog is open.
         if (playOnlinePanel_ != null) {
             playOnlinePanel_.closing();
@@ -214,7 +212,7 @@ public abstract class NewGameDialog extends OptionsDialog implements ChangeListe
      * If the window gets closed, then the player has stood up from his table if online.
      */
     @Override
-    protected void processWindowEvent( WindowEvent e ) {
+    public void processWindowEvent( WindowEvent e ) {
         if ( e.getID() == WindowEvent.WINDOW_CLOSING ) {
 
             System.err.println("Window closing!");

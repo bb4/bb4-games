@@ -43,15 +43,15 @@ public abstract class GameBoardRenderer {
 
     // defaults for the grid and board colors.
     // The may be changed using the options panel in the ui.
-    private static final Color BACKGROUND_COLOR = BarryTheme.UI_COLOR_SECONDARY3;
-    private static final Color GRID_COLOR = BarryTheme.UI_COLOR_SECONDARY1;
+    private static final Color BACKGROUND_COLOR = BarryTheme.UI_COLOR_SECONDARY3();
+    private static final Color GRID_COLOR = BarryTheme.UI_COLOR_SECONDARY1();
     private static final int BOARD_MARGIN = 5;
     private static final int PREFERRED_CELL_SIZE = 16;
 
     protected Color backgroundColor_ = BACKGROUND_COLOR;
     private Color gridColor_ = GRID_COLOR;
 
-    private static final Font VIEWER_FONT = new Font(GUIUtil.DEFAULT_FONT_FAMILY, Font.PLAIN, 8 );
+    private static final Font VIEWER_FONT = new Font(GUIUtil.DEFAULT_FONT_FAMILY(), Font.PLAIN, 8 );
     protected static final Color LAST_MOVE_INDICATOR_COLOR = new Color( 255, 120, 0 );
     protected static final Stroke LAST_MOVE_INDICATOR_STROKE = new BasicStroke(3);
 
