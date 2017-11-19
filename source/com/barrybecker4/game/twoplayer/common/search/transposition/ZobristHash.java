@@ -20,7 +20,7 @@ import java.util.Random;
  */
 public final class ZobristHash {
 
-    private long[][][] randomNumberTable_;
+    private long[][][] randomNumberTable;
 
     /** Get random 64bit integers with a seed so things are predictable. */
     private Random RANDOM;
@@ -91,12 +91,12 @@ public final class ZobristHash {
         int nrows = board.getNumRows();
         int ncols = board.getNumCols();
         int numStatesPerPosition = board.getNumPositionStates();
-        randomNumberTable_ = new long[nrows][ncols][numStatesPerPosition];
+        randomNumberTable = new long[nrows][ncols][numStatesPerPosition];
 
         for (int i=0; i < nrows; i++) {
             for (int j=0; j < ncols; j++) {
                 for (int state = 0; state < numStatesPerPosition; state++) {
-                    randomNumberTable_[i][j][state] = RANDOM.nextLong();
+                    randomNumberTable[i][j][state] = RANDOM.nextLong();
                 }
             }
         }
@@ -132,7 +132,7 @@ public final class ZobristHash {
      */
     private void applyPositionToKey(Location location, int stateIndex) {
 
-        Long specialNum = randomNumberTable_[location.getRow()-1][location.getCol()-1][stateIndex];
+        Long specialNum = randomNumberTable[location.getRow()-1][location.getCol()-1][stateIndex];
         currentKey.applyMove(location, specialNum);
     }
 
