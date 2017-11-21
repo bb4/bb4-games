@@ -4,7 +4,6 @@ package com.barrybecker4.game.twoplayer.go.board.analysis.group.eye.potential;
 import com.barrybecker4.game.twoplayer.go.GoTestCase;
 import com.barrybecker4.game.twoplayer.go.board.analysis.group.GroupAnalyzerMap;
 import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup;
-import junit.framework.Assert;
 
 /**
  * Verify that we come up with reasonable eye potential values (likelihood of making eyes in the group).
@@ -175,13 +174,13 @@ public class TestEyePotentialAnalyzer extends GoTestCase {
         IGoGroup group = getBiggestGroup(forBlackGroup);
 
         int size = group.getNumStones();
-        Assert.assertEquals("Unexpected size of test group.", expectedSizeOfGroup, size);
+        assertEquals("Unexpected size of test group.", expectedSizeOfGroup, size);
 
         EyePotentialAnalyzer analyzer = new EyePotentialAnalyzer(group, new GroupAnalyzerMap());
         analyzer.setBoard(getBoard());
         float eyePotential = analyzer.calculateEyePotential();
 
-        Assert.assertEquals("Unexpected group eye potential", expectedPotential, eyePotential, TOLERANCE);
+        assertEquals("Unexpected group eye potential", expectedPotential, eyePotential, TOLERANCE);
     }
 
 }

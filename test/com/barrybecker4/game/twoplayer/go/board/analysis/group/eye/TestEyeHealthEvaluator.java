@@ -4,7 +4,6 @@ package com.barrybecker4.game.twoplayer.go.board.analysis.group.eye;
 import com.barrybecker4.game.twoplayer.go.GoTestCase;
 import com.barrybecker4.game.twoplayer.go.board.analysis.group.LifeAnalyzer;
 import com.barrybecker4.game.twoplayer.go.board.analysis.group.StubLifeAnalyzer;
-import junit.framework.Assert;
 
 /**
  * Verify that we come up with reasonable eye potential values (likelihood of making eyes in the group).
@@ -76,7 +75,7 @@ public class TestEyeHealthEvaluator extends GoTestCase {
 
         float actEyeHealth = evaluator.determineHealth(forBlackGroup, numEyes, numLiberties, numStones);
 
-        Assert.assertEquals("Unexpected eyeHealth", expEyeHealth, actEyeHealth, TOLERANCE);
+        assertEquals("Unexpected eyeHealth", expEyeHealth, actEyeHealth, TOLERANCE);
     }
 
 }

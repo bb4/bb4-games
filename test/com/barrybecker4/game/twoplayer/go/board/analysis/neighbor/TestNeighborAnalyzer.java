@@ -5,7 +5,6 @@ import com.barrybecker4.game.twoplayer.go.GoTestCase;
 import com.barrybecker4.game.twoplayer.go.board.GoBoard;
 import com.barrybecker4.game.twoplayer.go.board.elements.position.GoBoardPosition;
 import com.barrybecker4.game.twoplayer.go.board.elements.position.GoBoardPositionList;
-import junit.framework.Assert;
 
 /**
  * Verify that all our neighbor analysis methods work.
@@ -85,8 +84,8 @@ public class TestNeighborAnalyzer extends GoTestCase {
         int numSameNbrs = nbrAnalyzer_.findGroupNeighbors(pos, true).size();
         int numNbrs = nbrAnalyzer_.findGroupNeighbors(pos, false).size();
 
-        Assert.assertTrue("numSameNbrs="+numSameNbrs+" expected "+ expectedNumSameNbrs, numSameNbrs == expectedNumSameNbrs);
-        Assert.assertTrue("numNbrs="+numNbrs+" expected "+ expectedNumNbrs, numNbrs == expectedNumNbrs);
+        assertTrue("numSameNbrs="+numSameNbrs+" expected "+ expectedNumSameNbrs, numSameNbrs == expectedNumSameNbrs);
+        assertTrue("numNbrs="+numNbrs+" expected "+ expectedNumNbrs, numNbrs == expectedNumNbrs);
     }
 
     public void testFindOccupiedNbrs() throws Exception {
@@ -109,7 +108,7 @@ public class TestNeighborAnalyzer extends GoTestCase {
         nbrAnalyzer_ = new NeighborAnalyzer(board);
         int numNbrs = nbrAnalyzer_.findOccupiedNobiNeighbors(empties).size();
 
-        Assert.assertTrue("numNbrs="+numNbrs+" expected "+ expectedNumNbrs, numNbrs == expectedNumNbrs);
+        assertTrue("numNbrs="+numNbrs+" expected "+ expectedNumNbrs, numNbrs == expectedNumNbrs);
     }
 
 }

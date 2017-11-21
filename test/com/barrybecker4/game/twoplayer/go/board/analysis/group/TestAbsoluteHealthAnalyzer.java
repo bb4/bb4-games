@@ -11,7 +11,6 @@ import com.barrybecker4.game.twoplayer.go.board.analysis.eye.information.FalseEy
 import com.barrybecker4.game.twoplayer.go.board.elements.eye.GoEyeSet;
 import com.barrybecker4.game.twoplayer.go.board.elements.eye.IGoEye;
 import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup;
-import junit.framework.Assert;
 
 import java.util.Arrays;
 
@@ -560,22 +559,22 @@ public class TestAbsoluteHealthAnalyzer extends GoTestCase {
             System.out.println("\n");
         }
 
-        Assert.assertEquals(file + ". Expected num black liberties ="+ expectedNumberOfBlackLiberties + " but got "+numBlackLiberties,
+        assertEquals(file + ". Expected num black liberties ="+ expectedNumberOfBlackLiberties + " but got "+numBlackLiberties,
                  expectedNumberOfBlackLiberties, numBlackLiberties);
-        Assert.assertEquals(file + ". Expected num white liberties ="+ expectedNumberOfWhiteLiberties + " but got "+numWhiteLiberties,
+        assertEquals(file + ". Expected num white liberties ="+ expectedNumberOfWhiteLiberties + " but got "+numWhiteLiberties,
                  expectedNumberOfWhiteLiberties, numWhiteLiberties);
 
-        Assert.assertTrue(file + ".  Unexpected black eye potential = " + bPotential,  bEyePotentialOK);
-        Assert.assertTrue(file + ".  Unexpected white eye potential = " + wPotential,  wEyePotentialOK);
+        assertTrue(file + ".  Unexpected black eye potential = " + bPotential,  bEyePotentialOK);
+        assertTrue(file + ".  Unexpected white eye potential = " + wPotential,  wEyePotentialOK);
 
-        Assert.assertTrue(file + ".  Unexpected black health = " + bah,  bHealthOK);
-        Assert.assertTrue(file + ".  Unexpected white health = " + wah,  wHealthOK);
+        assertTrue(file + ".  Unexpected black health = " + bah,  bHealthOK);
+        assertTrue(file + ".  Unexpected white health = " + wah,  wHealthOK);
 
-        Assert.assertTrue(file + ". Expected (absAbs) abs(black AbsHealth) - abs(white AbsHealth) to be about "
+        assertTrue(file + ". Expected (absAbs) abs(black AbsHealth) - abs(white AbsHealth) to be about "
                 + expectedAbsAbsHealthDifference + "\n but instead got ("+abah+" -"+ awah+") = "+ daah, absAbsDifOK);
-        Assert.assertTrue(file + ". Expected (black AbsHealth) - (white AbsHealth) to be about "
+        assertTrue(file + ". Expected (black AbsHealth) - (white AbsHealth) to be about "
                 + expectedAbsHealthDifference + "\n but instead got ("+bah+" -"+ wah+") = "+ dah, absDifOK);
-        Assert.assertTrue(file + ". Expected (rel) (black RelativeHealth) - (white RelativeHealth) to be about "
+        assertTrue(file + ". Expected (rel) (black RelativeHealth) - (white RelativeHealth) to be about "
                 + expectedRelHealthDifference + "\n but instead got  ("+brh+" -"+ wrh+") = "+ drh, relDifOK);
     }
 

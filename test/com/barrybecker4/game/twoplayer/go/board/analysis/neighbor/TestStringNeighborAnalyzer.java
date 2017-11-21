@@ -6,7 +6,6 @@ import com.barrybecker4.game.twoplayer.go.GoTestCase;
 import com.barrybecker4.game.twoplayer.go.board.GoBoard;
 import com.barrybecker4.game.twoplayer.go.board.elements.position.GoBoardPosition;
 import com.barrybecker4.game.twoplayer.go.board.elements.position.GoBoardPositionList;
-import junit.framework.Assert;
 
 /**
  * Verify that all our neighbor analysis methods work.
@@ -91,7 +90,7 @@ public class TestStringNeighborAnalyzer extends GoTestCase {
         GoBoardPositionList stack = new GoBoardPositionList();
         int numNbrs = stringAnalyzer_.pushStringNeighbors(pos, friendP1, stack, samePlayerOnly);
 
-        Assert.assertEquals("Unexpected number of neigbors pushed on stack.",
+        assertEquals("Unexpected number of neigbors pushed on stack.",
                 expectedNumNbrs, numNbrs);
     }
 
@@ -112,7 +111,7 @@ public class TestStringNeighborAnalyzer extends GoTestCase {
         int numNbrs =
                 stringAnalyzer_.findStringFromInitialPosition(pos, friendP1, true, type, box).size();
 
-        Assert.assertEquals("Unexpected number of stones in string.",
+        assertEquals("Unexpected number of stones in string.",
                 expectedNumNbrs, numNbrs);
     }
 }

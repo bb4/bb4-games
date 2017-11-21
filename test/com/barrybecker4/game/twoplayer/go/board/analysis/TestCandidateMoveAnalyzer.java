@@ -5,7 +5,6 @@ import com.barrybecker4.common.geometry.ByteLocation;
 import com.barrybecker4.common.geometry.Location;
 import com.barrybecker4.game.twoplayer.go.GoTestCase;
 import com.barrybecker4.game.twoplayer.go.board.GoBoard;
-import junit.framework.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,12 +69,12 @@ public class TestCandidateMoveAnalyzer extends GoTestCase {
         CandidateMoveAnalyzer cma = new CandidateMoveAnalyzer(board);
 
         int actNumCandidates = cma.getNumCandidates();
-        Assert.assertEquals("Unexpected number of candidate moves for case  "+ file, expNumCandidates, actNumCandidates);
+        assertEquals("Unexpected number of candidate moves for case  "+ file, expNumCandidates, actNumCandidates);
 
         if (expCandidates != null) {
             System.out.println("actual candidates="+ actNumCandidates);
             for (Location loc : expCandidates) {
-                Assert.assertTrue("Invalid candidate position:" + loc, cma.isCandidateMove(loc.getRow(), loc.getCol()));
+                assertTrue("Invalid candidate position:" + loc, cma.isCandidateMove(loc.getRow(), loc.getCol()));
             }
         }
     }

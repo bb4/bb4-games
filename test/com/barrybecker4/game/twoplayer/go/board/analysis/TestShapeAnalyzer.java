@@ -4,7 +4,6 @@ package com.barrybecker4.game.twoplayer.go.board.analysis;
 import com.barrybecker4.game.twoplayer.go.GoTestCase;
 import com.barrybecker4.game.twoplayer.go.board.GoBoard;
 import com.barrybecker4.game.twoplayer.go.board.elements.position.GoBoardPosition;
-import junit.framework.Assert;
 
 /**
  * Verify expected shapes on the board.
@@ -33,7 +32,7 @@ public class TestShapeAnalyzer extends GoTestCase {
         GoBoardPosition pos = (GoBoardPosition)board.getPosition(row, col);
         StringShapeAnalyzer sa = new StringShapeAnalyzer(board);
         int badShapeScore = sa.formsBadShape(pos);
-        Assert.assertTrue("badShapeScore="+badShapeScore+" expected="+expected, badShapeScore == expected);
+        assertTrue("badShapeScore="+badShapeScore+" expected="+expected, badShapeScore == expected);
     }
 
 }

@@ -7,7 +7,6 @@ import com.barrybecker4.game.twoplayer.go.GoTestCase;
 import com.barrybecker4.game.twoplayer.go.board.elements.position.GoBoardPosition;
 import com.barrybecker4.game.twoplayer.go.board.elements.position.GoStone;
 import com.barrybecker4.game.twoplayer.go.board.move.GoMove;
-import junit.framework.Assert;
 
 /**
  * Verify that all the methods in GoBoard work as expected
@@ -51,17 +50,17 @@ public class TestGoBoard extends GoTestCase {
 
         int actualNumCaptures = move.getNumCaptures();
 
-        Assert.assertTrue("move.captures=" + actualNumCaptures + " expected "+expNnumCaptures,
+        assertTrue("move.captures=" + actualNumCaptures + " expected "+expNnumCaptures,
                               actualNumCaptures == expNnumCaptures);
         int diffWhite = numWhiteStonesBefore - numWhiteStonesAfter;
-        Assert.assertTrue("diff in num white stones ("+ diffWhite
+        assertTrue("diff in num white stones ("+ diffWhite
                 + ") not = numcaptures (" + expNnumCaptures
                 + ')', diffWhite == expNnumCaptures);
 
         controller_.undoLastMove();
         // verify that all the captured stones get restored to the board
         numWhiteStonesAfter = board.getNumStones(false);
-        Assert.assertTrue("numWhiteStonesBefore="+numWhiteStonesBefore
+        assertTrue("numWhiteStonesBefore="+numWhiteStonesBefore
                 + " not equal numWhiteStonesAfter="+numWhiteStonesAfter,
                 numWhiteStonesBefore == numWhiteStonesAfter );
     }
@@ -72,7 +71,7 @@ public class TestGoBoard extends GoTestCase {
 
         GoMove m = new GoMove(new ByteLocation(4, 4), 0, new GoStone(false));
         int numInAtari = m.numStonesAtaried(getBoard());
-        Assert.assertTrue("numInAtri="+numInAtari+" expected="+4, numInAtari == 4);
+        assertTrue("numInAtri="+numInAtari+" expected="+4, numInAtari == 4);
     }
 
 
@@ -83,7 +82,7 @@ public class TestGoBoard extends GoTestCase {
         controller_.makeMove(m);
         GoBoard board = (GoBoard)controller_.getBoard();
         int numInAtari = m.numStonesAtaried(board);
-        Assert.assertTrue("numInAtri="+numInAtari+" expected="+12, numInAtari == 12);
+        assertTrue("numInAtri="+numInAtari+" expected="+12, numInAtari == 12);
     }
 
 
@@ -113,12 +112,12 @@ public class TestGoBoard extends GoTestCase {
 
         GoBoardPosition pos = (GoBoardPosition)board.getPosition(bRow, bCol);
         int numGroupLiberties = pos.getGroup().getLiberties(board).size();
-        Assert.assertTrue("numGroupLiberties="+numGroupLiberties+" expected="+expectedBlackLiberties,
+        assertTrue("numGroupLiberties="+numGroupLiberties+" expected="+expectedBlackLiberties,
                 numGroupLiberties == expectedBlackLiberties);
 
         pos = (GoBoardPosition)board.getPosition(wRow, wCol);
         numGroupLiberties = pos.getGroup().getLiberties(board).size();
-        Assert.assertTrue("numGroupLiberties="+numGroupLiberties+" expected="+expectedWhiteLiberties,
+        assertTrue("numGroupLiberties="+numGroupLiberties+" expected="+expectedWhiteLiberties,
                 numGroupLiberties == expectedWhiteLiberties);
     }
 

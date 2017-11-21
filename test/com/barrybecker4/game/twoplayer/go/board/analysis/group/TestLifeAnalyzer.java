@@ -3,7 +3,6 @@ package com.barrybecker4.game.twoplayer.go.board.analysis.group;
 
 import com.barrybecker4.game.twoplayer.go.GoTestCase;
 import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup;
-import junit.framework.Assert;
 
 /**
  * Mostly test that the scoring of groups works correctly.
@@ -85,16 +84,16 @@ public class TestLifeAnalyzer extends GoTestCase {
         IGoGroup group = getBiggestGroup(forBlackGroup);
 
         int size = group.getNumStones();
-        Assert.assertEquals("Unexpected size of test group.", expectedSizeOfGroup, size);
+        assertEquals("Unexpected size of test group.", expectedSizeOfGroup, size);
 
         LifeAnalyzer analyzer = new LifeAnalyzer(group, getBoard(), new GroupAnalyzerMap());
         boolean unconditionallyAlive = analyzer.isUnconditionallyAlive();
 
         if (expectedUnconditionalyAlive) {
-            Assert.assertTrue("Expected this group be unconditionally alive, but its not. group=" + group,
+            assertTrue("Expected this group be unconditionally alive, but its not. group=" + group,
                                unconditionallyAlive);
         } else {
-            Assert.assertTrue("Did not expected this group be unconditionally alive, but it is. group=" + group,
+            assertTrue("Did not expected this group be unconditionally alive, but it is. group=" + group,
                                !unconditionallyAlive);
         }
     }

@@ -13,7 +13,6 @@ import com.barrybecker4.game.twoplayer.go.board.elements.eye.IGoEye;
 import com.barrybecker4.game.twoplayer.go.board.elements.group.GoGroup;
 import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup;
 import com.barrybecker4.game.twoplayer.go.board.elements.position.GoBoardPositionSet;
-import junit.framework.Assert;
 
 import java.util.Set;
 
@@ -54,7 +53,7 @@ public abstract class TestEyeTypeAnalyzer extends GoTestCase {
 
         // consider the 2 biggest groups
         Set<IGoGroup> groups = board.getGroups();
-        Assert.assertEquals("Unexpected number of groups.",
+        assertEquals("Unexpected number of groups.",
                 expectedNumGroups, groups.size());
 
         return board;

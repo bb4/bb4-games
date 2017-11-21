@@ -3,12 +3,9 @@ package com.barrybecker4.game.twoplayer.gomoku.analysis;
 
 import com.barrybecker4.game.common.board.BoardPosition;
 import com.barrybecker4.game.common.board.GamePiece;
-
 import java.util.List;
+import static org.junit.Assert.assertEquals;
 
-import static junit.framework.Assert.assertEquals;
-
-//import org.codehaus.groovy.vmplugin.v5.JUnit4Utils;
 
 /**
  * Created by IntelliJ IDEA. User: barrybecker4 Date: Dec 27, 2009 Time: 8:15:01 AM To change this template use File |
