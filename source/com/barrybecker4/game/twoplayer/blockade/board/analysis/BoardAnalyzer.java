@@ -5,10 +5,9 @@ import com.barrybecker4.game.common.GameContext;
 import com.barrybecker4.game.common.board.GamePiece;
 import com.barrybecker4.game.twoplayer.blockade.board.BlockadeBoard;
 import com.barrybecker4.game.twoplayer.blockade.board.BlockadeBoardPosition;
-import com.barrybecker4.game.twoplayer.blockade.board.path.Path;
+import com.barrybecker4.game.twoplayer.blockade.board.Homes;
 import com.barrybecker4.game.twoplayer.blockade.board.path.PathList;
 import com.barrybecker4.game.twoplayer.blockade.board.path.PlayerPathLengths;
-import com.barrybecker4.game.twoplayer.blockade.board.Homes;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -49,9 +48,7 @@ public class BoardAnalyzer {
                     PathList paths = findShortestPaths(pos);
                     GameContext.log(2, "about to add " + paths.size() + " more paths to "
                             + opponentPaths.size() + " maxAllowed=" + numShortestPaths);
-                    for (Path p: paths) {
-                        opponentPaths.add(p);
-                    }
+                    opponentPaths.addAll(paths);
                 }
             }
         }

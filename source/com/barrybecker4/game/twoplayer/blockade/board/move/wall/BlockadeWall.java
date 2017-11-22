@@ -20,10 +20,10 @@ import java.util.Set;
 public class BlockadeWall {
 
     /** whether the wall is VERTICAL or HORIZONTAL */
-    private boolean isVertical_;
+    private boolean isVertical;
 
     /** the BlockadeBoardPosition that contain the wall (on the south or east faces depending on the orientation). */
-    private HashSet<BlockadeBoardPosition> positions_;
+    private HashSet<BlockadeBoardPosition> positions;
 
     /**
      * constructor
@@ -44,9 +44,9 @@ public class BlockadeWall {
         HashSet<BlockadeBoardPosition> hsPositions = new LinkedHashSet<>( 2 );
         hsPositions.add( p1 );
         hsPositions.add( p2 );
-        isVertical_ = p1.getCol() == p2.getCol();
+        isVertical = p1.getCol() == p2.getCol();
         assert p1.getCol() == p2.getCol() || p1.getRow() == p2.getRow() : "impossible wall!";
-        positions_ = hsPositions;
+        positions = hsPositions;
     }
 
     /**
@@ -58,14 +58,14 @@ public class BlockadeWall {
 
         if (wall == null) return false;
         BlockadeWall comparisonWall = (BlockadeWall) wall;
-        return !(this.isVertical_ != comparisonWall.isVertical_ ||
+        return !(this.isVertical != comparisonWall.isVertical ||
                 !this.getFirstPosition().getLocation().equals(comparisonWall.getFirstPosition().getLocation()));
     }
 
     @Override
     public int hashCode() {
          int hashcode = 0;
-         for (BlockadeBoardPosition pos: positions_) {
+         for (BlockadeBoardPosition pos: positions) {
              hashcode += pos.hashCode();
          }
          return hashcode;
@@ -75,7 +75,7 @@ public class BlockadeWall {
      * @return true if this is a vertically oriented wall.
      */
     public boolean isVertical() {
-        return isVertical_;
+        return isVertical;
     }
 
     /**
@@ -83,7 +83,7 @@ public class BlockadeWall {
      * @return  the positions bordered by this wall.
      */
     public Set<BlockadeBoardPosition> getPositions() {
-        return positions_;
+        return positions;
     }
 
     /**
@@ -91,10 +91,10 @@ public class BlockadeWall {
      *  depending on whether this is a vertical or horizontal wall, respectively.
      */
     public BlockadeBoardPosition getFirstPosition() {
-        Iterator<BlockadeBoardPosition> it = positions_.iterator();
+        Iterator<BlockadeBoardPosition> it = positions.iterator();
         BlockadeBoardPosition pos1 = it.next();
         BlockadeBoardPosition pos2 = it.next();
-        if (isVertical_) {
+        if (isVertical) {
             return (pos1.getRow() < pos2.getRow())? pos1 : pos2;
         }
         else {
@@ -107,7 +107,7 @@ public class BlockadeWall {
 
         // we may also want to include the position that the wall is at.
         StringBuilder buf = new StringBuilder("wall: "+(isVertical()?"V":"H"));
-        for (BlockadeBoardPosition pos : positions_) {
+        for (BlockadeBoardPosition pos : positions) {
             buf.append(pos.toString()).append(isVertical() ? "eastBlocked " : "southBlocked ");
         }
         return buf.toString();
