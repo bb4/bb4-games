@@ -110,8 +110,8 @@ public class GoStone extends GamePiece implements IGoMember {
     @Override
     public String getDescription() {
         StringBuilder sb = new StringBuilder( "" );
-        //sb.append( type_ );
-        sb.append(ownedByPlayer1_ ? "Black" : "White").append("stone");
+        //sb.append( pieceType );
+        sb.append(ownedByPlayer1 ? "Black" : "White").append("stone");
         if (positionalScore_ != null)  {
             sb.append(positionalScore_.toString(true));
         }
@@ -125,7 +125,7 @@ public class GoStone extends GamePiece implements IGoMember {
     @Override
     public String toString()  {
         StringBuilder sb = new StringBuilder( "" );
-        sb.append( ownedByPlayer1_ ? 'B' : 'W' );
+        sb.append( ownedByPlayer1 ? 'B' : 'W' );
 
         return sb.toString();
     }

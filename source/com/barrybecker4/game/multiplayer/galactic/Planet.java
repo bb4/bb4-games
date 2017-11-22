@@ -32,7 +32,7 @@ public class Planet extends GamePiece {
 
     /** Constructor */
     public Planet( char name, int initialNumShips, int productionCapacity, Location pos)  {
-        type_ = name;
+        pieceType = name;
         setAnnotation(""+name);
         numShips_ = initialNumShips;
         productionCapacity_ = productionCapacity;
@@ -42,7 +42,7 @@ public class Planet extends GamePiece {
 
 
     public char getName()  {
-        return type_;
+        return pieceType;
     }
 
     public GalacticPlayer getOwner()  {
@@ -136,7 +136,7 @@ public class Planet extends GamePiece {
     public String getDescription() {
         StringBuilder sb = new StringBuilder( this.toString() );
 
-        sb.append("Planet: ").append(type_).append(" production:").append(getProductionCapacity());
+        sb.append("Planet: ").append(pieceType).append(" production:").append(getProductionCapacity());
         return sb.toString();
     }
 
@@ -181,7 +181,7 @@ public class Planet extends GamePiece {
 
 
     String toString(String newLine) {
-        StringBuilder sb = new StringBuilder("Planet: "+type_+newLine);
+        StringBuilder sb = new StringBuilder("Planet: "+ pieceType +newLine);
 
         if (getOwner()!=null)
             sb.append("Owner: ").append(this.getOwner().getName()).append(newLine);

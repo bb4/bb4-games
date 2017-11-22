@@ -9,5 +9,4 @@ import java.util.HashMap;
  * @author Barry Becker
  */
 public class Captures extends HashMap<Location, Byte> {
-
 }

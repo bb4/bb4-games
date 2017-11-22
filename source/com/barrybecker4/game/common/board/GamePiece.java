@@ -23,30 +23,30 @@ public class GamePiece implements Serializable {
     public static final char REGULAR_PIECE = 'x';
 
     /** true if this is player1's piece. */
-    protected boolean ownedByPlayer1_;
+    protected boolean ownedByPlayer1;
 
     /** the type of piece to draw */
-    protected char type_;
+    protected char pieceType;
 
     /**
      * For some pieces we may wish to represent them
      * more transparently (255 = total transparent; 0= totally opaque)
      */
-    private short transparency_;
+    private short transparency;
 
     /**
      * a string associated with the piece to give additional information.
      * For example you can use this to show a number (0-99)
      */
-    private String annotation_;
+    private String annotation;
 
     /**
      * default constructor
      */
     protected GamePiece() {
-        ownedByPlayer1_ = false;
-        type_ = REGULAR_PIECE;
-        transparency_ = 0;
+        ownedByPlayer1 = false;
+        pieceType = REGULAR_PIECE;
+        transparency = 0;
     }
 
     /**
@@ -54,9 +54,9 @@ public class GamePiece implements Serializable {
      * @param player1 if owned by player1
      */
     public GamePiece(boolean player1)  {
-        ownedByPlayer1_ = player1;
-        type_ = REGULAR_PIECE;
-        transparency_ = 0;
+        ownedByPlayer1 = player1;
+        pieceType = REGULAR_PIECE;
+        transparency = 0;
     }
 
     /**
@@ -65,9 +65,9 @@ public class GamePiece implements Serializable {
      * @param type there may be different types of pieces (for example in chess there are many; checkers has 2)
      */
     protected GamePiece(boolean player1, char type) {
-        ownedByPlayer1_ = player1;
-        type_ = type;
-        transparency_ = 0;
+        ownedByPlayer1 = player1;
+        pieceType = type;
+        transparency = 0;
     }
 
     /**
@@ -75,9 +75,9 @@ public class GamePiece implements Serializable {
      */
     protected GamePiece(GamePiece piece) {
         this(piece.isOwnedByPlayer1());
-        this.type_ = piece.getType();
-        transparency_ = piece.transparency_;
-        annotation_ = piece.annotation_;
+        this.pieceType = piece.getType();
+        transparency = piece.transparency;
+        annotation = piece.annotation;
     }
 
     /**
@@ -88,33 +88,33 @@ public class GamePiece implements Serializable {
     }
 
     public final char getType() {
-        return type_;
+        return pieceType;
     }
 
     public final boolean isOwnedByPlayer1() {
-        return ownedByPlayer1_;
+        return ownedByPlayer1;
     }
 
     public final void setTransparency( short trans ) {
-        transparency_ = trans;
+        transparency = trans;
     }
 
     public final short getTransparency() {
-        return transparency_;
+        return transparency;
     }
 
      /**
       * @param annotation   number or word to show next to the game piece.
       */
      public final void setAnnotation( String annotation )  {
-         annotation_ = annotation;
+         this.annotation = annotation;
      }
 
      /**
       * @return  number or word to show next to the game piece.
       */
      public String getAnnotation() {
-         return annotation_;
+         return annotation;
      }
 
     /**
@@ -125,7 +125,7 @@ public class GamePiece implements Serializable {
     }
 
     public char getSymbol() {
-        return ownedByPlayer1_ ?  'X' : 'O';
+        return ownedByPlayer1 ?  'X' : 'O';
     }
     /**
      * @return a string representation of the board position

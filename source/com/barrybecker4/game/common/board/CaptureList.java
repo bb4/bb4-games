@@ -13,8 +13,7 @@ import java.util.LinkedList;
  */
 public class CaptureList extends LinkedList<BoardPosition> {
 
-    public CaptureList() {
-    }
+    public CaptureList() { }
 
     /**
      * copy constructor
