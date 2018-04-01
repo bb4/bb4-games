@@ -77,7 +77,8 @@ public abstract class TwoPlayerSearchable<M extends TwoPlayerMove, B extends Two
      */
     public void undoInternalMove(M move) {
         TwoPlayerMove lastMove = moveList_.getLastMove();
-        assert move.equals(lastMove) : "The move we are trying to undo ("+ move +") in list="
+        assert(move != null);
+        assert move.equals(lastMove) : "The move we are trying to undo (" + move + ") in list="
                 + moveList_ + " was not equal to the last move (" + lastMove + "). all move=" + getBoard().getMoveList();
 
         Location loc = move.getToLocation();
