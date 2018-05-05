@@ -14,8 +14,23 @@ import com.barrybecker4.ui.components.RadioButtonPanel;
 import com.barrybecker4.ui.dialogs.OptionsDialog;
 import com.barrybecker4.ui.util.Log;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTabbedPane;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -302,12 +317,12 @@ public abstract class GameOptionsDialog extends OptionsDialog
         localeComboBox.setToolTipText( GameContext.getLabel("LOCALE_TIP") );
 
         // add the available locales to the dropdown
-        LocaleType[] locales = LocaleType.values();
-        for (final LocaleType newVar : locales) {
+        for (int i = 0; i < LocaleType.VALUES().length; i++) {
+            LocaleType newVar = (LocaleType)LocaleType.VALUES()[i];
             String item = GameContext.getLabel(newVar.toString());
             localeComboBox.addItem(item);
         }
-        localeComboBox.setSelectedItem(MessageContext.DEFAULT_LOCALE);
+        localeComboBox.setSelectedItem(MessageContext.DEFAULT_LOCALE());
         localeComboBox.addActionListener( this );
         localeComboBox.setAlignmentX( Component.LEFT_ALIGNMENT );
         return localeComboBox;
@@ -325,8 +340,8 @@ public abstract class GameOptionsDialog extends OptionsDialog
         v.setBackground( boardColorButton_.getBackground() );
         v.setGridColor( gridColorButton_.getBackground() );
 
-        LocaleType[] locales = LocaleType.values();
-        GameContext.setLocale(locales[localeComboBox_.getSelectedIndex()]);
+        LocaleType locale = (LocaleType) LocaleType.VALUES()[localeComboBox_.getSelectedIndex()];
+        GameContext.setLocale(locale);
 
         // game specific options
         GameOptions options = getOptions();

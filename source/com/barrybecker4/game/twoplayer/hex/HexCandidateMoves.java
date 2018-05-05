@@ -89,8 +89,8 @@ public class HexCandidateMoves {
         // select some random moves around the initialBoard to include
         for (int k = 0; k < NUM_RANDOM_PLACEMENTS; k++) {
             Location loc = new ByteLocation(
-                    MathUtil.RANDOM.nextInt(numRows) + 1,
-                    MathUtil.RANDOM.nextInt(numCols) + 1);
+                    MathUtil.RANDOM().nextInt(numRows) + 1,
+                    MathUtil.RANDOM().nextInt(numCols) + 1);
             BoardPosition pos = board.getPosition(loc);
             setCandidate(pos);
         }

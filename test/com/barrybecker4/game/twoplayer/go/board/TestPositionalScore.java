@@ -10,7 +10,7 @@ import com.barrybecker4.game.twoplayer.go.GoTestCase;
  */
 public class TestPositionalScore extends GoTestCase {
 
-    private static final double TOLERANCE = MathUtil.EPS_MEDIUM;
+    private static final double TOLERANCE = MathUtil.EPS_MEDIUM();
 
     /** instance under test. */
     private PositionalScore score;

@@ -41,7 +41,7 @@ public class AllStrategiesTest  {
         if (!result.wasSuccessful()) {
             System.out.println(" *** FAILURES (" + result.getFailureCount() + ") ***\n");
             for (Failure failure : result.getFailures()) {
-                System.out.println(failure.getException().getMessage());
+                System.out.println("msg: " + failure.getException().getMessage());
                 //System.out.println(failure.toString());
             }
         }

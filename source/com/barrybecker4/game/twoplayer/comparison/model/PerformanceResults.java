@@ -143,7 +143,7 @@ public class PerformanceResults {
     public void saveTo(String path) throws IOException {
         FileUtil.verifyDirectoryExistence(path);
 
-        String baseName = path + FileUtil.FILE_SEPARATOR + getDescription();
+        String baseName = path + FileUtil.FILE_SEPARATOR() + getDescription();
         exporter.saveToFile(baseName, null);
         ImageUtil.saveAsImage(baseName, getFinalImage(), ImageUtil.ImageType$.MODULE$.PNG());
         PrintWriter writer = FileUtil.createPrintWriter(baseName + ".txt");

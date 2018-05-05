@@ -403,7 +403,7 @@ public class BestMoveFinderTest {
      */
     private MoveList<TwoPlayerMove> createRangeMoveList(Range range, boolean player1) {
         MoveList<TwoPlayerMove> moveList = new MoveList<>();
-        for (int i = (int) range.getMin(); i <= range.getMax(); i++) {
+        for (int i = (int) range.min(); i <= range.max(); i++) {
              moveList.add(TwoPlayerMoveStub.createMove(new ByteLocation(i / 40, i % 40), i, new GamePiece(player1)));
         }
         return moveList;

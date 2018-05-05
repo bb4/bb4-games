@@ -43,8 +43,8 @@ public class PokerChips extends LinkedHashMap<PokerChip, Integer> {
 
         for (PokerChip chipType : THRESHOLDS.keySet()) {
             assert (remainder >= 0) : "remainder "+remainder+" is negative";
-            if (remainder >= THRESHOLDS.get(chipType).getMax()) {
-                int amtToConvert = remainder - (remainder % (int)THRESHOLDS.get(chipType).getMin());
+            if (remainder >= THRESHOLDS.get(chipType).max()) {
+                int amtToConvert = remainder - (remainder % (int)THRESHOLDS.get(chipType).min());
                 int nChips = amtToConvert / chipType.getValue();
                 remainder -=  nChips * chipType.getValue();
                 put(chipType, nChips);

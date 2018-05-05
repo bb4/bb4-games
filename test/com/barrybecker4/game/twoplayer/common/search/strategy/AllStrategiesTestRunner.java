@@ -13,7 +13,6 @@ import org.junit.runners.Parameterized;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -33,14 +32,13 @@ public class AllStrategiesTestRunner {
 
     private static final String TEST_CASE_SUFFIX = ".xml";
 
-    String exampleName;
-    SearchTestCase testCase;
-    TwoPlayerMoveStub initialMove;
+    private String exampleName;
+    private SearchTestCase testCase;
+    private TwoPlayerMoveStub initialMove;
 
 
     @Before
-    public void initialize() {
-    }
+    public void initialize() { }
 
     public AllStrategiesTestRunner(
             String exampleName, SearchTestCase testCase, TwoPlayerMoveStub initialMove) {
@@ -52,7 +50,7 @@ public class AllStrategiesTestRunner {
     @Parameterized.Parameters
     public static Collection<Object[]> testCases() {
 
-        List<File> testCaseFiles = FileUtil.getFilesInDirectory(TEST_CASE_DIR);
+        File[] testCaseFiles = FileUtil.getFilesInDirectory(TEST_CASE_DIR);
 
         Collection<Object[]> testCases = new ArrayList<>();
         for (File file : testCaseFiles) {
@@ -79,7 +77,9 @@ public class AllStrategiesTestRunner {
         SearchResult actualResult =
             new SearchResult(initialMove, searchStrategy);
 
-        assertEquals("\n" + exampleName + "\nWrong result found for " + testCase.getName() + "\n " + testCase.toString() + "\n",
+        assertEquals("\n" + exampleName + "\nWrong result found for "
+                        + testCase.getName() + "\n "
+                        + testCase.toString() + "\n",
                 testCase.getExpectedResult(), actualResult);
 
         /* maybe check the transposition table too

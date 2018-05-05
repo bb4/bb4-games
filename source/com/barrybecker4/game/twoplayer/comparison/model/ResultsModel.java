@@ -92,7 +92,7 @@ public class ResultsModel {
                     String directoryName = (i > j)?
                             resultsPair.getP2FirstResults().getDescription():
                             resultsPair.getP1FirstResults().getDescription();
-                    resultsPair.saveTo(path + FileUtil.FILE_SEPARATOR + directoryName);
+                    resultsPair.saveTo(path + FileUtil.FILE_SEPARATOR() + directoryName);
                 }
             }
         } catch (IOException e) {

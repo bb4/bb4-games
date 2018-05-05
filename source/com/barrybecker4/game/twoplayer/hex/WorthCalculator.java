@@ -28,7 +28,7 @@ public class WorthCalculator  {
     }
 
     private double calcPathValue(HexBoard board) {
-         int pathValue = MathUtil.RANDOM.nextInt(100);
+         int pathValue = MathUtil.RANDOM().nextInt(100);
 
         int p1Cost = board.getP1PathCost();
         int p2Cost = board.getP2PathCost();
@@ -62,5 +62,4 @@ public class WorthCalculator  {
         }
         return 0;
     }
-
 }
