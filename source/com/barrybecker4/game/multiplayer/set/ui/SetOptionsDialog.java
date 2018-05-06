@@ -45,14 +45,14 @@ class SetOptionsDialog extends MultiGameOptionsDialog
 
         initMultiControllerParamComponents(options);
 
-        return new JComponent[] {initialNumCards_, maxNumPlayers_, numRobotPlayers_};
+        return new JComponent[] {initialNumCards_, maxNumPlayers, numRobotPlayers};
     }
 
 
     @Override
     public GameOptions getOptions() {
-        return new SetOptions(maxNumPlayers_.getIntValue(),
-                              numRobotPlayers_.getIntValue(),
+        return new SetOptions(maxNumPlayers.getIntValue(),
+                              numRobotPlayers.getIntValue(),
                               initialNumCards_.getIntValue());
     }
 

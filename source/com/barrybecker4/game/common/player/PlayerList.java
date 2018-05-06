@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * A list of players.
  *
- *  @author Barry Becker
+ * @author Barry Becker
  */
 public class PlayerList extends ArrayList<Player> {
 

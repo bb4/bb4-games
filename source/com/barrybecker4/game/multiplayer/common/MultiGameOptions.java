@@ -12,13 +12,13 @@ public class MultiGameOptions extends GameOptions {
     private static final int DEFAULT_NUM_ROBOT_PLAYERS = 1;
 
     /** no more than this many allowed at the table. */
-    private int maxNumPlayers_ = DEFAULT_PLAYER_LIMIT;
+    private int maxNumPlayers = DEFAULT_PLAYER_LIMIT;
 
     /**
      * The number of robot players at the table.
      * You can change this in the new game dlg if stand alone.
      */
-    private int numRobotPlayers_ = DEFAULT_NUM_ROBOT_PLAYERS;
+    private int numRobotPlayers = DEFAULT_NUM_ROBOT_PLAYERS;
 
 
     protected MultiGameOptions() {
@@ -26,8 +26,8 @@ public class MultiGameOptions extends GameOptions {
     }
 
     protected MultiGameOptions(int maxNumPlayers, int numRobotPlayers) {
-         maxNumPlayers_ = maxNumPlayers;
-         numRobotPlayers_ = numRobotPlayers;
+         this.maxNumPlayers = maxNumPlayers;
+         this.numRobotPlayers = numRobotPlayers;
     }
 
     /**
@@ -39,7 +39,7 @@ public class MultiGameOptions extends GameOptions {
 
     @Override
     public int getMaxNumPlayers() {
-        return maxNumPlayers_;
+        return maxNumPlayers;
     }
 
     /**
@@ -47,15 +47,15 @@ public class MultiGameOptions extends GameOptions {
      * @param playerLimit no more than this many players allowed
      */
     protected void setMaxNumPlayers(int playerLimit) {
-        maxNumPlayers_ = playerLimit;
+        maxNumPlayers = playerLimit;
     }
 
     public int getNumRobotPlayers() {
-        return numRobotPlayers_;
+        return numRobotPlayers;
     }
 
     public void setNumRobotPlayers(int numRobotPlayers) {
-        numRobotPlayers_ = numRobotPlayers;
+        this.numRobotPlayers = numRobotPlayers;
     }
 
     /**

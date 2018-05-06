@@ -55,14 +55,14 @@ public class PokerOptionsDialog extends MultiGameOptionsDialog
 
         JPanel spacer = new JPanel();
 
-        return new JComponent[] {ante_, initialChips_, maxAbsoluteRaise_, maxNumPlayers_, numRobotPlayers_, spacer};
+        return new JComponent[] {ante_, initialChips_, maxAbsoluteRaise_, maxNumPlayers, numRobotPlayers, spacer};
     }
 
 
     @Override
     public GameOptions getOptions() {
-        return new PokerOptions(maxNumPlayers_.getIntValue(),
-                                numRobotPlayers_.getIntValue(),
+        return new PokerOptions(maxNumPlayers.getIntValue(),
+                                numRobotPlayers.getIntValue(),
                                 ante_.getIntValue(),
                                 maxAbsoluteRaise_.getIntValue(),
                                 initialChips_.getIntValue());

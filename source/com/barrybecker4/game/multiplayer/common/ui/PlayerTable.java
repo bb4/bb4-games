@@ -28,7 +28,7 @@ import java.util.Vector;
 public abstract class PlayerTable extends TableBase {
 
     /** remember the deleted rows, so we can add them back when the user clicks add again  */
-    private List<Vector> deletedRows_;
+    private List<Vector> deletedRows;
 
     protected static final int NAME_INDEX = 0;
     protected static final int COLOR_INDEX = 1;
@@ -46,7 +46,7 @@ public abstract class PlayerTable extends TableBase {
     protected PlayerTable(PlayerList players, String[] columnNames) {
         super((Seq<Object>) players, columnNames);
 
-        deletedRows_ = new ArrayList<>();
+        deletedRows = new ArrayList<>();
     }
 
     @Override
@@ -71,12 +71,12 @@ public abstract class PlayerTable extends TableBase {
      * add another row to the end of the table.
      */
     public void addRow() {
-        if (deletedRows_.isEmpty()) {
+        if (deletedRows.isEmpty()) {
             Player player = createPlayer();
             addRow(player);
         }
         else
-            getPlayerModel().addRow(deletedRows_.remove(0));
+            getPlayerModel().addRow(deletedRows.remove(0));
     }
 
     protected abstract Player createPlayer();
@@ -96,7 +96,7 @@ public abstract class PlayerTable extends TableBase {
             int selRow = selectedRows[i];
             GameContext.log(0, "adding this to delete list:"
                     + model.getDataVector().elementAt(selRow).getClass().getName());
-            deletedRows_.add((Vector)model.getDataVector().elementAt(selRow));
+            deletedRows.add((Vector)model.getDataVector().elementAt(selRow));
             model.removeRow(selRow);
         }
     }

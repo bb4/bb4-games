@@ -17,8 +17,8 @@ import java.awt.event.KeyListener;
 public abstract class MultiGameOptionsDialog extends GameOptionsDialog
                                              implements KeyListener {
 
-    protected NumberInput maxNumPlayers_;
-    protected NumberInput numRobotPlayers_;
+    protected NumberInput maxNumPlayers;
+    protected NumberInput numRobotPlayers;
 
     private static final int ABS_MAX_NUM_PLAYERS = 30;
 
@@ -27,13 +27,13 @@ public abstract class MultiGameOptionsDialog extends GameOptionsDialog
     }
 
     protected void initMultiControllerParamComponents(MultiGameOptions options) {
-        maxNumPlayers_ =
+        maxNumPlayers =
             new NumberInput(GameContext.getLabel("MAX_NUM_PLAYERS"), options.getMaxNumPlayers(),
                             GameContext.getLabel("MAX_NUM_PLAYERS_TIP"), options.getMinNumPlayers(),
                             ABS_MAX_NUM_PLAYERS, true);
-        maxNumPlayers_.addKeyListener(this);
+        maxNumPlayers.addKeyListener(this);
 
-        numRobotPlayers_ =
+        numRobotPlayers =
                 new NumberInput(GameContext.getLabel("NUM_ROBOTS"), options.getNumRobotPlayers(),
                                 GameContext.getLabel("NUM_ROBOTS_TIP"), 0, ABS_MAX_NUM_PLAYERS, true);
     }
@@ -42,8 +42,8 @@ public abstract class MultiGameOptionsDialog extends GameOptionsDialog
     @Override
     public void keyTyped(KeyEvent e) {
 
-         if (maxNumPlayers_.getIntValue() > 0) {
-             numRobotPlayers_.setMax(maxNumPlayers_.getIntValue());
+         if (maxNumPlayers.getIntValue() > 0) {
+             numRobotPlayers.setMax(maxNumPlayers.getIntValue());
          }
     }
 

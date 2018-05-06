@@ -61,15 +61,15 @@ public class GalacticOptionsDialog extends MultiGameOptionsDialog
         initMultiControllerParamComponents(options);
         return new JComponent[] {
             numPlanets_, planetProductionRate_, initialFleetSize_, neutralsBuild_, maxYearsToPlay_,
-            maxNumPlayers_, numRobotPlayers_
+                maxNumPlayers, numRobotPlayers
         };
     }
 
 
     @Override
     public GameOptions getOptions() {
-        return new GalacticOptions(maxNumPlayers_.getIntValue(),
-                                   numRobotPlayers_.getIntValue(),
+        return new GalacticOptions(maxNumPlayers.getIntValue(),
+                                   numRobotPlayers.getIntValue(),
                                    numPlanets_.getIntValue(),
                                    planetProductionRate_.getIntValue(),
                                    maxYearsToPlay_.getIntValue(),

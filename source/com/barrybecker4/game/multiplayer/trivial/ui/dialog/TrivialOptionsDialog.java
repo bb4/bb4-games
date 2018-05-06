@@ -39,14 +39,14 @@ public class TrivialOptionsDialog extends MultiGameOptionsDialog
 
         JPanel spacer = new JPanel();
 
-        return new JComponent[] { maxNumPlayers_, numRobotPlayers_, spacer};
+        return new JComponent[] {maxNumPlayers, numRobotPlayers, spacer};
     }
 
 
     @Override
     public GameOptions getOptions() {
-        return new TrivialOptions(maxNumPlayers_.getIntValue(),
-                                numRobotPlayers_.getIntValue());
+        return new TrivialOptions(maxNumPlayers.getIntValue(),
+                                numRobotPlayers.getIntValue());
     }
 
 }
