@@ -16,7 +16,6 @@ import java.awt.event.KeyListener;
  */
 public abstract class MultiGameOptionsDialog extends GameOptionsDialog
                                              implements KeyListener {
-
     protected NumberInput maxNumPlayers;
     protected NumberInput numRobotPlayers;
 
@@ -38,12 +37,10 @@ public abstract class MultiGameOptionsDialog extends GameOptionsDialog
                                 GameContext.getLabel("NUM_ROBOTS_TIP"), 0, ABS_MAX_NUM_PLAYERS, true);
     }
 
-
     @Override
     public void keyTyped(KeyEvent e) {
-
          if (maxNumPlayers.getIntValue() > 0) {
-             numRobotPlayers.setMax(maxNumPlayers.getIntValue());
+             numRobotPlayers.setMaxAllowed(maxNumPlayers.getValue());
          }
     }
 

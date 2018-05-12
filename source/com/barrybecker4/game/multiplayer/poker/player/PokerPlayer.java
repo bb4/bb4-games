@@ -22,34 +22,34 @@ import java.text.MessageFormat;
 public abstract class PokerPlayer extends MultiGamePlayer {
 
     /** this player's home planet. (like earth is for humans)  */
-    private Hand hand_;
-    private PokerPlayerMarker piece_;
+    private Hand hand;
+    private PokerPlayerMarker piece;
 
     /** the players current cash amount in dollars */
-    private int cash_;
+    private int cash;
 
     /** becomes true once the player has folded */
-    private boolean hasFolded_;
+    private boolean hasFolded;
 
     /** the score of the current hand */
-    private HandScore handScore_;
+    private HandScore handScore;
 
     /** this becomes true when the player has no money left or not enough to ante up. */
-    private boolean outOfGame_;
+    private boolean outOfGame;
 
     // the amount that this player has contributed to the pot
-    private int contribution_;
+    private int contribution;
 
-    PokerAction action_;
+    PokerAction action;
 
 
     PokerPlayer(String name, int money, Color color, boolean isHuman) {
         super(name, color, isHuman);
-        cash_ = money;
-        contribution_ = 0;
-        hasFolded_ = false;
-        outOfGame_ = false;
-        piece_ = new PokerPlayerMarker(this);
+        cash = money;
+        contribution = 0;
+        hasFolded = false;
+        outOfGame = false;
+        piece = new PokerPlayerMarker(this);
     }
 
     /**
@@ -74,41 +74,41 @@ public abstract class PokerPlayer extends MultiGamePlayer {
     }
 
     public Hand getHand() {
-        return hand_;
+        return hand;
     }
 
     public HandScore getHandScore() {
-        return handScore_;
+        return handScore;
     }
 
     public void setHand( Hand hand ) {
-        this.hand_ = hand;
-        this.handScore_ = new PokerHandScorer().getScore(hand);
+        this.hand = hand;
+        this.handScore = new PokerHandScorer().getScore(hand);
     }
 
     public int getCash() {
-        return cash_;
+        return cash;
     }
 
     public void setFold(boolean folded) {
-        hasFolded_ = folded;
+        hasFolded = folded;
     }
 
     public boolean hasFolded() {
-        return hasFolded_;
+        return hasFolded;
     }
 
     public boolean isOutOfGame() {
-        return outOfGame_ || (cash_ <= 0);
+        return outOfGame || (cash <= 0);
     }
 
     @Override
     public PokerPlayerMarker getPiece() {
-        return piece_;
+        return piece;
     }
 
     public void setPiece(PokerPlayerMarker piece) {
-        piece_ = piece;
+        this.piece = piece;
     }
 
     /**
@@ -120,15 +120,15 @@ public abstract class PokerPlayer extends MultiGamePlayer {
      */
     public void contributeToPot(PokerRound round, int amount) {
 
-        if (cash_ < amount)  {
+        if (cash < amount)  {
             // the player is out of the game if he is asked to contribute more than he has.
-            outOfGame_ = true;
-            hasFolded_ = true; // anyone out of the game is also considered folded
+            outOfGame = true;
+            hasFolded = true; // anyone out of the game is also considered folded
             return;
         }
         if (amount > 0) {
-            cash_ -= amount;
-            contribution_ += amount;
+            cash -= amount;
+            contribution += amount;
             round.addToPot(amount);
         }
     }
@@ -142,23 +142,23 @@ public abstract class PokerPlayer extends MultiGamePlayer {
      * start the player over fresh for a new round
      */
     public void resetPlayerForNewRound()  {
-        hasFolded_ = false;
-        contribution_ = 0;
-        outOfGame_ = false;
+        hasFolded = false;
+        contribution = 0;
+        outOfGame = false;
     }
 
     /**
      * @return  the amount this player has currently put in the pot this round.
      */
     public int getContribution() {
-        return contribution_;
+        return contribution;
     }
 
     /**
      * the pot goes to this player
      */
     public void claimPot(int potAmount)  {
-        cash_ += potAmount;
+        cash += potAmount;
     }
 
     @Override
@@ -167,7 +167,7 @@ public abstract class PokerPlayer extends MultiGamePlayer {
         if (getHand() != null) {
             sb.append(" Hand: ").append(getHand());
         }
-        sb.append(" Money: ").append(cash_);
+        sb.append(" Money: ").append(cash);
         return sb.toString();
     }
 

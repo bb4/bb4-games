@@ -29,7 +29,7 @@ public abstract class PokerRobotPlayer extends PokerPlayer {
     @Override
     public void setAction(PlayerAction action) {
         assert action != null;
-        action_ = (PokerAction) action;
+        this.action = (PokerAction) action;
     }
 
     /**
@@ -39,13 +39,13 @@ public abstract class PokerRobotPlayer extends PokerPlayer {
     public PlayerAction getAction(MultiGameController controller) {
 
         PokerAction a;
-        if (action_ == null) {
+        if (action == null) {
             a = createAction((PokerController) controller);
         }
         else {
-            a = action_;
+            a = action;
         }
-        action_ = null;
+        action = null;
         GameContext.log(0, "in PokerRobotPlayer.getAction a=" + a);
         return a;
     }

@@ -20,12 +20,12 @@ public class Player implements Serializable, OnlinePlayer {
     private static final int COMPUTER_PLAYER = 2;
 
     /** each player is either human or robot. */
-    private int type_;
+    private int pType;
 
     /** Becomes true if this player has won the game. */
-    private boolean hasWon_ = false;
+    private boolean hasWon = false;
 
-    private PlayerOptions options_;
+    private PlayerOptions options;
 
     /**
      * Constructor.
@@ -33,8 +33,8 @@ public class Player implements Serializable, OnlinePlayer {
      * @param isHuman true if human rather than computer player
      */
     public Player(PlayerOptions options, boolean isHuman) {
-        options_ = options;
-        type_ = (isHuman) ? HUMAN_PLAYER : COMPUTER_PLAYER;
+        this.options = options;
+        pType = (isHuman) ? HUMAN_PLAYER : COMPUTER_PLAYER;
     }
 
     /**
@@ -48,33 +48,33 @@ public class Player implements Serializable, OnlinePlayer {
     }
 
     public String getName() {
-        return options_.getName();
+        return options.getName();
     }
 
 
     public void setName( String name ) {
-        this.options_.setName(name);
+        this.options.setName(name);
     }
 
 
     public Color getColor() {
-        return options_.getColor();
+        return options.getColor();
     }
 
     public PlayerOptions getOptions() {
-        return options_;
+        return options;
     }
 
     public boolean isHuman() {
-        return (type_ == HUMAN_PLAYER);
+        return (pType == HUMAN_PLAYER);
     }
 
     public void setHuman( boolean human ) {
-        type_ =  (human) ? HUMAN_PLAYER : COMPUTER_PLAYER;
+        pType =  (human) ? HUMAN_PLAYER : COMPUTER_PLAYER;
     }
 
     public boolean hasWon() {
-        return hasWon_;
+        return hasWon;
     }
 
     /**
@@ -82,7 +82,7 @@ public class Player implements Serializable, OnlinePlayer {
      * unless you are starting a new game.
      */
     public void setWon(boolean won) {
-        hasWon_ = won;
+        hasWon = won;
     }
 
     @Override

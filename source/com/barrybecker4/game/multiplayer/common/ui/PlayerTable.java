@@ -9,9 +9,10 @@ import com.barrybecker4.ui.table.ColorCellEditor;
 import com.barrybecker4.ui.table.ColorCellRenderer;
 import com.barrybecker4.ui.table.TableBase;
 import com.barrybecker4.ui.table.TableColumnMeta;
+import scala.collection.JavaConverters;
 import scala.collection.Seq;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,9 +45,14 @@ public abstract class PlayerTable extends TableBase {
      * @param players to initialize the rows in the table with.
      */
     protected PlayerTable(PlayerList players, String[] columnNames) {
-        super((Seq<Object>) players, columnNames);
-
+        super(conv(players), columnNames);
         deletedRows = new ArrayList<>();
+    }
+
+    private static Seq<Object> conv(java.util.ArrayList<Player> players) {
+        List<Object> s = new ArrayList<>(players);
+        Seq<Object> ss = JavaConverters.asScalaIteratorConverter(s.iterator()).asScala().toSeq();
+        return ss.toSeq();
     }
 
     @Override
@@ -92,7 +98,7 @@ public abstract class PlayerTable extends TableBase {
             return;
         }
         BasicTableModel model = (BasicTableModel)getModel();
-        for (int i=nSelected-1; i>=0; i--) {
+        for (int i = nSelected-1; i >= 0; i--) {
             int selRow = selectedRows[i];
             GameContext.log(0, "adding this to delete list:"
                     + model.getDataVector().elementAt(selRow).getClass().getName());
@@ -107,7 +113,8 @@ public abstract class PlayerTable extends TableBase {
 
     @Override
     public TableModel createTableModel(String[] columnNames) {
-        return new BasicTableModel(new String[][]{columnNames}, new Object[]{}, true);
+        //return new BasicTableModel(new String[][]{columnNames}, new Object[]{}, true);
+        return new BasicTableModel(columnNames, 0, true);
     }
 
 }

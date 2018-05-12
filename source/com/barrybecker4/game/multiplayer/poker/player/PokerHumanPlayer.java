@@ -22,12 +22,12 @@ public class PokerHumanPlayer extends PokerPlayer {
 
     @Override
     public PlayerAction getAction(MultiGameController pc) {
-        return action_;
+        return action;
     }
 
     @Override
     public void setAction(PlayerAction action) {
-        action_ = (PokerAction) action;
+        this.action = (PokerAction) action;
     }
 
 }

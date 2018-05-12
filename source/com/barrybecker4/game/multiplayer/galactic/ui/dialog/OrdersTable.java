@@ -8,6 +8,8 @@ import com.barrybecker4.game.multiplayer.galactic.Planet;
 import com.barrybecker4.ui.table.BasicTableModel;
 import com.barrybecker4.ui.table.TableBase;
 import com.barrybecker4.ui.table.TableColumnMeta;
+import scala.collection.JavaConverters;
+import scala.collection.Seq;
 
 import javax.swing.table.TableModel;
 import java.awt.geom.Point2D;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 /**
  * OrdersTable contains a list of orders that a player has made to direct his ships.
@@ -26,7 +29,7 @@ import java.util.Map;
  */
 class OrdersTable extends TableBase {
 
-    private List<Order> lastOrders_;
+    private List<Order> lastOrders;
 
     private static final int ORIGIN_INDEX = 0;
     private static final int DESTINATION_INDEX = 1;
@@ -38,7 +41,7 @@ class OrdersTable extends TableBase {
     private static final String NUM_SHIPS = GameContext.getLabel("NUM_SHIPS");
     private static final String DISTANCE = GameContext.getLabel("ETA");
 
-    private static final String[] columnNames_ =  {ORIGIN,
+    private static final String[] columnNames =  {ORIGIN,
                                              DESTINATION,
                                              NUM_SHIPS,
                                              DISTANCE };
@@ -53,7 +56,7 @@ class OrdersTable extends TableBase {
                                              NUM_SHIPS_TIP,
                                              DISTANCE_TIP };
 
-    private static final int NUM_COLS = columnNames_.length;
+    private static final int NUM_COLS = columnNames.length;
 
 
     /**
@@ -61,11 +64,15 @@ class OrdersTable extends TableBase {
      * @param orders to initialize the rows in the table with.
      */
     OrdersTable(List<Order> orders)  {
-        super((scala.collection.immutable.List<Object>) orders, columnNames_);
-
-         lastOrders_ = orders;
+        super(conv(orders), columnNames);
+        lastOrders = orders;
     }
 
+    private static Seq<Object> conv(java.util.List<Order> players) {
+        List<Object> s = new ArrayList<>(players);
+        Seq<Object> ss = JavaConverters.asScalaIteratorConverter(s.iterator()).asScala().toSeq();
+        return ss.toSeq();
+    }
 
     @Override
     public void updateColumnMeta(TableColumnMeta[] columnMeta) {
@@ -77,7 +84,7 @@ class OrdersTable extends TableBase {
 
     @Override
     public TableModel createTableModel(String[] columnNames) {
-        return  new BasicTableModel(new String[][]{columnNames_}, new Object[]{}, false);
+        return  new BasicTableModel(OrdersTable.columnNames, 0, false);
     }
 
     public void removeRow(int rowIndex) {
@@ -92,7 +99,7 @@ class OrdersTable extends TableBase {
         TableModel model = table().getModel();
         int nRows = model.getRowCount();
         List<Order> orders = new ArrayList<>(nRows);
-        int numOldOrders = lastOrders_.size();
+        int numOldOrders = lastOrders.size();
 
         for (int i=0; i<nRows; i++) {
             String origin = model.getValueAt(i,ORIGIN_INDEX).toString();
@@ -104,7 +111,7 @@ class OrdersTable extends TableBase {
             Planet destPlanet = Galaxy.getPlanet(dest.charAt(0));
 
             if (i < numOldOrders) {
-                Point2D currLoc = (lastOrders_.get(i)).getCurrentLocation();
+                Point2D currLoc = (lastOrders.get(i)).getCurrentLocation();
                 o = new Order(originPlanet, destPlanet, numShips, currLoc);
             }
             else {
@@ -126,7 +133,7 @@ class OrdersTable extends TableBase {
         TableModel model = table().getModel();
         int nRows = model.getRowCount();
 
-        int numOldOrders = lastOrders_.size();
+        int numOldOrders = lastOrders.size();
 
         for (int i=numOldOrders; i<nRows; i++) {
             Character s = ((Character)model.getValueAt(i, ORIGIN_INDEX));
@@ -158,7 +165,7 @@ class OrdersTable extends TableBase {
         d[ORIGIN_INDEX] = o.getOrigin().getName();
         d[DESTINATION_INDEX ] = o.getDestination().getName();
         d[NUM_SHIPS_INDEX] = o.getFleetSize();
-        d[DISTANCE_INDEX] = new Float(o.getTimeRemaining());
+        d[DISTANCE_INDEX] = o.getTimeRemaining();
 
         getPlayerModel().addRow(d);
     }
