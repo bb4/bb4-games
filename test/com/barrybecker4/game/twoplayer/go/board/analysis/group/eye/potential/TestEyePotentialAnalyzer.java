@@ -70,7 +70,7 @@ public class TestEyePotentialAnalyzer extends GoTestCase {
 
         restoreGame("clump_near_edge");
         verifyBlackEyePotential(4, 0.688f);
-        verifyWhiteEyePotential(4, 0.91f);
+        verifyWhiteEyePotential(4, 0.68802f);
     }
 
     public void testEyePotential_ClumpNearEnemy() throws Exception {

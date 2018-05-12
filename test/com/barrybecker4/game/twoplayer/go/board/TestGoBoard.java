@@ -44,7 +44,7 @@ public class TestGoBoard extends GoTestCase {
         GoMove move = new GoMove(moveLocation, 0, new GoStone(true));
         GoBoard board = getBoard();
         int numWhiteStonesBefore = board.getNumStones(false);
-        controller_.makeMove(move);
+        controller.makeMove(move);
 
         int numWhiteStonesAfter = board.getNumStones(false);
 
@@ -57,7 +57,7 @@ public class TestGoBoard extends GoTestCase {
                 + ") not = numcaptures (" + expNnumCaptures
                 + ')', diffWhite == expNnumCaptures);
 
-        controller_.undoLastMove();
+        controller.undoLastMove();
         // verify that all the captured stones get restored to the board
         numWhiteStonesAfter = board.getNumStones(false);
         assertTrue("numWhiteStonesBefore="+numWhiteStonesBefore
@@ -79,8 +79,8 @@ public class TestGoBoard extends GoTestCase {
         restore(PREFIX + "causedAtari2");
 
         GoMove m = new GoMove(new ByteLocation(2, 12), 0, new GoStone(true));
-        controller_.makeMove(m);
-        GoBoard board = (GoBoard)controller_.getBoard();
+        controller.makeMove(m);
+        GoBoard board = (GoBoard) controller.getBoard();
         int numInAtari = m.numStonesAtaried(board);
         assertTrue("numInAtri="+numInAtari+" expected="+12, numInAtari == 12);
     }

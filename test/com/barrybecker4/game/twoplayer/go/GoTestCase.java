@@ -31,7 +31,7 @@ public abstract class GoTestCase extends TestCase {
     /** usually 0, but 1 or 2 may be useful when debugging. */
     private static final int DEBUG_LEVEL = 0;
 
-    protected GoController controller_;
+    protected GoController controller;
 
     /**
      * common initialization for all go test cases.
@@ -43,9 +43,9 @@ public abstract class GoTestCase extends TestCase {
         GameContext.loadResources("go");
         GameContext.setDebugMode(DEBUG_LEVEL);
 
-        controller_ = new GoController(getBoardSize(), 0);
+        controller = new GoController(getBoardSize(), 0);
 
-        for (Player player : controller_.getPlayers()) {
+        for (Player player : controller.getPlayers()) {
             SearchOptions searchOptions = ((TwoPlayerPlayerOptions) player.getOptions()).getSearchOptions();
             setOptionOverrides(searchOptions);
         }
@@ -53,7 +53,7 @@ public abstract class GoTestCase extends TestCase {
 
     @Override
     protected void tearDown() throws Exception {
-        controller_ = null;
+        controller = null;
         super.tearDown();
     }
 
@@ -79,21 +79,21 @@ public abstract class GoTestCase extends TestCase {
     }
 
     protected GoBoard getBoard() {
-       return (GoBoard) controller_.getBoard();
+       return (GoBoard) controller.getBoard();
     }
 
     protected void restore(String problemFile) throws Exception {
         String path = EXTERNAL_TEST_CASE_DIR + problemFile + SGF_EXTENSION;
-        controller_.restoreFromStream(getClass().getResourceAsStream(path));
+        controller.restoreFromStream(getClass().getResourceAsStream(path));
     }
 
     protected GoMove getNextMove(String problemFile, boolean blackPlays) throws Exception {
         System.out.println("finding next move for " + problemFile + " ...");
         long time = System.currentTimeMillis();
         restore(problemFile);
-        controller_.requestComputerMove( blackPlays, true );
+        controller.requestComputerMove( blackPlays, true );
 
-        GoMove m = (GoMove) controller_.getLastMove();
+        GoMove m = (GoMove) controller.getLastMove();
 
         double elapsedTime = (System.currentTimeMillis() - time) / 1000.0;
         System.out.println("got " + m + " in " + FormatUtil.formatNumber(elapsedTime) + " seconds.");

@@ -33,7 +33,7 @@ public class TestAbsoluteHealthAnalyzer extends GoTestCase {
     // test absolute health calculation, and the number of liberties for the main black and white groups.
     // testAbsHealth1* test configurations with 1 stone in each group.
     public void testAbsHealth1() throws Exception {
-        controller_.reset();
+        controller.reset();
         EyeInformation[] blackEyes = {};
         EyeInformation[] whiteEyes = {};
         double bPotential = 0.344;
@@ -51,7 +51,7 @@ public class TestAbsoluteHealthAnalyzer extends GoTestCase {
 
 
     public void testAbsHealth1a() throws Exception {
-        controller_.reset();
+        controller.reset();
         EyeInformation[] blackEyes = {};
         EyeInformation[] whiteEyes = {};
         double bPotential = 0.3;
@@ -67,7 +67,7 @@ public class TestAbsoluteHealthAnalyzer extends GoTestCase {
                                                  AbsAbsHealthDiff, AbsHealthDiff, RelHealthDiff);
     }
     public void testAbsHealth1b() throws Exception {
-        controller_.reset();
+        controller.reset();
         EyeInformation[] blackEyes = {};
         EyeInformation[] whiteEyes = {};
         double bPotential = 0.34;
@@ -83,7 +83,7 @@ public class TestAbsoluteHealthAnalyzer extends GoTestCase {
                                                  AbsAbsHealthDiff, AbsHealthDiff, RelHealthDiff);
     }
     public void testAbsHealth1c() throws Exception {
-        controller_.reset();
+        controller.reset();
         EyeInformation[] blackEyes = {};
         EyeInformation[] whiteEyes = {};
         double bPotential = 0.49;
@@ -99,7 +99,7 @@ public class TestAbsoluteHealthAnalyzer extends GoTestCase {
                                                  AbsAbsHealthDiff, AbsHealthDiff, RelHealthDiff);
     }
     public void testAbsHealth1d() throws Exception {
-        controller_.reset();
+        controller.reset();
         EyeInformation[] blackEyes = {};
         EyeInformation[] whiteEyes = {};
         double bPotential = 0.24;

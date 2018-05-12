@@ -83,7 +83,7 @@ public class TestWeakestGroupFinder extends GoTestCase {
 
         finder = createFinder(board);
         /** need something to update the scores for the group  */
-        Move move = controller_.getLastMove();
+        Move move = controller.getLastMove();
         WorthCalculator calculator = new WorthCalculator(board, analyzerMap);
         calculator.worth(move, WEIGHTS.getDefaultWeights());
         System.out.println("AMAP="+ analyzerMap);

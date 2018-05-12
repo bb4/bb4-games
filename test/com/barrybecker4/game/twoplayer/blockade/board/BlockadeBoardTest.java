@@ -367,7 +367,7 @@ public class BlockadeBoardTest extends BlockadeTestCase {
     public void testFindShortestPaths() throws Exception {
          restore("whitebox/shortestPathsCheck");
          BlockadeBoard board = (BlockadeBoard)controller_.getBoard();
-         //BlockadeMove lastMove = (BlockadeMove) controller_.getMoveList().getLast();
+         //BlockadeMove lastMove = (BlockadeMove) controller.getMoveList().getLast();
 
          BlockadeBoardPosition pos1 = board.getPosition(2, 2);
          BlockadeBoardPosition pos2 = board.getPosition(5, 2);

@@ -16,26 +16,26 @@ import com.barrybecker4.game.twoplayer.go.board.elements.string.IGoString;
 public class EyePotentialAnalyzer {
 
     /** The group of go stones that we are analyzing. */
-    private IGoGroup group_;
+    private IGoGroup group;
 
-    private GoBoard board_;
+    private GoBoard board;
 
     /** bounding box around our group that we are analyzing. */
-    private Box boundingBox_;
+    private Box boundingBox;
 
-    private GroupAnalyzerMap analyzerMap_;
+    private GroupAnalyzerMap analyzerMap;
 
     /**
      * Constructor.
      */
     public EyePotentialAnalyzer(IGoGroup group, GroupAnalyzerMap analyzerMap) {
-        group_ = group;
-        analyzerMap_ = analyzerMap;
+        this.group = group;
+        this.analyzerMap = analyzerMap;
     }
 
     public void setBoard(GoBoard board) {
-        board_ = board;
-        boundingBox_ = group_.findBoundingBox();
+        this.board = board;
+        boundingBox = group.findBoundingBox();
     }
 
     /**
@@ -49,11 +49,11 @@ public class EyePotentialAnalyzer {
      */
     public float calculateEyePotential() {
 
-        int numRows = board_.getNumRows();
-        int numCols = board_.getNumCols();
-        assert board_ != null : "The board must be set before calculating potential";
-        boundingBox_.expandGloballyBy(1, numRows, numCols);
-        boundingBox_.expandBordersToEdge(1, numRows, numCols);
+        assert board != null : "The board must be set before calculating potential";
+        int numRows = board.getNumRows();
+        int numCols = board.getNumCols();
+        boundingBox = boundingBox.expandGloballyBy(1, numRows, numCols);
+        boundingBox = boundingBox.expandBordersToEdge(1, numRows, numCols);
 
         return findTotalEyePotential();
     }
@@ -65,13 +65,13 @@ public class EyePotentialAnalyzer {
      */
     private float findTotalEyePotential() {
 
-        if (group_.getMembers().isEmpty()) return 0;
-        IGoString groupString = group_.getMembers().iterator().next();
+        if (group.getMembers().isEmpty()) return 0;
+        IGoString groupString = group.getMembers().iterator().next();
 
-        int rMin = boundingBox_.getMinRow();
-        int rMax = boundingBox_.getMaxRow();
-        int cMin = boundingBox_.getMinCol();
-        int cMax = boundingBox_.getMaxCol();
+        int rMin = boundingBox.getMinRow();
+        int rMax = boundingBox.getMaxRow();
+        int cMin = boundingBox.getMinCol();
+        int cMax = boundingBox.getMaxCol();
 
         float totalPotential = 0;
         totalPotential += getTotalRowPotentials(groupString, rMin, rMax, cMin, cMax);
@@ -86,7 +86,7 @@ public class EyePotentialAnalyzer {
     private float getTotalRowPotentials(IGoString groupString, int rMin, int rMax, int cMin, int cMax) {
 
         float totalPotential = 0;
-        RunPotentialAnalyzer runAnalyzer = new RunPotentialAnalyzer(groupString, board_, analyzerMap_);
+        RunPotentialAnalyzer runAnalyzer = new RunPotentialAnalyzer(groupString, board, analyzerMap);
 
         for ( int r = rMin; r <= rMax; r++ ) {
             totalPotential += runAnalyzer.getRunPotential(new ByteLocation(r, cMin), 0, 1, rMax, cMax);
@@ -100,7 +100,7 @@ public class EyePotentialAnalyzer {
     private float getTotalColumnPotentials(IGoString groupString, int rMin, int rMax, int cMin, int cMax) {
 
         float totalPotential = 0;
-        RunPotentialAnalyzer runAnalyzer = new RunPotentialAnalyzer(groupString, board_, analyzerMap_);
+        RunPotentialAnalyzer runAnalyzer = new RunPotentialAnalyzer(groupString, board, analyzerMap);
 
         for ( int c = cMin; c <= cMax; c++ ) {
             totalPotential += runAnalyzer.getRunPotential(new ByteLocation(rMin, c), 1, 0, rMax, cMax);

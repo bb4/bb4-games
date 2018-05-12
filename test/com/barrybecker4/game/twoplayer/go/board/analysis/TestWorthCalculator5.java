@@ -24,8 +24,8 @@ public class TestWorthCalculator5 extends WorthCalculatorBase {
 
         restore(PREFIX  + "worth5x5");
 
-        GoMove move = controller_.undoLastMove();
-        controller_.makeMove(move);
+        GoMove move = controller.undoLastMove();
+        controller.makeMove(move);
 
         int actWorth = calculator.worth(move, WEIGHTS.getDefaultWeights());
 
@@ -38,7 +38,7 @@ public class TestWorthCalculator5 extends WorthCalculatorBase {
      */
     public void testSamePositionFromDifferentPathsEqual() throws Exception {
 
-        compareWorths("worth5x5_A", "worth5x5_B", -64); //-70); // -61);
+        compareWorths("worth5x5_A", "worth5x5_B", -71); //-70); // -61);
     }
 
 }

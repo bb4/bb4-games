@@ -36,19 +36,19 @@ public class TestScoring extends GoTestCase {
 
     public void testScoringIdentPosition1a() throws Exception {
         //                                               bt, wt,  finalWorth
-        checkScoring("problem_identPosition1a", 0, 0, 4, 0,  5, 7, -94); //13, 12, -94);
+        checkScoring("problem_identPosition1a", 0, 0, 4, 4,  5, 7, -50); //13, 12, -50, -94);
     }
 
     public void testScoringIdentPosition1b() throws Exception {
-        checkScoring("problem_identPosition1b", 0, 0, 4, 0, 5, 7, -94); //13, 12, -94);
+        checkScoring("problem_identPosition1b", 0, 0, 4, 4, 5, 7, -50); //13, 12, -94);
     }
 
     public void testScoringIdentPosition2a() throws Exception {
-        checkScoring("problem_identPosition2a", 0, 0, 2, 1, 4, 5, 19);
+        checkScoring("problem_identPosition2a", 0, 0, 2, 1, 4, 5, 23);
     }
 
     public void testScoringIdentPosition2b() throws Exception {
-        checkScoring("problem_identPosition2b", 0, 1, 2, 1, 4, 5, 596);
+        checkScoring("problem_identPosition2b", 0, 1, 2, 1, 4, 5, 601);  // 596
     }
 
 
@@ -69,9 +69,9 @@ public class TestScoring extends GoTestCase {
 
         updateLifeAndDeath(PATH_PREFIX + scoringProblem);
 
-        int blackTerrEst = controller_.getFinalTerritory(true);
-        int whiteTerrEst = controller_.getFinalTerritory(false);
-        GoSearchable searchable = (GoSearchable) controller_.getSearchable();
+        int blackTerrEst = controller.getFinalTerritory(true);
+        int whiteTerrEst = controller.getFinalTerritory(false);
+        GoSearchable searchable = (GoSearchable) controller.getSearchable();
         int numBlackCaptures = searchable.getNumCaptures(true);
         int numWhiteCaptures = searchable.getNumCaptures(false);
         int numDeadBlack = searchable.getNumDeadStonesOnBoard(true);
@@ -96,10 +96,10 @@ public class TestScoring extends GoTestCase {
         assertTrue("The white territory estimate ("+ whiteTerrEst +") was not close to "+ expectedWhiteTerr,
                           withinBounds(whiteTerrEst, expectedWhiteTerr));
         // see if a given move is in jeopardy
-        //controller_.inJeopardy();
+        //controller.inJeopardy();
 
         int finalWorth = searchable.worth((GoMove) searchable.getMoveList().getLastMove(),
-                                     controller_.getComputerWeights().getDefaultWeights());
+                                     controller.getComputerWeights().getDefaultWeights());
         assertEquals("Unexpected worth for final move.", expectedFinalWorth, finalWorth);
 
     }
@@ -109,7 +109,7 @@ public class TestScoring extends GoTestCase {
         restore(problemFile);
 
         // force dead stones to be updated by calling done with resignation move.
-        controller_.getSearchable().done(GoMove.createResignationMove(true), true);
+        controller.getSearchable().done(GoMove.createResignationMove(true), true);
     }
 
     private static boolean withinBounds(int actual, int expected) {

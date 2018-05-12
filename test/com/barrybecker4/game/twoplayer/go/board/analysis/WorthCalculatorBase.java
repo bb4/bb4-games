@@ -38,7 +38,7 @@ public abstract class WorthCalculatorBase extends GoTestCase {
 
         restore(PREFIX  + file);
 
-        Move move = controller_.getLastMove();
+        Move move = controller.getLastMove();
         int actWorth = calculator.worth(move, WEIGHTS.getDefaultWeights());
 
         assertEquals("Unexpected worth.", expWorth, actWorth);
@@ -52,13 +52,13 @@ public abstract class WorthCalculatorBase extends GoTestCase {
 
         restore(PREFIX  + game1);
 
-        Move move = controller_.getLastMove();
+        Move move = controller.getLastMove();
         int actWorthA = calculator.worth(move, WEIGHTS.getDefaultWeights());
 
-        controller_.reset();
+        controller.reset();
         restore(PREFIX + game2);
 
-        move = controller_.getLastMove();
+        move = controller.getLastMove();
         int actWorthB = calculator.worth(move, WEIGHTS.getDefaultWeights());
 
         assertEquals("Unexpected worth for A.", expWorth, actWorthA);

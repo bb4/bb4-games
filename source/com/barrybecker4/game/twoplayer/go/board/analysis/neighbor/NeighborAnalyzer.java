@@ -21,9 +21,9 @@ import com.barrybecker4.game.twoplayer.go.board.elements.string.IGoString;
  */
 public class NeighborAnalyzer {
 
-    private GoBoard board_;
-    private GroupNeighborAnalyzer groupNbrAnalyzer_;
-    private StringNeighborAnalyzer stringNbrAnalyzer_;
+    private GoBoard board;
+    private GroupNeighborAnalyzer groupNbrAnalyzer;
+    private StringNeighborAnalyzer stringNbrAnalyzer;
     private NobiNeighborAnalyzer nobiAnalyzer_;
 
     /**
@@ -31,9 +31,9 @@ public class NeighborAnalyzer {
      * @param board needed to find neighbors.
      */
     public NeighborAnalyzer(GoBoard board) {
-        board_ = board;
-        groupNbrAnalyzer_ = new GroupNeighborAnalyzer(board);
-        stringNbrAnalyzer_ = new StringNeighborAnalyzer(board);
+        this.board = board;
+        groupNbrAnalyzer = new GroupNeighborAnalyzer(board);
+        stringNbrAnalyzer = new StringNeighborAnalyzer(board);
         nobiAnalyzer_ = new NobiNeighborAnalyzer(board);
     }
 
@@ -79,7 +79,7 @@ public class NeighborAnalyzer {
                                                                boolean returnToUnvisitedState) {
         return findStringFromInitialPosition(
                 stone, stone.getPiece().isOwnedByPlayer1(), returnToUnvisitedState, NeighborType.OCCUPIED,
-                new Box(1, 1, board_.getNumRows(), board_.getNumCols()) );
+                new Box(1, 1, board.getNumRows(), board.getNumCols()) );
     }
 
     /**
@@ -90,7 +90,7 @@ public class NeighborAnalyzer {
                                                      boolean returnToUnvisitedState, NeighborType type, Box box) {
         GoProfiler.getInstance().startFindStrings();
         GoBoardPositionList stones =
-                stringNbrAnalyzer_.findStringFromInitialPosition(stone, friendOwnedByP1, returnToUnvisitedState,
+                stringNbrAnalyzer.findStringFromInitialPosition(stone, friendOwnedByP1, returnToUnvisitedState,
                                                  type, box);
         GoProfiler.getInstance().stopFindStrings();
 
@@ -102,7 +102,7 @@ public class NeighborAnalyzer {
      * @return string neighbors
      */
     public GoStringSet findStringNeighbors(GoBoardPosition position ) {
-        return stringNbrAnalyzer_.findStringNeighbors(position);
+        return stringNbrAnalyzer.findStringNeighbors(position);
     }
 
     /**
@@ -130,7 +130,7 @@ public class NeighborAnalyzer {
      */
     public GoBoardPositionSet findGroupNeighbors( GoBoardPosition stone, boolean friendPlayer1,
                                                    boolean samePlayerOnly ) {
-       return groupNbrAnalyzer_.findGroupNeighbors(stone, friendPlayer1, samePlayerOnly);
+       return groupNbrAnalyzer.findGroupNeighbors(stone, friendPlayer1, samePlayerOnly);
     }
 
     /**
@@ -156,7 +156,7 @@ public class NeighborAnalyzer {
      * @return the list of stones in the group that was found.
      */
     public GoBoardPositionList findGroupFromInitialPosition(GoBoardPosition stone, boolean returnToUnvisitedState) {
-        return groupNbrAnalyzer_.findGroupFromInitialPosition(stone, returnToUnvisitedState);
+        return groupNbrAnalyzer.findGroupFromInitialPosition(stone, returnToUnvisitedState);
     }
 
     /**
@@ -166,7 +166,7 @@ public class NeighborAnalyzer {
      * @return all the groups on the board
      */
     public GoGroupSet findAllGroupsOnBoard() {
-       return groupNbrAnalyzer_.findAllGroups();
+       return groupNbrAnalyzer.findAllGroups();
     }
 
     /**
@@ -180,13 +180,13 @@ public class NeighborAnalyzer {
 
         clearEyes();
         GoStringSet strings = new GoStringSet();
-        for ( int i = 1; i <= board_.getNumRows(); i++ )  {
-            for ( int j = 1; j <= board_.getNumCols(); j++ ) {
-                GoBoardPosition pos = (GoBoardPosition)board_.getPosition(i, j);
+        for (int i = 1; i <= board.getNumRows(); i++ )  {
+            for (int j = 1; j <= board.getNumCols(); j++ ) {
+                GoBoardPosition pos = (GoBoardPosition) board.getPosition(i, j);
                 if (pos.isOccupied()) {
                     IGoString existingString = strings.findStringContainingPosition(pos);
                     if (existingString == null) {
-                        GoString str = new GoString(findStringFromInitialPosition(pos, true), board_);
+                        GoString str = new GoString(findStringFromInitialPosition(pos, true), board);
                         strings.add(str);
                         pos.setString(str);
                     }
@@ -203,9 +203,9 @@ public class NeighborAnalyzer {
      * Gets rid of everything we know about the board. Careful.
      */
     private void clearEyes() {
-         for ( int i = 1; i <= board_.getNumRows(); i++ ) {
-            for ( int j = 1; j <= board_.getNumCols(); j++ ) {
-                GoBoardPosition pos = (GoBoardPosition) board_.getPosition( i, j );
+         for (int i = 1; i <= board.getNumRows(); i++ ) {
+            for (int j = 1; j <= board.getNumCols(); j++ ) {
+                GoBoardPosition pos = (GoBoardPosition) board.getPosition( i, j );
                 pos.setEye(null);
                 pos.setString(null);
                 pos.setVisited(false);

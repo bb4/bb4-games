@@ -25,29 +25,29 @@ import java.util.Iterator;
 class EyeSpaceAnalyzer {
 
     /** The group of go stones that we are analyzing eyespace for. */
-    private IGoGroup group_;
+    private IGoGroup group;
 
-    private GoBoard board_;
+    private GoBoard board;
 
     /** bounding box around our group that we are analyzing. */
-    private Box boundingBox_;
+    private Box boundingBox;
 
-    private NeighborAnalyzer nbrAnalyzer_;
-    private GroupAnalyzerMap analyzerMap_;
+    private NeighborAnalyzer nbrAnalyzer;
+    private GroupAnalyzerMap analyzerMap;
 
 
     /**
      * Constructor.
      */
     public EyeSpaceAnalyzer(IGoGroup group, GroupAnalyzerMap analyzerMap) {
-        group_ = group;
-        analyzerMap_ = analyzerMap;
+        this.group = group;
+        this.analyzerMap = analyzerMap;
     }
 
     public void setBoard(GoBoard board) {
-        board_ = board;
-        nbrAnalyzer_ = new NeighborAnalyzer(board);
-        boundingBox_ = group_.findBoundingBox();
+        this.board = board;
+        nbrAnalyzer = new NeighborAnalyzer(board);
+        boundingBox = group.findBoundingBox();
     }
 
     /**
@@ -56,7 +56,7 @@ class EyeSpaceAnalyzer {
      */
     public GoEyeSet determineEyes() {
 
-        assert (board_ != null) : "The board must be set before determining eyes.";
+        assert (board != null) : "The board must be set before determining eyes.";
         GoBoardPositionLists excludedSpaceLists = createExcludedLists();
         return findEyesFromCandidates(excludedSpaceLists);
     }
@@ -72,35 +72,35 @@ class EyeSpaceAnalyzer {
     private GoBoardPositionLists createExcludedLists() {
 
         GoBoardPositionLists lists = new GoBoardPositionLists();
-        boolean ownedByPlayer1 = group_.isOwnedByPlayer1();
+        boolean ownedByPlayer1 = group.isOwnedByPlayer1();
 
-        if (boundingBox_.getArea() == 0) return lists;
-        int rMin = boundingBox_.getMinRow();
-        int rMax = boundingBox_.getMaxRow();
-        int cMin = boundingBox_.getMinCol();
-        int cMax = boundingBox_.getMaxCol();
+        if (boundingBox.getArea() == 0) return lists;
+        int rMin = boundingBox.getMinRow();
+        int rMax = boundingBox.getMaxRow();
+        int cMin = boundingBox.getMinCol();
+        int cMax = boundingBox.getMaxCol();
 
         if ( cMin > 1 ) {
             for ( int r = rMin; r <= rMax; r++ )  {
-                excludeSeed( (GoBoardPosition) board_.getPosition( r, cMin ),
+                excludeSeed( (GoBoardPosition) board.getPosition( r, cMin ),
                         ownedByPlayer1, lists);
             }
         }
-        if ( cMax < board_.getNumCols() ) {
+        if ( cMax < board.getNumCols() ) {
             for ( int r = rMin; r <= rMax; r++ ) {
-                excludeSeed( (GoBoardPosition) board_.getPosition( r, cMax ),
+                excludeSeed( (GoBoardPosition) board.getPosition( r, cMax ),
                         ownedByPlayer1, lists);
             }
         }
         if ( rMin > 1 ) {
             for ( int c = cMin; c <= cMax; c++ )  {
-                excludeSeed( (GoBoardPosition) board_.getPosition( rMin, c ),
+                excludeSeed( (GoBoardPosition) board.getPosition( rMin, c ),
                         ownedByPlayer1, lists);
             }
         }
-        if ( rMax < board_.getNumRows() ) {
+        if ( rMax < board.getNumRows() ) {
             for ( int c = cMin; c <= cMax; c++ )  {
-                excludeSeed( (GoBoardPosition) board_.getPosition( rMax, c ),
+                excludeSeed( (GoBoardPosition) board.getPosition( rMax, c ),
                         ownedByPlayer1, lists);
             }
         }
@@ -120,25 +120,25 @@ class EyeSpaceAnalyzer {
      */
     private GoEyeSet findEyesFromCandidates(GoBoardPositionLists excludedSpaceLists) {
         GoEyeSet eyes = new GoEyeSet();
-        boolean ownedByPlayer1 = group_.isOwnedByPlayer1();
-        GroupAnalyzer groupAnalyzer = analyzerMap_.getAnalyzer(group_);
+        boolean ownedByPlayer1 = group.isOwnedByPlayer1();
+        GroupAnalyzer groupAnalyzer = analyzerMap.getAnalyzer(group);
 
-        Box innerBox = createBoxExcludingBorder(boundingBox_);
+        Box innerBox = createBoxExcludingBorder(boundingBox);
         for ( int r = innerBox.getMinRow(); r < innerBox.getMaxRow(); r++ ) {
             for ( int c = innerBox.getMinCol(); c < innerBox.getMaxCol(); c++ ) {
 
                 // if the empty space is already marked as being an eye, skip
-                GoBoardPosition space = (GoBoardPosition) board_.getPosition( r, c );
+                GoBoardPosition space = (GoBoardPosition) board.getPosition( r, c );
                 assert space != null : "pos r="+r +" c="+c;
                 if ( !space.isVisited() && space.isUnoccupied() && !space.isInEye() ) {
                     GoBoardPositionList eyeSpaces =
-                            nbrAnalyzer_.findStringFromInitialPosition( space, ownedByPlayer1,
-                                                                 false, NeighborType.NOT_FRIEND,
-                                                                 boundingBox_  );
+                            nbrAnalyzer.findStringFromInitialPosition(
+                                    space, ownedByPlayer1, false, NeighborType.NOT_FRIEND,
+                                    boundingBox);
                     excludedSpaceLists.add(eyeSpaces);
                     // make sure this is a real eye.
                     if ( confirmEye( eyeSpaces) ) {
-                        GoEye eye =  new GoEye( eyeSpaces, board_, group_, groupAnalyzer);
+                        GoEye eye =  new GoEye( eyeSpaces, board, group, groupAnalyzer);
                         eyes.add( eye );
                     }
                     else {
@@ -156,8 +156,8 @@ class EyeSpaceAnalyzer {
      * @return A new bounding box where we shave off the outer edge, unless on the edge of the board.
      */
     private Box createBoxExcludingBorder(Box box) {
-        int maxRow = board_.getNumRows();
-        int maxCol = board_.getNumCols();
+        int maxRow = board.getNumRows();
+        int maxCol = board.getNumCols();
 
         int innerMinRow = (box.getMinRow() > 1) ? Math.min(box.getMinRow() + 1, maxRow) : 1;
         int innerMinCol = (box.getMinCol() > 1) ? Math.min(box.getMinCol() + 1, maxCol) : 1;
@@ -176,7 +176,7 @@ class EyeSpaceAnalyzer {
     private void clearEyes(int rMin, int rMax, int cMin, int cMax) {
         for ( int r = rMin; r <= rMax; r++ ) {
             for ( int c = cMin; c <= cMax; c++ ) {
-                ((GoBoardPosition) board_.getPosition( r, c )).setEye(null);
+                ((GoBoardPosition) board.getPosition( r, c )).setEye(null);
             }
         }
     }
@@ -191,14 +191,14 @@ class EyeSpaceAnalyzer {
     private void excludeSeed( GoBoardPosition space, boolean groupOwnership,
                               GoBoardPositionLists lists) {
         if ( !space.isVisited()
-             && (space.isUnoccupied() || space.getPiece().isOwnedByPlayer1() != group_.isOwnedByPlayer1())) {
+             && (space.isUnoccupied() || space.getPiece().isOwnedByPlayer1() != group.isOwnedByPlayer1())) {
             // this will leave stones outside the group visited
             GoBoardPositionList exclusionList =
-                    nbrAnalyzer_.findStringFromInitialPosition(space, groupOwnership, false,
-                                                                NeighborType.NOT_FRIEND, boundingBox_);
+                    nbrAnalyzer.findStringFromInitialPosition(space, groupOwnership, false,
+                                                                NeighborType.NOT_FRIEND, boundingBox);
 
             Iterator it = exclusionList.iterator();
-            GroupAnalyzer groupAnalyzer = analyzerMap_.getAnalyzer(group_);
+            GroupAnalyzer groupAnalyzer = analyzerMap.getAnalyzer(group);
 
             while (it.hasNext()) {
                 GoBoardPosition p = (GoBoardPosition)it.next();
@@ -235,7 +235,7 @@ class EyeSpaceAnalyzer {
 
         for (GoBoardPosition position : eyeList) {
 
-            if (boundingBox_.isOnEdge(position.getLocation()) && !withinBorderEdge(position)) {
+            if (boundingBox.isOnEdge(position.getLocation()) && !withinBorderEdge(position)) {
                 // then the potential eye breaks through to the outside of the group bounds,
                 //so we really cannot consider it eyeList yet, though it likely will be.
                 return false;
@@ -259,9 +259,9 @@ class EyeSpaceAnalyzer {
      * @return true if on edge of border edge
      */
     private boolean withinBorderEdge(GoBoardPosition position) {
-        boolean isOnbboxCorner = boundingBox_.isOnCorner(position.getLocation());
-        boolean isInCorner = board_.isInCorner(position);
+        boolean isOnbboxCorner = boundingBox.isOnCorner(position.getLocation());
+        boolean isInCorner = board.isInCorner(position);
         boolean edgeOfEdge = isOnbboxCorner ^ isInCorner;
-        return board_.isOnEdge(position) && !edgeOfEdge;
+        return board.isOnEdge(position) && !edgeOfEdge;
     }
 }

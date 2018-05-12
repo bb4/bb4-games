@@ -117,7 +117,7 @@ public class E7Information extends AbstractEyeSubtypeInformation {
         }
         assert oneNbrPoints.size() == 3;  // hitting this
         Box bounds = new Box(oneNbrPoints.getFirst().getLocation(), oneNbrPoints.get(1).getLocation());
-        bounds.expandBy(oneNbrPoints.get(2).getLocation());
+        bounds = bounds.expandBy(oneNbrPoints.get(2).getLocation());
 
         for (GoBoardPosition otherPt : otherPoints) {
             if (!bounds.contains(otherPt.getLocation())) {

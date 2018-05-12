@@ -79,7 +79,7 @@ public class TestStringNeighborAnalyzer extends GoTestCase {
 
     private void initializeAnalyzer(String file) throws Exception {
         restore(PREFIX +file);
-        board_ = (GoBoard)controller_.getBoard();
+        board_ = (GoBoard) controller.getBoard();
         stringAnalyzer_ = new StringNeighborAnalyzer(board_);
     }
 
