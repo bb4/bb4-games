@@ -23,9 +23,9 @@ public final class BoardEvaluator {
     private static final boolean USE_SCORE_CACHING = false;
 
     private GoBoard board_;
-    private WorthCalculator worthCalculator_;
+    private WorthCalculator worthCalculator;
     private GroupAnalyzerMap analyzerMap_;
-    private ScoreCache scoreCache_;
+    private ScoreCache scoreCache;
 
     /**
      * Constructor.
@@ -34,8 +34,8 @@ public final class BoardEvaluator {
 
         board_ = board;
         analyzerMap_ = new GroupAnalyzerMap();
-        worthCalculator_ = new WorthCalculator(board, analyzerMap_);
-        scoreCache_ = cache;
+        worthCalculator = new WorthCalculator(board, analyzerMap_);
+        scoreCache = cache;
     }
 
     /**
@@ -46,7 +46,7 @@ public final class BoardEvaluator {
         if (USE_SCORE_CACHING) {
             return cachedWorth(lastMove, weights, hashKey);
         } else {
-            return worthCalculator_.worth(lastMove, weights);
+            return worthCalculator.worth(lastMove, weights);
         }
     }
 
@@ -59,17 +59,17 @@ public final class BoardEvaluator {
     private int cachedWorth( Move lastMove, ParameterArray weights, HashKey key) {
 
         // uncomment this to do caching.
-        ScoreEntry cachedScore = scoreCache_.get(key);
+        ScoreEntry cachedScore = scoreCache.get(key);
         ///////// comment this to do debugging
         //if (cachedScore != null) {
-        //    System.out.println("scoreCache_="+scoreCache_);
+        //    System.out.println("scoreCache="+scoreCache);
         //    return cachedScore.getScore();
         //}
 
-        int worth = worthCalculator_.worth(lastMove, weights);
+        int worth = worthCalculator.worth(lastMove, weights);
 
         if (cachedScore == null) {
-            scoreCache_.put(key, new ScoreEntry(key, worth, board_.toString(), getWorthInfo()));
+            scoreCache.put(key, new ScoreEntry(key, worth, board_.toString(), getWorthInfo()));
         }
         else {
             if (cachedScore.getScore() != worth) {
@@ -97,7 +97,7 @@ public final class BoardEvaluator {
      * @return the worthInfo from the calculator.
      */
     private WorthInfo getWorthInfo() {
-        return worthCalculator_.getWorthInfo();
+        return worthCalculator.getWorthInfo();
     }
 
     /** don't really want to expose this, but need for rendering. */
@@ -106,7 +106,7 @@ public final class BoardEvaluator {
     }
 
     public ScoreCache getCache() {
-        return scoreCache_;
+        return scoreCache;
     }
 
     /**
@@ -116,13 +116,13 @@ public final class BoardEvaluator {
      * @return estimate of size of territory for specified player.
      */
     public int getTerritoryEstimate(boolean forPlayer1, boolean isEndOfGame) {
-        return worthCalculator_.getTerritoryEstimate(forPlayer1, isEndOfGame);
+        return worthCalculator.getTerritoryEstimate(forPlayer1, isEndOfGame);
     }
 
     /**
      * @return the estimated difference in territory between the 2 sides.
      */
     public float updateTerritoryAtEndOfGame() {
-        return worthCalculator_.updateTerritoryAtEndOfGame();
+        return worthCalculator.updateTerritoryAtEndOfGame();
     }
 }

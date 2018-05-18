@@ -52,7 +52,7 @@ public class HexBoardViewer extends AbstractTwoPlayerBoardViewer {
         Location loc = getBoardRenderer().createLocation(e);
         StringBuilder sb = new StringBuilder( "<html><font=-3>" );  // NON_NLS
 
-        HexBoard b = (HexBoard)controller_.getBoard();
+        HexBoard b = (HexBoard) controller.getBoard();
         BoardPosition space = b.getPosition( loc );
         if ( space != null && GameContext.getDebugMode() > 0 ) {
 

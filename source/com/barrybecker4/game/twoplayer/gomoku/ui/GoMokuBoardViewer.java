@@ -50,7 +50,7 @@ public class GoMokuBoardViewer extends AbstractTwoPlayerBoardViewer {
         Location loc = getBoardRenderer().createLocation(e);
         StringBuilder sb = new StringBuilder( "<html><font=-3>" );  // NON_NLS
 
-        BoardPosition space = ((IRectangularBoard)controller_.getBoard()).getPosition( loc );
+        BoardPosition space = ((IRectangularBoard) controller.getBoard()).getPosition( loc );
         if ( space != null && GameContext.getDebugMode() > 0 ) {
             sb.append(space.getLocation());
         }

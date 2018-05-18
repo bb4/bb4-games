@@ -56,7 +56,7 @@ public class GalaxyViewer extends MultiGameViewer {
      */
     @Override
     public void showWinnerDialog() {
-        GalacticTallyDialog tallyDialog = new GalacticTallyDialog(parent_, (GalacticController)controller_);
+        GalacticTallyDialog tallyDialog = new GalacticTallyDialog(parent_, (GalacticController) controller);
         tallyDialog.showDialog();
     }
 
@@ -78,7 +78,7 @@ public class GalaxyViewer extends MultiGameViewer {
     public boolean doComputerMove(Player player) {
         assert(!player.isHuman());
         GalacticRobotPlayer robot = (GalacticRobotPlayer)player;
-        GalacticController gc = (GalacticController) controller_;
+        GalacticController gc = (GalacticController) controller;
         GameContext.log(1, "now doing computer move. about to make orders");
 
         robot.makeOrders((Galaxy)getBoard(), gc.getNumberOfYearsRemaining());
@@ -105,10 +105,10 @@ public class GalaxyViewer extends MultiGameViewer {
 
         // for each order of each player, apply it for one year
         // if there are battles, show them in the battle dialog and record the result in the move.
-        PlayerList players = controller_.getPlayers();
+        PlayerList players = controller.getPlayers();
 
         for (final Player player : players) {
-            //GalacticAction ga = (GalacticAction)gp.getAction((MultiGameController)controller_);
+            //GalacticAction ga = (GalacticAction)gp.getAction((MultiGameController)controller);
             List orders = ((GalacticPlayer) player).getOrders();
             executeOrders(gmove, orders);
         }
@@ -141,7 +141,7 @@ public class GalaxyViewer extends MultiGameViewer {
             BattleSimulation battle = new BattleSimulation(order, destPlanet);
             move.addSimulation(battle);
 
-            if (!controller_.getPlayers().allPlayersComputer()) {
+            if (!controller.getPlayers().allPlayersComputer()) {
                 showBattle(battle);
             }
 
@@ -189,7 +189,7 @@ public class GalaxyViewer extends MultiGameViewer {
         Location loc = getBoardRenderer().createLocation(e);
         StringBuilder sb = new StringBuilder( "<html><font=-3>" );
 
-        BoardPosition space = ((IRectangularBoard)controller_.getBoard()).getPosition( loc );
+        BoardPosition space = ((IRectangularBoard) controller.getBoard()).getPosition( loc );
         if ( space != null && space.isOccupied() && GameContext.getDebugMode() >= 0 ) {
             sb.append(((Planet)space.getPiece()).toHtml());
             sb.append("<br>");

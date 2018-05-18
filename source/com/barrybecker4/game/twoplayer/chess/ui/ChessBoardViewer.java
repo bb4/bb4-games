@@ -67,7 +67,7 @@ public class ChessBoardViewer extends AbstractTwoPlayerBoardViewer {
             return;
 
         int row, col;
-        ChessBoard b = (ChessBoard)controller_.getBoard();
+        ChessBoard b = (ChessBoard) controller.getBoard();
         boolean checked = false;
         for ( row = 1; row <= b.getNumRows(); row++ ) {
             for ( col = 1; col <= b.getNumCols(); col++ ) {
@@ -107,7 +107,7 @@ public class ChessBoardViewer extends AbstractTwoPlayerBoardViewer {
         Location loc = getBoardRenderer().createLocation(e);
         StringBuilder sb = new StringBuilder( "<html><font=-3>" );
 
-        BoardPosition space = ((IRectangularBoard) controller_.getBoard()).getPosition( loc );
+        BoardPosition space = ((IRectangularBoard) controller.getBoard()).getPosition( loc );
         if ( space != null && space.isOccupied() && GameContext.getDebugMode() > 0 ) {
             sb.append( loc );
             sb.append("<br>");

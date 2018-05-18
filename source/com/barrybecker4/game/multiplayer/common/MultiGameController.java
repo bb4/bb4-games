@@ -46,13 +46,13 @@ import java.util.List;
  */
 public abstract class MultiGameController<M extends Move, B extends IBoard<M>> extends GameController<M, B> {
 
-    protected int currentPlayerIndex_;
+    protected int currentPlayerIndex;
 
     /** there is a different starting player each round */
     protected int startingPlayerIndex_ = 0;
 
     /** the ith play in a given round */
-    protected int playIndex_ = 0;
+    protected int playIndex = 0;
 
     /** size of the board. Assumed to be a grid. Probably should be abstracted to an options class */
     private Dimension size;
@@ -97,18 +97,18 @@ public abstract class MultiGameController<M extends Move, B extends IBoard<M>> e
     @Override
     protected void initializeData() {
         startingPlayerIndex_ = 0;
-        playIndex_ = 0;
-        currentPlayerIndex_ = 0;
+        playIndex = 0;
+        currentPlayerIndex = 0;
         recentRobotActions_ = new ArrayList<>();
         initPlayers();
     }
 
     @Override
     public GameOptions getOptions() {
-        if (gameOptions_ == null) {
-            gameOptions_ = createOptions();
+        if (gameOptions == null) {
+            gameOptions = createOptions();
         }
-        return gameOptions_;
+        return gameOptions;
     }
 
     protected abstract GameOptions createOptions();
@@ -124,7 +124,7 @@ public abstract class MultiGameController<M extends Move, B extends IBoard<M>> e
      */
     @Override
     public MultiGamePlayer getCurrentPlayer() {
-        return (MultiGamePlayer) getPlayers().get(currentPlayerIndex_);
+        return (MultiGamePlayer) getPlayers().get(currentPlayerIndex);
     }
 
     @Override

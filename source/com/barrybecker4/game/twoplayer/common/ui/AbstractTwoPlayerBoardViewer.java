@@ -75,7 +75,7 @@ public abstract class AbstractTwoPlayerBoardViewer<M extends TwoPlayerMove, B ex
      * Construct the viewer.
      */
     protected AbstractTwoPlayerBoardViewer() {
-        controller_.setViewer(this);
+        controller.setViewer(this);
         moveRequester_ = new ComputerMoveRequester(get2PlayerController());
         moveSequencePlayer_ = new MoveSequencePlayback(get2PlayerController());
     }
@@ -84,7 +84,7 @@ public abstract class AbstractTwoPlayerBoardViewer<M extends TwoPlayerMove, B ex
      * @return our game controller
      */
     public TwoPlayerController<M, B> get2PlayerController() {
-       return (TwoPlayerController<M, B>)controller_;
+       return (TwoPlayerController<M, B>) controller;
     }
 
     /**
@@ -127,7 +127,7 @@ public abstract class AbstractTwoPlayerBoardViewer<M extends TwoPlayerMove, B ex
      */
     @Override
     public void reset() {
-        controller_.reset();  //clear what's there and start over
+        controller.reset();  //clear what's there and start over
         B board = getBoard();
         commonReset(board);
     }

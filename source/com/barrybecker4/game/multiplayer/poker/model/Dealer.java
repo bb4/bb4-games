@@ -22,7 +22,7 @@ public class Dealer  {
     public void dealCardsToPlayers(PlayerList players, int numCardsToDealToEachPlayer) {
 
         Deck deck = new Deck();
-        assert (players != null) : "No players! (players_ is null)";
+        assert (players != null) : "No players! (players is null)";
         for (Player p : players) {
             if (deck.size() < numCardsToDealToEachPlayer) {
                 // ran out of cards. start a new shuffled deck.

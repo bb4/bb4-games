@@ -48,7 +48,7 @@ public class PokerGameViewer extends MultiGameViewer {
      */
     @Override
     protected String getGameOverMessage() {
-        return new GameOverMessage(controller_.getPlayers()).toString();
+        return new GameOverMessage(controller.getPlayers()).toString();
     }
 
 
@@ -62,7 +62,7 @@ public class PokerGameViewer extends MultiGameViewer {
     public boolean doComputerMove(Player player) {
         assert(!player.isHuman());
         PokerRobotPlayer robot = (PokerRobotPlayer)player.getActualPlayer();
-        PokerController pc = (PokerController) controller_;
+        PokerController pc = (PokerController) controller;
 
         PlayerAction action = robot.getAction(pc);
         String msg = applyAction(action, robot);
@@ -85,7 +85,7 @@ public class PokerGameViewer extends MultiGameViewer {
 
         PokerPlayer p = (PokerPlayer) player;
         PokerAction act = (PokerAction) action;
-        PokerController pc = (PokerController) controller_;
+        PokerController pc = (PokerController) controller;
 
         String msg = null;
         int callAmount = pc.getCurrentMaxContribution() - p.getContribution();
@@ -132,7 +132,7 @@ public class PokerGameViewer extends MultiGameViewer {
      */
     public void showRoundOver(List<PokerPlayer> winners, int winnings) {
 
-        PlayerList players = controller_.getPlayers();
+        PlayerList players = controller.getPlayers();
         for (final Player p : players) {
             PokerPlayer player = (PokerPlayer) p.getActualPlayer();
             player.getHand().setFaceUp(true);

@@ -83,9 +83,9 @@ public class CheckersSearchable extends TwoPlayerSearchable<CheckersMove, Checke
      */
     private void recordPlayerWin(boolean p1Won) {
         if (p1Won) {
-            players_.getPlayer1().setWon(true);
+            players.getPlayer1().setWon(true);
         } else {
-            players_.getPlayer2().setWon(true);
+            players.getPlayer2().setWon(true);
         }
     }
 

@@ -177,7 +177,7 @@ public abstract class MultiPlayerOnlineManagerPanel
     public void closing() {
         String name = namePanel_.getCurrentName();
         System.out.println(name + " cancelled online dlg");
-        //controller_.getServerConnection().leaveRoom(name);   // was commented
+        //controller.getServerConnection().leaveRoom(name);   // was commented
     }
 
     /**

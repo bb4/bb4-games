@@ -47,7 +47,7 @@ public class TrivialGameViewer extends MultiGameViewer {
         StringBuilder buf = new StringBuilder("Game Over\n");
 
         // find the player with the most money. That's the winner.
-        PlayerList players = controller_.getPlayers();
+        PlayerList players = controller.getPlayers();
         int max = -1;
         TrivialPlayer winner = null;
         for (final Player p : players) {
@@ -73,7 +73,7 @@ public class TrivialGameViewer extends MultiGameViewer {
     public boolean doComputerMove(Player player) {
         assert(!player.isHuman());
         TrivialRobotPlayer robot = (TrivialRobotPlayer)player;
-        TrivialController pc = (TrivialController) controller_;
+        TrivialController pc = (TrivialController) controller;
 
         PlayerAction action = robot.getAction(pc);
         GameContext.log(0, "making trivial robot move! : " + action );

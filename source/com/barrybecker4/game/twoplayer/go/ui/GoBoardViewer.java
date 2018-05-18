@@ -81,7 +81,7 @@ public final class GoBoardViewer extends AbstractTwoPlayerBoardViewer<GoMove, Go
         // show the dead stones marked as such.
         refresh();
 
-        return new GoGameOverMessage((GoController)controller_).getText();
+        return new GoGameOverMessage((GoController) controller).getText();
     }
 
     /**
@@ -95,7 +95,7 @@ public final class GoBoardViewer extends AbstractTwoPlayerBoardViewer<GoMove, Go
         Location loc = getBoardRenderer().createLocation(e);
         StringBuilder sb = new StringBuilder( "<html><font=-3>" );  // NON_NLS
 
-        GoBoardPosition space = (GoBoardPosition) controller_.getBoard().getPosition( loc );
+        GoBoardPosition space = (GoBoardPosition) controller.getBoard().getPosition( loc );
         if ( space != null && GameContext.getDebugMode() > 0 ) {
             String spaceText = space.getDescription();
             sb.append( spaceText);
@@ -128,7 +128,7 @@ public final class GoBoardViewer extends AbstractTwoPlayerBoardViewer<GoMove, Go
 
     private void appendStringText(StringBuilder sb, String spaceText, IGoString string) {
         sb.append( "<br>" );
-        sb.append("string liberties = ").append(string.getNumLiberties(controller_.getBoard()));
+        sb.append("string liberties = ").append(string.getNumLiberties(controller.getBoard()));
         String stringText = string.toString();
         if ( string.getGroup() != null ) {
             sb.append( "<br>" );

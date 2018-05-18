@@ -19,22 +19,22 @@ public abstract class GameController<M extends Move, B extends IBoard<M>>
            implements IGameController<M, B> {
 
     /** the board has the layout of the pieces. */
-    private B board_;
+    private B board;
 
     /** Use this to draw directly to the ui while thinking (for debugging purposes) . */
-    protected GameViewModel viewer_;
+    protected GameViewModel viewer;
 
     /** the list of players actively playing the game, in the order that they move. */
-    private PlayerList players_;
+    private PlayerList players;
 
     /** collections of game specific options.  They may be modified through the ui (see GameOptionsDialog)*/
-    protected GameOptions gameOptions_;
+    protected GameOptions gameOptions;
 
     /**
      * Optional. Only present if we are online
      * this allows us to talk with the game server (if it is available). null if not
      */
-    private IServerConnection serverConnection_;
+    private IServerConnection serverConnection;
 
 
     /**
@@ -49,7 +49,7 @@ public abstract class GameController<M extends Move, B extends IBoard<M>>
      * @param viewer view model
      */
     public void setViewer(GameViewModel viewer) {
-       viewer_ = viewer;
+       this.viewer = viewer;
     }
 
     /**
@@ -80,7 +80,7 @@ public abstract class GameController<M extends Move, B extends IBoard<M>>
      */
     @Override
     public GameViewModel getViewer() {
-        return viewer_;
+        return viewer;
     }
 
     /**
@@ -96,10 +96,10 @@ public abstract class GameController<M extends Move, B extends IBoard<M>>
      */
     @Override
     public B getBoard() {
-        if (board_ == null) {
-            board_ = createBoard();
+        if (board == null) {
+            board = createBoard();
         }
-        return board_;
+        return board;
     }
 
     protected abstract B createBoard();
@@ -151,7 +151,7 @@ public abstract class GameController<M extends Move, B extends IBoard<M>>
      */
     @Override
     public PlayerList getPlayers() {
-        return players_;
+        return players;
     }
 
     /**
@@ -159,13 +159,13 @@ public abstract class GameController<M extends Move, B extends IBoard<M>>
      * @param players the players currently playing the game
      */
     public void setPlayers( PlayerList players ) {
-       players_ = players;
+       this.players = players;
        initializeData();
     }
 
 
     public void setOptions(GameOptions options) {
-        gameOptions_ = options;
+        gameOptions = options;
     }
 
     public abstract GameOptions getOptions();
@@ -181,10 +181,10 @@ public abstract class GameController<M extends Move, B extends IBoard<M>>
      */
     public IServerConnection getServerConnection() {
 
-        if (serverConnection_ == null) {
-            serverConnection_ = createServerConnection();
+        if (serverConnection == null) {
+            serverConnection = createServerConnection();
         }
-        return serverConnection_;
+        return serverConnection;
     }
 
     /**

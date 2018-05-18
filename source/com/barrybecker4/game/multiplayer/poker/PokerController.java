@@ -130,7 +130,7 @@ public class PokerController extends MultiGameController {
         }
 
         deal();
-        currentPlayerIndex_ = 0;
+        currentPlayerIndex = 0;
 
         getBoard().initPlayers(getPlayers());
     }
@@ -191,7 +191,7 @@ public class PokerController extends MultiGameController {
         pviewer.refresh();
         advanceToNextPlayerIndex();
 
-        if (round.roundOver(getPlayers(), playIndex_)) {
+        if (round.roundOver(getPlayers(), playIndex)) {
             // every player left in the game has called.
             //PokerRound round = pviewer.createMove(getLastMove());
             // records the result on the board.
@@ -243,8 +243,8 @@ public class PokerController extends MultiGameController {
             }
             while (((PokerPlayer)getPlayer(startingPlayerIndex_)).isOutOfGame());
 
-            currentPlayerIndex_ = startingPlayerIndex_;
-            playIndex_ = 0;
+            currentPlayerIndex = startingPlayerIndex_;
+            playIndex = 0;
         }
     }
 
@@ -263,12 +263,12 @@ public class PokerController extends MultiGameController {
      */
     @Override
     protected int advanceToNextPlayerIndex() {
-        playIndex_++;
-        currentPlayerIndex_ = (currentPlayerIndex_+1) % getPlayers().size();
-        while (((PokerPlayer) getPlayer(currentPlayerIndex_).getActualPlayer()).hasFolded()) {
-            currentPlayerIndex_ = (currentPlayerIndex_+1) % getPlayers().size();
+        playIndex++;
+        currentPlayerIndex = (currentPlayerIndex +1) % getPlayers().size();
+        while (((PokerPlayer) getPlayer(currentPlayerIndex).getActualPlayer()).hasFolded()) {
+            currentPlayerIndex = (currentPlayerIndex +1) % getPlayers().size();
         }
-        return currentPlayerIndex_;
+        return currentPlayerIndex;
     }
 
     /**

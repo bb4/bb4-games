@@ -22,9 +22,9 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
 public class GoSearchable extends TwoPlayerSearchable<GoMove, GoBoard> {
 
     /** keeps track of dead stones.  */
-    private DeadStoneUpdater deadStoneUpdater_;
+    private DeadStoneUpdater deadStoneUpdater;
 
-    private BoardEvaluator boardEvaluator_;
+    private BoardEvaluator boardEvaluator;
 
 
     /**
@@ -51,17 +51,12 @@ public class GoSearchable extends TwoPlayerSearchable<GoMove, GoBoard> {
     }
 
     public ScoreCache getScoreCache() {
-        return boardEvaluator_.getCache();
+        return boardEvaluator.getCache();
     }
 
-    /** don't really want to expose this, but renderer needs it */
-    //public GroupAnalyzer getGroupAnalyzer(IGoGroup group) {
-    //    return boardEvaluator_.getGroupAnalyzer(group);
-    //}
-
     private void init(ScoreCache cache) {
-        deadStoneUpdater_ = new DeadStoneUpdater(getBoard());
-        boardEvaluator_ = new BoardEvaluator(getBoard(), cache);
+        deadStoneUpdater = new DeadStoneUpdater(getBoard());
+        boardEvaluator = new BoardEvaluator(getBoard(), cache);
     }
 
     @Override
@@ -118,7 +113,7 @@ public class GoSearchable extends TwoPlayerSearchable<GoMove, GoBoard> {
     private void doFinalBookKeeping() {
 
         getProfiler().startCalcWorth();
-        boardEvaluator_.updateTerritoryAtEndOfGame();
+        boardEvaluator.updateTerritoryAtEndOfGame();
 
         //we should not call this twice
         if (getNumDeadStonesOnBoard(true)  > 0 || getNumDeadStonesOnBoard(false) > 0) {
@@ -127,7 +122,7 @@ public class GoSearchable extends TwoPlayerSearchable<GoMove, GoBoard> {
         // now that we are finally at the end of the game,
         // update the life and death of all the stones still on the board
         GameContext.log(1,  "about to update life and death." );
-        deadStoneUpdater_.determineDeadStones();
+        deadStoneUpdater.determineDeadStones();
         getProfiler().stopCalcWorth();
     }
 
@@ -140,7 +135,7 @@ public class GoSearchable extends TwoPlayerSearchable<GoMove, GoBoard> {
     @Override
     public int worth(GoMove lastMove, ParameterArray weights ) {
 
-        return boardEvaluator_.worth(lastMove, weights, getHashKey());
+        return boardEvaluator.worth(lastMove, weights, getHashKey());
     }
 
     /**
@@ -195,10 +190,11 @@ public class GoSearchable extends TwoPlayerSearchable<GoMove, GoBoard> {
      */
     private boolean twoPasses(GoMove move) {
 
-        if ( move.isPassingMove() && moveList_.size() > 2 ) {
-            GoMove secondToLast = moveList_.get( moveList_.size() - 2 );
+        if ( move.isPassingMove() && moveList.size() > 2 ) {
+            GoMove secondToLast = moveList.get( moveList.size() - 2 );
             if ( secondToLast.isPassingMove() ) {
-                GameContext.log( 0, "Done: The last 2 moves were passes :" + move + ", " + secondToLast );
+                GameContext.log( 0, "Done: The last 2 moves were passes :"
+                        + move + ", " + secondToLast );
                 return true;
             }
         }
@@ -210,10 +206,10 @@ public class GoSearchable extends TwoPlayerSearchable<GoMove, GoBoard> {
      */
     private void setWinner(boolean player1) {
         if (player1) {
-            players_.getPlayer1().setWon(true);
+            players.getPlayer1().setWon(true);
         }
         else {
-            players_.getPlayer2().setWon(true);
+            players.getPlayer2().setWon(true);
         }
     }
 
@@ -230,11 +226,11 @@ public class GoSearchable extends TwoPlayerSearchable<GoMove, GoBoard> {
      * @return estimate of the amount of territory the player has
      */
     public int getTerritoryEstimate( boolean forPlayer1 ) {
-        GoMove m = moveList_.getLastMove();
+        GoMove m = moveList.getLastMove();
         if ( m == null )
             return 0;
 
-        return boardEvaluator_.getTerritoryEstimate(forPlayer1, false);
+        return boardEvaluator.getTerritoryEstimate(forPlayer1, false);
     }
 
     /**
@@ -243,7 +239,7 @@ public class GoSearchable extends TwoPlayerSearchable<GoMove, GoBoard> {
      * @return the actual score (each empty space counts as one)
      */
     public int getFinalTerritory(boolean forPlayer1) {
-        return boardEvaluator_.getTerritoryEstimate(forPlayer1, true);
+        return boardEvaluator.getTerritoryEstimate(forPlayer1, true);
     }
 
     /**
@@ -252,7 +248,7 @@ public class GoSearchable extends TwoPlayerSearchable<GoMove, GoBoard> {
      * @return number of dead stones of specified players color.
      */
     public int getNumDeadStonesOnBoard(boolean forPlayer1)  {
-        return deadStoneUpdater_.getNumDeadStonesOnBoard(forPlayer1);
+        return deadStoneUpdater.getNumDeadStonesOnBoard(forPlayer1);
     }
 
     /**

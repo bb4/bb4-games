@@ -71,7 +71,7 @@ public class TrivialController extends MultiGameController {
             setPlayers(players);
         }
 
-        currentPlayerIndex_ = 0;
+        currentPlayerIndex = 0;
         ((TrivialTable)getBoard()).initPlayers(getPlayers());
     }
 
@@ -125,17 +125,17 @@ public class TrivialController extends MultiGameController {
      */
     @Override
     public int advanceToNextPlayerIndex() {
-        playIndex_++;
+        playIndex++;
         Player player;
         do {
             // if the current player has revealed, then advance to the next player.
-            currentPlayerIndex_ = (currentPlayerIndex_ + 1) % getPlayers().size();
-            player = getPlayer(currentPlayerIndex_).getActualPlayer();
-            GameContext.log(0, "currentPlayerIndex=" + currentPlayerIndex_);
+            currentPlayerIndex = (currentPlayerIndex + 1) % getPlayers().size();
+            player = getPlayer(currentPlayerIndex).getActualPlayer();
+            GameContext.log(0, "currentPlayerIndex=" + currentPlayerIndex);
 
         }  while (((TrivialPlayer)player).isRevealed());
 
-        return currentPlayerIndex_;
+        return currentPlayerIndex;
     }
 
 }

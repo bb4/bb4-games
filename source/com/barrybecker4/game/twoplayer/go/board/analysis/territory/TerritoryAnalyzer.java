@@ -14,16 +14,16 @@ import com.barrybecker4.game.twoplayer.go.board.elements.position.GoBoardPositio
  */
 public class TerritoryAnalyzer {
 
-    private GoBoard board_;
-    private GroupAnalyzerMap analyzerMap_;
+    private GoBoard board;
+    private GroupAnalyzerMap analyzerMap;
 
     /**
      * Constructor
      * @param board board to analyze
      */
     public TerritoryAnalyzer(GoBoard board, GroupAnalyzerMap analyzerMap)  {
-        board_ = board;
-        analyzerMap_ = analyzerMap;
+        this.board = board;
+        this.analyzerMap = analyzerMap;
     }
 
     /**
@@ -39,9 +39,9 @@ public class TerritoryAnalyzer {
         float territoryEstimate = 0;
 
         // we should be able to just sum all the position scores now.
-        for ( int i = 1; i <= board_.getNumRows(); i++ )  {
-           for ( int j = 1; j <= board_.getNumCols(); j++ ) {
-               GoBoardPosition pos = (GoBoardPosition) board_.getPosition(i, j);
+        for (int i = 1; i <= board.getNumRows(); i++ )  {
+           for (int j = 1; j <= board.getNumCols(); j++ ) {
+               GoBoardPosition pos = (GoBoardPosition) board.getPosition(i, j);
                territoryEstimate += getTerritoryEstimateForPosition(pos, forPlayer1, isEndOfGame);
            }
         }
@@ -72,7 +72,7 @@ public class TerritoryAnalyzer {
             assert(piece != null);
             if (group != null) {
                 // add credit for probable captured stones.
-                double relHealth = analyzerMap_.getAnalyzer(group).getRelativeHealth(board_, isEndOfGame);
+                double relHealth = analyzerMap.getAnalyzer(group).getRelativeHealth(board, isEndOfGame);
                 if (forPlayer1 && !piece.isOwnedByPlayer1() && relHealth >= 0) {
                     territoryEstimate += val;
                 }

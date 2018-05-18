@@ -128,9 +128,9 @@ public class BlockadeSearchable extends TwoPlayerSearchable<BlockadeMove, Blocka
 
         if (recordWin) {
             if (p1Won) {
-                players_.getPlayer1().setWon(true);
+                players.getPlayer1().setWon(true);
             } else if (p2Won)  {
-                players_.getPlayer2().setWon(true);
+                players.getPlayer2().setWon(true);
             }
         }
         return (p1Won || p2Won);

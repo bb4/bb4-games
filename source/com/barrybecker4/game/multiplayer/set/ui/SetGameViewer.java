@@ -37,7 +37,7 @@ public final class SetGameViewer extends MultiGameViewer {
 
     @Override
     public void startNewGame() {
-        controller_.reset();
+        controller.reset();
     }
 
     @Override
@@ -63,7 +63,7 @@ public final class SetGameViewer extends MultiGameViewer {
      */
     @Override
     public SetBoard getBoard() {
-        return (SetBoard) controller_.getBoard();
+        return (SetBoard) controller.getBoard();
     }
 
     /**
@@ -92,12 +92,12 @@ public final class SetGameViewer extends MultiGameViewer {
 
     @Override
     public String getGameOverMessage() {
-        SetPlayer winner = (SetPlayer) ((SetController) controller_).determineWinners().get(0);
+        SetPlayer winner = (SetPlayer) ((SetController) controller).determineWinners().get(0);
         return "the game is over. The winner is " + winner.getName() + " with " + winner.getNumSetsFound() + "sets";
     }
 
     public List<Card> getSelectedCards() {
-        return ((SetBoard)controller_.getBoard()).getSelectedCards();
+        return ((SetBoard) controller.getBoard()).getSelectedCards();
     }
 
     /**

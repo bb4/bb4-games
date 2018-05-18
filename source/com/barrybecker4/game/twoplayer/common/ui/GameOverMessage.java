@@ -17,14 +17,14 @@ import java.text.MessageFormat;
 public class GameOverMessage {
 
     /** Used to get the score values. */
-    protected TwoPlayerController controller_ = null;
+    protected TwoPlayerController controller = null;
 
     /**
      * Constructor.
      */
     public GameOverMessage(TwoPlayerController controller) {
 
-        controller_ = controller;
+        this.controller = controller;
     }
 
     /**
@@ -32,7 +32,7 @@ public class GameOverMessage {
      */
     public String getText() {
 
-        PlayerList players = controller_.getPlayers();
+        PlayerList players = controller.getPlayers();
         String text;
 
         if ( players.anyPlayerWon())    {
@@ -56,8 +56,8 @@ public class GameOverMessage {
             args[0] = winningPlayer.isHuman() ? GameContext.getLabel("YOU") : GameContext.getLabel("THE_COMPUTER");
         }
         args[1] = winningPlayer.getName();
-        args[2] = Integer.toString(controller_.getNumMoves());
-        args[3] = FormatUtil.formatNumber(controller_.getStrengthOfWin());
+        args[2] = Integer.toString(controller.getNumMoves());
+        args[3] = FormatUtil.formatNumber(controller.getStrengthOfWin());
         text = formatter.format(args);
 
         assert(!losingPlayer.hasWon()) : "Both players should not win. Players=" + players;

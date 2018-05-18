@@ -137,7 +137,7 @@ class SolutionPanel extends JPanel
         if (set == null) return;
         for (Card c : set) {
             c.setHighlighted(highlight);
-            //viewer_.highlightCard(c, highlight);
+            //viewer.highlightCard(c, highlight);
         }
         viewer_.refresh();
     }

@@ -42,7 +42,7 @@ public abstract class GameBoardViewer<M extends Move, B extends Board<M>> extend
                                       implements GameViewModel, GameChangedListener<M> {
 
     /** every GameBoardViewer must contain a controller. */
-    protected GameController<M, B> controller_;
+    protected GameController<M, B> controller;
 
     /** for restoring undone moves. */
     protected final MoveList<M> undoneMoves_ = new MoveList<>();
@@ -61,8 +61,8 @@ public abstract class GameBoardViewer<M extends Move, B extends Board<M>> extend
      * Construct the viewer.
      */
     public GameBoardViewer() {
-        controller_ = createController();
-        controller_.setViewer(this);
+        controller = createController();
+        controller.setViewer(this);
 
         // this activates tooltip text for the component
         this.setToolTipText( "" );
@@ -90,7 +90,7 @@ public abstract class GameBoardViewer<M extends Move, B extends Board<M>> extend
      */
     @Override
     public GameController<M, B> getController() {
-       return controller_;
+       return controller;
     }
 
     /**
@@ -115,8 +115,8 @@ public abstract class GameBoardViewer<M extends Move, B extends Board<M>> extend
         File file = chooser.getSelectedFile();
         if ( file != null && state == JFileChooser.APPROVE_OPTION )  {
             lastFileAccessed = file;
-            controller_.restoreFromFile(file.getAbsolutePath());
-            sendGameChangedEvent(controller_.getLastMove());
+            controller.restoreFromFile(file.getAbsolutePath());
+            sendGameChangedEvent(controller.getLastMove());
             this.refresh();
         }
     }
@@ -140,7 +140,7 @@ public abstract class GameBoardViewer<M extends Move, B extends Board<M>> extend
             // if it does not have the .sgf extension already then add it
             String fPath = file.getAbsolutePath();
             fPath = SgfFileFilter.addExtIfNeeded(fPath, SgfFileFilter.SGF_EXTENSION);
-            GameExporter exporter = controller_.getExporter();
+            GameExporter exporter = controller.getExporter();
             exporter.saveToFile(fPath, ae);
         }
     }
@@ -166,8 +166,8 @@ public abstract class GameBoardViewer<M extends Move, B extends Board<M>> extend
      */
     @Override
     public void reset() {
-        controller_.reset();  //clear what's there and start over
-        B board = controller_.getBoard();
+        controller.reset();  //clear what's there and start over
+        B board = controller.getBoard();
         commonReset(board);
     }
 
@@ -220,7 +220,7 @@ public abstract class GameBoardViewer<M extends Move, B extends Board<M>> extend
      * Most likely because a move has been played. It does not need to be on the eventDispatch thread.
      */
     public void sendGameChangedEvent(M m) {
-        GameChangedEvent<M> gce = new GameChangedEvent<>(m, controller_, this );
+        GameChangedEvent<M> gce = new GameChangedEvent<>(m, controller, this );
         for (GameChangedListener<M> gcl : gameListeners_) {
             gcl.gameChanged(gce);
         }
@@ -230,7 +230,7 @@ public abstract class GameBoardViewer<M extends Move, B extends Board<M>> extend
      * @return true if there is a move to undo.
      */
     public final boolean canUndoMove() {
-        return  (controller_.getLastMove() != null);
+        return  (controller.getLastMove() != null);
     }
 
     /**
@@ -313,9 +313,9 @@ public abstract class GameBoardViewer<M extends Move, B extends Board<M>> extend
         super.paintComponents( g );
 
         getBoardRenderer().render( g,
-                controller_.getCurrentPlayer(),
-                controller_.getPlayers(),
-                controller_.getBoard(),
+                controller.getCurrentPlayer(),
+                controller.getPlayers(),
+                controller.getBoard(),
                 getWidth(), getHeight());
     }
 
@@ -323,7 +323,7 @@ public abstract class GameBoardViewer<M extends Move, B extends Board<M>> extend
      * @return the cached game board if we are in the middle of processing.
      */
     public IBoard getBoard() {
-        return controller_.getBoard();
+        return controller.getBoard();
     }
 
     /**

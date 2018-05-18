@@ -50,7 +50,7 @@ class BlockadeBoardViewer extends AbstractTwoPlayerBoardViewer {
         Location loc = getBoardRenderer().createLocation(e);
         StringBuilder sb = new StringBuilder( "<html><font=-3>" );
 
-        BlockadeBoardPosition space = ((BlockadeBoard)controller_.getBoard()).getPosition( loc );
+        BlockadeBoardPosition space = ((BlockadeBoard) controller.getBoard()).getPosition( loc );
         if ( space != null && GameContext.getDebugMode() > 0 ) {
             sb.append(space.toString());
             sb.append(space.isVisited()?":Visited":"");

@@ -52,7 +52,7 @@ class SurrogateMoveWorker {
               public void finished() {
 
                   viewer_.applyAction(action, player.getActualPlayer());
-                  //viewer_.sendGameChangedEvent(null);
+                  //viewer.sendGameChangedEvent(null);
                   viewer_.refresh();
                   controller_.advanceToNextPlayer();
                   processing_ = false;

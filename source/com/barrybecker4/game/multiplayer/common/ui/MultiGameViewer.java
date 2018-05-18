@@ -42,13 +42,13 @@ public abstract class MultiGameViewer<M extends Move, B extends Board<M>> extend
         reset();
         winnerDialogShown_ = false;
         sendGameChangedEvent(null);  // get the info panel to refresh with 1st players name
-        Player firstPlayer = controller_.getPlayers().getFirstPlayer();
+        Player firstPlayer = controller.getPlayers().getFirstPlayer();
 
         if (firstPlayer.isSurrogate()) {
             doSurrogateMove((SurrogateMultiPlayer) firstPlayer);
         }
         else if (!firstPlayer.isHuman()) {
-            controller_.computerMovesFirst();
+            controller.computerMovesFirst();
         }
     }
 
@@ -107,7 +107,7 @@ public abstract class MultiGameViewer<M extends Move, B extends Board<M>> extend
      */
     @Override
     public void gameChanged(GameChangedEvent<M> evt) {
-        if (controller_.isDone() && !winnerDialogShown_)  {
+        if (controller.isDone() && !winnerDialogShown_)  {
             winnerDialogShown_ = true;
             showWinnerDialog();
         }
@@ -134,8 +134,8 @@ public abstract class MultiGameViewer<M extends Move, B extends Board<M>> extend
         Location loc = getBoardRenderer().createLocation(e);
         StringBuilder sb = new StringBuilder( "<html><font=-3>" );
 
-        if (controller_.getBoard() != null) {
-            BoardPosition space = ((IRectangularBoard)controller_.getBoard()).getPosition(loc);
+        if (controller.getBoard() != null) {
+            BoardPosition space = ((IRectangularBoard) controller.getBoard()).getPosition(loc);
             if ( space != null && space.isOccupied() && GameContext.getDebugMode() >= 0 ) {
                 sb.append("<br>");
                 sb.append( loc );

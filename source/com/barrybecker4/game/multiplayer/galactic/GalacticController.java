@@ -89,7 +89,7 @@ public class GalacticController extends MultiGameController<GalacticTurn, Galaxy
             homePlanet.setOwner((GalacticPlayer)players.get(1));
             setPlayers(players);
         }
-        currentPlayerIndex_ = 0;
+        currentPlayerIndex = 0;
 
         getBoard().initPlanets(getPlayers(), (GalacticOptions) getOptions());
     }
@@ -195,8 +195,8 @@ public class GalacticController extends MultiGameController<GalacticTurn, Galaxy
      */
     @Override
     protected int advanceToNextPlayerIndex() {
-        currentPlayerIndex_ = (currentPlayerIndex_ + 1) % getPlayers().size();
-        return currentPlayerIndex_;
+        currentPlayerIndex = (currentPlayerIndex + 1) % getPlayers().size();
+        return currentPlayerIndex;
     }
 
     @Override

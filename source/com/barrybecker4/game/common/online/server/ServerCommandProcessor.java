@@ -31,7 +31,7 @@ class ServerCommandProcessor {
     private GameTableManager tableManager;
 
     /** Maintain the master game state on the server. */
-    private GameController controller_;
+    private GameController controller;
 
     /**
      * Create the online game server to serve all online clients.
@@ -61,11 +61,11 @@ class ServerCommandProcessor {
         panel.init(null);
         GameBoardViewer viewer = panel.getViewer();
 
-        controller_ = viewer.getController();
+        controller = viewer.getController();
     }
 
     public int getPort() {
-        return controller_.getServerPort();
+        return controller.getServerPort();
     }
 
     /**
@@ -140,12 +140,12 @@ class ServerCommandProcessor {
 
         PlayerAction action = (PlayerAction) cmd.getArgument();
         GameContext.log(0, "ServerCmdProc: doPlayerAction (" + action + "). Surrogates to handle");
-        controller_.handlePlayerAction(action);
+        controller.handlePlayerAction(action);
 
         responses.add(cmd);
 
         // get all robot player actions until the next human player
-        List<PlayerAction> robotActions = ((MultiGameController)controller_).getRecentRobotActions();
+        List<PlayerAction> robotActions = ((MultiGameController) controller).getRecentRobotActions();
 
         for (PlayerAction act : robotActions) {
             GameCommand robotCmd = new GameCommand(GameCommand.Name.DO_ACTION, act);
@@ -170,18 +170,18 @@ class ServerCommandProcessor {
         PlayerList newPlayers = new PlayerList();
         for (Player player : players) {
             if (player.isHuman()) {
-                newPlayers.add(player.createSurrogate(controller_.getServerConnection()));
+                newPlayers.add(player.createSurrogate(controller.getServerConnection()));
             } else {
                 newPlayers.add(player);
             }
         }
-        controller_.reset();
-        controller_.setPlayers(newPlayers);
+        controller.reset();
+        controller.setPlayers(newPlayers);
 
         // if getFirstPlayer returns null, then it is not a turn based game
-        Player firstPlayer = controller_.getPlayers().getFirstPlayer();
+        Player firstPlayer = controller.getPlayers().getFirstPlayer();
         if (firstPlayer != null && !firstPlayer.isHuman()) {
-            controller_.computerMovesFirst();
+            controller.computerMovesFirst();
         }
     }
 }

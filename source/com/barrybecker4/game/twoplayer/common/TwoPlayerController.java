@@ -71,10 +71,10 @@ public abstract class TwoPlayerController<M extends TwoPlayerMove, B extends Two
 
     @Override
     public TwoPlayerOptions getOptions() {
-        if (gameOptions_ == null) {
-            gameOptions_ = createOptions();
+        if (gameOptions == null) {
+            gameOptions = createOptions();
         }
-        return (TwoPlayerOptions)gameOptions_;
+        return (TwoPlayerOptions) gameOptions;
     }
 
     /**
@@ -84,7 +84,7 @@ public abstract class TwoPlayerController<M extends TwoPlayerMove, B extends Two
 
 
     public TwoPlayerViewModel<M, B> getViewer() {
-       return (TwoPlayerViewModel)viewer_;
+       return (TwoPlayerViewModel) viewer;
     }
 
     /**
@@ -366,7 +366,7 @@ public abstract class TwoPlayerController<M extends TwoPlayerMove, B extends Two
      * Here's how the GameTreeDialog is able to show the game tree:
      * When the user indicates that they want to see the GameTreeDialog,
      * the game panel gives the GameTreeDialog to the Controller:
-     * controller_.setGameTreeViewer( treeDialog_ );
+     * controller.setGameTreeViewer( treeDialog_ );
      * Then whenever a move by either party occurs, the GameTreeDialog receives
      * a game tree event. The GameTreeDialog renders the tree that was build up during search.
      * It already has a reference to the root of the tree.

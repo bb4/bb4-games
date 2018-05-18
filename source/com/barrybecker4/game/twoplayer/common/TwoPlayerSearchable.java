@@ -20,7 +20,7 @@ public abstract class TwoPlayerSearchable<M extends TwoPlayerMove, B extends Two
         extends AbstractSearchable<M, B> {
 
     protected final B board_;
-    protected final PlayerList players_;
+    protected final PlayerList players;
 
     /** helps to find the best moves. */
     protected final BestMoveFinder<M> bestMoveFinder_;
@@ -36,7 +36,7 @@ public abstract class TwoPlayerSearchable<M extends TwoPlayerMove, B extends Two
 
         super(board.getMoveList());
         board_ = board;
-        players_ = players;
+        this.players = players;
 
         hash = new ZobristHash(board_);
         bestMoveFinder_ = new BestMoveFinder<>(getSearchOptions().getBestMovesSearchOptions());
@@ -47,7 +47,7 @@ public abstract class TwoPlayerSearchable<M extends TwoPlayerMove, B extends Two
      */
     public TwoPlayerSearchable(TwoPlayerSearchable<M, B> searchable) {
 
-        this((B)searchable.getBoard().copy(), (PlayerList)searchable.players_.clone());
+        this((B)searchable.getBoard().copy(), (PlayerList)searchable.players.clone());
     }
 
     public B getBoard() {
@@ -76,10 +76,10 @@ public abstract class TwoPlayerSearchable<M extends TwoPlayerMove, B extends Two
      * @param move move to undo
      */
     public void undoInternalMove(M move) {
-        TwoPlayerMove lastMove = moveList_.getLastMove();
+        TwoPlayerMove lastMove = moveList.getLastMove();
         assert(move != null);
         assert move.equals(lastMove) : "The move we are trying to undo (" + move + ") in list="
-                + moveList_ + " was not equal to the last move (" + lastMove + "). all move=" + getBoard().getMoveList();
+                + moveList + " was not equal to the last move (" + lastMove + "). all move=" + getBoard().getMoveList();
 
         Location loc = move.getToLocation();
 
@@ -113,14 +113,14 @@ public abstract class TwoPlayerSearchable<M extends TwoPlayerMove, B extends Two
     public boolean done(M move, boolean recordWin ) {
 
         // the game can't be over if no moves have been made yet.
-        if (moveList_.getNumMoves() == 0) {
+        if (moveList.getNumMoves() == 0) {
             return false;
         }
-        if (players_.anyPlayerWon()) {
+        if (players.anyPlayerWon()) {
             GameContext.log(0, "Game over because one of the players has won."); // NON_NLS
             return true;
         }
-        if (moveList_.getNumMoves() > 0 && move == null) {
+        if (moveList.getNumMoves() > 0 && move == null) {
             Player currentPlayer = getCurrentPlayer();
             GameContext.log(0, "Game is over because there are no more moves for player " + currentPlayer); // NON_NLS
             if (recordWin) {
@@ -134,11 +134,11 @@ public abstract class TwoPlayerSearchable<M extends TwoPlayerMove, B extends Two
 
         if ( won && recordWin ) {
             if ( move.getValue() >= SearchStrategy.WINNING_VALUE )
-                players_.getPlayer1().setWon(true);
+                players.getPlayer1().setWon(true);
             else
-                players_.getPlayer2().setWon(true);
+                players.getPlayer2().setWon(true);
         }
-        boolean maxMovesExceeded = moveList_.getNumMoves() >= getBoard().getMaxNumMoves();
+        boolean maxMovesExceeded = moveList.getNumMoves() >= getBoard().getMaxNumMoves();
 
         return (maxMovesExceeded || won);
     }
@@ -147,8 +147,8 @@ public abstract class TwoPlayerSearchable<M extends TwoPlayerMove, B extends Two
      * @return the player who's turn it is to move next.
      */
     private Player getCurrentPlayer()  {
-        TwoPlayerMove move = moveList_.getLastMove();
-        return (move==null || !move.isPlayer1()) ?  players_.getPlayer1() : players_.getPlayer2();
+        TwoPlayerMove move = moveList.getLastMove();
+        return (move==null || !move.isPlayer1()) ?  players.getPlayer1() : players.getPlayer2();
     }
 
     /**

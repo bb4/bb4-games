@@ -34,28 +34,27 @@ final class GoGameOverMessage extends GameOverMessage {
     @Override
     public String getText() {
 
-        GoController gc = (GoController) controller_;
+        GoController gc = (GoController) controller;
 
         String message = "\n";
 
-        GoSearchable searchable = (GoSearchable) controller_.getSearchable();
+        GoSearchable searchable = (GoSearchable) controller.getSearchable();
         int blackCaptures = searchable.getNumCaptures(true) + searchable.getNumDeadStonesOnBoard(true);
         int whiteCaptures = searchable.getNumCaptures(false) + searchable.getNumDeadStonesOnBoard(false);
-
 
         String p1Name = gc.getPlayers().getPlayer1().getName();
         String p2Name = gc.getPlayers().getPlayer2().getName();
 
-        message += p1Name +' '+ STONES_CAPTURED + blackCaptures +'\n';
-        message += p2Name +' '+ STONES_CAPTURED + whiteCaptures +"\n\n";
+        message += p1Name + ' ' + STONES_CAPTURED + blackCaptures + '\n';
+        message += p2Name + ' ' + STONES_CAPTURED + whiteCaptures + "\n\n";
 
         int blackTerritory = gc.getFinalTerritory(true);
         int whiteTerritory = gc.getFinalTerritory(false);
-        message += p1Name +' '+ TERRITORY + blackTerritory +'\n';
-        message += p2Name +' '+ TERRITORY + whiteTerritory +"\n\n";
+        message += p1Name + ' ' + TERRITORY + blackTerritory +'\n';
+        message += p2Name + ' ' + TERRITORY + whiteTerritory +"\n\n";
 
-        message += p1Name +' '+ SCORE + gc.getFinalScore(true) +'\n';
-        message += p2Name +' '+ SCORE + gc.getFinalScore(false) +'\n';
+        message += p1Name + ' ' + SCORE + gc.getFinalScore(true) +'\n';
+        message += p2Name + ' ' + SCORE + gc.getFinalScore(false) +'\n';
 
         return super.getText() +'\n'+ message;
     }

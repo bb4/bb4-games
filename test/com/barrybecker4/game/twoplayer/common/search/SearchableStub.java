@@ -5,7 +5,6 @@ import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.twoplayer.common.AbstractSearchable;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.search.options.SearchOptions;
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy;
 import com.barrybecker4.game.twoplayer.common.search.transposition.HashKey;
@@ -30,7 +29,7 @@ public class SearchableStub extends AbstractSearchable<TwoPlayerMoveStub, TwoPla
     /** Copy constructor */
     public SearchableStub(SearchableStub stub) {
         this(stub.getSearchOptions());
-        moveList_ = new MoveList<>(stub.getMoveList());
+        moveList = new MoveList<>(stub.getMoveList());
     }
 
     @Override
@@ -46,12 +45,12 @@ public class SearchableStub extends AbstractSearchable<TwoPlayerMoveStub, TwoPla
 
     @Override
     public void makeInternalMove( TwoPlayerMoveStub m )  {
-        moveList_.add(m);
+        moveList.add(m);
     }
 
     @Override
     public void undoInternalMove( TwoPlayerMoveStub m ) {
-        moveList_.removeLast();
+        moveList.removeLast();
     }
 
     @Override
@@ -94,7 +93,7 @@ public class SearchableStub extends AbstractSearchable<TwoPlayerMoveStub, TwoPla
     @Override
     public HashKey getHashKey() {
         HashKey key = new HashKey();
-        for (Move m : moveList_) {
+        for (Move m : moveList) {
             //key += m.hashCode();
             key.applyMove(((TwoPlayerMoveStub)m).getToLocation(), m.hashCode());
         }
