@@ -49,20 +49,20 @@ public class TestPositionalScoreAnalyzer extends GoTestCase {
 
         PositionalScore totalScore = PositionalScore.createZeroScore();
                                                                             //    badShp  posScore health
-        verifyPositionalScore(new ByteLocation(2,2), PositionalScore.createOccupiedScore(0.0, 0.025, 0.0), totalScore);
-        verifyPositionalScore(new ByteLocation(2,3), PositionalScore.createOccupiedScore(0.0, -0.016667, 0.0), totalScore);
+        verifyPositionalScore(new ByteLocation(2,2), PositionalScore.createOccupiedScore(0.0, 0.0211, 0.0), totalScore);
+        verifyPositionalScore(new ByteLocation(2,3), PositionalScore.createOccupiedScore(0.0, -0.014, 0.0), totalScore);
         verifyPositionalScore(new ByteLocation(3,3), PositionalScore.createOccupiedScore(0.0, 0.0, 0.0), totalScore);
-        verifyPositionalScore(new ByteLocation(3,2), PositionalScore.createOccupiedScore(0.0, 0.01667, 0.0), totalScore);
+        verifyPositionalScore(new ByteLocation(3,2), PositionalScore.createOccupiedScore(0.0, 0.0141, 0.0), totalScore);
 
-        verifyScoresEqual(PositionalScore.createOccupiedScore(0.0, 0.025, 0.0), totalScore);
+        verifyScoresEqual(PositionalScore.createOccupiedScore(0.0, 0.0211, 0.0), totalScore);
         assertEquals("Unexpected final position score.  ",
-                0.025, totalScore.getPositionScore(), TOLERANCE);
+                0.0211, totalScore.getPositionScore(), TOLERANCE);
     }
 
     public void testOverallPositionalScoreNoEye() throws Exception {
 
         initializeBoard("positional_score_no_eye");
-        verifyExpectedOverallScore(0.025f);
+        verifyExpectedOverallScore( 0.021f); //0.025f);
     }
 
     /**
@@ -79,19 +79,19 @@ public class TestPositionalScoreAnalyzer extends GoTestCase {
         PositionalScore totalScore = PositionalScore.createZeroScore();
                                                                          //    badShp  posScore health
         verifyPositionalScore(new ByteLocation(2,2), PositionalScore.createOccupiedScore(0.0, 0.0, 0.0), totalScore);
-        verifyPositionalScore(new ByteLocation(2,3), PositionalScore.createOccupiedScore(0.0, -0.01667, 0.0), totalScore);
-        verifyPositionalScore(new ByteLocation(3,2), PositionalScore.createOccupiedScore(0.0, 0.01667, 0.0), totalScore);
-        verifyPositionalScore(new ByteLocation(3,3), PositionalScore.createOccupiedScore(0.0, 0.25, 0.0), totalScore);
+        verifyPositionalScore(new ByteLocation(2,3), PositionalScore.createOccupiedScore(0.0, -0.014f, 0.0), totalScore);
+        verifyPositionalScore(new ByteLocation(3,2), PositionalScore.createOccupiedScore(0.0, 0.0141f, 0.0), totalScore);
+        verifyPositionalScore(new ByteLocation(3,3), PositionalScore.createOccupiedScore(0.0, 0.211, 0.0), totalScore);
 
-        verifyScoresEqual(PositionalScore.createOccupiedScore(0.0, 0.25, 0.0), totalScore);
+        verifyScoresEqual(PositionalScore.createOccupiedScore(0.0, 0.211, 0.0), totalScore);
         assertEquals("Unexpected final position score.  ",
-                0.25, totalScore.getPositionScore(), TOLERANCE);
+                0.211, totalScore.getPositionScore(), TOLERANCE);
     }
 
     public void testOverallPositionalScoreInEye() throws Exception {
 
         initializeBoard("positional_score_stone_in_eye");
-        verifyExpectedOverallScore(-0.0666667f);
+        verifyExpectedOverallScore( -0.05625f); //-0.0666667f);
     }
 
     /**
@@ -106,9 +106,9 @@ public class TestPositionalScoreAnalyzer extends GoTestCase {
 
         PositionalScore totalScore = PositionalScore.createZeroScore();
                                                                            //       badShp  posScore health
-        verifyPositionalScore(new ByteLocation(2,2), PositionalScore.createOccupiedScore(-1.0f, 0.025f, 0.0f), totalScore);
-        verifyPositionalScore(new ByteLocation(2,3), PositionalScore.createOccupiedScore(-0.666667f, .01666667f, 0.0f), totalScore);
-        verifyPositionalScore(new ByteLocation(3,3), PositionalScore.createOccupiedScore(-0.333333f, 0.25f, 0.0f), totalScore);
+        verifyPositionalScore(new ByteLocation(2,2), PositionalScore.createOccupiedScore(-0.281f, 0.0211f, 0.0f), totalScore);
+        verifyPositionalScore(new ByteLocation(2,3), PositionalScore.createOccupiedScore(-0.1875f, .0141f, 0.0f), totalScore);
+        verifyPositionalScore(new ByteLocation(3,3), PositionalScore.createOccupiedScore(-0.09375f, 0.211f, 0.0f), totalScore);
         verifyPositionalScore(new ByteLocation(3,2), PositionalScore.createOccupiedScore(0.0f, 0.0f, 0.0f), totalScore);
 
         verifyPositionalScore(new ByteLocation(8,2), PositionalScore.createOccupiedScore(0.0f, 0.0f, 0.0f), totalScore);
@@ -116,15 +116,15 @@ public class TestPositionalScoreAnalyzer extends GoTestCase {
         verifyPositionalScore(new ByteLocation(9,3), PositionalScore.createOccupiedScore(0.0f, 0.0f, 0.0f), totalScore);
         verifyPositionalScore(new ByteLocation(9,2), PositionalScore.createOccupiedScore(0.0f, 0.0f, 0.0f), totalScore);
 
-        verifyScoresEqual(PositionalScore.createOccupiedScore(-2.0f, 0.2917f, 0.0f), totalScore);
+        verifyScoresEqual(PositionalScore.createOccupiedScore(-0.5625f, 0.2461f, 0.0f), totalScore);
         assertEquals("Unexpected final position score.  ",
-                -1.7083f, totalScore.getPositionScore(), TOLERANCE);
+                -0.3164f, totalScore.getPositionScore(), TOLERANCE);
     }
 
     public void testOverallPositionalScoreAlive() throws Exception {
 
         initializeBoard("positional_score_alive");
-        verifyExpectedOverallScore(-0.975f);
+        verifyExpectedOverallScore(-0.2601562491618f); //-0.975f);
     }
 
     /**

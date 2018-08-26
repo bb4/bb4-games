@@ -40,7 +40,7 @@ public class BlockadeWeights extends GameWeights {
     };
 
     /** Constructor */
-    public BlockadeWeights() {
+    BlockadeWeights() {
         super( DEFAULT_WEIGHTS, MIN_WEIGHTS, MAX_WEIGHTS, WEIGHT_SHORT_DESCRIPTIONS, WEIGHT_DESCRIPTIONS );
     }
 }

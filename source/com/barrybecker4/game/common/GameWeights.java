@@ -6,6 +6,8 @@ import com.barrybecker4.common.math.MathUtil;
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy;
 import com.barrybecker4.optimization.parameter.NumericParameterArray;
 import com.barrybecker4.optimization.parameter.ParameterArray;
+import com.barrybecker4.optimization.parameter.redistribution.RedistributionFunction;
+import scala.Option;
 
 /**
  * The GameWeights define the coefficients to use by the
@@ -19,6 +21,9 @@ public class GameWeights {
 
     /** scores computed from weights are assumed to be between [0 and ASSUMED_WINNING_VALUE] for player1 */
     protected static final double ASSUMED_WINNING_VALUE = 1024;
+
+    /** for scala Option compatability */
+    protected static final Option<RedistributionFunction> NONE = scala.Option.apply(null);
 
     /**
      * the weights are created assuming a winning value of ASSUMED_WINNING_VALUE.
