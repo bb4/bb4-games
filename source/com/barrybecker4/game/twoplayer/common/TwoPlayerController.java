@@ -20,6 +20,7 @@ import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerPieceRenderer;
 import com.barrybecker4.optimization.Optimizer;
 import com.barrybecker4.optimization.optimizee.Optimizee;
 import com.barrybecker4.optimization.parameter.ParameterArray;
+import scala.Some;
 
 import javax.swing.JOptionPane;
 import java.awt.Color;
@@ -329,7 +330,7 @@ public abstract class TwoPlayerController<M extends TwoPlayerMove, B extends Two
     public void runOptimization(final OptimizationDoneHandler handler) {
 
         final Optimizer optimizer =
-                new Optimizer( this.getOptimizee(), getOptions().getAutoOptimizeFile() );
+                new Optimizer( this.getOptimizee(), new Some<>(getOptions().getAutoOptimizeFile()) );
 
         ParameterArray weights = getComputerWeights().getDefaultWeights();
 
@@ -353,7 +354,7 @@ public abstract class TwoPlayerController<M extends TwoPlayerMove, B extends Two
     }
 
 
-    public boolean isPaused()  {
+    boolean isPaused()  {
         return getSearchStrategy().isPaused();
     }
 

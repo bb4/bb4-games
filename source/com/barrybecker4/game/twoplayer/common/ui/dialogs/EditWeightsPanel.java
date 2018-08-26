@@ -87,11 +87,11 @@ class EditWeightsPanel extends JPanel {
         for ( int i = 0; i < len; i++ ) {
             double v = Double.parseDouble( weightFields_[i].getText() );
             Parameter p = weights_.get(i);
-            if ( v<p.getMinValue())  {
-                sErrors += v+" is too small for "+p.getName()+". The min vlaue of "+p.getMinValue()+" will be used.\n";
+            if ( v<p.minValue())  {
+                sErrors += v+" is too small for "+p.name()+". The min vlaue of "+p.minValue()+" will be used.\n";
             }
-            else if (v>p.getMaxValue()) {
-                sErrors += v+" is too big for "+p.getName()+". The max value of "+p.getMaxValue()+" will be used.\n";
+            else if (v>p.maxValue()) {
+                sErrors += v+" is too big for "+p.name()+". The max value of "+p.maxValue()+" will be used.\n";
             }
             else {
                 weights_.get(i).setValue(v);

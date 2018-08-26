@@ -1,10 +1,11 @@
 /** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.common;
 
+import com.barrybecker4.common.math.MathUtil;
 import com.barrybecker4.game.twoplayer.common.ui.OptimizationDoneHandler;
 import com.barrybecker4.optimization.Optimizer;
 import com.barrybecker4.optimization.parameter.ParameterArray;
-import com.barrybecker4.optimization.strategy.OptimizationStrategyType;
+import com.barrybecker4.optimization.parameter.ParameterArrayWithFitness;
 
 import javax.swing.SwingWorker;
 
@@ -14,9 +15,9 @@ import static com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrat
  * This worker runs in a separate thread to figure out optimal game weights give the UI a chance to update.
  * The computer optimizes by playing against itself for a long time.
  *
- *  @author Barry Becker
+ * @author Barry Becker
  */
-public class TwoPlayerOptimizationWorker extends SwingWorker<ParameterArray, Integer> {
+public class TwoPlayerOptimizationWorker extends SwingWorker<ParameterArrayWithFitness, Integer> {
 
     private Optimizer optimizer;
     private ParameterArray initialWeights;
@@ -28,7 +29,7 @@ public class TwoPlayerOptimizationWorker extends SwingWorker<ParameterArray, Int
      * @param initialWeights initial game weights to optimize
      * @param handler will be called when optimization is done.
      */
-    public TwoPlayerOptimizationWorker(final Optimizer optimizer,
+    TwoPlayerOptimizationWorker(final Optimizer optimizer,
                  final ParameterArray initialWeights, final OptimizationDoneHandler handler) {
         this.optimizer = optimizer;
         this.initialWeights = initialWeights;
@@ -37,17 +38,18 @@ public class TwoPlayerOptimizationWorker extends SwingWorker<ParameterArray, Int
 
 
     @Override
-    protected ParameterArray doInBackground() throws Exception {
-
-        return optimizer.doOptimization(OptimizationStrategyType.HILL_CLIMBING,
-                              initialWeights, WINNING_VALUE);
+    protected ParameterArrayWithFitness doInBackground() {
+        return optimizer.doOptimization(
+                com.barrybecker4.optimization.strategy.HILL_CLIMBING$.MODULE$,
+                initialWeights,
+                WINNING_VALUE,
+                MathUtil.RANDOM());
     }
 
     @Override
      protected void done() {
          try {
               handler.done(get());
-         } catch (Exception ignore) {
-         }
+         } catch (Exception ignore) {}
      }
 }

@@ -13,7 +13,7 @@ import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerController;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerViewModel;
-import com.barrybecker4.optimization.parameter.ParameterArray;
+import com.barrybecker4.optimization.parameter.ParameterArrayWithFitness;
 
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -99,7 +99,7 @@ public abstract class AbstractTwoPlayerBoardViewer<M extends TwoPlayerMove, B ex
         return nextMoves_;
     }
 
-    void setNextMoves(M[] nextMoves) {
+    private void setNextMoves(M[] nextMoves) {
         nextMoves_ = nextMoves;
     }
 
@@ -115,7 +115,7 @@ public abstract class AbstractTwoPlayerBoardViewer<M extends TwoPlayerMove, B ex
         final GameBoardViewer viewer = this;
 
         get2PlayerController().runOptimization(new OptimizationDoneHandler() {
-            public void done(ParameterArray optimizedParams) {
+            public void done(ParameterArrayWithFitness optimizedParams) {
                 JOptionPane.showMessageDialog(viewer, GameContext.getLabel("OPTIMIZED_WEIGHTS_TXT") +
                 optimizedParams, GameContext.getLabel("OPTIMIZED_WEIGHTS"), JOptionPane.INFORMATION_MESSAGE);
             }
@@ -387,7 +387,7 @@ public abstract class AbstractTwoPlayerBoardViewer<M extends TwoPlayerMove, B ex
         showMoveSequence( moveSequence, getController().getNumMoves() );
     }
 
-    final synchronized void showMoveSequence( List<M> moveSequence, int numMovesToBackup) {
+    private final synchronized void showMoveSequence( List<M> moveSequence, int numMovesToBackup) {
         showMoveSequence(moveSequence, numMovesToBackup, null);
     }
 

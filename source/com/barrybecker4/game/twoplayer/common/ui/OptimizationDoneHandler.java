@@ -1,6 +1,6 @@
 package com.barrybecker4.game.twoplayer.common.ui;
 
-import com.barrybecker4.optimization.parameter.ParameterArray;
+import com.barrybecker4.optimization.parameter.ParameterArrayWithFitness;
 
 /**
  * Called when the optimization is done running.
@@ -9,5 +9,5 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  */
 public interface OptimizationDoneHandler {
 
-    void done(ParameterArray parameters);
+    void done(ParameterArrayWithFitness parameters);
 }
