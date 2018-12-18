@@ -28,8 +28,8 @@ import java.util.List;
  */
 public abstract class TallyDialog extends OptionsDialog {
 
-    protected MultiGameController controller_;
-    private GradientButton okButton_;
+    protected MultiGameController controller;
+    private GradientButton okButton;
 
 
     /**
@@ -39,7 +39,7 @@ public abstract class TallyDialog extends OptionsDialog {
      */
     protected TallyDialog(Component parent, MultiGameController controller ) {
         super( parent );
-        controller_ = controller;
+        this.controller = controller;
 
         showContent();
     }
@@ -57,7 +57,7 @@ public abstract class TallyDialog extends OptionsDialog {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
 
-        PlayerList players = controller_.getPlayers();
+        PlayerList players = controller.getPlayers();
         String winningPlayers = winnersLabel(findWinners(players));
 
         // show a label at the top with who the winner(s) is
@@ -99,11 +99,11 @@ public abstract class TallyDialog extends OptionsDialog {
     public JPanel createButtonsPanel() {
         JPanel buttonsPanel = new JPanel( new FlowLayout() );
 
-        okButton_ = new GradientButton();
-        initBottomButton( okButton_, GameContext.getLabel("OK"), GameContext.getLabel("PLACE_ORDER_TIP") );
+        okButton = new GradientButton();
+        initBottomButton(okButton, GameContext.getLabel("OK"), GameContext.getLabel("PLACE_ORDER_TIP") );
         //initBottomButton( cancelButton, GameContext.getLabel("CANCEL"), GameContext.getLabel("CANCEL") );
 
-        buttonsPanel.add( okButton_ );
+        buttonsPanel.add(okButton);
         //buttonsPanel.add( cancelButton );
 
         return buttonsPanel;
@@ -113,7 +113,7 @@ public abstract class TallyDialog extends OptionsDialog {
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
 
-        if (source == okButton_) {
+        if (source == okButton) {
             this.setVisible(false);
         }
     }

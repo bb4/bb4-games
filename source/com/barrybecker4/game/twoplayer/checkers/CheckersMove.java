@@ -79,7 +79,7 @@ public class CheckersMove extends TwoPlayerMove {
     }
 
     public void setToLocation(Location toPos) {
-        toLocation_ = toPos;
+        toLocation = toPos;
     }
 
     public int getFromRow() {
@@ -131,7 +131,7 @@ public class CheckersMove extends TwoPlayerMove {
         if ( captureList != null ) {
             s += captureList.toString();
         }
-        s += " (" + fromLocation_ + ")->(" + toLocation_ + ")";
+        s += " (" + fromLocation_ + ")->(" + toLocation + ")";
         return s;
     }
 }

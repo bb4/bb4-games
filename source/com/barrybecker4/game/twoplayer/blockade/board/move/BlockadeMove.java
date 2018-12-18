@@ -76,8 +76,8 @@ public class BlockadeMove extends TwoPlayerMove {
     }
 
     private Direction initDirection() {
-        int rowDif = toLocation_.getRow() - fromLocation_.getRow();
-        int colDif = toLocation_.getCol() - fromLocation_.getCol();
+        int rowDif = toLocation.getRow() - fromLocation_.getRow();
+        int colDif = toLocation.getCol() - fromLocation_.getCol();
         return Direction.getDirection(rowDif, colDif);
     }
 

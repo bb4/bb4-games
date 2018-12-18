@@ -36,7 +36,7 @@ class ConfigurationsTable extends TableBase {
     private static final String INST = "";
 
 
-    private static final String[] columnNames_ =  {
+    private static final String[] columnNames =  {
             NAME, ALGORITHM, BRUTE_OPTIONS, BEST_MOVE_OPTIONS, MONTE_CARLO_OPTIONS, INST
     };
 
@@ -51,14 +51,14 @@ class ConfigurationsTable extends TableBase {
     private static final String[] columnTips_ =  {
             NAME_TIP, ALGORITHM_TIP, BRUTE_OPTIONS_TIP, BEST_MOVE_OPTIONS_TIP, MONTE_CARLO_OPTIONS_TIP, ""};
 
-    private static final int NUM_COLS = columnNames_.length;
+    private static final int NUM_COLS = columnNames.length;
 
     /**
      * Constructor
      * @param optionsList to initialize the rows in the table with. May be null.
      */
     public ConfigurationsTable(SearchOptionsConfigList optionsList)  {
-        super((Seq<Object>) optionsList, columnNames_);
+        super((Seq<Object>) optionsList, columnNames);
     }
 
     @Override
@@ -81,8 +81,7 @@ class ConfigurationsTable extends TableBase {
 
     @Override
     public TableModel createTableModel(String[] columnNames) {
-        return  new BasicTableModel(new String[][]{columnNames_},
-                new Object[]{}, false);
+        return  new BasicTableModel(ConfigurationsTable.columnNames, 0, false);
     }
 
     public void removeRow(int rowIndex) {

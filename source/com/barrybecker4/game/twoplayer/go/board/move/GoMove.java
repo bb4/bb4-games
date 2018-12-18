@@ -58,7 +58,7 @@ public class GoMove extends TwoPlayerMove {
      */
     public static GoMove createPassMove(int val, boolean player1) {
         GoMove m = new GoMove(new ByteLocation(1, 1), val, null );
-        m.isPass_ = true;
+        m.isPass = true;
         m.setPlayer1(player1);
         return m;
     }
@@ -69,7 +69,7 @@ public class GoMove extends TwoPlayerMove {
      */
     public static GoMove createResignationMove(boolean player1) {
         GoMove m = new GoMove( new ByteLocation(1, 1), 0, null );
-        m.isResignation_ = true;
+        m.isResignation = true;
         m.setPlayer1(player1);
         return m;
     }

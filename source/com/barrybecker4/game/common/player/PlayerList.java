@@ -79,8 +79,7 @@ public class PlayerList extends ArrayList<Player> {
     /**
      * @return true if there are only human players
      */
-    public boolean allPlayersHuman()
-    {
+    public boolean allPlayersHuman() {
        for (Player player : this)  {
            if (!player.isHuman()) return false;
        }
@@ -90,8 +89,7 @@ public class PlayerList extends ArrayList<Player> {
     /**
      * @return true if there are only computer players
      */
-    public boolean allPlayersComputer()
-    {
+    public boolean allPlayersComputer() {
        for (Player player : this)  {
            if (player.isHuman()) return false;
        }

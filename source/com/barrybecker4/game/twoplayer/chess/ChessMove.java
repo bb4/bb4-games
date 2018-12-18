@@ -99,7 +99,7 @@ public class ChessMove extends TwoPlayerMove
         if ( captureList != null ) {
             sb.append( captureList.toString() );
         }
-        sb.append(" (").append(fromLocation_).append(")->(").append(toLocation_).append(')');
+        sb.append(" (").append(fromLocation_).append(")->(").append(toLocation).append(')');
         return sb.toString();
     }
 }

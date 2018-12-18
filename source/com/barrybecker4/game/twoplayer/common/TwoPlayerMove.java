@@ -6,15 +6,12 @@ import com.barrybecker4.common.geometry.ByteLocation;
 import com.barrybecker4.common.geometry.Location;
 import com.barrybecker4.game.common.GameContext;
 import com.barrybecker4.game.common.Move;
-import com.barrybecker4.game.common.board.Board;
 import com.barrybecker4.game.common.board.GamePiece;
 
 /**
  * This base class describes a change in state from one board position to the next in a game.
  * Perhaps save space by removing some of these members.
  * Consider splitting this into TwoPlayerMove (immutable part) and TwoPlayerMoveNode (game tree parts)
- *
- * @see Board
  * @author Barry Becker
  */
 public class TwoPlayerMove extends Move {
@@ -23,41 +20,41 @@ public class TwoPlayerMove extends Move {
     private static final String P2 = GameContext.getLabel("PLAYER2");
 
     /** The location of the move. */
-    protected Location toLocation_;
+    protected Location toLocation;
 
     /**
      * The is the more accurate evaluated value from point of view of p1
      * It gets inherited from its descendants. It would be the real (perfect)
      * value of the position if the game tree is complete (which rarely happens in practice)
      */
-    private int inheritedValue_;
+    private int inheritedValue;
 
     /** true if player1 made the move. */
-    private boolean player1_;
+    private boolean player1;
 
     /** This is the piece to use on the board. Some games only have one kind of piece. */
-    private GamePiece piece_;
+    private GamePiece piece;
 
     /**
      * true if this move was generated during quiescent search.
      * Perhaps should not be in this class.
      */
-    private boolean urgent_;
+    private boolean urgent;
 
     /**  If true then this move is a passing move. */
-    protected boolean isPass_ = false;
+    protected boolean isPass = false;
 
     /** True if the player has resigned with this move. */
-    protected boolean isResignation_ = false;
+    protected boolean isResignation = false;
 
     /** If true then this move is in the path to selected move.  The game tree viewer may highlight it. */
-    private boolean selected_;
+    private boolean selected;
 
     /** This is a move that we anticipate will be made in the future. Will be rendered differently. */
-    private boolean isFuture_;
+    private boolean isFuture;
 
     /** Some comments about how the score was computed. Used for debugging. */
-    private String scoreDescription_ = null;
+    private String scoreDescription = null;
 
 
     /**
@@ -70,16 +67,16 @@ public class TwoPlayerMove extends Move {
      * Create a move object representing a transition on the board.
      */
     protected TwoPlayerMove( Location destination, int val, GamePiece p ) {
-        toLocation_ = destination;
+        toLocation = destination;
 
         setValue(val);
-        inheritedValue_ = getValue();
-        selected_ = false;
-        piece_ = p;
+        inheritedValue = getValue();
+        selected = false;
+        piece = p;
         if (p != null) {
-            player1_ = p.isOwnedByPlayer1();
+            player1 = p.isOwnedByPlayer1();
         }
-        isPass_ = false;
+        isPass = false;
     }
 
     /**
@@ -88,13 +85,13 @@ public class TwoPlayerMove extends Move {
     protected TwoPlayerMove(TwoPlayerMove move) {
 
         this(move.getToLocation(), move.getValue(), (move.getPiece()!=null) ? move.getPiece().copy() : null);
-        this.inheritedValue_ = move.inheritedValue_;
-        this.selected_ = move.selected_;
-        this.isPass_ = move.isPass_;
-        this.isFuture_ = move.isFuture_;
-        this.urgent_ = move.urgent_;
-        this.isResignation_ = move.isResignation_;
-        this.scoreDescription_ = move.scoreDescription_;
+        this.inheritedValue = move.inheritedValue;
+        this.selected = move.selected;
+        this.isPass = move.isPass;
+        this.isFuture = move.isFuture;
+        this.urgent = move.urgent;
+        this.isResignation = move.isResignation;
+        this.scoreDescription = move.scoreDescription;
         this.setPlayer1(move.isPlayer1());
     }
 
@@ -125,15 +122,15 @@ public class TwoPlayerMove extends Move {
     }
 
     public final byte getToRow()  {
-        return (byte) toLocation_.getRow();
+        return (byte) toLocation.getRow();
     }
 
     public final byte getToCol() {
-        return (byte) toLocation_.getCol();
+        return (byte) toLocation.getCol();
     }
 
     public final Location getToLocation() {
-        return toLocation_;
+        return toLocation;
     }
 
     /**
@@ -157,7 +154,7 @@ public class TwoPlayerMove extends Move {
             return 1;
         else {
             // if still tie, break using col position.
-            if ( this.getToCol() < move.getToCol() ) {
+            if (this.getToCol() < move.getToCol() ) {
                 return -1;
             } else if ( this.getToCol() > move.getToCol() )  {
                 return 1;
@@ -173,14 +170,14 @@ public class TwoPlayerMove extends Move {
         if (!(o instanceof TwoPlayerMove)) return false;
         TwoPlayerMove that = (TwoPlayerMove) o;
 
-        return player1_ == that.player1_ && toLocation_ != null && toLocation_.equals(that.toLocation_);
+        return player1 == that.player1 && toLocation != null && toLocation.equals(that.toLocation);
     }
 
     @Override
     public int hashCode() {
-        int result = toLocation_ != null ? toLocation_.hashCode() : 0;
+        int result = toLocation != null ? toLocation.hashCode() : 0;
         result = 31 * result + getValue();
-        result = 31 * result + (player1_ ? 1 : 0);
+        result = 31 * result + (player1 ? 1 : 0);
         return result;
     }
 
@@ -188,71 +185,71 @@ public class TwoPlayerMove extends Move {
      * @return  true if the player (or computer) chose to pass this turn.
      */
     public final boolean isPassingMove() {
-        return isPass_;
+        return isPass;
     }
 
     public final boolean isResignationMove() {
-        return isResignation_;
+        return isResignation;
     }
 
     public final boolean isPassOrResignation() {
-        return isPass_ || isResignation_;
+        return isPass || isResignation;
     }
 
     public int getInheritedValue() {
-        return inheritedValue_;
+        return inheritedValue;
     }
 
     public void setInheritedValue(int inheritedValue) {
-        this.inheritedValue_ = inheritedValue;
+        this.inheritedValue = inheritedValue;
     }
 
     public boolean isPlayer1() {
-        return player1_;
+        return player1;
     }
 
     public void setPlayer1(boolean player1) {
-        this.player1_ = player1;
+        this.player1 = player1;
     }
 
     public GamePiece getPiece() {
-        return piece_;
+        return piece;
     }
 
     public void setPiece(GamePiece piece) {
-        this.piece_ = piece;
+        this.piece = piece;
     }
 
     public boolean isUrgent() {
-        return urgent_;
+        return urgent;
     }
 
     public void setUrgent(boolean urgent) {
-        this.urgent_ = urgent;
+        this.urgent = urgent;
     }
 
     public boolean isSelected() {
-        return selected_;
+        return selected;
     }
 
     public void setSelected(boolean selected) {
-        this.selected_ = selected;
+        this.selected = selected;
     }
 
     public boolean isFuture() {
-        return isFuture_;
+        return isFuture;
     }
 
     public void setFuture(boolean future) {
-        isFuture_ = future;
+        isFuture = future;
     }
 
     public String getScoreDescription() {
-        return scoreDescription_;
+        return scoreDescription;
     }
 
     public void setScoreDescription(String desc) {
-        scoreDescription_ = desc;
+        scoreDescription = desc;
     }
 
     /**
@@ -273,23 +270,23 @@ public class TwoPlayerMove extends Move {
     public String toString() {
         StringBuilder s = new StringBuilder();
 
-        s.append( player1_ ? P1 : P2 );
+        s.append( player1 ? P1 : P2 );
         s.append(" val:").append(FormatUtil.formatNumber(getValue()));
-        s.append(" inhrtd:").append(FormatUtil.formatNumber(inheritedValue_));
-        if (piece_ != null)  {
-            s.append(" piece: ").append(piece_.toString());
+        s.append(" inhrtd:").append(FormatUtil.formatNumber(inheritedValue));
+        if (piece != null)  {
+            s.append(" piece: ").append(piece.toString());
         }
         //s.append(" sel:"+selected);
-        if (!(isPass_ || isResignation_))  {
-            s.append('(').append(toLocation_.toString()).append(')');
+        if (!(isPass || isResignation))  {
+            s.append('(').append(toLocation.toString()).append(')');
         }
-        if (urgent_) {
+        if (urgent) {
             s.append(" urgent!");
         }
-        if (isPass_)  {
+        if (isPass)  {
             s.append(" Passing move");
         }
-        if (isResignation_) {
+        if (isResignation) {
             s.append(" Resignation move");
         }
         s.append(" ");

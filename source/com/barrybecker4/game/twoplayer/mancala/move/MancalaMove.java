@@ -94,7 +94,7 @@ public class MancalaMove extends TwoPlayerMove {
      */
     public Location getFromLocation() {
         //Note that the toLocation from the parent class is used internally.
-        return this.toLocation_;
+        return this.toLocation;
     }
 
     public byte getNumStonesSeeded() {

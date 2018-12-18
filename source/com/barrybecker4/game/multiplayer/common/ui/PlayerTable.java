@@ -66,7 +66,6 @@ public abstract class PlayerTable extends TableBase {
         columnMeta[COLOR_INDEX] = colorColumnMeta;
     }
 
-
     /**
      * @return  the players represented by rows in the table
      */
@@ -90,7 +89,7 @@ public abstract class PlayerTable extends TableBase {
     /**
      * remove the selected rows from the table
      */
-    public void removeSelectedRows()  {
+    void removeSelectedRows()  {
         int nSelected = table().getSelectedRowCount();
         int[] selectedRows = table().getSelectedRows();
         if (selectedRows.length == table().getRowCount()) {

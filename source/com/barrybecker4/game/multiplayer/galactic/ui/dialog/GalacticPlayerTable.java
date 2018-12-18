@@ -23,7 +23,6 @@ import java.awt.*;
  * GalacticPlayerTable contains a list of players.
  * All the cells are editable.
  * It is initialized with a list of PlayerList and returns a list of PlayerList.
- * @see GalacticPlayer
  *
  * @author Barry Becker
  */
@@ -40,11 +39,11 @@ public class GalacticPlayerTable extends PlayerTable
     private static final String NUM_SHIPS = GameContext.getLabel("NUM_SHIPS");
     private static final String PRODUCTION = GameContext.getLabel("PRODUCTION");
 
-    /** height enough to accommodate the icon. */
+    /** high enough to accommodate the icon. */
     private static final int ROW_HEIGHT = 30;
 
 
-    private static final String[] galacticColumnNames_ =  {
+    private static final String[] galacticColumnNames =  {
          NAME,
          COLOR,
          HUMAN,
@@ -59,7 +58,7 @@ public class GalacticPlayerTable extends PlayerTable
      * @param players to initialize the rows in the table with.
      */
     public GalacticPlayerTable(PlayerList players) {
-        super(players, galacticColumnNames_);
+        super(players, galacticColumnNames);
         table().getModel().addTableModelListener(this);
 
         setRowHeight(ROW_HEIGHT);
@@ -123,7 +122,8 @@ public class GalacticPlayerTable extends PlayerTable
     @Override
     protected Player createPlayer() {
         int ct = table().getRowCount();
-        Planet planet = new Planet((char)('A'+ct), GalacticPlayer.DEFAULT_NUM_SHIPS, 10, new ByteLocation(0,0));
+        Planet planet = new Planet((char)('A'+ct),
+                GalacticPlayer.DEFAULT_NUM_SHIPS, 10, new ByteLocation(0,0));
         Color newColor = MultiGamePlayer.getNewPlayerColor(getPlayers());
         GalacticPlayer player = GalacticPlayer.createGalacticPlayer(
                                              "Admiral "+(ct+1), planet, newColor, true);

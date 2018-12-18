@@ -91,8 +91,7 @@ class ComparisonGrid extends TableBase {
 
     @Override
     public TableModel createTableModel(String[] columnNames) {
-        return new BasicTableModel(new String[][]{columnNames},
-                new Object[]{}, false);
+        return new BasicTableModel(columnNames, 0, false);
     }
 
     @Override

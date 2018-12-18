@@ -90,8 +90,7 @@ public abstract class MultiPlayerOnlineGameTablesTable extends TableBase  {
 
     @Override
     public TableModel createTableModel(String[] columnNames) {
-        return new BasicTableModel(new String[][]{columnNames},
-                new Object[]{}, true);
+        return new BasicTableModel(columnNames, 0, true);
     }
 
     public OnlineGameTable getGameTable(int i) {

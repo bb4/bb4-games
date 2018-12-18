@@ -1,4 +1,4 @@
-/** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
+/** Copyright by Barry G. Becker, 2000-2018. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.multiplayer.common.ui;
 
 import com.barrybecker4.game.common.GameContext;
@@ -8,13 +8,12 @@ import com.barrybecker4.ui.table.ColorCellEditor;
 import com.barrybecker4.ui.table.ColorCellRenderer;
 import com.barrybecker4.ui.table.TableBase;
 import com.barrybecker4.ui.table.TableColumnMeta;
-import scala.collection.Seq;
-
+import scala.collection.JavaConverters;
 import javax.swing.table.TableModel;
 
 
 /**
- * Shows a list of th remaining players stats at the end of the game.
+ * Shows a list of the remaining players stats at the end of the game.
  * None of the cells are editable.
  *
  * @author Barry Becker
@@ -30,12 +29,11 @@ public abstract class SummaryTable extends TableBase  {
 
     /**
      * constructor
-     * @param players to initializet the rows in the table with.
+     * @param players to initialize the rows in the table with.
      */
     protected SummaryTable(PlayerList players, String[] columnNames) {
-        super((Seq<Object>) players, columnNames);
+        super(JavaConverters.asScalaIteratorConverter(players.iterator()).asScala().toSeq(), columnNames);
     }
-
 
     @Override
     public void updateColumnMeta(TableColumnMeta[] columnMeta) {
@@ -47,15 +45,13 @@ public abstract class SummaryTable extends TableBase  {
         colorMeta.setMinWidth(20);
         colorMeta.setMaxWidth(25);
 
-        columnMeta[COLOR_INDEX].setPreferredWidth(100);
+        columnMeta[NAME_INDEX].setPreferredWidth(100);
     }
-
 
     @Override
     public TableModel createTableModel(String[] columnNames)  {
-        return  new BasicTableModel(new String[][]{columnNames}, new Object[]{}, false);
+        return new BasicTableModel(columnNames, 0, false);
     }
-
 
     protected BasicTableModel getPlayerModel()
     {
