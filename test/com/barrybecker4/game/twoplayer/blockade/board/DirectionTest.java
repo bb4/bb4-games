@@ -39,7 +39,7 @@ public class DirectionTest extends TestCase {
     public void testAllDirections() {
         for (Direction dir: Direction.values()) {
             Location offset = dir.getOffset();
-            assertEquals(dir, Direction.getDirection(offset.getRow(), offset.getCol()));
+            assertEquals(dir, Direction.getDirection(offset.row(), offset.col()));
         }
     }
 }

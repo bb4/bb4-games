@@ -74,7 +74,7 @@ public class TestCandidateMoveAnalyzer extends GoTestCase {
         if (expCandidates != null) {
             System.out.println("actual candidates="+ actNumCandidates);
             for (Location loc : expCandidates) {
-                assertTrue("Invalid candidate position:" + loc, cma.isCandidateMove(loc.getRow(), loc.getCol()));
+                assertTrue("Invalid candidate position:" + loc, cma.isCandidateMove(loc.row(), loc.col()));
             }
         }
     }

@@ -13,7 +13,6 @@ public class GoBoardConfigurator {
 
     private GoBoard board;
 
-
     public GoBoardConfigurator(int size) {
         board = new GoBoard(size, 0);
     }
@@ -21,12 +20,6 @@ public class GoBoardConfigurator {
     public GoBoardConfigurator(int size, int numHandicap) {
         board = new GoBoard(size, numHandicap);
     }
-
-    /*
-    public GoBoardConfigurator(String filename) {
-        board = new GoBoard();
-    }*/
-
 
     public GoBoard getBoard() {
         return board;
@@ -45,7 +38,6 @@ public class GoBoardConfigurator {
         }
     }
 
-
     /**
      * @param positions location of positions to create.
      * @return a list of go board positions with no stones in them.
@@ -54,9 +46,8 @@ public class GoBoardConfigurator {
 
         GoBoardPositionList spaces = new GoBoardPositionList();
         for (Location pos : positions) {
-            spaces.add(new GoBoardPosition(pos.getRow(), pos.getCol(), null, null));
+            spaces.add(new GoBoardPosition(pos.row(), pos.col(), null, null));
         }
         return spaces;
     }
-
 }

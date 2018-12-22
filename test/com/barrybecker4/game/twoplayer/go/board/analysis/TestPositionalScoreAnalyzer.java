@@ -143,7 +143,7 @@ public class TestPositionalScoreAnalyzer extends GoTestCase {
     private void verifyPositionalScore(Location loc, PositionalScore expScore, PositionalScore totalScore) {
 
         PositionalScore actScore =
-                scoreAnalyzer_.determineScoreForPosition(loc.getRow(), loc.getCol(),
+                scoreAnalyzer_.determineScoreForPosition(loc.row(), loc.col(),
                         goWeights.getPlayer1Weights());
         verifyScoresEqual(expScore, actScore);
         totalScore.incrementBy(actScore);

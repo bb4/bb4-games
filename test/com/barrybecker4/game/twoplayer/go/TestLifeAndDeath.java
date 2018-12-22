@@ -118,7 +118,7 @@ public class TestLifeAndDeath extends GoTestCase {
 
     private static boolean isExpected(GoMove m, Location loc) {
 
-        return isExpected(m, m.getToRow(), loc.getCol());
+        return isExpected(m, m.getToRow(), loc.col());
     }
 
     private static boolean isExpected(GoMove m, int row, int col) {

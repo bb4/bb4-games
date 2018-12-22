@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import scala.collection.JavaConverters;
 import scala.collection.Seq;
+import scala.collection.SeqLike;
 
 import static org.junit.Assert.assertEquals;
 
@@ -38,7 +39,7 @@ public class ShortestPathSearchTest {
                 "[(row=8, column=9): 10], [(row=9, column=8): 10], " +
                 "[(row=10, column=7): 10], [(row=11, column=6): 10], " +
                 "[(row=12, column=5): 0])",
-                path.toString());
+                ((SeqLike)path).toString());
     }
 
     /** When empty, p2 snakes across row 2 to the goal state */
@@ -54,7 +55,7 @@ public class ShortestPathSearchTest {
                 "[(row=5, column=5): 10], [(row=4, column=6): 10], [(row=4, column=7): 10], " +
                 "[(row=3, column=8): 10], [(row=2, column=9): 10], [(row=2, column=10): 10], " +
                 "[(row=2, column=11): 10], [(row=2, column=12): 0])",
-                path.toString());
+                ((SeqLike)path).toString());
 
     }
 
@@ -93,7 +94,7 @@ public class ShortestPathSearchTest {
                 "[(row=10, column=2): 10], " +
                 "[(row=11, column=1): 10], " +
                 "[(row=12, column=1): 0])",
-                path.toString());
+                ((SeqLike)path).toString());
     }
 
     @Test
@@ -133,7 +134,7 @@ public class ShortestPathSearchTest {
                 "[(row=8, column=10): 10], [(row=9, column=10): 10], " +
                 "[(row=10, column=10): 10], [(row=11, column=9): 10], " +
                 "[(row=12, column=8): 0])",
-                path.toString());
+                ((SeqLike)path).toString());
     }
 
     @Test
@@ -183,7 +184,7 @@ public class ShortestPathSearchTest {
                 "[(row=7, column=10): 10], [(row=8, column=9): 10], " +
                 "[(row=9, column=9): 10], [(row=10, column=9): 10], " +
                 "[(row=11, column=9): 10], [(row=12, column=8): 0])",
-                path.toString());
+                ((SeqLike)path).toString());
         showSolvedPath(path, true);
     }
 
@@ -203,7 +204,7 @@ public class ShortestPathSearchTest {
         search = new ShortestPathSearch(board, true);
         Seq<HexTransition> path = search.solve().get();
         assertEquals("Unexpected path.",
-                "List([(row=0, column=3): 0], [(row=0, column=4): 0], " +
+                "[(row=0, column=3): 0], [(row=0, column=4): 0], " +
                         "[(row=0, column=5): 0], [(row=0, column=6): 0], " +
                         "[(row=0, column=7): 0], [(row=0, column=8): 0], " +
                         "[(row=0, column=9): 0], [(row=0, column=10): 0], " +
@@ -212,8 +213,8 @@ public class ShortestPathSearchTest {
                         "[(row=5, column=10): 0], [(row=6, column=10): 0], " +
                         "[(row=7, column=10): 0], [(row=8, column=10): 0], " +
                         "[(row=9, column=10): 0], [(row=10, column=10): 0], " +
-                        "[(row=11, column=9): 10], [(row=12, column=8): 0])",
-                path.toString());
+                        "[(row=11, column=9): 10], [(row=12, column=8): 0]",
+                path.mkString(", "));
         //showSolvedPath(path, true);
     }
 
@@ -236,14 +237,14 @@ public class ShortestPathSearchTest {
         search = new ShortestPathSearch(board, true);
         Seq<HexTransition> path = search.solve().get();
         assertEquals("Unexpected path.",
-                "List([(row=0, column=3): 0], [(row=0, column=4): 0], " +
+                "[(row=0, column=3): 0], [(row=0, column=4): 0], " +
                         "[(row=1, column=4): 10], [(row=2, column=4): 10], " +
                         "[(row=3, column=4): 0], [(row=4, column=4): 0], " +
                         "[(row=5, column=4): 0], [(row=6, column=4): 0], " +
                         "[(row=7, column=4): 0], [(row=8, column=4): 0], " +
                         "[(row=9, column=3): 10], [(row=10, column=2): 10], " +
-                        "[(row=11, column=1): 10], [(row=12, column=1): 0])",
-                path.toString());
+                        "[(row=11, column=1): 10], [(row=12, column=1): 0]",
+                path.mkString(", "));
     }
 
     @Test
@@ -263,7 +264,7 @@ public class ShortestPathSearchTest {
         search = new ShortestPathSearch(board, false);
         Seq<HexTransition> path = search.solve().get();
         assertEquals("Unexpected path.",
-                "List([(row=3, column=0): 0], [(row=4, column=0): 0], " +
+                "[(row=3, column=0): 0], [(row=4, column=0): 0], " +
                 "[(row=5, column=0): 0], [(row=6, column=0): 0], " +
                 "[(row=7, column=0): 0], [(row=7, column=1): 10], " +
                 "[(row=7, column=2): 10], [(row=7, column=3): 10], " +
@@ -271,15 +272,15 @@ public class ShortestPathSearchTest {
                 "[(row=5, column=6): 0], [(row=5, column=7): 0], " +
                 "[(row=5, column=8): 10], [(row=5, column=9): 10], " +
                 "[(row=5, column=10): 10], [(row=5, column=11): 10], " +
-                "[(row=5, column=12): 0])",
-                path.toString());
+                "[(row=5, column=12): 0]",
+                path.mkString(", "));
     }
 
 
     private void showSolvedPath(Seq<HexTransition> path, boolean player1) {
         for (HexTransition tran : JavaConverters.seqAsJavaList(path)) {
             Location loc = tran.getLocation();
-            playerMove(loc.getRow(), loc.getCol(), player1);
+            playerMove(loc.row(), loc.col(), player1);
         }
         System.out.println("board = " + board);
     }
