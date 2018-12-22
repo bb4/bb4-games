@@ -63,7 +63,7 @@ public class BlockadeBoard extends TwoPlayerBoard<BlockadeMove> {
 
     @Override
     public final BlockadeBoardPosition getPosition( Location loc ) {
-        return (BlockadeBoardPosition) super.getPosition(loc.getRow(), loc.getCol());
+        return (BlockadeBoardPosition) super.getPosition(loc.row(), loc.col());
     }
 
     /**

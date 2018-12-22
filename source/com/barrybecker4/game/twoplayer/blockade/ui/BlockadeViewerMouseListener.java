@@ -57,7 +57,7 @@ class BlockadeViewerMouseListener extends ViewerMouseListener<BlockadeMove, Bloc
     @Override
     public void mousePressed( MouseEvent e )
     {
-        BlockadeBoardViewer viewer = (BlockadeBoardViewer) viewer_;
+        BlockadeBoardViewer viewer = (BlockadeBoardViewer) this.viewer;
         if (viewer.get2PlayerController().isProcessing() || wallPlacingMode)
             return;
 
@@ -84,7 +84,7 @@ class BlockadeViewerMouseListener extends ViewerMouseListener<BlockadeMove, Bloc
     public void mouseReleased( MouseEvent event )
     {
         // compute the coordinates of the position that we dropped the piece on.
-        BlockadeBoardViewer viewer = (BlockadeBoardViewer) viewer_;
+        BlockadeBoardViewer viewer = (BlockadeBoardViewer) this.viewer;
         Location loc = getRenderer().createLocation(event);
 
         if (!wallPlacingMode)  {
@@ -119,7 +119,7 @@ class BlockadeViewerMouseListener extends ViewerMouseListener<BlockadeMove, Bloc
         if ( renderer.getDraggedShowPiece() != null ) {
             renderer.getDraggedShowPiece().setLocation( loc );
         }
-        viewer_.repaint();
+        viewer.repaint();
     }
 
     /**
@@ -130,7 +130,7 @@ class BlockadeViewerMouseListener extends ViewerMouseListener<BlockadeMove, Bloc
     @Override
     public void mouseMoved( MouseEvent e )
     {
-        BlockadeBoardViewer viewer = (BlockadeBoardViewer) viewer_;
+        BlockadeBoardViewer viewer = (BlockadeBoardViewer) this.viewer;
         if (wallPlacingMode)  {
 
             // show the hovering wall
@@ -162,7 +162,7 @@ class BlockadeViewerMouseListener extends ViewerMouseListener<BlockadeMove, Bloc
             return false; // nothing being dragged
         }
 
-        BlockadeController controller = (BlockadeController)viewer_.getController();
+        BlockadeController controller = (BlockadeController) viewer.getController();
         BlockadeBoard board = controller.getBoard();
         // get the original position.
         BlockadeBoardPosition position =
@@ -185,7 +185,7 @@ class BlockadeViewerMouseListener extends ViewerMouseListener<BlockadeMove, Bloc
                 board.getPosition(currentMove.getToRow(), currentMove.getToCol());
         newPosition.setPiece(position.getPiece());
         position.setPiece(null);
-        viewer_.refresh();
+        viewer.refresh();
 
         if (newPosition.isHomeBase( !isPlayer1 )) {
             hasWon = true;
@@ -205,13 +205,13 @@ class BlockadeViewerMouseListener extends ViewerMouseListener<BlockadeMove, Bloc
      * @return the valid move else and error is shown and null is returned.
      */
     private BlockadeMove checkAndGetValidMove(BlockadeBoardPosition origPosition, Location placedLocation) {
-        BlockadeController controller = (BlockadeController)viewer_.getController();
+        BlockadeController controller = (BlockadeController) viewer.getController();
         BlockadeBoard board = controller.getBoard();
         List<BlockadeMove> possibleMoveList = controller.getPossibleMoveList(origPosition);
 
         BlockadeBoardPosition destpos = board.getPosition( placedLocation );
         if (customCheckFails(destpos)) {
-            JOptionPane.showMessageDialog( viewer_, GameContext.getLabel("ILLEGAL_MOVE"));
+            JOptionPane.showMessageDialog(viewer, GameContext.getLabel("ILLEGAL_MOVE"));
             return null;
         }
         // verify that the move is valid before allowing it to be made.
@@ -258,14 +258,14 @@ class BlockadeViewerMouseListener extends ViewerMouseListener<BlockadeMove, Bloc
             return false;
 
         // first check to see if its a legal placement
-        BlockadeBoard board = (BlockadeBoard)viewer_.getBoard();
+        BlockadeBoard board = (BlockadeBoard) viewer.getBoard();
 
         // check wall intersection and overlaps.
         //assert(draggedWall_ != null);
         String sError = board.checkLegalWallPlacement(draggedWall, loc);
 
         if (sError != null) {
-            JOptionPane.showMessageDialog( viewer_, sError);
+            JOptionPane.showMessageDialog(viewer, sError);
             bbRenderer.setDraggedWall(null);
             return false;
         }

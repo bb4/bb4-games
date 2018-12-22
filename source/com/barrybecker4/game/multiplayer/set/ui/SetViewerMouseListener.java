@@ -38,16 +38,16 @@ public class SetViewerMouseListener extends ViewerMouseListener {
     @Override
     public void mousePressed(MouseEvent e) {
 
-        SetGameViewer viewer = (SetGameViewer)viewer_;
+        SetGameViewer viewer = (SetGameViewer) this.viewer;
 
         if (playerSelected()) {
 
             SetGameRenderer renderer = (SetGameRenderer)viewer.getBoardRenderer();
-            Card card = renderer.findCardOver(viewer_.getBoard(), e.getX(), e.getY(),
+            Card card = renderer.findCardOver(this.viewer.getBoard(), e.getX(), e.getY(),
                                               viewer.getWidth(), viewer.getHeight());
             if (card != null) {
                card.toggleSelect();
-               viewer_.repaint();
+               this.viewer.repaint();
             }
             notifyIfSetSelected();
         }
@@ -57,7 +57,7 @@ public class SetViewerMouseListener extends ViewerMouseListener {
     @Override
     public void mouseMoved(MouseEvent e) {
 
-        SetGameViewer viewer = (SetGameViewer)viewer_;
+        SetGameViewer viewer = (SetGameViewer) this.viewer;
         SetGameRenderer renderer = (SetGameRenderer)viewer.getBoardRenderer();
         Card card =
              renderer.findCardOver(viewer.getBoard(), e.getX(), e.getY(),
@@ -87,8 +87,8 @@ public class SetViewerMouseListener extends ViewerMouseListener {
      * @return true if a player is currently selected.
      */
     private boolean playerSelected() {
-        if (viewer_.getController().getCurrentPlayer() == null) {
-            JOptionPane.showMessageDialog(viewer_,
+        if (viewer.getController().getCurrentPlayer() == null) {
+            JOptionPane.showMessageDialog(viewer,
                     "Before you can select a set, you must specify a player on the right.");
             return false;
         }
@@ -103,7 +103,7 @@ public class SetViewerMouseListener extends ViewerMouseListener {
      */
     private void notifyIfSetSelected() {
 
-        SetGameViewer viewer = (SetGameViewer)viewer_;
+        SetGameViewer viewer = (SetGameViewer) this.viewer;
         SetController c = (SetController)viewer.getController();
 
         List<Card> selectedCards = viewer.getSelectedCards();
@@ -111,20 +111,20 @@ public class SetViewerMouseListener extends ViewerMouseListener {
 
             SetPlayer p = ((SetPlayer)c.getCurrentPlayer());
             if (Card.isSet(selectedCards)) {
-                JOptionPane.showMessageDialog(viewer_, GameContext.getLabel("FOUND_SET"));
+                JOptionPane.showMessageDialog(this.viewer, GameContext.getLabel("FOUND_SET"));
 
                 p.incrementNumSetsFound();
                 c.removeCards(selectedCards);
                 c.addCards(3);
 
             } else {
-                JOptionPane.showMessageDialog(viewer_, GameContext.getLabel("NOT_A_SET"));
+                JOptionPane.showMessageDialog(this.viewer, GameContext.getLabel("NOT_A_SET"));
                 p.decrementNumSetsFound();
                 c.gameChanged();
             }
             deselectCards(selectedCards);
             c.setCurrentPlayer(null);
-            viewer_.repaint();
+            this.viewer.repaint();
         }
     }
 

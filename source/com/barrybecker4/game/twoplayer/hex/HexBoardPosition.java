@@ -52,7 +52,7 @@ public class HexBoardPosition extends BoardPosition {
      * @return distance from another position
      */
     public final double getDistanceFrom( HexBoardPosition position ) {
-        return HexBoardUtil.distanceBetween(location_, position.getLocation());
+        return HexBoardUtil.distanceBetween(location, position.getLocation());
     }
 
     /**
@@ -60,7 +60,7 @@ public class HexBoardPosition extends BoardPosition {
      * @return true if immediate neighbor (nobi neighbor)
      */
     public final boolean isNeighbor( HexBoardPosition position ) {
-        return HexBoardUtil.isNeighbor(location_, position.getLocation());
+        return HexBoardUtil.isNeighbor(location, position.getLocation());
     }
 }
 

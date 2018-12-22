@@ -16,16 +16,16 @@ import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 public class CheckersMove extends TwoPlayerMove {
 
     /** the position that the piece is moving from */
-    private Location fromLocation_;
+    private Location fromLocation;
 
     /** True if the piece just got kinged as a result of this move. */
-    public boolean kinged;
+    boolean kinged;
 
     /**
      * a linked list of the pieces that were captured with this move
      * Usually this is null (if no captures) or 1, but could be more.
      */
-    public CaptureList captureList = null;
+    CaptureList captureList = null;
 
     /**
      *  Constructor. This should never be called directly
@@ -34,7 +34,7 @@ public class CheckersMove extends TwoPlayerMove {
     private CheckersMove( Location origin, Location destination,
                           CaptureList captures, int val, GamePiece piece)  {
         super( destination, val,  piece );
-        fromLocation_ = origin;
+        fromLocation = origin;
         kinged = false;
         captureList = captures;
     }
@@ -61,9 +61,9 @@ public class CheckersMove extends TwoPlayerMove {
     /**
      * Copy constructor
      */
-    protected CheckersMove(CheckersMove move) {
+    private CheckersMove(CheckersMove move) {
         super(move);
-        fromLocation_ = move.fromLocation_;
+        fromLocation = move.fromLocation;
         kinged = move.kinged;
         if (move.captureList != null) {
             captureList = move.captureList.copy();
@@ -78,24 +78,24 @@ public class CheckersMove extends TwoPlayerMove {
         return new CheckersMove(this);
     }
 
-    public void setToLocation(Location toPos) {
+    void setToLocation(Location toPos) {
         toLocation = toPos;
     }
 
     public int getFromRow() {
-        return fromLocation_.getRow();
+        return fromLocation.row();
     }
 
     public int getFromCol() {
-        return fromLocation_.getCol();
+        return fromLocation.col();
     }
 
-    public void removeCaptures( CheckersBoard b )  {
+    void removeCaptures( CheckersBoard b )  {
         if ( captureList != null )
             captureList.removeFromBoard( b );
     }
 
-    public void restoreCaptures( CheckersBoard b ) {
+    void restoreCaptures( CheckersBoard b ) {
         if ( captureList != null )
             captureList.restoreOnBoard( b );
     }
@@ -110,7 +110,7 @@ public class CheckersMove extends TwoPlayerMove {
 
         if (this.getPiece().getType() != that.getPiece().getType())
             return false;
-        if (fromLocation_ != null ? !fromLocation_.equals(that.fromLocation_) : that.fromLocation_ != null)
+        if (fromLocation != null ? !fromLocation.equals(that.fromLocation) : that.fromLocation != null)
             return false;
 
         return true;
@@ -119,7 +119,7 @@ public class CheckersMove extends TwoPlayerMove {
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (fromLocation_ != null ? fromLocation_.hashCode() : 0);
+        result = 31 * result + (fromLocation != null ? fromLocation.hashCode() : 0);
         result = 31 * result + (this.getPiece().getType() == CheckersPiece.KING ? 1 : 0);
         return result;
     }
@@ -131,7 +131,7 @@ public class CheckersMove extends TwoPlayerMove {
         if ( captureList != null ) {
             s += captureList.toString();
         }
-        s += " (" + fromLocation_ + ")->(" + toLocation + ")";
+        s += " (" + fromLocation + ")->(" + toLocation + ")";
         return s;
     }
 }

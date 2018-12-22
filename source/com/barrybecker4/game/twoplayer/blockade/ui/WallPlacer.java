@@ -36,37 +36,37 @@ class WallPlacer {
         switch (index) {
             case 0 :
                 pos1 = board.getPosition(loc);
-                pos2 = board.getPosition(loc.getRow()+1, loc.getCol());
+                pos2 = board.getPosition(loc.row()+1, loc.col());
                 break;
             case 1 :
                 assert (board.getPosition(loc) != null);
-                assert (board.getPosition(loc.getRow()-1, loc.getCol())!=null);
+                assert (board.getPosition(loc.row()-1, loc.col())!=null);
                 pos1 = board.getPosition(loc);
-                pos2 = board.getPosition(loc.getRow()-1, loc.getCol());
+                pos2 = board.getPosition(loc.row()-1, loc.col());
                 break;
             case 2 :
-                pos1 = board.getPosition(loc.getRow()-1, loc.getCol());
-                pos2 = board.getPosition(loc.getRow()-1, loc.getCol()+1);
+                pos1 = board.getPosition(loc.row()-1, loc.col());
+                pos2 = board.getPosition(loc.row()-1, loc.col()+1);
                 break;
             case 3 :
-                pos1 = board.getPosition(loc.getRow()-1, loc.getCol());
-                pos2 = board.getPosition(loc.getRow()-1, loc.getCol()-1);
+                pos1 = board.getPosition(loc.row()-1, loc.col());
+                pos2 = board.getPosition(loc.row()-1, loc.col()-1);
                 break;
             case 4 :
-                pos1 = board.getPosition(loc.getRow(), loc.getCol()-1);
-                pos2 = board.getPosition(loc.getRow()-1, loc.getCol()-1);
+                pos1 = board.getPosition(loc.row(), loc.col()-1);
+                pos2 = board.getPosition(loc.row()-1, loc.col()-1);
                 break;
             case 5 :
-                pos1 = board.getPosition(loc.getRow(), loc.getCol()-1);
-                pos2 = board.getPosition(loc.getRow()+1, loc.getCol()-1);
+                pos1 = board.getPosition(loc.row(), loc.col()-1);
+                pos2 = board.getPosition(loc.row()+1, loc.col()-1);
                 break;
             case 6 :
                 pos1 = board.getPosition(loc);
-                pos2 = board.getPosition(loc.getRow(), loc.getCol()-1);
+                pos2 = board.getPosition(loc.row(), loc.col()-1);
                 break;
             case 7 :
                 pos1 = board.getPosition(loc);
-                pos2 = board.getPosition(loc.getRow(), loc.getCol()+1);
+                pos2 = board.getPosition(loc.row(), loc.col()+1);
                 break;
             default : assert false:("bad index="+index);
         }
@@ -97,15 +97,15 @@ class WallPlacer {
         float x = (float)xp/cellSize - (xp / cellSize);
         float y = (float)yp/cellSize - (yp / cellSize);
 
-        if (loc.getCol() >= numCols)  {
+        if (loc.col() >= numCols)  {
              x = Math.min(0.499f, x);
-        } else if (loc.getCol() <= 1)  {
+        } else if (loc.col() <= 1)  {
              x = Math.max(0.501f, x);
         }
 
-        if (loc.getRow() >= numRows)  {
+        if (loc.row() >= numRows)  {
              y = Math.min(0.499f, y);
-        } else if (loc.getRow() <=1 ) {
+        } else if (loc.row() <=1 ) {
              y = Math.max(0.501f, y);
         }
 

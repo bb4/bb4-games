@@ -113,7 +113,7 @@ public abstract class Board<M extends Move> implements IRectangularBoard<M> {
 
     @Override
     public BoardPosition getPosition( Location loc ) {
-        return getPosition(loc.getRow(), loc.getCol());
+        return getPosition(loc.row(), loc.col());
     }
 
     protected void setPosition(BoardPosition pos) {

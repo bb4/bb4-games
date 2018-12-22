@@ -27,8 +27,8 @@ public abstract class TwoPlayerBoardRenderer extends GameBoardRenderer {
 
     protected IntLocation getPosition(Location coords) {
         return new IntLocation(
-                getMargin() + (coords.getRow() - 1) * cellSize + 1,
-                getMargin() + (coords.getCol() - 1) * cellSize + 1);
+                getMargin() + (coords.row() - 1) * cellSize + 1,
+                getMargin() + (coords.col() - 1) * cellSize + 1);
 
     }
 

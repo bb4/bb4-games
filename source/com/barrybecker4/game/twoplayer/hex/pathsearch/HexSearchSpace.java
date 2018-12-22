@@ -13,7 +13,6 @@ import scala.collection.Seq;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Barry Becker
@@ -46,7 +45,7 @@ public class HexSearchSpace implements SearchSpace<HexState, HexTransition> {
     @Override
     public boolean isGoal(HexState state) {
         Location loc = state.getLocation();
-        return player1 ? loc.getRow() == maxPlus1 : loc.getCol() == maxPlus1;
+        return player1 ? loc.row() == maxPlus1 : loc.col() == maxPlus1;
     }
 
     /**
@@ -67,8 +66,8 @@ public class HexSearchSpace implements SearchSpace<HexState, HexTransition> {
             if (isValid(nbrLoc, player1)) {
                BoardPosition pos = board.getPosition(nbrLoc);
                 if (pos == null) {
-                    if ((!player1 && (nbrLoc.getCol() < 1 || nbrLoc.getCol() > board.getNumCols())) ||
-                            player1 && (nbrLoc.getRow() < 1 || nbrLoc.getRow() > board.getNumRows())) {
+                    if ((!player1 && (nbrLoc.col() < 1 || nbrLoc.col() > board.getNumCols())) ||
+                            player1 && (nbrLoc.row() < 1 || nbrLoc.row() > board.getNumRows())) {
                         nbrs.add(new HexTransition(nbrLoc, 0));
                     }
                 }
@@ -92,8 +91,8 @@ public class HexSearchSpace implements SearchSpace<HexState, HexTransition> {
      * Player 1 cannot touch the left/right sides and Player 2 cannot touch the top/bottom sides.
      */
     private boolean isValid(Location loc, boolean player1) {
-        int row = loc.getRow();
-        int col = loc.getCol();
+        int row = loc.row();
+        int col = loc.col();
         int max = initialState.getBoard().getNumRows();
         return player1 ?
                 (row >= 0 && row <= maxPlus1 && col > 0 && col <= max) :
@@ -124,7 +123,7 @@ public class HexSearchSpace implements SearchSpace<HexState, HexTransition> {
     public int distanceFromGoal(HexState state) {
         Location lastLocation = state.getLocation();
         return (PATH_STEP_COST -1 ) *
-                (player1 ? (maxPlus1 - lastLocation.getRow()) : (maxPlus1 - lastLocation.getCol()));
+                (player1 ? (maxPlus1 - lastLocation.row()) : (maxPlus1 - lastLocation.col()));
     }
 
     /**

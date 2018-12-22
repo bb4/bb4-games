@@ -3,9 +3,7 @@ package com.barrybecker4.game.twoplayer.chess.ui;
 
 import com.barrybecker4.game.common.board.BoardPosition;
 import com.barrybecker4.game.common.ui.viewer.GameBoardViewer;
-import com.barrybecker4.game.common.ui.viewer.ViewerMouseListener;
 import com.barrybecker4.game.twoplayer.checkers.ui.CheckersLikeViewerMouseListener;
-import com.barrybecker4.game.twoplayer.checkers.ui.CheckersViewerMouseListener;
 import com.barrybecker4.game.twoplayer.chess.ChessBoard;
 import com.barrybecker4.game.twoplayer.chess.ChessController;
 import com.barrybecker4.game.twoplayer.chess.ChessMove;
@@ -29,8 +27,8 @@ public class ChessViewerMouseListener extends CheckersLikeViewerMouseListener<Ch
 
     @Override
     protected List<ChessMove> getPossibleMoveList(BoardPosition position) {
-        ChessBoard board = (ChessBoard)viewer_.getBoard();
-        ChessController controller = (ChessController)viewer_.getController();
+        ChessBoard board = (ChessBoard) viewer.getBoard();
+        ChessController controller = (ChessController) viewer.getController();
 
         ChessPiece piece = (ChessPiece)position.getPiece();
         List<ChessMove> possibleMoveList =

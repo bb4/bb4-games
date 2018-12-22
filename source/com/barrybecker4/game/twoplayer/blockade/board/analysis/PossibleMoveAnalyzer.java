@@ -169,8 +169,8 @@ public class PossibleMoveAnalyzer {
      private void addIf1HopNeeded(boolean directionOpen, BlockadeBoardPosition dirPosition,
                                   int rowOffset, int colOffset) {
 
-         int fromRow = fromLocation.getRow();
-         int fromCol = fromLocation.getCol();
+         int fromRow = fromLocation.row();
+         int fromCol = fromLocation.col();
          BlockadeBoardPosition dirDirPosition =
                  board.getPosition(fromRow + 2 * rowOffset, fromCol + 2 * colOffset);
          // if either the players own pawn or that of the opponent is blocking the path, then true
@@ -221,9 +221,9 @@ public class PossibleMoveAnalyzer {
               // if the diagonal position that we want to move to is occupied, we try to add the 1 space moves
 
               BlockadeBoardPosition horzPos =
-                      board.getPosition(fromLocation.getRow(), diagonalPos.getCol());
+                      board.getPosition(fromLocation.row(), diagonalPos.getCol());
               BlockadeBoardPosition vertPos =
-                      board.getPosition(diagonalPos.getRow(), fromLocation.getCol());
+                      board.getPosition(diagonalPos.getRow(), fromLocation.col());
 
               if (horizontalPathOpen && horzPos.isUnoccupied() && !horzPos.isVisited()) {
                    possibleMoveList.add(

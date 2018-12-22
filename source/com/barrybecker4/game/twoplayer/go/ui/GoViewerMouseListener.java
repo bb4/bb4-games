@@ -47,7 +47,7 @@ public class GoViewerMouseListener extends ViewerMouseListener<GoMove, GoBoard> 
     @Override
     public void mousePressed( MouseEvent e ) {
 
-        GoController controller = (GoController) viewer_.getController();
+        GoController controller = (GoController) viewer.getController();
         // all derived classes must check this to disable user clicks while the computer is thinking
         if (controller.isProcessing()) {
             return;
@@ -75,7 +75,7 @@ public class GoViewerMouseListener extends ViewerMouseListener<GoMove, GoBoard> 
      */
     private void processStonePlacement(Location loc, GoMove m, GoBoardPosition stone) {
 
-        GoController controller = (GoController) viewer_.getController();
+        GoController controller = (GoController) viewer.getController();
         GoBoard board = controller.getBoard();
         boolean player1sTurn = controller.isPlayer1sTurn();
 
@@ -96,13 +96,13 @@ public class GoViewerMouseListener extends ViewerMouseListener<GoMove, GoBoard> 
             return;
         }
 
-        if ( !((AbstractTwoPlayerBoardViewer)viewer_).continuePlay( m ) ) {   // then game over
+        if ( !((AbstractTwoPlayerBoardViewer) viewer).continuePlay( m ) ) {   // then game over
             getRenderer().setDraggedShowPiece(null);
         }
         else if (controller.getPlayers().allPlayersHuman()) {
             // create a stone to show for the next players move
             getRenderer().setDraggedShowPiece(
-                    new GoBoardPosition(loc.getRow(), loc.getCol(), null, new GoStone(!player1sTurn)));
+                    new GoBoardPosition(loc.row(), loc.col(), null, new GoStone(!player1sTurn)));
         }
     }
 
@@ -113,7 +113,7 @@ public class GoViewerMouseListener extends ViewerMouseListener<GoMove, GoBoard> 
     @Override
     public void mouseMoved( MouseEvent e )
     {
-        GoController controller = (GoController) viewer_.getController();
+        GoController controller = (GoController) viewer.getController();
         if (controller.isProcessing()) {
             return;
         }
@@ -122,7 +122,7 @@ public class GoViewerMouseListener extends ViewerMouseListener<GoMove, GoBoard> 
         if ( getRenderer().getDraggedShowPiece() != null ) {
             getRenderer().getDraggedShowPiece().setLocation( loc );
         }
-        viewer_.refresh();
+        viewer.refresh();
     }
 
     @Override

@@ -34,7 +34,7 @@ class MancalaViewerMouseListener extends ViewerMouseListener<MancalaMove, Mancal
     @Override
     public void mousePressed( MouseEvent e ) {
 
-        MancalaBoardViewer viewer = (MancalaBoardViewer) viewer_;
+        MancalaBoardViewer viewer = (MancalaBoardViewer) this.viewer;
         MancalaController controller = (MancalaController) viewer.getController();
 
         if (controller.isProcessing() || controller.isDone())   {

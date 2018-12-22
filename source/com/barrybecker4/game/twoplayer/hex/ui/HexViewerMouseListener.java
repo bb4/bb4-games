@@ -29,7 +29,7 @@ class HexViewerMouseListener extends ViewerMouseListener<TwoPlayerMove, HexBoard
     @Override
     public void mousePressed( MouseEvent e ) {
 
-        HexBoardViewer viewer = (HexBoardViewer) viewer_;
+        HexBoardViewer viewer = (HexBoardViewer) this.viewer;
         HexController controller = (HexController) viewer.getController();
 
         if (controller.isProcessing() || controller.isDone())   {
@@ -46,10 +46,9 @@ class HexViewerMouseListener extends ViewerMouseListener<TwoPlayerMove, HexBoard
             return;
 
         TwoPlayerMove m =
-            TwoPlayerMove.createMove( loc.getRow(), loc.getCol(), 0,
+            TwoPlayerMove.createMove( loc.row(), loc.col(), 0,
                                       new GamePiece(controller.isPlayer1sTurn()));
 
         viewer.continuePlay( m );
     }
-
 }

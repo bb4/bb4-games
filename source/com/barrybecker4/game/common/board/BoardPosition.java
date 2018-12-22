@@ -14,10 +14,10 @@ import com.barrybecker4.common.geometry.Location;
 public class BoardPosition {
 
     /** we need to store the location so we can restore captures.  */
-    protected Location location_;
+    protected Location location;
 
     /** the piece to display at this position. Null if the position is unoccupied. */
-    protected GamePiece piece_;
+    protected GamePiece piece;
 
     /**
      * constructor
@@ -31,8 +31,8 @@ public class BoardPosition {
 
     public BoardPosition(BoardPosition p) {
 
-        location_ = new ByteLocation(p.getRow(), p.getCol());
-        piece_ = (p.piece_ != null) ? p.piece_.copy() : null;
+        location = new ByteLocation(p.getRow(), p.getCol());
+        piece = (p.piece != null) ? p.piece.copy() : null;
     }
 
     /**
@@ -48,8 +48,8 @@ public class BoardPosition {
      * @param piece - the piece to put at this position (use null if there is none).
      */
     protected BoardPosition( Location loc, GamePiece piece)  {
-        location_ = loc;
-        piece_ = piece;
+        location = loc;
+        this.piece = piece;
     }
 
     /**
@@ -85,44 +85,44 @@ public class BoardPosition {
      * @return the piece at this position if there is one.
      */
     public GamePiece getPiece()  {
-        return piece_;
+        return piece;
     }
 
     /**
      * @param piece the piece to assign to this position.
      */
     public void setPiece(GamePiece piece) {
-        piece_ = piece;
+        this.piece = piece;
     }
 
     /**
      * @return true if the piece space is currently unoccupied
      */
     public final boolean isUnoccupied() {
-        return (piece_ == null);
+        return (piece == null);
     }
 
     /**
      * @return true if the piece space is currently occupied
      */
     public final boolean isOccupied() {
-         return (piece_ != null);
+         return (piece != null);
     }
 
     public final int getRow() {
-        return location_.getRow();
+        return location.row();
     }
 
     public final int getCol() {
-        return location_.getCol();
+        return location.col();
     }
 
     public final void setLocation( Location loc ) {
-        location_ = loc;
+        location = loc;
     }
 
     public final Location getLocation() {
-        return location_;
+        return location;
     }
 
     /**
@@ -131,7 +131,7 @@ public class BoardPosition {
      * @return distance from another position
      */
     public final double getDistanceFrom( BoardPosition position ) {
-        return location_.getDistanceFrom(position.getLocation());
+        return location.getDistanceFrom(position.getLocation());
     }
 
     /**
@@ -169,9 +169,9 @@ public class BoardPosition {
      */
     private String toString(boolean longForm) {
         StringBuilder sb = new StringBuilder( "" );
-        if (piece_ != null)
-            sb.append(longForm? piece_.getDescription() : " " + piece_.toString());
-        sb.append(" (").append(location_.toString()).append(')');
+        if (piece != null)
+            sb.append(longForm? piece.getDescription() : " " + piece.toString());
+        sb.append(" (").append(location.toString()).append(')');
         return sb.toString();
     }
 

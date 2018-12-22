@@ -3,8 +3,6 @@ package com.barrybecker4.game.common.ui.viewer;
 
 import com.barrybecker4.game.common.Move;
 import com.barrybecker4.game.common.board.Board;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
-import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -18,17 +16,17 @@ import java.awt.event.MouseMotionListener;
 public class ViewerMouseListener<M extends Move, B extends Board<M>>
         implements MouseListener, MouseMotionListener {
 
-    protected GameBoardViewer<M, B> viewer_;
+    protected GameBoardViewer<M, B> viewer;
 
     /**
      * Constructor.
      */
     public ViewerMouseListener(GameBoardViewer<M, B> viewer) {
-        viewer_ =  viewer;
+        this.viewer =  viewer;
     }
 
     protected GameBoardRenderer getRenderer() {
-        return viewer_.getBoardRenderer();
+        return viewer.getBoardRenderer();
     }
 
     public void reset() {}

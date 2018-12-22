@@ -33,7 +33,7 @@ public class CheckersViewerMouseListener extends CheckersLikeViewerMouseListener
     protected List<CheckersMove> getPossibleMoveList(BoardPosition position) {
 
         TwoPlayerController<CheckersMove, CheckersBoard> controller =
-                (TwoPlayerController<CheckersMove, CheckersBoard>) viewer_.getController();
+                (TwoPlayerController<CheckersMove, CheckersBoard>) viewer.getController();
 
         CheckersMove lastMove = controller.getLastMove();
         MoveGenerator generator =

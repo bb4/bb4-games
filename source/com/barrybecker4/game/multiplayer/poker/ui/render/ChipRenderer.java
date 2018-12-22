@@ -34,7 +34,7 @@ public class ChipRenderer {
         int x;
         int width;
         int height = 0;
-        int y = cellSize * location.getRow();
+        int y = cellSize * location.row();
 
         for (PokerChip chipType : chips.keySet()) {
 
@@ -42,14 +42,14 @@ public class ChipRenderer {
             height = (int)(cellSize * numChips * CHIP_HEIGHT);
             width = (int)(CHIP_PILE_WIDTH * cellSize);
             g2.setColor(chipType.getColor());
-            x = (int)((chipType.ordinal() * CHIP_PILE_WIDTH + location.getCol() + 1) * cellSize);
-            y = location.getRow() * cellSize - height;
+            x = (int)((chipType.ordinal() * CHIP_PILE_WIDTH + location.col() + 1) * cellSize);
+            y = location.row() * cellSize - height;
 
             g2.fillRect(x, y, width, height);
             g2.setColor(BLACK_COLOR);
             g2.drawRect(x, y, width, height);
             for (int j = 1; j < numChips; j++) {
-                 y = (int)(cellSize * (location.getRow() - j * CHIP_HEIGHT));
+                 y = (int)(cellSize * (location.row() - j * CHIP_HEIGHT));
                  g2.drawLine(x, y, (int)(x + cellSize * CHIP_PILE_WIDTH), y);
             }
         }
@@ -59,7 +59,7 @@ public class ChipRenderer {
         NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(JComponent.getDefaultLocale());
 
         String cashAmount = currencyFormat.format(amount);
-        x = (location.getCol() + 1) * cellSize;
+        x = (location.col() + 1) * cellSize;
         Font f = PokerPlayerRenderer.POKER_FONT.deriveFont((float) cellSize /
                  TwoPlayerBoardRenderer.MINIMUM_CELL_SIZE * PokerPlayerRenderer.FONT_SIZE);
 

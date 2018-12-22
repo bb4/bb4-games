@@ -45,7 +45,7 @@ public abstract class GameExporter<M extends Move, B extends IBoard<M>> {
      * @param name name to ensure safety of
      * @return name with the sgf suffix added if the name did not have it.
      */
-    protected String ensureSuffix(String name) {
+    private String ensureSuffix(String name) {
 
         String suffix = "." + SgfFileFilter.SGF_EXTENSION;
         if (!name.endsWith(suffix)) {
@@ -60,8 +60,8 @@ public abstract class GameExporter<M extends Move, B extends IBoard<M>> {
      */
     protected void serializePosition(Location pos, StringBuilder buf) {
         buf.append( '[' );
-        buf.append( (char) ('a' + pos.getCol() - 1) );
-        buf.append( (char) ('a' + pos.getRow() - 1) );
+        buf.append( (char) ('a' + pos.col() - 1) );
+        buf.append( (char) ('a' + pos.row() - 1) );
         buf.append( ']' );
     }
 }

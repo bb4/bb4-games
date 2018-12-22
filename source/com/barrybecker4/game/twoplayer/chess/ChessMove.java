@@ -16,7 +16,7 @@ import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 public class ChessMove extends TwoPlayerMove
 {
     /** the position that the piece is moving from */
-    private Location fromLocation_;
+    private Location fromLocation;
 
     /**
      * this is null (if no captures) or 1 if there was a capture.
@@ -25,7 +25,7 @@ public class ChessMove extends TwoPlayerMove
     public CaptureList captureList = null;
 
     /** True if the first time this piece has moved. */
-    private boolean firstTimeMoved_ = true;
+    private boolean firstTimeMoved = true;
 
 
     /**
@@ -36,9 +36,9 @@ public class ChessMove extends TwoPlayerMove
                        CaptureList captures, int val, GamePiece piece ) {
 
         super( destination, val, piece );
-        fromLocation_ = origin;
+        fromLocation = origin;
         captureList = captures;
-        firstTimeMoved_ = true;
+        firstTimeMoved = true;
     }
 
     /**
@@ -46,10 +46,10 @@ public class ChessMove extends TwoPlayerMove
      */
     protected ChessMove(ChessMove move) {
         super(move);
-        fromLocation_ = move.fromLocation_;
+        fromLocation = move.fromLocation;
         if (move.captureList != null)
             captureList = move.captureList.copy();
-        firstTimeMoved_ = move.firstTimeMoved_;
+        firstTimeMoved = move.firstTimeMoved;
     }
 
 
@@ -73,20 +73,20 @@ public class ChessMove extends TwoPlayerMove
     }
 
     public int getFromRow() {
-        return fromLocation_.getRow();
+        return fromLocation.row();
     }
 
     public int getFromCol() {
-        return fromLocation_.getCol();
+        return fromLocation.col();
     }
 
 
     public boolean isFirstTimeMoved() {
-        return firstTimeMoved_;
+        return firstTimeMoved;
     }
 
     public void setFirstTimeMoved( boolean firstTimeMoved) {
-        firstTimeMoved_ = firstTimeMoved;
+        this.firstTimeMoved = firstTimeMoved;
     }
 
 
@@ -99,7 +99,7 @@ public class ChessMove extends TwoPlayerMove
         if ( captureList != null ) {
             sb.append( captureList.toString() );
         }
-        sb.append(" (").append(fromLocation_).append(")->(").append(toLocation).append(')');
+        sb.append(" (").append(fromLocation).append(")->(").append(toLocation).append(')');
         return sb.toString();
     }
 }

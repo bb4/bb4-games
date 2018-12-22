@@ -56,9 +56,9 @@ public class HandRenderer  {
      */
     public void render( Graphics2D g2, Location location, Hand hand, int cellSize) {
 
-        assert (hand!=null): "Did you forget to deal cards to one of the players?";
-        int x = ((location.getCol()-1) * cellSize);
-        int y = (int) ((location.getRow() + 1.6) * cellSize);
+        assert (hand != null): "Did you forget to deal cards to one of the players?";
+        int x = ((location.col()-1) * cellSize);
+        int y = (int) ((location.row() + 1.6) * cellSize);
         int cardArc = (int)(cellSize * CARD_ARC);
 
         for (Card c : hand.getCards()) {

@@ -162,7 +162,7 @@ public final class BlockadeBoardPosition extends BoardPosition {
     /**
      * @return true if this position is a home base for the specified player.
      */
-    public boolean isOccupiedHomeBase(boolean player1) {
+    boolean isOccupiedHomeBase(boolean player1) {
         return isOccupied() && player1? isPlayer1Home_: isPlayer2Home_;
     }
 
@@ -170,7 +170,7 @@ public final class BlockadeBoardPosition extends BoardPosition {
         int row = getRow();
         int col = getCol();
         Location offset = d.getOffset();
-        return board.getPosition(row + offset.getRow(), col + offset.getCol());
+        return board.getPosition(row + offset.row(), col + offset.col());
     }
 
     /**

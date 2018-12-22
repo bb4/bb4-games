@@ -123,8 +123,8 @@ final class GoGroupRenderer {
     private Area createSingleStoneBorder(Location firstStoneLoc) {
         float offset = + BORDER_OFFSET + 0.5f;
         // case where the group contains only 1 stone
-        float x = margin_ + (firstStoneLoc.getCol() - offset) * cellSize_;
-        float y = margin_ + (firstStoneLoc.getRow() - offset) * cellSize_;
+        float x = margin_ + (firstStoneLoc.col() - offset) * cellSize_;
+        float y = margin_ + (firstStoneLoc.row() - offset) * cellSize_;
         return new Area( new Ellipse2D.Float( x, y, cellSize_, cellSize_ ) );
     }
 

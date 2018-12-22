@@ -37,7 +37,7 @@ public abstract class CheckersLikeViewerMouseListener<M extends TwoPlayerMove, B
     @Override
     public void mousePressed( MouseEvent e ) {
         TwoPlayerController<M, B> controller =
-                (TwoPlayerController<M, B>) viewer_.getController();
+                (TwoPlayerController<M, B>) viewer.getController();
 
         if (controller.isProcessing())
             return;
@@ -59,7 +59,7 @@ public abstract class CheckersLikeViewerMouseListener<M extends TwoPlayerMove, B
     @Override
     public void mouseReleased( MouseEvent e ) {
         AbstractTwoPlayerBoardViewer<M, B> viewer =
-                (AbstractTwoPlayerBoardViewer<M, B>) viewer_;
+                (AbstractTwoPlayerBoardViewer<M, B>) this.viewer;
         GameController<M, B> controller = viewer.getController();
 
         // compute the coordinates of the position that we dropped the piece on.
@@ -122,7 +122,7 @@ public abstract class CheckersLikeViewerMouseListener<M extends TwoPlayerMove, B
         if ( getRenderer().getDraggedShowPiece() != null ) {
             getRenderer().getDraggedShowPiece().setLocation( loc );
         }
-        viewer_.refresh();
+        viewer.refresh();
     }
 
     /**
@@ -133,8 +133,8 @@ public abstract class CheckersLikeViewerMouseListener<M extends TwoPlayerMove, B
 
 
     private void invalidMove() {
-        JOptionPane.showMessageDialog(viewer_, GameContext.getLabel("ILLEGAL_MOVE"));
-        viewer_.refresh();
+        JOptionPane.showMessageDialog(viewer, GameContext.getLabel("ILLEGAL_MOVE"));
+        viewer.refresh();
     }
 
 }

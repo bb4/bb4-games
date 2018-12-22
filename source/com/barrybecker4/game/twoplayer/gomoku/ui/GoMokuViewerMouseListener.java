@@ -30,7 +30,7 @@ class GoMokuViewerMouseListener extends ViewerMouseListener<TwoPlayerMove, GoMok
     @Override
     public void mousePressed( MouseEvent e ) {
 
-        GoMokuBoardViewer viewer = (GoMokuBoardViewer) viewer_;
+        GoMokuBoardViewer viewer = (GoMokuBoardViewer) this.viewer;
         GoMokuController controller = (GoMokuController) viewer.getController();
 
         if (controller.isProcessing() || controller.isDone())   {
@@ -47,7 +47,7 @@ class GoMokuViewerMouseListener extends ViewerMouseListener<TwoPlayerMove, GoMok
             return;
 
         TwoPlayerMove m =
-            TwoPlayerMove.createMove( loc.getRow(), loc.getCol(), 0,
+            TwoPlayerMove.createMove( loc.row(), loc.col(), 0,
                                       new GamePiece(controller.isPlayer1sTurn()));
 
         viewer.continuePlay( m );

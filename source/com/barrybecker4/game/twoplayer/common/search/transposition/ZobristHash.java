@@ -132,7 +132,7 @@ public final class ZobristHash {
      */
     private void applyPositionToKey(Location location, int stateIndex) {
 
-        Long specialNum = randomNumberTable[location.getRow()-1][location.getCol()-1][stateIndex];
+        Long specialNum = randomNumberTable[location.row() - 1][location.col() - 1][stateIndex];
         currentKey.applyMove(location, specialNum);
     }
 

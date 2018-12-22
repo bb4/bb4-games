@@ -101,7 +101,7 @@ public class BoardPositions {
      * @return the piece at the specified location. Returns null if there is no piece there.
      */
     public final BoardPosition getPosition( Location loc ) {
-        return getPosition(loc.getRow(), loc.getCol());
+        return getPosition(loc.row(), loc.col());
     }
 
     public void setPosition(BoardPosition pos) {
@@ -162,7 +162,7 @@ public class BoardPositions {
     /**
      * @return true if the specified position is within the bounds of the board
      */
-    public final boolean inBounds( int r, int c )  {
+    final boolean inBounds( int r, int c )  {
         return !(r < 1 || r > getNumRows() || c < 1 || c > getNumCols());
     }
 
@@ -192,7 +192,7 @@ public class BoardPositions {
      * @return true if the specified BoardPosition is on the corder of the board
      * @param position position to see if in corner of board.
      */
-    public boolean isInCorner(BoardPosition position)  {
+    boolean isInCorner(BoardPosition position)  {
 
         return ((position.getRow() == 1 && position.getCol() == 1) ||
                 (position.getRow()== getNumRows() && position.getCol() == getNumCols()) ||

@@ -88,8 +88,8 @@ class HexBoardRenderer extends TwoPlayerBoardRenderer {
     @Override
     protected IntLocation getPosition(Location coords) {
         double cellSizeD2 = cellSize / 2.0;
-        int y = getMargin() + (int)(coords.getRow() * (cellSize - 0.5) * HexUtil.ROOT3D2); // + 2;
-        int x = (int)(getMargin() + (coords.getCol() - 1) * cellSize + (coords.getRow() - 1) * cellSizeD2);
+        int y = getMargin() + (int)(coords.row() * (cellSize - 0.5) * HexUtil.ROOT3D2); // + 2;
+        int x = (int)(getMargin() + (coords.col() - 1) * cellSize + (coords.row() - 1) * cellSizeD2);
         return new IntLocation(y, x);
     }
 

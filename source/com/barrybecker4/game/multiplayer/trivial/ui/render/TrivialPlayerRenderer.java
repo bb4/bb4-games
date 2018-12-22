@@ -116,8 +116,8 @@ public class TrivialPlayerRenderer extends GamePieceRenderer {
      */
     void renderValue(Graphics2D g2, Location location, int value, int cellSize) {
 
-        int x = ((location.getCol()-1) * cellSize);
-        int y = (int) ((location.getRow() + 1.6) * cellSize);
+        int x = ((location.col()-1) * cellSize);
+        int y = (int) ((location.row() + 1.6) * cellSize);
         int cardArc = (int)(cellSize * CARD_ARC);
 
         g2.setColor(CARD_BG_COLOR);

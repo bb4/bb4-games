@@ -66,7 +66,7 @@ public class TwoPlayerMove extends Move {
     /**
      * Create a move object representing a transition on the board.
      */
-    protected TwoPlayerMove( Location destination, int val, GamePiece p ) {
+    protected TwoPlayerMove( Location destination, int val, GamePiece p) {
         toLocation = destination;
 
         setValue(val);
@@ -122,11 +122,11 @@ public class TwoPlayerMove extends Move {
     }
 
     public final byte getToRow()  {
-        return (byte) toLocation.getRow();
+        return (byte) toLocation.row();
     }
 
     public final byte getToCol() {
-        return (byte) toLocation.getCol();
+        return (byte) toLocation.col();
     }
 
     public final Location getToLocation() {
@@ -259,10 +259,9 @@ public class TwoPlayerMove extends Move {
         String pieceCreator = "null";
         if (getPiece() != null) {
             pieceCreator = getPiece().isOwnedByPlayer1()? "PLAYER1_PIECE" : "PLAYER2_PIECE";
-
         }
         return "TwoPlayerMove.createMove(new ByteLocation("
-                + getToLocation().getRow()  + ", " + getToLocation().getCol()  + "), " + getValue() + ", "
+                + getToLocation().row()  + ", " + getToLocation().col()  + "), " + getValue() + ", "
                 + pieceCreator + "),";
     }
 

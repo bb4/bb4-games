@@ -23,7 +23,7 @@ import java.util.Map;
  *
  * @author Barry Becker
  */
-public class BinNavigator {
+class BinNavigator {
 
     private int size;
     private Map<Location, Location> nextMap = new HashMap<>();
@@ -32,7 +32,7 @@ public class BinNavigator {
      * @param size the number of columns in the game board.
      *   This amounts to the number of player bins + 2. Traditionally this is 8.
      */
-    public BinNavigator(int size) {
+    BinNavigator(int size) {
         this.size = size;
         for (int i = 0; i < size - 1; i++) {
             nextMap.put(new ByteLocation(1, size - i), new ByteLocation(1, size - i - 1));
@@ -45,7 +45,7 @@ public class BinNavigator {
         nextMap.put(new ByteLocation(2, size-1), new ByteLocation(1, size));
     }
 
-    public Location getNextLocation(Location loc) {
+    Location getNextLocation(Location loc) {
         assert loc != null;
         Location next =  nextMap.get(loc);
         assert next != null : "could not find " + loc + " in " + nextMap;
@@ -73,13 +73,13 @@ public class BinNavigator {
      * @param loc the location to look opposite of
      * @return the location that is opposite the one specified
      */
-    public Location getOppositeLocation(Location loc) {
-        int col = loc.getCol();
+    Location getOppositeLocation(Location loc) {
+        int col = loc.col();
         //assert col > 1 && col < size : "Column out of range for  + " + loc;  failing
-        return new ByteLocation((loc.getRow() == 1) ? 2:1, loc.getCol());
+        return new ByteLocation((loc.row() == 1) ? 2:1, loc.col());
     }
 
-    public Location getHomeLocation(boolean player1) {
+    Location getHomeLocation(boolean player1) {
         return player1 ? new ByteLocation(1, 1) : new ByteLocation(1, size);
     }
 }

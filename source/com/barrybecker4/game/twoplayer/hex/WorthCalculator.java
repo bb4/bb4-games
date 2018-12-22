@@ -56,8 +56,8 @@ public class WorthCalculator  {
             Location center = board.getCenter();
             Location lastMv = lastMove.getToLocation();
             double manhattanDist =
-                    Math.abs(center.getRow() - lastMv.getRow())
-                    + Math.abs(center.getCol() - lastMv.getCol());
+                    Math.abs(center.row() - lastMv.row())
+                    + Math.abs(center.col() - lastMv.col());
             return sign * (thresh - moveNum) * manhattanDist / thresh;
         }
         return 0;

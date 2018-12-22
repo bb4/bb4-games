@@ -19,7 +19,7 @@ import java.util.List;
 public class MoveGenerator<M extends TwoPlayerMove>  {
 
     private CheckersSearchable searchable_;
-    private CheckersBoard board_;
+    private CheckersBoard board;
 
 
     private ParameterArray weights_;
@@ -31,7 +31,7 @@ public class MoveGenerator<M extends TwoPlayerMove>  {
      */
     public MoveGenerator(CheckersSearchable searchable, ParameterArray weights) {
         searchable_ = searchable;
-        board_ = searchable_.getBoard();
+        board = searchable_.getBoard();
         weights_ = weights;
     }
 
@@ -47,7 +47,7 @@ public class MoveGenerator<M extends TwoPlayerMove>  {
             int odd = row % 2;
             for ( j = 1; j <= CheckersBoard.SIZE/2; j++ ) {
                 col = 2 * j - odd;
-                BoardPosition p = board_.getPosition( row, col );
+                BoardPosition p = board.getPosition( row, col );
                 if ( p.isOccupied() && p.getPiece().isOwnedByPlayer1() == player1 ) {
                     addMoves(p, lastMove, moveList);
                 }
@@ -91,7 +91,7 @@ public class MoveGenerator<M extends TwoPlayerMove>  {
      */
     private int addMovesForDirection( BoardPosition pos,
                                       int rowInc, int colInc, TwoPlayerMove lastMove, MoveList<CheckersMove> moveList) {
-        BoardPosition next = board_.getPosition( pos.getRow() + rowInc, pos.getCol() + colInc );
+        BoardPosition next = board.getPosition( pos.getRow() + rowInc, pos.getCol() + colInc );
         if (next!=null)
         {
             if (next.isUnoccupied()) {
@@ -100,7 +100,7 @@ public class MoveGenerator<M extends TwoPlayerMove>  {
                 return 1;
             }
             // if just a simple move was not possible, we check for jump(s)
-            BoardPosition beyondNext = board_.getPosition( pos.getRow() + 2 * rowInc, pos.getCol() + 2 * colInc );
+            BoardPosition beyondNext = board.getPosition( pos.getRow() + 2 * rowInc, pos.getCol() + 2 * colInc );
             if (next.isOccupied() &&
                 (next.getPiece().isOwnedByPlayer1() != pos.getPiece().isOwnedByPlayer1()) &&
                  beyondNext!=null && beyondNext.isUnoccupied()) {
@@ -147,21 +147,24 @@ public class MoveGenerator<M extends TwoPlayerMove>  {
      * from the last position.
      * @return number of additional jump moves added.
      */
-    private int checkJumpMove( BoardPosition current,
-                               CheckersMove m, int rowInc, int colInc,
-                               List<CheckersMove> jumpMoves, ParameterArray weights ) {
-        BoardPosition next = board_.getPosition( current.getRow() + rowInc, current.getCol() + colInc );
-        BoardPosition beyondNext = board_.getPosition( current.getRow() + 2 * rowInc, current.getCol() + 2 * colInc );
+    private int checkJumpMove(BoardPosition current,
+                              CheckersMove m, int rowInc, int colInc,
+                              List<CheckersMove> jumpMoves, ParameterArray weights ) {
+        BoardPosition next =
+                board.getPosition( current.getRow() + rowInc, current.getCol() + colInc );
+        BoardPosition beyondNext =
+                board.getPosition( current.getRow() + 2 * rowInc, current.getCol() + 2 * colInc );
+
         // if the adjacent square is an opponent's piece, and the space beyond it
         // is empty, and we have not already capture this piece, then take another jump.
         boolean opponentAdjacent =
                 next!=null && next.isOccupied() && (next.getPiece().isOwnedByPlayer1() != m.isPlayer1());
-        if ( opponentAdjacent
+        if (opponentAdjacent
               && beyondNext!=null && beyondNext.isUnoccupied()
               && (m.captureList != null) && (!m.captureList.alreadyCaptured( next )) ) {
             // then there is another jump. We must take it.
             CheckersMove mm = m.copy();  // base it on the original jump
-            mm.setToLocation(new ByteLocation(beyondNext.getLocation().getRow(), beyondNext.getLocation().getCol()));
+            mm.setToLocation(new ByteLocation(beyondNext.getLocation().row(), beyondNext.getLocation().col()));
             mm.captureList.add( next.copy() );
             // next.setPiece(null); ?
 
@@ -228,9 +231,9 @@ public class MoveGenerator<M extends TwoPlayerMove>  {
 
         if ( !moreJumps ) { // base case of recursion
             // we can finally add the move after we evaluate its worth
-            board_.makeMove( m );
+            board.makeMove( m );
             m.setValue(searchable_.worth( m, weights));
-            board_.undoMove();
+            board.undoMove();
 
             jumpMoves.add( m );
 

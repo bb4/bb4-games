@@ -61,8 +61,8 @@ public class GalaxyRenderer extends MultiGameBoardRenderer {
                 Point2D end = order.getCurrentLocation();
 
                 g2.setColor(order.getOwner().getColor());
-                int beginX = (int) (margin + cellSize * (begin.getCol() - 0.5));
-                int beginY = (int) (margin + cellSize * begin.getRow() - 0.5);
+                int beginX = (int) (margin + cellSize * (begin.col() - 0.5));
+                int beginY = (int) (margin + cellSize * begin.row() - 0.5);
                 int endX = (int) (margin + cellSize * (end.getX() - 0.5));
                 int endY = (int) (margin + cellSize * (end.getY() - 0.5));
 

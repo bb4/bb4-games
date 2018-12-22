@@ -20,19 +20,19 @@ public final class GoBoardPosition extends BoardPosition
                                    implements IGoMember {
 
     /** the string (connected set of stones) to which this stone belongs. */
-    private IGoString string_;
+    private IGoString string;
 
     /**
      * if non-null then this position belongs to an eye string.
      * The group owner of the eye is different than the owner of the string.
      */
-    private IGoEye eye_;
+    private IGoEye eye;
 
     /**
      * when true the stone has been visited already during a search.
      * This is a temporary state that is used for some traversal operations.
      */
-    private boolean visited_;
+    private boolean visited;
 
     /** the amount this position contributes to the overall score.  */
     private double scoreContribution_ = 0.0;
@@ -47,17 +47,17 @@ public final class GoBoardPosition extends BoardPosition
      */
     public GoBoardPosition( int row, int col, IGoString string, GoStone stone) {
         super( row, col, stone );
-        string_ = string;
-        eye_ = null;
-        visited_ = false;
+        this.string = string;
+        eye = null;
+        visited = false;
     }
 
     /**
      * Create a deep copy of this position.
      */
     public GoBoardPosition(GoBoardPosition pos) {
-        this( pos.location_.getRow(), pos.location_.getCol(), pos.string_,
-              (pos.piece_ == null) ? null : (GoStone)pos.piece_.copy());
+        this( pos.location.row(), pos.location.col(), pos.string,
+              (pos.piece == null) ? null : (GoStone)pos.piece.copy());
         pos.setEye(getEye());
         setVisited(pos.isVisited());
     }
@@ -74,7 +74,7 @@ public final class GoBoardPosition extends BoardPosition
      * @param string  the string owner we are assign to this stone.
      */
     public void setString( IGoString string ) {
-        string_ = string;
+        this.string = string;
     }
 
     /**
@@ -82,7 +82,7 @@ public final class GoBoardPosition extends BoardPosition
      * There may be none if its blank and part of an eye, in that case null is returned.
      */
     public IGoString getString() {
-        return string_;
+        return string;
     }
 
     /**
@@ -91,10 +91,10 @@ public final class GoBoardPosition extends BoardPosition
      * The stone may also belong to to an eye in an opponent group, however.
      */
     public IGoGroup getGroup() {
-        if (string_ != null)
-            return string_.getGroup();
-        if (eye_ != null) {
-            return eye_.getGroup();
+        if (string != null)
+            return string.getGroup();
+        if (eye != null) {
+            return eye.getGroup();
         }
         return null;
     }
@@ -103,18 +103,17 @@ public final class GoBoardPosition extends BoardPosition
      * @param eye the eye owner this space is to be assigned to
      */
     public void setEye(IGoEye eye ) {
-        eye_ = eye;
+        this.eye = eye;
     }
 
     /**
      * @return  the eye that this space belongs to. May be null if no eye owner.
      */
     public IGoEye getEye() {
-        return eye_;
+        return eye;
     }
 
     /**
-     *
      * @return  true if the string this stone belongs to is in atari
      */
     public boolean isInAtari(GoBoard b) {
@@ -123,18 +122,18 @@ public final class GoBoardPosition extends BoardPosition
 
 
     public void setVisited( boolean visited ) {
-        visited_ = visited;
+        this.visited = visited;
     }
 
     public boolean isVisited() {
-        return visited_;
+        return visited;
     }
 
     /**
      * @return  true if this position is part of an eye.
      */
     public boolean isInEye() {
-        return eye_!=null;
+        return eye !=null;
     }
 
     /**

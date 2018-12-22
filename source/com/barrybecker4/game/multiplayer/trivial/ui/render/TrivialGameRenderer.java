@@ -64,8 +64,8 @@ public class TrivialGameRenderer extends MultiGameBoardRenderer {
         assert m.getLocation() != null;
 
         g2.setColor(TrivialPlayerRenderer.HIGHLIGHT_COLOR);
-        g2.fillOval(cellSize *(m.getLocation().getCol()-2),
-                    cellSize *(m.getLocation().getRow()-2),
+        g2.fillOval(cellSize *(m.getLocation().col()-2),
+                    cellSize *(m.getLocation().row()-2),
                     10* cellSize, 10* cellSize);
 
     }
