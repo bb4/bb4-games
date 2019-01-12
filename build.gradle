@@ -222,7 +222,6 @@ task runPokerServerAndClients(type: JavaExec) {
       </parallel>
   </target>
 
-
   <target name="kgsTesujisoftGoClient" depends="compile" description="run the Tesujisoft Go engine on KGS.">
      <antcall target="executeProgram">
       <param name="className" value="com.barrybecker4.game.twoplayer.go.GtpKgsTesujisoftGoClient"/>
@@ -240,20 +239,21 @@ task runPokerServerAndClients(type: JavaExec) {
   </target>
   */
 
-ext.appMap = new LinkedHashMap()
-appMap.put('game',
-        [include:['com/barrybecker4/game/common/**', 'com/barrybecker4/game/card/**', 'com/barrybecker4/game/*.xml']])
-appMap.put('twoplayer',  [include:['com/barrybecker4/game/twoplayer/common/**']])
-appMap.put('multiplayer',[include:['com/barrybecker4/game/multiplayer/common/**']])
-appMap.put('blockade',   [include:['com/barrybecker4/game/twoplayer/blockade/**']])
-appMap.put('chess',      [include:['com/barrybecker4/game/twoplayer/chess/**', 'com/barrybecker4/game/twoplayer/checkers/**']])
-appMap.put('go',         [include:['com/barrybecker4/game/twoplayer/go/**']])
-appMap.put('gomoku',     [include:['com/barrybecker4/game/twoplayer/gomoku/**']])
-appMap.put('tictactoe',  [include:['com/barrybecker4/game/twoplayer/tictactoe/**']])
-appMap.put('mancala',    [include:['com/barrybecker4/game/twoplayer/mancala/**']])
-appMap.put('hex',        [include:['com/barrybecker4/game/twoplayer/hex/**']])
-appMap.put('galactic',   [include:['com/barrybecker4/game/multiplayer/galactic/**']])
-appMap.put('poker',      [include:['com/barrybecker4/game/multiplayer/poker/**']])
-appMap.put('set',        [include:['com/barrybecker4/game/multiplayer/set/**']])
+ext.jarMap = new LinkedHashMap()
+jarMap['game'] =
+        [include:['com/barrybecker4/game/common/**', 'com/barrybecker4/game/card/**', 'com/barrybecker4/game/*.xml']]
+jarMap['twoplayer'] =  [include:['com/barrybecker4/game/twoplayer/common/**']]
+jarMap['multiplayer'] =[include:['com/barrybecker4/game/multiplayer/common/**']]
+jarMap['blockade'] =   [include:['com/barrybecker4/game/twoplayer/blockade/**']]
+jarMap['chess'] =      [include:['com/barrybecker4/game/twoplayer/chess/**', 'com/barrybecker4/game/twoplayer/checkers/**']]
+jarMap['go'] =         [include:['com/barrybecker4/game/twoplayer/go/**']]
+jarMap['gomoku'] =     [include:['com/barrybecker4/game/twoplayer/gomoku/**']]
+jarMap['tictactoe'] =  [include:['com/barrybecker4/game/twoplayer/tictactoe/**']]
+jarMap['mancala'] =    [include:['com/barrybecker4/game/twoplayer/mancala/**']]
+jarMap['hex'] =        [include:['com/barrybecker4/game/twoplayer/hex/**']]
+jarMap['galactic'] =   [include:['com/barrybecker4/game/multiplayer/galactic/**']]
+jarMap['poker'] =      [include:['com/barrybecker4/game/multiplayer/poker/**']]
+jarMap['set'] =        [include:['com/barrybecker4/game/multiplayer/set/**']]
 
 apply from: 'https://raw.github.com/barrybecker4/bb4-common/master/bb4-publish.gradle'
+apply from: 'https://raw.githubusercontent.com/bb4/bb4-common/master/bb4-deploy.gradle'
