@@ -19,7 +19,7 @@ import java.awt.*;
  */
 public class GameApplet extends JApplet {
 
-    private GamePanel gamePanel_ = null;
+    private GamePanel gamePanel = null;
 
     private static final long serialVersionUID = 0L;
     private static final Dimension INITIAL_SIZE =  new Dimension(600, 500);
@@ -45,11 +45,11 @@ public class GameApplet extends JApplet {
         GameContext.loadResources(gameName);
         GameContext.setLocale(locale);
 
-        gamePanel_ = PluginManager.getInstance().getPlugin(gameName).getPanelInstance();
-        gamePanel_.init(null);   // applet has no frame.
+        gamePanel = PluginManager.getInstance().getPlugin(gameName).getPanelInstance();
+        gamePanel.init(null);   // applet has no frame.
 
-        gamePanel_.setSize(INITIAL_SIZE);
-        this.getContentPane().add(gamePanel_);
+        gamePanel.setSize(INITIAL_SIZE);
+        this.getContentPane().add(gamePanel);
         GameContext.log(0, "Done applet init");
     }
 
@@ -61,6 +61,6 @@ public class GameApplet extends JApplet {
     public void setSize( int width, int height )  {
 
         GameContext.log(0, "in setSize w="+width+" h="+height);  // NON-NLS
-        gamePanel_.setSize( width, height );
+        gamePanel.setSize( width, height );
     }
 }

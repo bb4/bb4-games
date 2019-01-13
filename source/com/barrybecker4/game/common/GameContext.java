@@ -22,23 +22,23 @@ import java.util.Random;
 public final class GameContext {
 
     /** logger object. Use console by default. */
-    private static ILog logger_ = new Log();
+    private static ILog logger = new Log();
 
     /**
      * Use sound effects if true.
      * Probably need to turn this off when deploying in applet form to avoid security errors.
      */
-    private static final boolean useSound_ = false;
+    private static final boolean useSound = false;
 
     /** this is a singleton. It generates the sounds. */
-    private static MusicMaker musicMaker_ = null;
+    private static MusicMaker musicMaker = null;
 
     /** Make sure that the program runs in a reproducible way by always starting from the same random seed. */
     private static Random RANDOM = new Random(0);
 
 
     static {
-        if ( useSound_ ) {
+        if (useSound) {
             getMusicMaker().stopAllSounds();
             getMusicMaker().startNote( Instruments.SEASHORE, 40, 2, 3 );
         }
@@ -51,14 +51,14 @@ public final class GameContext {
     private static final int DEBUG = 0;
 
     /** now the variable forms of the above defaults */
-    private static int debug_ = DEBUG;
+    private static int debug = DEBUG;
 
     /** if true, then profiling performance statistics will be printed to the console while running.  */
     private static final boolean PROFILING = false;
-    private static boolean profiling_ = PROFILING;
+    private static boolean profiling = PROFILING;
 
     private static final String COMMON_MESSAGE_BUNDLE = "com.barrybecker4.game.common.resources.coreMessages"; // NON-NLS
-    private static MessageContext messageContext_ = new MessageContext(COMMON_MESSAGE_BUNDLE);
+    private static MessageContext messageContext = new MessageContext(COMMON_MESSAGE_BUNDLE);
 
 
     /** private constructor for singleton. */
@@ -68,68 +68,68 @@ public final class GameContext {
      * @return the level of debugging in effect
      */
     public static int getDebugMode() {
-        return debug_;
+        return debug;
     }
 
     /**
-     * @param debug the debug level. 0 means all logging.
+     * @param debugMode the debug level. 0 means all logging.
      */
-    public static void setDebugMode( int debug ) {
-        debug_ = debug;
+    public static void setDebugMode( int debugMode ) {
+        debug = debugMode;
     }
 
     /**
      * @return true if profiling stats are being shown after every move
      */
     public static boolean isProfiling() {
-        return profiling_;
+        return profiling;
     }
 
     /**
      * @param prof whether or not to turn on profiling
      */
     public static void setProfiling( boolean prof ) {
-        profiling_ = prof;
+        profiling = prof;
     }
 
 
     /**
-     * @param logger the logging device. Determines where the output goes.
+     * @param theLogger the logging device. Determines where the output goes.
      */
-    public static void setLogger( ILog logger ) {
-        assert logger != null;
-        logger_ = logger;
+    public static void setLogger( ILog theLogger ) {
+        assert theLogger != null;
+        logger = theLogger;
     }
 
     /**
      * @return the logging device to use.
      */
     public static ILog getLogger() {
-        return logger_;
+        return logger;
     }
 
     /**
      * log a message using the internal logger object
      */
     public static void log( int logLevel, String message ) {
-        logger_.print( logLevel, getDebugMode(), message );
+        logger.print( logLevel, getDebugMode(), message );
     }
 
     /**
      * @return  true if sound is not turned off.
      */
     public static boolean getUseSound() {
-        return useSound_;
+        return useSound;
     }
 
     /**
      * @return use this to add cute sound effects.
      */
     public static synchronized MusicMaker getMusicMaker() {
-        if ( musicMaker_ == null ) {
-            musicMaker_ = new MusicMaker();
+        if ( musicMaker == null ) {
+            musicMaker = new MusicMaker();
         }
-        return musicMaker_;
+        return musicMaker;
     }
 
     /**
@@ -146,10 +146,10 @@ public final class GameContext {
         String resourcePath = plugin.getMsgBundleBase();
         log(2, "searching for "+ resourcePath);          // NON-NLS
 
-        messageContext_.setLogger(logger_);
-        messageContext_.setDebugMode(debug_);
-        messageContext_.addResourcePath(resourcePath);
-        messageContext_.addResourcePath("com.barrybecker4.ui.message");   // NON-NLS
+        messageContext.setLogger(logger);
+        messageContext.setDebugMode(debug);
+        messageContext.addResourcePath(resourcePath);
+        messageContext.addResourcePath("com.barrybecker4.ui.message");   // NON-NLS
         log(0, "done loading resources");
     }
 
@@ -158,11 +158,11 @@ public final class GameContext {
      * @param locale the locale to use
      */
     public static void setLocale(LocaleType locale) {
-        messageContext_.setLocale(locale);
+        messageContext.setLocale(locale);
     }
 
     public static NumberFormat getCurrencyFormat() {
-        return NumberFormat.getCurrencyInstance(messageContext_.getLocale());
+        return NumberFormat.getCurrencyInstance(messageContext.getLocale());
     }
 
     /**
@@ -170,7 +170,7 @@ public final class GameContext {
      * @return the localized message label
      */
     public static String getLabel(String key) {
-        return messageContext_.getLabel(key);
+        return messageContext.getLabel(key);
     }
 
     /**
@@ -182,7 +182,7 @@ public final class GameContext {
      */
     public static LocaleType getLocale(String name, boolean finf) {
 
-        return messageContext_.getLocale(name, finf);
+        return messageContext.getLocale(name, finf);
     }
 
     public static Random random() {

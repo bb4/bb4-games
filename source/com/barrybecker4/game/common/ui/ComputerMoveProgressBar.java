@@ -26,10 +26,10 @@ public class ComputerMoveProgressBar extends JProgressBar {
     private SearchProgress searchProgress;
 
     /** Periodically updates the progress bar.  */
-    private Timer timer_;
+    private Timer timer;
 
     /** becomes true when stepping through the search.   */
-    private boolean stepping_ = false;
+    private boolean stepping = false;
 
     /**
      * Constructor.
@@ -68,9 +68,9 @@ public class ComputerMoveProgressBar extends JProgressBar {
 
         // start a thread to update the progress bar at fixed time intervals
         // The timer gets killed when the worker thread is done searching.
-        timer_ = new Timer(PROGRESS_UPDATE_DELAY, new TimerListener());
+        timer = new Timer(PROGRESS_UPDATE_DELAY, new TimerListener());
 
-        timer_.start();
+        timer.start();
     }
 
     /**
@@ -78,10 +78,10 @@ public class ComputerMoveProgressBar extends JProgressBar {
      * stops after PROGRESS_STEP_DELAY more milliseconds.
      */
     public final void step() {
-        if (timer_ != null) {
-            timer_.setDelay(PROGRESS_STEP_DELAY);
-            timer_.restart();
-            stepping_ = true;
+        if (timer != null) {
+            timer.setDelay(PROGRESS_STEP_DELAY);
+            timer.restart();
+            stepping = true;
             searchProgress.continueProcessing();
         }
         else {
@@ -90,7 +90,7 @@ public class ComputerMoveProgressBar extends JProgressBar {
     }
 
     public void cleanup() {
-        timer_.stop();
+        timer.stop();
         setValue(0);
         setString("");
     }
@@ -113,8 +113,8 @@ public class ComputerMoveProgressBar extends JProgressBar {
             setToolTipText(note);
             setString(note);
 
-            if (stepping_) {
-                stepping_ = false;
+            if (stepping) {
+                stepping = false;
                 searchProgress.pause();
             }
         }

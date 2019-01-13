@@ -26,7 +26,7 @@ public class GameApp {
     private static final int WIDTH = 600;
     private static final int HEIGHT = 600;
 
-    private JFrame frame_;
+    private JFrame frame;
 
     /**
      * Game application constructor.
@@ -36,13 +36,13 @@ public class GameApp {
 
         GUIUtil.setCustomLookAndFeel();
 
-        frame_ = new JFrame();
+        frame = new JFrame();
         addMenuBar(initialGame);
 
-        frame_.setBounds(200, 200, WIDTH, HEIGHT);
+        frame.setBounds(200, 200, WIDTH, HEIGHT);
         // display the frame
-        frame_.setVisible(true);
-        frame_.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -50,7 +50,7 @@ public class GameApp {
      */
     private void addMenuBar(String initialGame) {
 
-        GameMenuController menuListener = new GameMenuController(frame_);
+        GameMenuController menuListener = new GameMenuController(frame);
 
         GameMenu gameMenu = new GameMenu(initialGame);
         gameMenu.addListener(menuListener);
@@ -61,7 +61,7 @@ public class GameApp {
         menubar.add(fileMenu);
         menubar.add(gameMenu);
 
-        frame_.getRootPane().setJMenuBar(menubar);
+        frame.getRootPane().setJMenuBar(menubar);
     }
 
     /**

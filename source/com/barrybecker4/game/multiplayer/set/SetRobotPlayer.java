@@ -8,16 +8,14 @@ import java.awt.*;
  * Represents a Robot Set player.
  * @author Barry Becker
  */
-public class SetRobotPlayer extends SetPlayer
-{
+public class SetRobotPlayer extends SetPlayer {
 
     public enum RobotType { SLOW_ROBOT, AVERAGE_ROBOT, EXPERT_ROBOT }
 
     private RobotType robotType_;
 
 
-    private SetRobotPlayer(String name, RobotType robotType, Color color)
-    {
+    private SetRobotPlayer(String name, RobotType robotType, Color color) {
         super(name, color, false);
         robotType_ = robotType;
     }
@@ -26,11 +24,9 @@ public class SetRobotPlayer extends SetPlayer
     private static int seq_ = 0;
 
     /**
-     *
      * @return  robot players in round robin order (not randomly)
      */
-    public static SetRobotPlayer getSequencedRobotPlayer(String name, Color color)
-    {
+    public static SetRobotPlayer getSequencedRobotPlayer(String name, Color color) {
         int r = seq_++ % RobotType.values().length;
         return new SetRobotPlayer(name, RobotType.values()[r], color);
     }
@@ -42,8 +38,7 @@ public class SetRobotPlayer extends SetPlayer
     /**
      * @return speed in milliseconds in which the robot player will find the next pair
      */
-    private int getSpeed()
-    {
+    private int getSpeed() {
         switch (robotType_) {
             case SLOW_ROBOT: return 30000;
             case AVERAGE_ROBOT: return 15000;
@@ -51,8 +46,4 @@ public class SetRobotPlayer extends SetPlayer
         }
         return 1000; // never called
     }
-
 }
-
-
-
