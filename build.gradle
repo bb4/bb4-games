@@ -1,4 +1,4 @@
-// Copyright by Barry G. Becker, 2013. Licensed under MIT License: http://www.opensource.org/licenses/MIT
+// Copyright by Barry G. Becker, 2013 - 2019. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 
 description = 'A game playing framework and a collection of two-player and multi-player games. ' +
         'In all games, one or more intelligent computer opponents are allowed to play.'
@@ -19,88 +19,6 @@ dependencies {
     compile fileTree(dir: 'lib', include: '*.jar')
 }
 
-task runGalactic(type: JavaExec) {
-    group = 'application'
-    main = gameApp
-    args = ["-name", "galactic", "-locale", "ENGLISH"]
-    classpath = sourceSets.main.runtimeClasspath
-    jvmArgs = ["-Dsun.java2d.d3d=false"]  // without this, swing rendering messes up
-}
-
-task runGoMoku(type: JavaExec) {
-    group = 'application'
-    main = gameApp
-    args = ["-name", "gomoku", "-locale", "ENGLISH"]
-    classpath = sourceSets.main.runtimeClasspath
-}
-
-task runTicTacToe(type: JavaExec) {
-    group = 'application'
-    main = gameApp
-    args = ["-name", "tictactoe", "-locale", "ENGLISH"]
-    classpath = sourceSets.main.runtimeClasspath
-}
-
-task runHex(type: JavaExec) {
-    group = 'application'
-    main = gameApp
-    args = ["-name", "hex", "-locale", "ENGLISH"]
-    jvmArgs = ["-ea"]
-    classpath = sourceSets.main.runtimeClasspath
-}
-
-task runMancala(type: JavaExec) {
-    group = 'application'
-    main = gameApp
-    args = ["-name", "mancala", "-locale", "ENGLISH"]
-    jvmArgs = ["-ea"]
-    classpath = sourceSets.main.runtimeClasspath
-}
-
-task runBlockade(type: JavaExec) {
-    group = 'application'
-    main = gameApp
-    args = ["-name", "blockade", "-locale", "ENGLISH"]
-    classpath = sourceSets.main.runtimeClasspath
-}
-
-task runCheckers(type: JavaExec) {
-    group = 'application'
-    main = gameApp
-    args = ["-name", "checkers", "-locale", "ENGLISH"]
-    classpath = sourceSets.main.runtimeClasspath
-}
-
-task runChess(type: JavaExec) {
-    group = 'application'
-    main = gameApp
-    args = ["-name", "chess", "-locale", "ENGLISH"]
-    classpath = sourceSets.main.runtimeClasspath
-}
-
-task runSet(type: JavaExec) {
-    group = 'application'
-    main = gameApp
-    args = ["-name", "set", "-locale", "ENGLISH"]
-    classpath = sourceSets.main.runtimeClasspath
-}
-
-task runGo(type: JavaExec) {
-    group = 'application'
-    main = gameApp
-    args = ["-name", "go", "-locale", "ENGLISH"]
-    classpath = sourceSets.main.runtimeClasspath
-}
-
-task runGoJapanese(type: JavaExec) {
-    group = 'application'
-    main = gameApp
-    args = ["-name", "go", "-locale", "JAPANESE"]
-    classpath = sourceSets.main.runtimeClasspath
-    jvmArgs = ["-ea"]   // in gradle 1.7 default  jvmArgs can be set with applicationDefaultJvmArgs
-}
-
-
 task runKgsTesujisoftGoClient(type: JavaExec) {
     group = 'application'
     main = 'com.barrybecker4.game.twoplayer.go.GtpKgsTesujisoftGoClient'
@@ -114,34 +32,19 @@ task runGoGui(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
 }     */
 
-task runTrivial(type: JavaExec) {
-    group = 'application'
-    main = gameApp
-    args = ["-name", "trivial", "-locale", "ENGLISH"]
-    classpath = sourceSets.main.runtimeClasspath
-}
-
+/*
 task runTrivialServer(type: JavaExec) {
     main = 'com.barrybecker4.game.common.online.ui.OnlineGameServerFrame'
     args = ["-game", "trivial"]
     classpath = sourceSets.main.runtimeClasspath
 }
-
-/*
 task runTrivialServerAndClients(type: JavaExec) {
     tasks.runTrivialServer.execute()
     tasks.runTrivial.execute()
     tasks.runTrivial.execute()
     tasks.runTrivial.execute()
-}  */
+}*/
 
-task runPoker(type: JavaExec) {
-    group = 'application'
-    main = 'com.barrybecker4.game.common.ui.GameApp'
-    args = ["-name", "poker", "-locale", "ENGLISH"]
-    classpath = sourceSets.main.runtimeClasspath
-    jvmArgs = ["-Dsun.java2d.d3d=false"]
-}
 
 task runPokerServer(type: JavaExec) {
     group = 'application'
@@ -159,85 +62,171 @@ task runGameComparisons(type: JavaExec) {
 }
 
 
-/*
-task runPokerServerAndClients(type: JavaExec) {
-    tasks.runPokerServer.execute()
-    tasks.runPoker.execute()
-    tasks.runPoker.execute()
-    tasks.runPoker.execute()
-} */
+/* Some ant code to run poker server and clients was here, but deleted. See git */
 
- /*
-  <target name="executeTrivialServerAndClients" depends="compile" description="Run online trivial server and several clients">
-      <parallel>
-          <antcall target="executeTrivialServer"/>
-          <sequential>
-              <sleep seconds="1" />
-              <antcall target="executeTrivial"/>
-          </sequential>
-          <!--
-           <sequential>
-              <sleep seconds="2"/>
-              <antcall target="executeTrivial"/>
-          </sequential-->
-          <!--sequential>
-              <sleep seconds="3"/>
-              <antcall target="executeTrivial"/>
-          </sequential-->
-      </parallel>
-  </target>
+// The appMap is used to create the list of available application in the html index page and to generate the app tasks.
+ext.appMap = new LinkedHashMap()
+appMap['gomoku'] = [
+        title: 'Go-Moku',
+        command: 'bb4-game -name gomoku',
+        description: 'Try to win by getting five in a row before the computer does.',
+        longDescription: 'Try to win by getting five in a row before the computer does. ' +
+                'I used to play <a href="http://en.wikipedia.org/wiki/GoMoku">gomoku</a> ' +
+                'a lot with my wife when we first met (she is quite good at it). ' +
+                'GoMoku is the first game that I created using my game framework.  I first created a ' +
+                '<a href="http://en.wikipedia.org/wiki/Turbo_Pascal">Turbo Pascal</a> version back in 1991, n' +
+                'but this one is better. My motivation has been to make it good enough to beat my wife. ' +
+                'The object of the game is to get 5 in a row (horizontally, vertically, or diagonally). ' +
+                'As with all the games created using this framework, ' +
+                'you can play against the computer, another person, or have the computer play against itself.'
+]
+appMap['chess'] = [
+        title: 'Chess',
+        command: 'bb4-game -name chess',
+        description: 'Try to beat the computer by checkmating her king. Your pieces are at the top. ' +
+                'Move them using drag and drop.',
+        longDescription: '<a href="http://en.wikipedia.org/wiki/Chess">Chess</a> ' +
+                'is a relatively simple game compared to go. I implemented it in only 3 days - ' +
+                'after I spent a year implementing go and the rest of my java game framework. ' +
+                'Try to beat the computer by check-mating her king. Your pieces are at the top. ' +
+                'Checkmate the opponent\'s King to win.'
+]
+appMap['checkers'] = [
+        title: 'Checkers',
+        command: 'bb4-game -name checkers',
+        description: 'Try to beat the computer by capturing all her pieces. ' +
+                'Your pieces are at the top. Move them using drag and drop.',
+        longDescription: '<a href="http://www.ehow.com/way_5421915_checkers-game-instructions.html">Checkers</a> ' +
+                'is a simple game. I implemented it in only 2 weekends after I got the gomoku program ' +
+                'running and already established a framework for creating additional games. ' +
+                'Capture all of the opponents pieces to win.'
+]
+appMap['go'] = [
+        title: 'Go',
+        command: 'bb4-game -name go',
+        description: 'Try to beat the computer by capturing more territory. ' +
+                'When a group of stones is completely surrounded, ' +
+                'they are removed from the board and become captures.',
+        longDescription: '<a href="http://en.wikipedia.org/wiki/Go_(game)">Go</a> ' +
+                'has long been a grand challenge for computer scientists. Until the year 2000, ' +
+                'the Ing Foundation offered <a href="http://www.computer-go.info/h-c/">' +
+                'a million dollar prize</a> to anyone that could create a go program capable of ' +
+                'beating a professional player.  ' +
+                'In 2017, <a href="https://deepmind.com/research/alphago/">AlphaGo</a> ' +
+                'became the first program to beat a professional. I started work on this program in the year 2000. ' +
+                'It does not play very well, but it lead me on an interesting journey. ' +
+                'For those interested in learning about a deep learning solution to Go, ' +
+                'I recommend looking at <a href="https://github.com/gcp/leela-zero">Leela-Zero</a>.'
+]
+appMap['blockade'] = [
+        title: 'Blockade',
+        command: 'bb4-game -name blockade',
+        description: 'Try to beat the computer by reaching her home base first. ' +
+                'After each piece movement you need to place a wall. ' +
+                'When placing a wall, however, you are not allowed to completely ' +
+                'cut off any piece from reaching any opponent home base.',
+        longDescription: '<a href="http://boardgamegeek.com/boardgame/2559/blockade">Blockade</a> ' +
+                'is a relatively new game created by Lakeside. ' +
+                'I used to play it as a kid, but I don\'t see it in the stores anymore. ' +
+                'Each player starts with two pawns on designated spaces near their side of the board. ' +
+                'They each have (typically) ten blue walls and ten green walls, which fit in the slots ' +
+                'between the grid squares and are two squares wide. A player\'s turn consists ' +
+                'of moving his pawn two spaces and then placing a wall anywhere on the grid. ' +
+                'The object is to get one of your pawns around the obstacles being set by your ' +
+                'opponent and onto one of his or her starting spaces.'
+]
+appMap['hex'] = [
+        title: 'Hex',
+        command: 'bb4-game -name hex',
+        description: 'Your goal is to place tiles until you make a path that connects the two sides ' +
+                'of the board that match your color.',
+        longDescription: '<a href="https://en.wikipedia.org/wiki/Hex_(board_game)">Hex</a> ' +
+                'Alternate placing of pieces. When players edges connect by a string of pieces of the same color, ' +
+                'that player wins. The player who goes first has a distinct advantage.'
+]
+appMap['galactic'] = [
+        title: 'Galactic Empire',
+        command: 'bb4-game -name galactic',
+        description: 'Your goal is to place tiles until you make a path that connects the two sides ' +
+                'of the board that match your color.',
+        longDescription: 'This multi-player game is loosely based on a game I played ' +
+                'on a Comodore 128 back in the late 80\'s. ' +
+                '<a href="http://en.wikipedia.org/wiki/Galactic_Empire_(Br%C3%B8derbund_video_game)">' +
+                'the original game</a> had only text graphics, ' +
+                'but was fun to play with friends in the college dorm at ' +
+                '<a href="http://rpi.edu/">RPI</a>. This version has several improvements: ' +
+                'better graphics, robot players, and there are visual indications of fleet sizes and locations.'
+]
+appMap['poker'] = [
+        title: 'Poker',
+        command: 'bb4-game -name poker',
+        description: 'Try your hand at winning poker against other human and computer opponents.',
+        longDescription: 'This is basic 5 card stud <a href="http://en.wikipedia.org/wiki/Poker">poker</a>. ' +
+                'I may expand it to play Texas holdem and other poker variations in the future. ' +
+                'There is also a client server version of this and the other games for online play, ' +
+                'but its a work in progress'
+]
+appMap['mancala'] = [
+        title: 'Mancala',
+        command: 'bb4-game -name mancala',
+        description: 'Your goal is to get more stones into your home than the computer can get into its home.',
+        longDescription: '<a href="https://en.wikipedia.org/wiki/Mancala">Mancala</a> ' +
+                'Move stones on your side of the board. ' +
+                'To move, you click on one of the bins in your row. ' +
+                'This picks up all the stones in that bin and moves them counter-clockwise, ' +
+                'putting one stone in each bin as it goes. If the last stone lands in your home, then you go again. ' +
+                'If the last stone lands in an empty bin on your side and there are stones in the opponent\'s cup ' +
+                'right across from it, then all the stones in both cups get put into your home.'
+]
+appMap['set'] = [
+        title: 'Set',
+        command: 'bb4-game -name set',
+        description: 'Try to find more "Sets" before other human and computer opponents. ' +
+                'A set is 3 cards that are all the same or all different for the ' +
+                '4 attributes: color, shape, texture, and number.',
+        longDescription: '<a href=http://www.setgame.com/set/index.html>Set</a> is a simple card ' +
+                'card played with a deck of 81 cards. ' +
+                'A set is 3 cards that are all the same or all different for the 4 attributes: color, shape, ' +
+                'texture, and number. When you see a set, click on the player to claim it, then select the three ' +
+                'cards you think are a set. Be careful - you lose a point if you are wrong (but cannot go below 0). ' +
+                'There is no computer player in this game because it would be too easy for it to win.',
+        // This cannot be deploy publicly for legal reasons.
+        deploy: false
+]
+appMap['tictactoe'] = [
+        title: 'Tic-Tac-Toe',
+        command: 'bb4-game -name tictactoe',
+        description: 'Simple game of 3 in a row.',
+        longDescription: 'Implementing unbeatable ' +
+                '<a href="https://en.wikipedia.org/wiki/Tic-tac-toe">Tic-Tac-Toe</a> ' +
+                'was very easy using the game framework. ' +
+                'If you want to add your own game, this implementation may provide a useful example.'
+]
+appMap['trivial'] = [
+        title: 'Trivial',
+        command: 'bb4-game -name trivial',
+        description: 'Try your hand at winning trivial against other human and computer opponents.',
+        longDescription: 'This is a trivial game where the high value wins. ' +
+                'It provides a template for building other more interesting multi-player games ' +
+                'that use the same client server model.',
+        deploy: false
+]
 
 
-  <target name="executePoker" depends="compile" description="Run poker card game app">
-    <antcall target="executeProgram">
-      <param name="className" value="${gameAppClass}"/>
-      <param name="libPath" value="${libDir}/jai-codec-1.1.3.jar;"/>
-      <param name="args" value="-name poker -locale ENGLISH"/>
-    </antcall>
-  </target>
 
-   <target name="executePokerServer" depends="compile" description="Run online poker server">
-    <antcall target="executeProgram">
-      <param name="className" value="com.barrybecker4.game.common.online.ui.OnlineGameServerFrame"/>
-      <param name="libPath" value="${libDir}/jai-codec-1.1.3.jar;"/>
-      <param name="args" value="-game poker -locale ENGLISH"/>
-    </antcall>
-  </target>
+appMap.each { appId, propMap ->
 
-  <target name="executePokerServerAndClients" depends="compile" description="Run online poker server and several clients">
-      <parallel>
-          <antcall target="executePokerServer"/>
-          <sequential>
-              <sleep seconds="1" />
-              <antcall target="executePoker"/>
-          </sequential>
-           <sequential>
-              <sleep seconds="2"/>
-              <antcall target="executePoker"/>
-          </sequential>
-          <!--sequential>
-              <sleep seconds="3"/>
-              <antcall target="executePoker"/>
-          </sequential-->
-      </parallel>
-  </target>
+    def mainClass = appMap['mainClass'] ?: gameApp
+    def argsList = ["-name", "${appId}"]
 
-  <target name="kgsTesujisoftGoClient" depends="compile" description="run the Tesujisoft Go engine on KGS.">
-     <antcall target="executeProgram">
-      <param name="className" value="com.barrybecker4.game.twoplayer.go.GtpKgsTesujisoftGoClient"/>
-      <param name="libPath" value="${libDir}/kgsGtp.jar;${libDir}/gogui7.1.jar"/>
-    </antcall>
-  </target>
-
-  <target name="GoGui" depends="compile">
-    <antcall target="executeProgram2">
-      <param name="className" value="gogui.Main"/>
-      <param name="libPath" value="${libDir}/gogui7.1.jar"/>
-      <param name="arg1" value="-program"/>
-      <param name="arg2" value="${java_compiler} -ea -classpath ${classesDir};${libDir}/gogui7.1.jar com.barrybecker4.game.twoplayer.go.server.GtpTesujisoftGoServer"/>
-    </antcall>
-  </target>
-  */
+    tasks.create(name: "run${appId.capitalize()}", type: JavaExec, description: "${propMap.description}") {
+        group = 'application'
+        main = "${mainClass}"
+        args = argsList
+        classpath = sourceSets.main.runtimeClasspath
+        jvmArgs = ["-ea"]
+    }
+}
 
 ext.jarMap = new LinkedHashMap()
 jarMap['game'] =
