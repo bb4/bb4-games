@@ -12,15 +12,28 @@
 
 <div id="intro">
     <h1>Games</h1>
-    <p>Below are some games created using<a href="https://github.com/bb4/bb4-games">this game framework</a>.
+    <p>Below are some games created using <a href="https://github.com/bb4/bb4-games">this game framework</a>.
         There are implementations for games like Chess, Checkers, Go, Blockade,
         Pente, Mancala, Poker, and others.
     </p>
     <p>
         Download this <a href="bb4-games-@version@.zip">zip file</a> and unzip it.
-        Then in the bin directory <a href="../bb4-common/run-instructions.html">run</a> one of commands indicated below.
+        Then in the bin directory, <a href="../bb4-common/run-instructions.html">run</a> one of commands indicated below.
     </p>
-    <br>
+    <p>
+        All the two player games on this page use the
+        <a href="http://sourcemaking.com/design_patterns/strategy">strategy design pattern</a>
+        to determine how to search. This means that it is easy to plug in alternative search algorithms.
+        So far, I have implemented <a href="http://en.wikipedia.org/wiki/Minimax">minimax</a>,
+        <a href="http://en.wikipedia.org/wiki/Negamax">negamax</a>,
+        <a href="http://en.wikipedia.org/wiki/Negascout">negascout</a>,
+        negamax with memory, negascout with memory, <a href="http://en.wikipedia.org/wiki/MTD-f">MTD-f</a>,
+        and <a href="http://senseis.xmp.net/?UCT">UCT</a>.
+        Go requires a very different strategy in order to be successful,
+        but for now these methods provide a starting point for experimentation. A more cutting edge version of
+        go can be found in <a href="https://github.com/gcp/leela-zero">Leela-Zero</a>.
+        If you look in the options, you will see a way to show a visualization of the
+        game tree while you are playing.</p>
 </div>
 
 <div>

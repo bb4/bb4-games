@@ -68,7 +68,7 @@ task runGameComparisons(type: JavaExec) {
 ext.appMap = new LinkedHashMap()
 appMap['gomoku'] = [
         title: 'Go-Moku',
-        command: 'bb4-game -name gomoku',
+        command: 'bb4-games -name gomoku',
         description: 'Try to win by getting five in a row before the computer does.',
         longDescription: 'Try to win by getting five in a row before the computer does. ' +
                 'I used to play <a href="http://en.wikipedia.org/wiki/GoMoku">gomoku</a> ' +
@@ -82,7 +82,7 @@ appMap['gomoku'] = [
 ]
 appMap['chess'] = [
         title: 'Chess',
-        command: 'bb4-game -name chess',
+        command: 'bb4-games -name chess',
         description: 'Try to beat the computer by checkmating her king. Your pieces are at the top. ' +
                 'Move them using drag and drop.',
         longDescription: '<a href="http://en.wikipedia.org/wiki/Chess">Chess</a> ' +
@@ -93,7 +93,7 @@ appMap['chess'] = [
 ]
 appMap['checkers'] = [
         title: 'Checkers',
-        command: 'bb4-game -name checkers',
+        command: 'bb4-games -name checkers',
         description: 'Try to beat the computer by capturing all her pieces. ' +
                 'Your pieces are at the top. Move them using drag and drop.',
         longDescription: '<a href="http://www.ehow.com/way_5421915_checkers-game-instructions.html">Checkers</a> ' +
@@ -103,7 +103,7 @@ appMap['checkers'] = [
 ]
 appMap['go'] = [
         title: 'Go',
-        command: 'bb4-game -name go',
+        command: 'bb4-games -name go',
         description: 'Try to beat the computer by capturing more territory. ' +
                 'When a group of stones is completely surrounded, ' +
                 'they are removed from the board and become captures.',
@@ -120,7 +120,7 @@ appMap['go'] = [
 ]
 appMap['blockade'] = [
         title: 'Blockade',
-        command: 'bb4-game -name blockade',
+        command: 'bb4-games -name blockade',
         description: 'Try to beat the computer by reaching her home base first. ' +
                 'After each piece movement you need to place a wall. ' +
                 'When placing a wall, however, you are not allowed to completely ' +
@@ -137,7 +137,7 @@ appMap['blockade'] = [
 ]
 appMap['hex'] = [
         title: 'Hex',
-        command: 'bb4-game -name hex',
+        command: 'bb4-games -name hex',
         description: 'Your goal is to place tiles until you make a path that connects the two sides ' +
                 'of the board that match your color.',
         longDescription: '<a href="https://en.wikipedia.org/wiki/Hex_(board_game)">Hex</a> ' +
@@ -146,7 +146,7 @@ appMap['hex'] = [
 ]
 appMap['galactic'] = [
         title: 'Galactic Empire',
-        command: 'bb4-game -name galactic',
+        command: 'bb4-games -name galactic',
         description: 'Your goal is to place tiles until you make a path that connects the two sides ' +
                 'of the board that match your color.',
         longDescription: 'This multi-player game is loosely based on a game I played ' +
@@ -159,16 +159,17 @@ appMap['galactic'] = [
 ]
 appMap['poker'] = [
         title: 'Poker',
-        command: 'bb4-game -name poker',
+        command: 'bb4-games -name poker',
         description: 'Try your hand at winning poker against other human and computer opponents.',
         longDescription: 'This is basic 5 card stud <a href="http://en.wikipedia.org/wiki/Poker">poker</a>. ' +
                 'I may expand it to play Texas holdem and other poker variations in the future. ' +
                 'There is also a client server version of this and the other games for online play, ' +
-                'but its a work in progress'
+                'but its a work in progress. This version takes a little while to start because it ' +
+                'checks to see if there is a server first, and has to wait for that check to timeout.'
 ]
 appMap['mancala'] = [
         title: 'Mancala',
-        command: 'bb4-game -name mancala',
+        command: 'bb4-games -name mancala',
         description: 'Your goal is to get more stones into your home than the computer can get into its home.',
         longDescription: '<a href="https://en.wikipedia.org/wiki/Mancala">Mancala</a> ' +
                 'Move stones on your side of the board. ' +
@@ -180,7 +181,7 @@ appMap['mancala'] = [
 ]
 appMap['set'] = [
         title: 'Set',
-        command: 'bb4-game -name set',
+        command: 'bb4-games -name set',
         description: 'Try to find more "Sets" before other human and computer opponents. ' +
                 'A set is 3 cards that are all the same or all different for the ' +
                 '4 attributes: color, shape, texture, and number.',
@@ -195,7 +196,7 @@ appMap['set'] = [
 ]
 appMap['tictactoe'] = [
         title: 'Tic-Tac-Toe',
-        command: 'bb4-game -name tictactoe',
+        command: 'bb4-games -name tictactoe',
         description: 'Simple game of 3 in a row.',
         longDescription: 'Implementing unbeatable ' +
                 '<a href="https://en.wikipedia.org/wiki/Tic-tac-toe">Tic-Tac-Toe</a> ' +
@@ -204,14 +205,13 @@ appMap['tictactoe'] = [
 ]
 appMap['trivial'] = [
         title: 'Trivial',
-        command: 'bb4-game -name trivial',
+        command: 'bb4-games -name trivial',
         description: 'Try your hand at winning trivial against other human and computer opponents.',
         longDescription: 'This is a trivial game where the high value wins. ' +
                 'It provides a template for building other more interesting multi-player games ' +
                 'that use the same client server model.',
         deploy: false
 ]
-
 
 
 appMap.each { appId, propMap ->

@@ -55,7 +55,7 @@ public class HexBoard extends TwoPlayerBoard<TwoPlayerMove> {
 
     /**
      * @param move most recent move
-     * @return neighbors that are the same color
+     * return neighbors that are the same color
      *
     private List<BoardPosition> getFriendlyNbrs(TwoPlayerMove move) {
         List<BoardPosition> nbrs = new LinkedList<>();
