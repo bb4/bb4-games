@@ -3,16 +3,16 @@
 description = 'A game playing framework and a collection of two-player and multi-player games. ' +
         'In all games, one or more intelligent computer opponents are allowed to play.'
 group = 'com.barrybecker4'
-version = '1.5-SNAPSHOT'
+version = '1.5'
 apply from: 'https://raw.github.com/barrybecker4/bb4-common/master/bb4.gradle'
 project.archivesBaseName = 'bb4-game'
 mainClassName = "com.barrybecker4.game.common.ui.GameApp"
 ext.gameApp = 'com.barrybecker4.game.common.ui.GameApp'
 
 dependencies {
-    compile 'com.barrybecker4:bb4-sound:1.5-SNAPSHOT'
-    compile 'com.barrybecker4:bb4-optimization:1.5-SNAPSHOT'
-    compile 'com.barrybecker4:bb4-A-star:1.5-SNAPSHOT'
+    compile 'com.barrybecker4:bb4-sound:1.5'
+    compile 'com.barrybecker4:bb4-optimization:1.5'
+    compile 'com.barrybecker4:bb4-A-star:1.5'
     compile 'com.barrybecker4:bb4-sgf:1.1'
 
     // jars needed for go
