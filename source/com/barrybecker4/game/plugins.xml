@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--!DOCTYPE plugins SYSTEM "J:\projects\java_projects\trunk\source\com\barrybecker4\game\plugins2012.dtd"-->
-<!DOCTYPE plugins SYSTEM "http://barrybecker4.com/schema/plugins2012.dtd">
+<!-- file ref works but has hardcoded path. Web url did not work with recent change to InfinityFree -->
+<!--DOCTYPE plugins SYSTEM "plugins2012.dtd"-->
+<!--DOCTYPE plugins SYSTEM "e:\projects\bb4\bb4-games\source\com\barrybecker4\game\plugins2012.dtd"-->
+<!--DOCTYPE plugins SYSTEM "http://www.barrybecker4.com/bb4-projects/schema/plugins2012.dtd"-->
+<!-- Use this url until
+https://forum.infinityfree.net/t/sax-parser-exception-for-dtd-hosted-by-infinityfree-but-not-other-providers/12495
+is fixed -->
+<!DOCTYPE plugins SYSTEM "https://raw.githubusercontent.com/bb4/bb4-games/master/source/com/barrybecker4/game/plugins2012.dtd">
 
 <plugins date="10/19/2004" author="Barry Becker">
 

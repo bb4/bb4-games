@@ -46,6 +46,5 @@
     urgent            (true|false)    "false"
     causesUrgency     (true|false)    "false"
     notes             CDATA           #IMPLIED
-
 >
 

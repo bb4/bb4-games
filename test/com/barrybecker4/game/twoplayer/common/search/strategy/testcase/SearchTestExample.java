@@ -14,9 +14,9 @@ import java.io.File;
  * @author Barry Becker
  */
 public class SearchTestExample {
-    String name;
-    SearchTestCases testCases;
-    GameTree gameTree;
+    private String name;
+    private SearchTestCases testCases;
+    private GameTree gameTree;
 
     public SearchTestExample(File file) {
         Document doc = DomUtil.parseXMLFile(file);

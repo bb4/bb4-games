@@ -18,7 +18,6 @@ import static org.junit.Assert.assertEquals;
  */
 public class BlockadeControllerTest extends BlockadeTestCase {
 
-
     /**
      * Verify that the calculated worth for various moves is within reasonable ranges.
      */
@@ -27,8 +26,9 @@ public class BlockadeControllerTest extends BlockadeTestCase {
         restore("whitebox/endGame");
 
         BlockadeMove winningMove =
-            new BlockadeMove(new ByteLocation(5, 8), new ByteLocation(4, 8), 0, new GamePiece(true),
-                             new BlockadeWall(new BlockadeBoardPosition(12, 5), new BlockadeBoardPosition(12, 4))
+            new BlockadeMove(
+                new ByteLocation(5, 8), new ByteLocation(4, 8), 0, new GamePiece(true),
+                new BlockadeWall(new BlockadeBoardPosition(12, 5), new BlockadeBoardPosition(12, 4))
             );
 
         controller_.makeMove(winningMove);

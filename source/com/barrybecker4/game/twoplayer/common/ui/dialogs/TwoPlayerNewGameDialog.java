@@ -10,13 +10,11 @@ import com.barrybecker4.game.common.ui.panel.GridBoardParamPanel;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerController;
 import com.barrybecker4.ui.file.FileChooserUtil;
 import com.barrybecker4.ui.file.TextFileFilter;
-import com.barrybecker4.ui.util.GUIUtil;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -135,23 +133,18 @@ public class TwoPlayerNewGameDialog extends NewGameDialog
         if (checked)  {
             // open a dlg to get a location for the optimization log
             // if they cancel this dlg then we leave the checkbox unchecked
-            if (!GUIUtil.hasBasicService())  {
-                JFileChooser chooser = FileChooserUtil.getFileChooser();
-                chooser.setCurrentDirectory( new File( FileUtil.getHomeDir() + "/webdeployment" ) );
-                chooser.setFileFilter(new TextFileFilter());
-                int state = chooser.showOpenDialog( this );
-                File file = chooser.getSelectedFile();
-                if ( file == null || state != JFileChooser.APPROVE_OPTION )  {
-                    optimizationCheckbox_.setSelected(false);
-                }
-                else {
-                    playersPanel_.setBothComputerPlayers(true);
-                    playersPanel_.setPlayersSelected(false);
-                    get2PlayerController().getOptions().setAutoOptimizeFile( file.getAbsolutePath() );
-                }
+            JFileChooser chooser = FileChooserUtil.getFileChooser();
+            chooser.setCurrentDirectory( new File( FileUtil.getHomeDir() + "/webdeployment" ) );
+            chooser.setFileFilter(new TextFileFilter());
+            int state = chooser.showOpenDialog( this );
+            File file = chooser.getSelectedFile();
+            if ( file == null || state != JFileChooser.APPROVE_OPTION )  {
+                optimizationCheckbox_.setSelected(false);
             }
             else {
-                JOptionPane.showMessageDialog(this, GameContext.getLabel("CANT_RUN_OPT_WHEN_STANDALONE"));
+                playersPanel_.setBothComputerPlayers(true);
+                playersPanel_.setPlayersSelected(false);
+                get2PlayerController().getOptions().setAutoOptimizeFile( file.getAbsolutePath() );
             }
         }
         else {

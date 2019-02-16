@@ -13,13 +13,13 @@ import com.barrybecker4.game.common.ui.panel.GamePanel;
  */
 public class GamePlugin {
 
-    private final String name_;
-    private final String label_;
-    private final PluginType type_;
-    private final String msgBundleBase_;
-    private final String panelClass_;
-    private final String controllerClass_;
-    private final boolean isDefault_;
+    private final String name;
+    private final String label;
+    private final PluginType type;
+    private final String msgBundleBase;
+    private final String panelClass;
+    private final String controllerClass;
+    private final boolean isDefault;
 
     /**
      * Constructor
@@ -33,34 +33,34 @@ public class GamePlugin {
      */
     public GamePlugin(String name, String label, PluginType type, String msgBundleBase,
                       String panelClass, String controllerClass, boolean isDefault) {
-        name_ = name;
-        label_ = label;
-        type_ = type;
-        msgBundleBase_ = msgBundleBase;
-        panelClass_ = panelClass;
-        controllerClass_ = controllerClass;
-        isDefault_ = isDefault;
+        this.name = name;
+        this.label = label;
+        this.type = type;
+        this.msgBundleBase = msgBundleBase;
+        this.panelClass = panelClass;
+        this.controllerClass = controllerClass;
+        this.isDefault = isDefault;
     }
 
 
     public String getName() {
-        return name_;
+        return name;
     }
 
     public String getLabel() {
-        return label_;
+        return label;
     }
 
     public PluginType getType() {
-        return type_;
+        return type;
     }
 
     public String getMsgBundleBase() {
-        return msgBundleBase_;
+        return msgBundleBase;
     }
 
     private String getPanelClass() {
-        return panelClass_;
+        return panelClass;
     }
 
     public GamePanel getPanelInstance() {
@@ -77,18 +77,18 @@ public class GamePlugin {
     }
 
     public String getControllerClass() {
-        return controllerClass_;
+        return controllerClass;
     }
 
     public boolean isDefault() {
-        return isDefault_;
+        return isDefault;
     }
 
     @SuppressWarnings("HardCodedStringLiteral")
     @Override
     public String toString() {
-        return name_ + '(' + getLabel() + "panelClass=" + panelClass_ + ' '
-                + "controllerClass=" + controllerClass_ + ")\n";
+        return name + '(' + getLabel() + "panelClass=" + panelClass + ' '
+                + "controllerClass=" + controllerClass + ")\n";
     }
 
 }

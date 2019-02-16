@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE search-test-example SYSTEM "http://barrybecker4.com/schema/search-test-case.dtd">
+<!DOCTYPE search-test-example SYSTEM "https://raw.githubusercontent.com/bb4/bb4-games/master/test/com/barrybecker4/game/twoplayer/common/search/search-test-case.dtd">
 <search-test-example name="smallest-uniform-tree">
     <test-cases>
         <test-case strategy="MiniMaxStrategy" notes="Winning move for look ahead 3">

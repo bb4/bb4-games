@@ -1,19 +1,20 @@
-#bb4-games
+# bb4-games
 
-A java game playing framework and a collection of two-player and multi-player games.
+A java game playing framework and a []collection of two-player and multi-player games](http://barrybecker4.com/bb4-projects/bb4-games/games_index.html).
 In all games, one or more intelligent computer opponents are allowed to play.
-Here are the game implementations added so far (hopefully others will contribute more)
+Here are the game implementations added so far.
    - Two player
-      - [Chess](http://barrybecker4.com/applets/chess_en.html)
-      - [Checkers](http://barrybecker4.com/applets/checkers_en.html)
-      - [Go](http://barrybecker4.com/applets/go_en.html)
-      - [GoMoku](http://barrybecker4.com/applets/gomoku_en.html)
-      - [Blockade](http://barrybecker4.com/applets/blockade_en.html)
-      - [Mancala](http://barrybecker4.com/applets/mancala_en.html)
-      - [Hex](http://barrybecker4.com/applets/hex_en.html)
+      - Chess
+      - Checkers
+      - Go
+      - GoMoku
+      - Blockade
+      - Mancala
+      - Hex
    - Multi-player
-      - [Poker](http://barrybecker4.com/applets/poker_en.html)
-      - [Galactic](http://barrybecker4.com/applets/galactic_en.html)
+      - Poker
+      - Galactic
+      - Set
 
 
 ### [How to Build](https://github.com/barrybecker4/bb4-common/wiki/Building-bb4-Projects)

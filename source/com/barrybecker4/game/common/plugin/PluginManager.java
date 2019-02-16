@@ -24,13 +24,13 @@ public class PluginManager {
 
     private static final String PLUGINS_FILE = GameContext.GAME_RESOURCE_ROOT + "plugins.xml";
 
-    private static PluginManager manager_ = null;
-    private List<GamePlugin> plugins_;
+    private static PluginManager manager = null;
+    private List<GamePlugin> plugins;
     /** mapping from the name to the plugin */
-    private Map<String, GamePlugin> hmNameToPlugin_;
+    private Map<String, GamePlugin> hmNameToPlugin;
     /** mapping from the label to the plugin */
-    private Map<String, GamePlugin> hmLabelToPlugin_;
-    private GamePlugin defaultGame_;
+    private Map<String, GamePlugin> hmLabelToPlugin;
+    private GamePlugin defaultGame;
 
     /**
      * Load plugin games from plugins.xml
@@ -54,9 +54,9 @@ public class PluginManager {
     private void initializePlugins(Document document) {
         Node root = document.getDocumentElement();    // games element
         NodeList children = root.getChildNodes();
-        plugins_ = new ArrayList<>();
-        hmNameToPlugin_ = new HashMap<>();
-        hmLabelToPlugin_ = new HashMap<>();
+        plugins = new ArrayList<>();
+        hmNameToPlugin = new HashMap<>();
+        hmLabelToPlugin = new HashMap<>();
         GamePlugin defaultGame = null;
 
         int num = children.getLength();
@@ -68,18 +68,18 @@ public class PluginManager {
 
                 GamePlugin plugin = createPlugin(n);
 
-                plugins_.add(plugin);
-                hmNameToPlugin_.put(plugin.getName(), plugin);
-                hmLabelToPlugin_.put(plugin.getLabel(), plugin);
+                plugins.add(plugin);
+                hmNameToPlugin.put(plugin.getName(), plugin);
+                hmLabelToPlugin.put(plugin.getLabel(), plugin);
                 if (plugin.isDefault()) {
                     defaultGame = plugin;
                 }
             }
         }
         if (defaultGame == null) {
-            defaultGame = plugins_.get(0);
+            defaultGame = plugins.get(0);
         }
-        defaultGame_ = defaultGame;
+        this.defaultGame = defaultGame;
     }
 
     /**
@@ -104,14 +104,14 @@ public class PluginManager {
     }
 
     public static PluginManager getInstance() {
-        if (manager_ == null) {
-            manager_ = new PluginManager();
+        if (manager == null) {
+            manager = new PluginManager();
         }
-        return manager_;
+        return manager;
     }
 
     public List<GamePlugin> getPlugins() {
-        return plugins_;
+        return plugins;
     }
 
     /**
@@ -120,7 +120,7 @@ public class PluginManager {
      */
     public List<GamePlugin> getPlugins(PluginType type) {
         List<GamePlugin> plugins = new ArrayList<>();
-        for (GamePlugin plugin : plugins_) {
+        for (GamePlugin plugin : this.plugins) {
             if (plugin.getType() == type)  {
                 plugins.add(plugin);
             }
@@ -129,14 +129,14 @@ public class PluginManager {
     }
 
     public GamePlugin getPlugin(String name) {
-        return hmNameToPlugin_.get(name);
+        return hmNameToPlugin.get(name);
     }
 
     public GamePlugin getPluginFromLabel(String name) {
-        return hmLabelToPlugin_.get(name);
+        return hmLabelToPlugin.get(name);
     }
 
     public GamePlugin getDefaultPlugin() {
-       return defaultGame_;
+       return defaultGame;
     }
 }

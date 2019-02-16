@@ -1,9 +1,9 @@
-<!ELEMENT plugins   (game)*>
+<!ELEMENT plugins (game)*>
 <!ELEMENT game    EMPTY>
 
 <!ATTLIST plugins
-    date        CDATA      #IMPLIED
-    author      NMTOKENS   #IMPLIED
+    date   CDATA    #IMPLIED
+    author NMTOKENS #IMPLIED
 >
 
 <!ATTLIST game
