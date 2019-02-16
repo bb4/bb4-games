@@ -1,6 +1,6 @@
 # bb4-games
 
-A java game playing framework and a []collection of two-player and multi-player games](http://barrybecker4.com/bb4-projects/bb4-games/games_index.html).
+A java game playing framework and a [collection of two-player and multi-player games](http://barrybecker4.com/bb4-projects/bb4-games/games_index.html).
 In all games, one or more intelligent computer opponents are allowed to play.
 Here are the game implementations added so far.
    - Two player
