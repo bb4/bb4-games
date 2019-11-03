@@ -3,6 +3,7 @@ package com.barrybecker4.game.twoplayer.common.cache;
 
 import com.barrybecker4.common.util.LRUCache;
 import com.barrybecker4.game.twoplayer.common.search.transposition.HashKey;
+import scala.Option;
 
 /**
  * A kind of LRU cache for game moves so that we do not need to
@@ -43,9 +44,9 @@ public class ScoreCache extends LRUCache<HashKey, ScoreEntry> {
     }
 
     @Override
-    public ScoreEntry get(HashKey key) {
-        ScoreEntry score = super.get(key);
-        if (score == null)
+    public Option<ScoreEntry> get(HashKey key) {
+        Option<ScoreEntry> score = super.get(key);
+        if (!score.isDefined())
             cacheMisses++;
         else
             cacheHits++;

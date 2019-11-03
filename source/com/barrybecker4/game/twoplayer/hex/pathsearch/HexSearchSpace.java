@@ -7,9 +7,8 @@ import com.barrybecker4.game.twoplayer.hex.HexBoard;
 import com.barrybecker4.game.twoplayer.hex.HexBoardUtil;
 import com.barrybecker4.search.SearchSpace;
 import scala.Option;
-import scala.collection.JavaConverters;
-import scala.collection.Seq;
-
+import scala.jdk.javaapi.CollectionConverters;
+import scala.collection.immutable.Seq;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -81,7 +80,7 @@ public class HexSearchSpace implements SearchSpace<HexState, HexTransition> {
         }
         // sorting the nbrs by path cost will speed up search
         Collections.sort(nbrs);
-        return JavaConverters.asScalaBuffer(nbrs).toSeq();
+        return CollectionConverters.asScala(nbrs).toSeq();
     }
 
     /**

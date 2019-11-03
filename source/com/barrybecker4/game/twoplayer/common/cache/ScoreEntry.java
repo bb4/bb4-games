@@ -24,6 +24,7 @@ public class ScoreEntry {
     /** only use this for debugging. normally we do not store the key */
     public ScoreEntry(HashKey key,int score, String boardDesc, WorthInfo info) {
         this.key = key;
+        assert key != null;
         this.score = score;
         this.boardDesc = boardDesc;
         this.info = info;

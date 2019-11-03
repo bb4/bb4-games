@@ -11,7 +11,7 @@ import com.barrybecker4.game.twoplayer.comparison.ui.grid.cellrenderers.ResultHe
 import com.barrybecker4.ui.table.BasicTableModel;
 import com.barrybecker4.ui.table.TableBase;
 import com.barrybecker4.ui.table.TableColumnMeta;
-import scala.collection.Seq;
+import scala.collection.immutable.Seq;
 
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;

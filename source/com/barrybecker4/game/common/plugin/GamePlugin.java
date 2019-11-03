@@ -69,7 +69,7 @@ public class GamePlugin {
 
        GamePanel gamePanel = null;
         try {
-            gamePanel = (GamePanel)gameClass.newInstance();
+            gamePanel = (GamePanel) gameClass.getConstructor().newInstance(); // (GamePanel)gameClass.newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }

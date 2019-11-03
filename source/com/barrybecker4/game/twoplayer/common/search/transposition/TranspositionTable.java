@@ -4,6 +4,7 @@ package com.barrybecker4.game.twoplayer.common.search.transposition;
 import com.barrybecker4.common.util.LRUCache;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.search.SearchWindow;
+import scala.Option;
 
 /**
  * A kind of LRU cache for game moves so that we do not need to
@@ -13,7 +14,7 @@ import com.barrybecker4.game.twoplayer.common.search.SearchWindow;
  * This technique applies the memoization pattern to search.
  * See http://en.wikipedia.org/wiki/Transposition_table
  * http://pages.cs.wisc.edu/~mjr/Pente/
- * shttp://people.csail.mit.edu/plaat/mtdf.html
+ * http://people.csail.mit.edu/plaat/mtdf.html
  *
  * @author Barry Becker
  */
@@ -35,24 +36,25 @@ public class TranspositionTable<M extends TwoPlayerMove> extends LRUCache<HashKe
      * Has side effect of updating the lastMove with the correct boundary if cache hit.
      * @return saved best move in entry
      */
-    public boolean entryExists(Entry entry, M lastMove, int depth, SearchWindow window) {
-        if (entry != null && entry.depth >= depth) {
+    public boolean entryExists(Option<Entry<M>> entry, M lastMove, int depth, SearchWindow window) {
+        if (entry.isDefined() && entry.get().depth >= depth) {
             cacheHits++;
             //System.out.println("Cache hit. \nentry.depth=" + entry.depth + " depth=" + depth  + "\n" + entry);
 
-            if (entry.upperValue <= window.alpha || entry.upperValue == entry.lowerValue)  {
-                entry.bestMove.setInheritedValue(entry.upperValue);
-                lastMove.setInheritedValue(-entry.upperValue);
+            Entry e = entry.get();
+            if (e.upperValue <= window.alpha || e.upperValue == e.lowerValue)  {
+                e.bestMove.setInheritedValue(e.upperValue);
+                lastMove.setInheritedValue(-e.upperValue);
                 return true;
             }
-            if (entry.lowerValue >= window.beta) {
-                entry.bestMove.setInheritedValue(entry.lowerValue);
-                lastMove.setInheritedValue(-entry.lowerValue);
+            if (e.lowerValue >= window.beta) {
+                e.bestMove.setInheritedValue(e.lowerValue);
+                lastMove.setInheritedValue(-e.lowerValue);
                 return true;
             }
         }
         else {
-            if (entry != null) cacheNearHits++;
+            if (entry.isDefined()) cacheNearHits++;
             else cacheMisses++;
         }
         return false;

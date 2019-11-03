@@ -11,6 +11,7 @@ import com.barrybecker4.game.twoplayer.common.search.transposition.HashKey;
 import com.barrybecker4.game.twoplayer.common.search.transposition.TranspositionTable;
 import com.barrybecker4.game.twoplayer.common.search.tree.SearchTreeNode;
 import com.barrybecker4.optimization.parameter.ParameterArray;
+import scala.Option;
 
 /**
  *  This strategy class defines the NegaScout with memory search algorithm.
@@ -76,24 +77,24 @@ public final class NegaScoutMemoryStrategy<M extends TwoPlayerMove, B extends Tw
                                 SearchWindow window, SearchTreeNode parent ) {
 
         HashKey key = searchable.getHashKey();
-        Entry<M> entry = lookupTable.get(key);
+        Option<Entry<M>> entry = lookupTable.get(key);
         if (lookupTable.entryExists(entry, lastMove, depth, window))
-            return entry.bestMove;
+            return entry.get().bestMove;
 
         boolean done = searchable.done( lastMove, false);
         if ( depth <= 0 || done ) {
             if (doQuiescentSearch(depth, done, lastMove))  {
                 M qMove = quiescentSearch(lastMove, depth, window, parent);
                 if (qMove != null)  {
-                    entry = new Entry<>(qMove, qMove.getInheritedValue());
-                    lookupTable.put(key, entry);
+                    Entry<M> theEntry = new Entry<>(qMove, qMove.getInheritedValue());
+                    lookupTable.put(key, theEntry);
                     return qMove;
                 }
             }
             int sign = fromPlayer1sPerspective(lastMove) ? 1 : -1;
             lastMove.setInheritedValue(sign * lastMove.getValue());
-            entry = new Entry<>(lastMove, -lastMove.getInheritedValue());
-            lookupTable.put(key, entry);
+            Entry<M> theEntry = new Entry<>(lastMove, -lastMove.getInheritedValue());
+            lookupTable.put(key, theEntry);
             return lastMove;
         }
 
@@ -173,7 +174,7 @@ public final class NegaScoutMemoryStrategy<M extends TwoPlayerMove, B extends Tw
         if (bestValue <= window.alpha) {
             entry.upperValue = bestValue;
         }
-        else if (window.alpha < bestValue && bestValue < window.beta) {
+        else if (/*window.alpha < bestValue &&*/ bestValue < window.beta) {
             entry.lowerValue = bestValue;
             entry.upperValue = bestValue;
         }

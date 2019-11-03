@@ -53,35 +53,6 @@ public class HexBoard extends TwoPlayerBoard<TwoPlayerMove> {
         return searcher.getShortestPathCost();
     }
 
-    /**
-     * @param move most recent move
-     * return neighbors that are the same color
-     *
-    private List<BoardPosition> getFriendlyNbrs(TwoPlayerMove move) {
-        List<BoardPosition> nbrs = new LinkedList<>();
-        Location loc = move.getToLocation();
-        boolean player1 = move.isPlayer1();
-
-        for (int dir = 0; dir < 6; dir++) {
-            Location nbrLoc = HexBoardUtil.getNeighborLocation(loc, dir);
-            BoardPosition pos = this.getPosition(nbrLoc);
-            if (pos == null) {
-                if (!player1 && (nbrLoc.getCol() < 1 || nbrLoc.getCol() > getNumCols())) {
-                    HexBoardPosition edgePos = new HexBoardPosition(nbrLoc, new GamePiece(false));
-                    nbrs.add(edgePos);
-                }
-                else if (player1 && (nbrLoc.getRow() < 1 || nbrLoc.getRow() > getNumRows())) {
-                    HexBoardPosition edgePos = new HexBoardPosition(nbrLoc, new GamePiece(true));
-                    nbrs.add(edgePos);
-                }
-            }
-            else if (pos.isOccupied() && pos.getPiece().isOwnedByPlayer1() == player1) {
-                nbrs.add(pos);
-            }
-        }
-        return nbrs;
-    }  */
-
     @Override
     protected void undoInternalMove(TwoPlayerMove move) {
         getPosition(move.getToRow(), move.getToCol()).clear();

@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * A client worker is created for each client player connection to this server.
- * It runns on the server and sends commands to its particular client.
+ * It runs on the server and sends commands to its particular client.
  */
 class ClientWorker implements Runnable {
 

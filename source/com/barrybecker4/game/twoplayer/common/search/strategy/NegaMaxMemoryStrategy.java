@@ -11,6 +11,7 @@ import com.barrybecker4.game.twoplayer.common.search.transposition.HashKey;
 import com.barrybecker4.game.twoplayer.common.search.transposition.TranspositionTable;
 import com.barrybecker4.game.twoplayer.common.search.tree.SearchTreeNode;
 import com.barrybecker4.optimization.parameter.ParameterArray;
+import scala.Option;
 
 /**
  *  This strategy class defines the NegaMax with memory search algorithm.
@@ -55,36 +56,37 @@ public final class NegaMaxMemoryStrategy<M extends TwoPlayerMove, B extends TwoP
     protected M searchInternal(M lastMove, int depth,
                                SearchWindow window, SearchTreeNode parent ) {
         HashKey key = searchable.getHashKey();
-        Entry<M> entry = lookupTable.get(key);
+        Option<Entry<M>> entry = lookupTable.get(key);
         if (lookupTable.entryExists(entry, lastMove, depth, window)) {
-            if (entry.lowerValue > window.alpha) {
-                entry.bestMove.setInheritedValue(entry.lowerValue);
-                return entry.bestMove;
+            Entry<M> e = entry.get();
+            if (e.lowerValue > window.alpha) {
+                e.bestMove.setInheritedValue(e.lowerValue);
+                return e.bestMove;
             }
-            else if (entry.upperValue < window.beta) {
-                entry.bestMove.setInheritedValue(entry.upperValue);
-                return entry.bestMove;
+            else if (e.upperValue < window.beta) {
+                e.bestMove.setInheritedValue(e.upperValue);
+                return e.bestMove;
             }
         }
 
-        entry = new Entry<>(lastMove, depth, new SearchWindow(-INFINITY, INFINITY));
+        Entry<M> theEntry = new Entry<>(lastMove, depth, new SearchWindow(-INFINITY, INFINITY));
 
         boolean done = searchable.done(lastMove, false);
         if ( depth <= 0 || done ) {
             if (doQuiescentSearch(depth, done, lastMove))  {
                 M qMove = quiescentSearch(lastMove, depth, window, parent);
                 if (qMove != null)  {
-                    entry = new Entry<>(qMove, qMove.getInheritedValue());
-                    lookupTable.put(key, entry);
+                    theEntry = new Entry<>(qMove, qMove.getInheritedValue());
+                    lookupTable.put(key, theEntry);
                     return qMove;
                 }
             }
             int sign = fromPlayer1sPerspective(lastMove) ? 1 : -1;
             int value = sign * lastMove.getValue();
             lastMove.setInheritedValue(value);
-            entry.lowerValue = value;
-            entry.upperValue = value;
-            lookupTable.put(key, entry);
+            theEntry.lowerValue = value;
+            theEntry.upperValue = value;
+            lookupTable.put(key, theEntry);
             return lastMove;
         }
 

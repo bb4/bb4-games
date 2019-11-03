@@ -1,4 +1,4 @@
-/** Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
+/* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.common.online.server;
 
 import com.barrybecker4.common.app.CommandLineOptions;
@@ -67,7 +67,7 @@ public class OnlineGameServer  {
      * Maintain a list of clientConnections corresponding to the players
      * that we need to broadcast to when something changes.
      */
-    void openListenSocket(String gameType) {
+    private void openListenSocket(String gameType) {
 
         ServerCommandProcessor cmdProcessor = new ServerCommandProcessor(gameType);
         int port = cmdProcessor.getPort();
@@ -153,7 +153,7 @@ public class OnlineGameServer  {
         return true;
     }
 
-     /**
+     /*
       * Implements OnlineGameServerInterface which is also implemented by GtpTesujiSoftGoServer.
       * not currently used, but I'm trying to have a consistent game server interface.
       *

@@ -6,7 +6,7 @@ import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.hex.HexBoard;
 import org.junit.Before;
 import org.junit.Test;
-import scala.collection.Seq;
+import scala.collection.immutable.Seq;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -75,11 +75,11 @@ public class HexSearchSpaceTest {
         assertEquals("Unexpected number of transitions.", 4, transitions.size());
 
         assertEquals("Unexpected transitions.",
-                "Buffer([(row=4, column=2): 10], " +
+                "[(row=4, column=2): 10], " +
                         "[(row=3, column=2): 10], " +
                         "[(row=3, column=1): 10], " +
-                        "[(row=5, column=1): 10])",
-                transitions.toString());
+                        "[(row=5, column=1): 10]",
+                transitions.mkString(", "));
     }
 
     @Test
@@ -90,9 +90,9 @@ public class HexSearchSpaceTest {
         Seq<HexTransition> transitions = space.legalTransitions(state);
 
         assertEquals("Unexpected transitions.",
-                "Buffer([(row=4, column=0): 0], [(row=5, column=0): 0], [(row=4, column=2): 10], " +
-                "[(row=3, column=2): 10], [(row=3, column=1): 10], [(row=5, column=1): 10])",
-                transitions.toString());
+                "[(row=4, column=0): 0], [(row=5, column=0): 0], [(row=4, column=2): 10], " +
+                "[(row=3, column=2): 10], [(row=3, column=1): 10], [(row=5, column=1): 10]",
+                transitions.mkString(", "));
     }
 
     @Test
@@ -102,11 +102,11 @@ public class HexSearchSpaceTest {
         Seq<HexTransition> transitions = space.legalTransitions(state);
 
         assertEquals("Unexpected transitions.",
-                "Buffer([(row=0, column=7): 0], " +
+                "[(row=0, column=7): 0], " +
                         "[(row=0, column=5): 0], " +
                         "[(row=1, column=5): 10], " +
-                        "[(row=1, column=6): 10])",
-                transitions.toString());
+                        "[(row=1, column=6): 10]",
+                transitions.mkString(", "));
     }
 
     @Test
@@ -116,9 +116,9 @@ public class HexSearchSpaceTest {
         Seq<HexTransition> transitions = space.legalTransitions(state);
 
         assertEquals("Unexpected transitions.",
-                "Buffer([(row=4, column=1): 10], " +
-                        "[(row=3, column=1): 10])",
-                transitions.toString());
+                "[(row=4, column=1): 10], " +
+                        "[(row=3, column=1): 10]",
+                transitions.mkString(", "));
     }
 
     @Test
@@ -129,9 +129,9 @@ public class HexSearchSpaceTest {
         Seq<HexTransition> transitions = space.legalTransitions(state);
 
         assertEquals("Unexpected transitions.",
-                "Buffer([(row=3, column=0): 0], [(row=5, column=0): 0], " +
-                        "[(row=4, column=1): 10], [(row=3, column=1): 10])",
-                transitions.toString());
+                "[(row=3, column=0): 0], [(row=5, column=0): 0], " +
+                        "[(row=4, column=1): 10], [(row=3, column=1): 10]",
+                transitions.mkString(", "));
     }
 
     @Test
@@ -144,8 +144,8 @@ public class HexSearchSpaceTest {
         Seq<HexTransition> transitions = space.legalTransitions(state);
 
         assertEquals("Unexpected transitions.",
-                        "Buffer([(row=3, column=1): 0], [(row=3, column=2): 10], [(row=5, column=1): 10])",
-                transitions.toString());
+                        "[(row=3, column=1): 0], [(row=3, column=2): 10], [(row=5, column=1): 10]",
+                transitions.mkString(", "));
     }
 
     @Test
@@ -160,9 +160,9 @@ public class HexSearchSpaceTest {
         Seq<HexTransition> transitions = space.legalTransitions(state);
 
         assertEquals("Unexpected transitions.",
-                "Buffer([(row=4, column=2): 0], [(row=4, column=0): 0], [(row=5, column=0): 0], " +
-                "[(row=3, column=2): 10], [(row=5, column=1): 10])",
-                transitions.toString());
+                "[(row=4, column=2): 0], [(row=4, column=0): 0], [(row=5, column=0): 0], " +
+                "[(row=3, column=2): 10], [(row=5, column=1): 10]",
+                transitions.mkString(", "));
     }
 
     @Test
@@ -175,11 +175,11 @@ public class HexSearchSpaceTest {
         Seq<HexTransition> transitions = space.legalTransitions(state);
 
         assertEquals("Unexpected transitions.",
-                "Buffer([(row=0, column=7): 0], " +
+                "[(row=0, column=7): 0], " +
                         "[(row=0, column=5): 0], " +
                         "[(row=1, column=5): 10], " +
-                        "[(row=1, column=6): 10])",
-                transitions.toString());
+                        "[(row=1, column=6): 10]",
+                transitions.mkString(", "));
     }
 
     @Test
@@ -192,8 +192,8 @@ public class HexSearchSpaceTest {
         Seq<HexTransition> transitions = space.legalTransitions(state);
 
         assertEquals("Unexpected transitions.",
-                "Buffer([(row=3, column=1): 0], [(row=4, column=1): 10])",
-                transitions.toString());
+                "[(row=3, column=1): 0], [(row=4, column=1): 10]",
+                transitions.mkString(", "));
     }
 
     @Test
@@ -208,7 +208,7 @@ public class HexSearchSpaceTest {
         Seq<HexTransition> transitions = space.legalTransitions(state);
 
         assertEquals("Unexpected transitions.",
-                "Buffer([(row=3, column=0): 0], [(row=5, column=0): 0], [(row=4, column=1): 10])",
-                transitions.toString());
+                "[(row=3, column=0): 0], [(row=5, column=0): 0], [(row=4, column=1): 10]",
+                transitions.mkString(", "));
     }
 }

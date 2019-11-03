@@ -9,8 +9,8 @@ import com.barrybecker4.ui.table.ColorCellEditor;
 import com.barrybecker4.ui.table.ColorCellRenderer;
 import com.barrybecker4.ui.table.TableBase;
 import com.barrybecker4.ui.table.TableColumnMeta;
-import scala.collection.JavaConverters;
-import scala.collection.Seq;
+import scala.jdk.javaapi.CollectionConverters;
+import scala.collection.immutable.Seq;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
@@ -49,10 +49,8 @@ public abstract class PlayerTable extends TableBase {
         deletedRows = new ArrayList<>();
     }
 
-    private static Seq<Object> conv(java.util.ArrayList<Player> players) {
-        List<Object> s = new ArrayList<>(players);
-        Seq<Object> ss = JavaConverters.asScalaIteratorConverter(s.iterator()).asScala().toSeq();
-        return ss.toSeq();
+    private static Seq<Player> conv(java.util.ArrayList<Player> players) {
+        return CollectionConverters.asScala(players).toSeq();
     }
 
     @Override

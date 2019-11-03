@@ -4,7 +4,7 @@ package com.barrybecker4.game.common;
 import com.barrybecker4.optimization.parameter.NumericParameterArray;
 import com.barrybecker4.optimization.parameter.types.DoubleParameter;
 import com.barrybecker4.optimization.parameter.types.Parameter;
-import scala.collection.JavaConverters;
+import scala.jdk.javaapi.CollectionConverters;
 import scala.util.Random;
 
 import java.util.Arrays;
@@ -23,7 +23,7 @@ public class GameWeightsStub extends GameWeights {
 
 
     public GameWeightsStub() {
-        super(new NumericParameterArray(JavaConverters.asScalaBuffer(PARAMS).toIndexedSeq(), 5, new Random(1)));
+        super(new NumericParameterArray(CollectionConverters.asScala(PARAMS).toIndexedSeq(), 5, new Random(1)));
     }
 
 }

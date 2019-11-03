@@ -156,7 +156,7 @@ public class GoMove extends TwoPlayerMove {
     /**
      * returns true if the specified move caused one or more opponent groups to be in atari
      *
-     * @return a number > 0 if the move m caused an atari. The number gives the number of stones in atari.
+     * @return a number &gt; 0 if the move m caused an atari. The number gives the number of stones in atari.
      */
     public int numStonesAtaried(GoBoard board) {
         if ( isPassingMove() )

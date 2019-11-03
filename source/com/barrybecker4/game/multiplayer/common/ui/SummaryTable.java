@@ -8,7 +8,7 @@ import com.barrybecker4.ui.table.ColorCellEditor;
 import com.barrybecker4.ui.table.ColorCellRenderer;
 import com.barrybecker4.ui.table.TableBase;
 import com.barrybecker4.ui.table.TableColumnMeta;
-import scala.collection.JavaConverters;
+import scala.jdk.javaapi.CollectionConverters;
 import javax.swing.table.TableModel;
 
 
@@ -32,7 +32,7 @@ public abstract class SummaryTable extends TableBase  {
      * @param players to initialize the rows in the table with.
      */
     protected SummaryTable(PlayerList players, String[] columnNames) {
-        super(JavaConverters.asScalaIteratorConverter(players.iterator()).asScala().toSeq(), columnNames);
+        super(CollectionConverters.asScala(players).toSeq(), columnNames);
     }
 
     @Override

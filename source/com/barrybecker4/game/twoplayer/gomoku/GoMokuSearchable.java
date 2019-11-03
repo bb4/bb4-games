@@ -81,7 +81,7 @@ public class GoMokuSearchable<B extends GoMokuBoard> extends TwoPlayerSearchable
     }
 
     /**
-     * Consider the delta big if >= w. Where w is the value of a near win.
+     * Consider the delta big if &gt;= w. Where w is the value of a near win.
      * @return true if the last move created a big change in the score
      */
     @Override

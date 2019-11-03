@@ -3,13 +3,10 @@ package com.barrybecker4.game.twoplayer.gomoku.pattern;
 
 import com.barrybecker4.game.common.GameWeights;
 import com.barrybecker4.optimization.parameter.NumericParameterArray;
-import com.barrybecker4.optimization.parameter.redistribution.RedistributionFunction;
 import com.barrybecker4.optimization.parameter.types.DoubleParameter;
 import com.barrybecker4.optimization.parameter.types.Parameter;
-import scala.Option;
-import scala.collection.JavaConverters;
+import scala.jdk.javaapi.CollectionConverters;
 import scala.util.Random;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,7 +24,7 @@ public class SimpleWeights extends GameWeights {
     );
 
     public SimpleWeights() {
-        super(new NumericParameterArray(JavaConverters.asScalaBuffer(PARAMS).toIndexedSeq(), 5, new Random(1)));
+        super(new NumericParameterArray(CollectionConverters.asScala(PARAMS).toIndexedSeq(), 5, new Random(1)));
     }
 
 }

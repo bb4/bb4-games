@@ -10,6 +10,7 @@ import com.barrybecker4.game.twoplayer.go.board.analysis.group.GroupAnalyzer;
 import com.barrybecker4.game.twoplayer.go.board.analysis.group.GroupAnalyzerMap;
 import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup;
 import com.barrybecker4.optimization.parameter.ParameterArray;
+import scala.Option;
 
 /**
  * Responsible for evaluating groups and territory on a go board.
@@ -59,7 +60,7 @@ public final class BoardEvaluator {
     private int cachedWorth( Move lastMove, ParameterArray weights, HashKey key) {
 
         // uncomment this to do caching.
-        ScoreEntry cachedScore = scoreCache.get(key);
+        Option<ScoreEntry> cachedScore = scoreCache.get(key);
         ///////// comment this to do debugging
         //if (cachedScore != null) {
         //    System.out.println("scoreCache="+scoreCache);
@@ -68,24 +69,23 @@ public final class BoardEvaluator {
 
         int worth = worthCalculator.worth(lastMove, weights);
 
-        if (cachedScore == null) {
+        if (cachedScore.isEmpty()) {
             scoreCache.put(key, new ScoreEntry(key, worth, board_.toString(), getWorthInfo()));
         }
         else {
-            if (cachedScore.getScore() != worth) {
-                StringBuilder bldr = new StringBuilder();
-                bldr.append("\ncachedScore ").
-                        append(cachedScore).
+            if (cachedScore.get().getScore() != worth) {
+                String bldr = "\ncachedScore " +
+                        cachedScore +
                         //append("\nfor key=").
                         //append(getHashKey()).
-                        append("\ndid not match ").
-                        append(worth).append(" for \n").
-                        append(board_.toString()).
-                        append("\ncurrent info: ").
-                        append(getWorthInfo()).
-                        append("using current key=").
-                        append(key);
-                System.out.println(bldr.toString());
+                        "\ndid not match " +
+                        worth + " for \n" +
+                        board_.toString() +
+                        "\ncurrent info: " +
+                        getWorthInfo() +
+                        "using current key=" +
+                        key;
+                System.out.println(bldr);
                 System.out.flush();
             }
         }

@@ -8,9 +8,8 @@ import com.barrybecker4.game.multiplayer.galactic.Planet;
 import com.barrybecker4.ui.table.BasicTableModel;
 import com.barrybecker4.ui.table.TableBase;
 import com.barrybecker4.ui.table.TableColumnMeta;
-import scala.collection.JavaConverters;
-import scala.collection.Seq;
-
+import scala.jdk.javaapi.CollectionConverters;
+import scala.collection.immutable.Seq;
 import javax.swing.table.TableModel;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -68,10 +67,8 @@ class OrdersTable extends TableBase {
         lastOrders = orders;
     }
 
-    private static Seq<Object> conv(java.util.List<Order> players) {
-        List<Object> s = new ArrayList<>(players);
-        Seq<Object> ss = JavaConverters.asScalaIteratorConverter(s.iterator()).asScala().toSeq();
-        return ss.toSeq();
+    private static Seq<Order> conv(java.util.List<Order> players) {
+        return CollectionConverters.asScala(players).toSeq();
     }
 
     @Override

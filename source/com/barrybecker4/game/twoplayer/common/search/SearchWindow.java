@@ -46,7 +46,7 @@ public class SearchWindow {
     }
 
     /**
-     * @return the difference between the alpha nad beta values.  Returns negative infinity of alpha > beta.
+     * @return the difference between the alpha nad beta values.  Returns negative infinity of alpha &gt; beta.
      */
     public int getExtent() {
         if (alpha > beta) {

@@ -4,7 +4,8 @@ import com.barrybecker4.game.twoplayer.hex.HexBoard;
 import com.barrybecker4.search.AStarSearch;
 import com.barrybecker4.search.HeapPriorityQueue;
 import scala.Option;
-import scala.collection.Seq;
+import scala.collection.immutable.Seq;
+import scala.jdk.javaapi.CollectionConverters;
 
 
 /**
@@ -30,7 +31,7 @@ public class ShortestPathSearch extends AStarSearch<HexState, HexTransition> {
         }
         else {
             Seq<HexTransition> pathList = path.get();
-            for (HexTransition transition : scala.collection.JavaConverters.seqAsJavaList(pathList)) {
+            for (HexTransition transition : CollectionConverters.asJava(pathList)) {
                 totalCost += transition.getCost();
             }
         }

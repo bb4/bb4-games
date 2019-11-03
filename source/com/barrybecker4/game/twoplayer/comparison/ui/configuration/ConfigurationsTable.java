@@ -8,7 +8,7 @@ import com.barrybecker4.ui.table.BasicCellRenderer;
 import com.barrybecker4.ui.table.BasicTableModel;
 import com.barrybecker4.ui.table.TableBase;
 import com.barrybecker4.ui.table.TableColumnMeta;
-import scala.collection.Seq;
+import scala.collection.immutable.Seq;
 
 import javax.swing.table.TableModel;
 

@@ -136,7 +136,7 @@ public class TwoPlayerMove extends Move {
     /**
      * We sort based on the statically evaluated board value
      * because the inherited value is not known yet.
-     * @return  > 0 if move m is bigger, < 0 if smaller, =0 if equal
+     * @return  &gt; 0 if move m is bigger, &lt; 0 if smaller, =0 if equal
      */
     @Override
     public int compareTo( Move m ) {

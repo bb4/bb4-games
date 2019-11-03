@@ -4,7 +4,7 @@ description = 'A game playing framework and a collection of two-player and multi
         'In all games, one or more intelligent computer opponents are allowed to play.'
 group = 'com.barrybecker4'
 version = '1.6-SNAPSHOT'
-apply from: 'https://raw.github.com/barrybecker4/bb4-common/master/bb4.gradle'
+apply from: 'https://raw.githubusercontent.com/bb4/bb4-common/master/bb4.gradle'
 project.archivesBaseName = 'bb4-game'
 mainClassName = "com.barrybecker4.game.common.ui.GameApp"
 ext.gameApp = 'com.barrybecker4.game.common.ui.GameApp'
@@ -12,7 +12,7 @@ ext.gameApp = 'com.barrybecker4.game.common.ui.GameApp'
 dependencies {
     compile 'com.barrybecker4:bb4-sound:1.6-SNAPSHOT'
     compile 'com.barrybecker4:bb4-optimization:1.6-SNAPSHOT'
-    compile 'com.barrybecker4:bb4-A-star:1.5'
+    compile 'com.barrybecker4:bb4-A-star:1.6-SNAPSHOT'
     compile 'com.barrybecker4:bb4-sgf:1.1.1-SNAPSHOT'
 
     // jars needed for go
@@ -244,5 +244,5 @@ jarMap['galactic'] =   [include:['com/barrybecker4/game/multiplayer/galactic/**'
 jarMap['poker'] =      [include:['com/barrybecker4/game/multiplayer/poker/**']]
 jarMap['set'] =        [include:['com/barrybecker4/game/multiplayer/set/**']]
 
-apply from: 'https://raw.github.com/barrybecker4/bb4-common/master/bb4-publish.gradle'
+apply from: 'https://raw.githubusercontent.com/bb4/bb4-common/master/bb4-publish.gradle'
 apply from: 'https://raw.githubusercontent.com/bb4/bb4-common/master/bb4-deploy.gradle'
