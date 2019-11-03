@@ -1,4 +1,4 @@
-/** Copyright by Barry G. Becker, 20014. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
+/* Copyright by Barry G. Becker, 20014. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.mancala.ui;
 
 import com.barrybecker4.game.common.GameViewModel;

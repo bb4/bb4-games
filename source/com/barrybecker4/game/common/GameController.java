@@ -1,4 +1,4 @@
-/** Copyright by Barry G. Becker, 2000-2014. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
+/* Copyright by Barry G. Becker, 2000-2014. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.common;
 
 import com.barrybecker4.game.common.board.IBoard;
