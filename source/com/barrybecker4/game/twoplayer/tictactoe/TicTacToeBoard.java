@@ -18,12 +18,10 @@ public class TicTacToeBoard extends GoMokuBoard {
         setSize( 3, 3 );
     }
 
-
     @Override
     public TicTacToeBoard copy() {
         return new TicTacToeBoard(this);
     }
-
 
     private TicTacToeBoard(TicTacToeBoard pb) {
         super(pb);

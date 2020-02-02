@@ -2,7 +2,7 @@
 package com.barrybecker4.game.twoplayer.common;
 
 import com.barrybecker4.common.geometry.ByteLocation;
-import com.barrybecker4.common.math.Range;
+import com.barrybecker4.math.Range;
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.common.board.GamePiece;
 import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub;

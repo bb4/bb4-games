@@ -2,7 +2,7 @@
 package com.barrybecker4.game.common;
 
 
-import com.barrybecker4.common.math.MathUtil;
+import com.barrybecker4.math.MathUtil;
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy;
 import com.barrybecker4.optimization.parameter.NumericParameterArray;
 import com.barrybecker4.optimization.parameter.ParameterArray;
