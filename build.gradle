@@ -1,5 +1,15 @@
 // Copyright by Barry G. Becker, 2013 - 2019. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 
+buildscript {
+    repositories {
+        // retrieve the shared gradle build scripts from here
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/"}
+    }
+    dependencies {
+        classpath 'com.barrybecker4:bb4-gradle:1.6-SNAPSHOT'
+    }
+}
+
 description = 'A game playing framework and a collection of two-player and multi-player games. ' +
         'In all games, one or more intelligent computer opponents are allowed to play.'
 group = 'com.barrybecker4'
@@ -9,7 +19,7 @@ ext {
     mainClass = "com.barrybecker4.game.common.ui.GameApp"
     gameApp = 'com.barrybecker4.game.common.ui.GameApp'
 }
-apply from: 'https://raw.githubusercontent.com/bb4/bb4-common/master/bb4.gradle'
+apply from: project.buildscript.classLoader.getResource('bb4.gradle').toURI()
 
 dependencies {
     implementation 'com.barrybecker4:bb4-math:1.6-SNAPSHOT'
@@ -247,5 +257,5 @@ jarMap['galactic'] =   [include:['com/barrybecker4/game/multiplayer/galactic/**'
 jarMap['poker'] =      [include:['com/barrybecker4/game/multiplayer/poker/**']]
 jarMap['set'] =        [include:['com/barrybecker4/game/multiplayer/set/**']]
 
-apply from: 'https://raw.githubusercontent.com/bb4/bb4-common/master/bb4-publish.gradle'
-apply from: 'https://raw.githubusercontent.com/bb4/bb4-common/master/bb4-deploy.gradle'
+apply from: project.buildscript.classLoader.getResource('bb4-publish.gradle').toURI()
+apply from: project.buildscript.classLoader.getResource('bb4-deploy.gradle').toURI()
