@@ -5,10 +5,11 @@ import com.barrybecker4.common.geometry.Location;
 import com.barrybecker4.game.common.board.BoardPosition;
 import com.barrybecker4.game.twoplayer.hex.HexBoard;
 import com.barrybecker4.game.twoplayer.hex.HexBoardUtil;
-import com.barrybecker4.search.SearchSpace;
+import com.barrybecker4.search.space.AbstractSearchSpace;
 import scala.Option;
-import scala.jdk.javaapi.CollectionConverters;
 import scala.collection.immutable.Seq;
+import scala.jdk.javaapi.CollectionConverters;
+
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,29 +17,22 @@ import java.util.List;
 /**
  * @author Barry Becker
  */
-public class HexSearchSpace implements SearchSpace<HexState, HexTransition> {
+public class HexSearchSpace extends AbstractSearchSpace<HexState, HexTransition> {
 
     // the cost of adding one tile to a path.
     private static final int PATH_STEP_COST = 10;
 
-    private HexState initialState;
-    private boolean player1;
-    private int maxPlus1;
+    private final boolean player1;
+    private final int maxPlus1;
 
     /**
      * @param board the board configuration to search for shortest path on.
      * @param player1 if true, then searching for player1 winning path
      */
     HexSearchSpace(HexBoard board, boolean player1) {
-        Location start = player1 ? new IntLocation(0, 2) : new IntLocation(2, 0);
-        this.initialState = new HexState(board, start);
+        super(new HexState(board, player1 ? new IntLocation(0, 2) : new IntLocation(2, 0)));
         this.player1 = player1;
         this.maxPlus1 = board.getNumRows() + 1;
-    }
-
-    @Override
-    public HexState initialState() {
-        return initialState;
     }
 
     @Override
@@ -92,7 +86,7 @@ public class HexSearchSpace implements SearchSpace<HexState, HexTransition> {
     private boolean isValid(Location loc, boolean player1) {
         int row = loc.row();
         int col = loc.col();
-        int max = initialState.getBoard().getNumRows();
+        int max = initialState().getBoard().getNumRows();
         return player1 ?
                 (row >= 0 && row <= maxPlus1 && col > 0 && col <= max) :
                 (row > 0 && row <= max && col >= 0 && col <= maxPlus1);

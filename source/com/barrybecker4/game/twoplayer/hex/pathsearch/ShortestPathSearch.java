@@ -2,7 +2,7 @@ package com.barrybecker4.game.twoplayer.hex.pathsearch;
 
 import com.barrybecker4.game.twoplayer.hex.HexBoard;
 import com.barrybecker4.search.AStarSearch;
-import com.barrybecker4.search.HeapPriorityQueue;
+import com.barrybecker4.search.queue.HeapPriorityQueue;
 import scala.Option;
 import scala.collection.immutable.Seq;
 import scala.jdk.javaapi.CollectionConverters;
