@@ -21,9 +21,9 @@ import com.barrybecker4.game.twoplayer.common.search.tree.SearchTreeNode;
  *       if (g == lowerbound)  beta = g + 1;
  *       else beta = g;
  *       g = AlphaBetaWithMemory(root, beta - 1, beta, d);
- *       if (g < beta) upperbound = g;
+ *       if (g &lt; beta) upperbound = g;
  *       else lowerbound = g;
- *    until lowerbound >= upperbound;
+ *    until lowerbound &gt;= upperbound;
  *    return g;
  *</pre>
  *

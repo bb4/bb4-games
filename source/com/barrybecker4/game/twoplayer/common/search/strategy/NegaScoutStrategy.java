@@ -60,10 +60,10 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  *   b = beta
  *   for each child of node
  *       v = -negascout(child, -b, -alpha)
- *       if alpha < v < beta and not the first child and depth > 1
+ *       if alpha < v &lt; beta and not the first child and depth > 1
  *             v = -negascout(child, -beta, -v)  // re-search
  *       alpha = max(alpha, v)
- *       if alpha >= beta
+ *       if alpha &gt;= beta
  *           return alpha  // cut-off
  *      b = alpha + 1      // set new null window
  *   return alpha
