@@ -4,32 +4,34 @@ buildscript {
     repositories {
         // retrieve the shared gradle build scripts from here
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/"}
+        maven { url "https://oss.sonatype.org/content/repositories/releases/" }
     }
     dependencies {
-        classpath 'com.barrybecker4:bb4-gradle:1.6-SNAPSHOT'
+        classpath 'com.barrybecker4:bb4-gradle:1.6.10'
     }
 }
 
 description = 'A game playing framework and a collection of two-player and multi-player games. ' +
         'In all games, one or more intelligent computer opponents are allowed to play.'
 group = 'com.barrybecker4'
-version = '1.6-SNAPSHOT'
+version = '1.6'
 ext {
     archivesBaseName = 'bb4-game'
     mainClass = "com.barrybecker4.game.common.ui.GameApp"
     gameApp = 'com.barrybecker4.game.common.ui.GameApp'
 }
+
 apply from: project.buildscript.classLoader.getResource('bb4.gradle').toURI()
 
 dependencies {
-    implementation 'com.barrybecker4:bb4-math:1.6-SNAPSHOT'
-    implementation 'com.barrybecker4:bb4-sound:1.6-SNAPSHOT'
-    implementation 'com.barrybecker4:bb4-optimization:1.6-SNAPSHOT'
-    implementation 'com.barrybecker4:bb4-A-star:1.6-SNAPSHOT'
-    implementation 'com.barrybecker4:bb4-sgf:1.1.1-SNAPSHOT'
+    implementation 'com.barrybecker4:bb4-math:1.6'
+    implementation 'com.barrybecker4:bb4-sound:1.6'
+    implementation 'com.barrybecker4:bb4-optimization:1.6'
+    implementation 'com.barrybecker4:bb4-A-star:1.6'
+    implementation 'com.barrybecker4:bb4-sgf:1.1.3'
 
     // jars needed for go
-    compile fileTree(dir: 'lib', include: '*.jar')
+    implementation fileTree(dir: 'lib', include: '*.jar')
 }
 
 task runKgsTesujisoftGoClient(type: JavaExec) {
@@ -227,20 +229,6 @@ appMap['trivial'] = [
 ]
 
 
-appMap.each { appId, propMap ->
-
-    def mainClass = appMap['mainClass'] ?: gameApp
-    def argsList = ["-name", "${appId}"]
-
-    tasks.create(name: "run${appId.capitalize()}", type: JavaExec, description: "${propMap.description}") {
-        group = 'application'
-        main = "${mainClass}"
-        args = argsList
-        classpath = sourceSets.main.runtimeClasspath
-        jvmArgs = ["-ea"]
-    }
-}
-
 ext.jarMap = new LinkedHashMap()
 jarMap['game'] =
         [include:['com/barrybecker4/game/common/**', 'com/barrybecker4/game/card/**', 'com/barrybecker4/game/*.xml']]
@@ -256,6 +244,20 @@ jarMap['hex'] =        [include:['com/barrybecker4/game/twoplayer/hex/**']]
 jarMap['galactic'] =   [include:['com/barrybecker4/game/multiplayer/galactic/**']]
 jarMap['poker'] =      [include:['com/barrybecker4/game/multiplayer/poker/**']]
 jarMap['set'] =        [include:['com/barrybecker4/game/multiplayer/set/**']]
+
+appMap.each { appId, propMap ->
+
+    def mainClass = appMap['mainClass'] ?: gameApp
+    def argsList = ["-name", "${appId}"]
+
+    tasks.create(name: "run${appId.capitalize()}", type: JavaExec, description: "${propMap.description}") {
+        group = 'application'
+        main = "${mainClass}"
+        args = argsList
+        classpath = sourceSets.main.runtimeClasspath
+        jvmArgs = ["-ea"]
+    }
+}
 
 apply from: project.buildscript.classLoader.getResource('bb4-publish.gradle').toURI()
 apply from: project.buildscript.classLoader.getResource('bb4-deploy.gradle').toURI()
