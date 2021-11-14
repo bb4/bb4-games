@@ -1,20 +1,19 @@
-// Copyright by Barry G. Becker, 2013 - 2019. Licensed under MIT License: http://www.opensource.org/licenses/MIT
+// Copyright by Barry G. Becker, 2013 - 2021. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 
 buildscript {
     repositories {
-        // retrieve the shared gradle build scripts from here
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/"}
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
     }
     dependencies {
-        classpath 'com.barrybecker4:bb4-gradle:1.6.10'
+        classpath 'com.barrybecker4:bb4-gradle:1.7-SNAPSHOT'
     }
 }
 
 description = 'A game playing framework and a collection of two-player and multi-player games. ' +
         'In all games, one or more intelligent computer opponents are allowed to play.'
 group = 'com.barrybecker4'
-version = '1.6'
+version = '1.7-SNAPSHOT'
 ext {
     archivesBaseName = 'bb4-game'
     mainClass = "com.barrybecker4.game.common.ui.GameApp"
