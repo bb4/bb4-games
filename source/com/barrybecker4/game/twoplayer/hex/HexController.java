@@ -14,8 +14,6 @@ import java.awt.Color;
 
 /**
  * Defines everything the computer needs to know to play Hex.
- *
- * @author Barry Becker
  */
 public class HexController extends TwoPlayerController<TwoPlayerMove, HexBoard> {
 

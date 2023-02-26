@@ -9,8 +9,6 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
 
 /**
  * Calculates the worth of the hex game board from player one's standpoint
- *
- * @author Barry Becker
 */
 public class WorthCalculator  {
 

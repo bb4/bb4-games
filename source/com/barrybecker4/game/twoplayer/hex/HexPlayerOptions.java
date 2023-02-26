@@ -9,9 +9,7 @@ import com.barrybecker4.game.twoplayer.common.search.options.SearchOptions;
 
 import java.awt.*;
 
-/**
- * @author Barry Becker
- */
+
 public class HexPlayerOptions extends TwoPlayerPlayerOptions {
 
     /** initial look ahead factor. */

@@ -25,8 +25,8 @@ import scala.Option;
  *   function AlphaBetaWithMemory(n, a, b) {
  *     // Check if position is in table and has been searched to sufficient depth.
  *     if (retrieve(n)) {
- *        if (n.max <= a or n.max == n.min)  return n.max;
- *        if (n.min >= b) return n.min ;
+ *        if (n.max &lt;= a or n.max == n.min)  return n.max;
+ *        if (n.min &gt;= b) return n.min ;
  *    }
  *    // Reached the maximum search depth
  *    if (n = leaf) {
@@ -36,15 +36,15 @@ import scala.Option;
  *      g = -inf;
  *      c = firstchild(n);
  *      // Search until a cutoff occurs or all children have been considered
- *      while g < b and c != null {
+ *      while g &lt; b and c != null {
  *        g = max(g, -AlphaBetaWithMemory(c, -b, -a));
  *        a = max(a, g);
  *        c = nextbrother(c);
  *      }
  *      // Save in transposition table
- *      if g <= a then n.max = g;
- *      if a < g < b then n.max = n.min = g;
- *      if g >= b then n.min = g;
+ *      if g &lt;= a then n.max = g;
+ *      if a &lt; g &lt; b then n.max = n.min = g;
+ *      if g &gt;= b then n.min = g;
  *     }
  *    store(n);
  *    return g;

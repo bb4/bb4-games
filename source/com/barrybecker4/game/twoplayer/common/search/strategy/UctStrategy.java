@@ -58,13 +58,11 @@ public class UctStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>>
     }
 
     /**
-     * {@inheritDoc}
-     *
      *  Move UCTSearch(int numsim) {
-     *     root = new Node(-1,-1); //init uct tree
+     *     root = new Node(-1,-1); // init uct tree
      *     createChildren(root);
      *     Board clone=new Board();
-     *     for (int i=0; i<numsim; i++) {
+     *     for (int i = 0; i &lt; numsim; i++) {
      *         clone.copyStateFrom(this);
      *         clone.playSimulation(root);
      *     }
@@ -94,18 +92,18 @@ public class UctStrategy<M extends TwoPlayerMove, B extends TwoPlayerBoard<M>>
      * return 0=lose 1=win for current player to move
      * int playSimulation(Node n) {
            int randomresult=0;
-           if (n.child==null && n.visits<10) { // 10 simulations until chilren are expanded (saves memory)
+           if (n.child==null &amp;&amp; n.visits &lt; 10) { // 10 simulations until chilren are expanded (saves memory)
                randomresult = playRandomGame();
            }
            else {
                if (n.child == null)  createChildren(n);
                Node next = UCTSelect(n); // select a move
-               if (next==null) {  ERROR }
+               if (next == null) {  ERROR }
                makeMove(next.x, next.y);
                int res=playSimulation(next);
                randomresult = 1-res;
            }
-           n.update(1-randomresult); //update node (Node-wins are associated with moves in the Nodes)
+           n.update(1 - randomresult); // update node (Node-wins are associated with moves in the Nodes)
            return randomresult;
      * }
      * @return chance of player1 winning when running a simulation from this board position.

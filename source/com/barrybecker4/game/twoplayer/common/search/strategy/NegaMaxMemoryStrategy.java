@@ -102,7 +102,7 @@ public final class NegaMaxMemoryStrategy<M extends TwoPlayerMove, B extends TwoP
 
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     protected M findBestMove(M lastMove, int depth, MoveList<M> list,

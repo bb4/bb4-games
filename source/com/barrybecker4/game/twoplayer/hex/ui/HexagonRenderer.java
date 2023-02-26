@@ -2,9 +2,6 @@ package com.barrybecker4.game.twoplayer.hex.ui;
 
 import java.awt.*;
 
-/**
- * @author Barry Becker
- */
 public class HexagonRenderer {
 
     public static void fillHexagon(Graphics2D g2, Point point, double radius, Color color) {

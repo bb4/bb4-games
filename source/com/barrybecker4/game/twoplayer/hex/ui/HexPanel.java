@@ -14,8 +14,6 @@ import java.awt.*;
 
 /**
  *  This class defines the main UI for the TicTacToe game applet or application.
- *
- *  @author Barry Becker
  */
 public class HexPanel extends TwoPlayerPanel {
 

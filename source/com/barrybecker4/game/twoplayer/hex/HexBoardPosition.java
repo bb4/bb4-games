@@ -10,9 +10,7 @@ import com.barrybecker4.game.common.board.GamePiece;
 /**
  *  The BoardPosition describes the physical marker at a location on the board.
  *  It may be empty if there is no piece there.
- *
  * @see Board
- * @author Barry Becker
  */
 public class HexBoardPosition extends BoardPosition {
 

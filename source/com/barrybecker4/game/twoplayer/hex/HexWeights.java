@@ -8,8 +8,6 @@ import com.barrybecker4.game.common.GameWeights;
  * These weights determine how the computer values features of the board relative to each other.
  * If only one computer is playing, then only one of the weights arrays is used.
  * Use these weights if no others are provided.
- *
- * @author Barry Becker
  */
 public class HexWeights extends GameWeights {
 

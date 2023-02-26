@@ -8,7 +8,7 @@
     <h2>
       A Go playing application</h2>
     This package implements the game of Go using the game framework.
-    <br>
+    <br/>
     If you have comments or questions send mail to BarryBecker4@yahoo.com
     <p>Go is a game with simple rules, but can take a lifetime to
       master.
@@ -36,38 +36,38 @@
     &nbsp; If you are not familiar with the rules of go or the following
     terms,
     see
-    <br>
+    <br/>
     &nbsp; Mathematical Go by Berlekamp and Wolfe (appendix B).
-    <br>
+    <br/>
     &nbsp; Terms: liberty, atari, snapback, ko, seki, string, group,
     dame
-    <br>
+    <br/>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; eye, false eye, big
     eye, dead stone, independently alive group,
-    <br>
+    <br/>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; territory, bent 4,
     moyo, nobi, ikken tobi, nikken tobi, kogeima
     <p>&nbsp; I will try to adhere to Modern Chinese rules.
-      <br>
+      <br/>
       &nbsp; Here are the unique aspects of Chinese rules that differ
       from
       other common rulesets:
-      <br>
+      <br/>
       &nbsp;&nbsp; 1) any suicide move is considered illegal
-      <br>
+      <br/>
       &nbsp;&nbsp; 2) When you pass, your opponent gets a point.
-      (not implemented yet)<br>
+      (not implemented yet)<br/>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; For computer go, this is useful
       because
       it forces
-      <br>
+      <br/>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; decision/completion of groups to
       help
       determine life and death and a proper score.
-      <br>
+      <br/>
       &nbsp;&nbsp; 3) the game terminates when the 2 players pass
       consecutively
-      <br>
+      <br/>
       &nbsp;&nbsp; 4) score = komi (5.5) + stones on board of player +
       player
       territory (note: captures not counted)
@@ -75,26 +75,26 @@
     <p>&nbsp;The computer keeps track of hierarchies of stones. The
       pecking
       order is:
-      <br>
+      <br/>
       &nbsp;&nbsp;&nbsp; stones - individual spaces. They can be empty
       or
       occupied.
-      <br>
+      <br/>
       &nbsp;&nbsp;&nbsp; strings - tightly connected collections of
       stones
       (nobi connections only)
-      <br>
+      <br/>
       &nbsp;&nbsp;&nbsp; groups - connected collections of strings
       (nikken
       tobi, and kogeima)
-      <br>
+      <br/>
       &nbsp;&nbsp;&nbsp; armies - loosely connected collections of
       groups
-      (still to do). <br>
+      (still to do). <br/>
     </p>
     <p>Here is a somewhat out of date dependency diagram of the classes
-      and subpackages:<br>
-      <img alt="packages" src="package_classes.png"><br>
+      and subpackages:<br/>
+      <img alt="packages" src="package_classes.png"><br/>
     </p>
     <h2>Things still to do</h2>
     <p>Estimated days to implement are in ()'s after each item. I
@@ -105,9 +105,9 @@
       If the list grows no more, it will take me a year until I'm
       finished at my current rate.
       In reality, I'll probably never finish. That's ok, I'm not
-      sure I want to. I enjoy doing it.<br>
+      sure I want to. I enjoy doing it.<br/>
     </p>
-    <h3>High Priority Features<br>
+    <h3>High Priority Features<br/>
     </h3>
     <ul>
       <li>Implement accurate scoring (allow for different types of rule
@@ -117,18 +117,18 @@
         should be set and the strength of the win should be large. (1)</li>
       <li>Add test cases for every little method of every class. Use
         clover
-        to verify. (10)&nbsp; <br>
+        to verify. (10)&nbsp; <br/>
       </li>
       <li>Parallelize minimax
         (http://www.cs.vu.nl/~aske/mtdf.html#abmem)</li>
       <li>Parallelize UCT search (should be easier than concurrent
-        minimax)<br>
+        minimax)<br/>
       </li>
-      <li>Parallelize move evaluation. (low priority)<br>
+      <li>Parallelize move evaluation. (low priority)<br/>
       </li>
       <li>First 2 plys should look at global moves and do more local
         evaluation for deeper levels. (1)</li>
-      <li>Consider groups involved in capturing race (semi-eye) (1)<br>
+      <li>Consider groups involved in capturing race (semi-eye) (1)<br/>
       </li>
       <li>Recognize seki. No points for either player. (2)</li>
       <li>Only pass if player cannot improve score by playing. Do not
@@ -136,22 +136,16 @@
         liberties. Fill dames. (1)</li>
       <li>Fix multi-player. Existing open source framework? get simple
         case
-        working.&nbsp; <br>
+        working.&nbsp; <br/>
       </li>
       <li>Add resignation button.
         (1)</li>
       <li>Remember moves that were once deemed important. (2)</li>
-      <ul>
-        <li>Use runner up caching (moves that were good
-          in the past are likely to be still good). <br>
-        </li>
-        <li>Remember good moves that have
-          not yet been played. On a big board, they will probably remain
-          good
-          moves. These good moves should be at the head of a list when
-          possible
+        <li>&nbsp;&nbsp;&nbsp;Use runner-up caching (moves that were good in the past are likely to be still good). <br/></li>
+        <li>&nbsp;&nbsp;&nbsp;Remember good moves that have
+          not yet been played. On a big board, they will probably remain good
+          moves.<br/> These good moves should be at the head of a list when possible
           moves are being generated. (2)&nbsp;</li>
-      </ul>
       <li>Do automatic weight optimization so it can learn
         to play better (4)&nbsp;&nbsp;</li>
       <li>If the computer or player resigns, the playerWon vars should
@@ -159,7 +153,7 @@
         set and the strength of the win should be large.</li>
       <li>Improve performance with profiling (1) </li>
     </ul>
-    <h3>Medium Priority Features<br>
+    <h3>Medium Priority Features<br/>
     </h3>
     <ul>
       <li>We could avoid a lot of subclasses if we just specify game
@@ -204,7 +198,7 @@
       <li>Investigate VASSAL framework. Moyoman. Freya Game engine.</li>
       <li>Allow undo/redo of moves in a computer vs. computer game.</li>
       <li>Quick keys (kbd shortcuts).</li>
-      <li>Determine end of game. Allow computer to resign.&nbsp; <br>
+      <li>Determine end of game. Allow computer to resign.&nbsp; <br/>
       </li>
     </ul>
     <h3>Bugs</h3>
@@ -216,7 +210,7 @@
         times(23411) cannot be greater than the parent time (23296)</li>
       <li>&nbsp;pause/continue not working in tree dialog.</li>
       <li>Computer should pass when appropriate. (pretty much working
-        now) <br>
+        now) <br/>
       </li>
     </ul>
     <p></p>
@@ -240,7 +234,7 @@
       <li>add html documentation describing architecture
         (3)</li>
       <li>write a book about it. Targeting teens year
-        olds. (50) <br>
+        olds. (50) <br/>
       </li>
     </ul>
     <p></p>

@@ -33,8 +33,8 @@ import java.util.List;
  * The controller spawns a new thread to actually do the search for the next best move.
  * When the next best move has been found, the controller calls computerMoved on the viewer
  * (using the TwoPlayerViewerCallbackInterface that it implements) to let it know that the move has
- * been found. The instructions in the computerMoved method are called using
- *      <i>SwingUtilities.invokeLater()</>
+ * been found. The instructions in the computerMoved method are called using <br/>
+ *      SwingUtilities.invokeLater()<br/>
  * so that they get executed on the event dispatch thread as soon as the event dispatch
  * thread is not busy doing something else (like refreshing the visible board).
  * A progress bar is used to show how close the computer is to playing its next move.

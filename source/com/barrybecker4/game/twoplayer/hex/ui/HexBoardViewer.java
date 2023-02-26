@@ -14,8 +14,6 @@ import java.awt.event.MouseEvent;
 /**
  *  Takes a HexController as input and displays the
  *  current state of the TicTactToe Game.
- *
- *  @author Barry Becker
  */
 public class HexBoardViewer extends AbstractTwoPlayerBoardViewer {
 

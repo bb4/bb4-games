@@ -13,7 +13,6 @@ import com.barrybecker4.game.common.board.BoardPosition;
  * Representation of the candidate next moves on a Hex Game Board.
  * Candidate moves should be neighbors of existing moves + borders + some others.
  * Immutable after construction.
- * @author Barry Becker
  */
 public class HexCandidateMoves {
 

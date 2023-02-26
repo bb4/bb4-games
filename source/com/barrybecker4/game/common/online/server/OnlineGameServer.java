@@ -15,7 +15,7 @@ import java.util.List;
  * The abstract server for online games.
  * This can be run from within a ui or from a command line.
  * If running from the command line use:
- *       java OnlineGameServer -game <gameName>
+ *       java OnlineGameServer -game &lt;gameName&gt;
  * e.g.  java OnlineGameServer -game poker
  *
  * If running from the UI, see

@@ -13,7 +13,7 @@ import java.awt.*;
  * UI Frame to show what the GameServer is doing.
  * There is nothing game specific about the server it just accepts commands and delegates to the controller.
  * Invoke with
- *   java OnlineGameServer -game <game>
+ *   java OnlineGameServer -game &lt;game&gt;
  * for example:
  *   java OnlineGameServer -game poker
  *

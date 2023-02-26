@@ -66,7 +66,7 @@ public class UctNode<M extends TwoPlayerMove> {
 
     /**
      * Note that the winRate returned is for the player who is about to move.
-     *     if (visits > 0) return (double) wins / visits;
+     *     if (visits &gt; 0) return (double) wins / visits;
      *     else return 0;     // should not happen
      *
      * @return ratio of wins to visits. Return a tie score if never visited.
@@ -91,9 +91,9 @@ public class UctNode<M extends TwoPlayerMove> {
      *   // expand children in Node
      *   void createChildren(Node parent) {
      *   Node last=parent;
-     *   for (int i=0; i<BOARD_SIZE; i++)
-     *      for (int j=0; j<BOARD_SIZE; j++)
-     *         if (isOnBoard(i, j) && f[i][j]==0) {
+     *   for (int i = 0; i &lt; BOARD_SIZE; i++)
+     *      for (int j = 0; j &lt; BOARD_SIZE; j++)
+     *         if (isOnBoard(i, j) &amp;&amp; f[i][j]==0) {
      *             Node node=new Node(i, j);
      *             if (last==parent) last.child=node;
      *             else last.sibling=node;
@@ -121,17 +121,17 @@ public class UctNode<M extends TwoPlayerMove> {
      * public Node getBestChild(Node root) {
      *   Node child = root.child;
      *   Node best_child = null;
-     *   int  best_visits= -1;
-     *   while (child!=null) { // for all children
-     *       if (child.visits > best_visits) {
-     *           best_child=child;
-     *           best_visits=child.visits;
+     *   int  best_visits = -1;
+     *   while (child != null) { // for all children
+     *       if (child.visits &gt; best_visits) {
+     *           best_child = child;
+     *           best_visits = child.visits;
      *       }
      *       child = child.sibling;
      *   }
      *   return best_child;
      * }
-     * @return the bestNode to the child with the highest winrate   (or maybe numvisits - make option?)
+     * @return the bestNode to the child with the highest winrate (or maybe numvisits - make option?)
      */
     public M findBestChildMove(MonteCarloSearchOptions.MaximizationStyle style) {
         UctNode<M> bestNode = null;
@@ -160,7 +160,7 @@ public class UctNode<M extends TwoPlayerMove> {
      * For analysis of effect of parameters on UCT value returned.
      *
      *  UCTK = 0.44; // 0.44 = sqrt(1/5)
-     *  if (parentVisits > 0) {
+     *  if (parentVisits &gt; 0) {
      *      double winrate = this.getWinRate();
      *      double uct = UCTK * Math.sqrt( Math.log(parentVisits) / this.visits );
      *      uctvalue = winrate + uct;

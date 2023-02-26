@@ -10,8 +10,6 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
 
 /**
  * Responsible for determining a set of reasonable next moves.
- *
- * @author Barry Becker
  */
 final class HexMoveGenerator {
 

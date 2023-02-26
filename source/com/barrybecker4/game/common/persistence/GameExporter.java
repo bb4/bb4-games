@@ -55,7 +55,7 @@ public abstract class GameExporter<M extends Move, B extends IBoard<M>> {
     }
 
     /**
-     * append the board position to the buffer in the form [<c><r>]
+     * append the board position to the buffer in the form [&lt;c&gt;&lt;r&gt;]
      * Where c and r are the column and row letters whose range depends on the game.
      */
     protected void serializePosition(Location pos, StringBuilder buf) {

@@ -10,8 +10,6 @@ import com.barrybecker4.game.twoplayer.hex.pathsearch.ShortestPathSearch;
 
 /**
  * Representation of a Hex Game Board
- *
- * @author Barry Becker
  */
 public class HexBoard extends TwoPlayerBoard<TwoPlayerMove> {
 

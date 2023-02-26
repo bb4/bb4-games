@@ -3,8 +3,6 @@ package com.barrybecker4.game.twoplayer.hex.ui;
 
 /**
  * Constants and static methods for working with hexagons
- *
- * @author Barry Becker
  */
 public class HexUtil {
 

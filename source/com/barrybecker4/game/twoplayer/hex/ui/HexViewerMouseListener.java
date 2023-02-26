@@ -13,8 +13,6 @@ import java.awt.event.MouseEvent;
 
 /**
  *  Mouse handling for checkers game.
- *
- *  @author Barry Becker
  */
 class HexViewerMouseListener extends ViewerMouseListener<TwoPlayerMove, HexBoard> {
 

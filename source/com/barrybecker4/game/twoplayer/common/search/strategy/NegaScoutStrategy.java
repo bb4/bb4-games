@@ -24,11 +24,11 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  *     b = β                           // initial window is (-β, -α)
  *     foreach child of node {
  *        a = -negascout (child, depth-1, -b, -α)
- *        if (a>α) α = a
- *        if (α≥β) return α            // Beta cut-off
- *        if (α≥b) {                   // check if null-window failed high
+ *        if (a &gt; α) α = a
+ *        if (α &gt;= β) return α            // Beta cut-off
+ *        if (α &gt;= b) {                   // check if null-window failed high
  *            α = -negascout(child, depth-1, -β, -α)  // full re-search
- *            if (α≥β) return α        // Beta cut-off
+ *            if (α &gt;= β) return α        // Beta cut-off
  *        }
  *        b = α+1                      // set new null window
  *      }
@@ -40,13 +40,13 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  *    if ( w = 0 )
  *       return  Evaluate(p)                // leaf
  *    b = β;
- *    for ( i = 1; i <= w; i++ ) {
+ *    for ( i = 1; i &lt;= w; i++ ) {
  *       t = -NegaScout ( p_i, -b, -α );
- *       if (t > α) && (t < β) && (i > 1) && (d < maxdepth-1)
+ *       if (t &gt; α) &amp;&amp; (t &lt; β) &amp;&amp; (i &gt; 1) &amp;&amp; (d &lt; maxdepth-1)
  *           α = -NegaScout ( p_i, -β, -t )  // re-search
  *       α = max( α, t )
- *       if ( α >= β )
- *          return  α                   // cut-off
+ *       if ( α &gt;= β )
+ *          return α                   // cut-off
  *       b = α + 1                      // set new null window
  *    }
  *    return α
@@ -60,7 +60,7 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
  *   b = beta
  *   for each child of node
  *       v = -negascout(child, -b, -alpha)
- *       if alpha < v &lt; beta and not the first child and depth > 1
+ *       if alpha &lt; v &lt; beta and not the first child and depth &gt; 1
  *             v = -negascout(child, -beta, -v)  // re-search
  *       alpha = max(alpha, v)
  *       if alpha &gt;= beta

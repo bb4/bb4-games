@@ -1,4 +1,4 @@
-// Copyright by Barry G. Becker, 2013 - 2021. Licensed under MIT License: http://www.opensource.org/licenses/MIT
+// Copyright by Barry G. Becker, 2013 - 2023. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 
 buildscript {
     repositories {
@@ -6,14 +6,14 @@ buildscript {
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
     }
     dependencies {
-        classpath 'com.barrybecker4:bb4-gradle:1.7'
+        classpath 'com.barrybecker4:bb4-gradle:1.8-SNAPSHOT'
     }
 }
 
 description = 'A game playing framework and a collection of two-player and multi-player games. ' +
         'In all games, one or more intelligent computer opponents are allowed to play.'
 group = 'com.barrybecker4'
-version = '1.7'
+version = '1.8-SNAPSHOT'
 ext {
     archivesBaseName = 'bb4-game'
     mainClass = "com.barrybecker4.game.common.ui.GameApp"
@@ -23,12 +23,12 @@ ext {
 apply from: project.buildscript.classLoader.getResource('bb4.gradle').toURI()
 
 dependencies {
-    implementation 'com.barrybecker4:bb4-math:1.7'
-    implementation 'com.barrybecker4:bb4-common:1.7'
-    implementation 'com.barrybecker4:bb4-sound:1.7'
-    implementation 'com.barrybecker4:bb4-ui:1.7'
-    implementation 'com.barrybecker4:bb4-optimization:1.7'
-    implementation 'com.barrybecker4:bb4-A-star:1.7'
+    implementation 'com.barrybecker4:bb4-math:1.8-SNAPSHOT'
+    implementation 'com.barrybecker4:bb4-common:1.8-SNAPSHOT'
+    implementation 'com.barrybecker4:bb4-sound:1.8-SNAPSHOT'
+    implementation 'com.barrybecker4:bb4-ui:1.8-SNAPSHOT'
+    implementation 'com.barrybecker4:bb4-optimization:1.8-SNAPSHOT'
+    implementation 'com.barrybecker4:bb4-A-star:1.8-SNAPSHOT'
     implementation 'com.barrybecker4:bb4-sgf:1.1.3'
 
     // jars needed for go

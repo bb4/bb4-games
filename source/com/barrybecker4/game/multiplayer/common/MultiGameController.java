@@ -25,23 +25,23 @@ import java.util.List;
  * Abstract base class for multi player game controllers.
  *
  * Online play should work like this:
- *  <ul>
- *    <li>One of the human players creates a table with certain parameters that define
- *     the game to be played.  </li>
- *   <li>Each client and the server create an instance of the game controller.
+ * <pre>
+ *   - One of the human players creates a table with certain parameters that define
+ *     the game to be played.
+ *   - Each client and the server create an instance of the game controller.
  *     On each client there is a human player representing the player on that client,
- *     and surrogate player objects representing all the other human and robot players. </li>
- *   <li>The server will have surrogates for all the human players, and robot players for the computer players. </li>
- *   <li>When it is a given players turn, they specify their action. </li>
+ *     and surrogate player objects representing all the other human and robot players.
+ *   - The server will have surrogates for all the human players, and robot players for the computer players.
+ *   - When it is a given players turn, they specify their action.
  *     That action is sent in a message to the server. The server then broadcasts
  *     the response (in this case the players action) to all OnlineChangeListeners.
  *     Since all the surrogates for that player (one on the server and one on each client
  *     except the one representing that actual player) are OnlineChangeListeners,
  *     they will get the event and know to set the action so that it can be retrieved by
  *     that controller.
- *   <li>When a surrogate is asked for its action, it blocks until it actually received the action
- *     in that response message from the server.  </li>
- *  </ul>
+ *   - When a surrogate is asked for its action, it blocks until it actually received the action
+ *     in that response message from the server.
+ * </pre>
  * @author Barry Becker
  */
 public abstract class MultiGameController<M extends Move, B extends IBoard<M>> extends GameController<M, B> {

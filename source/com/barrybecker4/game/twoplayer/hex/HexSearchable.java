@@ -9,8 +9,6 @@ import com.barrybecker4.optimization.parameter.ParameterArray;
 
 /**
  * Defines everything the computer needs to know to play Hex.
- *
- * @author Barry Becker
 */
 public class HexSearchable extends TwoPlayerSearchable<TwoPlayerMove, HexBoard> {
 
