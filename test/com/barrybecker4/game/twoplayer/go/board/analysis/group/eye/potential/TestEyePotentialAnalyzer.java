@@ -40,14 +40,14 @@ public class TestEyePotentialAnalyzer extends GoTestCase {
 
     public void testEyePotential_SingleStoneAdjacentToEnemyBlackNearEdge() throws Exception {
 
-        restoreGame("single_stone_adjacent_to_enemy_black_near_edge");
+        restoreGame("single_stone_adj_enemy_black_edge");
         verifyBlackEyePotential(1, 0.544f);
         verifyWhiteEyePotential(1, 0.344f);
     }
 
     public void testEyePotential_SingleStoneAdjacentToEnemyWhiteNearEdge() throws Exception {
 
-        restoreGame("single_stone_adjacent_to_enemy_white_near_edge");
+        restoreGame("single_stone_adj_enemy_white_edge");
         verifyBlackEyePotential(1, 0.344f);
         verifyWhiteEyePotential(1, 0.544f);
     }
