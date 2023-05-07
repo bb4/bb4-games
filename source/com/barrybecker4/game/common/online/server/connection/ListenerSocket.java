@@ -51,7 +51,7 @@ class ListenerSocket {
         catch (IOException e) {
             exceptionOccurred("No I/O", e);
         }
-        catch (AccessControlException e) {
+        catch (SecurityException e) {
             exceptionOccurred("Failed to createListenSocket. \n"
                    + "You don't have permission to open a socket to " + host
                    + " in the current context." + e.getMessage(), e);

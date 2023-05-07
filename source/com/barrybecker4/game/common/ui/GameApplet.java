@@ -1,6 +1,7 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.common.ui;
 
+import com.barrybecker4.ui.application.MyJApplet;
 import com.barrybecker4.common.i18n.LocaleType;
 import com.barrybecker4.game.common.GameContext;
 import com.barrybecker4.game.common.plugin.PluginManager;
@@ -17,7 +18,7 @@ import java.awt.*;
  * @see GamePanel
  * @author Barry Becker
  */
-public class GameApplet extends JApplet {
+public class GameApplet extends MyJApplet {
 
     private GamePanel gamePanel = null;
 
