@@ -1,7 +1,6 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.common.search.strategy;
 
-import java.io.*;
 import com.barrybecker4.common.format.FormatUtil;
 import com.barrybecker4.common.geometry.ByteLocation;
 import com.barrybecker4.game.common.MoveList;
@@ -54,10 +53,7 @@ public class UctNodeTest {
         assertEquals("Unexpected winRate", 0.5012207f, uctNode.getWinRate(), TOL);
         assertEquals("Unexpected attrs", tempAttr, uctNode.getAttributes());
         assertEquals("Unexpected uctValue",
-                1000.50122, uctNode.calculateUctValue(1.0, 1), TOL);
-        // System.out.println("\n\noutput result to check equal: \n");
-        // System.out.println("Unexpected move " + P2_MOVE + uctNode.move);
-        
+                1000.50122, uctNode.calculateUctValue(1.0, 1), TOL);        
     }
 
     @Test
