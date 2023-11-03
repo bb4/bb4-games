@@ -93,10 +93,14 @@ public class MoveMakerTest {
         MancalaMove move = new MancalaMove(true, new ByteLocation(1, 4), (byte)2, 0);
         moveMaker.makeMove(move);
 
+        Captures tempCap = new Captures();
+        tempCap.put(new ByteLocation(1,2), (byte)1);
+        tempCap.put(new ByteLocation(2,2), (byte)3);
+
         // The captures describe where the captures stones came from
         assertEquals("Unexpected captures.",
-                "{(row=1, column=2)=1, (row=2, column=2)=3}",
-                move.getCaptures().toString());
+                tempCap,
+                move.getCaptures());
 
         // note that stones from 1, 2 and 2,2, are moved to p1's home
         verifier.checkOverallBoard(4, 0, 4, 0, 3, 3, 3, 0,
@@ -109,9 +113,14 @@ public class MoveMakerTest {
         MancalaMove move = new MancalaMove(false, new ByteLocation(2, 3), (byte)2, 0);
         moveMaker.makeMove(move);
 
+        Captures tempCap = new Captures();
+        tempCap.put(new ByteLocation(2,5), (byte)1);
+        tempCap.put(new ByteLocation(1,5), (byte)3);
+
+
         assertEquals("Unexpected captures.",
-                "{(row=1, column=5)=3, (row=2, column=5)=1}",
-                move.getCaptures().toString());
+                tempCap,
+                move.getCaptures());
 
         // note that stones from 1,2 and 2,2, are moved to p1's home
         verifier.checkOverallBoard(0, 3, 3, 3, 0, 3, 3, 4,
@@ -129,10 +138,18 @@ public class MoveMakerTest {
         MancalaMove move = new MancalaMove(true, new ByteLocation(1, 4), (byte)1, 0);
         moveMaker.makeMove(move);
 
+        Captures tempCap = new Captures();
+        tempCap.put(new ByteLocation(1,3), (byte)1);
+        tempCap.put(new ByteLocation(2,2), (byte)3);
+        tempCap.put(new ByteLocation(2,3), (byte)3);
+        tempCap.put(new ByteLocation(2,4), (byte)3);
+        tempCap.put(new ByteLocation(2,5), (byte)3);
+        tempCap.put(new ByteLocation(2,6), (byte)3);
+        tempCap.put(new ByteLocation(2,7), (byte)3);
+
         assertEquals("Unexpected captures.",
-                "{(row=1, column=3)=1, (row=2, column=2)=3, (row=2, column=3)=3, (row=2, column=4)=3, " +
-                        "(row=2, column=5)=3, (row=2, column=6)=3, (row=2, column=7)=3}",
-                move.getCaptures().toString());
+                tempCap,
+                move.getCaptures());
 
         verifier.checkOverallBoard(4, 0, 0, 0, 0, 0, 0, 15,
                 0, 0, 0, 0, 0, 0);
@@ -149,10 +166,18 @@ public class MoveMakerTest {
         MancalaMove move = new MancalaMove(false, new ByteLocation(2, 4), (byte)1, 0);
         moveMaker.makeMove(move);
 
+        Captures tempCap = new Captures();
+        tempCap.put(new ByteLocation(2,5), (byte)1);
+        tempCap.put(new ByteLocation(1,2), (byte)3);
+        tempCap.put(new ByteLocation(1,3), (byte)3);
+        tempCap.put(new ByteLocation(1,4), (byte)3);
+        tempCap.put(new ByteLocation(1,5), (byte)3);
+        tempCap.put(new ByteLocation(1,6), (byte)3);
+        tempCap.put(new ByteLocation(1,7), (byte)3);
+
         assertEquals("Unexpected captures.",
-                "{(row=1, column=2)=3, (row=1, column=3)=3, (row=1, column=4)=3, (row=1, column=5)=3, " +
-                        "(row=1, column=6)=3, (row=1, column=7)=3, (row=2, column=5)=1}",
-                move.getCaptures().toString());
+                tempCap,
+                move.getCaptures());
 
         verifier.checkOverallBoard(15, 0, 0, 0, 0, 0, 0, 4,
                 0, 0, 0, 0, 0, 0);
@@ -167,10 +192,17 @@ public class MoveMakerTest {
         MancalaMove move = new MancalaMove(true, new ByteLocation(1, 2), (byte)1, 0);
         moveMaker.makeMove(move);
 
+        Captures tempCap = new Captures();
+        tempCap.put(new ByteLocation(2,2), (byte)3);
+        tempCap.put(new ByteLocation(2,3), (byte)3);
+        tempCap.put(new ByteLocation(2,4), (byte)3);
+        tempCap.put(new ByteLocation(2,5), (byte)3);
+        tempCap.put(new ByteLocation(2,6), (byte)3);
+        tempCap.put(new ByteLocation(2,7), (byte)3);
+
         assertEquals("Unexpected captures.",
-                "{(row=2, column=2)=3, (row=2, column=3)=3, (row=2, column=4)=3, (row=2, column=5)=3, " +
-                        "(row=2, column=6)=3, (row=2, column=7)=3}",
-                move.getCaptures().toString());
+                tempCap,
+                move.getCaptures());
 
         verifier.checkOverallBoard(1, 0, 0, 0, 0, 0, 0, 18,
                 0, 0, 0, 0, 0, 0);
@@ -185,10 +217,17 @@ public class MoveMakerTest {
         MancalaMove move = new MancalaMove(false, new ByteLocation(2, 7), (byte)1, 0);
         moveMaker.makeMove(move);
 
+        Captures tempCap = new Captures();
+        tempCap.put(new ByteLocation(1,2), (byte)3);
+        tempCap.put(new ByteLocation(1,3), (byte)3);
+        tempCap.put(new ByteLocation(1,4), (byte)3);
+        tempCap.put(new ByteLocation(1,5), (byte)3);
+        tempCap.put(new ByteLocation(1,6), (byte)3);
+        tempCap.put(new ByteLocation(1,7), (byte)3);
+
         assertEquals("Unexpected captures.",
-                "{(row=1, column=2)=3, (row=1, column=3)=3, (row=1, column=4)=3, (row=1, column=5)=3, " +
-                        "(row=1, column=6)=3, (row=1, column=7)=3}",
-                move.getCaptures().toString());
+                tempCap,
+                move.getCaptures());
         verifier.checkOverallBoard(18, 0, 0, 0, 0, 0, 0, 1,
                 0, 0, 0, 0, 0, 0);
     }
@@ -286,11 +325,16 @@ public class MoveMakerTest {
         move5.setFollowUpMove(move6);
         moveMaker.makeMove(move1);
 
+        Captures tempCap = new Captures();
+        tempCap.put(new ByteLocation(1,3), (byte)1);
+        tempCap.put(new ByteLocation(2,3), (byte)3);
+
+
         assertEquals("Unexpected captures.", "{}",  move1.getCaptures().toString());
 
         assertEquals("Unexpected captures.",
-                "{(row=1, column=3)=1, (row=2, column=3)=3}",
-                move6.getCaptures().toString());
+               tempCap,
+                move6.getCaptures());
 
         verifier.checkOverallBoard(9, 4, 0, 0, 0, 5, 6, 0,
                                       3, 0, 3, 3, 3, 3);
