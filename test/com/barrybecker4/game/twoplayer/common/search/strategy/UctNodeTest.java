@@ -6,6 +6,8 @@ import com.barrybecker4.common.geometry.ByteLocation;
 import com.barrybecker4.game.common.MoveList;
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub;
+import com.barrybecker4.game.twoplayer.common.search.tree.NodeAttributes;
+
 import junit.framework.TestCase;
 import org.junit.Test;
 
@@ -38,6 +40,10 @@ public class UctNodeTest {
     public void testConstructionOfNodeWithNoChildren() {
 
         uctNode = new UctNode<>(P2_MOVE);
+        NodeAttributes tempAttr = new NodeAttributes();
+        tempAttr.put("visits", "0");
+        tempAttr.put("wins", "0.0");
+        tempAttr.put("winRate", "0.50122");
 
         assertEquals("Unexpected move", P2_MOVE, uctNode.move);
         assertEquals("Unexpected bestNode", null, uctNode.findBestChildMove(WIN_RATE));
@@ -45,9 +51,9 @@ public class UctNodeTest {
         assertEquals("Unexpected numVisits", 0, uctNode.getNumVisits());
         // The winrate is 0.5 (tie) + 10/WINNING = 0.50122
         assertEquals("Unexpected winRate", 0.5012207f, uctNode.getWinRate(), TOL);
-        assertEquals("Unexpected attrs", "{wins=0.0, visits=0, winRate=0.50122}", uctNode.getAttributes().toString());
+        assertEquals("Unexpected attrs", tempAttr, uctNode.getAttributes());
         assertEquals("Unexpected uctValue",
-                1000.50122, uctNode.calculateUctValue(1.0, 1), TOL);
+                1000.50122, uctNode.calculateUctValue(1.0, 1), TOL);        
     }
 
     @Test
