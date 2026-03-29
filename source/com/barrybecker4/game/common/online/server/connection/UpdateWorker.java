@@ -29,19 +29,24 @@ class UpdateWorker implements Runnable {
     @Override
     public void run() {
 
-        while (isConnected) {
+        try {
+            while (isConnected) {
+                try {
+                    processNextCommand();
+                } catch (SocketException e) {
+                    exceptionOccurred("Read failed (probably because player closed client).", e);
+                } catch (IOException e) {
+                    exceptionOccurred("Read failed.", e);
+                } catch (ClassNotFoundException e) {
+                    exceptionOccurred("Class not found.", e);
+                }
+            }
+        } finally {
             try {
-                processNextCommand();
+                inputStream.close();
+            } catch (IOException ignored) {
             }
-            catch (SocketException e) {
-                exceptionOccurred("Read failed (probably because player closed client).", e);
-            }
-            catch (IOException e) {
-                exceptionOccurred("Read failed.", e);
-            }
-            catch (ClassNotFoundException e) {
-                exceptionOccurred("Class not found.", e);
-            }
+            changeListeners.clear();
         }
         GameContext.log(0, "UpdateWorker terminated.");
     }
@@ -74,18 +79,6 @@ class UpdateWorker implements Runnable {
 
     private void exceptionOccurred(String msg, Throwable e) {
          GameContext.log(0, msg);
-         //e.printStackTrace();
          isConnected = false;
-    }
-
-    @Override
-    protected void finalize() {
-        try {
-            inputStream.close();
-            changeListeners.clear();
-            super.finalize();
-        } catch (Throwable t) {
-            t.printStackTrace();
-        }
     }
 }

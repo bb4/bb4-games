@@ -69,24 +69,19 @@ public class TwoPlayerGameImporter<M extends TwoPlayerMove, B
 
         TwoPlayerController gc = (TwoPlayerController) controller_;
 
-        Enumeration e = game.getInfoTokens();
+        Enumeration<?> e = game.getInfoTokens();
         int numRows = 15; // default unless specified
         int numCols = 12; // default unless specified
         while (e.hasMoreElements()) {
             InfoToken token = (InfoToken) e.nextElement();
-            if (token instanceof Size2Token) {
-                Size2Token sizeToken = (Size2Token)token;
+            if (token instanceof Size2Token sizeToken) {
                 GameContext.log(2, "info token columns =" +
-                        sizeToken.getNumColumns() +" rows=" + sizeToken.getNumRows());
+                        sizeToken.getNumColumns() + " rows=" + sizeToken.getNumRows());
                 numRows = sizeToken.getNumRows();
                 numCols = sizeToken.getNumColumns();
-            }
-            else if (token instanceof Player2NameToken) {
-                Player2NameToken nameToken = (Player2NameToken) token;
+            } else if (token instanceof Player2NameToken nameToken) {
                 gc.getPlayers().getPlayer2().setName(nameToken.getName());
-            }
-            else if (token instanceof Player1NameToken) {
-                Player1NameToken nameToken = (Player1NameToken) token;
+            } else if (token instanceof Player1NameToken nameToken) {
                 gc.getPlayers().getPlayer1().setName(nameToken.getName());
             }
         }
@@ -104,9 +99,8 @@ public class TwoPlayerGameImporter<M extends TwoPlayerMove, B
             moveList.add( createMoveFromToken( token ) );
             found = true;
         }
-        else if (token instanceof TextToken ) {
-            TextToken textToken = (TextToken) token;
-            GameContext.log(1, "text="+textToken.getText());
+        else if (token instanceof TextToken textToken) {
+            GameContext.log(1, "text=" + textToken.getText());
         } else {
             GameContext.log(1, "\nignoring token "+token.getClass().getName());
         }

@@ -17,6 +17,7 @@ import com.barrybecker4.game.multiplayer.common.MultiGameController;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Handles the processing of all commands send to the online game server from human players.
@@ -40,6 +41,14 @@ class ServerCommandProcessor {
 
         createController(gameName);
         tableManager = new GameTableManager();
+    }
+
+    /**
+     * Package-private for tests: supply controller and table manager directly.
+     */
+    ServerCommandProcessor(GameController<?, ?> controller, GameTableManager tableManager) {
+        this.controller = Objects.requireNonNull(controller);
+        this.tableManager = Objects.requireNonNull(tableManager);
     }
 
     public OnlineGameTableList getTables() {
@@ -76,48 +85,7 @@ class ServerCommandProcessor {
     public List<GameCommand> processCommand(GameCommand cmd) {
 
         List<GameCommand> responses = new LinkedList<>();
-        boolean useUpdateTable = true;
-
-        switch (cmd.getName()) {
-            case ENTER_ROOM :
-                GameContext.log(2, "Entering room.");
-                break;
-            case LEAVE_ROOM :
-                GameContext.log(0, "Player "+cmd.getArgument()+" is now leaving the room.");
-                tableManager.removePlayer((String) cmd.getArgument());
-                break;
-            case ADD_TABLE :
-                tableManager.addTable((OnlineGameTable) cmd.getArgument());
-                break;
-            case JOIN_TABLE :
-                tableManager.joinTable((OnlineGameTable) cmd.getArgument());
-                break;
-            case CHANGE_NAME :
-                String[] names = ((String)cmd.getArgument()).split(GameCommand.CHANGE_TO);
-                if (names.length > 1) {
-                    tableManager.changeName(names[0], names[1]);
-                }
-                break;
-            case UPDATE_TABLES :
-                break;
-            case CHAT_MESSAGE :
-                GameContext.log(2, "chat message=" + cmd.getArgument());
-                useUpdateTable = false;
-                responses.add(cmd);
-                break;
-            case START_GAME:
-                OnlineGameTable tableToStart = (OnlineGameTable) cmd.getArgument();
-                startGame(tableToStart);
-                useUpdateTable = false;
-                tableManager.removeTable(tableToStart);
-                break;
-            case DO_ACTION :
-                doPlayerAction(cmd, responses);
-                useUpdateTable = false;
-                break;
-            default:
-                assert false : "Unhandled command: "+ cmd;
-        }
+        boolean useUpdateTable = applyCommand(cmd, responses);
 
         if (useUpdateTable) {
             GameCommand response = new GameCommand(GameCommand.Name.UPDATE_TABLES, getTables());
@@ -125,6 +93,71 @@ class ServerCommandProcessor {
         }
 
         return responses;
+    }
+
+    private boolean applyCommand(GameCommand cmd, List<GameCommand> responses) {
+        return switch (cmd.getName()) {
+            case ENTER_ROOM -> {
+                handleEnterRoom();
+                yield true;
+            }
+            case LEAVE_ROOM -> {
+                handleLeaveRoom(cmd);
+                yield true;
+            }
+            case ADD_TABLE -> {
+                tableManager.addTable((OnlineGameTable) cmd.getArgument());
+                yield true;
+            }
+            case JOIN_TABLE -> {
+                tableManager.joinTable((OnlineGameTable) cmd.getArgument());
+                yield true;
+            }
+            case CHANGE_NAME -> {
+                handleChangeName(cmd);
+                yield true;
+            }
+            case UPDATE_TABLES -> true;
+            case CHAT_MESSAGE -> {
+                handleChatMessage(cmd, responses);
+                yield false;
+            }
+            case START_GAME -> {
+                handleStartGame(cmd);
+                yield false;
+            }
+            case DO_ACTION -> {
+                doPlayerAction(cmd, responses);
+                yield false;
+            }
+        };
+    }
+
+    private void handleEnterRoom() {
+        GameContext.log(2, "Entering room.");
+    }
+
+    private void handleLeaveRoom(GameCommand cmd) {
+        GameContext.log(0, "Player " + cmd.getArgument() + " is now leaving the room.");
+        tableManager.removePlayer((String) cmd.getArgument());
+    }
+
+    private void handleChangeName(GameCommand cmd) {
+        String[] names = ((String) cmd.getArgument()).split(GameCommand.CHANGE_TO);
+        if (names.length > 1) {
+            tableManager.changeName(names[0], names[1]);
+        }
+    }
+
+    private void handleChatMessage(GameCommand cmd, List<GameCommand> responses) {
+        GameContext.log(2, "chat message=" + cmd.getArgument());
+        responses.add(cmd);
+    }
+
+    private void handleStartGame(GameCommand cmd) {
+        OnlineGameTable tableToStart = (OnlineGameTable) cmd.getArgument();
+        startGame(tableToStart);
+        tableManager.removeTable(tableToStart);
     }
 
     /**
@@ -144,13 +177,14 @@ class ServerCommandProcessor {
 
         responses.add(cmd);
 
-        // get all robot player actions until the next human player
-        List<PlayerAction> robotActions = ((MultiGameController) controller).getRecentRobotActions();
-
-        for (PlayerAction act : robotActions) {
-            GameCommand robotCmd = new GameCommand(GameCommand.Name.DO_ACTION, act);
-            GameContext.log(0, "adding response command for robot action on server :" + robotCmd);
-            responses.add(robotCmd);
+        if (controller instanceof MultiGameController<?, ?> multi) {
+            for (PlayerAction act : multi.getRecentRobotActions()) {
+                GameCommand robotCmd = new GameCommand(GameCommand.Name.DO_ACTION, act);
+                GameContext.log(0, "adding response command for robot action on server :" + robotCmd);
+                responses.add(robotCmd);
+            }
+        } else {
+            GameContext.log(1, "DO_ACTION received but controller is not MultiGameController; skipping robot actions");
         }
     }
 

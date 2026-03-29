@@ -117,27 +117,6 @@ public class OnlineGameServer  {
     }
 
     /**
-     * Objects created in run method are finalized when
-     * program terminates and thread exits.
-     * Also shuts down all client workers so they do not keep waiting for commands to process.
-     */
-    @Override
-    protected void finalize() {
-        try {
-            shutDown();
-            super.finalize();
-        }
-        catch (IOException e) {
-            GameContext.log(0, "Could not close socket");
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
-        catch (Throwable t) {
-            t.printStackTrace();
-        }
-    }
-
-    /**
      * @param options command line options to verify
      * @return true if valid.
      */
@@ -152,18 +131,6 @@ public class OnlineGameServer  {
         }
         return true;
     }
-
-     /*
-      * Implements OnlineGameServerInterface which is also implemented by GtpTesujiSoftGoServer.
-      * not currently used, but I'm trying to have a consistent game server interface.
-      *
-     public boolean handleCommand(String cmdLine, StringBuilder response) {
-         String[] cmdArray = StringUtils.tokenize(cmdLine);
-         String cmdStr = cmdArray[0];
-         boolean status = true;
-         GameCommand cmd = new GameCommand(GameCommand.Name.valueOf(cmdStr), cmdStr);
-         return processCmd(cmd);
-    } */
 
     /**
      * create and show the server.

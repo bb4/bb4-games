@@ -44,38 +44,21 @@ public class GoGameImporter extends TwoPlayerGameImporter {
         TwoPlayerController gc = (TwoPlayerController) controller_;
         PlayerList players = gc.getPlayers();
 
-        Enumeration e = game.getInfoTokens();
+        Enumeration<?> e = game.getInfoTokens();
         int size = 13; // default unless specified
         while (e.hasMoreElements()) {
             InfoToken token = (InfoToken) e.nextElement();
-            if (token instanceof SizeToken) {
-                SizeToken sizeToken = (SizeToken)token;
+            if (token instanceof SizeToken sizeToken) {
                 size = sizeToken.getSize();
-            }
-            else if (token instanceof KomiToken) {
-                KomiToken komiToken = (KomiToken) token;
-                ((GoOptions)gc.getOptions()).setKomi(komiToken.getKomi());
-            }
-            // so we don't guess wrong on where the handicap positions are
-            // we will rely on their being an AB (add black) command to specifically tell where the handicap stones are
-            /*else if (token instanceof HandicapToken) {
-                HandicapToken handicapToken = (HandicapToken) token;
-                GameContext.log(2,"***handicap ="+handicapToken.getHandicap());
-                this.setHandicap(handicapToken.getHandicap());
-            }*/
-            else if (token instanceof WhiteNameToken) {
-                WhiteNameToken nameToken = (WhiteNameToken) token;
+            } else if (token instanceof KomiToken komiToken) {
+                ((GoOptions) gc.getOptions()).setKomi(komiToken.getKomi());
+            } else if (token instanceof WhiteNameToken nameToken) {
                 players.getPlayer2().setName(nameToken.getName());
-            }
-            else if (token instanceof BlackNameToken) {
-                BlackNameToken nameToken = (BlackNameToken) token;
+            } else if (token instanceof BlackNameToken nameToken) {
                 players.getPlayer1().setName(nameToken.getName());
-            }
-            else if (token instanceof RuleSetToken) {
-                //RuleSetToken ruleToken = (RuleSetToken) token;
-                //this.setRuleSet(ruleToken.getKomi());
-            }
-            else {
+            } else if (token instanceof RuleSetToken) {
+                // reserved for future rule-set handling
+            } else {
                 GameContext.log(1, "Ignoring  token =" + token.getClass().getName() + " while parsing.");
             }
         }
@@ -87,29 +70,17 @@ public class GoGameImporter extends TwoPlayerGameImporter {
     protected boolean processToken(SGFToken token, MoveList moveList) {
 
         boolean found = false;
-        if (token instanceof MoveToken ) {
-            moveList.add( createMoveFromToken( token ) );
+        if (token instanceof MoveToken) {
+            moveList.add(createMoveFromToken(token));
             found = true;
-        }
-        else if (token instanceof AddBlackToken ) {
-            addMoves((PlacementListToken)token, moveList);
+        } else if (token instanceof AddBlackToken) {
+            addMoves((PlacementListToken) token, moveList);
             found = true;
-        }
-        else if (token instanceof AddWhiteToken ) {
-            addMoves((PlacementListToken)token, moveList);
+        } else if (token instanceof AddWhiteToken) {
+            addMoves((PlacementListToken) token, moveList);
             found = true;
-        }
-        /*
-        else if (token instanceof CharsetToken ) {
-            CharsetToken charsetToken = (CharsetToken) token;
-        }
-        else if (token instanceof OverTimeToken ) {
-            OverTimeToken charsetToken = (OverTimeToken) token;
-            System.out.println("charset="+charsetToken.getCharset());
-        }
-         */
-        else if (token instanceof TextToken ) {
-            TextToken textToken = (TextToken) token;
+        } else if (token instanceof TextToken) {
+            // game comments / annotations — no move to replay
         } else {
             GameContext.log(0, "Ignoring token "+token.getClass().getName() + " while processing.");
         }

@@ -10,4 +10,11 @@ import com.barrybecker4.optimization.parameter.ParameterArrayWithFitness;
 public interface OptimizationDoneHandler {
 
     void done(ParameterArrayWithFitness parameters);
+
+    /**
+     * Called when optimization fails or the worker cannot deliver a result.
+     * Default: no-op; override to show an error in the UI.
+     */
+    default void onFailure(Throwable error) {
+    }
 }

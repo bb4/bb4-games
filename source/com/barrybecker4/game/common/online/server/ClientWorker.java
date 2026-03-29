@@ -45,31 +45,41 @@ class ClientWorker implements Runnable {
         try {
             iStream = new ObjectInputStream(clientConnection_.getInputStream());
             oStream_ = new ObjectOutputStream(clientConnection_.getOutputStream());
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             GameContext.log(0, "in or out stream creation failed.");
             e.printStackTrace();
             throw new RuntimeException(e);
         }
 
         try {
-            // initial update to the game tables for someone entering the room.
             GameCommand cmd = new GameCommand(GameCommand.Name.UPDATE_TABLES, cmdProcessor.getTables());
             update(cmd);
 
             while (!stopped) {
-                // receive the serialized commands that are sent and process them.
                 cmd = (GameCommand) iStream.readObject();
                 processCommand(cmd);
                 ThreadUtil.sleep(100);
             }
-        }
-        catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             GameContext.log(0, "Read failed.");
             e.printStackTrace();
+        } finally {
+            try {
+                if (oStream_ != null) {
+                    oStream_.close();
+                }
+            } catch (IOException ignored) {
+            }
+            try {
+                iStream.close();
+            } catch (IOException ignored) {
+            }
+            try {
+                clientConnection_.close();
+            } catch (IOException ignored) {
+            }
         }
 
         GameContext.log(1, "Connection closed removing thread");
@@ -109,16 +119,6 @@ class ClientWorker implements Runnable {
         oStream_.writeObject(response);
         oStream_.flush();
 
-    }
-
-    @Override
-    protected void finalize() {
-        try {
-           super.finalize();
-           oStream_.close();
-        } catch (Throwable t) {
-            t.printStackTrace();
-        }
     }
 }
 

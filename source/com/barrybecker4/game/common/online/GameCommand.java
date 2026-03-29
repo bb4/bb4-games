@@ -2,6 +2,7 @@
 package com.barrybecker4.game.common.online;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * These game commands are passed over the wire between client and server
@@ -40,14 +41,13 @@ public class GameCommand implements Serializable {
     private Object argument_;
 
     /**
-     *
      * @param name of the command
-     * @param arg serializable argument. null if none.
+     * @param arg serializable argument; must not be null (use empty string if no payload)
      */
     public GameCommand(Name name, Serializable arg) {
+        Objects.requireNonNull(name, "name");
         name_ = name;
-        argument_ = arg;
-        assert(argument_ != null): "The argument must be serializable";
+        argument_ = Objects.requireNonNull(arg, "argument must not be null");
     }
 
     public Name getName() {

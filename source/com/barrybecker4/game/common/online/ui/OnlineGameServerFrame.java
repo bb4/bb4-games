@@ -8,6 +8,8 @@ import com.barrybecker4.ui.components.ScrollingTextArea;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * UI Frame to show what the GameServer is doing.
@@ -31,6 +33,13 @@ public class OnlineGameServerFrame  extends JFrame {
     private OnlineGameServerFrame(String gameName) {
         initUI(gameName);
         server = new OnlineGameServer(gameName, textArea);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                server.shutDown();
+            }
+        });
     }
 
     /**
@@ -53,16 +62,6 @@ public class OnlineGameServerFrame  extends JFrame {
 
         pack();
         setVisible(true);
-    }
-
-    /**
-     * Objects created in run method are finalized when
-     * program terminates and thread exits.
-     */
-    @Override
-    protected void finalize() throws Throwable {
-        server.shutDown();
-        super.finalize();
     }
 
     /**

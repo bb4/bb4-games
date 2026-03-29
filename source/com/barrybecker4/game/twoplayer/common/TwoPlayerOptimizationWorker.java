@@ -10,6 +10,8 @@ import com.barrybecker4.optimization.strategy.OptimizationStrategyType;
 
 import javax.swing.SwingWorker;
 
+import com.barrybecker4.game.common.GameContext;
+
 import static com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy.WINNING_VALUE;
 
 /**
@@ -19,6 +21,10 @@ import static com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrat
  * @author Barry Becker
  */
 public class TwoPlayerOptimizationWorker extends SwingWorker<ParameterArrayWithFitness, Integer> {
+
+    /** Scala enum case name; use {@link OptimizationStrategyType#valueOf(String)} for Java/IDE-friendly lookup. */
+    private static final OptimizationStrategyType DEFAULT_STRATEGY =
+            OptimizationStrategyType.valueOf("HILL_CLIMBING");
 
     private Optimizer optimizer;
     private ParameterArray initialWeights;
@@ -41,16 +47,19 @@ public class TwoPlayerOptimizationWorker extends SwingWorker<ParameterArrayWithF
     @Override
     protected ParameterArrayWithFitness doInBackground() {
         return optimizer.doOptimization(
-                OptimizationStrategyType.valueOf("HILL_CLIMBING"),
+                DEFAULT_STRATEGY,
                 initialWeights,
                 WINNING_VALUE,
                 MathUtil.RANDOM());
     }
 
     @Override
-     protected void done() {
-         try {
-              handler.done(get());
-         } catch (Exception ignore) {}
-     }
+    protected void done() {
+        try {
+            handler.done(get());
+        } catch (Exception e) {
+            GameContext.log(0, "Optimization failed: " + e);
+            handler.onFailure(e);
+        }
+    }
 }

@@ -295,31 +295,35 @@ public abstract class AbstractTwoPlayerBoardViewer<M extends TwoPlayerMove, B ex
      * @param move the current move (it must not be null)
      * @return false if the game is at an end, otherwise return true
      */
-     public final boolean continuePlay( M move ) {
-         boolean done;
-         TwoPlayerController controller = get2PlayerController();
-         if (controller.getPlayers().allPlayersComputer()) {
-             refresh();
-             done = doComputerMove(!move.isPlayer1());
-         }
-         else {
-             if ( controller.isPlayer1sTurn() ) {
-                 assert !controller.isProcessing();
-                 done = manMoves( move );
-                 if (!controller.isPlayer1sTurn() && !controller.getPlayers().getPlayer2().isHuman() && !done )  {
-                     done = doComputerMove( false );
-                 }
-             }
-             else { // player 2s turn
-                 done = manMoves( move );
-                 if (controller.isPlayer1sTurn() && !controller.getPlayers().getPlayer1().isHuman() && !done )  {
-                     done = doComputerMove( true );
-                 }
-             }
-             //refresh();    // causes rendering in intermediate state (while computer thinking)
-         }
-         return !done;
-     }
+    public final boolean continuePlay(M move) {
+        TwoPlayerController<M, B> controller = get2PlayerController();
+        boolean done = controller.getPlayers().allPlayersComputer()
+                ? continueAllComputerPlayers(move, controller)
+                : continueWithHumans(move, controller);
+        return !done;
+    }
+
+    private boolean continueAllComputerPlayers(M move, TwoPlayerController<M, B> controller) {
+        refresh();
+        return doComputerMove(!move.isPlayer1());
+    }
+
+    private boolean continueWithHumans(M move, TwoPlayerController<M, B> controller) {
+        boolean done;
+        if (controller.isPlayer1sTurn()) {
+            assert !controller.isProcessing();
+            done = manMoves(move);
+            if (!controller.isPlayer1sTurn() && !controller.getPlayers().getPlayer2().isHuman() && !done) {
+                done = doComputerMove(false);
+            }
+        } else {
+            done = manMoves(move);
+            if (controller.isPlayer1sTurn() && !controller.getPlayers().getPlayer1().isHuman() && !done) {
+                done = doComputerMove(true);
+            }
+        }
+        return done;
+    }
 
 
     /**

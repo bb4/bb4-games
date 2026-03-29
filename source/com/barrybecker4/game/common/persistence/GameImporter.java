@@ -63,13 +63,12 @@ public abstract class GameImporter<M extends Move, B extends IBoard<M>> {
      * @param game to parse
      */
     protected void parseSGFGameInfo( SGFGame game) {
-        Enumeration e = game.getInfoTokens();
+        Enumeration<?> e = game.getInfoTokens();
         int size = 13; // default unless specified
         while (e.hasMoreElements()) {
             InfoToken token = (InfoToken) e.nextElement();
-            if (token instanceof SizeToken) {
-                SizeToken sizeToken = (SizeToken)token;
-                GameContext.log(2, "info token size ="+sizeToken.getSize());
+            if (token instanceof SizeToken sizeToken) {
+                GameContext.log(2, "info token size =" + sizeToken.getSize());
                 size = sizeToken.getSize();
             }
         }
@@ -92,9 +91,9 @@ public abstract class GameImporter<M extends Move, B extends IBoard<M>> {
      * variation.
      */
     private void extractMoveList( SGFTree tree, MoveList<M> moveList ) {
-        Enumeration trees = tree.getTrees();
-        Enumeration leaves = tree.getLeaves();
-        Enumeration tokens;
+        Enumeration<?> trees = tree.getTrees();
+        Enumeration<?> leaves = tree.getLeaves();
+        Enumeration<?> tokens;
         while ( leaves != null && leaves.hasMoreElements() ) {
             SGFToken token;
             tokens = ((SGFLeaf) leaves.nextElement()).getTokens();
@@ -124,10 +123,10 @@ public abstract class GameImporter<M extends Move, B extends IBoard<M>> {
     protected boolean processToken(SGFToken token, MoveList<M> moveList) {
 
         boolean found = false;
-        if (token instanceof PlacementToken ) {
-            M move = createMoveFromToken( token );
-            GameContext.log(2, "creating move="+ move);
-            moveList.add( move );
+        if (token instanceof PlacementToken) {
+            M move = createMoveFromToken(token);
+            GameContext.log(2, "creating move=" + move);
+            moveList.add(move);
             found = true;
         } else {
             GameContext.log(0, "ignoring token "+token.getClass().getName());
