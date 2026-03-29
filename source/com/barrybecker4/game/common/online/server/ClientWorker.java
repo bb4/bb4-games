@@ -18,11 +18,11 @@ import java.util.List;
  */
 class ClientWorker implements Runnable {
 
-    private Socket clientConnection_;
-    private Appendable text;
+    private final Socket clientConnection_;
+    private final  Appendable text;
     private volatile ObjectOutputStream oStream_;
     private volatile ServerCommandProcessor cmdProcessor;
-    private List<ClientWorker> clientConnections;
+    private final List<ClientWorker> clientConnections;
     private volatile boolean stopped = false;
 
     /** Constructor */

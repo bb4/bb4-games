@@ -24,7 +24,7 @@ import java.awt.event.WindowEvent;
 public class OnlineGameServerFrame  extends JFrame {
 
     private ScrollingTextArea textArea;
-    private OnlineGameServer server;
+    private final OnlineGameServer server;
 
 
     /**

@@ -17,10 +17,8 @@ import java.util.List;
  * If running from the command line use:
  *       java OnlineGameServer -game &lt;gameName&gt;
  * e.g.  java OnlineGameServer -game poker
- *
  * If running from the UI, see
  *   OnlineGameServerFrame
- *
  * Manages the tables for the game room.
  * Has a GameController for each table.
  * Consider using executor framework to manage threads.
@@ -31,12 +29,12 @@ public class OnlineGameServer  {
 
     public static final String GAME_OPTION = "game";  // NON-NLS
 
-    private Appendable text;
+    private final Appendable text;
     private ServerSocket server;
     private volatile boolean stopped = false;
 
     /** keep a list of the threads that we have for each client connection.  */
-    private List<ClientWorker> clientConnections;
+    private final List<ClientWorker> clientConnections;
 
     /**
      * Create the online game server to serve all online clients.

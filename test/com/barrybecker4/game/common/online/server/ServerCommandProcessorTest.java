@@ -27,7 +27,7 @@ public class ServerCommandProcessorTest extends TestCase {
                 new GameCommand(GameCommand.Name.ENTER_ROOM, ""));
 
         assertEquals(1, out.size());
-        assertEquals(GameCommand.Name.UPDATE_TABLES, out.get(0).getName());
+        assertEquals(GameCommand.Name.UPDATE_TABLES, out.getFirst().getName());
     }
 
     public void testChatMessageDoesNotPrependUpdateTables() {
@@ -39,7 +39,7 @@ public class ServerCommandProcessorTest extends TestCase {
         List<GameCommand> out = proc.processCommand(chat);
 
         assertEquals(1, out.size());
-        assertSame(chat, out.get(0));
+        assertSame(chat, out.getFirst());
     }
 
     public void testAddTableReturnsTablesUpdate() {
@@ -54,7 +54,7 @@ public class ServerCommandProcessorTest extends TestCase {
         List<GameCommand> out = proc.processCommand(new GameCommand(GameCommand.Name.ADD_TABLE, table));
 
         assertEquals(1, out.size());
-        assertEquals(GameCommand.Name.UPDATE_TABLES, out.get(0).getName());
+        assertEquals(GameCommand.Name.UPDATE_TABLES, out.getFirst().getName());
         assertEquals(1, tables.getTables().size());
     }
 }

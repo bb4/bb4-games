@@ -26,9 +26,9 @@ public class TwoPlayerOptimizationWorker extends SwingWorker<ParameterArrayWithF
     private static final OptimizationStrategyType DEFAULT_STRATEGY =
             OptimizationStrategyType.valueOf("HILL_CLIMBING");
 
-    private Optimizer optimizer;
-    private ParameterArray initialWeights;
-    private OptimizationDoneHandler handler;
+    private final Optimizer optimizer;
+    private final ParameterArray initialWeights;
+    private final OptimizationDoneHandler handler;
 
     /**
      * Constructor

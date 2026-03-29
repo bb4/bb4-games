@@ -29,7 +29,7 @@ import java.util.Objects;
 class ServerCommandProcessor {
 
     /** Maintains the active list of game tables. */
-    private GameTableManager tableManager;
+    private final GameTableManager tableManager;
 
     /** Maintain the master game state on the server. */
     private GameController controller;

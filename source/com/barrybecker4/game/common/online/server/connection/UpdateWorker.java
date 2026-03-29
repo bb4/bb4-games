@@ -17,8 +17,8 @@ import java.util.List;
  */
 class UpdateWorker implements Runnable {
 
-    private ObjectInputStream inputStream;
-    private List<OnlineChangeListener> changeListeners;
+    private final ObjectInputStream inputStream;
+    private final List<OnlineChangeListener> changeListeners;
     private volatile boolean isConnected = true;
 
     UpdateWorker(ObjectInputStream input, List<OnlineChangeListener> changeListeners) {
@@ -78,7 +78,7 @@ class UpdateWorker implements Runnable {
     }
 
     private void exceptionOccurred(String msg, Throwable e) {
-         GameContext.log(0, msg);
+         GameContext.log(0, msg + e.getMessage());
          isConnected = false;
     }
 }

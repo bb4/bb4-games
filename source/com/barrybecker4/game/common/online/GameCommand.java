@@ -35,10 +35,10 @@ public class GameCommand implements Serializable {
 
 
     // name of the command
-    private Name name_;
+    private final Name name_;
 
     // corresponding argument. Null if none.
-    private Object argument_;
+    private final Object argument_;
 
     /**
      * @param name of the command

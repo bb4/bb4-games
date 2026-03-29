@@ -74,13 +74,11 @@ public class HashUniquenessTest extends TestCase {
     }
 
     /**
-     * We will play every possible tic tac toe move and verify that the Zobrist hashes
+     * We will play every possible tic-tac-toe move and verify that the Zobrist hashes
      * generated for unique board positions are unique. In theory, it is possible that there are collisions,
      * but i n practice it should be exceedingly rare.
-     *
      * This test needs more examination.
      * It should pass, but it runs out of heapspace.
-     *
     public void testNoCacheStatisticsEverything() {
 
         rowMax = 3;
