@@ -6,3 +6,6 @@ classes/
 build/
 bin/
 *.iml
+.vscode/settings.json
+.bloop/
+.metals/

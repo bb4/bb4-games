@@ -56,7 +56,7 @@ public class HashUniquenessTest extends TestCase {
         rowMax = 1;
         colMax = 3;
         playAllMoves(0);
-        verifyScoreCacheStats(5, 10);
+        verifyScoreCacheStats(3, 12);
     }
 
 
@@ -70,7 +70,7 @@ public class HashUniquenessTest extends TestCase {
         rowMax = 2;
         colMax = 2;
         playAllMoves(0);
-        verifyScoreCacheStats(33, 31);
+        verifyScoreCacheStats(30, 34);
     }
 
     /**

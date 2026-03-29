@@ -6,6 +6,7 @@ import com.barrybecker4.game.twoplayer.common.ui.OptimizationDoneHandler;
 import com.barrybecker4.optimization.Optimizer;
 import com.barrybecker4.optimization.parameter.ParameterArray;
 import com.barrybecker4.optimization.parameter.ParameterArrayWithFitness;
+import com.barrybecker4.optimization.strategy.OptimizationStrategyType;
 
 import javax.swing.SwingWorker;
 
@@ -40,7 +41,7 @@ public class TwoPlayerOptimizationWorker extends SwingWorker<ParameterArrayWithF
     @Override
     protected ParameterArrayWithFitness doInBackground() {
         return optimizer.doOptimization(
-                com.barrybecker4.optimization.strategy.HILL_CLIMBING$.MODULE$,
+                OptimizationStrategyType.valueOf("HILL_CLIMBING"),
                 initialWeights,
                 WINNING_VALUE,
                 MathUtil.RANDOM());

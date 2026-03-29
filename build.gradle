@@ -1,56 +1,88 @@
-// Copyright by Barry G. Becker, 2013 - 2023. Licensed under MIT License: http://www.opensource.org/licenses/MIT
+// Copyright by Barry G. Becker, 2013 - 2026. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 
-buildscript {
-    repositories {
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots/"}
-        maven { url "https://oss.sonatype.org/content/repositories/releases/" }
-    }
-    dependencies {
-        classpath 'com.barrybecker4:bb4-gradle:1.8-SNAPSHOT'
-    }
+plugins {
+    id 'com.barrybecker4.bb4.scala-library' version '2.0-SNAPSHOT' apply false
+    id 'com.barrybecker4.bb4.publish' version '2.0-SNAPSHOT' apply false
+    id 'com.barrybecker4.bb4.application' version '2.0-SNAPSHOT' apply false
 }
 
 description = 'A game playing framework and a collection of two-player and multi-player games. ' +
         'In all games, one or more intelligent computer opponents are allowed to play.'
 group = 'com.barrybecker4'
-version = '1.8-SNAPSHOT'
-ext {
-    archivesBaseName = 'bb4-game'
-    mainClass = "com.barrybecker4.game.common.ui.GameApp"
-    gameApp = 'com.barrybecker4.game.common.ui.GameApp'
+version = '2.0-SNAPSHOT'
+
+// jarMap must be set before bb4.publish is applied (read at configuration time)
+ext.jarMap = new LinkedHashMap()
+jarMap['game'] =
+        [include:['com/barrybecker4/game/common/**', 'com/barrybecker4/game/card/**', 'com/barrybecker4/game/*.xml']]
+jarMap['twoplayer'] =  [include:['com/barrybecker4/game/twoplayer/common/**']]
+jarMap['multiplayer'] =[include:['com/barrybecker4/game/multiplayer/common/**']]
+jarMap['blockade'] =   [include:['com/barrybecker4/game/twoplayer/blockade/**']]
+jarMap['chess'] =      [include:['com/barrybecker4/game/twoplayer/chess/**', 'com/barrybecker4/game/twoplayer/checkers/**']]
+jarMap['go'] =         [include:['com/barrybecker4/game/twoplayer/go/**']]
+jarMap['gomoku'] =     [include:['com/barrybecker4/game/twoplayer/gomoku/**']]
+jarMap['tictactoe'] =  [include:['com/barrybecker4/game/twoplayer/tictactoe/**']]
+jarMap['mancala'] =    [include:['com/barrybecker4/game/twoplayer/mancala/**']]
+jarMap['hex'] =        [include:['com/barrybecker4/game/twoplayer/hex/**']]
+jarMap['galactic'] =   [include:['com/barrybecker4/game/multiplayer/galactic/**']]
+jarMap['poker'] =      [include:['com/barrybecker4/game/multiplayer/poker/**']]
+jarMap['set'] =        [include:['com/barrybecker4/game/multiplayer/set/**']]
+
+apply plugin: 'com.barrybecker4.bb4.scala-library'
+
+bb4 {
+    archivesBaseName.set('bb4-game')
+    mainClass.set('com.barrybecker4.game.common.ui.GameApp')
 }
 
-apply from: project.buildscript.classLoader.getResource('bb4.gradle').toURI()
-
 dependencies {
-    implementation 'com.barrybecker4:bb4-math:1.8-SNAPSHOT'
-    implementation 'com.barrybecker4:bb4-common:1.8-SNAPSHOT'
-    implementation 'com.barrybecker4:bb4-sound:1.8-SNAPSHOT'
-    implementation 'com.barrybecker4:bb4-ui:1.8-SNAPSHOT'
-    implementation 'com.barrybecker4:bb4-optimization:1.8-SNAPSHOT'
-    implementation 'com.barrybecker4:bb4-A-star:1.8-SNAPSHOT'
+    implementation 'com.barrybecker4:bb4-math:2.0-SNAPSHOT'
+    implementation 'com.barrybecker4:bb4-common:2.0-SNAPSHOT'
+    implementation 'com.barrybecker4:bb4-sound:2.0-SNAPSHOT'
+    implementation 'com.barrybecker4:bb4-ui:2.0-SNAPSHOT'
+    implementation 'com.barrybecker4:bb4-optimization:2.0-SNAPSHOT'
+    implementation 'com.barrybecker4:bb4-A-star:2.0-SNAPSHOT'
     implementation 'com.barrybecker4:bb4-sgf:1.1.3'
 
     // jars needed for go
     implementation fileTree(dir: 'lib', include: '*.jar')
+
+    testImplementation 'junit:junit:4.13.2'
+    testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.11.4'
 }
+
+tasks.withType(Test).configureEach { test ->
+    test.useJUnitPlatform {
+        includeEngines 'junit-vintage', 'junit-jupiter', 'scalatest'
+    }
+}
+
+apply plugin: 'com.barrybecker4.bb4.publish'
+apply plugin: 'com.barrybecker4.bb4.application'
+
+// Gradle 8+: startScripts reads build/libs from jarMap tasks; declare ordering explicitly
+tasks.named('startScripts').configure {
+    dependsOn tasks.named('gameJar')
+}
+
+ext.gameApp = 'com.barrybecker4.game.common.ui.GameApp'
 
 task runKgsTesujisoftGoClient(type: JavaExec) {
     group = 'application'
-    main = 'com.barrybecker4.game.twoplayer.go.GtpKgsTesujisoftGoClient'
+    mainClass = 'com.barrybecker4.game.twoplayer.go.GtpKgsTesujisoftGoClient'
     classpath = sourceSets.main.runtimeClasspath
 }
 
 /*
 task runGoGui(type: JavaExec) {
-    main = 'gogui.Main'
+    mainClass = 'gogui.Main'
     args = ["arg1", "-program", "arg2", "${java_compiler} -ea -classpath ${classesDir};${libDir}/gogui7.1.jar com.barrybecker4.game.twoplayer.go.server.GtpTesujisoftGoServer"]
     classpath = sourceSets.main.runtimeClasspath
 }     */
 
 /*
 task runTrivialServer(type: JavaExec) {
-    main = 'com.barrybecker4.game.common.online.ui.OnlineGameServerFrame'
+    mainClass = 'com.barrybecker4.game.common.online.ui.OnlineGameServerFrame'
     args = ["-game", "trivial"]
     classpath = sourceSets.main.runtimeClasspath
 }
@@ -64,7 +96,7 @@ task runTrivialServerAndClients(type: JavaExec) {
 
 task runPokerServer(type: JavaExec) {
     group = 'application'
-    main = 'com.barrybecker4.game.common.online.ui.OnlineGameServerFrame'
+    mainClass = 'com.barrybecker4.game.common.online.ui.OnlineGameServerFrame'
     args = ["-game", "poker", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
@@ -72,7 +104,7 @@ task runPokerServer(type: JavaExec) {
 
 task runGameComparisons(type: JavaExec) {
     group = 'application'
-    main = "com.barrybecker4.game.twoplayer.comparison.GameComparisonApp"
+    mainClass = "com.barrybecker4.game.twoplayer.comparison.GameComparisonApp"
     args = ["-name", "gomoku", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
@@ -230,35 +262,16 @@ appMap['trivial'] = [
 ]
 
 
-ext.jarMap = new LinkedHashMap()
-jarMap['game'] =
-        [include:['com/barrybecker4/game/common/**', 'com/barrybecker4/game/card/**', 'com/barrybecker4/game/*.xml']]
-jarMap['twoplayer'] =  [include:['com/barrybecker4/game/twoplayer/common/**']]
-jarMap['multiplayer'] =[include:['com/barrybecker4/game/multiplayer/common/**']]
-jarMap['blockade'] =   [include:['com/barrybecker4/game/twoplayer/blockade/**']]
-jarMap['chess'] =      [include:['com/barrybecker4/game/twoplayer/chess/**', 'com/barrybecker4/game/twoplayer/checkers/**']]
-jarMap['go'] =         [include:['com/barrybecker4/game/twoplayer/go/**']]
-jarMap['gomoku'] =     [include:['com/barrybecker4/game/twoplayer/gomoku/**']]
-jarMap['tictactoe'] =  [include:['com/barrybecker4/game/twoplayer/tictactoe/**']]
-jarMap['mancala'] =    [include:['com/barrybecker4/game/twoplayer/mancala/**']]
-jarMap['hex'] =        [include:['com/barrybecker4/game/twoplayer/hex/**']]
-jarMap['galactic'] =   [include:['com/barrybecker4/game/multiplayer/galactic/**']]
-jarMap['poker'] =      [include:['com/barrybecker4/game/multiplayer/poker/**']]
-jarMap['set'] =        [include:['com/barrybecker4/game/multiplayer/set/**']]
-
 appMap.each { appId, propMap ->
 
-    def mainClass = appMap['mainClass'] ?: gameApp
+    def entryMainClass = appMap['mainClass'] ?: gameApp
     def argsList = ["-name", "${appId}"]
 
     tasks.create(name: "run${appId.capitalize()}", type: JavaExec, description: "${propMap.description}") {
         group = 'application'
-        main = "${mainClass}"
+        mainClass = "${entryMainClass}"
         args = argsList
         classpath = sourceSets.main.runtimeClasspath
         jvmArgs = ["-ea"]
     }
 }
-
-apply from: project.buildscript.classLoader.getResource('bb4-publish.gradle').toURI()
-apply from: project.buildscript.classLoader.getResource('bb4-deploy.gradle').toURI()
