@@ -43,8 +43,9 @@ public class SearchTestCase {
 
     SearchTestCase(Node testCaseNode) {
         className = DomUtil.getAttribute(testCaseNode, "strategy");
-        notes = DomUtil.getAttribute(testCaseNode, "notes");
-        rootPlayer1 = Boolean.parseBoolean(DomUtil.getAttribute(testCaseNode, "rootPlayer1"));
+        // Defaults match search-test-case.dtd (external DTD defaults are no longer applied by DomUtil).
+        notes = DomUtil.getAttribute(testCaseNode, "notes", null);
+        rootPlayer1 = Boolean.parseBoolean(DomUtil.getAttribute(testCaseNode, "rootPlayer1", "true"));
         bruteSearchOptions = new BruteSearchOptions();
         monteCarloSearchOptions = new MonteCarloSearchOptions();
 
@@ -117,16 +118,17 @@ public class SearchTestCase {
         String name = child.getNodeName();
         switch (name) {
             case "brute-force-options":
-                bruteSearchOptions.setLookAhead(Integer.parseInt(DomUtil.getAttribute(child, "look-ahead")));
-                bruteSearchOptions.setAlphaBeta(Boolean.parseBoolean(DomUtil.getAttribute(child, "alpha-beta")));
-                bruteSearchOptions.setQuiescence(Boolean.parseBoolean(DomUtil.getAttribute(child, "quiescence")));
-                bruteSearchOptions.setMaxQuiescentDepth(Integer.parseInt(DomUtil.getAttribute(child, "max-quiescent-depth")));
+                // Defaults match search-test-case.dtd attribute defaults.
+                bruteSearchOptions.setLookAhead(Integer.parseInt(DomUtil.getAttribute(child, "look-ahead", "3")));
+                bruteSearchOptions.setAlphaBeta(Boolean.parseBoolean(DomUtil.getAttribute(child, "alpha-beta", "false")));
+                bruteSearchOptions.setQuiescence(Boolean.parseBoolean(DomUtil.getAttribute(child, "quiescence", "false")));
+                bruteSearchOptions.setMaxQuiescentDepth(Integer.parseInt(DomUtil.getAttribute(child, "max-quiescent-depth", "3")));
                 break;
             case "monte-carlo-options":
-                monteCarloSearchOptions.setMaxSimulations(Integer.parseInt(DomUtil.getAttribute(child, "max-simulations")));
-                monteCarloSearchOptions.setExploreExploitRatio(Float.parseFloat(DomUtil.getAttribute(child, "explore-exploit-ratio")));
-                monteCarloSearchOptions.setRandomLookAhead(Integer.parseInt(DomUtil.getAttribute(child, "random-look-ahead")));
-                monteCarloSearchOptions.setMaxStyle(MaximizationStyle.valueOf(DomUtil.getAttribute(child, "max-style")));
+                monteCarloSearchOptions.setMaxSimulations(Integer.parseInt(DomUtil.getAttribute(child, "max-simulations", "100")));
+                monteCarloSearchOptions.setExploreExploitRatio(Float.parseFloat(DomUtil.getAttribute(child, "explore-exploit-ratio", "1.0")));
+                monteCarloSearchOptions.setRandomLookAhead(Integer.parseInt(DomUtil.getAttribute(child, "random-look-ahead", "3")));
+                monteCarloSearchOptions.setMaxStyle(MaximizationStyle.valueOf(DomUtil.getAttribute(child, "max-style", "WIN_RATE")));
                 break;
             case "expected-search-result":
                 String moveId = DomUtil.getAttribute(child, "move-id");

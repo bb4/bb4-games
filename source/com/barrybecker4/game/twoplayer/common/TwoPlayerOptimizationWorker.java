@@ -7,6 +7,7 @@ import com.barrybecker4.optimization.Optimizer;
 import com.barrybecker4.optimization.parameter.ParameterArray;
 import com.barrybecker4.optimization.parameter.ParameterArrayWithFitness;
 import com.barrybecker4.optimization.strategy.OptimizationStrategyType;
+import scala.Option;
 
 import javax.swing.SwingWorker;
 
@@ -50,7 +51,9 @@ public class TwoPlayerOptimizationWorker extends SwingWorker<ParameterArrayWithF
                 DEFAULT_STRATEGY,
                 initialWeights,
                 WINNING_VALUE,
-                MathUtil.RANDOM());
+                MathUtil.RANDOM(),
+                Option.empty(),
+                false);
     }
 
     @Override
