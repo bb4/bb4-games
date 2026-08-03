@@ -9,7 +9,7 @@ plugins {
 description = 'A game playing framework and a collection of two-player and multi-player games. ' +
         'In all games, one or more intelligent computer opponents are allowed to play.'
 group = 'com.barrybecker4'
-version = '2.0.0'
+version = '2.1-SNAPSHOT'
 
 // jarMap must be set before bb4.publish is applied (read at configuration time)
 ext.jarMap = new LinkedHashMap()
