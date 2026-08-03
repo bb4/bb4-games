@@ -242,7 +242,7 @@ public class BoardAnalyzerTest extends BlockadeTestCase {
             }),
         });
 
-        verifyOpponentShortestPaths("whitebox/endgame", false, expPaths);
+        verifyOpponentShortestPaths("whitebox/endGame", false, expPaths);
     }
 
 

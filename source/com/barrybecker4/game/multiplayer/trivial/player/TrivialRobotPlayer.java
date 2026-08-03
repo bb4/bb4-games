@@ -19,7 +19,7 @@ public class TrivialRobotPlayer extends TrivialPlayer {
 
     public TrivialRobotPlayer(String name, Color color ) {
         super(name,  color, false);
-        GameContext.log(0, "created a robot with name=" + name);
+        GameContext.log(1, "created a robot with name=" + name);
     }
 
     /**

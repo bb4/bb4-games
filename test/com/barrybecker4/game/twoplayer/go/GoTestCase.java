@@ -28,8 +28,8 @@ public abstract class GoTestCase extends TestCase {
 
     private static final String SGF_EXTENSION = ".sgf";
 
-    /** usually 0, but 1 or 2 may be useful when debugging. */
-    private static final int DEBUG_LEVEL = 0;
+    /** -1 silences all GameContext.log output; use 0+ when debugging. */
+    private static final int DEBUG_LEVEL = -1;
 
     protected GoController controller;
 
@@ -40,8 +40,8 @@ public abstract class GoTestCase extends TestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        GameContext.loadResources("go");
         GameContext.setDebugMode(DEBUG_LEVEL);
+        GameContext.loadResources("go");
 
         controller = new GoController(getBoardSize(), 0);
 
@@ -84,11 +84,14 @@ public abstract class GoTestCase extends TestCase {
 
     protected void restore(String problemFile) throws Exception {
         String path = EXTERNAL_TEST_CASE_DIR + problemFile + SGF_EXTENSION;
-        controller.restoreFromStream(getClass().getResourceAsStream(path));
+        java.io.InputStream stream = getClass().getResourceAsStream(path);
+        if (stream == null) {
+            throw new IllegalArgumentException("Test resource not found (check path case): " + path);
+        }
+        controller.restoreFromStream(stream);
     }
 
     protected GoMove getNextMove(String problemFile, boolean blackPlays) throws Exception {
-        System.out.println("finding next move for " + problemFile + " ...");
         long time = System.currentTimeMillis();
         restore(problemFile);
         controller.requestComputerMove( blackPlays, true );
@@ -96,7 +99,7 @@ public abstract class GoTestCase extends TestCase {
         GoMove m = (GoMove) controller.getLastMove();
 
         double elapsedTime = (System.currentTimeMillis() - time) / 1000.0;
-        System.out.println("got " + m + " in " + FormatUtil.formatNumber(elapsedTime) + " seconds.");
+        GameContext.log(1, "got " + m + " in " + FormatUtil.formatNumber(elapsedTime) + " seconds.");
         return m;
     }
 

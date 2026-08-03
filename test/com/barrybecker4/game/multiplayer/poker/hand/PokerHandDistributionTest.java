@@ -38,7 +38,6 @@ public class PokerHandDistributionTest extends TestCase {
             }
         }
 
-        System.out.println("distribution = " + distribution);
         assertTrue(true);
     }
 

@@ -136,7 +136,7 @@ public class TestEyePotentialAnalyzer extends GoTestCase {
     }
 
     public void testEyePotential_CShape() throws Exception {
-        restoreGame("isolated_C_space");
+        restoreGame("isolated_c_space");
         verifyBlackEyePotential(7, 0.842f);
         verifyWhiteEyePotential(7, 0.843f);
     }

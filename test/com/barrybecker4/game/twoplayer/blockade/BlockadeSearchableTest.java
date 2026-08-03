@@ -42,7 +42,7 @@ public class BlockadeSearchableTest extends TwoPlayerSearchableBaseTst {
 
     @Override
     protected int getDebugLevel() {
-        return 0;
+        return -1;
     }
 
     @Override

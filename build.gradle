@@ -55,6 +55,15 @@ tasks.withType(Test).configureEach { test ->
     test.useJUnitPlatform {
         includeEngines 'junit-vintage', 'junit-jupiter', 'scalatest'
     }
+    // Keep CI logs readable: show failures with full stack traces, hide passing-test I/O
+    test.testLogging {
+        events 'failed'
+        exceptionFormat 'full'
+        showExceptions true
+        showCauses true
+        showStackTraces true
+        showStandardStreams false
+    }
 }
 
 apply plugin: 'com.barrybecker4.bb4.publish'

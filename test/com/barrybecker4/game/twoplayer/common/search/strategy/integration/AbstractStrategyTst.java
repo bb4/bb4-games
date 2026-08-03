@@ -145,7 +145,6 @@ public abstract class AbstractStrategyTst extends TestCase {
     public void verifyMoves(String desc, ExpectedMoveMatrix expectedMoves) throws Exception {
         searchOptions.setSearchStrategyMethod(getSearchStrategyToTest());
 
-        System.out.println(desc + " " + getSearchStrategyToTest());
         long time = System.currentTimeMillis();
         for (Progress prog : Progress.values()) {
             verifyMove(prog, true, expectedMoves, desc);
@@ -170,8 +169,8 @@ public abstract class AbstractStrategyTst extends TestCase {
         long numMoves = strategy.getNumMovesConsidered();
 
         String info = getSearchStrategyToTest() + " " + desc + " "  + prog + " player1=" + player1;
-        System.out.print(info);
-        System.out.println("    new MoveInfo(" + nextMove.getConstructorString() + " " + numMoves + "),"  );
+        // Uncomment when regenerating expected MoveInfo values:
+        // System.out.println(info + "    new MoveInfo(" + nextMove.getConstructorString() + " " + numMoves + "),");
 
         if (expectedNext.hasMovesConsidered()) {
             assertEquals("Unexpected number of moves considered.",

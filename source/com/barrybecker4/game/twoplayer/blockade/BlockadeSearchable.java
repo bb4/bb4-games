@@ -119,7 +119,7 @@ public class BlockadeSearchable extends TwoPlayerSearchable<BlockadeMove, Blocka
     public boolean done(BlockadeMove move, boolean recordWin ) {
 
         if (getNumMoves() > 0 && move == null) {
-            GameContext.log(0, "Game is over because there are no more moves.");
+            GameContext.log(1, "Game is over because there are no more moves.");
             return true;
         }
 

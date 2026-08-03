@@ -38,12 +38,12 @@ public class PluginManager {
     private PluginManager() {
 
         URL url = FileUtil.getURL(PLUGINS_FILE);
-        GameContext.log(0,
+        GameContext.log(1,
             "about to parse url=" + url +"\n plugin file location=" + PLUGINS_FILE);
         Document xmlDocument = DomUtil.parseXML(url);
 
         initializePlugins(xmlDocument);
-        GameContext.log(0,
+        GameContext.log(1,
             "plugin file parsed");
     }
 

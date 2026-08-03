@@ -34,8 +34,9 @@ public abstract class BlockadeTestCase {
     @Before
     public void setUp() throws Exception {
 
+        // -1 silences GameContext.log (including level 0) during tests
+        GameContext.setDebugMode(-1);
         GameContext.loadResources("blockade"); // NON-NLS
-        GameContext.setDebugMode(0);
 
         controller_ = new BlockadeController();
 
@@ -50,8 +51,12 @@ public abstract class BlockadeTestCase {
     }
 
     protected void restore(String problemFile) throws Exception {
-        controller_.restoreFromStream(
-                getClass().getResourceAsStream(EXTERNAL_TEST_CASE_DIR + problemFile + SGF_EXTENSION));
+        String path = EXTERNAL_TEST_CASE_DIR + problemFile + SGF_EXTENSION;
+        java.io.InputStream stream = getClass().getResourceAsStream(path);
+        if (stream == null) {
+            throw new IllegalArgumentException("Test resource not found (check path case): " + path);
+        }
+        controller_.restoreFromStream(stream);
     }
 
     /**

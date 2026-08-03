@@ -34,7 +34,7 @@ public class TicTacToeSearchableTest extends TwoPlayerSearchableBaseTst {
 
     @Override
     protected int getDebugLevel() {
-        return 0;
+        return -1;
     }
 
     /** at the very start only the center move is a candidate move */
@@ -136,7 +136,6 @@ public class TicTacToeSearchableTest extends TwoPlayerSearchableBaseTst {
 
         restore("urgentMoves");
         // there should not be any urgent moves at the very start of the game.
-        System.out.println("lastMove="+getController().getLastMove() );   // 1,1
         MoveList moves =
             searchable.generateUrgentMoves((TwoPlayerMove)getController().getLastMove(), weights());
 
@@ -149,7 +148,6 @@ public class TicTacToeSearchableTest extends TwoPlayerSearchableBaseTst {
 
         restore("urgentMoves");
         // there should not be any urgent moves at the very start of the game.
-        System.out.println("lastMove=" + getController().getLastMove() );   // 1,1
         MoveList moves =
             searchable.generateUrgentMoves((TwoPlayerMove)getController().getLastMove(), weights());
 

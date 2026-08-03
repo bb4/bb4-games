@@ -72,7 +72,7 @@ public final class GameContext {
     }
 
     /**
-     * @param debugMode the debug level. 0 means all logging.
+     * @param debugMode the debug level. Higher values print more. Use -1 to silence all logging.
      */
     public static void setDebugMode( int debugMode ) {
         debug = debugMode;
@@ -138,11 +138,11 @@ public final class GameContext {
      * @param gameName the current game
      */
     public static void loadResources(String gameName) {
-        log(0, "loadGameResources gameName=" + gameName);             // NON-NLS
+        log(1, "loadGameResources gameName=" + gameName);             // NON-NLS
         GamePlugin plugin = PluginManager.getInstance().getPlugin(gameName);
         assert plugin!=null : "Could not find plugin for " + gameName;
-        log(0, "plugin = " + plugin);     // NON-NLS
-        log(0, "gameName=" + gameName + " plugin=" + plugin);  // NON-NLS
+        log(1, "plugin = " + plugin);     // NON-NLS
+        log(1, "gameName=" + gameName + " plugin=" + plugin);  // NON-NLS
         String resourcePath = plugin.getMsgBundleBase();
         log(2, "searching for "+ resourcePath);          // NON-NLS
 
@@ -150,7 +150,7 @@ public final class GameContext {
         messageContext.setDebugMode(debug);
         messageContext.addResourcePath(resourcePath);
         messageContext.addResourcePath("com.barrybecker4.ui.message");   // NON-NLS
-        log(0, "done loading resources");
+        log(1, "done loading resources");
     }
 
     /**

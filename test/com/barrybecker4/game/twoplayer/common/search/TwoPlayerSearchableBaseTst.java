@@ -32,7 +32,8 @@ import static org.junit.Assert.assertTrue;
 @SuppressWarnings({"ClassWithTooManyMethods", "UnusedDeclaration"})
 public abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst {
 
-    private static final int DEFAULT_DEBUG_LEVEL = 1;
+    /** -1 silences all GameContext.log output; use 0+ when debugging. */
+    private static final int DEFAULT_DEBUG_LEVEL = -1;
     private static final int DEFAULT_LOOKAHEAD = 2;
     private static final int DEFAULT_BEST_PERCENTAGE = 100;
 
@@ -45,11 +46,11 @@ public abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst {
      */
     @Before
     public void setUp() throws Exception {
+        GameContext.setDebugMode(getDebugLevel());
         super.setUp();
         searchable = getController().getSearchable();
 
         setPlayerSearchOptions();
-        GameContext.setDebugMode(getDebugLevel());
     }
 
     private void setPlayerSearchOptions() {

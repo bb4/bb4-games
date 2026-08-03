@@ -117,12 +117,12 @@ public abstract class TwoPlayerSearchable<M extends TwoPlayerMove, B extends Two
             return false;
         }
         if (players.anyPlayerWon()) {
-            GameContext.log(0, "Game over because one of the players has won."); // NON_NLS
+            GameContext.log(1, "Game over because one of the players has won."); // NON_NLS
             return true;
         }
         if (moveList.getNumMoves() > 0 && move == null) {
             Player currentPlayer = getCurrentPlayer();
-            GameContext.log(0, "Game is over because there are no more moves for player " + currentPlayer); // NON_NLS
+            GameContext.log(1, "Game is over because there are no more moves for player " + currentPlayer); // NON_NLS
             if (recordWin) {
                 currentPlayer.setWon(true);
             }
