@@ -77,7 +77,7 @@ class SearchOptionsPanel(private val searchOptions: SearchOptions[?, ?]) extends
     p.setLayout(BoxLayout(p, BoxLayout.Y_AXIS))
 
     val buttonGroup = ButtonGroup()
-    val strategies = SearchStrategyType.values()
+    val strategies = SearchStrategyType.values
     val numStrategies = strategies.length
     strategyButtons = new Array[JRadioButton](numStrategies)
 
@@ -104,7 +104,7 @@ class SearchOptionsPanel(private val searchOptions: SearchOptions[?, ?]) extends
     monteCarloOptionsPanel.setVisible(!bruteForceStrategy)
 
   private def getSelectedStrategy(defaultStrategy: SearchStrategyType): SearchStrategyType =
-    val strategies = SearchStrategyType.values()
+    val strategies = SearchStrategyType.values
     val numStrategies = strategies.length
     for i <- 0 until numStrategies do
       if strategyButtons(i).isSelected then

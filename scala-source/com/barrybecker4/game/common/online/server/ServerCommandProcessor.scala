@@ -168,8 +168,8 @@ object ServerCommandProcessor {
   def apply(gameName: String): ServerCommandProcessor =
     new ServerCommandProcessor(createController(gameName), new GameTableManager())
 
-  /** Package-private for tests: supply controller and table manager directly. */
-  private[server] def apply(controller: GameController[?, ?], tableManager: GameTableManager): ServerCommandProcessor =
+  /** For tests: supply controller and table manager directly. */
+  def apply(controller: GameController[?, ?], tableManager: GameTableManager): ServerCommandProcessor =
     new ServerCommandProcessor(
       Objects.requireNonNull(controller),
       Objects.requireNonNull(tableManager))

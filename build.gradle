@@ -49,12 +49,12 @@ bb4 {
 }
 
 dependencies {
-    implementation 'com.barrybecker4:bb4-math:2.0.0'
-    implementation 'com.barrybecker4:bb4-common:2.0.0'
-    implementation 'com.barrybecker4:bb4-sound:2.0.0'
-    implementation 'com.barrybecker4:bb4-ui:2.0.0'
-    implementation 'com.barrybecker4:bb4-optimization:2.0.0'
-    implementation 'com.barrybecker4:bb4-A-star:2.0.0'
+    implementation 'com.barrybecker4:bb4-math:2.1-SNAPSHOT'
+    implementation 'com.barrybecker4:bb4-common:2.1-SNAPSHOT'
+    implementation 'com.barrybecker4:bb4-sound:2.1-SNAPSHOT'
+    implementation 'com.barrybecker4:bb4-ui:2.1-SNAPSHOT'
+    implementation 'com.barrybecker4:bb4-optimization:2.1-SNAPSHOT'
+    implementation 'com.barrybecker4:bb4-A-star:2.1-SNAPSHOT'
     implementation 'com.barrybecker4:bb4-sgf:1.1.3'
 
     // jars needed for go
