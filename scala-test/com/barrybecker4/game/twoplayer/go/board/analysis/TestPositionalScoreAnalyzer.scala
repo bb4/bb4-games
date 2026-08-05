@@ -26,7 +26,7 @@ class TestPositionalScoreAnalyzer extends GoTestCase {
     private val TOLERANCE: Double = 0.001
 
     @Before
-override def setUp(): Unit = {
+    override def setUp(): Unit = {
         super.setUp()
         goWeights = new GoWeights()
         var params: ParameterArray = goWeights.getPlayer1Weights

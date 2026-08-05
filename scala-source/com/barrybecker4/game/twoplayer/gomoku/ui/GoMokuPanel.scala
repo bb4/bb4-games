@@ -22,7 +22,7 @@ class GoMokuPanel extends TwoPlayerPanel {
     GameContext.getLabel("GO_MOKU_TITLE")
   }
 
-  override def createBoardViewer(): GameBoardViewer[_, _] = {
+  override def createBoardViewer(): GameBoardViewer[?, ?] = {
     new GoMokuBoardViewer()
   }
 
@@ -30,7 +30,7 @@ class GoMokuPanel extends TwoPlayerPanel {
     new GoMokuNewGameDialog(parent, viewer)
   }
 
-  override def createInfoPanel(controller: GameController[_, _]): GameInfoPanel = {
+  override def createInfoPanel(controller: GameController[?, ?]): GameInfoPanel = {
     new TwoPlayerInfoPanel(controller)
   }
 

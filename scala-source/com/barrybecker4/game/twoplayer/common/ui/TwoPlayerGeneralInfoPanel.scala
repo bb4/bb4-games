@@ -40,14 +40,14 @@ class TwoPlayerGeneralInfoPanel(player: Player) extends GeneralInfoPanel:
   add(Box.createGlue())
 
   override def setPlayerLabel(player: Player): Unit =
-    playerLabel.setText(' ' + player.getName + ' ')
+    playerLabel.setText(s" ${player.getName} ")
     playerLabel.setBorder(getPlayerLabelBorder(player.getColor))
     repaint()
 
   override def update(controller: GameController[?, ?]): Unit =
     if controller.getLastMove != null then
       setPlayerLabel(controller.getCurrentPlayer)
-      moveNumLabel.setText(controller.getNumMoves + " ")
+      moveNumLabel.setText(s"${controller.getNumMoves} ")
       val calc = new WinProbabilityCalculator()
       val formattedPropability =
         FormatUtil.formatNumber(calc.getChanceOfPlayer1Winning(controller.getMoveList.copy()))

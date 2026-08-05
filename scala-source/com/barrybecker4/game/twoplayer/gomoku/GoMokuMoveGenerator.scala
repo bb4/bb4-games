@@ -20,7 +20,7 @@ class GoMokuMoveGenerator {
   /**
    * @return all reasonably good next moves.
    */
-  def generateMoves(searchable: GoMokuSearchable[_ <: GoMokuBoard], lastMove: TwoPlayerMove, weights: ParameterArray): MoveList[TwoPlayerMove] = {
+  def generateMoves(searchable: GoMokuSearchable[? <: GoMokuBoard], lastMove: TwoPlayerMove, weights: ParameterArray): MoveList[TwoPlayerMove] = {
     val moveList = new MoveList[TwoPlayerMove]()
 
     val pb = searchable.getBoard
@@ -51,7 +51,7 @@ class GoMokuMoveGenerator {
   /**
    * @return a list of urgent moves (i.e positions that can result in a win for either player.
    */
-  def generateUrgentMoves(searchable: GoMokuSearchable[_ <: GoMokuBoard], lastMove: TwoPlayerMove, weights: ParameterArray): MoveList[TwoPlayerMove] = {
+  def generateUrgentMoves(searchable: GoMokuSearchable[? <: GoMokuBoard], lastMove: TwoPlayerMove, weights: ParameterArray): MoveList[TwoPlayerMove] = {
     if (lastMove == null) {
       return new MoveList[TwoPlayerMove]()
     }
@@ -75,7 +75,7 @@ class GoMokuMoveGenerator {
    * Consider both our moves and opponent moves.
    * @return Set of all next moves.
    */
-  private def findMovesForBothPlayers(searchable: GoMokuSearchable[_ <: GoMokuBoard], lastMove: TwoPlayerMove, weights: ParameterArray): MoveList[TwoPlayerMove] = {
+  private def findMovesForBothPlayers(searchable: GoMokuSearchable[? <: GoMokuBoard], lastMove: TwoPlayerMove, weights: ParameterArray): MoveList[TwoPlayerMove] = {
     val allMoves = new MoveList[TwoPlayerMove]()
 
     val moves = generateMoves(searchable, lastMove, weights)
@@ -95,13 +95,6 @@ class GoMokuMoveGenerator {
    * This version of contains does not consider the player when determining containment.
    * @return true of the MoveList contains the specified move.
    */
-  private def contains(move: TwoPlayerMove, moves: MoveList[TwoPlayerMove]): Boolean = {
-    for (m <- moves.asScala) {
-      val moveLocation = m.getToLocation
-      if (moveLocation.equals(move.getToLocation)) {
-        return true
-      }
-    }
-    false
-  }
+  private def contains(move: TwoPlayerMove, moves: MoveList[TwoPlayerMove]): Boolean =
+    moves.asScala.exists(_.getToLocation.equals(move.getToLocation))
 }

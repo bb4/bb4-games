@@ -9,7 +9,7 @@ import java.awt.Color
 class PokerHumanPlayer(name: String, money: Int, color: Color) 
     extends PokerPlayer(name, money, color, true) {
 
-  override def getAction(pc: MultiGameController[_, _]): PlayerAction = action
+  override def getAction(pc: MultiGameController[?, ?]): PlayerAction = action
 
   override def setAction(action: PlayerAction): Unit = 
     this.action = action.asInstanceOf[PokerAction]

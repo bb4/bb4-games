@@ -22,8 +22,8 @@ class TwoPlayerOptions(preferredTone: String) extends GameOptions:
 
   private var showGameOverDialog_ : Boolean = true
   private var autoOptimize_ : Boolean = false
-  private var autoOptimizeFile_ : String = _
-  private var preferredTone_ : String = _
+  private var autoOptimizeFile_ : String = scala.compiletime.uninitialized
+  private var preferredTone_ : String = scala.compiletime.uninitialized
 
   /**
    * Default Constructor

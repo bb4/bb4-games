@@ -35,11 +35,7 @@ class PokerHandScorer {
   def hasFlush(hand: Hand): Boolean = {
     val cards = hand.getCards
     val suit = cards.get(0).suit
-
-    for (i <- 0 until cards.size) {
-      if (cards.get(i).suit != suit) return false
-    }
-    true
+    (0 until cards.size).forall(i => cards.get(i).suit == suit)
   }
 
   def hasStraight(ranks: List[Rank]): Boolean = {

@@ -21,15 +21,15 @@ class CaptureList extends LinkedList[BoardPosition] {
 
   def copy(): CaptureList = new CaptureList(this)
 
-  def removeFromBoard(board: Board[_]): Unit = {
+  def removeFromBoard(board: Board[?]): Unit = {
     modifyCaptures(board, remove = true)
   }
 
-  def restoreOnBoard(board: Board[_]): Unit = {
+  def restoreOnBoard(board: Board[?]): Unit = {
     modifyCaptures(board, remove = false)
   }
 
-  def modifyCaptures(board: Board[_], remove: Boolean): Unit = {
+  def modifyCaptures(board: Board[?], remove: Boolean): Unit = {
     this.asScala.foreach { capture =>
       val pos = board.getPosition(capture.getRow, capture.getCol)
       assert(pos != null, s"Captured position was null $capture")
@@ -51,7 +51,7 @@ class CaptureList extends LinkedList[BoardPosition] {
   override def toString: String = {
     var s = " These piece(s) were captured by this move:\n"
     this.asScala.foreach { p =>
-      s += '(' + p.toString + "),"
+      s += s"(${p.toString}),"
     }
     s
   }

@@ -10,7 +10,7 @@ import com.barrybecker4.common.profile.Profiler
  */
 abstract class AbstractGameProfiler extends Profiler {
 
-  private var searchTime: Long = _
+  private var searchTime: Long = scala.compiletime.uninitialized
 
   def startProfiling(): Unit = {
     searchTime = 0

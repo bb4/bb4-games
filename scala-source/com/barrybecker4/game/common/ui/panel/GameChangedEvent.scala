@@ -11,7 +11,7 @@ import java.util.EventObject
  * @see GameChangedListener
  * @author Barry Becker
  */
-final class GameChangedEvent[M <: Move](mv: M, controller: IGameController[_, _], source: AnyRef) 
+final class GameChangedEvent[M <: Move](mv: M, controller: IGameController[?, ?], source: AnyRef) 
   extends EventObject(source) {
 
   private val move_ = mv
@@ -20,7 +20,7 @@ final class GameChangedEvent[M <: Move](mv: M, controller: IGameController[_, _]
   /**
    * @return the game controller for the viewer that sent the event.
    */
-  def getController: IGameController[_, _] = controller_
+  def getController: IGameController[?, ?] = controller_
 
   /**
    * @return the move that just caused the game changed event to fire.

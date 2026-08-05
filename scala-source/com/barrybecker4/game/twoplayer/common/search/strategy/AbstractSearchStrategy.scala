@@ -31,7 +31,7 @@ abstract class AbstractSearchStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]
   @volatile private var paused_ : Boolean = false
 
   /** The optional ui component that will be updated to reflect the current search tree.  */
-  private var gameTree_ : IGameTreeViewable = _
+  private var gameTree_ : IGameTreeViewable = scala.compiletime.uninitialized
 
   override def getOptions: SearchOptions[M, B] =
     searchable.getSearchOptions

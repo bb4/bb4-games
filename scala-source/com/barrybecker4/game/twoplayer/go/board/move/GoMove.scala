@@ -77,20 +77,11 @@ class GoMove(destination: Location, value: Int, stone: GoStone)
    * @return true if the newly placed stone is part of a string that is now captured as a result of playing.
    */
   private def partOfDeadString(occupiedNbrs: GoBoardPositionSet, board: GoBoard): Boolean = {
-    occupiedNbrs.asScala.forall { nbr =>
-      if (nbr.getPiece.isOwnedByPlayer1 == this.isPlayer1) {
-        // friendly string
-        if (nbr.getString.getNumLiberties(board) > 1) {
-          // can't be suicidal if a neighboring friendly string has > 1 liberty
-          return false
-        }
-      } else {
-        if (nbr.getString.getNumLiberties(board) == 1) {
-          // can't be suicidal if by playing we capture an opponent string.
-          return false
-        }
-      }
-      true
+    !occupiedNbrs.asScala.exists { nbr =>
+      if (nbr.getPiece.isOwnedByPlayer1 == this.isPlayer1)
+        nbr.getString.getNumLiberties(board) > 1
+      else
+        nbr.getString.getNumLiberties(board) == 1
     }
   }
 

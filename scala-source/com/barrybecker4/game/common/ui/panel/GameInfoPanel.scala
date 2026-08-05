@@ -14,11 +14,11 @@ import java.awt.Dimension
  *
  *  @author Barry Becker
  */
-abstract class GameInfoPanel(controller: GameController[_, _]) extends TexturedPanel(null)
+abstract class GameInfoPanel(controller: GameController[?, ?]) extends TexturedPanel(null)
   with GameChangedListener[Move] {
 
-  var controller_ : GameController[_, _] = controller
-  var generalInfoPanel_ : GeneralInfoPanel = _
+  var controller_ : GameController[?, ?] = controller
+  var generalInfoPanel_ : GeneralInfoPanel = scala.compiletime.uninitialized
 
   this.setBorder(BorderFactory.createLoweredBevelBorder())
   this.setToolTipText(getTitleText)

@@ -14,8 +14,8 @@ import java.awt.{BorderLayout, Component}
 class GridBoardParamPanel(initialNumRows: Int, initialNumCols: Int, customConfigPanel: JPanel) 
   extends JPanel {
 
-  var rowSizeField_ : NumberInput = _
-  var colSizeField_ : NumberInput = _
+  var rowSizeField_ : NumberInput = scala.compiletime.uninitialized
+  var colSizeField_ : NumberInput = scala.compiletime.uninitialized
 
   setLayout(new BorderLayout())
   val p = new JPanel(true)

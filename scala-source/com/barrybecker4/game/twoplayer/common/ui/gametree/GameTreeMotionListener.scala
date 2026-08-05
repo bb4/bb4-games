@@ -28,7 +28,7 @@ final class GameTreeMotionListener(
 ) extends MouseMotionListener:
 
   /** the controller that is actually being played in the normal view. */
-  private var mainController: TwoPlayerController[?, ?] = _
+  private var mainController: TwoPlayerController[?, ?] = scala.compiletime.uninitialized
 
   @volatile private var treeViewerField: GameTreeViewer = treeViewer
   private var moveInfoPanel: MoveInfoPanel = detailsPanel

@@ -17,9 +17,9 @@ import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPositi
  */
 class EyeSpaceAnalyzer(val group: IGoGroup, val analyzerMap: GroupAnalyzerMap) {
 
-  private var board: GoBoard = _
-  private var boundingBox: Box = _
-  private var nbrAnalyzer: NeighborAnalyzer = _
+  private var board: GoBoard = scala.compiletime.uninitialized
+  private var boundingBox: Box = scala.compiletime.uninitialized
+  private var nbrAnalyzer: NeighborAnalyzer = scala.compiletime.uninitialized
 
   def setBoard(board: GoBoard): Unit = {
     this.board = board
@@ -202,13 +202,9 @@ class EyeSpaceAnalyzer(val group: IGoGroup, val analyzerMap: GroupAnalyzerMap) {
     if (eyeList == null)
       return false
 
-    for (position <- eyeList.toArray(new Array[GoBoardPosition](0))) {
-      if (boundingBox.isOnEdge(position.getLocation) && !withinBorderEdge(position)) {
-        return false
-      }
+    !eyeList.toArray(new Array[GoBoardPosition](0)).exists { position =>
+      boundingBox.isOnEdge(position.getLocation) && !withinBorderEdge(position)
     }
-
-    true
   }
 
   /**

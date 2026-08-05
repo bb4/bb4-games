@@ -24,13 +24,13 @@ import scala.jdk.CollectionConverters._
 final class GoBoard(size: Int, numHandicapStones: Int) extends TwoPlayerBoard[GoMove] {
 
   /** This is a set of active groups. Groups are composed of strings. */
-  private var groups_ : GoGroupSet = _
+  private var groups_ : GoGroupSet = scala.compiletime.uninitialized
 
   /** Handicap stones are on the star points, unless the board is very small */
-  private var handicap_ : HandicapStones = _
+  private var handicap_ : HandicapStones = scala.compiletime.uninitialized
 
   /** Updates the board's structure after making or undoing moves */
-  private var boardUpdater_ : BoardUpdater = _
+  private var boardUpdater_ : BoardUpdater = scala.compiletime.uninitialized
 
   setSize(size, size)
   setHandicap(numHandicapStones)

@@ -34,7 +34,7 @@ class CommandHandler {
 
   private var delay_ : Int = 0
   private var boardSize_ : Int = 0
-  private var controller_ : GoController = _
+  private var controller_ : GoController = scala.compiletime.uninitialized
 
   GameContext.loadResources("go")
   GameContext.setDebugMode(0)

@@ -16,7 +16,7 @@ class GoMokuBoardRenderer extends TwoPlayerBoardRenderer {
 }
 
 object GoMokuBoardRenderer {
-  private var renderer_ : GameBoardRenderer = _
+  private var renderer_ : GameBoardRenderer = scala.compiletime.uninitialized
 
   def getRenderer: GameBoardRenderer = {
     if (renderer_ == null)

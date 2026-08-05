@@ -82,10 +82,10 @@ class E6Information(subTypeDesc: String) extends AbstractEyeSubtypeInformation {
       "Did not get 2 one nbr points. Instead got " + oneNbrPoints.size + "\n nbrmap=" + nbrMap)
     val bounds = new Box(oneNbrPoints.getFirst.getLocation, oneNbrPoints.get(1).getLocation)
 
-    for otherPt <- otherPoints.asScala do
-      if !bounds.contains(otherPt.getLocation) then
-        return Eye6Type.E112233a
-    Eye6Type.E112233b
+    if otherPoints.asScala.exists(pt => !bounds.contains(pt.getLocation)) then
+      Eye6Type.E112233a
+    else
+      Eye6Type.E112233b
   }
 
   override def getTypeName: String = `type`.toString

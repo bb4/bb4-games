@@ -21,7 +21,7 @@ import java.awt.event.MouseEvent
 class GoViewerMouseListener(viewer: GameBoardViewer[GoMove, GoBoard]) 
   extends ViewerMouseListener[GoMove, GoBoard](viewer) {
 
-  private var savedShowPiece_ : BoardPosition = _
+  private var savedShowPiece_ : BoardPosition = scala.compiletime.uninitialized
 
   val controller = viewer.getController.asInstanceOf[GoController]
   if (!controller.getPlayers.allPlayersComputer) {

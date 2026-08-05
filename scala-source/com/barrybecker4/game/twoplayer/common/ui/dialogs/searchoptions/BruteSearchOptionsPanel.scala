@@ -14,9 +14,9 @@ import javax.swing.*
  */
 class BruteSearchOptionsPanel(private val bruteOptions: BruteSearchOptions) extends JPanel:
 
-  private var lookAheadField: NumberInput = _
-  private var alphabetaCheckbox: JCheckBox = _
-  private var quiescenceCheckbox: JCheckBox = _
+  private var lookAheadField: NumberInput = scala.compiletime.uninitialized
+  private var alphabetaCheckbox: JCheckBox = scala.compiletime.uninitialized
+  private var quiescenceCheckbox: JCheckBox = scala.compiletime.uninitialized
 
   private val MAX_ALLOWED_LOOKAHEAD = 20
 

@@ -29,7 +29,7 @@ class ChessController extends TwoPlayerController[ChessMove, ChessBoard] {
     new ChessPlayerOptions(playerName, color)
   }
 
-  def removeSelfCheckingMoves(moveList: java.util.List[_]): Unit = {
+  def removeSelfCheckingMoves(moveList: java.util.List[?]): Unit = {
     val b = getBoard
     val it = moveList.iterator()
     while (it.hasNext) {

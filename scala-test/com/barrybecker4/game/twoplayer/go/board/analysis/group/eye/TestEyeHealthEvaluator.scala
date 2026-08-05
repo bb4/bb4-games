@@ -77,7 +77,7 @@ class TestEyeHealthEvaluator extends GoTestCase {
         var lifeAnalyzer: LifeAnalyzer = new StubLifeAnalyzer(isUnconditionallyAlive)
         var evaluator: EyeHealthEvaluator = new EyeHealthEvaluator(lifeAnalyzer)
 
-        var actEyeHealth: Float = evaluator.determineHealth(forBlackGroup, numEyes, numLiberties, numStones)
+        var actEyeHealth: Float = evaluator.determineHealth(forBlackGroup, numEyes.toFloat, numLiberties, numStones)
 
         Assert.assertEquals("Unexpected eyeHealth", expEyeHealth, actEyeHealth, TOLERANCE)
     }

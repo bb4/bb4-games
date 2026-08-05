@@ -18,7 +18,7 @@ class ValueDifferencerFactory(protected val patterns_ : Patterns,
    * @param dir the direction used to decide which differencer to create.
    * @return differencer for the specified direction.
    */
-  def createValueDifferencer(board: TwoPlayerBoard[_], dir: Direction): ValueDifferencer = {
+  def createValueDifferencer(board: TwoPlayerBoard[?], dir: Direction): ValueDifferencer = {
     dir match {
       case Direction.VERTICAL | Direction.HORIZONTAL =>
         new StraightDifferencer(board, patterns_, lineFactory_, dir)

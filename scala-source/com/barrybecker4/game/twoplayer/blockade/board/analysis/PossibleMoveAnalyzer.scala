@@ -10,11 +10,11 @@ import scala.jdk.CollectionConverters.*
 
 class PossibleMoveAnalyzer(private val board: BlockadeBoard):
 
-  private var position: BlockadeBoardPosition = _
-  private var fromLocation: Location = _
-  private var opponentPlayer1: Boolean = _
-  private var possibleMoveList: ListBuffer[BlockadeMove] = _
-  private var westPos, eastPos, northPos, southPos: BlockadeBoardPosition = _
+  private var position: BlockadeBoardPosition = scala.compiletime.uninitialized
+  private var fromLocation: Location = scala.compiletime.uninitialized
+  private var opponentPlayer1: Boolean = scala.compiletime.uninitialized
+  private var possibleMoveList: ListBuffer[BlockadeMove] = scala.compiletime.uninitialized
+  private var westPos, eastPos, northPos, southPos: BlockadeBoardPosition = scala.compiletime.uninitialized
 
   def getPossibleMoveList(pos: BlockadeBoardPosition, oppIsPlayer1: Boolean): java.util.List[BlockadeMove] = synchronized {
     initialize(pos, oppIsPlayer1)

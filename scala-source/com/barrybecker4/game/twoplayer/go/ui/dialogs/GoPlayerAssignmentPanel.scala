@@ -12,7 +12,7 @@ import java.awt.Component
  *
  * @author Barry Becker
  */
-class GoPlayerAssignmentPanel(controller: TwoPlayerController[_, _], parent: Component) 
+class GoPlayerAssignmentPanel(controller: TwoPlayerController[?, ?], parent: Component) 
   extends PlayerAssignmentPanel(controller, parent) {
 
   private val BLACK_IS = GameContext.getLabel("BLACK_IS")

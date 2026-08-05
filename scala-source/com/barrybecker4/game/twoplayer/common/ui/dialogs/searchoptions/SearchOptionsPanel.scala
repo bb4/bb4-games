@@ -20,12 +20,12 @@ import java.awt.event.ItemListener
 class SearchOptionsPanel(private val searchOptions: SearchOptions[?, ?]) extends JPanel with ItemListener:
 
   /** search algorithm radio button group */
-  private var strategyButtons: Array[JRadioButton] = _
-  private var algorithm: SearchStrategyType = _
+  private var strategyButtons: Array[JRadioButton] = scala.compiletime.uninitialized
+  private var algorithm: SearchStrategyType = scala.compiletime.uninitialized
 
-  private var bruteOptionsPanel: BruteSearchOptionsPanel = _
-  private var monteCarloOptionsPanel: MonteCarloOptionsPanel = _
-  private var bestMovesOptionsPanel: BestMovesOptionsPanel = _
+  private var bruteOptionsPanel: BruteSearchOptionsPanel = scala.compiletime.uninitialized
+  private var monteCarloOptionsPanel: MonteCarloOptionsPanel = scala.compiletime.uninitialized
+  private var bestMovesOptionsPanel: BestMovesOptionsPanel = scala.compiletime.uninitialized
 
   private var initialized = false
 
@@ -105,11 +105,10 @@ class SearchOptionsPanel(private val searchOptions: SearchOptions[?, ?]) extends
 
   private def getSelectedStrategy(defaultStrategy: SearchStrategyType): SearchStrategyType =
     val strategies = SearchStrategyType.values
-    val numStrategies = strategies.length
-    for i <- 0 until numStrategies do
-      if strategyButtons(i).isSelected then
-        return strategies(i)
-    defaultStrategy
+    (0 until strategies.length)
+      .find(i => strategyButtons(i).isSelected)
+      .map(strategies(_))
+      .getOrElse(defaultStrategy)
 
   def ok(): Unit =
     getOptions

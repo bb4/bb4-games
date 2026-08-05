@@ -27,7 +27,7 @@ final class GameTreeViewer(root: SearchTreeNode, cmap: ColorMap, pieceRenderer: 
   private val serialVersionUID = 0L
 
   /** most recently highlighted path. */
-  private var oldHighlightPath: TreePath = _
+  private var oldHighlightPath: TreePath = scala.compiletime.uninitialized
 
   private var gameTreeRenderer: GameTreeRenderer = GameTreeRenderer(root, cmap, pieceRenderer)
 

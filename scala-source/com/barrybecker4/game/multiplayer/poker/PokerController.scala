@@ -11,7 +11,7 @@ import com.barrybecker4.game.multiplayer.poker.ui.PokerGameViewer
 class PokerController extends MultiGameController[PokerRound, PokerTable](PokerController.DEFAULT_NUM_ROWS, PokerController.DEFAULT_NUM_COLS) {
   import PokerController.*
 
-  private var round: PokerRound = _
+  private var round: PokerRound = scala.compiletime.uninitialized
 
   override def getBoard: PokerTable = super.getBoard.asInstanceOf[PokerTable]
 

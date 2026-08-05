@@ -10,7 +10,7 @@ import javax.swing.{JComponent, JPanel}
 import java.awt.{BorderLayout, Component}
 
 class RaiseDialog(pc: PokerController, parent: Component) extends OptionsDialog(parent) {
-  private var raiseAmount_ : NumberInput = _
+  private var raiseAmount_ : NumberInput = scala.compiletime.uninitialized
 
   showContent()
 

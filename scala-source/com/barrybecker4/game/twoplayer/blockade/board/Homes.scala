@@ -9,8 +9,8 @@ object Homes:
   private val HOME_BASE_POSITION_PERCENT = 0.3f
 
 class Homes:
-  private var p1Homes: Array[BoardPosition] = _
-  private var p2Homes: Array[BoardPosition] = _
+  private var p1Homes: Array[BoardPosition] = scala.compiletime.uninitialized
+  private var p2Homes: Array[BoardPosition] = scala.compiletime.uninitialized
 
   def this(b: Homes) =
     this()

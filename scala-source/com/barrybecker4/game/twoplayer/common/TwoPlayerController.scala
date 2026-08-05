@@ -37,16 +37,16 @@ abstract class TwoPlayerController[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]] e
   /**
    * These weights determine how the computer values each move as parameters to a game dependent evaluation function.
    */
-  protected var weights_ : GameWeights = _
+  protected var weights_ : GameWeights = scala.compiletime.uninitialized
 
   /** if this becomes non-null, we will fill in the game tree for display in a UI. */
-  private var gameTreeViewer_ : IGameTreeViewable = _
+  private var gameTreeViewer_ : IGameTreeViewable = scala.compiletime.uninitialized
 
   /** Worker represents a separate thread for finding the next move. */
-  private var worker_ : TwoPlayerSearchWorker[M, B] = _
+  private var worker_ : TwoPlayerSearchWorker[M, B] = scala.compiletime.uninitialized
 
   /** Capable of searching for the best next move */
-  private var searchable_ : Searchable[M, B] = _
+  private var searchable_ : Searchable[M, B] = scala.compiletime.uninitialized
 
   /**
    * Construct the game controller.

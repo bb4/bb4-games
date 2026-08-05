@@ -21,7 +21,7 @@ object GameContext {
 
   private val useSound: Boolean = false
 
-  private var musicMaker: MusicMaker = _
+  private var musicMaker: MusicMaker = scala.compiletime.uninitialized
 
   private var RANDOM: Random = new Random(0)
 

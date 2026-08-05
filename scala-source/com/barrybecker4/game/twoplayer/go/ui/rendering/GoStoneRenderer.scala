@@ -70,7 +70,7 @@ final class GoStoneRenderer private() extends TwoPlayerPieceRenderer {
     val transp = stone.getTransparency
     var img = GoStoneRenderer.getImage(stone)
     if (transp > 0) {
-      GoStoneRenderer.scaleFactors_(3) = (255 - transp) / 255
+      GoStoneRenderer.scaleFactors_(3) = (255 - transp).toFloat / 255
       val transparencyOp = new RescaleOp(GoStoneRenderer.scaleFactors_, GoStoneRenderer.OFFSETS, null)
       val bufImg = ImageUtil.makeBufferedImage(GoStoneRenderer.getImage(stone))
       img = transparencyOp.filter(bufImg, null)
@@ -102,7 +102,7 @@ final class GoStoneRenderer private() extends TwoPlayerPieceRenderer {
 }
 
 object GoStoneRenderer {
-  private var renderer_ : TwoPlayerPieceRenderer = _
+  private var renderer_ : TwoPlayerPieceRenderer = scala.compiletime.uninitialized
 
   private val PLAYER1_STONE_COLOR = new Color(90, 90, 90)
   private val PLAYER2_STONE_COLOR = new Color(230, 230, 230)

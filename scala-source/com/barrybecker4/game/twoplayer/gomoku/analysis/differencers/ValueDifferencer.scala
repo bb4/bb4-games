@@ -12,7 +12,7 @@ import com.barrybecker4.optimization.parameter.ParameterArray
  *
  * @author Barry Becker
  */
-abstract class ValueDifferencer(protected val board_ : TwoPlayerBoard[_],
+abstract class ValueDifferencer(protected val board_ : TwoPlayerBoard[?],
                                protected val patterns_ : Patterns,
                                protected val lineFactory_ : LineFactory) {
 

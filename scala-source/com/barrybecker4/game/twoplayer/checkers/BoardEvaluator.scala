@@ -7,7 +7,7 @@ import com.barrybecker4.optimization.parameter.ParameterArray
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy
 
 class BoardEvaluator(
-    val board: TwoPlayerBoard[_],
+    val board: TwoPlayerBoard[?],
     val weights: ParameterArray
 ) {
 

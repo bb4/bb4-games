@@ -37,7 +37,7 @@ final class HelpDialog(parent: Component, gameName: String, comments: String, te
    */
   override def createDialogContent: JComponent = {
     val arg = Array[AnyRef](gameName_)
-    this.setTitle(MessageFormat.format(GameContext.getLabel("ABOUT"), arg: _*))
+    this.setTitle(MessageFormat.format(GameContext.getLabel("ABOUT"), arg*))
 
     setResizable(false)
     val overviewPanel = new JPanel(true)

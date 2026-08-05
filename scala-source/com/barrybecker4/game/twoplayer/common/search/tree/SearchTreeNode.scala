@@ -29,7 +29,7 @@ class SearchTreeNode(move: TwoPlayerMove, var attributes: NodeAttributes)
   /**
    * location in the board viewer
    */
-  private var position: Point = _
+  private var position: Point = scala.compiletime.uninitialized
 
   /**
    * Default Constructor

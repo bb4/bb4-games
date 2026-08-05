@@ -598,12 +598,12 @@ class TestAbsoluteHealthAnalyzer extends GoTestCase {
                 + expectedRelHealthDifference + "\n but instead got  ("+brh+" -"+ wrh+") = "+ drh, relDifOK)
     }
 
-private def errorMarker(OK: Boolean): String = if OK then "" else "      *Error*"
+    private def errorMarker(OK: Boolean): String = if OK then "" else "      *Error*"
 
     private def verifyEyes(eyes: GoEyeSet, expectedEyes: Array[EyeInformation], black: Boolean): Unit = {
-val color: String = if black then "black" else "white"
+        val color: String = if black then "black" else "white"
         if (expectedEyes.length != eyes.size) {
-val sideColor: String = if black then "black" else "white"
+            val sideColor: String = if black then "black" else "white"
             System.out.println("We expected " + sideColor +" eyes to be " + expectedEyes.mkString(", ") + ",\n")
             System.out.println("but we got "+ eyes)
         }

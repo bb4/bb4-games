@@ -12,7 +12,7 @@ import com.barrybecker4.optimization.parameter.ParameterArray
  *
  * @author Barry Becker
  */
-class StraightDifferencer(board: TwoPlayerBoard[_], patterns: Patterns,
+class StraightDifferencer(board: TwoPlayerBoard[?], patterns: Patterns,
                          lineFactory: LineFactory, dir: Direction)
   extends ValueDifferencer(board, patterns, lineFactory) {
 

@@ -20,7 +20,7 @@ class TestStringLibertyAnalyzer extends GoTestCase {
 
 
     @Before
-override def setUp(): Unit = {
+    override def setUp(): Unit = {
         super.setUp()
         boardConfig = new GoBoardConfigurator(9, 0)
     }

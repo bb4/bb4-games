@@ -43,14 +43,14 @@ final class GameTreeRenderer(root: SearchTreeNode, cmap: ColorMap, pieceRenderer
   private var colormap: ColorMap = cmap
   private var pieceRendererField: TwoPlayerPieceRenderer = pieceRenderer
 
-  private var rootNode: SearchTreeNode = _
+  private var rootNode: SearchTreeNode = scala.compiletime.uninitialized
   private var depth: Int = 0
 
   /** sum of the number of descendants of all nodes at the level */
-  private var totalAtLevel: Array[Int] = _
+  private var totalAtLevel: Array[Int] = scala.compiletime.uninitialized
 
-  private var width: Int = _
-  private var levelHeight: Int = _
+  private var width: Int = scala.compiletime.uninitialized
+  private var levelHeight: Int = scala.compiletime.uninitialized
 
   setRoot(root)
 
@@ -184,7 +184,7 @@ final class GameTreeRenderer(root: SearchTreeNode, cmap: ColorMap, pieceRenderer
 
     g2.setColor(Color.black)
     if depthParam < 2 then
-      g2.drawString(m.getValue + "  " + m.getInheritedValue, x - 15, y + 5)
+      g2.drawString(s"${m.getValue}  ${m.getInheritedValue}", x - 15, y + 5)
 
     if node.isPruned then
       // draw a marker to show that it has been pruned

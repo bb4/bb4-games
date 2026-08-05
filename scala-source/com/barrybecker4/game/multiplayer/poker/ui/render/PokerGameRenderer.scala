@@ -16,13 +16,13 @@ class PokerGameRenderer extends MultiGameBoardRenderer {
   override def drawGrid(g2: Graphics2D, startPos: Int, rightEdgePos: Int, bottomEdgePos: Int, 
                        start: Int, nrows1: Int, ncols1: Int, gridOffset: Int): Unit = {}
 
-  override def drawBackground(g: Graphics, board: Board[_], startPos: Int, rightEdgePos: Int, 
+  override def drawBackground(g: Graphics, board: Board[?], startPos: Int, rightEdgePos: Int, 
                              bottomEdgePos: Int, panelWidth: Int, panelHeight: Int): Unit = {
     super.drawBackground(g, board, startPos, rightEdgePos, bottomEdgePos, panelWidth, panelHeight)
     drawTable(g, board)
   }
 
-  override def drawMarkers(board: Board[_], players: PlayerList, g2: Graphics2D): Unit = {
+  override def drawMarkers(board: Board[?], players: PlayerList, g2: Graphics2D): Unit = {
     val loc = ByteLocation((board.getNumRows >> 1).toByte, ((board.getNumCols >> 1) - 3).toByte)
     val pot = board.asInstanceOf[PokerTable].getPotValue
     ChipRenderer().render(g2, loc, pot, this.getCellSize)
@@ -30,7 +30,7 @@ class PokerGameRenderer extends MultiGameBoardRenderer {
     super.drawMarkers(board, players, g2)
   }
 
-  override def drawLastMoveMarker(g2: Graphics2D, currentPlayer: Player, board: Board[_]): Unit = {
+  override def drawLastMoveMarker(g2: Graphics2D, currentPlayer: Player, board: Board[?]): Unit = {
     val player = currentPlayer.getActualPlayer.asInstanceOf[PokerPlayer]
     val m = player.getPiece
     g2.setColor(PokerPlayerRenderer.HIGHLIGHT_COLOR)

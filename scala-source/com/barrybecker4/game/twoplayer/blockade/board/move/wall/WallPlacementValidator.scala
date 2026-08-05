@@ -49,18 +49,15 @@ class WallPlacementValidator(private val board: BlockadeBoard):
 
   private def hasWallOverlap(wall: BlockadeWall): Boolean =
     val vertical = wall.getIsVertical
-    for pos <- wall.getPositions.asScala do
-      val origWall = if vertical then pos.getEastWall else pos.getSouthWall
-
+    var overlap = false
+    for pos <- wall.getPositions.asScala if !overlap do
       if (vertical && pos.isEastBlocked) || (!vertical && pos.isSouthBlocked) then
-        return true
-
-      if vertical then
+        overlap = true
+      else if vertical then
         pos.setEastWall(wall)
       else
         pos.setSouthWall(wall)
-
-    false
+    overlap
 
   private def hasWallIntersection(wall: BlockadeWall): Boolean =
     val vertical = wall.getIsVertical

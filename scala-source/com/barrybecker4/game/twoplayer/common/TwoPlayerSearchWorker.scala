@@ -12,7 +12,7 @@ class TwoPlayerSearchWorker[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
   private val controller: TwoPlayerController[M, B]
 ) {
 
-  private var worker: Worker = _
+  private var worker: Worker = scala.compiletime.uninitialized
   private var processing_ : Boolean = false
 
   /**
@@ -44,7 +44,7 @@ class TwoPlayerSearchWorker[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
   @throws[AssertionError]
   def requestComputerMove(isPlayer1: Boolean, synchronous: Boolean): Boolean = {
     worker = new Worker() {
-      private var move: M = _
+      private var move: M = scala.compiletime.uninitialized
 
       override def construct(): Object = {
         processing_ = true

@@ -11,7 +11,7 @@ package com.barrybecker4.game.twoplayer.gomoku.pattern
 class PatternTable {
 
   private val TABLE_SIZE = 4096
-  private var weightIndexTable_ : Array[Int] = _
+  private var weightIndexTable_ : Array[Int] = scala.compiletime.uninitialized
   private val converter: PatternToIntConverter = new PatternToIntConverter()
 
   initTable()

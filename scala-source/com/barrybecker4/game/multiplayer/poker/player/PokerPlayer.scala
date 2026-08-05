@@ -13,14 +13,14 @@ import java.text.MessageFormat
 abstract class PokerPlayer(name: String, color: Color, isHuman: Boolean) 
     extends MultiGamePlayer(name, color, isHuman) {
 
-  private var hand: Hand = _
+  private var hand: Hand = scala.compiletime.uninitialized
   private var piece: PokerPlayerMarker = PokerPlayerMarker(this)
   private var cash: Int = if (isHuman) 100 else 100
   private var hasFolded_ : Boolean = false
-  private var handScore: HandScore = _
+  private var handScore: HandScore = scala.compiletime.uninitialized
   private var outOfGame: Boolean = false
   private var contribution: Int = 0
-  var action: PokerAction = _
+  var action: PokerAction = scala.compiletime.uninitialized
 
   def this(name: String, money: Int, color: Color, isHuman: Boolean) = {
     this(name, color, isHuman)

@@ -25,7 +25,7 @@ class TrivialGeneralInfoPanel(player: Player, commandPanel: JPanel) extends Gene
    */
   override def setPlayerLabel(player: Player): Unit =
     val playerName = player.getName
-    playerLabel.setText(' ' + playerName + ' ')
+    playerLabel.setText(s" $playerName ")
 
     val pColor = player.getColor
 
@@ -49,6 +49,6 @@ class TrivialGeneralInfoPanel(player: Player, commandPanel: JPanel) extends Gene
     setPlayerLabel(controller.getPlayers.get(mgController.currentPlayerIndex))
     val lastMove = controller.getLastMove
     if lastMove != null then
-      moveNumLabel.setText((controller.getNumMoves + 2) + " ")
+      moveNumLabel.setText(s"${controller.getNumMoves + 2} ")
     else
-      moveNumLabel.setText(1 + " ")
+      moveNumLabel.setText("1 ")

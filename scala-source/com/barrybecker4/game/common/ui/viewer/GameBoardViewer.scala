@@ -40,20 +40,20 @@ abstract class GameBoardViewer[M <: Move, B <: Board[M]] extends JPanel
   /** for restoring undone moves. */
   val undoneMoves_ = new MoveList[M]()
 
-  private var mouseListener_ : ViewerMouseListener[M, B] = _
+  private var mouseListener_ : ViewerMouseListener[M, B] = scala.compiletime.uninitialized
 
   /** list of listeners for handling those events. */
   private val gameListeners_ = new scala.collection.mutable.ListBuffer[GameChangedListener[M]]()
 
   val waitCursor_ = new Cursor(Cursor.WAIT_CURSOR)
-  var origCursor_ : Cursor = _
-  var parent_ : JFrame = _
+  var origCursor_ : Cursor = scala.compiletime.uninitialized
+  var parent_ : JFrame = scala.compiletime.uninitialized
 
   def getParentFrame: JFrame = parent_
 
   def setParentFrame(parent: JFrame): Unit =
     parent_ = parent
-  private var lastFileAccessed: File = _
+  private var lastFileAccessed: File = scala.compiletime.uninitialized
 
   // this activates tooltip text for the component
   this.setToolTipText("")
@@ -284,7 +284,7 @@ abstract class GameBoardViewer[M <: Move, B <: Board[M]] extends JPanel
    * This is how the client can unregister itself to receive these events.
    * @param gcl the listener  to remove
    */
-  private def removeGameChangedListener(gcl: GameChangedListener[_]): Unit = {
+  private def removeGameChangedListener(gcl: GameChangedListener[?]): Unit = {
     gameListeners_ -= gcl.asInstanceOf[GameChangedListener[M]]
   }
 
@@ -304,7 +304,7 @@ abstract class GameBoardViewer[M <: Move, B <: Board[M]] extends JPanel
   /**
    * @return the cached game board if we are in the middle of processing.
    */
-  def getBoard: IBoard[_] = controller.getBoard
+  def getBoard: IBoard[?] = controller.getBoard
 
   /**
    * implements the AssertHandler interface.

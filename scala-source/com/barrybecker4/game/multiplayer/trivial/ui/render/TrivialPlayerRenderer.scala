@@ -38,7 +38,7 @@ class TrivialPlayerRenderer private () extends GamePieceRenderer:
 
     val pieceSize = getPieceSize(cellSize, playerMarker)
     val pos = getPosition(position, cellSize, pieceSize, margin)
-    val circle = new Ellipse2D.Float(pos.x, pos.y, pieceSize + 1, pieceSize + 1)
+    val circle = new Ellipse2D.Float(pos.x.toFloat, pos.y.toFloat, (pieceSize + 1).toFloat, (pieceSize + 1).toFloat)
     val hlOffset = (pieceSize / 2.3 + 0.5).toInt
     val c = getPieceColor(playerMarker)
 
@@ -60,7 +60,7 @@ class TrivialPlayerRenderer private () extends GamePieceRenderer:
 
   private def drawOptionalAnnotation(g2: Graphics2D, cellSize: Int,
                                       playerMarker: MultiPlayerMarker, pieceSize: Int, pos: Point): Unit =
-    val font = getAnnotationFont(cellSize)
+    val font = getAnnotationFont(cellSize.toFloat)
 
     val offset = if pieceSize < (0.6 * cellSize) then -1 else cellSize / 5
     if playerMarker.getAnnotation != null then

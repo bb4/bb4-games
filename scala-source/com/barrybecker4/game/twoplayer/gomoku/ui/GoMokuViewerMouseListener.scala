@@ -19,7 +19,7 @@ class GoMokuViewerMouseListener(viewer: GameBoardViewer[TwoPlayerMove, GoMokuBoa
 
   override def mousePressed(e: MouseEvent): Unit = {
     val viewer = this.viewer.asInstanceOf[GoMokuBoardViewer]
-    val controller = viewer.getController.asInstanceOf[GoMokuController[_]]
+    val controller = viewer.getController.asInstanceOf[GoMokuController[?]]
 
     if (controller.isProcessing || controller.isDone) {
       return

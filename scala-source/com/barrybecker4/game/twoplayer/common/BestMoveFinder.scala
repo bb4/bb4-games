@@ -16,7 +16,7 @@ class BestMoveFinder[M <: TwoPlayerMove](
   private val searchOptions_ : BestMovesSearchOptions
 ) {
 
-  private var isPlayer1: Boolean = _
+  private var isPlayer1: Boolean = scala.compiletime.uninitialized
 
   /**
    * Take the list of all possible next moves and return just the best of them, based

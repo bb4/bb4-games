@@ -16,10 +16,10 @@ import java.util.{ArrayList, HashMap, List, Map}
  */
 class PluginManager private() {
 
-  private var plugins: List[GamePlugin] = _
-  private var hmNameToPlugin: Map[String, GamePlugin] = _
-  private var hmLabelToPlugin: Map[String, GamePlugin] = _
-  private var defaultGame: GamePlugin = _
+  private var plugins: List[GamePlugin] = scala.compiletime.uninitialized
+  private var hmNameToPlugin: Map[String, GamePlugin] = scala.compiletime.uninitialized
+  private var hmLabelToPlugin: Map[String, GamePlugin] = scala.compiletime.uninitialized
+  private var defaultGame: GamePlugin = scala.compiletime.uninitialized
 
   val url = FileUtil.getURL(PluginManager.PLUGINS_FILE)
   GameContext.log(1, s"about to parse url=$url\n plugin file location=${PluginManager.PLUGINS_FILE}")
@@ -89,7 +89,7 @@ class PluginManager private() {
 
 object PluginManager {
   private val PLUGINS_FILE: String = GameContext.GAME_RESOURCE_ROOT + "plugins.xml"
-  private var manager: PluginManager = _
+  private var manager: PluginManager = scala.compiletime.uninitialized
 
   def getInstance: PluginManager = {
     if (manager == null) {

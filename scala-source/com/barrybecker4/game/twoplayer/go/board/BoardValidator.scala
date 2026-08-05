@@ -62,14 +62,10 @@ class BoardValidator(board_ : GoBoard) {
    * @return position that is still marked visited if any, else null.
    */
   private def areAllUnvisited(): GoBoardPosition = {
-    for (i <- 1 to board_.getNumRows) {
-      for (j <- 1 to board_.getNumCols) {
-        val stone = board_.getPosition(i, j).asInstanceOf[GoBoardPosition]
-        if (stone.isVisited)
-          return stone
-      }
-    }
-    null
+    (1 to board_.getNumRows).view
+      .flatMap(i => (1 to board_.getNumCols).map(j => board_.getPosition(i, j).asInstanceOf[GoBoardPosition]))
+      .find(_.isVisited)
+      .orNull
   }
 
   /**

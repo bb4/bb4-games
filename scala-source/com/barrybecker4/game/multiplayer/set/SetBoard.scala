@@ -8,8 +8,8 @@ import java.util.{ArrayList, LinkedList, List}
 class SetBoard(private val initialNumCardsShown_ : Int) extends Board[Move] {
   import SetBoard.*
 
-  private var deck_ : List[Card] = _
-  private var numCardsShown_ : Int = _
+  private var deck_ : List[Card] = scala.compiletime.uninitialized
+  private var numCardsShown_ : Int = scala.compiletime.uninitialized
 
   initializeData()
 

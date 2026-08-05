@@ -13,7 +13,7 @@ import java.awt.event.ActionListener
 final class GoNewGameDialog(parent: Component, viewer: GameViewModel) 
   extends TwoPlayerNewGameDialog(parent, viewer) with ActionListener {
 
-  private var handicapField_ : NumberInput = _
+  private var handicapField_ : NumberInput = scala.compiletime.uninitialized
 
   override def createCustomBoardConfigPanel(): JPanel = {
     val p = new JPanel()

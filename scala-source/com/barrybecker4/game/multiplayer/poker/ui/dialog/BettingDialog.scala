@@ -12,9 +12,9 @@ import java.awt.Component
 import java.awt.event.ActionEvent
 
 class BettingDialog(pc: PokerController, parent: Component) extends ActionDialog(pc, parent) {
-  private var foldButton: GradientButton = _
-  private var callButton: GradientButton = _
-  private var raiseButton: GradientButton = _
+  private var foldButton: GradientButton = scala.compiletime.uninitialized
+  private var callButton: GradientButton = scala.compiletime.uninitialized
+  private var raiseButton: GradientButton = scala.compiletime.uninitialized
   private val callAmount: Int = player_.asInstanceOf[PokerPlayer].getCallAmount(pc)
   private var raiseAmount = 0
 

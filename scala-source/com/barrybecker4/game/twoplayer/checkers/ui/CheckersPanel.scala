@@ -14,13 +14,13 @@ class CheckersPanel extends TwoPlayerPanel {
 
   override def getTitle: String = GameContext.getLabel("CHECKERS_TITLE")
 
-  override def createBoardViewer(): GameBoardViewer[_, _] = new CheckersBoardViewer()
+  override def createBoardViewer(): GameBoardViewer[?, ?] = new CheckersBoardViewer()
 
   override def createNewGameDialog(parent: Component, viewer: GameViewModel): NewGameDialog = {
     new CheckersNewGameDialog(parent, viewer)
   }
 
-  override def createInfoPanel(controller: GameController[_, _]): GameInfoPanel = {
+  override def createInfoPanel(controller: GameController[?, ?]): GameInfoPanel = {
     new TwoPlayerInfoPanel(controller)
   }
 

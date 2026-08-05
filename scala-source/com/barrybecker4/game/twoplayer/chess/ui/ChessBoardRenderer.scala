@@ -16,7 +16,7 @@ class ChessBoardRenderer extends CheckersBoardRenderer {
 }
 
 object ChessBoardRenderer {
-  private var renderer_ : GameBoardRenderer = _
+  private var renderer_ : GameBoardRenderer = scala.compiletime.uninitialized
 
   def getRenderer: GameBoardRenderer = {
     if (renderer_ == null) renderer_ = new ChessBoardRenderer()

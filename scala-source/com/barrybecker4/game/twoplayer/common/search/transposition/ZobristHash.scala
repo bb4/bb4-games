@@ -16,7 +16,7 @@ import java.util.Random
  * @author Barry Becker
  */
 final class ZobristHash(
-  private val board: TwoPlayerBoard[_],
+  private val board: TwoPlayerBoard[?],
   randomSeed: Int = 0,
   private val includeHistory: Boolean = false
 ) {
@@ -29,7 +29,7 @@ final class ZobristHash(
 
   injectRandom(new Random(randomSeed))
 
-  def this(board: TwoPlayerBoard[_]) = this(board, 0, false)
+  def this(board: TwoPlayerBoard[?]) = this(board, 0, false)
 
   /**
    * @return the current Zobrist hash key for the board state.
@@ -74,7 +74,7 @@ final class ZobristHash(
    * @param board board state to initialize hash from.
    * @return the Zobrist Hash Key created from XORing together all the position states.
    */
-  private def getInitialKey(board: TwoPlayerBoard[_]): HashKey = {
+  private def getInitialKey(board: TwoPlayerBoard[?]): HashKey = {
     currentKey = createHashKey()
     val nrows = board.getNumRows
     val ncols = board.getNumCols

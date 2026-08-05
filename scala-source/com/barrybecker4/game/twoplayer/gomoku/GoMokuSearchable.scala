@@ -16,8 +16,8 @@ import com.barrybecker4.optimization.parameter.ParameterArray
 class GoMokuSearchable[B <: GoMokuBoard](board: B, players: PlayerList)
   extends TwoPlayerSearchable[TwoPlayerMove, B](board, players) {
 
-  private var moveEvaluator: MoveEvaluator = _
-  private var generator: GoMokuMoveGenerator = _
+  private var moveEvaluator: MoveEvaluator = scala.compiletime.uninitialized
+  private var generator: GoMokuMoveGenerator = scala.compiletime.uninitialized
 
   init()
 

@@ -19,12 +19,12 @@ import javax.swing.{BoxLayout, JLabel, JPanel}
 final class GoInfoPanel(controller: GameController[?, ?]) 
   extends TwoPlayerInfoPanel(controller) {
 
-  private var p1CapturesLabel_ : JLabel = _
-  private var p2CapturesLabel_ : JLabel = _
-  private var p1TerritoryLabel_ : JLabel = _
-  private var p2TerritoryLabel_ : JLabel = _
+  private var p1CapturesLabel_ : JLabel = scala.compiletime.uninitialized
+  private var p2CapturesLabel_ : JLabel = scala.compiletime.uninitialized
+  private var p1TerritoryLabel_ : JLabel = scala.compiletime.uninitialized
+  private var p2TerritoryLabel_ : JLabel = scala.compiletime.uninitialized
 
-  private var legendPanel_ : JPanel = _
+  private var legendPanel_ : JPanel = scala.compiletime.uninitialized
 
   override def getTitleText: String = GameContext.getLabel("GO_INFO")
 
@@ -90,12 +90,12 @@ final class GoInfoPanel(controller: GameController[?, ?])
     if (p1CapturesLabel_ == null) return
 
     val searchable = goController.getSearchable().copy().asInstanceOf[GoSearchable]
-    p1CapturesLabel_.setText(searchable.getNumCaptures(false) + " ")
-    p2CapturesLabel_.setText(searchable.getNumCaptures(true) + " ")
+    p1CapturesLabel_.setText(s"${searchable.getNumCaptures(false)} ")
+    p2CapturesLabel_.setText(s"${searchable.getNumCaptures(true)} ")
 
     new BoardValidator(searchable.getBoard).confirmStonesInValidGroups()
-    p1TerritoryLabel_.setText(searchable.getTerritoryEstimate(true) + " ")
-    p2TerritoryLabel_.setText(searchable.getTerritoryEstimate(false) + " ")
+    p1TerritoryLabel_.setText(s"${searchable.getTerritoryEstimate(true)} ")
+    p2TerritoryLabel_.setText(s"${searchable.getTerritoryEstimate(false)} ")
 
     legendPanel_.setVisible(GameContext.getDebugMode > 0)
   }

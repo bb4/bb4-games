@@ -108,7 +108,7 @@ class BlockadeBoardTest extends BlockadeTestCase:
 
   private def verifyMoves(
       position: BoardPosition,
-      player1Moves: ju.List[_],
+      player1Moves: ju.List[?],
       expectedNumMovesIn: Int,
       p1NumMap: ju.Map[Location, Integer]
   ): Unit =

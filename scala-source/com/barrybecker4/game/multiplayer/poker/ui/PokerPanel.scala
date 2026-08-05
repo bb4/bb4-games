@@ -13,15 +13,15 @@ class PokerPanel extends GamePanel {
 
   override def getTitle: String = GameContext.getLabel("POKER_TITLE")
 
-  override def createBoardViewer(): GameBoardViewer[_, _] = PokerGameViewer()
+  override def createBoardViewer(): GameBoardViewer[?, ?] = PokerGameViewer()
 
   override def createNewGameDialog(parent: Component, viewer: GameViewModel): NewGameDialog = 
     PokerNewGameDialog(parent, viewer)
 
-  override def createOptionsDialog(parent: Component, controller: GameController[_, _]): GameOptionsDialog = 
+  override def createOptionsDialog(parent: Component, controller: GameController[?, ?]): GameOptionsDialog = 
     PokerOptionsDialog(parent, controller)
 
-  override def createInfoPanel(controller: GameController[_, _]): GameInfoPanel = 
+  override def createInfoPanel(controller: GameController[?, ?]): GameInfoPanel = 
     PokerInfoPanel(controller)
 
   override def showHelpDialog(): Unit = {

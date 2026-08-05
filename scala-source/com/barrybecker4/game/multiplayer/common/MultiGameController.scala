@@ -25,7 +25,7 @@ abstract class MultiGameController[M <: Move, B <: IBoard[M]](size: Dimension)
   var currentPlayerIndex: Int = 0
   var startingPlayerIndex_ : Int = 0
   var playIndex: Int = 0
-  private var recentRobotActions_ : List[PlayerAction] = _
+  private var recentRobotActions_ : List[PlayerAction] = scala.compiletime.uninitialized
 
   def this() = this(new Dimension(0, 0))
 
@@ -140,5 +140,5 @@ abstract class MultiGameController[M <: Move, B <: IBoard[M]](size: Dimension)
 
   def generateMoves(lastMove: M, weights: ParameterArray): MoveList[M] = new MoveList[M]()
 
-  def generateUrgentMoves(lastMove: M, weights: ParameterArray): List[_] = null
+  def generateUrgentMoves(lastMove: M, weights: ParameterArray): List[?] = null
 }

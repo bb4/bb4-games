@@ -14,11 +14,11 @@ import javax.swing.border.TitledBorder
 import java.awt.event.{ActionEvent, ActionListener}
 import java.text.MessageFormat
 
-class PokerInfoPanel(controller: GameController[_, _]) extends GameInfoPanel(controller) 
+class PokerInfoPanel(controller: GameController[?, ?]) extends GameInfoPanel(controller) 
     with ActionListener {
 
-  private var commandButton_ : JButton = _
-  private var commandPanel_ : JPanel = _
+  private var commandButton_ : JButton = scala.compiletime.uninitialized
+  private var commandPanel_ : JPanel = scala.compiletime.uninitialized
 
   override def createSubPanels(): Unit = {
     val customInfoPanel = createCustomInfoPanel()

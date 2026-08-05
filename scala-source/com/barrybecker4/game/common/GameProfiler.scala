@@ -14,7 +14,7 @@ class GameProfiler extends AbstractGameProfiler {
 }
 
 object GameProfiler {
-  private var instance: GameProfiler = _
+  private var instance: GameProfiler = scala.compiletime.uninitialized
 
   def getInstance: GameProfiler = {
     if (instance == null) {

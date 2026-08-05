@@ -24,7 +24,7 @@ class PokerPlayerRenderer extends GamePieceRenderer {
     marker.getColor
   }
 
-  override def render(g2: Graphics2D, position: BoardPosition, cellSize: Int, margin: Int, b: Board[_]): Unit = {
+  override def render(g2: Graphics2D, position: BoardPosition, cellSize: Int, margin: Int, b: Board[?]): Unit = {
     val playerMarker = position.getPiece.asInstanceOf[PokerPlayerMarker]
     if (playerMarker == null) return
 
@@ -62,7 +62,7 @@ class PokerPlayerRenderer extends GamePieceRenderer {
   }
 
   private def drawMarker(g2: Graphics2D, playerMarker: PokerPlayerMarker, pieceSize: Int, pos: Point): Unit = {
-    val circle = Ellipse2D.Float(pos.x, pos.y, pieceSize + 1, pieceSize + 1)
+    val circle = Ellipse2D.Float(pos.x.toFloat, pos.y.toFloat, (pieceSize + 1).toFloat, (pieceSize + 1).toFloat)
     val hlOffset = (pieceSize / 2.3 + 0.5).toInt
     val c = getPieceColor(playerMarker)
 

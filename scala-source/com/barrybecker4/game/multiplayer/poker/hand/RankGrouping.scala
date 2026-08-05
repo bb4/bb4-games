@@ -24,16 +24,9 @@ private class RankGrouping(hand: List[Card]) {
     ranks
   }
 
-  def matchesCounts(counts: Int*): Boolean = {
-    if (groups.size != counts.length) return false
-
-    for (i <- 0 until counts.length) {
-      if (counts(i) != groups.get(i).count) {
-        return false
-      }
-    }
-    true
-  }
+  def matchesCounts(counts: Int*): Boolean =
+    groups.size == counts.length &&
+      (0 until counts.length).forall(i => counts(i) == groups.get(i).count)
 
   private def init(hand: List[Card]): List[RankGroup] = {
     val map = HashMap[Rank, RankGroup]()

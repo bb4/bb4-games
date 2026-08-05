@@ -13,7 +13,7 @@ import com.barrybecker4.game.twoplayer.go.board.elements.string.GoString
  */
 class StringLibertyAnalyzer(val board: GoBoard, val string: GoString) {
 
-  private var liberties_ : GoBoardPositionSet = _
+  private var liberties_ : GoBoardPositionSet = scala.compiletime.uninitialized
   private var cacheValid = false
 
   /**

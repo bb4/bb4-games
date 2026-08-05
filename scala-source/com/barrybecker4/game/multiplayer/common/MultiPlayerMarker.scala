@@ -13,7 +13,7 @@ import java.awt.Color
  */
 class MultiPlayerMarker(private val owner_ : MultiGamePlayer) extends GamePiece {
 
-  private var location_ : Location = _
+  private var location_ : Location = scala.compiletime.uninitialized
   private var highlighted_ : Boolean = false
 
   setAnnotation(s"${owner_.getName}")

@@ -18,7 +18,7 @@ class HexPanel extends TwoPlayerPanel:
   override def getTitle: String =
     GameContext.getLabel("HEX_TITLE")
 
-  override def createBoardViewer(): GameBoardViewer[_, _] =
+  override def createBoardViewer(): GameBoardViewer[?, ?] =
     HexBoardViewer()
 
   override def createNewGameDialog(parent: Component, viewer: GameViewModel): NewGameDialog =

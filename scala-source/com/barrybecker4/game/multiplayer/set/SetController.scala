@@ -57,13 +57,9 @@ class SetController extends MultiGameController[Move, SetBoard] {
   def setCurrentPlayer(player: Player): Unit = {
     if (player == null) {
       currentPlayerIndex_ = NO_PLAYER_SELECTED
-      return
-    }
-    for (i <- 0 until getPlayers.size) {
-      if (player == getPlayers.get(i)) {
-        currentPlayerIndex_ = i
-        return
-      }
+    } else {
+      val idx = (0 until getPlayers.size).indexWhere(i => player == getPlayers.get(i))
+      if (idx >= 0) currentPlayerIndex_ = idx
     }
   }
 
@@ -99,7 +95,7 @@ class SetController extends MultiGameController[Move, SetBoard] {
 
   override def isDone: Boolean = getBoard.isDone
 
-  override def determineWinners(): java.util.List[_ <: MultiGamePlayer] = {
+  override def determineWinners(): java.util.List[? <: MultiGamePlayer] = {
     val players = getPlayers
     var first = 0
 

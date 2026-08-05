@@ -20,13 +20,13 @@ import java.awt.event.MouseEvent
 abstract class GameBoardRenderer {
 
   /** the size of a game board cell where the pieces go */
-  var cellSize: Int = _
+  var cellSize: Int = scala.compiletime.uninitialized
 
   /** to move pieces you drag them (if the move is valid) */
-  private var draggedPiece_ : BoardPosition = _
+  private var draggedPiece_ : BoardPosition = scala.compiletime.uninitialized
 
   /** this copy of the dragged piece is only for show   */
-  private var draggedShowPiece_ : BoardPosition = _
+  private var draggedShowPiece_ : BoardPosition = scala.compiletime.uninitialized
 
   /**
    * singleton class for rendering the game pieces
@@ -34,7 +34,7 @@ abstract class GameBoardRenderer {
    * This allows us to more cleanly separate the client pieces from the server.
    * this must be initialized in the derived classes constructor.
    */
-  var pieceRenderer_ : GamePieceRenderer = _
+  var pieceRenderer_ : GamePieceRenderer = scala.compiletime.uninitialized
 
   var backgroundColor_ : Color = GameBoardRenderer.BACKGROUND_COLOR
   private var gridColor_ : Color = GameBoardRenderer.GRID_COLOR
@@ -141,7 +141,7 @@ abstract class GameBoardRenderer {
   /**
    * Clear the background so old pieces are erased.
    */
-  def drawBackground(g: Graphics, b: Board[_], startPos: Int, rightEdgePos: Int, bottomEdgePos: Int,
+  def drawBackground(g: Graphics, b: Board[?], startPos: Int, rightEdgePos: Int, bottomEdgePos: Int,
                      panelWidth: Int, panelHeight: Int): Unit = {
     g.setColor(backgroundColor_)
     g.fillRect(0, 0, panelWidth, panelHeight)
@@ -152,7 +152,7 @@ abstract class GameBoardRenderer {
    * The viewer window may be resized causing the cell size to change dynamically
    * @return the current cell size given the board and panel dimensions.
    */
-  def calcCellSize(board: Board[_], panelWidth: Int, panelHeight: Int): Int = {
+  def calcCellSize(board: Board[?], panelWidth: Int, panelHeight: Int): Int = {
     val nrows = board.getNumRows
     val ncols = board.getNumCols
 
@@ -196,12 +196,12 @@ abstract class GameBoardRenderer {
    * Draw some indication of where the last move was made.
    * The default is to show nothing.
    */
-  def drawLastMoveMarker(g2: Graphics2D, currentPlayer: Player, board: Board[_]): Unit = {}
+  def drawLastMoveMarker(g2: Graphics2D, currentPlayer: Player, board: Board[?]): Unit = {}
 
   /**
    * Draw the pieces and possibly other game markers for both players.
    */
-  def drawMarkers(board: Board[_], players: PlayerList, g2: Graphics2D): Unit = {
+  def drawMarkers(board: Board[?], players: PlayerList, g2: Graphics2D): Unit = {
     val nrows = board.getNumRows
     val ncols = board.getNumCols
     for (i <- 1 to nrows) {
@@ -215,9 +215,9 @@ abstract class GameBoardRenderer {
    * This renders the current state of the Board to the screen.
    */
   def render(g: Graphics, currentPlayer: Player, players: PlayerList,
-             board: IBoard[_], panelWidth: Int, panelHeight: Int): Unit = {
+             board: IBoard[?], panelWidth: Int, panelHeight: Int): Unit = {
 
-    val b = board.asInstanceOf[Board[_]]
+    val b = board.asInstanceOf[Board[?]]
     cellSize = calcCellSize(b, panelWidth, panelHeight)
 
     val g2 = g.asInstanceOf[Graphics2D]

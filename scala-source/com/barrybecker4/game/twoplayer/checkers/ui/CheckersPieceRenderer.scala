@@ -25,7 +25,7 @@ class CheckersPieceRenderer private () extends TwoPlayerPieceRenderer {
 }
 
 object CheckersPieceRenderer {
-  private var renderer_ : TwoPlayerPieceRenderer = _
+  private var renderer_ : TwoPlayerPieceRenderer = scala.compiletime.uninitialized
 
   def getRenderer: TwoPlayerPieceRenderer = {
     if (renderer_ == null) renderer_ = new CheckersPieceRenderer()

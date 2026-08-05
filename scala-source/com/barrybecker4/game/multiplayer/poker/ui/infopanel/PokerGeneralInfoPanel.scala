@@ -16,7 +16,7 @@ class PokerGeneralInfoPanel(player: Player, private val commandPanel_ : JPanel)
 
   override def setPlayerLabel(player: Player): Unit = {
     val playerName = player.getName
-    playerLabel.setText(' ' + playerName + ' ')
+    playerLabel.setText(s" $playerName ")
 
     val pColor = player.getColor
 
@@ -37,13 +37,13 @@ class PokerGeneralInfoPanel(player: Player, private val commandPanel_ : JPanel)
     b.setTitle(title)
   }
 
-  override def update(controller: GameController[_, _]): Unit = {
+  override def update(controller: GameController[?, ?]): Unit = {
     setPlayerLabel(controller.getCurrentPlayer)
     val lastMove = controller.getLastMove
     if (lastMove != null) {
-      moveNumLabel.setText((controller.getNumMoves + 2) + " ")
+      moveNumLabel.setText(s"${controller.getNumMoves + 2} ")
     } else {
-      moveNumLabel.setText(1 + " ")
+      moveNumLabel.setText("1 ")
     }
   }
 }

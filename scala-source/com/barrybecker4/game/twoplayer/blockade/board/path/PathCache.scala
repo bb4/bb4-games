@@ -6,7 +6,7 @@ import scala.jdk.CollectionConverters.*
 
 class PathCache:
   
-  private var cachedPaths: PathList = _
+  private var cachedPaths: PathList = scala.compiletime.uninitialized
 
   def update(pos: BlockadeBoardPosition, board: BlockadeBoard): Unit = synchronized {
     val paths = board.findShortestPaths(pos)

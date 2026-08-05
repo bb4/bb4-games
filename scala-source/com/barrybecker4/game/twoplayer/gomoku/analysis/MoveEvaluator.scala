@@ -18,10 +18,10 @@ import com.barrybecker4.optimization.parameter.ParameterArray
 class MoveEvaluator(val patterns: Patterns) {
 
   var differencerFactory: ValueDifferencerFactory = new ValueDifferencerFactory(patterns, new LineFactory())
-  private var vertDifferencer: ValueDifferencer = _
-  private var horzDifferencer: ValueDifferencer = _
-  private var upDiagDifferencer: ValueDifferencer = _
-  private var downDiagDifferencer: ValueDifferencer = _
+  private var vertDifferencer: ValueDifferencer = scala.compiletime.uninitialized
+  private var horzDifferencer: ValueDifferencer = scala.compiletime.uninitialized
+  private var upDiagDifferencer: ValueDifferencer = scala.compiletime.uninitialized
+  private var downDiagDifferencer: ValueDifferencer = scala.compiletime.uninitialized
 
   /**
    * Used for testing to inject something that will create mock differencers.

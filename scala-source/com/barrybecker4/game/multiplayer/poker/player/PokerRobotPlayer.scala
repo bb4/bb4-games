@@ -16,7 +16,7 @@ abstract class PokerRobotPlayer(name: String, money: Int, color: Color, private 
     this.action = action.asInstanceOf[PokerAction]
   }
 
-  override def getAction(controller: MultiGameController[_, _]): PlayerAction = {
+  override def getAction(controller: MultiGameController[?, ?]): PlayerAction = {
     val a = if (action == null) {
       createAction(controller.asInstanceOf[PokerController])
     } else {

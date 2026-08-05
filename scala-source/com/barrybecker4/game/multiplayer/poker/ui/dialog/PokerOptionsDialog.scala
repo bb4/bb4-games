@@ -9,12 +9,12 @@ import javax.swing.{JComponent, JPanel}
 import java.awt.Component
 import java.awt.event.{ActionListener, ItemListener}
 
-class PokerOptionsDialog(parent: Component, controller: GameController[_, _]) 
+class PokerOptionsDialog(parent: Component, controller: GameController[?, ?]) 
     extends MultiGameOptionsDialog(parent, controller) with ActionListener with ItemListener {
 
-  private var ante_ : NumberInput = _
-  private var initialChips_ : NumberInput = _
-  private var maxAbsoluteRaise_ : NumberInput = _
+  private var ante_ : NumberInput = scala.compiletime.uninitialized
+  private var initialChips_ : NumberInput = scala.compiletime.uninitialized
+  private var maxAbsoluteRaise_ : NumberInput = scala.compiletime.uninitialized
 
   override def getControllerParamComponents: Array[JComponent] = {
     val options = controller_.getOptions.asInstanceOf[PokerOptions]

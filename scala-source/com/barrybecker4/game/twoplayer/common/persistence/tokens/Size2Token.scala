@@ -11,8 +11,8 @@ import java.io.{IOException, StreamTokenizer}
  */
 class Size2Token extends SGFToken with InfoToken {
 
-  private var numRows: Int = _
-  private var numColumns: Int = _
+  private var numRows: Int = scala.compiletime.uninitialized
+  private var numColumns: Int = scala.compiletime.uninitialized
 
   /**
    * Parse the dimensions of the board

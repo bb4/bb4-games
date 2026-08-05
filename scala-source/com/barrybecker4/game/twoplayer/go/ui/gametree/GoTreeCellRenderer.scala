@@ -17,7 +17,7 @@ import java.awt.{Color, Component, Dimension, Font, Graphics, Graphics2D}
  */
 final class GoTreeCellRenderer extends GameTreeCellRenderer {
 
-  private var node_ : SearchTreeNode = _
+  private var node_ : SearchTreeNode = scala.compiletime.uninitialized
 
   setColorMap(GoTreeCellRenderer.COLORMAP)
   this.setPreferredSize(new Dimension(1000, 16))

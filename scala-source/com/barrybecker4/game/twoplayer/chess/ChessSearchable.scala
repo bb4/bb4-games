@@ -69,7 +69,7 @@ class ChessSearchable(board: ChessBoard, players: PlayerList)
     moveList.size
   }
 
-  def removeSelfCheckingMoves(moveList: java.util.List[_]): Unit = {
+  def removeSelfCheckingMoves(moveList: java.util.List[?]): Unit = {
     val it = moveList.iterator()
     while (it.hasNext) {
       val move = it.next().asInstanceOf[ChessMove]

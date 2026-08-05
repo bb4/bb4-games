@@ -21,12 +21,12 @@ import scala.jdk.CollectionConverters._
  */
 class LifeAnalyzer {
 
-  private var group_ : IGoGroup = _
-  private var board_ : GoBoard = _
-  private var eyeStringNbrMap: Map[IGoEye, List[IGoString]] = _
-  private var stringEyeNbrMap: Map[IGoString, GoEyeList] = _
-  private var nbrAnalyzer_ : NeighborAnalyzer = _
-  private var analyzerMap_ : GroupAnalyzerMap = _
+  private var group_ : IGoGroup = scala.compiletime.uninitialized
+  private var board_ : GoBoard = scala.compiletime.uninitialized
+  private var eyeStringNbrMap: Map[IGoEye, List[IGoString]] = scala.compiletime.uninitialized
+  private var stringEyeNbrMap: Map[IGoString, GoEyeList] = scala.compiletime.uninitialized
+  private var nbrAnalyzer_ : NeighborAnalyzer = scala.compiletime.uninitialized
+  private var analyzerMap_ : GroupAnalyzerMap = scala.compiletime.uninitialized
 
   def this(group: IGoGroup, board: GoBoard, analyzerMap: GroupAnalyzerMap) = {
     this()
@@ -91,12 +91,11 @@ class LifeAnalyzer {
   private def findNeighborStringsForEyeSpace(eye: IGoEye, pos: GoBoardPosition, nbrStrings: List[IGoString]): Unit = {
     val nbrs =
       nbrAnalyzer_.getNobiNeighbors(pos, eye.isOwnedByPlayer1, NeighborType.FRIEND)
-    for (nbr <- nbrs.toArray(new Array[GoBoardPosition](0))) {
-      if (nbr.getString.getGroup ne group_) {
-        nbrStrings.clear()
-        return
-      }
-      else {
+    val nbrArray = nbrs.toArray(new Array[GoBoardPosition](0))
+    if (nbrArray.exists(nbr => nbr.getString.getGroup ne group_)) {
+      nbrStrings.clear()
+    } else {
+      for (nbr <- nbrArray) {
         if (!nbrStrings.contains(nbr.getString)) {
           nbr.getString.setUnconditionallyAlive(true)
           nbrStrings.add(nbr.getString)
@@ -140,22 +139,13 @@ class LifeAnalyzer {
    * @return true if all the empty spaces in this eye are touching the specified string.
    */
   private def allUnocupiedAdjacentToString(eye: IGoEye, string: IGoString): Boolean = {
-    for (pos <- eye.getMembers.asScala) {
-      if (pos.isUnoccupied) {
+    eye.getMembers.asScala.forall { pos =>
+      !pos.isUnoccupied || {
         val nbrs =
           nbrAnalyzer_.getNobiNeighbors(pos, eye.isOwnedByPlayer1, NeighborType.FRIEND)
-        var thereIsaNbr = false
-        for (nbr <- nbrs.toArray(new Array[GoBoardPosition](0))) {
-          if (string.getMembers.contains(nbr)) {
-            thereIsaNbr = true
-          }
-        }
-        if (!thereIsaNbr) {
-          return false
-        }
+        nbrs.toArray(new Array[GoBoardPosition](0)).exists(nbr => string.getMembers.contains(nbr))
       }
     }
-    true
   }
 
   /**

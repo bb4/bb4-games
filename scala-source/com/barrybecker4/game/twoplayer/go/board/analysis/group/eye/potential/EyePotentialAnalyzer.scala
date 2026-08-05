@@ -15,8 +15,8 @@ import scala.jdk.CollectionConverters._
  */
 class EyePotentialAnalyzer(val group: IGoGroup, val analyzerMap: GroupAnalyzerMap) {
 
-  private var board: GoBoard = _
-  private var boundingBox: Box = _
+  private var board: GoBoard = scala.compiletime.uninitialized
+  private var boundingBox: Box = scala.compiletime.uninitialized
 
   def setBoard(board: GoBoard): Unit = {
     this.board = board

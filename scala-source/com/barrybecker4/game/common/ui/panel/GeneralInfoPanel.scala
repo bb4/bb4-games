@@ -16,8 +16,8 @@ import javax.swing.SwingConstants
  */
 abstract class GeneralInfoPanel(player: Player) extends JPanel {
 
-  var moveNumLabel: JLabel = _
-  var playerLabel: JLabel = _
+  var moveNumLabel: JLabel = scala.compiletime.uninitialized
+  var playerLabel: JLabel = scala.compiletime.uninitialized
 
   def this() = this(null)
 
@@ -43,7 +43,7 @@ abstract class GeneralInfoPanel(player: Player) extends JPanel {
     setPlayerLabel(player)
   }
 
-  def update(controller: GameController[_, _]): Unit = {
+  def update(controller: GameController[?, ?]): Unit = {
     setPlayerLabel(controller.getCurrentPlayer)
     if (controller.getLastMove != null) {
       moveNumLabel.setText(" " + controller.getNumMoves)

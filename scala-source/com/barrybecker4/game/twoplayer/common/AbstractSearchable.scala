@@ -17,7 +17,7 @@ abstract class AbstractSearchable[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
   protected var moveList: MoveList[M]
 ) extends Searchable[M, B] {
 
-  protected var strategy_ : SearchStrategy[M, B] = _
+  protected var strategy_ : SearchStrategy[M, B] = scala.compiletime.uninitialized
 
   def searchForNextMove(weights: ParameterArray, lastMove: M,
                         treeViewer: IGameTreeViewable): M = {

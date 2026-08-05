@@ -21,8 +21,8 @@ import java.awt.*
  */
 class MoveDetailsPanel extends JPanel:
 
-  private var infoLabel: JLabel = _
-  private var leafDetailLabel: JLabel = _
+  private var infoLabel: JLabel = scala.compiletime.uninitialized
+  private var leafDetailLabel: JLabel = scala.compiletime.uninitialized
 
   setLayout(BorderLayout())
   setBorder(

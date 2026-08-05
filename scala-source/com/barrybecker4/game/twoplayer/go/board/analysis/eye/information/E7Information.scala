@@ -78,10 +78,10 @@ class E7Information(subTypeDesc: String) extends AbstractEyeSubtypeInformation {
     var bounds = new Box(oneNbrPoints.getFirst.getLocation, oneNbrPoints.get(1).getLocation)
     bounds = bounds.expandBy(oneNbrPoints.get(2).getLocation)
 
-    for otherPt <- otherPoints.asScala do
-      if !bounds.contains(otherPt.getLocation) then
-        return Eye7Type.E1112234a
-    Eye7Type.E1112234b
+    if otherPoints.asScala.exists(pt => !bounds.contains(pt.getLocation)) then
+      Eye7Type.E1112234a
+    else
+      Eye7Type.E1112234b
   }
 
   override def getTypeName: String = `type`.toString

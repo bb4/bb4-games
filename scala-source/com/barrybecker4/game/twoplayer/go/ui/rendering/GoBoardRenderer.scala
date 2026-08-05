@@ -92,7 +92,7 @@ class GoBoardRenderer private() extends TwoPlayerBoardRenderer {
 }
 
 object GoBoardRenderer {
-  private var renderer_ : GameBoardRenderer = _
+  private var renderer_ : GameBoardRenderer = scala.compiletime.uninitialized
 
   val COLORMAP: ColorMap = new GoColorMap()
   private val TICK_LABEL_COLOR = new Color(10, 10, 10)

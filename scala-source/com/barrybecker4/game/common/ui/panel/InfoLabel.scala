@@ -19,6 +19,6 @@ class InfoLabel(s: String) extends JLabel(s + InfoLabel.COLON) {
 }
 
 object InfoLabel {
-  private val COLON = ' ' + GameContext.getLabel("COLON") + ' '
+  private val COLON = s" ${GameContext.getLabel("COLON")} "
   private val LABEL_FONT = new Font(GUIUtil.DEFAULT_FONT_FAMILY, Font.PLAIN, 12)
 }

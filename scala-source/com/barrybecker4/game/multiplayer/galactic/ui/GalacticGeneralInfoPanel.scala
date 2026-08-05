@@ -22,7 +22,7 @@ class GalacticGeneralInfoPanel(player: Player, commandPanel: JPanel) extends Gen
 
   override def setPlayerLabel(player: Player): Unit =
     val playerName = player.getName
-    playerLabel.setText(' ' + playerName + ' ')
+    playerLabel.setText(s" $playerName ")
 
     val pColor = player.getColor
     playerLabel.setBorder(getPlayerLabelBorder(pColor))
@@ -36,9 +36,9 @@ class GalacticGeneralInfoPanel(player: Player, commandPanel: JPanel) extends Gen
     setPlayerLabel(controller.getCurrentPlayer)
     val lastMove = controller.getLastMove
     if lastMove != null then
-      moveNumLabel.setText((controller.getPlayers.getNumPlayers + 2) + " ")
+      moveNumLabel.setText(s"${controller.getPlayers.getNumPlayers + 2} ")
     else
-      moveNumLabel.setText(1 + " ")
+      moveNumLabel.setText("1 ")
 
   private def setCommandPanelTitle(player: Player): Unit =
     val args = Array[AnyRef](player.getName)

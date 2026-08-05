@@ -55,4 +55,4 @@ class WinProbabilityCalculator:
       GameContext.log(1, s"TwoPlayerController: warning: the score for p1 is greater than WINNING_VALUE(" +
         s"${SearchStrategy.WINNING_VALUE})  inheritedVal=$inherVal")
 
-    WinProbabilityCalculator.computeChanceOfWinning(inherVal)
+    WinProbabilityCalculator.computeChanceOfWinning(inherVal.toFloat)

@@ -23,7 +23,7 @@ class MancalaMove(
     * If the first move results in placing a stone in the players storage, then they are allowed to go again.
     * This can happen more than once in a row.
     */
-  private var followUpMove: MancalaMove = _
+  private var followUpMove: MancalaMove = scala.compiletime.uninitialized
 
   /**
     * Since moves, have to be undone, if there were captures, then they need to be remembered.

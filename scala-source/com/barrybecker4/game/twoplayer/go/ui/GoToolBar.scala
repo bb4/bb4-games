@@ -12,8 +12,8 @@ import java.awt.event.ActionListener
  */
 class GoToolBar(texture: ImageIcon, listener: ActionListener) extends GameToolBar(texture, listener) {
 
-  private var passButton_ : GradientButton = _
-  private var resignButton_ : GradientButton = _
+  private var passButton_ : GradientButton = scala.compiletime.uninitialized
+  private var resignButton_ : GradientButton = scala.compiletime.uninitialized
 
   /**
    * add the button for passing and resigning.

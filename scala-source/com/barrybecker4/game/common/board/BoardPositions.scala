@@ -13,10 +13,10 @@ import com.barrybecker4.game.common.GameContext
  */
 class BoardPositions(numRows: Int, numCols: Int) {
 
-  var positions_ : Array[Array[BoardPosition]] = _
-  private var numRows_ : Int = _
-  private var numCols_ : Int = _
-  private var rowsTimesCols_ : Int = _
+  var positions_ : Array[Array[BoardPosition]] = scala.compiletime.uninitialized
+  private var numRows_ : Int = scala.compiletime.uninitialized
+  private var numCols_ : Int = scala.compiletime.uninitialized
+  private var rowsTimesCols_ : Int = scala.compiletime.uninitialized
 
   setSize(numRows, numCols)
 
@@ -66,26 +66,26 @@ class BoardPositions(numRows: Int, numCols: Int) {
   override def equals(b: Any): Boolean = {
     if (!b.isInstanceOf[BoardPositions]) return false
     val board = b.asInstanceOf[BoardPositions]
-    for (i <- 1 to getNumRows; j <- 1 to getNumCols) {
-      val p1 = this.getPosition(i, j)
-      val p2 = board.getPosition(i, j)
-      assert(p1 != null)
-      assert(p2 != null)
-      if (p1.isOccupied != p2.isOccupied) {
-        GameContext.log(2, s"Inconsistent occupation status  p1=$p1 and p2=$p2")
-        return false
-      }
-      if (p1.isOccupied) {
-        val piece1 = p1.getPiece
-        val piece2 = p2.getPiece
-        if (piece1.isOwnedByPlayer1 != piece2.isOwnedByPlayer1 ||
-            piece1.getType != piece2.getType) {
-          GameContext.log(2, s"There was an inconsistency between p1=$p1 and $p2")
-          return false
-        }
+    (1 to getNumRows).forall { i =>
+      (1 to getNumCols).forall { j =>
+        val p1 = this.getPosition(i, j)
+        val p2 = board.getPosition(i, j)
+        assert(p1 != null)
+        assert(p2 != null)
+        if (p1.isOccupied != p2.isOccupied) {
+          GameContext.log(2, s"Inconsistent occupation status  p1=$p1 and p2=$p2")
+          false
+        } else if (p1.isOccupied) {
+          val piece1 = p1.getPiece
+          val piece2 = p2.getPiece
+          if (piece1.isOwnedByPlayer1 != piece2.isOwnedByPlayer1 ||
+              piece1.getType != piece2.getType) {
+            GameContext.log(2, s"There was an inconsistency between p1=$p1 and $p2")
+            false
+          } else true
+        } else true
       }
     }
-    true
   }
 
   override def hashCode(): Int = {

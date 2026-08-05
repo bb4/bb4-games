@@ -21,8 +21,8 @@ class GoSearchable(board: GoBoard, players: PlayerList, cache: ScoreCache)
   extends TwoPlayerSearchable[GoMove, GoBoard](board, players) {
 
   /** keeps track of dead stones. */
-  private var deadStoneUpdater: DeadStoneUpdater = _
-  private var boardEvaluator: BoardEvaluator = _
+  private var deadStoneUpdater: DeadStoneUpdater = scala.compiletime.uninitialized
+  private var boardEvaluator: BoardEvaluator = scala.compiletime.uninitialized
 
   init(cache)
 

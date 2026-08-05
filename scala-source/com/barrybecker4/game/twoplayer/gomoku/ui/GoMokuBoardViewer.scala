@@ -42,7 +42,7 @@ class GoMokuBoardViewer extends AbstractTwoPlayerBoardViewer[TwoPlayerMove, GoMo
     val loc = getBoardRenderer.createLocation(e)
     val sb = new StringBuilder("<html><font=-3>")
 
-    val space = controller.getBoard.asInstanceOf[IRectangularBoard[_]].getPosition(loc)
+    val space = controller.getBoard.asInstanceOf[IRectangularBoard[?]].getPosition(loc)
     if (space != null && GameContext.getDebugMode > 0) {
       sb.append(space.getLocation)
     }

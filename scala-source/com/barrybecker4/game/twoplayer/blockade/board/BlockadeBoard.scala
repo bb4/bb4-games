@@ -14,8 +14,8 @@ import scala.jdk.CollectionConverters.*
 class BlockadeBoard(numRows: Int, numCols: Int) extends TwoPlayerBoard[BlockadeMove]:
 
   private var homes: Homes = Homes()
-  private var boardAnalyzer: BoardAnalyzer = _
-  private var wallValidator: WallPlacementValidator = _
+  private var boardAnalyzer: BoardAnalyzer = scala.compiletime.uninitialized
+  private var wallValidator: WallPlacementValidator = scala.compiletime.uninitialized
 
   setSize(numRows, numCols)
   boardAnalyzer = BoardAnalyzer(this)

@@ -15,11 +15,11 @@ import com.barrybecker4.game.common.player.{PlayerAction, PlayerList}
  */
 abstract class GameController[M <: Move, B <: IBoard[M]] extends IGameController[M, B] {
 
-  private var board: B = _
-  var viewer: GameViewModel = _
-  private var players: PlayerList = _
-  var gameOptions: GameOptions = _
-  private var serverConnection: IServerConnection = _
+  private var board: B = scala.compiletime.uninitialized
+  var viewer: GameViewModel = scala.compiletime.uninitialized
+  private var players: PlayerList = scala.compiletime.uninitialized
+  var gameOptions: GameOptions = scala.compiletime.uninitialized
+  private var serverConnection: IServerConnection = scala.compiletime.uninitialized
 
   GameContext.log(3, s" mem=${Runtime.getRuntime.freeMemory}")
 

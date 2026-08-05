@@ -53,7 +53,7 @@ class MancalaBoardRenderer extends TwoPlayerBoardRenderer:
       g2.drawOval(x, y, cellSize - 2, cellSize - 2)
 
 object MancalaBoardRenderer:
-  private var renderer_ : GameBoardRenderer = _
+  private var renderer_ : GameBoardRenderer = scala.compiletime.uninitialized
 
   def getRenderer: GameBoardRenderer =
     if renderer_ == null then

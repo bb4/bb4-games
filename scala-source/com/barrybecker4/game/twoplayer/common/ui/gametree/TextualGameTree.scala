@@ -21,7 +21,7 @@ final class TextualGameTree(root: SearchTreeNode, cellRenderer: GameTreeCellRend
   private val TREE_WIDTH = 420
   private val ROW_HEIGHT = 14
 
-  private var tree: JTree = _
+  private var tree: JTree = scala.compiletime.uninitialized
   private var cellRendererField: GameTreeCellRenderer = cellRenderer
 
   reset(root)

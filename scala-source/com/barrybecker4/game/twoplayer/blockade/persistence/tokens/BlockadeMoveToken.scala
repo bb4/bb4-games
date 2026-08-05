@@ -8,8 +8,8 @@ import java.io.StreamTokenizer
 class BlockadeMoveToken extends TwoPlayerMoveToken:
   
   private val fromPoint = Point()
-  private var wallPoint1: Point = _
-  private var wallPoint2: Point = _
+  private var wallPoint1: Point = scala.compiletime.uninitialized
+  private var wallPoint2: Point = scala.compiletime.uninitialized
 
   override def parseContent(st: StreamTokenizer): Boolean =
     var parsed = parsePoint(st, fromPoint)

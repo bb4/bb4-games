@@ -54,7 +54,7 @@ abstract class TallyDialog(parent: Component, val controller: MultiGameControlle
     mainPanel
   }
 
-  private def formatWinnersLabel(winners: java.util.List[_ <: MultiGamePlayer]): String = {
+  private def formatWinnersLabel(winners: java.util.List[? <: MultiGamePlayer]): String = {
     val bldr = new StringBuilder()
     winners.asScala.foreach { winner =>
       bldr.append(winner.getName).append(", ")
@@ -64,7 +64,7 @@ abstract class TallyDialog(parent: Component, val controller: MultiGameControlle
 
   def createSummaryTable(players: PlayerList): SummaryTable
 
-  def findWinners(players: PlayerList): java.util.List[_ <: MultiGamePlayer]
+  def findWinners(players: PlayerList): java.util.List[? <: MultiGamePlayer]
 
   override def createButtonsPanel: JPanel = {
     val buttonsPanel = new JPanel(new FlowLayout())

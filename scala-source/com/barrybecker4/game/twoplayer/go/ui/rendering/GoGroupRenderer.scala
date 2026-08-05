@@ -300,8 +300,8 @@ object GoGroupRenderer {
   private val hmRegionCache_ = mutable.HashMap[IGoGroup, GroupRegion]()
 
   private class GroupRegion {
-    var borderArea: Area = _
-    var borderColor: Color = _
-    var cellSize: Float = _
+    var borderArea: Area = scala.compiletime.uninitialized
+    var borderColor: Color = scala.compiletime.uninitialized
+    var cellSize: Float = scala.compiletime.uninitialized
   }
 }

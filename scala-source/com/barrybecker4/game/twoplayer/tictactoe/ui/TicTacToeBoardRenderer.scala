@@ -14,7 +14,7 @@ class TicTacToeBoardRenderer private () extends GoMokuBoardRenderer:
   setPieceRenderer(TwoPlayerPieceRenderer.getRenderer())
 
 object TicTacToeBoardRenderer:
-  private var renderer_ : GameBoardRenderer = _
+  private var renderer_ : GameBoardRenderer = scala.compiletime.uninitialized
 
   def getRenderer: GameBoardRenderer =
     if renderer_ == null then

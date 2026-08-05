@@ -37,12 +37,10 @@ class BlockadeSearchable(board: BlockadeBoard, players: PlayerList)
     worthValue
 
   private def checkForWin(player1: Boolean): Boolean =
-    val homes = getBoard.getPlayerHomes(!player1)
-    for home <- homes do
+    getBoard.getPlayerHomes(!player1).exists { home =>
       val p = home.getPiece
-      if p != null && p.isOwnedByPlayer1 == player1 then
-        return true
-    false
+      p != null && p.isOwnedByPlayer1 == player1
+    }
 
   override def generateMoves(lastMove: BlockadeMove, weights: ParameterArray): MoveList[BlockadeMove] =
     getProfiler.startGenerateMoves()

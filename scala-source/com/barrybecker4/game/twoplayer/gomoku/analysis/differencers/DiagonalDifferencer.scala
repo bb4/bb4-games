@@ -11,12 +11,12 @@ import com.barrybecker4.game.twoplayer.gomoku.pattern.Patterns
  *
  * @author Barry Becker
  */
-abstract class DiagonalDifferencer(board: TwoPlayerBoard[_], patterns: Patterns,
+abstract class DiagonalDifferencer(board: TwoPlayerBoard[?], patterns: Patterns,
                                   lineFactory: LineFactory)
   extends ValueDifferencer(board, patterns, lineFactory) {
 
-  protected var numRows: Int = _
-  protected var numCols: Int = _
+  protected var numRows: Int = scala.compiletime.uninitialized
+  protected var numCols: Int = scala.compiletime.uninitialized
 
   protected def init(): Unit = {
     numRows = board_.getNumRows

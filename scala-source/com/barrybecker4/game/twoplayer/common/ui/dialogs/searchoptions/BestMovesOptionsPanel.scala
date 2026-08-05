@@ -14,9 +14,9 @@ import javax.swing.*
  */
 class BestMovesOptionsPanel(private val bestMovesOptions: BestMovesSearchOptions) extends JPanel:
 
-  private var percentLessThanBestThreshField: NumberInput = _
-  private var bestPercentageField: NumberInput = _
-  private var minBestMovesField: NumberInput = _
+  private var percentLessThanBestThreshField: NumberInput = scala.compiletime.uninitialized
+  private var bestPercentageField: NumberInput = scala.compiletime.uninitialized
+  private var minBestMovesField: NumberInput = scala.compiletime.uninitialized
 
   initialize()
 

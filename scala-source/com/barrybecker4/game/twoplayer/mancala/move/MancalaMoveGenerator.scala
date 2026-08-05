@@ -149,8 +149,4 @@ class MancalaMoveGenerator:
     * @return true of the {@link MoveList} contains the specified move.
     */
   private def contains(move: MancalaMove, moves: MoveList[MancalaMove]): Boolean =
-    for m <- moves.asScala do
-      val moveLocation = m.getToLocation
-      if moveLocation.equals(move.getToLocation) then
-        return true
-    false
+    moves.asScala.exists(_.getToLocation.equals(move.getToLocation))

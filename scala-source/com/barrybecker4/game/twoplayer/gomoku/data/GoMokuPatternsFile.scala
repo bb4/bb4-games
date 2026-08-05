@@ -16,7 +16,7 @@ import java.io._
  */
 class GoMokuPatternsFile extends GoMokuPatterns {
 
-  private var patterns_ : Array[String] = _
+  private var patterns_ : Array[String] = scala.compiletime.uninitialized
 
   readPatternFile()
 
@@ -97,14 +97,14 @@ class GoMokuPatternsFile extends GoMokuPatterns {
 
     try {
       val numPatterns = getNumPatterns
-      GameContext.log(0, "there are " + numPatterns + " patterns. ")
+      GameContext.log(0, s"there are $numPatterns patterns. ")
       for (i <- 0 until numPatterns) {
-        outData.write('\"' + patterns_(i) + "\", ")
+        outData.write(s""""${patterns_(i)}", """)
       }
       outData.write("\r\n")
       for (i <- 0 until numPatterns) {
         val index = getWeightIndexForPattern(patterns_(i))
-        outData.write(index + ", ")
+        outData.write(s"$index, ")
       }
       outData.write("\r\n")
       outData.flush()

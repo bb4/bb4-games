@@ -32,14 +32,12 @@ class ChessPieceRenderer extends TwoPlayerPieceRenderer {
         g2.drawImage(ChessPieceRenderer.queenImage(playerIdx).getImage, pos.x, pos.y, pieceSize, pieceSize, null)
       case ChessPieceType.KING =>
         g2.drawImage(ChessPieceRenderer.kingImage(playerIdx).getImage, pos.x, pos.y, pieceSize, pieceSize, null)
-      case _ =>
-        assert(false, s"bad chess piece type: ${piece.getType}")
     }
   }
 }
 
 object ChessPieceRenderer {
-  private var renderer_ : TwoPlayerPieceRenderer = _
+  private var renderer_ : TwoPlayerPieceRenderer = scala.compiletime.uninitialized
 
   private val DEFAULT_PLAYER1_COLOR = new Color(30, 170, 10)
   private val DEFAULT_PLAYER2_COLOR = new Color(170, 0, 180)

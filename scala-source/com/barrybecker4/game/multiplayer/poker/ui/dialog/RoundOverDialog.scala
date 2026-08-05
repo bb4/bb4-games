@@ -14,8 +14,8 @@ import java.text.NumberFormat
 class RoundOverDialog(parent: Component, winners_ : java.util.List[PokerPlayer], winnings_ : Int) 
     extends OptionsDialog(parent) {
 
-  private var closeButton_ : GradientButton = _
-  private var winLabel_ : JLabel = _
+  private var closeButton_ : GradientButton = scala.compiletime.uninitialized
+  private var winLabel_ : JLabel = scala.compiletime.uninitialized
 
   showContent()
 

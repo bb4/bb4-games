@@ -69,7 +69,7 @@ class TwoPlayerMoveStub(
         val index = parentMove.getChildren.indexOf(current)
         assert(
           index >= 0,
-          getValue + " not found among " + getParent.getChildren.size + " parent children of " + getParent
+          s"$getValue not found among ${getParent.getChildren.size} parent children of $getParent"
         )
         id = Integer.toString(index) + id
         current = parentMove

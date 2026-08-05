@@ -24,7 +24,7 @@ import scala.jdk.CollectionConverters._
  */
 final class GoController() extends TwoPlayerController[GoMove, GoBoard] {
 
-  private var scoreCache_ : ScoreCache = _
+  private var scoreCache_ : ScoreCache = scala.compiletime.uninitialized
   private var boardOpts: BoardOptions = new BoardOptions(GoController.DEFAULT_SIZE, 0)
 
   /**

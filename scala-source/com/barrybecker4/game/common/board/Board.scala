@@ -21,7 +21,7 @@ import com.barrybecker4.game.common.{GameContext, Move, MoveList}
  */
 abstract class Board[M <: Move] extends IRectangularBoard[M] {
 
-  var positions_ : BoardPositions = _
+  var positions_ : BoardPositions = scala.compiletime.uninitialized
 
   private var moveList_ : MoveList[M] = new MoveList[M]()
 
@@ -80,8 +80,8 @@ abstract class Board[M <: Move] extends IRectangularBoard[M] {
   }
 
   override def equals(b: Any): Boolean = {
-    if (!b.isInstanceOf[Board[_]]) return false
-    val board = b.asInstanceOf[Board[_]]
+    if (!b.isInstanceOf[Board[?]]) return false
+    val board = b.asInstanceOf[Board[?]]
     board.positions_.equals(positions_)
   }
 

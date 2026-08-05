@@ -227,7 +227,7 @@ abstract class GameOptionsDialog(parent: Component, val controller_ : GameContro
 
     //call super methods to add color select entries
     boardColorButton_ = new JButton("...")
-    val v = controller_.getViewer.asInstanceOf[GameBoardViewer[_, _]]
+    val v = controller_.getViewer.asInstanceOf[GameBoardViewer[?, ?]]
     boardColorButton_.setBackground(v.getBackground)
     gridColorButton_ = new JButton("...")
     gridColorButton_.setBackground(v.getGridColor)
@@ -297,7 +297,7 @@ abstract class GameOptionsDialog(parent: Component, val controller_ : GameContro
     GameContext.setProfiling(profileCheckbox_.isSelected)
     GameContext.getLogger.setDestination(logDestination_)
 
-    val v = controller_.getViewer.asInstanceOf[GameBoardViewer[_, _]]
+    val v = controller_.getViewer.asInstanceOf[GameBoardViewer[?, ?]]
     v.setBackground(boardColorButton_.getBackground)
     v.setGridColor(gridColorButton_.getBackground)
 

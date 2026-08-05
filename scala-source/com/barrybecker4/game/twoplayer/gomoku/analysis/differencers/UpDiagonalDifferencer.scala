@@ -12,7 +12,7 @@ import com.barrybecker4.optimization.parameter.ParameterArray
  *
  * @author Barry Becker
  */
-class UpDiagonalDifferencer(board: TwoPlayerBoard[_], patterns: Patterns,
+class UpDiagonalDifferencer(board: TwoPlayerBoard[?], patterns: Patterns,
                            lineFactory: LineFactory)
   extends DiagonalDifferencer(board, patterns, lineFactory) {
 

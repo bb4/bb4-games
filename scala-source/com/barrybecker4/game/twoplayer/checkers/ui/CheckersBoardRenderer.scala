@@ -49,7 +49,7 @@ class CheckersBoardRenderer extends TwoPlayerBoardRenderer {
 }
 
 object CheckersBoardRenderer {
-  private var renderer_ : GameBoardRenderer = _
+  private var renderer_ : GameBoardRenderer = scala.compiletime.uninitialized
   private val BLACK_SQUARE_COLOR = new Color(2, 2, 2, 80)
   private val RED_SQUARE_COLOR = new Color(250, 0, 0, 80)
 

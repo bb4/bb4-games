@@ -53,7 +53,7 @@ abstract class GamePieceRenderer {
    * @param g2 graphics context
    * @param position the position of the piece to render
    */
-  def render(g2: Graphics2D, position: BoardPosition, cellSize: Int, margin: Int, b: Board[_]): Unit = {
+  def render(g2: Graphics2D, position: BoardPosition, cellSize: Int, margin: Int, b: Board[?]): Unit = {
     val piece = position.getPiece
     // if there is no piece, then nothing to render
     if (piece == null) {
@@ -65,7 +65,7 @@ abstract class GamePieceRenderer {
   }
 
   def renderForShow(g2: Graphics2D, pos: Point, piece: GamePiece, pieceSize: Int): Unit = {
-    val circle = new Ellipse2D.Float(pos.x, pos.y, pieceSize + 1, pieceSize + 1)
+    val circle = new Ellipse2D.Float(pos.x.toFloat, pos.y.toFloat, (pieceSize + 1).toFloat, (pieceSize + 1).toFloat)
 
     //spec highlight offset
     val hlOffset = (pieceSize / 2.3 + 0.5).toInt

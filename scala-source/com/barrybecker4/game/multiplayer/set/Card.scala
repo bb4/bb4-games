@@ -3,6 +3,8 @@ package com.barrybecker4.game.multiplayer.set
 
 import scala.collection.mutable.ListBuffer
 import scala.jdk.CollectionConverters.*
+import scala.util.boundary
+import scala.util.boundary.break
 
 class Card(colorVal: Card.AttributeValue, shapeVal: Card.AttributeValue, numberVal: Card.AttributeValue, textureVal: Card.AttributeValue) {
   import Card.*
@@ -61,18 +63,15 @@ object Card {
 
   def isSet(cards: java.util.List[Card]): Boolean = {
     if (cards == null || cards.size != 3) return false
-    
-    for (i <- 0 until Attribute.values.length) {
-      val attribute = Attribute.values.apply(i)
+
+    Attribute.values.forall { attribute =>
       val val0 = cards.get(0).valueOfAttribute(attribute)
       val val1 = cards.get(1).valueOfAttribute(attribute)
       val val2 = cards.get(2).valueOfAttribute(attribute)
       val allSame = (val0 == val1) && (val1 == val2)
       val allDifferent = (val0 != val1) && (val1 != val2) && (val0 != val2)
-
-      if (!(allSame || allDifferent)) return false
+      allSame || allDifferent
     }
-    true
   }
 
   def hasSet(cards: java.util.List[Card]): Boolean = 
@@ -84,9 +83,9 @@ object Card {
   def getSets(cards: java.util.List[Card]): java.util.List[Card] = 
     getSetsInternal(cards, false)
 
-  private def getSetsInternal(cards: java.util.List[Card], terminateEarly: Boolean): java.util.List[Card] = {
+  private def getSetsInternal(cards: java.util.List[Card], terminateEarly: Boolean): java.util.List[Card] = boundary {
     val sets = java.util.LinkedList[Card]()
-    if (cards == null || cards.size < 3) return sets
+    if (cards == null || cards.size < 3) break(sets)
 
     for (i <- 0 until cards.size) {
       val candidate = java.util.LinkedList[Card]()
@@ -97,7 +96,7 @@ object Card {
           candidate.add(cards.get(k))
           if (isSet(candidate)) {
             sets.addAll(candidate)
-            if (terminateEarly) return sets
+            if (terminateEarly) break(sets)
           }
           candidate.remove(2)
         }

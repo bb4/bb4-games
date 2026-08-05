@@ -23,7 +23,7 @@ class BlockadeMove(
 
   private val direction: Direction = initDirection()
   
-  var capturedOpponentPawn: GamePiece = _
+  var capturedOpponentPawn: GamePiece = scala.compiletime.uninitialized
 
   private def this(move: BlockadeMove) =
     this(move.fromLocation, move.getToLocation, move.getValue, move.getPiece, move.wall)

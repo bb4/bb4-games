@@ -14,9 +14,9 @@ import javax.swing.*
  */
 class MonteCarloOptionsPanel(private val monteCarloOptions: MonteCarloSearchOptions) extends JPanel:
 
-  private var maxSimulationsField: NumberInput = _
-  private var exploreExploitRatioField: NumberInput = _
-  private var randomLookHeadField: NumberInput = _
+  private var maxSimulationsField: NumberInput = scala.compiletime.uninitialized
+  private var exploreExploitRatioField: NumberInput = scala.compiletime.uninitialized
+  private var randomLookHeadField: NumberInput = scala.compiletime.uninitialized
 
   /** It would be unreasonable to run more than this many simulations. */
   private val ABS_MAX_NUM_SIMULATIONS = 100000000

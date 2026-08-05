@@ -32,7 +32,7 @@ class PlanetRenderer private () extends GamePieceRenderer:
 
     val pieceSize = getPieceSize(cellSize, planet)
     val pos = getPosition(position, cellSize, pieceSize, margin)
-    val circle = Ellipse2D.Float(pos.x, pos.y, pieceSize + 1, pieceSize + 1)
+    val circle = Ellipse2D.Float(pos.x.toFloat, pos.y.toFloat, (pieceSize + 1).toFloat, (pieceSize + 1).toFloat)
     val hlOffset = (pieceSize / 2.3 + 0.5).toInt
     val c = getPieceColor(planet)
 

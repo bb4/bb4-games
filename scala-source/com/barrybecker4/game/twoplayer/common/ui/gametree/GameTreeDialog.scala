@@ -34,22 +34,22 @@ final class GameTreeDialog(
     with TreeExpansionListener:
 
   /** the options get set directly on the game controller that is passed in. */
-  @volatile private var controller: TwoPlayerController[?, ?] = _
+  @volatile private var controller: TwoPlayerController[?, ?] = scala.compiletime.uninitialized
 
-  @volatile private var treeViewer: GameTreeViewer = _
-  @volatile private var textTree: TextualGameTree = _
-  @volatile private var gameTreeButtons: GameTreeButtons = _
-  @volatile private var tree: GameTreeViewable = _
-  private var moveInfo: MoveInfoPanel = _
+  @volatile private var treeViewer: GameTreeViewer = scala.compiletime.uninitialized
+  @volatile private var textTree: TextualGameTree = scala.compiletime.uninitialized
+  @volatile private var gameTreeButtons: GameTreeButtons = scala.compiletime.uninitialized
+  @volatile private var tree: GameTreeViewable = scala.compiletime.uninitialized
+  private var moveInfo: MoveInfoPanel = scala.compiletime.uninitialized
 
   /** the viewer in the debug window. */
-  @volatile private var boardViewerField: TwoPlayerViewModel[?, ?] = _
+  @volatile private var boardViewerField: TwoPlayerViewModel[?, ?] = scala.compiletime.uninitialized
 
   /** the controller that is actually being played in the normal view. */
-  private var mainController: TwoPlayerController[?, ?] = _
+  private var mainController: TwoPlayerController[?, ?] = scala.compiletime.uninitialized
 
-  @volatile private var cellRendererField: GameTreeCellRenderer = _
-  private var motionListener: GameTreeMotionListener = _
+  @volatile private var cellRendererField: GameTreeCellRenderer = scala.compiletime.uninitialized
+  private var motionListener: GameTreeMotionListener = scala.compiletime.uninitialized
 
   initialize(boardViewer, cellRenderer)
 

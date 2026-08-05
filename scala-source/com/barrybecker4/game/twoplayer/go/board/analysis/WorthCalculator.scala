@@ -21,7 +21,7 @@ class WorthCalculator(val board_ : GoBoard, analyzerMap: GroupAnalyzerMap) {
 
   private val territoryAnalyzer = new TerritoryAnalyzer(board_, analyzerMap)
   private val territoryUpdater = new TerritoryUpdater(board_, analyzerMap)
-  private var info: WorthInfo = _
+  private var info: WorthInfo = scala.compiletime.uninitialized
 
   /**
    * Statically evaluate the board position.

@@ -33,21 +33,21 @@ abstract class AbstractTwoPlayerBoardViewer[M <: TwoPlayerMove, B <: TwoPlayerBo
     with TwoPlayerViewModel[M, B]:
 
   /** Responsible for showing move progress visually (with a progress bar). */
-  private var moveRequester: ComputerMoveRequester[M, B] = _
+  private var moveRequester: ComputerMoveRequester[M, B] = scala.compiletime.uninitialized
 
-  private var progressBar: ComputerMoveProgressBar = _
+  private var progressBar: ComputerMoveProgressBar = scala.compiletime.uninitialized
 
   /**
    * Show this cached board if we are in the middle of processing the next one
    * (to avoid concurrency problems)
    */
-  private var cachedGameBoard: B = _
+  private var cachedGameBoard: B = scala.compiletime.uninitialized
 
   /** we occasionally want to show the computer's considered next moves in the ui. */
-  private var nextMoves: Array[M] = _
+  private var nextMoves: Array[M] = scala.compiletime.uninitialized
 
   /** playback a sequence of moves  */
-  private var moveSequencePlayer: MoveSequencePlayback[M, B] = _
+  private var moveSequencePlayer: MoveSequencePlayback[M, B] = scala.compiletime.uninitialized
 
   // Initialize in constructor
   controller.setViewer(this)

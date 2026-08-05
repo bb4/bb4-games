@@ -14,11 +14,11 @@ import java.awt.event.ActionListener
  */
 class GameToolBar(texture: ImageIcon, listener: ActionListener) extends TexturedToolBar(texture, listener) {
 
-  private var newGameButton_ : GradientButton = _
-  private var undoButton_ : GradientButton = _
-  private var redoButton_ : GradientButton = _
-  private var optionsButton_ : GradientButton = _
-  private var helpButton_ : GradientButton = _
+  private var newGameButton_ : GradientButton = scala.compiletime.uninitialized
+  private var undoButton_ : GradientButton = scala.compiletime.uninitialized
+  private var redoButton_ : GradientButton = scala.compiletime.uninitialized
+  private var optionsButton_ : GradientButton = scala.compiletime.uninitialized
+  private var helpButton_ : GradientButton = scala.compiletime.uninitialized
 
   init()
 

@@ -46,7 +46,7 @@ class MancalaBinRenderer extends TwoPlayerPieceRenderer:
   override def renderForShow(g2: Graphics2D, pos: Point, piece: GamePiece, pieceSize: Int): Unit =
     val bin = piece.asInstanceOf[MancalaBin]
     val yOffset = if bin.isHome then pieceSize >> 1 else 0
-    val circle = new Ellipse2D.Float(pos.x, pos.y + yOffset, pieceSize + 1, pieceSize + 1)
+      val circle = new Ellipse2D.Float(pos.x.toFloat, (pos.y + yOffset).toFloat, (pieceSize + 1).toFloat, (pieceSize + 1).toFloat)
 
     g2.setStroke(MancalaBinRenderer.BIN_STROKE)
     g2.setColor(if bin.isOwnedByPlayer1 then getPlayer1Color() else getPlayer2Color())
@@ -61,7 +61,7 @@ class MancalaBinRenderer extends TwoPlayerPieceRenderer:
     g2.drawString(bin.getNumStones.toString, pos.x + offset, pos.y + 3 * offset + yOffset)
 
 object MancalaBinRenderer:
-  private var renderer_ : GamePieceRenderer = _
+  private var renderer_ : GamePieceRenderer = scala.compiletime.uninitialized
 
   private val STONE_COLOR = new Color(20, 40, 80)
   private val BIN_STROKE: Stroke = new BasicStroke(2.0f)

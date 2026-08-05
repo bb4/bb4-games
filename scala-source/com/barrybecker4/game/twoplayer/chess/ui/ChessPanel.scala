@@ -13,13 +13,13 @@ class ChessPanel extends TwoPlayerPanel {
 
   override def getTitle: String = GameContext.getLabel("CHESS_TITLE")
 
-  override def createBoardViewer(): GameBoardViewer[_, _] = new ChessBoardViewer()
+  override def createBoardViewer(): GameBoardViewer[?, ?] = new ChessBoardViewer()
 
   override def createNewGameDialog(parent: Component, viewer: GameViewModel): NewGameDialog = {
     new ChessNewGameDialog(parent, viewer)
   }
 
-  override def createInfoPanel(controller: GameController[_, _]): GameInfoPanel = {
+  override def createInfoPanel(controller: GameController[?, ?]): GameInfoPanel = {
     new TwoPlayerInfoPanel(controller)
   }
 
