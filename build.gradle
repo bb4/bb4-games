@@ -34,7 +34,7 @@ apply plugin: 'com.barrybecker4.bb4.scala-library'
 // Zinc compiles both trees; java srcDirs emptied so compileJava is not a separate broken pass.
 sourceSets {
     main {
-        scala.srcDirs = ['scala-source', 'source']
+        scala.srcDirs = ['scala-source']
         java.srcDirs = []
     }
     test {
