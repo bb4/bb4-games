@@ -29,6 +29,6 @@ public class StubLine extends Line {
     }
 
     public String getLineContent() {
-        return line.toString();
+        return line().toString();
     }
 }

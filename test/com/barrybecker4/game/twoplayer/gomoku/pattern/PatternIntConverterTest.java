@@ -29,7 +29,7 @@ public class PatternIntConverterTest {
     @Test
     public void testGetIntForUnoccupied() {
 
-        verify(2, Character.toString(Patterns.UNOCCUPIED));
+        verify(2, Character.toString(Patterns.UNOCCUPIED()));
     }
 
     /** Converts to 11 in binary */

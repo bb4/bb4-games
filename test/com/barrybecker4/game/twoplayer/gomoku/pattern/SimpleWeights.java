@@ -18,9 +18,9 @@ import java.util.List;
 public class SimpleWeights extends GameWeights {
 
     private static final List<Parameter> PARAMS = Arrays.asList(
-        new DoubleParameter(1.0, 0.0, 5.0, "weight 1", NONE),
-        new DoubleParameter(3.0, 1.0, 100.0, "weight 2", NONE),
-        new DoubleParameter(10.0, 5.0, 1000.0, "won weight 3", NONE)
+        new DoubleParameter(1.0, 0.0, 5.0, "weight 1", GameWeights.NONE()),
+        new DoubleParameter(3.0, 1.0, 100.0, "weight 2", GameWeights.NONE()),
+        new DoubleParameter(10.0, 5.0, 1000.0, "won weight 3", GameWeights.NONE())
     );
 
     public SimpleWeights() {

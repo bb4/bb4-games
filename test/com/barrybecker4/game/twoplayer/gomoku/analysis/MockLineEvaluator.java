@@ -2,7 +2,7 @@
 package com.barrybecker4.game.twoplayer.gomoku.analysis;
 
 import com.barrybecker4.game.common.board.GamePiece;
-import com.barrybecker4.game.twoplayer.gomoku.pattern.GoMokuPatterns;
+import com.barrybecker4.game.twoplayer.gomoku.pattern.Patterns;
 
 /**
  * Represents a run of symbols to be evaluated on the board.
@@ -33,10 +33,10 @@ public class MockLineEvaluator extends LineEvaluator {
     public int evaluate(CharSequence line, boolean player1Perspective, int pos, int minpos, int maxpos) {
 
         char symb = line.charAt( pos );
-        if (symb == GoMokuPatterns.UNOCCUPIED)  {
+        if (symb == Patterns.UNOCCUPIED())  {
             return 0;
         }
-        char opponentSymb = player1Perspective ? GamePiece.P2_SYMB : GamePiece.P1_SYMB;
+        char opponentSymb = player1Perspective ? GamePiece.P2_SYMB() : GamePiece.P1_SYMB();
         int sign =  (symb == opponentSymb) ? -1 : 1;
         return player1Perspective? sign: -sign;
     }

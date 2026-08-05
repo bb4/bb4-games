@@ -31,9 +31,9 @@ public class GameCommandTest extends TestCase {
         assertTrue(cmd.toString().contains("CHAT_MESSAGE"));
         assertTrue(cmd.toString().contains("hello"));
 
-        String payload = "old" + GameCommand.CHANGE_TO + "new";
+        String payload = "old" + GameCommand.CHANGE_TO() + "new";
         GameCommand rename = new GameCommand(GameCommand.Name.CHANGE_NAME, payload);
-        String[] parts = ((String) rename.getArgument()).split(GameCommand.CHANGE_TO);
+        String[] parts = ((String) rename.getArgument()).split(GameCommand.CHANGE_TO());
         assertEquals(2, parts.length);
         assertEquals("old", parts[0]);
         assertEquals("new", parts[1]);

@@ -143,7 +143,7 @@ public class MoveEvaluationTest extends TestCase  {
 
     private void verifyDiagonalDirectionsResult(int row, int col, boolean player1, int expectedWorth) {
 
-        verifyResult(Direction.UP_DIAGONAL, col, TicTacToePatterns.WIN_RUN_LENGTH + 1 - col, player1, expectedWorth);
+        verifyResult(Direction.UP_DIAGONAL, col, TicTacToePatterns.WIN_RUN_LENGTH() + 1 - col, player1, expectedWorth);
         verifyResult(Direction.DOWN_DIAGONAL, col, col, player1, expectedWorth);
     }
 

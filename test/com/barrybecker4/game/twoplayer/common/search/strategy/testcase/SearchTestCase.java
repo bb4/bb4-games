@@ -20,7 +20,7 @@ import org.w3c.dom.NodeList;
 
 import java.lang.reflect.InvocationTargetException;
 
-import static com.barrybecker4.game.twoplayer.common.search.options.MonteCarloSearchOptions.MaximizationStyle;
+import com.barrybecker4.game.twoplayer.common.search.options.MaximizationStyle;
 
 /**
  * Corresponds to a test-case node in the case xml. It describes which search algorithm
@@ -60,7 +60,7 @@ public class SearchTestCase {
      * Create teh strategy using reflection and pass it the searchable.
      * @return the search strategy to test
      */
-    public SearchStrategy<TwoPlayerMoveStub> createSearchStrategy() {
+    public SearchStrategy<TwoPlayerMoveStub, ?> createSearchStrategy() {
 
         SearchOptions<TwoPlayerMoveStub, TwoPlayerBoard<TwoPlayerMoveStub>> searchOptions =
                 new SearchOptions<>(bruteSearchOptions, BEST_MOVE_OPTIONS, monteCarloSearchOptions);
@@ -75,14 +75,14 @@ public class SearchTestCase {
         return createInstanceForClass(className, searchable);
     }
 
-    private SearchStrategy<TwoPlayerMoveStub> createInstanceForClass(
+    private SearchStrategy<TwoPlayerMoveStub, ?> createInstanceForClass(
             String className, Searchable searchable)  {
 
-        SearchStrategy<TwoPlayerMoveStub> newStrategy = null;
+        SearchStrategy<TwoPlayerMoveStub, ?> newStrategy = null;
         GameWeights weights = new GameWeightsStub();
 
         try {
-            newStrategy = (SearchStrategy<TwoPlayerMoveStub>) Class.forName(STRATEGY_PACKAGE + className)
+            newStrategy = (SearchStrategy<TwoPlayerMoveStub, ?>) Class.forName(STRATEGY_PACKAGE + className)
                     .getConstructor(Searchable.class, ParameterArray.class)
                     .newInstance(searchable, weights.getDefaultWeights());
         } catch (InstantiationException | IllegalAccessException

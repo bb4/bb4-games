@@ -30,6 +30,19 @@ jarMap['set'] =        [include:['com/barrybecker4/game/multiplayer/set/**']]
 
 apply plugin: 'com.barrybecker4.bb4.scala-library'
 
+// Joint compilation so Java can extend/reference Scala during the package-by-package port.
+// Zinc compiles both trees; java srcDirs emptied so compileJava is not a separate broken pass.
+sourceSets {
+    main {
+        scala.srcDirs = ['scala-source', 'source']
+        java.srcDirs = []
+    }
+    test {
+        scala.srcDirs = ['scala-test', 'test']
+        java.srcDirs = []
+    }
+}
+
 bb4 {
     archivesBaseName.set('bb4-game')
     mainClass.set('com.barrybecker4.game.common.ui.GameApp')

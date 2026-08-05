@@ -9,7 +9,7 @@ import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub;
 import junit.framework.TestCase;
 import org.junit.Test;
 
-import static com.barrybecker4.game.twoplayer.common.search.options.MonteCarloSearchOptions.MaximizationStyle.WIN_RATE;
+import static com.barrybecker4.game.twoplayer.common.search.options.MaximizationStyle.WIN_RATE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -39,7 +39,7 @@ public class UctNodeTest {
 
         uctNode = new UctNode<>(P2_MOVE);
 
-        assertEquals("Unexpected move", P2_MOVE, uctNode.move);
+        assertEquals("Unexpected move", P2_MOVE, uctNode.getMove());
         assertEquals("Unexpected bestNode", null, uctNode.findBestChildMove(WIN_RATE));
         assertFalse("Unexpected children", uctNode.hasChildren());
         assertEquals("Unexpected numVisits", 0, uctNode.getNumVisits());
@@ -111,7 +111,7 @@ public class UctNodeTest {
         secondNode.update(0.0);
 
         // secondMove is selected since it has a winrate of 0.6667
-        assertEquals("Unexpected bestMove", secondNode.move, uctNode.findBestChildMove(WIN_RATE));
+        assertEquals("Unexpected bestMove", secondNode.getMove(), uctNode.findBestChildMove(WIN_RATE));
     }
 
     /** It should be a large value in this case so it gets selected to be visited first. */

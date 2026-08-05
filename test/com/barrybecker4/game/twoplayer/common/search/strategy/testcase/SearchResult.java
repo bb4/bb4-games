@@ -39,7 +39,7 @@ public class SearchResult {
      * @param initialMove the root move in the game tree
      * @param searchStrategy the search strategy to use to find the result move
      */
-    public SearchResult(TwoPlayerMoveStub initialMove, SearchStrategy<TwoPlayerMoveStub> searchStrategy) {
+    public SearchResult(TwoPlayerMoveStub initialMove, SearchStrategy<TwoPlayerMoveStub, ?> searchStrategy) {
 
         TwoPlayerMoveStub foundMove = searchStrategy.search(initialMove, null);
 

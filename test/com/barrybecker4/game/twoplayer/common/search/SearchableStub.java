@@ -29,7 +29,7 @@ public class SearchableStub extends AbstractSearchable<TwoPlayerMoveStub, TwoPla
     /** Copy constructor */
     public SearchableStub(SearchableStub stub) {
         this(stub.getSearchOptions());
-        moveList = new MoveList<>(stub.getMoveList());
+        setMoveList(new MoveList<>(stub.getMoveList()));
     }
 
     @Override
@@ -45,17 +45,17 @@ public class SearchableStub extends AbstractSearchable<TwoPlayerMoveStub, TwoPla
 
     @Override
     public void makeInternalMove( TwoPlayerMoveStub m )  {
-        moveList.add(m);
+        getMoveList().add(m);
     }
 
     @Override
     public void undoInternalMove( TwoPlayerMoveStub m ) {
-        moveList.removeLast();
+        getMoveList().removeLast();
     }
 
     @Override
     public boolean done( TwoPlayerMoveStub m, boolean recordWin ) {
-        return m.getInheritedValue() >= SearchStrategy.WINNING_VALUE;
+        return m.getInheritedValue() >= SearchStrategy.WINNING_VALUE();
     }
 
     @Override
@@ -93,7 +93,7 @@ public class SearchableStub extends AbstractSearchable<TwoPlayerMoveStub, TwoPla
     @Override
     public HashKey getHashKey() {
         HashKey key = new HashKey();
-        for (Move m : moveList) {
+        for (Move m : getMoveList()) {
             //key += m.hashCode();
             key.applyMove(((TwoPlayerMoveStub)m).getToLocation(), m.hashCode());
         }

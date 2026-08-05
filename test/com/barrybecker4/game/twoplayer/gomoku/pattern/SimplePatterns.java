@@ -30,7 +30,7 @@ public final class SimplePatterns extends Patterns
     }
 
     @Override
-    protected int getNumPatterns() {
+    public int getNumPatterns() {
         return 6;
     }
 
@@ -41,12 +41,12 @@ public final class SimplePatterns extends Patterns
 
 
     @Override
-    protected String getPatternString(int i) {
+    public String getPatternString(int i) {
         return patternString[i];
     }
 
     @Override
-    protected int getWeightIndex(int i) {
+    public int getWeightIndex(int i) {
         return weightIndex[i];
     }
 }

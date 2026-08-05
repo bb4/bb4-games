@@ -19,7 +19,7 @@ public class GameWeightsStub extends GameWeights {
 
     /** not really used. */
     private static final List<Parameter> PARAMS =
-            Arrays.asList(new DoubleParameter(1, 0, 10, "paramName", NONE));
+            Arrays.asList(new DoubleParameter(1, 0, 10, "paramName", GameWeights.NONE()));
 
 
     public GameWeightsStub() {

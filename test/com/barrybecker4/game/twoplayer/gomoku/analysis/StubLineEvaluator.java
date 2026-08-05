@@ -31,10 +31,10 @@ public class StubLineEvaluator extends LineEvaluator {
     }
 
     @Override
-    protected int getWeightIndex(CharSequence line, char opponentSymb, int pos, int minpos, int maxpos) {
+    public int getWeightIndex(CharSequence line, char opponentSymb, int pos, int minpos, int maxpos) {
 
         CharSequence pattern = super.getPattern(line, opponentSymb, pos, minpos, maxpos);
         patternsChecked_.add(pattern);
-        return patterns_.getWeightIndexForPattern(pattern);
+        return patterns_().getWeightIndexForPattern(pattern);
     }
 }

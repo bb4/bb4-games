@@ -72,7 +72,7 @@ public class AllStrategiesTestRunner {
 
         System.out.println(exampleName + " : " + testCase.toString());
 
-        SearchStrategy<TwoPlayerMoveStub> searchStrategy = testCase.createSearchStrategy();
+        SearchStrategy<TwoPlayerMoveStub, ?> searchStrategy = testCase.createSearchStrategy();
 
         SearchResult actualResult =
             new SearchResult(initialMove, searchStrategy);
