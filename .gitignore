@@ -4,6 +4,7 @@
 .project
 classes/
 build/
+dist/
 bin/
 *.iml
 .vscode/settings.json

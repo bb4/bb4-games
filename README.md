@@ -25,6 +25,8 @@ Type 'gradle build' at the root (or ./gradlew if running in Cygwin).
 If you want to open the source in Intellij, then first run 'gradle idea'.
 Use gradle tasks to see all the different games that can be run using a command like 'gradle runGoMoku'
 
+When a release is published, download the installer for your OS from the [latest GitHub Release](https://github.com/bb4/bb4-games/releases/latest) (macOS `.dmg`, Windows `.msi`, Linux `.deb`). The zip distribution is still available on the same release if you prefer to run from the command line.
+
 When there is a new release, versioned artifacts will be published by Barry Becker to [Sonatype](https://oss.sonatype.org).
 
 ### License

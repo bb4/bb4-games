@@ -217,8 +217,7 @@ appMap['hex'] = [
 appMap['galactic'] = [
         title: 'Galactic Empire',
         command: 'bb4-games -name galactic',
-        description: 'Your goal is to place tiles until you make a path that connects the two sides ' +
-                'of the board that match your color.',
+        description: 'Conquer planets and build fleets to dominate the galaxy against human and computer opponents.',
         longDescription: 'This multi-player game is loosely based on a game I played ' +
                 'on a Comodore 128 back in the late 80\'s. ' +
                 '<a href="http://en.wikipedia.org/wiki/Galactic_Empire_(Br%C3%B8derbund_video_game)">' +
@@ -286,7 +285,7 @@ appMap['trivial'] = [
 
 appMap.each { appId, propMap ->
 
-    def entryMainClass = appMap['mainClass'] ?: gameApp
+    def entryMainClass = propMap['mainClass'] ?: gameApp
     def argsList = ["-name", "${appId}"]
 
     tasks.create(name: "run${appId.capitalize()}", type: JavaExec, description: "${propMap.description}") {
@@ -297,3 +296,59 @@ appMap.each { appId, propMap ->
         jvmArgs = ["-ea"]
     }
 }
+
+// jpackage --app-version rejects -SNAPSHOT and other non x[.y[.z]] strings.
+def rawVersion = project.version.toString()
+def strippedVersion = rawVersion.replaceAll(/-SNAPSHOT$/, '')
+ext.jpackageVersion = (strippedVersion ==~ /\d+(\.\d+){0,2}/) ? strippedVersion : '0.0.1'
+
+apply from: 'gradle/jpackage.gradle'
+
+// Plugin deployHtml reads source/html; this repo keeps website files under scala-source/html.
+tasks.named('deployHtml').configure { enabled = false }
+tasks.register('deployScalaHtml', Copy) {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    group = 'distribution'
+    description = 'Copy html related files from scala-source/html to dist/bb4-games'
+    into "dist/${project.name}"
+    from('scala-source/html') {
+        include '**/*.*'
+        exclude '**/*.png', '**/*.jpg', '**/*.PNG', '**/*.JPG'
+        filter org.apache.tools.ant.filters.ReplaceTokens, tokens: [version: project.version.toString()]
+        filter { String line ->
+            if (!line.contains('@table_rows@')) {
+                return line
+            }
+            def indent = line.substring(0, line.indexOf('@table_rows@'))
+            def rows = new StringBuilder()
+            appMap.each { String key, Map value ->
+                def deployApp = value.containsKey('deploy') ? value.deploy as boolean : true
+                if (!deployApp) {
+                    return
+                }
+                def imageName = value.containsKey('imageName') ? value.imageName.toString() : "${key}.jpg"
+                def title = value.title.toString()
+                def command = value.command.toString()
+                def longDescription = value.longDescription.toString()
+                rows << indent << '<tr>\n'
+                rows << indent << '  <td>\n'
+                rows << indent << "    <a name=\"${key}\"><h3>${title}</h3></a>\n"
+                rows << indent << "    <pre>${command}</pre>\n"
+                rows << indent << "    <p>${longDescription}</p>\n"
+                rows << indent << '  </td>\n'
+                rows << indent << '  <td style="vertical-align: top;">\n'
+                rows << indent << "    <img src=\"images/${imageName}\" title=\"${title}\" alt=\"${title}\">\n"
+                rows << indent << '  </td>\n'
+                rows << indent << '</tr>\n'
+            }
+            return rows.toString()
+        }
+    }
+    from('scala-source/html') {
+        include '**/*.png', '**/*.jpg', '**/*.PNG', '**/*.JPG'
+    }
+}
+tasks.named('deploy').configure {
+    dependsOn 'deployScalaHtml'
+}
+
