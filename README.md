@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/bb4/bb4-games/actions/workflows/ci.yml/badge.svg)](https://github.com/bb4/bb4-games/actions/workflows/ci.yml)
 
-📊 [Build status for all bb4 projects](https://github.com/bb4)
+📊 [Build status for all bb4 projects](https://github.com/bb4/.github)
 
 A game-playing framework plus a collection of two-player and multi-player board and card games. Every game supports intelligent computer opponents — play against the machine, another person, or watch the computer play itself.
 
