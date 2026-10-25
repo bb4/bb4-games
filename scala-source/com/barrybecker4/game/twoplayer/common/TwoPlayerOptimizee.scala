@@ -29,7 +29,7 @@ class TwoPlayerOptimizee[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
    * can only evaluate itself relative to another player.
    * see compareFitness below.
    * @param params the set of parameters to misc
-   * @return the fitness measure. The higher the better
+   * @return the fitness measure. The higher, the better
    */
   override def evaluateFitness(params: ParameterArray): Double = 0.0
 

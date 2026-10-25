@@ -34,7 +34,7 @@ class TwoPlayerOptimizationWorker(
       MathUtil.RANDOM,
       Option.empty,
       false
-    )
+    ).best
 
   override protected def done(): Unit =
     try
@@ -45,6 +45,5 @@ class TwoPlayerOptimizationWorker(
         handler.onFailure(e)
 
 object TwoPlayerOptimizationWorker:
-  /** Scala enum case name; use OptimizationStrategyType.valueOf(String) for Java/IDE-friendly lookup. */
   private val DEFAULT_STRATEGY: OptimizationStrategyType =
-    OptimizationStrategyType.valueOf("HILL_CLIMBING")
+    OptimizationStrategyType.HILL_CLIMBING
