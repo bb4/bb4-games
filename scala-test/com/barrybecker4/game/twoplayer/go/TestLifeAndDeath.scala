@@ -56,7 +56,7 @@ class TestLifeAndDeath extends GoTestCase:
     )
 
   private def isExpected(m: GoMove, loc: Location): Boolean =
-    isExpected(m, m.getToRow, loc.col)
+    isExpected(m, loc.row, loc.col)
 
   private def isExpected(m: GoMove, row: Int, col: Int): Boolean =
     m.getToRow == row && m.getToCol == col

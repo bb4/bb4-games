@@ -147,7 +147,7 @@ final class GoController() extends TwoPlayerController[GoMove, GoBoard] {
   }
 
   override def createSearchable(board: GoBoard, players: PlayerList): GoSearchable = {
-    new GoSearchable(board, players, scoreCache_)
+    new GoSearchable(board, players, scoreCache_, getOptions.asInstanceOf[GoOptions])
   }
 
   private class BoardOptions(val size: Int, val numHandicaps: Int)

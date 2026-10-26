@@ -24,4 +24,4 @@ class GoOptions(preferredTone: String) extends TwoPlayerOptions(preferredTone):
     this.komi_ = komi
 
 object GoOptions:
-  private val DEFAULT_KOMI = 5.5f
+  val DEFAULT_KOMI = 5.5f

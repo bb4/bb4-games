@@ -1,14 +1,14 @@
-/* Copyright by Barry G. Becker, 2000-2015. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
+/* Copyright by Barry G. Becker, 2000-2026. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.go.board
 
 import com.barrybecker4.game.common.{GameContext, MoveList}
-import com.barrybecker4.game.common.board.BoardPosition
 import com.barrybecker4.game.common.player.PlayerList
 import com.barrybecker4.game.twoplayer.common.TwoPlayerSearchable
 import com.barrybecker4.game.twoplayer.common.cache.ScoreCache
 import com.barrybecker4.game.twoplayer.go.board.analysis.BoardEvaluator
 import com.barrybecker4.game.twoplayer.go.board.move.{GoMove, GoMoveGenerator, UrgentMoveGenerator}
 import com.barrybecker4.game.twoplayer.go.board.update.DeadStoneUpdater
+import com.barrybecker4.game.twoplayer.go.options.GoOptions
 import com.barrybecker4.optimization.parameter.ParameterArray
 import scala.jdk.CollectionConverters._
 
@@ -17,20 +17,30 @@ import scala.jdk.CollectionConverters._
  *
  * @author Barry Becker
  */
-class GoSearchable(board: GoBoard, players: PlayerList, cache: ScoreCache) 
+class GoSearchable(board: GoBoard, players: PlayerList, cache: ScoreCache, private val goOptions: GoOptions)
   extends TwoPlayerSearchable[GoMove, GoBoard](board, players) {
 
-  /** keeps track of dead stones. */
+  /** keeps track of dead stones and terminal territory. */
   private var deadStoneUpdater: DeadStoneUpdater = scala.compiletime.uninitialized
   private var boardEvaluator: BoardEvaluator = scala.compiletime.uninitialized
 
   init(cache)
 
-  def this(searchable: GoSearchable) = {
-    this(searchable.getBoard, searchable.players, searchable.getScoreCache)
+  /** Java / call-site compatible: default komi options. */
+  def this(board: GoBoard, players: PlayerList, cache: ScoreCache) = {
+    this(board, players, cache, new GoOptions())
   }
 
-  override def copy(): GoSearchable = new GoSearchable(this)
+  override def copy(): GoSearchable = {
+    val boardCopy = getBoard.copy()
+    require(boardCopy ne getBoard, "GoBoard.copy must return a new board instance")
+    new GoSearchable(
+      boardCopy,
+      players.clone().asInstanceOf[PlayerList],
+      getScoreCache,
+      goOptions
+    )
+  }
 
   override def getBoard: GoBoard = board_
 
@@ -55,6 +65,7 @@ class GoSearchable(board: GoBoard, players: PlayerList, cache: ScoreCache)
    */
   override def done(move: GoMove, recordWin: Boolean): Boolean = {
     var gameOver = false
+    var scoreBasedWinner = false
 
     if (move == null) {
       gameOver = true
@@ -64,37 +75,31 @@ class GoSearchable(board: GoBoard, players: PlayerList, cache: ScoreCache)
       }
       gameOver = true
     } else if (twoPasses(move)) {
-      if (recordWin) {
-        setWinner(getFinalScore(true) > getFinalScore(false))
-      }
+      scoreBasedWinner = recordWin
       gameOver = true
     }
     if (!gameOver) {
-      // try normal handling
       gameOver = super.done(move, recordWin)
     }
 
     if (gameOver && recordWin) {
       doFinalBookKeeping()
+      if (scoreBasedWinner) {
+        setWinnerFromFinalScore()
+      }
     }
 
     gameOver
   }
 
   /**
-   * Update final territory and number of dead stones.
-   * Include this in calcWorth because we call updateTerritory which is under calcWorth for timing.
+   * Update final territory and number of dead stones using terminal scoring.
    */
   private def doFinalBookKeeping(): Unit = {
-    getProfiler.startCalcWorth()
-    boardEvaluator.updateTerritoryAtEndOfGame()
-
-    //we should not call this twice
-    if (getNumDeadStonesOnBoard(true) > 0 || getNumDeadStonesOnBoard(false) > 0) {
-      GameContext.log(0, " Error: should not update life and death twice.")
+    if (deadStoneUpdater.hasScored) {
+      return
     }
-    // now that we are finally at the end of the game,
-    // update the life and death of all the stones still on the board
+    getProfiler.startCalcWorth()
     GameContext.log(1, "about to update life and death.")
     deadStoneUpdater.determineDeadStones()
     getProfiler.stopCalcWorth()
@@ -156,14 +161,15 @@ class GoSearchable(board: GoBoard, players: PlayerList, cache: ScoreCache)
    * @return true if last two moves were passing moves.
    */
   private def twoPasses(move: GoMove): Boolean = {
-    if (move.isPassingMove && moveList.size > 2) {
-      val secondToLast = moveList.get(moveList.size - 2)
-      if (secondToLast.isPassingMove) {
-        GameContext.log(0, s"Done: The last 2 moves were passes :$move, $secondToLast")
-        return true
-      }
+    if (!move.isPassingMove || getNumMoves() < 2) {
+      return false
     }
-    false
+    moveList.get(getNumMoves() - 2) match {
+      case prev: GoMove if prev.isPassingMove =>
+        GameContext.log(0, s"Done: The last 2 moves were passes :$move, $prev")
+        true
+      case _ => false
+    }
   }
 
   /**
@@ -174,6 +180,17 @@ class GoSearchable(board: GoBoard, players: PlayerList, cache: ScoreCache)
       players.getPlayer1.setWon(true)
     } else {
       players.getPlayer2.setWon(true)
+    }
+  }
+
+  /** Assign the win from komi-adjusted final scores; leave both unset on a tie. */
+  private def setWinnerFromFinalScore(): Unit = {
+    val blackScore = getFinalScore(true)
+    val whiteScore = getFinalScore(false)
+    if (blackScore > whiteScore) {
+      setWinner(true)
+    } else if (whiteScore > blackScore) {
+      setWinner(false)
     }
   }
 
@@ -200,10 +217,14 @@ class GoSearchable(board: GoBoard, players: PlayerList, cache: ScoreCache)
   /**
    * Call this at the end of the game when we need to try to get an accurate score.
    * @param forPlayer1 true if player one (black)
-   * @return the actual score (each empty space counts as one)
+   * @return the actual territory (each empty space / dead-stone point in owned regions counts as one)
    */
   def getFinalTerritory(forPlayer1: Boolean): Int = {
-    boardEvaluator.getTerritoryEstimate(forPlayer1, true)
+    if (deadStoneUpdater.hasScored) {
+      deadStoneUpdater.getTerritory(forPlayer1)
+    } else {
+      boardEvaluator.getTerritoryEstimate(forPlayer1, true)
+    }
   }
 
   /**
@@ -216,22 +237,26 @@ class GoSearchable(board: GoBoard, players: PlayerList, cache: ScoreCache)
   }
 
   /**
+   * Japanese score: territory + opponent stones captured during the game + opponent dead stones on the board.
+   * White also receives komi.
    * @param player1 if true, then the score for player one is returned else player2's score is returned
    * @return the score (larger is better regardless of player)
    */
   def getFinalScore(player1: Boolean): Double = {
-    val numDead = getNumDeadStonesOnBoard(player1)
-    val totalCaptures = numDead + getNumCaptures(!player1)
-    val p1Territory = getFinalTerritory(player1)
+    val opponentDead = getNumDeadStonesOnBoard(!player1)
+    val opponentCaptures = getNumCaptures(!player1)
+    val territory = getFinalTerritory(player1)
+    val komi = if (player1) 0.0 else goOptions.getKomi.toDouble
+    val score = territory + opponentCaptures + opponentDead + komi
 
     val side = if (player1) "black" else "white"
     GameContext.log(1, "----")
     GameContext.log(1, s"final score for $side")
-    GameContext.log(2, s"getNumCaptures($side)=${getNumCaptures(player1)}")
-    GameContext.log(2, s"num dead $side stones on board: $numDead")
-    GameContext.log(2, s"getTerritory($side)=$p1Territory")
-    GameContext.log(0, s"terr + totalEnemyCaptures=${p1Territory + totalCaptures}")
-    p1Territory + totalCaptures
+    GameContext.log(2, s"opponent captures=${getNumCaptures(!player1)}")
+    GameContext.log(2, s"opponent dead on board: $opponentDead")
+    GameContext.log(2, s"getTerritory($side)=$territory komi=$komi")
+    GameContext.log(0, s"final score $side=$score")
+    score
   }
 
   /**
