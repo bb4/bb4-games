@@ -14,17 +14,19 @@ import scala.jdk.CollectionConverters._
  * Empty regions (treating already-dead stones as empty) whose living neighbors are all one color
  * are that color's territory. Regions touching both colors are dame (or seki) and score 0.
  *
- * A string is dead when it is enclosed by the opponent and cannot make two eyes:
- * fewer than two exclusive-eye regions, no single eye large enough to become two eyes,
- * and no dame liberties. Iteration continues until the set of dead stones is stable.
+ * A string is dead when it cannot make two eyes: fewer than two real eyes, no eye
+ * of three or more points, and not a mutual seki (both sides share exactly the same
+ * liberties). Sharing one dame point with a stronger group is not seki. A dame region
+ * of five or more points is room to live.
+ *
+ * The weakest dead string (fewest eyes, then fewest liberties) is removed first
+ * and the board is re-evaluated, so a group that only looked dead because it was
+ * surrounded by a deader group can live.
  */
 class TerminalScoreCalculator(board: GoBoard) {
 
   private val rows = board.getNumRows
   private val cols = board.getNumCols
-
-  /** Minimum empty points in one exclusive region to count as able to make two eyes. */
-  private val BigEyeSize = 3
 
   /** Ownership of a scoring region: Some(true)=black, Some(false)=white, None=dame/seki. */
   private type Owner = Option[Boolean]
@@ -40,13 +42,23 @@ class TerminalScoreCalculator(board: GoBoard) {
       changed = false
       val regions = findRegions(dead)
       val ownership = regions.map(r => r -> regionOwner(r, dead)).toMap
-      for (string <- livingStrings(dead)) {
-        if (isDeadString(string, dead, regions, ownership)) {
-          string.getMembers.asScala.foreach { pos =>
-            dead += ((pos.getRow, pos.getCol))
-          }
-          changed = true
+      val victims = livingStrings(dead).filter(s => isDeadString(s, dead, regions, ownership)).toList
+      if (victims.nonEmpty) {
+        // Fewer eyes, then fewer liberties. Removing every dead string in one pass
+        // would also remove a group that lives once the weaker group is gone.
+        val victim = victims.minBy { s =>
+          val libs = scoringLiberties(s, dead)
+          val eyes = eyeRegionsOf(s.isOwnedByPlayer1, libs, dead, regions, ownership)
+          val eyeScore = if (eyes.exists(countsAsTwoEyes)) 2 else eyes.size
+          val pos = s.getMembers.iterator().next()
+          // Fewer eyes, then fewer liberties. A one-eyed group lives once a
+          // no-eye neighbor with the same liberty count is removed.
+          (eyeScore, libs.size, pos.getRow, pos.getCol)
         }
+        victim.getMembers.asScala.foreach { pos =>
+          dead += ((pos.getRow, pos.getCol))
+        }
+        changed = true
       }
     }
 
@@ -164,62 +176,154 @@ class TerminalScoreCalculator(board: GoBoard) {
     ownership: Map[List[(Int, Int)], Owner]
   ): Boolean = {
     val colorBlack = string.isOwnedByPlayer1
-    val opponent = !colorBlack
     val libs = scoringLiberties(string, dead)
     if (libs.isEmpty) {
       return true
     }
-
-    val adjRegions = regions.filter(region => region.exists(libs.contains))
-    val eyeRegions = adjRegions.filter(r => ownership(r).contains(colorBlack))
-    val hasBigEye = eyeRegions.exists(_.size >= BigEyeSize)
-    if (eyeRegions.size >= 2 || hasBigEye) {
+    if (hasTwoEyes(colorBlack, libs, dead, regions, ownership)) {
       return false
     }
-
-    // Seki: a dame liberty that an under-eyed opponent string also needs.
-    val inSeki = adjRegions.exists { region =>
-      ownership(region).isEmpty && opponentDependsOnDame(region, opponent, dead, regions, ownership)
-    }
-    if (inSeki) {
+    if (inMutualSeki(libs, colorBlack, dead, regions, ownership)) {
       return false
     }
-
-    // Surrounded: every liberty is own small eye, opponent territory, or non-seki dame touching opponent.
-    val surrounded = libs.forall { pt =>
-      adjRegions.find(_.contains(pt)) match {
-        case None => true
-        case Some(region) =>
-          ownership(region).contains(colorBlack) ||
-            ownership(region).contains(opponent) ||
-            ownership(region).isEmpty
-      }
+    // A large shared region is room to make eyes. A small dame is not.
+    if (hasOpenDame(libs, dead, regions, ownership)) {
+      return false
     }
-    surrounded && eyeRegions.size < 2
+    true
   }
 
   /**
-   * True if some living opponent string with fewer than two eyes also has a liberty in this dame region.
+   * Dame with at least this many real empty points (not dead stones) is room to live.
+   * Points under stones already judged dead do not count: a last stone beside a
+   * pile of dead friendly stones is still dead.
    */
-  private def opponentDependsOnDame(
-    region: List[(Int, Int)],
-    opponentIsBlack: Boolean,
+  private val OpenDameSize = 5
+
+  private def hasOpenDame(
+    libs: Set[(Int, Int)],
     dead: mutable.Set[(Int, Int)],
     regions: List[List[(Int, Int)]],
     ownership: Map[List[(Int, Int)], Owner]
   ): Boolean = {
-    val regionSet = region.toSet
+    regions.exists { region =>
+      ownership(region).isEmpty &&
+        region.exists(libs.contains) &&
+        region.count(pt => !dead.contains(pt)) >= OpenDameSize
+    }
+  }
+
+  /** Two real eyes, or one eye shape that lives no matter who plays first. */
+  private def hasTwoEyes(
+    colorBlack: Boolean,
+    libs: Set[(Int, Int)],
+    dead: mutable.Set[(Int, Int)],
+    regions: List[List[(Int, Int)]],
+    ownership: Map[List[(Int, Int)], Owner]
+  ): Boolean = {
+    val eyeRegions = eyeRegionsOf(colorBlack, libs, dead, regions, ownership)
+    eyeRegions.size >= 2 || eyeRegions.exists(countsAsTwoEyes)
+  }
+
+  private def eyeRegionsOf(
+    colorBlack: Boolean,
+    libs: Set[(Int, Int)],
+    dead: mutable.Set[(Int, Int)],
+    regions: List[List[(Int, Int)]],
+    ownership: Map[List[(Int, Int)], Owner]
+  ): List[List[(Int, Int)]] = {
+    val adjRegions = regions.filter(region => region.exists(libs.contains))
+    adjRegions.filter { region =>
+      ownership(region).contains(colorBlack) && !isFalseEyeRegion(region, colorBlack, dead)
+    }
+  }
+
+  /**
+   * Mutual life: both strings have no two eyes and neither has a liberty the other does not.
+   * A dame point touched by a group that also has eyes of its own is not seki.
+   */
+  private def inMutualSeki(
+    libs: Set[(Int, Int)],
+    colorBlack: Boolean,
+    dead: mutable.Set[(Int, Int)],
+    regions: List[List[(Int, Int)]],
+    ownership: Map[List[(Int, Int)], Owner]
+  ): Boolean = {
+    if (libs.size < 2) {
+      return false
+    }
     livingStrings(dead).exists { other =>
-      other.isOwnedByPlayer1 == opponentIsBlack && {
+      other.isOwnedByPlayer1 != colorBlack && {
         val otherLibs = scoringLiberties(other, dead)
-        otherLibs.exists(regionSet.contains) && {
-          val otherAdj = regions.filter(r => r.exists(otherLibs.contains))
-          val otherEyes = otherAdj.filter(r => ownership(r).contains(opponentIsBlack))
-          otherEyes.size < 2 && !otherEyes.exists(_.size >= BigEyeSize)
-        }
+        otherLibs == libs && !hasTwoEyes(!colorBlack, otherLibs, dead, regions, ownership)
       }
     }
   }
+
+  /** One exclusive region of three or more empty points can be made into two eyes. */
+  private def countsAsTwoEyes(region: List[(Int, Int)]): Boolean =
+    region.size >= 3
+
+  /** A one-point eye cut by opponent diagonals is not a real eye. */
+  private def isFalseEyeRegion(
+    region: List[(Int, Int)],
+    ownerBlack: Boolean,
+    dead: mutable.Set[(Int, Int)]
+  ): Boolean = {
+    region.size == 1 && isFalseEyePoint(region.head, ownerBlack, dead)
+  }
+
+  private def isFalseEyePoint(
+    pt: (Int, Int),
+    ownerBlack: Boolean,
+    dead: mutable.Set[(Int, Int)]
+  ): Boolean = {
+    val (r, c) = pt
+    val friends = orthNeighbors(r, c).count { case (nr, nc) =>
+      friendlyStone(nr, nc, ownerBlack, dead)
+    }
+    // A corner point with both adjacent stones friendly is a real eye.
+    // An edge or center point needs three friendly neighbors before a diagonal cut falsifies it.
+    if (friends < 3) {
+      return false
+    }
+    val cuts = List((-1, -1), (-1, 1), (1, -1), (1, 1)).count { case (dr, dc) =>
+      opponentCutsDiagonal(r, c, dr, dc, ownerBlack, dead)
+    }
+    val onEdge = r == 1 || c == 1 || r == rows || c == cols
+    (onEdge && cuts >= 1) || cuts >= 2
+  }
+
+  private def opponentCutsDiagonal(
+    r: Int,
+    c: Int,
+    dr: Int,
+    dc: Int,
+    ownerBlack: Boolean,
+    dead: mutable.Set[(Int, Int)]
+  ): Boolean = {
+    val rr = r + dr
+    val cc = c + dc
+    inBounds(rr, cc) &&
+      enemyStone(rr, cc, ownerBlack, dead) &&
+      friendlyStone(r + dr, c, ownerBlack, dead) &&
+      friendlyStone(r, c + dc, ownerBlack, dead)
+  }
+
+  private def friendlyStone(r: Int, c: Int, ownerBlack: Boolean, dead: mutable.Set[(Int, Int)]): Boolean = {
+    inBounds(r, c) && !dead.contains((r, c)) && occupiedBy(r, c, ownerBlack)
+  }
+
+  private def enemyStone(r: Int, c: Int, ownerBlack: Boolean, dead: mutable.Set[(Int, Int)]): Boolean = {
+    inBounds(r, c) && !dead.contains((r, c)) && occupiedBy(r, c, !ownerBlack)
+  }
+
+  private def occupiedBy(r: Int, c: Int, black: Boolean): Boolean = {
+    val pos = board.getPosition(r, c).asInstanceOf[GoBoardPosition]
+    pos.isOccupied && pos.getPiece.isOwnedByPlayer1 == black
+  }
+
+  private def inBounds(r: Int, c: Int): Boolean = r >= 1 && r <= rows && c >= 1 && c <= cols
 
   private def scoringLiberties(string: IGoString, dead: mutable.Set[(Int, Int)]): Set[(Int, Int)] = {
     val libs = mutable.Set.empty[(Int, Int)]

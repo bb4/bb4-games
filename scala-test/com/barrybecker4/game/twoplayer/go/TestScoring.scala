@@ -24,12 +24,12 @@ class TestScoring extends GoTestCase:
   @Test
   def testScoring55a(): Unit =
     //                                           bt, wt, finalWorth
-    checkScoring("problem_score55a", 0, 0, 0, 0, 4, 1, 379)
+    checkScoring("problem_score55a", 0, 0, 0, 7, 17, 0, 379)
 
   @Test
   def testScoring55b(): Unit =
     //                                           bt, wt,  finalWorth
-    checkScoring("problem_score55b", 0, 2, 0, 5, 13, 0, 1573)
+    checkScoring("problem_score55b", 0, 2, 0, 6, 16, 0, 1573)
 
   @Test
   def testScoring2(): Unit =
@@ -39,11 +39,11 @@ class TestScoring extends GoTestCase:
   @Test
   def testScoringIdentPosition1a(): Unit =
     //                                               bt, wt,  finalWorth
-    checkScoring("problem_identPosition1a", 0, 0, 0, 1, 3, 0, -50)
+    checkScoring("problem_identPosition1a", 0, 0, 4, 0, 3, 6, -48)
 
   @Test
   def testScoringIdentPosition1b(): Unit =
-    checkScoring("problem_identPosition1b", 0, 0, 0, 1, 3, 0, -50)
+    checkScoring("problem_identPosition1b", 0, 0, 4, 0, 3, 6, -48)
 
   @Test
   def testScoringIdentPosition2a(): Unit =
@@ -59,8 +59,8 @@ class TestScoring extends GoTestCase:
    * @param expectedWhiteCapturesSoFar number of white stones that were captured by black.
    * @param expectedDeadBlackOnBoard number of black stones that that are dead on the board at the end.
    * @param expectedDeadWhiteOnBoard number of white stones that that are dead on the board at the end.
-   * @param expectedBlackTerr amount of black territory (excluding dead white stones in the territory)
-   * @param expectedWhiteTerr amount of white territory (excluding dead black stones in the territory)
+   * @param expectedBlackTerr black territory, including dead white stones inside it
+   * @param expectedWhiteTerr white territory, including dead black stones inside it
    */
   private def checkScoring(
     scoringProblem: String,
