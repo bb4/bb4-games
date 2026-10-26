@@ -70,8 +70,8 @@ object PositionalScoreArray {
 
   /** we assign a value to a stone based on the line on which it falls when calculating worth. */
   private val LINE_VALS = Array(
-    -0.5f,   // first line
-    0.1f,    // second line
+    -2.5f,   // first line — strongly discourage early edge plays
+    0.0f,    // second line
     1.0f,    // third line
     0.9f,    // fourth line
     0.1f     // fifth line

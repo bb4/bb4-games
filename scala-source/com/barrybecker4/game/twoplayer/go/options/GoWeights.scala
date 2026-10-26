@@ -18,7 +18,7 @@ class GoWeights extends GameWeights(
 )
 
 object GoWeights {
-  private val DEFAULT_WEIGHTS = Array(2.0, 0.9, 0.3, 10.0)
+  private val DEFAULT_WEIGHTS = Array(2.0, 1.5, 0.3, 10.0)
   private val MAX_WEIGHTS = Array(10.0, 5.0, 10.0, 30.0)
   private val MIN_WEIGHTS = Array(0.0, 0.0, 0.0, 0.5)
 

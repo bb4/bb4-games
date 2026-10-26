@@ -42,7 +42,8 @@ class WorthCalculator(val board_ : GoBoard, analyzerMap: GroupAnalyzerMap) {
       SearchStrategy.WINNING_VALUE
     }
     else {
-      worth.toInt
+      // Round so small positional penalties (e.g. first-line) are not lost to truncation.
+      Math.round(worth).toInt
     }
     GoProfiler.stopCalcWorth()
     result

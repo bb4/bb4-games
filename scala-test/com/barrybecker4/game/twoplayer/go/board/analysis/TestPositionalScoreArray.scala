@@ -17,11 +17,11 @@ class TestPositionalScoreArray:
   def testPositionalArrayOfSize5(): Unit =
     scoreArray = PositionalScoreArray.getArray(5)
     val expectedValues: Array[Array[Float]] = Array(
-      Array(-0.75f, -0.5f, -0.5f, -0.5f, -0.75f),
-      Array(-0.5f, 0.15f, 0.1f, 0.15f, -0.5f),
-      Array(-0.5f, 0.1f, 1.5f, 0.1f, -0.5f),
-      Array(-0.5f, 0.15f, 0.1f, 0.15f, -0.5f),
-      Array(-0.75f, -0.5f, -0.5f, -0.5f, -0.75f)
+      Array(-3.75f, -2.5f, -2.5f, -2.5f, -3.75f),
+      Array(-2.5f, 0.0f, 0.0f, 0.0f, -2.5f),
+      Array(-2.5f, 0.0f, 1.5f, 0.0f, -2.5f),
+      Array(-2.5f, 0.0f, 0.0f, 0.0f, -2.5f),
+      Array(-3.75f, -2.5f, -2.5f, -2.5f, -3.75f)
     )
     checkEqual(expectedValues, 5)
 
@@ -29,15 +29,15 @@ class TestPositionalScoreArray:
   def testPositionalArrayOfSize9(): Unit =
     scoreArray = PositionalScoreArray.getArray(9)
     val expectedValues: Array[Array[Float]] = Array(
-      Array(-0.75f, -0.5f, -0.5f, -0.5f, -0.5f, -0.5f, -0.5f, -0.5f, -0.75f),
-      Array(-0.5f, 0.15f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.15f, -0.5f),
-      Array(-0.5f, 0.1f, 1.5f, 1.0f, 1.0f, 1.0f, 1.5f, 0.1f, -0.5f),
-      Array(-0.5f, 0.1f, 1.0f, 1.3499999f, 0.9f, 1.3499999f, 1.0f, 0.1f, -0.5f),
-      Array(-0.5f, 0.1f, 1.0f, 0.9f, 0.0f, 0.9f, 1.0f, 0.1f, -0.5f),
-      Array(-0.5f, 0.1f, 1.0f, 1.3499999f, 0.9f, 1.3499999f, 1.0f, 0.1f, -0.5f),
-      Array(-0.5f, 0.1f, 1.5f, 1.0f, 1.0f, 1.0f, 1.5f, 0.1f, -0.5f),
-      Array(-0.5f, 0.15f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.15f, -0.5f),
-      Array(-0.75f, -0.5f, -0.5f, -0.5f, -0.5f, -0.5f, -0.5f, -0.5f, -0.75f)
+      Array(-3.75f, -2.5f, -2.5f, -2.5f, -2.5f, -2.5f, -2.5f, -2.5f, -3.75f),
+      Array(-2.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -2.5f),
+      Array(-2.5f, 0.0f, 1.5f, 1.0f, 1.0f, 1.0f, 1.5f, 0.0f, -2.5f),
+      Array(-2.5f, 0.0f, 1.0f, 1.3499999f, 0.9f, 1.3499999f, 1.0f, 0.0f, -2.5f),
+      Array(-2.5f, 0.0f, 1.0f, 0.9f, 0.0f, 0.9f, 1.0f, 0.0f, -2.5f),
+      Array(-2.5f, 0.0f, 1.0f, 1.3499999f, 0.9f, 1.3499999f, 1.0f, 0.0f, -2.5f),
+      Array(-2.5f, 0.0f, 1.5f, 1.0f, 1.0f, 1.0f, 1.5f, 0.0f, -2.5f),
+      Array(-2.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -2.5f),
+      Array(-3.75f, -2.5f, -2.5f, -2.5f, -2.5f, -2.5f, -2.5f, -2.5f, -3.75f)
     )
     checkEqual(expectedValues, 9)
 

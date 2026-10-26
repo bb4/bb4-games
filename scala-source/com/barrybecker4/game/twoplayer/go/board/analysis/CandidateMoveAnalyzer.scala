@@ -87,18 +87,22 @@ class CandidateMoveAnalyzer(board_ : GoBoard) {
 
   /**
    * This method splats a footprint of trues around the specified move.
+   * Interior stones must not spawn first-line candidates (opening edge blunders).
+   * Stones already on the 1st/2nd line may, so edge fights stay searchable.
    * @param stone position to add candidate moves around.
    */
   private def addCandidateMoves(stone: GoBoardPosition): Unit = {
+    val seedNearEdge = lineNumber(stone.getRow, stone.getCol) <= EDGE_BAND_LINE
     val startrow = math.max(stone.getRow - CANDIDATE_MOVE_OFFSET, 1)
     val stoprow = math.min(stone.getRow + CANDIDATE_MOVE_OFFSET, size_)
     val startcol = math.max(stone.getCol - CANDIDATE_MOVE_OFFSET, 1)
     val stopcol = math.min(stone.getCol + CANDIDATE_MOVE_OFFSET, size_)
-    // set the footprint
     for (i <- startrow to stoprow) {
       for (j <- startcol to stopcol) {
-        val pos = board_.getPosition(i, j).asInstanceOf[GoBoardPosition]
-        tryToAddCandidateMove(pos)
+        if (seedNearEdge || !isFirstLine(i, j)) {
+          val pos = board_.getPosition(i, j).asInstanceOf[GoBoardPosition]
+          tryToAddCandidateMove(pos)
+        }
       }
     }
   }
@@ -115,9 +119,21 @@ class CandidateMoveAnalyzer(board_ : GoBoard) {
       candidateMoves_(pos.getRow)(pos.getCol) = true
     }
   }
+
+  private def isFirstLine(row: Int, col: Int): Boolean =
+    row == 1 || col == 1 || row == size_ || col == size_
+
+  private def lineNumber(row: Int, col: Int): Int = {
+    val rowmin = math.min(row, size_ - row + 1)
+    val colmin = math.min(col, size_ - col + 1)
+    math.min(rowmin, colmin)
+  }
 }
 
 object CandidateMoveAnalyzer {
   /** Distance from already played stones that we will splat a footprint of candidate stones to add. */
   private val CANDIDATE_MOVE_OFFSET = 2
+
+  /** Stones on this line or closer may expand candidates onto the first line. */
+  private val EDGE_BAND_LINE = 2
 }

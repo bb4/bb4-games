@@ -22,12 +22,12 @@ class TestCandidateMoveAnalyzer extends GoTestCase {
 
     @Test
     def testCandidateMoves1(): Unit = {
-        verifyCandidateMoves("problem_score1", 114, null)
+        verifyCandidateMoves("problem_score1", 93, null)
     }
 
     @Test
     def testCandidateMoves2(): Unit = {
-        verifyCandidateMoves("problem_score2", 108/*53*/, null)
+        verifyCandidateMoves("problem_score2", 89, null)
     }
 
     @Test

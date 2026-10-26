@@ -15,7 +15,7 @@ class TestWorthCalculator5 extends WorthCalculatorBase {
     /** verify that we get the expected worth value. */
     @Test
     def testFindSimpleWorth(): Unit = {
-        verifyWorth("worth5x5", 30) //33)
+        verifyWorth("worth5x5", 24)
     }
 
     /** verify that we get the expected worth value after a move redo. */
@@ -29,7 +29,7 @@ class TestWorthCalculator5 extends WorthCalculatorBase {
 
         var actWorth: Int = calculator.worth(move, WEIGHTS.getDefaultWeights)
 
-        Assert.assertEquals("Unexpected worth.", 30, actWorth)
+        Assert.assertEquals("Unexpected worth.", 24, actWorth)
     }
 
     /**
@@ -39,7 +39,7 @@ class TestWorthCalculator5 extends WorthCalculatorBase {
     @Test
     def testSamePositionFromDifferentPathsEqual(): Unit = {
 
-        compareWorths("worth5x5_A", "worth5x5_B", -71) //-70); // -61)
+        compareWorths("worth5x5_A", "worth5x5_B", -77)
     }
 
 
