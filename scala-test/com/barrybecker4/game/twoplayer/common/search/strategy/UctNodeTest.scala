@@ -7,6 +7,7 @@ import com.barrybecker4.game.common.MoveList
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove
 import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub
 import com.barrybecker4.game.twoplayer.common.search.options.MaximizationStyle
+import com.barrybecker4.game.twoplayer.common.search.tree.NodeAttributes
 import org.junit.Assert.{assertEquals, assertFalse, assertTrue}
 import org.junit.Test
 
@@ -28,7 +29,11 @@ class UctNodeTest:
     assertEquals("Unexpected numVisits", 0, uctNode.getNumVisits)
     // The winrate is 0.5 (tie) + 10/WINNING = 0.50122
     assertEquals("Unexpected winRate", 0.5012207f, uctNode.getWinRate, UctNodeTest.TOL)
-    assertEquals("Unexpected attrs", "{wins=0.0, visits=0, winRate=0.50122}", uctNode.getAttributes.toString)
+    val expectedAttributes = new NodeAttributes()
+    expectedAttributes.put("visits", "0")
+    expectedAttributes.put("wins", "0.0")
+    expectedAttributes.put("winRate", "0.50122")
+    assertEquals("Unexpected attrs", expectedAttributes, uctNode.getAttributes)
     assertEquals("Unexpected uctValue", 1000.50122, uctNode.calculateUctValue(1.0, 1), UctNodeTest.TOL)
 
   @Test

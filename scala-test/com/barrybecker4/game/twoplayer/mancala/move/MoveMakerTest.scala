@@ -21,6 +21,14 @@ class MoveMakerTest extends AnyFunSuite with BeforeAndAfterEach:
     moveMaker = new MoveMaker(board)
     verifier = new Verifier(board)
 
+  /** Compare capture maps by content. HashMap iteration order is not stable. */
+  private def expectedCaptures(entries: (Int, Int, Int)*): Captures =
+    val captures = new Captures()
+    entries.foreach { case (row, column, stones) =>
+      captures.put(new ByteLocation(row, column), stones.toByte)
+    }
+    captures
+
   // 1,1  1,2  1,3  1,4  1,5  1,6  1,7  1,8
   //      2,2  2,3  2,4  2,5  2,6  2,7
   test("testMakeSimplePlayer1Move") {
@@ -71,10 +79,7 @@ class MoveMakerTest extends AnyFunSuite with BeforeAndAfterEach:
     moveMaker.makeMove(move)
 
     // The captures describe where the captures stones came from
-    assert(
-      move.getCaptures.toString == "{(row=1, column=2)=1, (row=2, column=2)=3}",
-      "Unexpected captures."
-    )
+    assert(move.getCaptures == expectedCaptures((1, 2, 1), (2, 2, 3)), "Unexpected captures.")
 
     // note that stones from 1, 2 and 2,2, are moved to p1's home
     verifier.checkOverallBoard(4, 0, 4, 0, 3, 3, 3, 0, 0, 3, 3, 3, 3, 3)
@@ -85,10 +90,7 @@ class MoveMakerTest extends AnyFunSuite with BeforeAndAfterEach:
     val move = new MancalaMove(false, new ByteLocation(2, 3), 2.toByte, 0)
     moveMaker.makeMove(move)
 
-    assert(
-      move.getCaptures.toString == "{(row=1, column=5)=3, (row=2, column=5)=1}",
-      "Unexpected captures."
-    )
+    assert(move.getCaptures == expectedCaptures((1, 5, 3), (2, 5, 1)), "Unexpected captures.")
 
     // note that stones from 1,2 and 2,2, are moved to p1's home
     verifier.checkOverallBoard(0, 3, 3, 3, 0, 3, 3, 4, 3, 0, 4, 0, 3, 3)
@@ -103,8 +105,7 @@ class MoveMakerTest extends AnyFunSuite with BeforeAndAfterEach:
     moveMaker.makeMove(move)
 
     assert(
-      move.getCaptures.toString == "{(row=1, column=3)=1, (row=2, column=2)=3, (row=2, column=3)=3, (row=2, column=4)=3, " +
-        "(row=2, column=5)=3, (row=2, column=6)=3, (row=2, column=7)=3}",
+      move.getCaptures == expectedCaptures((1, 3, 1), (2, 2, 3), (2, 3, 3), (2, 4, 3), (2, 5, 3), (2, 6, 3), (2, 7, 3)),
       "Unexpected captures."
     )
 
@@ -120,8 +121,7 @@ class MoveMakerTest extends AnyFunSuite with BeforeAndAfterEach:
     moveMaker.makeMove(move)
 
     assert(
-      move.getCaptures.toString == "{(row=1, column=2)=3, (row=1, column=3)=3, (row=1, column=4)=3, (row=1, column=5)=3, " +
-        "(row=1, column=6)=3, (row=1, column=7)=3, (row=2, column=5)=1}",
+      move.getCaptures == expectedCaptures((2, 5, 1), (1, 2, 3), (1, 3, 3), (1, 4, 3), (1, 5, 3), (1, 6, 3), (1, 7, 3)),
       "Unexpected captures."
     )
 
@@ -137,8 +137,7 @@ class MoveMakerTest extends AnyFunSuite with BeforeAndAfterEach:
     moveMaker.makeMove(move)
 
     assert(
-      move.getCaptures.toString == "{(row=2, column=2)=3, (row=2, column=3)=3, (row=2, column=4)=3, (row=2, column=5)=3, " +
-        "(row=2, column=6)=3, (row=2, column=7)=3}",
+      move.getCaptures == expectedCaptures((2, 2, 3), (2, 3, 3), (2, 4, 3), (2, 5, 3), (2, 6, 3), (2, 7, 3)),
       "Unexpected captures."
     )
 
@@ -154,8 +153,7 @@ class MoveMakerTest extends AnyFunSuite with BeforeAndAfterEach:
     moveMaker.makeMove(move)
 
     assert(
-      move.getCaptures.toString == "{(row=1, column=2)=3, (row=1, column=3)=3, (row=1, column=4)=3, (row=1, column=5)=3, " +
-        "(row=1, column=6)=3, (row=1, column=7)=3}",
+      move.getCaptures == expectedCaptures((1, 2, 3), (1, 3, 3), (1, 4, 3), (1, 5, 3), (1, 6, 3), (1, 7, 3)),
       "Unexpected captures."
     )
     verifier.checkOverallBoard(18, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0)
@@ -243,10 +241,7 @@ class MoveMakerTest extends AnyFunSuite with BeforeAndAfterEach:
 
     assert(move1.getCaptures.toString == "{}", "Unexpected captures.")
 
-    assert(
-      move6.getCaptures.toString == "{(row=1, column=3)=1, (row=2, column=3)=3}",
-      "Unexpected captures."
-    )
+    assert(move6.getCaptures == expectedCaptures((1, 3, 1), (2, 3, 3)), "Unexpected captures.")
 
     verifier.checkOverallBoard(9, 4, 0, 0, 0, 5, 6, 0, 3, 0, 3, 3, 3, 3)
   }
