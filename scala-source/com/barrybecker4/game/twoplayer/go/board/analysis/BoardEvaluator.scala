@@ -7,6 +7,7 @@ import com.barrybecker4.game.twoplayer.common.search.transposition.HashKey
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.analysis.group.{GroupAnalyzer, GroupAnalyzerMap}
 import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup
+import com.barrybecker4.game.twoplayer.go.options.GoOptions
 import com.barrybecker4.optimization.parameter.ParameterArray
 
 /**
@@ -15,12 +16,12 @@ import com.barrybecker4.optimization.parameter.ParameterArray
  *
  * @author Barry Becker
  */
-final class BoardEvaluator(val board_ : GoBoard, val scoreCache: ScoreCache) {
+final class BoardEvaluator(val board_ : GoBoard, val scoreCache: ScoreCache, komi: Float = GoOptions.DEFAULT_KOMI) {
 
   private val USE_SCORE_CACHING = false
 
   private val analyzerMap_ = new GroupAnalyzerMap()
-  private val worthCalculator = new WorthCalculator(board_, analyzerMap_)
+  private val worthCalculator = new WorthCalculator(board_, analyzerMap_, komi)
 
   /**
    * @return the worth of the board from player1's perspective

@@ -72,15 +72,15 @@ class TestPositionalScoreAnalyzer extends GoTestCase:
     verifyPositionalScore(new ByteLocation(2, 2), PositionalScore.createOccupiedScore(0.0, 0.0, 0.0), totalScore)
     verifyPositionalScore(new ByteLocation(2, 3), PositionalScore.createOccupiedScore(0.0, 0.0, 0.0), totalScore)
     verifyPositionalScore(new ByteLocation(3, 2), PositionalScore.createOccupiedScore(0.0, 0.0, 0.0), totalScore)
-    verifyPositionalScore(new ByteLocation(3, 3), PositionalScore.createOccupiedScore(0.0, 0.29605, 0.0), totalScore)
+    verifyPositionalScore(new ByteLocation(3, 3), PositionalScore.createOccupiedScore(0.0, 0.625, 0.0), totalScore)
 
-    verifyScoresEqual(PositionalScore.createOccupiedScore(0.0, 0.29605, 0.0), totalScore)
-    Assert.assertEquals("Unexpected position score.  ", 0.29605, totalScore.getPositionScore, TOLERANCE)
+    verifyScoresEqual(PositionalScore.createOccupiedScore(0.0, 0.625, 0.0), totalScore)
+    Assert.assertEquals("Unexpected position score.  ", 0.625, totalScore.getPositionScore, TOLERANCE)
 
   @Test
   def testOverallPositionalScoreInEye(): Unit =
     initializeBoard("positional_score_stone_in_eye")
-    verifyExpectedOverallScore(-0.88815789f)
+    verifyExpectedOverallScore(-1.875f)
 
   /**
    *  | X    OO |
@@ -93,9 +93,9 @@ class TestPositionalScoreAnalyzer extends GoTestCase:
     initializeBoard("positional_score_alive")
 
     val totalScore: PositionalScore = PositionalScore.createZeroScore()
-    verifyPositionalScore(new ByteLocation(2, 2), PositionalScore.createOccupiedScore(-0.23684f, 0.0f, 0.0f), totalScore)
-    verifyPositionalScore(new ByteLocation(2, 3), PositionalScore.createOccupiedScore(-0.15789f, 0.0f, 0.0f), totalScore)
-    verifyPositionalScore(new ByteLocation(3, 3), PositionalScore.createOccupiedScore(-0.07895f, 0.29605f, 0.0f), totalScore)
+    verifyPositionalScore(new ByteLocation(2, 2), PositionalScore.createOccupiedScore(-0.5f, 0.0f, 0.0f), totalScore)
+    verifyPositionalScore(new ByteLocation(2, 3), PositionalScore.createOccupiedScore(-1.0f / 3.0f, 0.0f, 0.0f), totalScore)
+    verifyPositionalScore(new ByteLocation(3, 3), PositionalScore.createOccupiedScore(-1.0f / 6.0f, 0.625f, 0.0f), totalScore)
     verifyPositionalScore(new ByteLocation(3, 2), PositionalScore.createOccupiedScore(0.0f, 0.0f, 0.0f), totalScore)
 
     verifyPositionalScore(new ByteLocation(8, 2), PositionalScore.createOccupiedScore(0.0f, 0.0f, 0.0f), totalScore)
@@ -103,13 +103,13 @@ class TestPositionalScoreAnalyzer extends GoTestCase:
     verifyPositionalScore(new ByteLocation(9, 3), PositionalScore.createOccupiedScore(0.0f, 0.0f, 0.0f), totalScore)
     verifyPositionalScore(new ByteLocation(9, 2), PositionalScore.createOccupiedScore(0.0f, 0.0f, 0.0f), totalScore)
 
-    verifyScoresEqual(PositionalScore.createOccupiedScore(-0.47368f, 0.29605f, 0.0f), totalScore)
-    Assert.assertEquals("Unexpected position score.  ", -0.17763f, totalScore.getPositionScore, TOLERANCE)
+    verifyScoresEqual(PositionalScore.createOccupiedScore(-1.0f, 0.625f, 0.0f), totalScore)
+    Assert.assertEquals("Unexpected position score.  ", -0.375f, totalScore.getPositionScore, TOLERANCE)
 
   @Test
   def testOverallPositionalScoreAlive(): Unit =
     initializeBoard("positional_score_alive")
-    verifyExpectedOverallScore(-0.23684211f)
+    verifyExpectedOverallScore(-0.5f)
 
   protected def initializeBoard(file: String): Unit =
     restore(PREFIX + file)

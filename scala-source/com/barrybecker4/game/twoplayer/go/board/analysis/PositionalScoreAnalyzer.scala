@@ -43,10 +43,7 @@ final class PositionalScoreAnalyzer(val board: GoBoard) {
   private def calcPositionalScore(position: GoBoardPosition, weights: ParameterArray,
                                    positionalScore: Double): PositionalScore = {
     val score =
-      if (position.isInEye) {
-        createEyePointScore(position)
-      }
-      else if (position.isOccupied) {
+      if (position.isOccupied) {
         createNormalizedOccupiedScore(position, weights, positionalScore)
       }
       else {
@@ -56,25 +53,7 @@ final class PositionalScoreAnalyzer(val board: GoBoard) {
   }
 
   /**
-   * Score gets updated with value.
-   * A dead enemy stone in the eye counts twice.
-   */
-  private def createEyePointScore(position: GoBoardPosition): PositionalScore = {
-    val scoreForPosition = if (position.getEye.isOwnedByPlayer1) 1.0f else -1.0f
-    var deadStoneScore = 0.0f
-    var eyeSpaceScore = 0.0f
-    if (position.isOccupied) {
-      deadStoneScore = scoreForPosition
-    }
-    else {
-      eyeSpaceScore = scoreForPosition
-    }
-
-    PositionalScore.createEyePointScore(deadStoneScore, eyeSpaceScore)
-  }
-
-  /**
-   * Normalize each of the scores by the game weights.
+   * Line and bad-shape only. Health and eye points are scored in SearchScoreCalculator.
    */
   private def createNormalizedOccupiedScore(
       position: GoBoardPosition, weights: ParameterArray, positionalScore: Double): PositionalScore = {
@@ -84,17 +63,18 @@ final class PositionalScoreAnalyzer(val board: GoBoard) {
     val side = if (position.getPiece.isOwnedByPlayer1) 1 else -1
     val badShapeWt = weights.get(GoWeights.BAD_SHAPE_WEIGHT_INDEX).getValue
     val positionalWt = weights.get(GoWeights.POSITIONAL_WEIGHT_INDEX).getValue
-    val healthWt = weights.get(GoWeights.HEALTH_WEIGHT_INDEX).getValue
-    val totalWeight = badShapeWt + positionalWt + healthWt
+    val shapeWeight = badShapeWt + positionalWt
     val shapeAnalyzer = new StringShapeAnalyzer(board)
 
     val badShapeScore =
-      -(side * shapeAnalyzer.formsBadShape(position) * badShapeWt) / totalWeight
+      if (shapeWeight == 0) 0.0
+      else -(side * shapeAnalyzer.formsBadShape(position) * badShapeWt) / shapeWeight
 
-    val posScore = side * positionalWt * GAME_STAGE_BOOST * positionalScore / totalWeight
-    val healthScore = healthWt * stone.getHealth / totalWeight
+    val posScore =
+      if (shapeWeight == 0) 0.0
+      else side * positionalWt * GAME_STAGE_BOOST * positionalScore / shapeWeight
 
-    val score = PositionalScore.createOccupiedScore(badShapeScore, posScore, healthScore)
+    val score = PositionalScore.createOccupiedScore(badShapeScore, posScore, 0.0)
     if (GameContext.getDebugMode > 1) {
       stone.setPositionalScore(score)
     }

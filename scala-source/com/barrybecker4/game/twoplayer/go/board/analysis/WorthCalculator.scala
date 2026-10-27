@@ -7,9 +7,9 @@ import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy
 import com.barrybecker4.game.twoplayer.go.GoController
 import com.barrybecker4.game.twoplayer.go.board.{GoBoard, GoProfiler, PositionalScore}
 import com.barrybecker4.game.twoplayer.go.board.analysis.group.GroupAnalyzerMap
-import com.barrybecker4.game.twoplayer.go.board.analysis.territory.{TerritoryAnalyzer, TerritoryUpdater}
+import com.barrybecker4.game.twoplayer.go.board.analysis.territory.{SearchScoreCalculator, TerritoryAnalyzer, TerritoryUpdater}
 import com.barrybecker4.game.twoplayer.go.board.move.GoMove
-import com.barrybecker4.game.twoplayer.go.options.GoWeights
+import com.barrybecker4.game.twoplayer.go.options.GoOptions
 import com.barrybecker4.optimization.parameter.ParameterArray
 
 /**
@@ -17,7 +17,11 @@ import com.barrybecker4.optimization.parameter.ParameterArray
  *
  * @author Barry Becker
  */
-class WorthCalculator(val board_ : GoBoard, analyzerMap: GroupAnalyzerMap) {
+class WorthCalculator(
+  val board_ : GoBoard,
+  analyzerMap: GroupAnalyzerMap,
+  komi: Float = GoOptions.DEFAULT_KOMI
+) {
 
   private val territoryAnalyzer = new TerritoryAnalyzer(board_, analyzerMap)
   private val territoryUpdater = new TerritoryUpdater(board_, analyzerMap)
@@ -60,30 +64,14 @@ class WorthCalculator(val board_ : GoBoard, analyzerMap: GroupAnalyzerMap) {
   }
 
   /**
-   * Statically evaluate the board position.
-   *     The most naive thing we could do here is to simply return the sum of the captures
-   * for player1 - sum of the captures for player2. However for go, since search is not likely to
-   * be that useful given the huge branch factor, we need to rely heavily on sophisticated evaluation.
-   *     We have every space on the board have a score representing
-   * how strongly it is controlled by player1 (black).  If the score is 1.00, then that
-   * position is inside or part of an unconditionally alive group owned by player1 (black)
-   * or it is inside a dead white group.
-   * If the score is -1.00 then its player 2's(white) unconditionally alive group
-   * or black's dead group. A blank dame might have a score
-   * of 0. A white stone might have a positive score if its part of a white group
-   * which is considered mostly dead.
-   *
-   * @return statically evaluated value of the board.
+   * Black-positive Japanese points times ten, plus a shape tie-break smaller than one point.
+   * Prisoners are already one point inside the point score, so captures are not weighted again.
    */
   private def calculateWorth(board: GoBoard, lastMove: Move, weights: ParameterArray): Double = {
-    val rows = board.getNumRows
-    val scaleFactor = 361.0 / (rows * rows)
-
     territoryUpdater.updateTerritory(false)
 
     val positionScores = Array.ofDim[PositionalScore](board.getNumRows, board.getNumCols)
     var totalScore = PositionalScore.createZeroScore()
-
     val positionalScorer = new PositionalScoreAnalyzer(board)
 
     for (row <- 1 to board.getNumRows) {
@@ -94,23 +82,29 @@ class WorthCalculator(val board_ : GoBoard, analyzerMap: GroupAnalyzerMap) {
       }
     }
 
-    val territoryDelta = territoryUpdater.getTerritoryDelta
-    val captureScore = getCaptureScore(board, weights)
-    val positionalScore = totalScore.getPositionScore
-    val worth = scaleFactor * (positionalScore + captureScore + territoryDelta)
+    val points = new SearchScoreCalculator(board, komi).points()
+    val tieBreak = positionalTieBreak(totalScore.getPositionScore)
+    val worth = (points + tieBreak) * 10.0
 
     if (GameContext.getDebugMode > 0) {
-      val desc = totalScore.getDescription(worth, captureScore, territoryDelta, scaleFactor)
+      val desc = totalScore.getDescription(worth, 0, points, 1.0)
       lastMove.asInstanceOf[TwoPlayerMove].setScoreDescription(desc)
     }
     val blackCap = board.getNumCaptures(true)
     val whiteCap = board.getNumCaptures(false)
     this.info =
-      new WorthInfo(territoryDelta, captureScore, blackCap, whiteCap,
-        positionalScore, positionScores, lastMove.asInstanceOf[GoMove].getCaptures,
+      new WorthInfo(points, 0, blackCap, whiteCap,
+        tieBreak, positionScores, lastMove.asInstanceOf[GoMove].getCaptures,
         worth, board.getMoveList.copy())
     worth
   }
+
+  /**
+   * Line and bad-shape. Scaled so moving one stone from the third line to the first
+   * changes the integer worth, while one such stone stays worth less than a point.
+   */
+  private def positionalTieBreak(raw: Double): Double =
+    raw / WorthCalculator.PositionalTieBreakDivisor
 
   def getWorthInfo: WorthInfo = info
 
@@ -121,11 +115,9 @@ class WorthCalculator(val board_ : GoBoard, analyzerMap: GroupAnalyzerMap) {
     territoryUpdater.updateTerritory(true)
   }
 
-  /**
-   * @return score attributed to captured stones.
-   */
-  private def getCaptureScore(board: GoBoard, weights: ParameterArray): Double = {
-    val captureWt = weights.get(GoWeights.CAPTURE_WEIGHT_INDEX).getValue
-    captureWt * (board.getNumCaptures(false) - board.getNumCaptures(true))
-  }
+}
+
+object WorthCalculator {
+  /** One third-line stone versus one first-line stone is a few tenths of a point. */
+  private val PositionalTieBreakDivisor = 6.0
 }

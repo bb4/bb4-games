@@ -18,7 +18,7 @@ class GoWeights extends GameWeights(
 )
 
 object GoWeights {
-  private val DEFAULT_WEIGHTS = Array(2.0, 1.5, 0.3, 10.0)
+  private val DEFAULT_WEIGHTS = Array(2.0, 1.5, 0.3, 1.0)
   private val MAX_WEIGHTS = Array(10.0, 5.0, 10.0, 30.0)
   private val MIN_WEIGHTS = Array(0.0, 0.0, 0.0, 0.5)
 
@@ -33,7 +33,7 @@ object GoWeights {
     "Weight to associate with the relative health of groups",
     "Weight to associate with Position",
     "Weight to associate with the Bad Shape Penalty",
-    "Weight to give to CaptureCounts"
+    "Prisoners are already one point in the search score"
   )
 
   val HEALTH_WEIGHT_INDEX = 0

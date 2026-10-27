@@ -48,7 +48,7 @@ class GoSearchable(board: GoBoard, players: PlayerList, cache: ScoreCache, priva
 
   private def init(cache: ScoreCache): Unit = {
     deadStoneUpdater = new DeadStoneUpdater(getBoard)
-    boardEvaluator = new BoardEvaluator(getBoard, cache)
+    boardEvaluator = new BoardEvaluator(getBoard, cache, goOptions.getKomi)
   }
 
   override def getProfiler: GoProfiler = GoProfiler.getInstance
