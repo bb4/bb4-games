@@ -143,15 +143,13 @@ class GoSearchable(board: GoBoard, players: PlayerList, cache: ScoreCache, priva
 
   /**
    * Whether we are removing captures from the board or adding them back, the operation is the same: XOR.
+   * The captured-stone state is enough. Mixing in the move count is not symmetric across undo,
+   * because make and undo see different move-list lengths.
    */
   private def updateHashIfCaptures(goMove: GoMove): Unit = {
     if (goMove.getNumCaptures > 0) {
       goMove.getCaptures.asScala.foreach { pos =>
         hash.applyMove(pos.getLocation, getBoard.getStateIndex(pos))
-      }
-      // this is needed to disambiguate ko's and positions that have captures.
-      if (goMove.isKo(getBoard) || goMove.getNumCaptures > 0) {
-        hash.applyMoveNumber(getNumMoves() + goMove.getNumCaptures)
       }
     }
   }

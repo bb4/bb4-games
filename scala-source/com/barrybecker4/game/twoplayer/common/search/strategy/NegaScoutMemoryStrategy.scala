@@ -76,9 +76,11 @@ final class NegaScoutMemoryStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
       val child = addNodeToTree(parent, theMove, window)
 
       // search with minimal search window
-      selectedMove = searchInternal(theMove, depth - 1, new SearchWindow(-newBeta, -window.alpha), child)
+      try
+        selectedMove = searchInternal(theMove, depth - 1, new SearchWindow(-newBeta, -window.alpha), child)
+      finally
+        searchable.undoInternalMove(theMove)
 
-      searchable.undoInternalMove(theMove)
       if selectedMove != null then
         var selectedValue = -selectedMove.getInheritedValue
         theMove.setInheritedValue(selectedValue)
@@ -97,18 +99,21 @@ final class NegaScoutMemoryStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
         if window.alpha >= newBeta then
           // re-search with narrower window (typical alpha beta search).
           searchable.makeInternalMove(theMove)
-          selectedMove = searchInternal(theMove, depth - 1, window.negateAndSwap(), child)
-          searchable.undoInternalMove(theMove)
+          try
+            selectedMove = searchInternal(theMove, depth - 1, window.negateAndSwap(), child)
+          finally
+            searchable.undoInternalMove(theMove)
 
-          selectedValue = -selectedMove.getInheritedValue
-          theMove.setInheritedValue(selectedValue)
-          bestMove = theMove
+          if selectedMove != null then
+            selectedValue = -selectedMove.getInheritedValue
+            theMove.setInheritedValue(selectedValue)
+            bestMove = theMove
 
-          if window.alpha >= window.beta then
-            storeBestMove(window, entry, bestMove.getInheritedValue)
-            bestMove.setSelected(true)
-            lastMove.setInheritedValue(-bestMove.getInheritedValue)
-            return bestMove
+            if window.alpha >= window.beta then
+              storeBestMove(window, entry, bestMove.getInheritedValue)
+              bestMove.setSelected(true)
+              lastMove.setInheritedValue(-bestMove.getInheritedValue)
+              return bestMove
 
         newBeta = window.alpha + 1
 

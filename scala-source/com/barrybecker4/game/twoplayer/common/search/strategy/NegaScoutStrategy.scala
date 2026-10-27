@@ -45,8 +45,10 @@ class NegaScoutStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
       val child = addNodeToTree(parent, theMove, window)
 
       // search with minimal search window
-      selectedMove = searchInternal(theMove, depth - 1, SearchWindow(-newBeta, -window.alpha), child)
-      searchable.undoInternalMove(theMove)
+      try
+        selectedMove = searchInternal(theMove, depth - 1, SearchWindow(-newBeta, -window.alpha), child)
+      finally
+        searchable.undoInternalMove(theMove)
 
       if selectedMove != null then
         val selectedValue = -selectedMove.getInheritedValue
@@ -64,10 +66,12 @@ class NegaScoutStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
         if window.alpha >= newBeta then
           // re-search with narrower window (typical alpha beta search).
           searchable.makeInternalMove(theMove)
-          selectedMove = searchInternal(theMove, depth - 1, window.negateAndSwap(), child)
-          if selectedMove != null then
+          try
+            selectedMove = searchInternal(theMove, depth - 1, window.negateAndSwap(), child)
+          finally
             searchable.undoInternalMove(theMove)
 
+          if selectedMove != null then
             val selectedValue2 = -selectedMove.getInheritedValue
             theMove.setInheritedValue(selectedValue2)
             bestMove = theMove

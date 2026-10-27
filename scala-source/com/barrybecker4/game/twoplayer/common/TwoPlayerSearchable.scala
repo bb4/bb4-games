@@ -58,9 +58,10 @@ abstract class TwoPlayerSearchable[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
     assert(move != null)
     assert(move.equals(lastMove), s"The move we are trying to undo ($move) in list=$moveList was not equal to the last move ($lastMove). all move=${getBoard.getMoveList}")
 
-    val loc = move.getToLocation
-
-    if !move.isPassingMove then
+    if move.isPassOrResignation then
+      hash.applyPassingMove()
+    else
+      val loc = move.getToLocation
       hash.applyMove(loc, getBoard.getStateIndex(getBoard.getPosition(loc)))
 
     getBoard.undoMove()

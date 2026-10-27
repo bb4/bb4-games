@@ -204,8 +204,8 @@ final class GoBoard(size: Int, numHandicapStones: Int) extends TwoPlayerBoard[Go
   override def undoInternalMove(move: GoMove): Unit = {
     getProfiler.startUndoMove()
 
-    // there is nothing to do if it is a pass
-    if (move.isPassingMove) {
+    // A pass or resignation does not place a stone. Resignation is stored at (1,1).
+    if (move.isPassOrResignation) {
       getProfiler.stopUndoMove()
       return
     }
