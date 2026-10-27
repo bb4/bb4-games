@@ -68,6 +68,10 @@ class TerritoryUpdater(val board_ : GoBoard, val analyzerMap_ : GroupAnalyzerMap
         if (pos.isOccupied) {
           val stone = pos.getPiece.asInstanceOf[GoStone]
           stone.setHealth(0)
+          val string = pos.getString
+          if (string != null) {
+            string.setUnconditionallyAlive(false)
+          }
         }
       }
     }

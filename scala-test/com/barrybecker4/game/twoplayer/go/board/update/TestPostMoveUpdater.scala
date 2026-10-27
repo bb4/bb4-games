@@ -50,7 +50,7 @@ class TestPostMoveUpdater extends GoTestCase:
 
   @Test
   def testJoinTwoGroups(): Unit =
-    val stats = new UpdateStats(0, 4, 1, 5, 0, 2, true)
+    val stats = new UpdateStats(0, 4, 1, 2, 0, 6, true)
     verifyPostMove("join_two_groups", new ByteLocation(5, 8), stats)
 
   private def verifyPostMove(file: String, moveLocation: Location, stats: UpdateStats): Unit =

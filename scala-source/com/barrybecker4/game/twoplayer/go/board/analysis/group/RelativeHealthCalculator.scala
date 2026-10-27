@@ -17,8 +17,8 @@ class RelativeHealthCalculator(val group_ : IGoGroup, val analyzerMap_ : GroupAn
    * Good health is positive for a black group.
    * This measure of the group's health should be much more accurate than the absolute health
    * because it takes into account the relative health of neighboring groups.
-   * If the health of an opponent bordering group is in worse shape
-   * than our own then we get a boost since we can probably kill that group first.
+   * Health is adjusted using the most alive bordering enemy. A dead neighbor
+   * does not make this group look alive while a living one is ignored.
    *
    * @return the overall health of the group.
    */
@@ -27,8 +27,8 @@ class RelativeHealthCalculator(val group_ : IGoGroup, val analyzerMap_ : GroupAn
   }
 
   /**
-   * If there is a weakest group, then boost ourselves relative to it.
-   * it may be a positive or negative boost to our health depending on its relative strength.
+   * Adjust health using the most alive enemy neighbor.
+   * A living enemy lowers health. A dead enemy raises it, and only when it is the most alive neighbor.
    * @return relative health
    */
   private def boostRelativeHealthBasedOnWeakNbr(board: GoBoard, absoluteHealth: Float): Float = {

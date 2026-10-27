@@ -11,15 +11,7 @@ import com.barrybecker4.game.twoplayer.go.board.elements.eye.IGoEye
  */
 class FalseEyeInformation extends AbstractEyeInformation {
 
-  override def determineStatus(eye: IGoEye, board: GoBoard): EyeStatus = {
-    if (eye.getMembers.size > 5) {
-      EyeStatus.NAKADE
-    } else if (eye.getMembers.size > 2) {
-      EyeStatus.UNSETTLED
-    } else {
-      EyeStatus.KO
-    }
-  }
+  override def determineStatus(eye: IGoEye, board: GoBoard): EyeStatus = EyeStatus.FALSE
 
   override def getTypeName: String = "False"
 }

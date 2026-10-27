@@ -202,12 +202,11 @@ class TestTerminalScoreCalculator {
   }
 
   /**
-   * The four black stones have no eye and one liberty. The white stone at the
-   * corner has one real eye (the enemy diagonal does not falsify a corner).
-   * Black is removed first; every white stone then has room for two eyes.
+   * A three-point region is one eye, not two. The black stones that only have that
+   * region are dead. White lives and takes the points.
    */
   @Test
-  def noEyeGroupDiesBeforeOneEyedNeighbor(): Unit = {
+  def threePointRegionIsNotTwoEyes(): Unit = {
     val board = boardFromDiagram(Array(
       ".XX..",
       ".XOOO",
@@ -217,12 +216,10 @@ class TestTerminalScoreCalculator {
     ))
     val score = new TerminalScoreCalculator(board).calculate()
 
-    assertEquals(4, score.deadBlack)
+    assertEquals(9, score.deadBlack)
     assertEquals(0, score.deadWhite)
-    assertEquals(3, score.blackTerritory)
-    assertEquals(6, score.whiteTerritory)
-    assertTrue(isDead(board, 3, 4))
-    assertFalse("corner white keeps its eye", isDead(board, 4, 5))
+    assertEquals(0, score.blackTerritory)
+    assertEquals(17, score.whiteTerritory)
   }
 
   /**
@@ -276,6 +273,60 @@ class TestTerminalScoreCalculator {
     assertEquals(0, score.blackTerritory)
     // Points under dead black + the eye are white territory
     assertTrue(s"white territory was ${score.whiteTerritory}", score.whiteTerritory >= 9)
+  }
+
+  /** A 2x2 eye is two eyes. The surrounding group lives. */
+  @Test
+  def squareFourLives(): Unit = {
+    val board = boardFromDiagram(Array(
+      "XXXXXX",
+      "XX..XX",
+      "XX..XX",
+      "XXXXXX",
+      "XXXXXX",
+      "XXXXXX"
+    ))
+    val score = new TerminalScoreCalculator(board).calculate()
+    assertEquals(0, score.deadBlack)
+    assertEquals(0, score.deadWhite)
+    assertEquals(4, score.blackTerritory)
+  }
+
+  /** Corner bent four is not two eyes, so the group that owns only that shape is dead. */
+  @Test
+  def cornerBentFourIsDead(): Unit = {
+    val board = boardFromDiagram(Array(
+      "...X",
+      ".XXX",
+      "XXXX",
+      "XXXX"
+    ))
+    val score = new TerminalScoreCalculator(board).calculate()
+    assertEquals(12, score.deadBlack)
+    assertEquals(0, score.deadWhite)
+    assertEquals(0, score.blackTerritory)
+  }
+
+  /**
+   * Both colors share exactly the same two liberties. Neither side has two eyes.
+   * Both live, and the shared points are not territory.
+   */
+  @Test
+  def sharedLibertySekiBothLive(): Unit = {
+    val board = boardFromDiagram(Array(
+      "XXXX",
+      "X.OX",
+      "XO.X",
+      "XXXX"
+    ))
+    val score = new TerminalScoreCalculator(board).calculate()
+    assertEquals(0, score.deadBlack)
+    assertEquals(0, score.deadWhite)
+    assertEquals(0, score.blackTerritory)
+    assertEquals(0, score.whiteTerritory)
+    assertFalse(isDead(board, 2, 3))
+    assertFalse(isDead(board, 3, 2))
+    assertFalse(isDead(board, 1, 1))
   }
 
   private def isDead(board: GoBoard, row: Int, col: Int): Boolean = {

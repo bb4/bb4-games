@@ -20,7 +20,8 @@ class GroupNeighborAnalyzer(board_ : GoBoard) {
    * determine a set of stones that have group connections to the specified stone.
    * This set of stones constitutes a group, but since stones cannot belong to more than
    * one group (or string) we must return a List.
-   * Group connections include nobi, ikken tobi, and kogeima.
+   * Life connections are nobi links and diagonals that are not cut on both sides.
+   * One-point jumps and knight moves are neighbors for relative health, not shared eyes.
    *
    * @param stone the stone to search from for group neighbors.
    * @param returnToUnvisitedState if true, then mark everything unvisited when done.
@@ -101,7 +102,8 @@ class GroupNeighborAnalyzer(board_ : GoBoard) {
    * @return number of stones added to the stack.
    */
   private def pushGroupNeighbors(s: GoBoardPosition, friendPlayer1: Boolean, stack: GoBoardPositionList): Int = {
-    pushGroupNeighbors(s, friendPlayer1, stack, true)
+    // Building a group: share life across nobi links and safe diagonals only.
+    pushGroupNeighbors(s, friendPlayer1, stack, samePlayerOnly = true, includeLooseLinks = false)
   }
 
   /**
@@ -116,6 +118,12 @@ class GroupNeighborAnalyzer(board_ : GoBoard) {
    */
   private def pushGroupNeighbors(s: GoBoardPosition, friendPlayer1: Boolean, stack: GoBoardPositionList,
                                   samePlayerOnly: Boolean): Int = {
+    // Neighbor queries keep jumps and knight moves so relative health can see them.
+    pushGroupNeighbors(s, friendPlayer1, stack, samePlayerOnly, includeLooseLinks = true)
+  }
+
+  private def pushGroupNeighbors(s: GoBoardPosition, friendPlayer1: Boolean, stack: GoBoardPositionList,
+                                  samePlayerOnly: Boolean, includeLooseLinks: Boolean): Int = {
     GoProfiler.getInstance.startGetGroupNeightbors()
     // start with the nobi string nbrs
     var numPushed = stringAnalyzer_.pushStringNeighbors(s, friendPlayer1, stack, samePlayerOnly)
@@ -125,7 +133,7 @@ class GroupNeighborAnalyzer(board_ : GoBoard) {
       numPushed += pushEnemyDiagonalNeighbors(s, friendPlayer1, stack)
 
     // we only find pure group neighbors of the same color
-    numPushed += pushPureGroupNeighbors(s, friendPlayer1, true, stack)
+    numPushed += pushPureGroupNeighbors(s, friendPlayer1, true, stack, includeLooseLinks)
     GoProfiler.getInstance.stopGetGroupNeighbors()
     numPushed
   }
@@ -151,14 +159,16 @@ class GroupNeighborAnalyzer(board_ : GoBoard) {
    * @return number of stones added to the stack
    */
   private def pushPureGroupNeighbors(pos: GoBoardPosition, friendPlayer1: Boolean, sameSideOnly: Boolean,
-                                      stack: GoBoardPositionList): Int = {
+                                      stack: GoBoardPositionList, includeLooseLinks: Boolean): Int = {
     val r = pos.getRow
     val c = pos.getCol
     var numPushed = 0
 
     numPushed += checkDiagonalNeighbors(r, c, friendPlayer1, sameSideOnly, stack)
-    numPushed += checkOneSpaceNeighbors(r, c, friendPlayer1, sameSideOnly, stack)
-    numPushed += checkKogeimaNeighbors(r, c, friendPlayer1, sameSideOnly, stack)
+    if (includeLooseLinks) {
+      numPushed += checkOneSpaceNeighbors(r, c, friendPlayer1, sameSideOnly, stack)
+      numPushed += checkKogeimaNeighbors(r, c, friendPlayer1, sameSideOnly, stack)
+    }
 
     numPushed
   }

@@ -19,7 +19,7 @@ class TestScoring extends GoTestCase:
 
   @Test
   def testScoring1(): Unit =
-    checkScoring("problem_score1", 0, 0, 0, 0, 74, 57, -7)
+    checkScoring("problem_score1", 0, 0, 0, 0, 74, 57, -31)
 
   @Test
   def testScoring55a(): Unit =
@@ -34,24 +34,24 @@ class TestScoring extends GoTestCase:
   @Test
   def testScoring2(): Unit =
     //                                          bt, wt,  finalWorth
-    checkScoring("problem_score2", 0, 0, 0, 0, 58, 0, -136)
+    checkScoring("problem_score2", 0, 0, 0, 0, 58, 0, 12)
 
   @Test
   def testScoringIdentPosition1a(): Unit =
     //                                               bt, wt,  finalWorth
-    checkScoring("problem_identPosition1a", 0, 0, 4, 0, 3, 6, -48)
+    checkScoring("problem_identPosition1a", 0, 0, 9, 0, 0, 17, 56)
 
   @Test
   def testScoringIdentPosition1b(): Unit =
-    checkScoring("problem_identPosition1b", 0, 0, 4, 0, 3, 6, -48)
+    checkScoring("problem_identPosition1b", 0, 0, 9, 0, 0, 17, 56)
 
   @Test
   def testScoringIdentPosition2a(): Unit =
-    checkScoring("problem_identPosition2a", 0, 0, 0, 2, 1, 0, 23)
+    checkScoring("problem_identPosition2a", 0, 0, 0, 2, 1, 0, 15)
 
   @Test
   def testScoringIdentPosition2b(): Unit =
-    checkScoring("problem_identPosition2b", 0, 1, 0, 2, 1, 0, 600)
+    checkScoring("problem_identPosition2b", 0, 1, 0, 2, 1, 0, 593)
 
   /**
    * @param scoringProblem determines problem file to load

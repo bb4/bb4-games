@@ -149,8 +149,8 @@ class TestEyePotentialAnalyzer extends GoTestCase {
     @Test
     def testEyePotential_ThreeOneSpaceJumps(): Unit = {
         restoreGame("three_one_space_jumps")
-        verifyBlackEyePotential(3, 1.115f)
-        verifyWhiteEyePotential(3, 1.115f)
+        verifyBlackEyePotential(1, 0.644f)
+        verifyWhiteEyePotential(1, 0.769f)
     }
 
     @Test

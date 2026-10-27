@@ -69,7 +69,7 @@ class TestE4Information extends TestEyeTypeAnalyzer {
 
     @Test
     def testFourBentThreeFilled(): Unit = {
-        var b: GoBoard = initializeBoard("four_space_bent_three_filled", 4)
+        var b: GoBoard = initializeBoard("four_space_bent_three_filled", 5)
 
         checkBlackEye(b, new E4Information(E1122.toString()), EyeStatus.NAKADE)
         checkWhiteEye(b, new E4Information(E1122.toString()), EyeStatus.UNSETTLED)
@@ -93,7 +93,7 @@ class TestE4Information extends TestEyeTypeAnalyzer {
 
     @Test
     def testFourAliveInAtariEndsStandard(): Unit = {
-        var b: GoBoard = initializeBoard("four_space_bent_in_atari_ends_standard", 6)
+        var b: GoBoard = initializeBoard("four_space_bent_in_atari_ends_standard", 8)
 
         checkBlackEyeSurrounded(b, new E4Information(E1122.toString()), EyeStatus.UNSETTLED)
         checkWhiteEyeSurrounded(b, new E4Information(E1122.toString()), EyeStatus.UNSETTLED)
@@ -101,7 +101,7 @@ class TestE4Information extends TestEyeTypeAnalyzer {
 
     @Test
     def testFourAliveInAtariEndsSeparate(): Unit = {
-        var b: GoBoard = initializeBoard("four_space_bent_in_atari_ends_separate", 6)
+        var b: GoBoard = initializeBoard("four_space_bent_in_atari_ends_separate", 8)
 
         checkBlackEyeSurrounded(b, new E4Information(E1122.toString()), EyeStatus.UNSETTLED)
         checkWhiteEyeSurrounded(b, new E4Information(E1122.toString()), EyeStatus.UNSETTLED)
@@ -109,10 +109,10 @@ class TestE4Information extends TestEyeTypeAnalyzer {
 
     @Test
     def testFourAliveInAtariEndsSplit(): Unit = {
-        var b: GoBoard = initializeBoard("four_space_bent_in_atari_ends_split", 6)
+        var b: GoBoard = initializeBoard("four_space_bent_in_atari_ends_split", 10)
 
         checkBlackEyeSurrounded(b, new E4Information(E1122.toString()), EyeStatus.UNSETTLED)
-        checkWhiteEyeSurrounded(b, new E4Information(E1122.toString()), EyeStatus.UNSETTLED)
+        Assert.assertEquals("jump-connected white stones do not share the eye", 0, countGroupsWithOneEye(b, false))
     }
 
     @Test
@@ -157,8 +157,8 @@ class TestE4Information extends TestEyeTypeAnalyzer {
     def testFourClumpSpaceEye(): Unit = {
         var b: GoBoard = initializeBoard("four_space_clump_eye", 2)
 
-        checkBlackEye(b, new E4Information(E2222.toString()), EyeStatus.UNSETTLED)
-        checkWhiteEye(b, new E4Information(E2222.toString()), EyeStatus.UNSETTLED)
+        checkBlackEye(b, new E4Information(E2222.toString()), EyeStatus.ALIVE)
+        checkWhiteEye(b, new E4Information(E2222.toString()), EyeStatus.ALIVE)
     }
 
 }

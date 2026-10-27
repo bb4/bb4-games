@@ -67,6 +67,13 @@ abstract class TestEyeTypeAnalyzer extends GoTestCase:
   protected def checkWhiteEyeSurrounded(board: GoBoard, expectedInfo: EyeInformation, expectedStatus: EyeStatus): Unit =
     checkEyeInfo(board, expectedInfo, expectedStatus, false, false, false, GroupType.SURROUNDED)
 
+  protected def countGroupsWithOneEye(board: GoBoard, isBlack: Boolean): Int =
+    board.getGroups.asScala.count { group =>
+      val stones = group.asInstanceOf[GoGroup].getStones
+      stones.iterator.next.getPiece.isOwnedByPlayer1 == isBlack &&
+        new GroupAnalyzer(group, new GroupAnalyzerMap()).getEyes(board).size == 1
+    }
+
   /** Check information and status for specified eye. */
   protected def checkEyeInfo(
     board: GoBoard,

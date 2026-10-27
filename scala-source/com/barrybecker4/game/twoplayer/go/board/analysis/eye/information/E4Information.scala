@@ -3,6 +3,7 @@ package com.barrybecker4.game.twoplayer.go.board.analysis.eye.information
 
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.elements.eye.IGoEye
+import scala.jdk.CollectionConverters._
 
 /**
  * MetaData for the different possible Eye shapes of size 4.
@@ -17,7 +18,7 @@ class E4Information(subTypeDesc: String) extends AbstractEyeSubtypeInformation {
   e4Type match {
     case Eye4Type.E1122 => initialize(false, 4, Array(2.03f, 2.03f))
     case Eye4Type.E1113 => initialize(false, 4, Array(3.03f))
-    case Eye4Type.E2222 => initialize(false, 4)
+    case Eye4Type.E2222 => initialize(true, 4)
   }
 
   /**
@@ -26,11 +27,19 @@ class E4Information(subTypeDesc: String) extends AbstractEyeSubtypeInformation {
   override def determineStatus(eye: IGoEye, board: GoBoard): EyeStatus = {
     val nbrMap = new EyeNeighborMap(eye)
     e4Type match {
-      case Eye4Type.E1122 => handleVitalPointCases(nbrMap, eye, 2)
+      case Eye4Type.E1122 =>
+        val status = handleVitalPointCases(nbrMap, eye, 2)
+        // Bent four in the corner is a ko, not two eyes, when both vitals are empty.
+        if (status == EyeStatus.ALIVE && touchesBoardCorner(eye, board)) EyeStatus.UNSETTLED
+        else status
       case Eye4Type.E1113 => handleVitalPointCases(nbrMap, eye, 1)
-      case Eye4Type.E2222 => EyeStatus.UNSETTLED
+      case Eye4Type.E2222 => EyeStatus.ALIVE
     }
   }
+
+  /** The square sits in a board corner when one of its points is a corner point. */
+  private def touchesBoardCorner(eye: IGoEye, board: GoBoard): Boolean =
+    eye.getMembers.asScala.exists(space => board.isInCorner(space))
 
   override def getTypeName: String = e4Type.toString
 }

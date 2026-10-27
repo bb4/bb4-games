@@ -85,7 +85,7 @@ class TestGoBoard extends GoTestCase:
 
   @Test
   def testNumLiberties2(): Unit =
-    verifyGroupLiberties("numLiberties2", 1, 2, 17, 3, 6, 16)
+    verifyGroupLiberties("numLiberties2", 1, 2, 15, 3, 6, 16)
 
   @Test
   def testCopy(): Unit =

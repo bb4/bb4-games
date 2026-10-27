@@ -56,6 +56,14 @@ enum EyeStatus(
     0.19f)
 
   /**
+   * A false eye is not an eye. It must not be scored as nakade, unsettled, or ko.
+   */
+  case FALSE extends EyeStatus(
+    "False",
+    "Not an eye, no matter who plays first.",
+    0.0f)
+
+  /**
    * For example if may be a false eye with only one space in the eye - in other words a ko.
    */
   case KO extends EyeStatus(

@@ -175,7 +175,7 @@ class TestGroupNeighborAnalyzer extends GoTestCase {
 
         System.out.println("group1=" + group1)
         System.out.println("group2=" + group2)
-        Assert.assertEquals("Group1 did not have expected size.", 2, group1.size)
+        Assert.assertEquals("Group1 did not have expected size.", 1, group1.size)
         Assert.assertEquals("Groups did not have the same size", group1.size, group2.size)
     }
 

@@ -65,7 +65,7 @@ class TestWeakestGroupFinder extends GoTestCase {
         groupStones.add(board.getPosition(6, 6).asInstanceOf[GoBoardPosition])
 
         var group: GoGroup = finder.findWeakestGroup(groupStones)
-        Assert.assertEquals("Unexpected number of stones found.", 3, group.getNumStones)
+        Assert.assertEquals("most alive enemy is the larger group", 5, group.getNumStones)
     }
 
     @Test
@@ -78,7 +78,7 @@ class TestWeakestGroupFinder extends GoTestCase {
         groupStones.add(board.getPosition(6, 6).asInstanceOf[GoBoardPosition])
 
         var group: GoGroup = finder.findWeakestGroup(groupStones)
-        Assert.assertEquals("Unexpected number of stones found.", 3, group.getNumStones)
+        Assert.assertEquals("most alive enemy is the larger group", 7, group.getNumStones)
     }
 
 

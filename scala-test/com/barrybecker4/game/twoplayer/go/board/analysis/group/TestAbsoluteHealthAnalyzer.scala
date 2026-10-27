@@ -11,7 +11,6 @@ import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.analysis.eye.information.E1Information
 import com.barrybecker4.game.twoplayer.go.board.analysis.eye.information.E2Information
 import com.barrybecker4.game.twoplayer.go.board.analysis.eye.information.EyeInformation
-import com.barrybecker4.game.twoplayer.go.board.analysis.eye.information.FalseEyeInformation
 import com.barrybecker4.game.twoplayer.go.board.elements.eye.GoEyeSet
 import com.barrybecker4.game.twoplayer.go.board.elements.eye.IGoEye
 import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup
@@ -123,14 +122,14 @@ class TestAbsoluteHealthAnalyzer extends GoTestCase {
     def testAbsHealth2(): Unit = {
         var blackEyes: Array[EyeInformation] = Array()
         var whiteEyes: Array[EyeInformation] = Array()
-        var bPotential: Double = 1.18
+        var bPotential: Double = 0.596
         var wPotential: Double = 0.769
-        var blackHealth: Double = 0.52
+        var blackHealth: Double = 0.10
         var whiteHealth: Double = -0.348
-        var AbsAbsHealthDiff: Double = 0.1
-        var AbsHealthDiff: Double = 0.8
-        var RelHealthDiff: Double = 0.872
-        verifyHealthDifferences("groupHealth2", 19, 14, blackEyes, whiteEyes,
+        var AbsAbsHealthDiff: Double = -0.248
+        var AbsHealthDiff: Double = 0.448
+        var RelHealthDiff: Double = 0.448
+        verifyHealthDifferences("groupHealth2", 4, 14, blackEyes, whiteEyes,
                                                  bPotential, wPotential,
                                                  blackHealth, whiteHealth,
                                                  AbsAbsHealthDiff, AbsHealthDiff, RelHealthDiff)
@@ -299,15 +298,15 @@ class TestAbsoluteHealthAnalyzer extends GoTestCase {
     }
     @Test
     def testAbsHealth3c(): Unit = {
-        val blackEyes: Array[EyeInformation] = Array(new FalseEyeInformation())
+        val blackEyes: Array[EyeInformation] = Array(new E1Information())
         var whiteEyes: Array[EyeInformation] = Array()
         var bPotential: Double = 0.59584
         var wPotential: Double = 0.51602
-        var blackHealth: Double = 0.02
-        var whiteHealth: Double = -0.1
-        var AbsAbsHealthDiff: Double = -0.08
-        var AbsHealthDiff: Double = 0.12
-        var RelHealthDiff: Double = 0.12
+        var blackHealth: Double = -0.10
+        var whiteHealth: Double = -0.10
+        var AbsAbsHealthDiff: Double = 0.0
+        var AbsHealthDiff: Double = 0.0
+        var RelHealthDiff: Double = 0.0
         verifyHealthDifferences("groupHealth3c", 3, 5, blackEyes, whiteEyes,
                                                  bPotential, wPotential,
                                                  blackHealth, whiteHealth,
@@ -318,14 +317,14 @@ class TestAbsoluteHealthAnalyzer extends GoTestCase {
     def testAbsHealth4(): Unit = {
         var blackEyes: Array[EyeInformation] = Array()  // should probably have a territorial eye here
         val whiteEyes: Array[EyeInformation] = Array(new E1Information())
-        var bPotential: Double = 1.9
+        var bPotential: Double = 1.754
         var wPotential: Double = 0.877
-        var blackHealth: Double = 0.79
+        var blackHealth: Double = 0.65
         var whiteHealth: Double = -0.405
-        var AbsAbsHealthDiff: Double = 0.388
-        var AbsHealthDiff: Double = 1.11
-        var RelHealthDiff: Double = 1.56  //1.11
-        verifyHealthDifferences("groupHealth4", 33, 12, blackEyes, whiteEyes,
+        var AbsAbsHealthDiff: Double = 0.245
+        var AbsHealthDiff: Double = 1.055
+        var RelHealthDiff: Double = 1.556
+        verifyHealthDifferences("groupHealth4", 17, 12, blackEyes, whiteEyes,
                                                  bPotential, wPotential,
                                                  blackHealth, whiteHealth,
                                                  AbsAbsHealthDiff, AbsHealthDiff, RelHealthDiff)
@@ -351,13 +350,13 @@ class TestAbsoluteHealthAnalyzer extends GoTestCase {
         var blackEyes: Array[EyeInformation] = Array()  // should really have a territorial eye here.
         var whiteEyes: Array[EyeInformation] = Array()
         var bPotential: Double = 0.788
-        var wPotential: Double = 0.91
+        var wPotential: Double = 0.596
         var blackHealth: Double = 0.26
-        var whiteHealth: Double = -0.315
-        var AbsAbsHealthDiff: Double = -0.054
-        var AbsHealthDiff: Double = 0.58
-        var RelHealthDiff: Double = 0.58
-        verifyHealthDifferences("groupHealth4b", 9, 12, blackEyes, whiteEyes,
+        var whiteHealth: Double = -0.10
+        var AbsAbsHealthDiff: Double = 0.161
+        var AbsHealthDiff: Double = 0.361
+        var RelHealthDiff: Double = 0.361
+        verifyHealthDifferences("groupHealth4b", 9, 4, blackEyes, whiteEyes,
                                                  bPotential, wPotential,
                                                  blackHealth, whiteHealth,
                                                  AbsAbsHealthDiff, AbsHealthDiff, RelHealthDiff)
@@ -402,13 +401,13 @@ class TestAbsoluteHealthAnalyzer extends GoTestCase {
         val blackEyes: Array[EyeInformation] = Array(E4.getInformation(E2222.toString))
         var whiteEyes: Array[EyeInformation] = Array()
         var bPotential: Double = 1.003
-        var wPotential: Double = 1.14
-        var blackHealth: Double = 0.34
-        var whiteHealth: Double = -0.42
-        var AbsAbsHealthDiff: Double = -0.084
-        var AbsHealthDiff: Double = 0.764
-        var RelHealthDiff: Double = 0.764
-        verifyHealthDifferences("groupHealth5b", 9, 13, blackEyes, whiteEyes,
+        var wPotential: Double = 0.988
+        var blackHealth: Double = 0.94
+        var whiteHealth: Double = -0.242
+        var AbsAbsHealthDiff: Double = 0.698
+        var AbsHealthDiff: Double = 1.182
+        var RelHealthDiff: Double = 1.182
+        verifyHealthDifferences("groupHealth5b", 9, 8, blackEyes, whiteEyes,
                                                  bPotential, wPotential,
                                                  blackHealth, whiteHealth,
                                                  AbsAbsHealthDiff, AbsHealthDiff, RelHealthDiff)
@@ -436,13 +435,13 @@ class TestAbsoluteHealthAnalyzer extends GoTestCase {
         val blackEyes: Array[EyeInformation] = Array(new E1Information(), new E1Information())
         var whiteEyes: Array[EyeInformation] = Array()
         var bPotential: Double = 0.9881
-        var wPotential: Double = 1.397
+        var wPotential: Double = 0.544
         var blackHealth: Double = 1.0 //0.9399999976158142
-        var whiteHealth: Double = -0.5
-        var AbsAbsHealthDiff: Double = 0.49
-        var AbsHealthDiff: Double = 1.5
-        var RelHealthDiff: Double = 1.5
-        verifyHealthDifferences("groupHealth6a", 8, 18, blackEyes, whiteEyes,
+        var whiteHealth: Double = -0.20
+        var AbsAbsHealthDiff: Double = 0.80
+        var AbsHealthDiff: Double = 1.2
+        var RelHealthDiff: Double = 1.2
+        verifyHealthDifferences("groupHealth6a", 8, 6, blackEyes, whiteEyes,
                                                  bPotential, wPotential,
                                                  blackHealth, whiteHealth,
                                                  AbsAbsHealthDiff, AbsHealthDiff, RelHealthDiff)
@@ -486,14 +485,14 @@ class TestAbsoluteHealthAnalyzer extends GoTestCase {
     def testAbsHealth9(): Unit = {
         var blackEyes: Array[EyeInformation] = Array()
         var whiteEyes: Array[EyeInformation] = Array()
-        var bPotential: Double = 1.49
+        var bPotential: Double = 1.332
         var wPotential: Double = 0.91
-        var blackHealth: Double = 0.44
+        var blackHealth: Double = 0.385
         var whiteHealth: Double = -0.22
-        var AbsAbsHealthDiff: Double = 0.22
-        var AbsHealthDiff: Double = 0.663
-        var RelHealthDiff: Double = 1.0
-        verifyHealthDifferences("groupHealth9", 14, 7, blackEyes, whiteEyes,
+        var AbsAbsHealthDiff: Double = 0.164
+        var AbsHealthDiff: Double = 0.606
+        var RelHealthDiff: Double = 0.938
+        verifyHealthDifferences("groupHealth9", 11, 7, blackEyes, whiteEyes,
                                                  bPotential, wPotential,
                                                  blackHealth, whiteHealth,
                                                  AbsAbsHealthDiff, AbsHealthDiff, RelHealthDiff)

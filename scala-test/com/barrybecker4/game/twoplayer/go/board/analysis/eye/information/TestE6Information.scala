@@ -50,7 +50,7 @@ class TestE6Information extends TestEyeTypeAnalyzer {
 
     @Test
     def testSixBentTwoMiddleFilled(): Unit = {
-        var b: GoBoard = initializeBoard("six_bent_two_middle_filled", 4)
+        var b: GoBoard = initializeBoard("six_bent_two_middle_filled", 5)
 
         checkBlackEye(b, new E6Information(E112222.toString()), EyeStatus.ALIVE)
         checkWhiteEye(b, new E6Information(E112222.toString()), EyeStatus.ALIVE)
@@ -58,7 +58,7 @@ class TestE6Information extends TestEyeTypeAnalyzer {
 
     @Test
     def testSixBentThreeMiddleFilled(): Unit = {
-        var b: GoBoard = initializeBoard("six_bent_three_middle_filled", 4)
+        var b: GoBoard = initializeBoard("six_bent_three_middle_filled", 5)
 
         checkBlackEye(b, new E6Information(E112222.toString()), EyeStatus.ALIVE)
         checkWhiteEye(b, new E6Information(E112222.toString()), EyeStatus.ALIVE)

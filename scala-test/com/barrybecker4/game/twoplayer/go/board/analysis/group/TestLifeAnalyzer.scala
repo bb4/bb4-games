@@ -21,7 +21,7 @@ class TestLifeAnalyzer extends GoTestCase {
 
     @Test
     def testUnconditionalLife2(): Unit = {
-        verifyUnconditionalLife("unconditionalLife2", true, 13, false)
+        verifyUnconditionalLife("unconditionalLife2", true, 12, false)
     }
 
     @Test

@@ -53,13 +53,13 @@ class EyeTypeAnalyzer(
   }
 
   /**
-   * Iterate through the spaces_ in the eye.
-   * if any are determined to be a false-eye, then return false-eye for the eye type.
-   * @return true if we are a false eye.
+   * Only a one-point region can be a false eye. A single false point must not
+   * reclassify a larger eye; those stay on the E2–E7 shape tables.
+   * @return true if this one-point region is a false eye.
    */
   private def isFalseEye(): Boolean = {
     val spaces = eye_.getMembers
-    spaces.asScala.exists(space => isFalseEye(space))
+    spaces.size == 1 && isFalseEye(spaces.iterator.next())
   }
 
   /**
@@ -79,6 +79,10 @@ class EyeTypeAnalyzer(
     val nbrs = nbrAnalyzer_.getNobiNeighbors(space, groupP1, NeighborType.FRIEND)
 
     if (nbrs.size >= 2) {
+      // A corner point with both orthogonal neighbors friendly is a real eye.
+      if (board_.isInCorner(space)) {
+        return false
+      }
       val numOppDiag = getNumOpponentDiagonals(space, groupP1)
 
       if (numOppDiag >= 2 && (nbrs.size >= 3)) {

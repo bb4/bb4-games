@@ -87,7 +87,7 @@ class TestE3Information extends TestEyeTypeAnalyzer {
 
     @Test
     def testThreeSpaceEyeWithTwoEndsFilled(): Unit = {
-        var b: GoBoard = initializeBoard("three_space_eye_two_ends_filled", 4)
+        var b: GoBoard = initializeBoard("three_space_eye_two_ends_filled", 6)
 
         checkBlackEye(b, new E3Information(), EyeStatus.UNSETTLED)
         checkWhiteEye(b, new E3Information(), EyeStatus.UNSETTLED)
@@ -104,7 +104,7 @@ class TestE3Information extends TestEyeTypeAnalyzer {
 
     @Test
     def testThreeSpaceEyeWithTwoEndsFilledInAtari(): Unit = {
-        var b: GoBoard = initializeBoard("three_space_eye_two_ends_filled_in_atari", 5)
+        var b: GoBoard = initializeBoard("three_space_eye_two_ends_filled_in_atari", 7)
 
         checkBlackEye(b, new E3Information(), EyeStatus.UNSETTLED)
         //checkWhiteEye(b, new E3Information(), EyeStatus.UNSETTLED); can't make in atari

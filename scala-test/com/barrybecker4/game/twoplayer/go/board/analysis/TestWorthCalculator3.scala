@@ -16,7 +16,7 @@ class TestWorthCalculator3 extends WorthCalculatorBase {
     @Test
     def testSamePositionFromDifferentPathsEqual(): Unit = {
 
-        compareWorths("worth3x3_A", "worth3x3_B", -142)
+        compareWorths("worth3x3_A", "worth3x3_B", -58)
     }
 
 }

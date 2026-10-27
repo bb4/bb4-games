@@ -209,11 +209,7 @@ final class GoGroup extends GoSet with IGoGroup {
    */
   override def updateTerritory(health: Float): Unit = {
     getMembers.asScala.foreach { string =>
-      if (string.isUnconditionallyAlive) {
-        string.updateTerritory(if (ownedByPlayer1_) 1.0f else -1.0f)
-      } else {
-        string.updateTerritory(health)
-      }
+      string.updateTerritory(health)
     }
   }
 

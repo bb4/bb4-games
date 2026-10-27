@@ -2,7 +2,11 @@
 package com.barrybecker4.game.twoplayer.go.board.analysis.territory
 
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
-import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoStone}
+import com.barrybecker4.game.twoplayer.go.board.analysis.eye.BigEyeAnalyzer
+import com.barrybecker4.game.twoplayer.go.board.analysis.eye.information._
+import com.barrybecker4.game.twoplayer.go.board.elements.eye.IGoEye
+import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup
+import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoBoardPositionSet, GoStone}
 import com.barrybecker4.game.twoplayer.go.board.elements.string.IGoString
 
 import scala.collection.mutable
@@ -15,7 +19,7 @@ import scala.jdk.CollectionConverters._
  * are that color's territory. Regions touching both colors are dame (or seki) and score 0.
  *
  * A string is dead when it cannot make two eyes: fewer than two real eyes, no eye
- * of three or more points, and not a mutual seki (both sides share exactly the same
+ * whose shape status is unconditionally alive, and not a mutual seki (both sides share exactly the same
  * liberties). Sharing one dame point with a stronger group is not seki. A dame region
  * of seven or more points is room to live for a group that already has an eye, or at
  * least three liberties. A smaller shared pocket is not room to live.
@@ -267,9 +271,39 @@ class TerminalScoreCalculator(board: GoBoard) {
     }
   }
 
-  /** One exclusive region of three or more empty points can be made into two eyes. */
-  private def countsAsTwoEyes(region: List[(Int, Int)]): Boolean =
-    region.size >= 3
+  /**
+   * Two eyes when the region's shape is unconditionally alive.
+   * A straight three and other nakade stay one eye. Corner bent four is unsettled.
+   * Dead stones in the region count as space, not as stones played in a vital point.
+   */
+  private def countsAsTwoEyes(region: List[(Int, Int)]): Boolean = {
+    if (region.isEmpty) {
+      return false
+    }
+    try {
+      val eye = regionEye(region)
+      eyeInformation(eye).determineStatus(eye, board) == EyeStatus.ALIVE
+    } catch {
+      case _: IllegalArgumentException => false
+    }
+  }
+
+  private def regionEye(region: List[(Int, Int)]): IGoEye = {
+    val members = new GoBoardPositionSet()
+    region.foreach { case (r, c) =>
+      members.add(new GoBoardPosition(r, c, null, null))
+    }
+    new RegionEye(members)
+  }
+
+  private def eyeInformation(eye: IGoEye): EyeInformation = {
+    val size = eye.getMembers.size
+    if (size == 1) new E1Information()
+    else if (size == 2) new E2Information()
+    else if (size == 3) new E3Information()
+    else if (size > 3 && size < 8) new BigEyeAnalyzer(eye).determineEyeInformation()
+    else new TerritorialEyeInformation()
+  }
 
   /** A one-point eye cut by opponent diagonals is not a real eye. */
   private def isFalseEyeRegion(
@@ -366,4 +400,40 @@ class TerminalScoreCalculator(board: GoBoard) {
     if (c < cols) buf += ((r, c + 1))
     buf.toList
   }
+}
+
+/** Eye shape built from scoring-region coordinates. Occupation on the board is ignored. */
+private class RegionEye(members: GoBoardPositionSet) extends IGoEye {
+
+  override def getMembers: GoBoardPositionSet = members
+
+  override def size: Int = members.size
+
+  override def isOwnedByPlayer1: Boolean = true
+
+  override def isEnemy(pos: GoBoardPosition): Boolean = false
+
+  override def setVisited(visited: Boolean): Unit = ()
+
+  override def clear(): Unit = ()
+
+  override def getInformation: EyeInformation = null
+
+  override def getStatus: EyeStatus = EyeStatus.UNCLASSIFIED
+
+  override def getEyeTypeName: String = "region"
+
+  override def getNumCornerPoints: Int = 0
+
+  override def getNumEdgePoints: Int = 0
+
+  override def getGroup: IGoGroup = null
+
+  override def isUnconditionallyAlive: Boolean = false
+
+  override def setUnconditionallyAlive(unconditionallyAlive: Boolean): Unit = ()
+
+  override def getLiberties(board: GoBoard): GoBoardPositionSet = new GoBoardPositionSet()
+
+  override def getNumLiberties(board: GoBoard): Int = 0
 }

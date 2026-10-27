@@ -15,29 +15,29 @@ import java.util.Set
 class WeakestGroupFinder(val board: GoBoard, val analyzerMap: GroupAnalyzerMap) {
 
   /**
-   * Given a set of same color stones, find the weakest enemy group that is bordering it.
-   * @param groupStones the stones to find the weakest bordering neighbor of.
+   * Given a set of same color stones, find the most alive enemy group bordering it.
+   * A dead neighbor must not hide a living one. An enemy at perfect life (±1) is included.
+   * @param groupStones the stones to find the strongest bordering enemy of.
    *            Note: we assume that the groupStones all have the same color.
-   * @return the weakest bordering enemy group. Returns null if no group found.
+   * @return the most alive bordering enemy group. Returns null if no group found.
    */
   def findWeakestGroup(groupStones: GoBoardPositionSet): GoGroup = {
     val isPlayer1 = groupStones.getOneMember.getPiece.isOwnedByPlayer1
     val enemyNbrGroups = getEnemyGroupNeighbors(groupStones, isPlayer1)
 
-    val side = if (isPlayer1) 1.0f else -1.0f
-
-    var weakestHealth = -side
-    var weakestGroup: GoGroup = null
+    var strongestGroup: GoGroup = null
+    var strongestLife = Float.NegativeInfinity
 
     for (egroup <- enemyNbrGroups.toArray(new Array[Object](0))) {
       val enemyGroup = egroup.asInstanceOf[GoGroup]
       val h = analyzerMap.getAnalyzer(enemyGroup).getAbsoluteHealth
-      if ((side * h) > (side * weakestHealth)) {
-        weakestHealth = h
-        weakestGroup = enemyGroup
+      val enemyLife = if (enemyGroup.isOwnedByPlayer1) h else -h
+      if (enemyLife > strongestLife) {
+        strongestLife = enemyLife
+        strongestGroup = enemyGroup
       }
     }
-    weakestGroup
+    strongestGroup
   }
 
   /**
