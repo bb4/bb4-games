@@ -17,8 +17,8 @@ import scala.jdk.CollectionConverters._
  * A string is dead when it cannot make two eyes: fewer than two real eyes, no eye
  * of three or more points, and not a mutual seki (both sides share exactly the same
  * liberties). Sharing one dame point with a stronger group is not seki. A dame region
- * of five or more points is room to live for a group that already has an eye, or at
- * least three liberties. A stone with one or two liberties does not own that region.
+ * of seven or more points is room to live for a group that already has an eye, or at
+ * least three liberties. A smaller shared pocket is not room to live.
  *
  * The weakest dead string (fewest eyes, then fewest liberties) is removed first
  * and the board is re-evaluated, so a group that only looked dead because it was
@@ -187,7 +187,7 @@ class TerminalScoreCalculator(board: GoBoard) {
     if (inMutualSeki(libs, colorBlack, dead, regions, ownership)) {
       return false
     }
-    // A large shared region is room to make eyes only if the group can occupy it.
+    // A shared region of seven or more points is room to live for an eyed group or one with three liberties.
     if (hasOpenDame(colorBlack, libs, dead, regions, ownership)) {
       return false
     }
@@ -199,7 +199,7 @@ class TerminalScoreCalculator(board: GoBoard) {
    * Points under stones already judged dead do not count: a last stone beside a
    * pile of dead friendly stones is still dead.
    */
-  private val OpenDameSize = 5
+  private val OpenDameSize = 7
 
   /** Below this many liberties, a group with no eye cannot use a shared region. */
   private val OpenDameMinLiberties = 3

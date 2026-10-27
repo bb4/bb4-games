@@ -225,6 +225,39 @@ class TestTerminalScoreCalculator {
     assertFalse("corner white keeps its eye", isDead(board, 4, 5))
   }
 
+  /**
+   * Finished 9x9. The top-left corner is a six-point white eye.
+   * The white stone at the top-right has three liberties in a six-point pocket
+   * and no eye, so it is dead and that corner is black territory.
+   * White stones with three liberties in the large bottom area can still live,
+   * and that area stays dame.
+   * Rows are top to bottom. X black, O white.
+   */
+  @Test
+  def smallPocketStoneIsDead(): Unit = {
+    val board = boardFromDiagram(Array(
+      "...OOX...",
+      "...OXXX..",
+      "OOOOOXX.O",
+      "OXOOOOXX.",
+      "XXXOXOX.X",
+      ".X.XXX..X",
+      "..X.OOXX.",
+      "O.X.OXX.X",
+      "........."
+    ))
+    val score = new TerminalScoreCalculator(board).calculate()
+
+    assertEquals("top-left corner stays white", 6, score.whiteTerritory)
+    assertEquals("black eyes plus the top-right pocket", 13, score.blackTerritory)
+    assertEquals("only the top-right white stone is dead", 1, score.deadWhite)
+    assertEquals("black groups have eyes", 0, score.deadBlack)
+    assertFalse("white wall around the corner lives", isDead(board, 1, 4))
+    assertTrue("corner white at 3,9 is dead", isDead(board, 3, 9))
+    assertFalse("bottom white still has room", isDead(board, 8, 1))
+    assertFalse(isDead(board, 7, 5))
+  }
+
   /** Dead black stones become white territory points and dead-black counts (not black territory). */
   @Test
   def deadStonesBelongToOpponentCounts(): Unit = {
