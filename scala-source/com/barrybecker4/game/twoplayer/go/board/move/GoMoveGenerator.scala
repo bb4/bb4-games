@@ -33,7 +33,7 @@ final class GoMoveGenerator(searchable_ : GoSearchable) {
     val finder = new BestMoveFinder[GoMove](searchable_.getSearchOptions.getBestMovesSearchOptions)
     val bestMoves = finder.getBestMoves(moveList)
 
-    addPassingMoveIfNeeded(lastMove, bestMoves)
+    addPassingMoveIfNeeded(lastMove, moveList, bestMoves, weights)
 
     prof.stopGenerateMoves()
     bestMoves
@@ -87,20 +87,37 @@ final class GoMoveGenerator(searchable_ : GoSearchable) {
   }
 
   /**
-   * If we are well into the game, include a passing move.
-   * if none of the generated moves have an inherited value better than the passing move
-   * (which just uses the value of the current move) then we should pass.
+   * Pass once the game is past the opening, and only when every stone move gives up
+   * at least a point. A first-line penalty is a fraction of a point, so it must not
+   * make passing look better than playing an empty edge point. The pass is scored
+   * from the position itself. Copying the previous move's value is wrong at the root,
+   * where a human move is stored as zero.
    */
-  private def addPassingMoveIfNeeded(lastMove: TwoPlayerMove, moveList: MoveList[GoMove]): Unit = {
+  private def addPassingMoveIfNeeded(
+    lastMove: TwoPlayerMove,
+    evaluated: MoveList[GoMove],
+    kept: MoveList[GoMove],
+    weights: ParameterArray
+  ): Unit = {
     val b = searchable_.getBoard
-    if (searchable_.getNumMoves() > (b.getNumCols + b.getNumRows)) {
-      val passMove = GoMove.createPassMove(lastMove.getValue, !(lastMove.isPlayer1))
-      moveList.add(moveList.size, passMove)
+    if (searchable_.getNumMoves() <= (b.getNumCols + b.getNumRows)) return
+
+    val player1 = (lastMove == null) || !lastMove.isPlayer1
+    val current = searchable_.worth(lastMove.asInstanceOf[GoMove], weights)
+    val losesAPoint = evaluated.isEmpty || evaluated.asScala.forall { move =>
+      if (player1) move.getValue <= current - GoMoveGenerator.OnePoint
+      else move.getValue >= current + GoMoveGenerator.OnePoint
+    }
+    if (losesAPoint) {
+      kept.add(kept.size, GoMove.createPassMove(current, player1))
     }
   }
 }
 
 object GoMoveGenerator {
+  /** Worth is stored in tenths of a point. */
+  private val OnePoint = 10
+
   /**
    * It is a take-back move if the proposed move position (row,col) would immediately replace the last captured piece
    * and capture the stone that did the capturing.
