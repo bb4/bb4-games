@@ -91,7 +91,7 @@ class TestScoring extends GoTestCase:
       withinBounds(whiteTerrEst, expectedWhiteTerr)
     )
     val finalWorth = searchable.worth(
-      searchable.getMoveList.getLastMove.asInstanceOf[GoMove],
+      searchable.getMoveList.getLastMove,
       controller.getComputerWeights().getDefaultWeights
     )
     assertEquals("Unexpected worth for final move.", expectedFinalWorth, finalWorth)
