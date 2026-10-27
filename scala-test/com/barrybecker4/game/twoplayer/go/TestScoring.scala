@@ -28,8 +28,9 @@ class TestScoring extends GoTestCase:
 
   @Test
   def testScoring55b(): Unit =
+    // Territory (16) plus the six dead white stones and two captures, minus komi.
     //                                           bt, wt,  finalWorth
-    checkScoring("problem_score55b", 0, 2, 0, 6, 16, 0, 25)
+    checkScoring("problem_score55b", 0, 2, 0, 6, 16, 0, 185)
 
   @Test
   def testScoring2(): Unit =

@@ -4,7 +4,9 @@ package com.barrybecker4.game.twoplayer.go.board.move
 import com.barrybecker4.game.common.MoveList
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
+import com.barrybecker4.game.twoplayer.go.board.analysis.neighbor.{NeighborAnalyzer, NeighborType}
 import com.barrybecker4.game.twoplayer.go.board.elements.position.GoBoardPosition
+import com.barrybecker4.game.twoplayer.go.board.elements.string.GoStringSet
 import scala.jdk.CollectionConverters._
 
 /**
@@ -15,52 +17,55 @@ import scala.jdk.CollectionConverters._
 final class UrgentMoveGenerator(board_ : GoBoard) {
 
   /**
-   * @param moves all possible moves from the current board state for player to move next.
-   * @param lastMove last stone placed on board
-   * @return urgent moves from this position.
+   * Keep candidates that capture, escape an atari, or put an enemy string into atari.
+   * The urgent bit is set when the move is generated. Recompute it if a caller did not.
    */
-  final def generateUrgentMoves(moves: MoveList[GoMove], lastMove: TwoPlayerMove): MoveList[GoMove] = {
-    val lastMovePlayed = lastMove.asInstanceOf[GoMove]
-
-    // just keep the moves that take captures
+  def generateUrgentMoves(moves: MoveList[GoMove], lastMove: TwoPlayerMove): MoveList[GoMove] = {
     val it = moves.iterator()
     while (it.hasNext) {
       val move = it.next()
-
-      // urgent if we capture or atari other stones.
-      val isUrgent = move.getNumCaptures > 0 || putsGroupInAtari(lastMovePlayed)
-      if (isUrgent) {
+      if (!move.isUrgent && UrgentMoveGenerator.isUrgentCandidate(move, board_)) {
         move.setUrgent(true)
-      } else {
+      }
+      if (!move.isUrgent) {
         it.remove()
       }
     }
     moves
   }
-
-  /**
-   * Determine if the last move caused atari on another group (without putting ourselves in atari).
-   * @param lastMovePlayed last position just played.
-   * @return true if the lastMovePlayed puts the lastPositions string in atari.
-   */
-  private def putsGroupInAtari(lastMovePlayed: GoMove): Boolean = {
-    val lastPos = board_.getPosition(lastMovePlayed.getToLocation).asInstanceOf[GoBoardPosition]
-    lastMovePlayed.numStonesAtaried(board_) >= UrgentMoveGenerator.CRITICAL_GROUP_SIZE &&
-      lastPos.getString.getNumLiberties(board_) > 1
-  }
 }
 
 object UrgentMoveGenerator {
-  /**
-   * Size of group that needs to be in atari before we consider a group urgent.
-   * Perhaps this should be one.
-   */
-  private val CRITICAL_GROUP_SIZE = 3
+  /** Any string put into atari extends the search, including a single stone. */
+  private val CRITICAL_GROUP_SIZE = 1
 
   /**
-   * @return true if move is in danger (jeopardy).
+   * True when this candidate captures, plays the last liberty of a friendly string,
+   * or takes one liberty from an enemy string that has two.
+   * The point is still empty; call this before the move is played.
    */
+  def isUrgentCandidate(move: GoMove, board: GoBoard): Boolean = {
+    if (move == null || move.isPassOrResignation) {
+      return false
+    }
+    val pos = board.getPosition(move.getToRow, move.getToCol).asInstanceOf[GoBoardPosition]
+    if (pos.isOccupied) {
+      return false
+    }
+    val neighbors = new NeighborAnalyzer(board).getNobiNeighbors(pos, move.isPlayer1, NeighborType.OCCUPIED)
+    val seen = new GoStringSet()
+    neighbors.asScala.exists { nbr =>
+      val string = nbr.getString
+      string != null && seen.add(string) && {
+        val libs = string.getNumLiberties(board)
+        val enemy = nbr.getPiece.isOwnedByPlayer1 != move.isPlayer1
+        (enemy && (libs == 1 || libs == 2)) || (!enemy && libs == 1)
+      }
+    }
+  }
+
+  /** True when the move already on the board has put at least one enemy stone into atari. */
   def inJeopardy(move: GoMove, board: GoBoard): Boolean = {
-    move.numStonesAtaried(board) >= CRITICAL_GROUP_SIZE
+    move != null && !move.isPassOrResignation && move.numStonesAtaried(board) >= CRITICAL_GROUP_SIZE
   }
 }

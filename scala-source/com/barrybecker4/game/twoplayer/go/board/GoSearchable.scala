@@ -258,7 +258,7 @@ class GoSearchable(board: GoBoard, players: PlayerList, cache: ScoreCache, priva
   }
 
   /**
-   * @return any moves that take captures or get out of atari.
+   * @return captures, atari escapes, and moves that put an enemy string into atari.
    */
   override def generateUrgentMoves(lastMove: GoMove, weights: ParameterArray): MoveList[GoMove] = {
     val generator = new UrgentMoveGenerator(getBoard)
@@ -266,8 +266,7 @@ class GoSearchable(board: GoBoard, players: PlayerList, cache: ScoreCache, priva
   }
 
   /**
-   * True if the specified move caused CRITICAL_GROUP_SIZE or more opponent pieces to become jeopardized
-   * For go, if the specified move caused a sufficiently large group of stones to become in atari, then we return true.
+   * True if the specified move put any enemy stones into atari.
    *
    * @return true if the last move created a big change in the score
    */

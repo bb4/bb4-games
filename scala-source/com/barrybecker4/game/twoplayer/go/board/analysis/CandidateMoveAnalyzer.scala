@@ -4,6 +4,9 @@ package com.barrybecker4.game.twoplayer.go.board.analysis
 import com.barrybecker4.game.common.board.BoardPosition
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.elements.position.GoBoardPosition
+import com.barrybecker4.game.twoplayer.go.board.elements.string.IGoString
+import scala.collection.mutable
+import scala.jdk.CollectionConverters._
 
 /**
  * Creates a set of reasonable next moves for a given player.
@@ -68,6 +71,31 @@ class CandidateMoveAnalyzer(board_ : GoBoard) {
     tryToAddCandidateMove(board_.getPosition((size_ + 1) >> 1, (size_ + 1) >> 1))
 
     determineAdjacentCandidates()
+    addFirstLineLibertiesOfWeakStrings()
+  }
+
+  /**
+   * A descent or an atari escape on the first line is a candidate even when the
+   * string is not otherwise allowed to spawn first-line points. Strings with more
+   * than two liberties do not open the edge.
+   */
+  private def addFirstLineLibertiesOfWeakStrings(): Unit = {
+    val seen = mutable.Set.empty[IGoString]
+    for (i <- 1 to size_) {
+      for (j <- 1 to size_) {
+        val pos = board_.getPosition(i, j).asInstanceOf[GoBoardPosition]
+        if (pos.isOccupied && pos.getString != null && seen.add(pos.getString)) {
+          val string = pos.getString
+          if (string.getNumLiberties(board_) <= 2) {
+            string.getLiberties(board_).asScala.foreach { liberty =>
+              if (isFirstLine(liberty.getRow, liberty.getCol)) {
+                tryToAddCandidateMove(liberty)
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   /**

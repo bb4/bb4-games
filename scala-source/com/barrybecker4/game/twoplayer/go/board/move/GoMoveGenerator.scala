@@ -8,6 +8,7 @@ import com.barrybecker4.game.twoplayer.common.{BestMoveFinder, TwoPlayerMove}
 import com.barrybecker4.game.twoplayer.go.board.{GoBoard, GoProfiler, GoSearchable}
 import com.barrybecker4.game.twoplayer.go.board.analysis.CandidateMoveAnalyzer
 import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoStone}
+import com.barrybecker4.game.twoplayer.go.board.elements.string.IGoString
 import com.barrybecker4.optimization.parameter.ParameterArray
 import scala.jdk.CollectionConverters._
 
@@ -21,7 +22,7 @@ final class GoMoveGenerator(searchable_ : GoSearchable) {
   /**
    * @return all reasonably good next moves with statically evaluated scores.
    */
-  final def generateEvaluatedMoves(lastMove: GoMove, weights: ParameterArray): MoveList[GoMove] = {
+  def generateEvaluatedMoves(lastMove: GoMove, weights: ParameterArray): MoveList[GoMove] = {
     val prof = GoProfiler.getInstance
     prof.startGenerateMoves()
 
@@ -32,6 +33,7 @@ final class GoMoveGenerator(searchable_ : GoSearchable) {
     }
     val finder = new BestMoveFinder[GoMove](searchable_.getSearchOptions.getBestMovesSearchOptions)
     val bestMoves = finder.getBestMoves(moveList)
+    addBackAtariMoves(moveList, bestMoves)
 
     addPassingMoveIfNeeded(lastMove, moveList, bestMoves, weights)
 
@@ -43,7 +45,7 @@ final class GoMoveGenerator(searchable_ : GoSearchable) {
    * @return all possible reasonable next moves. We try to limit to reasonable moves as best we can, but that
    * is difficult without static evaluation. At least no illegal moves will be returned.
    */
-  final def generatePossibleMoves(lastMove: GoMove): MoveList[GoMove] = {
+  def generatePossibleMoves(lastMove: GoMove): MoveList[GoMove] = {
     val board = searchable_.getBoard
     val moveList = new MoveList[GoMove]()
     val nCols = board.getNumCols
@@ -77,6 +79,7 @@ final class GoMoveGenerator(searchable_ : GoSearchable) {
   private def setMoveValue(weights: ParameterArray, m: GoMove): Unit = {
     val prof = GoProfiler.getInstance
     prof.stopGenerateMoves()
+    m.setUrgent(UrgentMoveGenerator.isUrgentCandidate(m, searchable_.getBoard))
     searchable_.makeInternalMove(m)
 
     m.setValue(searchable_.worth(m, weights))
@@ -84,6 +87,42 @@ final class GoMoveGenerator(searchable_ : GoSearchable) {
     // now revert the board
     searchable_.undoInternalMove(m)
     prof.startGenerateMoves()
+  }
+
+  /**
+   * The prune can drop an atari escape or a capture because the static score prefers
+   * a quieter point. Put those points back. Only strings already in atari contribute,
+   * one point each, so the list passed to quiescence stays small.
+   */
+  private def addBackAtariMoves(evaluated: MoveList[GoMove], kept: MoveList[GoMove]): Unit = {
+    val liberties = atariLiberties(searchable_.getBoard)
+    if (liberties.isEmpty) return
+    val already = kept.asScala.iterator
+      .filter(!_.isPassingMove)
+      .map(move => (move.getToRow.toInt, move.getToCol.toInt))
+      .toSet
+    evaluated.asScala.foreach { move =>
+      val point = (move.getToRow.toInt, move.getToCol.toInt)
+      if (move.isUrgent && liberties.contains(point) && !already.contains(point)) {
+        kept.add(move)
+      }
+    }
+  }
+
+  private def atariLiberties(board: GoBoard): Set[(Int, Int)] = {
+    val points = scala.collection.mutable.Set.empty[(Int, Int)]
+    val seen = scala.collection.mutable.Set.empty[IGoString]
+    for (r <- 1 to board.getNumRows; c <- 1 to board.getNumCols) {
+      val pos = board.getPosition(r, c).asInstanceOf[GoBoardPosition]
+      if (pos.isOccupied && pos.getString != null && seen.add(pos.getString)) {
+        val liberties = pos.getString.getLiberties(board)
+        if (liberties.size == 1) {
+          val liberty = liberties.iterator.next()
+          points.add((liberty.getRow.toInt, liberty.getCol.toInt))
+        }
+      }
+    }
+    points.toSet
   }
 
   /**

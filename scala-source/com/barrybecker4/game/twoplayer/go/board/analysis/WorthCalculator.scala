@@ -82,7 +82,7 @@ class WorthCalculator(
       }
     }
 
-    val points = new SearchScoreCalculator(board, komi).points()
+    val points = new SearchScoreCalculator(board, komi, analyzerMap).points()
     val tieBreak = positionalTieBreak(totalScore.getPositionScore)
     val worth = (points + tieBreak) * 10.0
 

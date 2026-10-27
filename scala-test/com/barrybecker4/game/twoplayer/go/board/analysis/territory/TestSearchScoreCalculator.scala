@@ -147,9 +147,26 @@ class TestSearchScoreCalculator {
       ".........",
       "........."
     ))
-    worth(board)
-    val points = new SearchScoreCalculator(board).points()
+    val points = scoredPoints(board)
     assertTrue(s"white's wall was scored as owning the board: $points", points > -20.0)
+  }
+
+  /** The finished game: black has two real eyes and about twenty dead white stones. */
+  @Test
+  def groupWithRealEyeOwnsItsTerritory(): Unit = {
+    val board = boardFromDiagram(Array(
+      ".O.XX.XO.",
+      ".OX..X.X.",
+      "OXOOOOX..",
+      ".XOOXXXOO",
+      ".XXOX.X..",
+      "..XXO.XOO",
+      ".OX.XXXXX",
+      ".X.X..XOO",
+      "..O..O..."
+    ))
+    val points = scoredPoints(board)
+    assertTrue(s"black's territory was ignored: $points", points > 20.0)
   }
 
   @Test
@@ -161,6 +178,13 @@ class TestSearchScoreCalculator {
     val edgeWorth = worth(edge)
     val thirdWorth = worth(third)
     assertTrue(s"first line $edgeWorth should be worse than third line $thirdWorth", thirdWorth >= edgeWorth + 1)
+  }
+
+  /** Same eye analysis the search uses, then the point score. */
+  private def scoredPoints(board: GoBoard): Double = {
+    val map = new GroupAnalyzerMap()
+    new TerritoryUpdater(board, map).updateTerritory(false)
+    new SearchScoreCalculator(board, GoOptions.DEFAULT_KOMI, map).points()
   }
 
   private def worth(board: GoBoard): Int = {

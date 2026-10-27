@@ -2,35 +2,44 @@
 package com.barrybecker4.game.twoplayer.go.board.analysis.territory
 
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
+import com.barrybecker4.game.twoplayer.go.board.analysis.eye.information.EyeStatus
+import com.barrybecker4.game.twoplayer.go.board.analysis.group.GroupAnalyzerMap
+import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup
 import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoStone}
 import com.barrybecker4.game.twoplayer.go.options.GoOptions
 
 import scala.collection.mutable
+import scala.jdk.CollectionConverters._
 
 /**
  * Japanese point estimate for search.
  *
- * Empty points in a region touched only by Benson-alive stones of one color are that
- * color's territory. A string is dead when its owner-signed health is below -0.2,
- * which is the range the health function uses for a group that is actually losing
- * (atari, or two liberties and no eye). An ordinary stone sits near +0.1 and stays
- * unsettled: it is not a prisoner, and it blocks territory. Health above 0.8 is not
- * life, because eye potential can reach that without two real eyes.
- * Dead stones are removed for the region walk, so the point they sat on can be
- * territory, and each dead stone is also one point. Komi is subtracted from black's score.
+ * Empty points in a region touched only by living stones of one color are that color's
+ * territory. A group is living when Benson marked it, or when it has an eye whose shape
+ * status is ALIVE. Health above 0.8 is not enough: eye potential reaches that with no
+ * real eye. A string is dead when it is not living and its owner-signed health is below
+ * -0.2 (atari, or two liberties and no eye). Anything else is unsettled: it blocks
+ * territory and is not a prisoner. Dead stones are removed for the region walk, so the
+ * point they sat on can be territory, and each dead stone is also one point.
+ * Komi is subtracted from black's score.
  *
- * Phase 5's ladder reader will also mark captured strings dead. Until then only
- * health and Benson are used.
+ * Phase 5's ladder reader will also mark captured strings dead.
  */
-class SearchScoreCalculator(board: GoBoard, komi: Float = GoOptions.DEFAULT_KOMI) {
+class SearchScoreCalculator(
+  board: GoBoard,
+  komi: Float = GoOptions.DEFAULT_KOMI,
+  analyzerMap: GroupAnalyzerMap = null
+) {
 
   /** Owner-signed health below this is a group the health function already calls lost. */
   private val DeadBelow = -0.2f
+  private var groupsWithRealEye: Set[IGoGroup] = Set.empty
   private val rows = board.getNumRows
   private val cols = board.getNumCols
 
   /** Black-positive points, before the sub-point shape tie-break. */
   def points(): Double = {
+    groupsWithRealEye = findGroupsWithAliveEye()
     val dead = deadPositions()
     var blackTerritory = 0
     var whiteTerritory = 0
@@ -62,9 +71,30 @@ class SearchScoreCalculator(board: GoBoard, komi: Float = GoOptions.DEFAULT_KOMI
     val stone = pos.getPiece.asInstanceOf[GoStone]
     val signed = if (stone.isOwnedByPlayer1) stone.getHealth else -stone.getHealth
     val benson = pos.getString != null && pos.getString.isUnconditionallyAlive
-    if (benson) Life.Alive
+    val realEye = pos.getGroup != null && groupsWithRealEye.contains(pos.getGroup)
+    if (benson || realEye) Life.Alive
     else if (signed < DeadBelow) Life.Dead
     else Life.Unsettled
+  }
+
+  /** Groups that already have an eye shape the eye table calls unconditionally alive. */
+  private def findGroupsWithAliveEye(): Set[IGoGroup] = {
+    if (analyzerMap == null) {
+      return Set.empty
+    }
+    val alive = mutable.Set.empty[IGoGroup]
+    val seen = mutable.Set.empty[IGoGroup]
+    for (r <- 1 to rows; c <- 1 to cols) {
+      val pos = position(r, c)
+      val group = if (pos.isOccupied) pos.getGroup else null
+      if (group != null && seen.add(group)) {
+        val eyes = analyzerMap.getAnalyzer(group).getEyes(board)
+        if (eyes != null && eyes.asScala.exists(_.getStatus == EyeStatus.ALIVE)) {
+          alive.add(group)
+        }
+      }
+    }
+    alive.toSet
   }
 
   private def findRegions(dead: Set[(Int, Int)]): List[List[(Int, Int)]] = {
