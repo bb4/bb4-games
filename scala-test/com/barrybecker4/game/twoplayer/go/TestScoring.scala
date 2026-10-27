@@ -47,11 +47,11 @@ class TestScoring extends GoTestCase:
 
   @Test
   def testScoringIdentPosition2a(): Unit =
-    checkScoring("problem_identPosition2a", 0, 0, 1, 1, 0, 0, 23)
+    checkScoring("problem_identPosition2a", 0, 0, 0, 2, 1, 0, 23)
 
   @Test
   def testScoringIdentPosition2b(): Unit =
-    checkScoring("problem_identPosition2b", 0, 1, 1, 1, 0, 0, 600)
+    checkScoring("problem_identPosition2b", 0, 1, 0, 2, 1, 0, 600)
 
   /**
    * @param scoringProblem determines problem file to load

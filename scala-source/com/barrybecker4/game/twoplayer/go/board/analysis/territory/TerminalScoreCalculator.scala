@@ -17,7 +17,8 @@ import scala.jdk.CollectionConverters._
  * A string is dead when it cannot make two eyes: fewer than two real eyes, no eye
  * of three or more points, and not a mutual seki (both sides share exactly the same
  * liberties). Sharing one dame point with a stronger group is not seki. A dame region
- * of five or more points is room to live.
+ * of five or more points is room to live for a group that already has an eye, or at
+ * least three liberties. A stone with one or two liberties does not own that region.
  *
  * The weakest dead string (fewest eyes, then fewest liberties) is removed first
  * and the board is re-evaluated, so a group that only looked dead because it was
@@ -186,8 +187,8 @@ class TerminalScoreCalculator(board: GoBoard) {
     if (inMutualSeki(libs, colorBlack, dead, regions, ownership)) {
       return false
     }
-    // A large shared region is room to make eyes. A small dame is not.
-    if (hasOpenDame(libs, dead, regions, ownership)) {
+    // A large shared region is room to make eyes only if the group can occupy it.
+    if (hasOpenDame(colorBlack, libs, dead, regions, ownership)) {
       return false
     }
     true
@@ -200,13 +201,19 @@ class TerminalScoreCalculator(board: GoBoard) {
    */
   private val OpenDameSize = 5
 
+  /** Below this many liberties, a group with no eye cannot use a shared region. */
+  private val OpenDameMinLiberties = 3
+
   private def hasOpenDame(
+    colorBlack: Boolean,
     libs: Set[(Int, Int)],
     dead: mutable.Set[(Int, Int)],
     regions: List[List[(Int, Int)]],
     ownership: Map[List[(Int, Int)], Owner]
   ): Boolean = {
-    regions.exists { region =>
+    val canUseTheSpace = libs.size >= OpenDameMinLiberties ||
+      eyeRegionsOf(colorBlack, libs, dead, regions, ownership).nonEmpty
+    canUseTheSpace && regions.exists { region =>
       ownership(region).isEmpty &&
         region.exists(libs.contains) &&
         region.count(pt => !dead.contains(pt)) >= OpenDameSize

@@ -170,6 +170,38 @@ class TestTerminalScoreCalculator {
   }
 
   /**
+   * 9x9 game. The big white group on the left is alive (three-point eye).
+   * Three white stones in the open right side have no eyes and one or two liberties.
+   * They are dead, and that side is black territory. The top-left corner stays white.
+   */
+  @Test
+  def looseWhiteStonesInOpenSideAreDead(): Unit = {
+    val board = boardFromDiagram(Array(
+      ".OOX.....",
+      ".OOXOX...",
+      ".OOXXX...",
+      "OOXX.XO..",
+      ".OOXX.X..",
+      "OO.OXOX..",
+      ".OOOX.X..",
+      "OOXXX....",
+      "OXXX....."
+    ))
+    val score = new TerminalScoreCalculator(board).calculate()
+
+    assertEquals("three loose white stones", 3, score.deadWhite)
+    assertEquals("black is alive", 0, score.deadBlack)
+    assertEquals("left-side eyes", 6, score.whiteTerritory)
+    assertEquals("right side plus the one black eye", 34, score.blackTerritory)
+    assertTrue(isDead(board, 2, 5))
+    assertTrue(isDead(board, 4, 7))
+    assertTrue(isDead(board, 6, 6))
+    assertFalse("left white group lives", isDead(board, 1, 2))
+    assertFalse("black wall lives", isDead(board, 1, 4))
+    assertFalse("black group on the right lives", isDead(board, 5, 7))
+  }
+
+  /**
    * The four black stones have no eye and one liberty. The white stone at the
    * corner has one real eye (the enemy diagonal does not falsify a corner).
    * Black is removed first; every white stone then has room for two eyes.
