@@ -148,9 +148,12 @@ final class GoMoveGenerator(searchable_ : GoSearchable) {
       if (player1) move.getValue <= current - GoMoveGenerator.OnePoint
       else move.getValue >= current + GoMoveGenerator.OnePoint
     }
-    // Room in a shared region is not life. Keep playing until every group has
-    // two eyes, is in seki, or is dead no matter what the unsettled stones do.
-    if (losesAPoint && !new TerminalScoreCalculator(b).hasUnsettledGroup()) {
+    // At the root, room in a shared region is not settled life, so the computer
+    // plays a stone. Deeper in the tree a pass is allowed: without it every
+    // unsettled endgame is read to the full depth.
+    val unsettledAtRoot = !searchable_.isInsideSearchTree &&
+      new TerminalScoreCalculator(b).hasUnsettledGroup()
+    if (losesAPoint && !unsettledAtRoot) {
       kept.add(kept.size, GoMove.createPassMove(current, player1))
     }
   }

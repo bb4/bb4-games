@@ -2,7 +2,9 @@ package com.barrybecker4.game.twoplayer.go.board.move
 
 import com.barrybecker4.common.geometry.ByteLocation
 import com.barrybecker4.game.common.MoveList
+import com.barrybecker4.game.twoplayer.common.TwoPlayerPlayerOptions
 import com.barrybecker4.game.twoplayer.common.cache.ScoreCache
+import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategyType
 import com.barrybecker4.game.twoplayer.go.GoTestCase
 import com.barrybecker4.game.twoplayer.go.board.{GoBoard, GoSearchable}
 import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoStone}
@@ -73,6 +75,52 @@ class TestPassingMove extends GoTestCase:
     ))
     assertFalse("white still has to settle the bottom", hasPass(generateLateMoves(board, whiteToPlay = true)))
     assertFalse("black still has to settle the bottom", hasPass(generateLateMoves(board, whiteToPlay = false)))
+
+  /**
+   * The same unsettled endgame, searched at the game's normal depth.
+   * Pass stays out of the move the computer plays, and the tree is allowed to
+   * end deeper down, so this stays in the thousands of nodes rather than millions.
+   */
+  @Test
+  def unsettledEndgameDoesNotSearchTheWholeTree(): Unit =
+    useGameSearchDepth()
+    val board = boardFromDiagram(Array(
+      "...OOX...",
+      "...OXXX..",
+      "OOOOOXX.O",
+      "OXOOOOXX.",
+      "XXXOXOX.X",
+      ".X.XXX..X",
+      "..X.OOXX.",
+      "O.X.OXX.X",
+      "........."
+    ))
+    val searchable = new GoSearchable(board, controller.getPlayers, new ScoreCache(), new GoOptions())
+    val needed = board.getNumRows + board.getNumCols
+    var last = GoMove.createPassMove(0, player1 = true)
+    (1 to needed).foreach { i =>
+      last = GoMove.createPassMove(0, player1 = i % 2 == 1)
+      searchable.makeInternalMove(last)
+    }
+    // A stone, so the game is not already over on two passes.
+    last = new GoMove(new ByteLocation(9, 1), 0, new GoStone(true))
+    searchable.makeInternalMove(last)
+    val move = searchable.searchForNextMove(new GoWeights().getDefaultWeights, last, null)
+    val considered = searchable.getSearchStrategy.getNumMovesConsidered
+    assertTrue("search returns a move", move != null)
+    assertFalse("the computer plays on while the position is unsettled", move.isPassingMove)
+    assertTrue(s"searched $considered moves", considered < 20000)
+
+  private def useGameSearchDepth(): Unit =
+    for player <- controller.getPlayers.asScala do
+      val options = player.getOptions.asInstanceOf[TwoPlayerPlayerOptions[GoMove, GoBoard]].getSearchOptions
+      options.setSearchStrategyMethod(SearchStrategyType.NEGASCOUT)
+      val brute = options.getBruteSearchOptions
+      brute.setLookAhead(4)
+      brute.setQuiescence(true)
+      brute.setMaxQuiescentDepth(16)
+      options.getBestMovesSearchOptions.setPercentageBestMoves(60)
+      options.getBestMovesSearchOptions.setMinBestMoves(6)
 
   @Test
   def passWhenEveryStoneMoveIsSuicide(): Unit =

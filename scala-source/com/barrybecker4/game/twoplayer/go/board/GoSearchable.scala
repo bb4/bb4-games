@@ -7,6 +7,7 @@ import com.barrybecker4.game.twoplayer.common.TwoPlayerSearchable
 import com.barrybecker4.game.twoplayer.common.cache.ScoreCache
 import com.barrybecker4.game.twoplayer.go.board.analysis.BoardEvaluator
 import com.barrybecker4.game.twoplayer.go.board.move.{GoMove, GoMoveGenerator, UrgentMoveGenerator}
+import com.barrybecker4.game.twoplayer.common.search.tree.IGameTreeViewable
 import com.barrybecker4.game.twoplayer.go.board.update.DeadStoneUpdater
 import com.barrybecker4.game.twoplayer.go.options.GoOptions
 import com.barrybecker4.optimization.parameter.ParameterArray
@@ -23,6 +24,10 @@ class GoSearchable(board: GoBoard, players: PlayerList, cache: ScoreCache, priva
   /** keeps track of dead stones and terminal territory. */
   private var deadStoneUpdater: DeadStoneUpdater = scala.compiletime.uninitialized
   private var boardEvaluator: BoardEvaluator = scala.compiletime.uninitialized
+  /** True only while searchForNextMove is running. Game moves use the same make method. */
+  private var inSearch_ = false
+  /** Moves made and not yet undone during the current search. Zero at the root. */
+  private var searchPly_ = 0
 
   init(cache)
 
@@ -125,11 +130,33 @@ class GoSearchable(board: GoBoard, players: PlayerList, cache: ScoreCache, priva
   }
 
   /**
+   * The life-and-death pass check is only for the move about to be played.
+   * Deeper plies may pass, so a line can end instead of reading every dame point.
+   */
+  def isInsideSearchTree: Boolean = inSearch_ && searchPly_ > 0
+
+  override def searchForNextMove(
+    weights: ParameterArray,
+    lastMove: GoMove,
+    treeViewer: IGameTreeViewable
+  ): GoMove = {
+    inSearch_ = true
+    searchPly_ = 0
+    try {
+      super.searchForNextMove(weights, lastMove, treeViewer)
+    } finally {
+      inSearch_ = false
+      searchPly_ = 0
+    }
+  }
+
+  /**
    * @param move the move to play.
    */
   override def makeInternalMove(move: GoMove): Unit = {
     super.makeInternalMove(move)
     updateHashIfCaptures(move)
+    if (inSearch_) searchPly_ += 1
   }
 
   /**
@@ -139,6 +166,7 @@ class GoSearchable(board: GoBoard, players: PlayerList, cache: ScoreCache, priva
   override def undoInternalMove(move: GoMove): Unit = {
     super.undoInternalMove(move)
     updateHashIfCaptures(move)
+    if (inSearch_) searchPly_ -= 1
   }
 
   /**
