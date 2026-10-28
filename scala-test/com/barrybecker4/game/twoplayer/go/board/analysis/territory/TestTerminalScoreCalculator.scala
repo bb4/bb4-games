@@ -12,6 +12,37 @@ import org.junit.Test
 class TestTerminalScoreCalculator {
 
   /**
+   * The left black stones are alive once the corner white is removed.
+   * The corner white is dead even if those black stones are given to it.
+   * Rows are top to bottom. X black, O white.
+   */
+  @Test
+  def cornerWhiteIsDeadAndLeftBlackLives(): Unit = {
+    val board = boardFromDiagram(Array(
+      "..O.X.X.X",
+      "OO.XXX.X.",
+      "X.OOOX..X",
+      "XOO.OXX..",
+      ".XXOXX.XX",
+      "X.XXX.X.X",
+      ".OOX.XXX.",
+      "OOX.XOOXO",
+      "...X..O.."
+    ))
+    val score = new TerminalScoreCalculator(board).calculate()
+    assertFalse("black at 3,1 is alive", isDead(board, 3, 1))
+    assertFalse("black at 4,1 is alive", isDead(board, 4, 1))
+    assertFalse("black at 6,1 is alive", isDead(board, 6, 1))
+    assertTrue("corner white at 1,3 is dead", isDead(board, 1, 3))
+    assertTrue("corner white at 2,1 is dead", isDead(board, 2, 1))
+    assertTrue("corner white at 2,2 is dead", isDead(board, 2, 2))
+    assertTrue("the enclosed white at 5,4 stays dead", isDead(board, 5, 4))
+    assertFalse("the big black group stays alive", isDead(board, 1, 5))
+    assertTrue("the corner is still a fight until the white is removed", new TerminalScoreCalculator(new GoBoard(board)).hasUnsettledGroup())
+    assertEquals(0, score.deadBlack)
+  }
+
+  /**
    * Screenshot position: living black group on the right must not be marked dead.
    * Diagram rows top-to-bottom, X=black, O=white, .=empty.
    */

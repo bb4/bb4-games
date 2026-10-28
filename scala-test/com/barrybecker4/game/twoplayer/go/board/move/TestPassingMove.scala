@@ -37,6 +37,26 @@ class TestPassingMove extends GoTestCase:
     assertFalse("pass replaced a move that does not lose a point", hasPass(moves))
     assertTrue("the middle of the left edge is still a move", hasStone(moves, 5, 1))
 
+  /**
+   * The corner white is dead and the left black is alive, but only once that
+   * white is removed. Until a stone is played, the position is still a fight.
+   */
+  @Test
+  def noPassWhileCornerLifeIsUnsettled(): Unit =
+    val board = boardFromDiagram(Array(
+      "..O.X.X.X",
+      "OO.XXX.X.",
+      "X.OOOX..X",
+      "XOO.OXX..",
+      ".XXOXX.XX",
+      "X.XXX.X.X",
+      ".OOX.XXX.",
+      "OOX.XOOXO",
+      "...X..O.."
+    ))
+    assertFalse("white must play the fight, not pass", hasPass(generateLateMoves(board, whiteToPlay = true)))
+    assertFalse("black must play the fight, not pass", hasPass(generateLateMoves(board, whiteToPlay = false)))
+
   @Test
   def passWhenEveryStoneMoveIsSuicide(): Unit =
     val board = boardFromDiagram(Array(

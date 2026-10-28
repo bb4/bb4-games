@@ -7,6 +7,7 @@ import com.barrybecker4.game.common.board.{Board, CaptureList}
 import com.barrybecker4.game.twoplayer.common.{BestMoveFinder, TwoPlayerMove}
 import com.barrybecker4.game.twoplayer.go.board.{GoBoard, GoProfiler, GoSearchable}
 import com.barrybecker4.game.twoplayer.go.board.analysis.CandidateMoveAnalyzer
+import com.barrybecker4.game.twoplayer.go.board.analysis.territory.TerminalScoreCalculator
 import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoStone}
 import com.barrybecker4.game.twoplayer.go.board.elements.string.IGoString
 import com.barrybecker4.optimization.parameter.ParameterArray
@@ -147,7 +148,9 @@ final class GoMoveGenerator(searchable_ : GoSearchable) {
       if (player1) move.getValue <= current - GoMoveGenerator.OnePoint
       else move.getValue >= current + GoMoveGenerator.OnePoint
     }
-    if (losesAPoint) {
+    // A point-losing stone move is still the move while some group is neither
+    // alive nor dead. Passing would end the game on an unsettled position.
+    if (losesAPoint && !new TerminalScoreCalculator(b).hasUnsettledGroup()) {
       kept.add(kept.size, GoMove.createPassMove(current, player1))
     }
   }

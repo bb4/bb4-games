@@ -24,9 +24,9 @@ import scala.jdk.CollectionConverters._
  * of seven or more points is room to live for a group that already has an eye, or at
  * least three liberties. A smaller shared pocket is not room to live.
  *
- * The weakest dead string (fewest eyes, then fewest liberties) is removed first
- * and the board is re-evaluated, so a group that only looked dead because it was
- * surrounded by a deader group can live.
+ * A string that is dead even if every unsettled enemy string is removed is taken first.
+ * That stops a nakade group from surviving by killing the stones around it.
+ * Anything still unresolved is then removed weakest-first.
  */
 class TerminalScoreCalculator(board: GoBoard) {
 
@@ -39,34 +39,7 @@ class TerminalScoreCalculator(board: GoBoard) {
   def calculate(): TerminalScore = {
     clearLifeFlags()
 
-    val dead = mutable.Set.empty[(Int, Int)]
-    var changed = true
-    var guard = 0
-    while (changed && guard < rows * cols) {
-      guard += 1
-      changed = false
-      val regions = findRegions(dead)
-      val ownership = regions.map(r => r -> regionOwner(r, dead)).toMap
-      val victims = livingStrings(dead).filter(s => isDeadString(s, dead, regions, ownership)).toList
-      if (victims.nonEmpty) {
-        // Fewer eyes, then fewer liberties. Removing every dead string in one pass
-        // would also remove a group that lives once the weaker group is gone.
-        val victim = victims.minBy { s =>
-          val libs = scoringLiberties(s, dead)
-          val eyes = eyeRegionsOf(s.isOwnedByPlayer1, libs, dead, regions, ownership)
-          val eyeScore = if (eyes.exists(countsAsTwoEyes)) 2 else eyes.size
-          val pos = s.getMembers.iterator().next()
-          // Fewer eyes, then fewer liberties. A one-eyed group lives once a
-          // no-eye neighbor with the same liberty count is removed.
-          (eyeScore, libs.size, pos.getRow, pos.getCol)
-        }
-        victim.getMembers.asScala.foreach { pos =>
-          dead += ((pos.getRow, pos.getCol))
-        }
-        changed = true
-      }
-    }
-
+    val dead = findDead()
     applyDeadMarks(dead)
     val regions = findRegions(dead)
     val territory = countTerritory(regions, dead)
@@ -174,7 +147,91 @@ class TerminalScoreCalculator(board: GoBoard) {
     else None
   }
 
-  private def isDeadString(
+  /**
+   * True when some string is neither alive as it stands nor dead no matter which
+   * unsettled enemy stones are removed. Does not mark stones.
+   */
+  def hasUnsettledGroup(): Boolean = {
+    val dead = mutable.Set.empty[(Int, Int)]
+    val regions = findRegions(dead)
+    val ownership = regions.map(r => r -> regionOwner(r, dead)).toMap
+    livingStrings(dead).exists { s =>
+      !livesAsIs(s, dead, regions, ownership) && !isUnconditionallyDead(s, dead, regions, ownership)
+    }
+  }
+
+  /**
+   * Strings that are dead even if every unsettled enemy is removed go first.
+   * What remains is resolved weakest-first, so a nakade inside a living group
+   * is still removed once nothing unconditionally dead is left.
+   */
+  private def findDead(): mutable.Set[(Int, Int)] = {
+    val dead = mutable.Set.empty[(Int, Int)]
+    var changed = true
+    var guard = 0
+    while (changed && guard < rows * cols) {
+      guard += 1
+      changed = false
+      val regions = findRegions(dead)
+      val ownership = regions.map(r => r -> regionOwner(r, dead)).toMap
+      val living = livingStrings(dead).toList
+      val unconditional = living.filter(s => isUnconditionallyDead(s, dead, regions, ownership))
+      val victims =
+        if (unconditional.nonEmpty) unconditional
+        else living.filter(s => !livesAsIs(s, dead, regions, ownership))
+      if (victims.nonEmpty) {
+        val victim = victims.minBy { s =>
+          val libs = scoringLiberties(s, dead)
+          val eyes = eyeRegionsOf(s.isOwnedByPlayer1, libs, dead, regions, ownership)
+          val eyeScore = if (eyes.exists(countsAsTwoEyes)) 2 else eyes.size
+          val pos = s.getMembers.iterator().next()
+          (eyeScore, libs.size, pos.getRow, pos.getCol)
+        }
+        victim.getMembers.asScala.foreach { pos =>
+          dead += ((pos.getRow, pos.getCol))
+        }
+        changed = true
+      }
+    }
+    dead
+  }
+
+  /**
+   * Dead even after giving this string every unsettled enemy stone.
+   * A shared region created by that gift is not an eye and is not room to live.
+   */
+  private def isUnconditionallyDead(
+    string: IGoString,
+    dead: mutable.Set[(Int, Int)],
+    regions: List[List[(Int, Int)]],
+    ownership: Map[List[(Int, Int)], Owner]
+  ): Boolean = {
+    if (scoringLiberties(string, dead).isEmpty) {
+      return true
+    }
+    if (livesAsIs(string, dead, regions, ownership)) {
+      return false
+    }
+    val assumed = mutable.Set.empty[(Int, Int)]
+    assumed ++= dead
+    for (other <- livingStrings(dead)) {
+      if (other.isOwnedByPlayer1 != string.isOwnedByPlayer1 &&
+        !livesAsIs(other, dead, regions, ownership)) {
+        other.getMembers.asScala.foreach { pos =>
+          assumed += ((pos.getRow, pos.getCol))
+        }
+      }
+    }
+    val assumedRegions = findRegions(assumed)
+    val assumedOwnership = assumedRegions.map(r => r -> regionOwner(r, assumed)).toMap
+    val libs = scoringLiberties(string, assumed)
+    val colorBlack = string.isOwnedByPlayer1
+    !hasTwoEyes(colorBlack, libs, assumed, assumedRegions, assumedOwnership) &&
+      !inMutualSeki(libs, colorBlack, assumed, assumedRegions, assumedOwnership)
+  }
+
+  /** Two eyes, mutual seki, or a large shared region that is already on the board. */
+  private def livesAsIs(
     string: IGoString,
     dead: mutable.Set[(Int, Int)],
     regions: List[List[(Int, Int)]],
@@ -182,20 +239,9 @@ class TerminalScoreCalculator(board: GoBoard) {
   ): Boolean = {
     val colorBlack = string.isOwnedByPlayer1
     val libs = scoringLiberties(string, dead)
-    if (libs.isEmpty) {
-      return true
-    }
-    if (hasTwoEyes(colorBlack, libs, dead, regions, ownership)) {
-      return false
-    }
-    if (inMutualSeki(libs, colorBlack, dead, regions, ownership)) {
-      return false
-    }
-    // A shared region of seven or more points is room to live for an eyed group or one with three liberties.
-    if (hasOpenDame(colorBlack, libs, dead, regions, ownership)) {
-      return false
-    }
-    true
+    hasTwoEyes(colorBlack, libs, dead, regions, ownership) ||
+      inMutualSeki(libs, colorBlack, dead, regions, ownership) ||
+      hasOpenDame(colorBlack, libs, dead, regions, ownership)
   }
 
   /**
