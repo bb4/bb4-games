@@ -21,8 +21,8 @@ import scala.jdk.CollectionConverters._
  * A string is dead when it cannot make two eyes: fewer than two real eyes, no eye
  * whose shape status is unconditionally alive, and not a mutual seki (both sides share exactly the same
  * liberties). Sharing one dame point with a stronger group is not seki. A dame region
- * of seven or more points is room to live for a group that already has an eye, or at
- * least three liberties. A smaller shared pocket is not room to live.
+ * of ten or more points is room to live for a group that already has an eye, or at
+ * least three liberties. A nine-point pocket shared with a living group is not.
  *
  * A string that is dead even if every unsettled enemy string is removed is taken first.
  * That stops a nakade group from surviving by killing the stones around it.
@@ -156,7 +156,7 @@ class TerminalScoreCalculator(board: GoBoard) {
     val regions = findRegions(dead)
     val ownership = regions.map(r => r -> regionOwner(r, dead)).toMap
     livingStrings(dead).exists { s =>
-      !livesAsIs(s, dead, regions, ownership) && !isUnconditionallyDead(s, dead, regions, ownership)
+      !provenAlive(s, dead, regions, ownership) && !isUnconditionallyDead(s, dead, regions, ownership)
     }
   }
 
@@ -230,8 +230,8 @@ class TerminalScoreCalculator(board: GoBoard) {
       !inMutualSeki(libs, colorBlack, assumed, assumedRegions, assumedOwnership)
   }
 
-  /** Two eyes, mutual seki, or a large shared region that is already on the board. */
-  private def livesAsIs(
+  /** Two eyes or mutual seki. A shared region is room to play, not proof of life. */
+  private def provenAlive(
     string: IGoString,
     dead: mutable.Set[(Int, Int)],
     regions: List[List[(Int, Int)]],
@@ -240,16 +240,26 @@ class TerminalScoreCalculator(board: GoBoard) {
     val colorBlack = string.isOwnedByPlayer1
     val libs = scoringLiberties(string, dead)
     hasTwoEyes(colorBlack, libs, dead, regions, ownership) ||
-      inMutualSeki(libs, colorBlack, dead, regions, ownership) ||
-      hasOpenDame(colorBlack, libs, dead, regions, ownership)
+      inMutualSeki(libs, colorBlack, dead, regions, ownership)
+  }
+
+  /** Two eyes, mutual seki, or a large shared region that is already on the board. */
+  private def livesAsIs(
+    string: IGoString,
+    dead: mutable.Set[(Int, Int)],
+    regions: List[List[(Int, Int)]],
+    ownership: Map[List[(Int, Int)], Owner]
+  ): Boolean = {
+    provenAlive(string, dead, regions, ownership) ||
+      hasOpenDame(string.isOwnedByPlayer1, scoringLiberties(string, dead), dead, regions, ownership)
   }
 
   /**
    * Dame with at least this many real empty points (not dead stones) is room to live.
-   * Points under stones already judged dead do not count: a last stone beside a
-   * pile of dead friendly stones is still dead.
+   * A nine-point pocket shared with a living group is not. Points under stones
+   * already judged dead do not count.
    */
-  private val OpenDameSize = 7
+  private val OpenDameSize = 10
 
   /** Below this many liberties, a group with no eye cannot use a shared region. */
   private val OpenDameMinLiberties = 3

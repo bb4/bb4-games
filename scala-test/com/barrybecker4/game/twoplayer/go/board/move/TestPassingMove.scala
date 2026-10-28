@@ -57,6 +57,23 @@ class TestPassingMove extends GoTestCase:
     assertFalse("white must play the fight, not pass", hasPass(generateLateMoves(board, whiteToPlay = true)))
     assertFalse("black must play the fight, not pass", hasPass(generateLateMoves(board, whiteToPlay = false)))
 
+  /** A group with only a large shared region is not settled, so passing is refused. */
+  @Test
+  def noPassWhileAGroupOnlyHasRoomToLive(): Unit =
+    val board = boardFromDiagram(Array(
+      "...OOX...",
+      "...OXXX..",
+      "OOOOOXX.O",
+      "OXOOOOXX.",
+      "XXXOXOX.X",
+      ".X.XXX..X",
+      "..X.OOXX.",
+      "O.X.OXX.X",
+      "........."
+    ))
+    assertFalse("white still has to settle the bottom", hasPass(generateLateMoves(board, whiteToPlay = true)))
+    assertFalse("black still has to settle the bottom", hasPass(generateLateMoves(board, whiteToPlay = false)))
+
   @Test
   def passWhenEveryStoneMoveIsSuicide(): Unit =
     val board = boardFromDiagram(Array(

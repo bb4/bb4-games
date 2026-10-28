@@ -148,8 +148,8 @@ final class GoMoveGenerator(searchable_ : GoSearchable) {
       if (player1) move.getValue <= current - GoMoveGenerator.OnePoint
       else move.getValue >= current + GoMoveGenerator.OnePoint
     }
-    // A point-losing stone move is still the move while some group is neither
-    // alive nor dead. Passing would end the game on an unsettled position.
+    // Room in a shared region is not life. Keep playing until every group has
+    // two eyes, is in seki, or is dead no matter what the unsettled stones do.
     if (losesAPoint && !new TerminalScoreCalculator(b).hasUnsettledGroup()) {
       kept.add(kept.size, GoMove.createPassMove(current, player1))
     }

@@ -12,6 +12,34 @@ import org.junit.Test
 class TestTerminalScoreCalculator {
 
   /**
+   * The lower-left white group has four liberties in a nine-point pocket and no eye.
+   * The living black wall owns that fight. The white stones are dead.
+   */
+  @Test
+  def lowerLeftPocketIsDead(): Unit = {
+    val board = boardFromDiagram(Array(
+      ".OOX.....",
+      "OOXXXXXXO",
+      ".OOOOX..X",
+      "OOOOX..X.",
+      "XXXXXXXO.",
+      "..OOX..X.",
+      "..OXXX.X.",
+      "X.OX..XX.",
+      "....X..X."
+    ))
+    val score = new TerminalScoreCalculator(board).calculate()
+    assertTrue("white at 6,3 is dead", isDead(board, 6, 3))
+    assertTrue("white at 6,4 is dead", isDead(board, 6, 4))
+    assertTrue("white at 7,3 is dead", isDead(board, 7, 3))
+    assertTrue("white at 8,3 is dead", isDead(board, 8, 3))
+    assertFalse("the two-eyed white group lives", isDead(board, 1, 2))
+    assertFalse("black wall lives", isDead(board, 5, 1))
+    assertTrue("edge white at 2,9 stays dead", isDead(board, 2, 9))
+    assertEquals(0, score.deadBlack)
+  }
+
+  /**
    * The left black stones are alive once the corner white is removed.
    * The corner white is dead even if those black stones are given to it.
    * Rows are top to bottom. X black, O white.
@@ -284,6 +312,7 @@ class TestTerminalScoreCalculator {
     assertTrue("corner white at 3,9 is dead", isDead(board, 3, 9))
     assertFalse("bottom white still has room", isDead(board, 8, 1))
     assertFalse(isDead(board, 7, 5))
+    assertTrue("room to play is not settled life", new TerminalScoreCalculator(new GoBoard(board)).hasUnsettledGroup())
   }
 
   /** Dead black stones become white territory points and dead-black counts (not black territory). */
