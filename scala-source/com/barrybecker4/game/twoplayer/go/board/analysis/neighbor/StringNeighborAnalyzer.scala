@@ -48,18 +48,22 @@ class StringNeighborAnalyzer(board_ : GoBoard) {
   }
 
   /**
+   * Strings orthogonally adjacent to this point.
+   * The visited flag is only a mark for the flood fills above. A stone that
+   * some earlier search left visited still occupies the point, and its string
+   * still gains or loses this liberty. Skipping it freezes a liberty count of
+   * zero and turns a capturing move into a suicide.
+   *
    * @param stone stone to find string neighbors for.
    * @return list of string neighbors of specified position.
    */
   def findStringNeighbors(stone: GoBoardPosition): GoStringSet = {
     val stringNbrs = new GoStringSet()
-    val nobiNbrs = new GoBoardPositionList()
+    val nobiNbrs = new NobiNeighborAnalyzer(board_).getNobiNeighbors(stone, false, NeighborType.OCCUPIED)
 
-    pushStringNeighbors(stone, true, nobiNbrs, false)
-
-    // add strings only once
     nobiNbrs.asScala.foreach { nbr =>
-      stringNbrs.add(nbr.getString)
+      val string = nbr.getString
+      if (string != null) stringNbrs.add(string)
     }
     stringNbrs
   }

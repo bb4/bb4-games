@@ -118,7 +118,7 @@ class TestPassingMove extends GoTestCase:
       val brute = options.getBruteSearchOptions
       brute.setLookAhead(4)
       brute.setQuiescence(true)
-      brute.setMaxQuiescentDepth(16)
+      brute.setMaxQuiescentDepth(4)
       options.getBestMovesSearchOptions.setPercentageBestMoves(60)
       options.getBestMovesSearchOptions.setMinBestMoves(6)
 
