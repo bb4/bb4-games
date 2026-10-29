@@ -6,8 +6,6 @@ import com.barrybecker4.game.common.AbstractGameProfiler
 /**
  * Keep track of how much time is spent in each time critical part of the
  * computer move processing. Singleton.
- *
- * @author Barry Becker
  */
 final class GoProfiler private extends AbstractGameProfiler:
 

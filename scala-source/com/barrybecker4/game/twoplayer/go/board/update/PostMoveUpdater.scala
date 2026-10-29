@@ -11,8 +11,6 @@ import scala.jdk.CollectionConverters._
 
 /**
  * Responsible for updating a go board after making a move.
- *
- * @author Barry Becker
  */
 class PostMoveUpdater(board: GoBoard, captureCounter: CaptureCounts) 
   extends PostChangeUpdater(board, captureCounter) {

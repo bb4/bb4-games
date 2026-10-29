@@ -4,8 +4,6 @@ package com.barrybecker4.game.twoplayer.go.board.elements
 /**
  * A GoSet is an abstract class representing a set of go entities
  * (stones, strings, groups, or armies)
- *
- * @author Barry Becker
  */
 abstract class GoSet extends IGoSet {
 

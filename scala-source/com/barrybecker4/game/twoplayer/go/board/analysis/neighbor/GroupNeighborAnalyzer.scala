@@ -9,8 +9,6 @@ import scala.jdk.CollectionConverters._
 
 /**
  * Performs static analysis of a go board to determine groups.
- *
- * @author Barry Becker
  */
 class GroupNeighborAnalyzer(board_ : GoBoard) {
 

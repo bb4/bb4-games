@@ -9,8 +9,6 @@ import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPositi
 /**
  * Makes some unit tests much simpler if we create the tests to use this trait instead
  * of the full-blown GoString or GoEye class.
- *
- * @author Barry Becker
  */
 trait IGoString extends IGoSet {
 

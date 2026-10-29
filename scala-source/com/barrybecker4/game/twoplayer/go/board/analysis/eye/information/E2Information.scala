@@ -3,8 +3,6 @@ package com.barrybecker4.game.twoplayer.go.board.analysis.eye.information
 
 /**
  * Two space eye - **
- *
- * @author Barry Becker
  */
 class E2Information extends AbstractEyeSubtypeInformation {
 

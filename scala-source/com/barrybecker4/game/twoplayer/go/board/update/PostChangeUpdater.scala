@@ -10,8 +10,6 @@ import scala.jdk.CollectionConverters._
 
 /**
  * Base class for classes responsible for updating a go board after making or undoing a move.
- *
- * @author Barry Becker
  */
 abstract class PostChangeUpdater(protected val board_ : GoBoard, protected val captureCounter_ : CaptureCounts) {
 

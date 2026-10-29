@@ -10,8 +10,6 @@ import scala.jdk.CollectionConverters._
 /**
  * Assert certain things are true about the board.
  * Helpful for debugging.
- *
- * @author Barry Becker
  */
 class BoardValidator(board_ : GoBoard) {
 

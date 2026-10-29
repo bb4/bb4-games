@@ -8,8 +8,6 @@ import com.barrybecker4.game.twoplayer.go.board.elements.eye.IGoEye
  * Describes an eye shape with 8 or more internal spaces.
  * It is almost certainly an unconditionally alive shape.
  * If its not, you have to play more to tell.
- *
- * @author Barry Becker
  */
 class TerritorialEyeInformation extends AbstractEyeInformation {
 

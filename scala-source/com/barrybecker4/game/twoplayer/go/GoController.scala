@@ -19,8 +19,6 @@ import scala.jdk.CollectionConverters._
 
 /**
  * Defines everything the computer needs to know to play Go.
- *
- * @author Barry Becker
  */
 final class GoController() extends TwoPlayerController[GoMove, GoBoard] {
 

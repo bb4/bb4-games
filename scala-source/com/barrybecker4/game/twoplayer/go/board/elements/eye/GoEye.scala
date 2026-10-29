@@ -16,8 +16,6 @@ import scala.jdk.CollectionConverters._
  * By strongly connected I mean nobi connections only.
  * A GoEye may be one of several different eye types enumerated below
  * A group needs 2 provably true eyes to live.
- *
- * @author Barry Becker
  */
 class GoEye(spaces: GoBoardPositionList, board: GoBoard, g: IGoGroup, groupAnalyzer: GroupAnalyzer)
   extends GoString(spaces, board) with IGoEye {

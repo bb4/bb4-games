@@ -11,8 +11,6 @@ import com.barrybecker4.game.twoplayer.go.board.elements.string.{GoString, GoStr
  * Performs static analysis of a go board to determine strings and
  * other analysis involving neighbor locations.
  * Also acts as a facade to the other neighbor analyzers in this class.
- *
- * @author Barry Becker
  */
 class NeighborAnalyzer(board: GoBoard) {
 

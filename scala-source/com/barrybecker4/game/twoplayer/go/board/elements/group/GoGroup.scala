@@ -14,8 +14,6 @@ import scala.jdk.CollectionConverters._
  * A GoGroup is composed of a loosely connected set of one or more same color strings.
  * A GoString by comparison, is composed of a strongly connected set of one or more same color stones.
  * Groups may be connected by diagonals or one space jumps, or uncut knights moves, but not nikken tobi.
- *
- * @author Barry Becker
  */
 final class GoGroup extends GoSet with IGoGroup {
 

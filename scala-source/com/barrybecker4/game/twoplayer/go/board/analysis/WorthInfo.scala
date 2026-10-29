@@ -8,8 +8,6 @@ import com.barrybecker4.game.twoplayer.go.board.PositionalScore
 /**
  * All the stuff used to compute the worth.
  * temp class used for debugging.
- *
- * @author Barry Becker
  */
 class WorthInfo(
   territoryDelta: Double,

@@ -5,8 +5,6 @@ package com.barrybecker4.game.twoplayer.go.board.analysis.neighbor
  * Enum for the different possible Neighbor types.
  * These constants represent the types of possible neighbors that can be searched for.
  * Extends java.lang.Enum for Java interop.
- *
- * @author Barry Becker
  */
 enum NeighborType extends java.lang.Enum[NeighborType]:
 

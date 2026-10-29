@@ -8,8 +8,6 @@ import scala.jdk.CollectionConverters._
 /**
  * Performs static analysis of a go board to determine
  * immediately adjacent, strongly connected (nobi) neighbor locations.
- *
- * @author Barry Becker
  */
 class NobiNeighborAnalyzer(board_ : GoBoard) {
 

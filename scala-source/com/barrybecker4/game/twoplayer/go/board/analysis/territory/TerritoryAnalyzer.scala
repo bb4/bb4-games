@@ -9,8 +9,6 @@ import com.barrybecker4.game.twoplayer.go.board.elements.position.GoBoardPositio
 
 /**
  * Analyzes territory on board.
- *
- * @author Barry Becker
  */
 class TerritoryAnalyzer(val board: GoBoard, val analyzerMap: GroupAnalyzerMap) {
 

@@ -11,8 +11,6 @@ import scala.jdk.CollectionConverters._
 
 /**
  * Responsible for determining a set of reasonable next moves.
- *
- * @author Barry Becker
  */
 final class UrgentMoveGenerator(board_ : GoBoard) {
 

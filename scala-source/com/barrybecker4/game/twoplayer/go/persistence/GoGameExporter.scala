@@ -11,8 +11,6 @@ import java.io.{IOException, Writer}
 
 /**
  * Exports the state of a Go game to a file.
- *
- * @author Barry Becker
  */
 class GoGameExporter(controller: TwoPlayerController[GoMove, GoBoard]) 
   extends TwoPlayerGameExporter[GoMove, GoBoard](controller) {

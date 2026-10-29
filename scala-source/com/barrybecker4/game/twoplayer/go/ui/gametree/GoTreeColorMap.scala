@@ -7,8 +7,6 @@ import java.awt.Color
 
 /**
  * Use to color the cells in the game tree by their values.
- *
- * @author Barry Becker
  */
 class GoTreeColorMap extends ColorMap(GoTreeColorMap.myValues_, GoTreeColorMap.myColors_)
 

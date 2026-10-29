@@ -14,8 +14,6 @@ import scala.jdk.CollectionConverters._
  * By strongly connected I mean nobi connections only.
  * A GoGroup by comparison, is composed of a set of one or more same color strings.
  * Groups may be connected by diagonals, or ikken tobi, or kogeima (knight's move).
- *
- * @author Barry Becker
  */
 class GoString extends GoSet with IGoString {
 

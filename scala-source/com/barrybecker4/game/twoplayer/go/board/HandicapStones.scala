@@ -10,8 +10,6 @@ import scala.jdk.CollectionConverters._
  * There may be none.
  *
  * Immutable
- *
- * @author Barry Becker
  */
 class HandicapStones(num: Int, boardSize: Int) {
 

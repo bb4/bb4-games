@@ -3,17 +3,17 @@ package com.barrybecker4.game.twoplayer.go.board.analysis.eye.information
 
 import com.barrybecker4.game.twoplayer.go.board.elements.eye.IGoEye
 import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoBoardPositionList, GoBoardPositionSet}
-import scala.jdk.CollectionConverters._
+
+import java.util
+import scala.jdk.CollectionConverters.*
 import java.util.{HashMap, Map}
 
 /**
  * Maps eye positions to lists of neighboring eye spaces_.
- *
- * @author Barry Becker
  */
 class EyeNeighborMap(private val eye_ : IGoEye) {
 
-  private val nbrMap_ : Map[GoBoardPosition, GoBoardPositionList] = createMap()
+  private val nbrMap_ : util.Map[GoBoardPosition, GoBoardPositionList] = createMap()
 
   /**
    * @return list of eye neighbors for the specified eyeSpace position.
@@ -32,7 +32,7 @@ class EyeNeighborMap(private val eye_ : IGoEye) {
    */
   def isSpecialPoint(space: GoBoardPosition, specialPoints: Array[Float]): Boolean = {
     val index = getEyeNeighborIndex(space)
-    specialPoints.exists(_ == index)
+    specialPoints.contains(index)
   }
 
   /**
@@ -50,8 +50,8 @@ class EyeNeighborMap(private val eye_ : IGoEye) {
    * Do a breadth first search of all the positions in the eye, adding their nbr set to the map as we go.
    * @return the new neighbor map
    */
-  private def createMap(): Map[GoBoardPosition, GoBoardPositionList] = {
-    val nbrMap = new HashMap[GoBoardPosition, GoBoardPositionList]()
+  private def createMap(): util.Map[GoBoardPosition, GoBoardPositionList] = {
+    val nbrMap = new util.HashMap[GoBoardPosition, GoBoardPositionList]()
     eye_.setVisited(false)
 
     val queue = new GoBoardPositionList()
@@ -73,7 +73,7 @@ class EyeNeighborMap(private val eye_ : IGoEye) {
    * Do a breadth first search of all the positions in the eye, adding their nbr set to the map as we go.
    * @return the number of element that were searched.
    */
-  private def processSearchQueue(queue: GoBoardPositionList, nbrMap: Map[GoBoardPosition, GoBoardPositionList]): Int = {
+  private def processSearchQueue(queue: GoBoardPositionList, nbrMap: util.Map[GoBoardPosition, GoBoardPositionList]): Int = {
     var count = 0
     while (!queue.isEmpty) {
       val current = queue.remove(0)

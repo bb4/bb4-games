@@ -7,8 +7,6 @@ import scala.jdk.CollectionConverters._
 
 /**
  * MetaData for the different possible Eye shapes of size 4.
- *
- * @author Barry Becker
  */
 class E4Information(subTypeDesc: String) extends AbstractEyeSubtypeInformation {
 

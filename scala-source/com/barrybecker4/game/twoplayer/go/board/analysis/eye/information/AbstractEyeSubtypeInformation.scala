@@ -4,14 +4,14 @@ package com.barrybecker4.game.twoplayer.go.board.analysis.eye.information
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.elements.eye.IGoEye
 import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoBoardPositionList}
-import scala.jdk.CollectionConverters._
+
+import java.util
+import scala.jdk.CollectionConverters.*
 import java.util.Arrays
 
 /**
  * Enum for the different possible Eye shapes.
  * See http://www.ai.univ-paris8.fr/~cazenave/eyeLabelling.pdf
- *
- * @author Barry Becker
  */
 abstract class AbstractEyeSubtypeInformation extends AbstractEyeInformation {
   private var life: Boolean = false
@@ -70,7 +70,7 @@ abstract class AbstractEyeSubtypeInformation extends AbstractEyeInformation {
     assert(numFilledVitals <= numVitals,
       s"The number of filled vitals ($numFilledVitals) " +
         s"was greater than the total number of vitals ($numVitals) vitals=" +
-        Arrays.toString(getVitalPoints.asInstanceOf[Array[AnyRef]]) + " eye=" + eye)
+        util.Arrays.toString(getVitalPoints.asInstanceOf[Array[AnyRef]]) + " eye=" + eye)
 
     if (numFilledVitals == numVitals) {
       EyeStatus.NAKADE
@@ -131,16 +131,16 @@ abstract class AbstractEyeSubtypeInformation extends AbstractEyeInformation {
         (getTypeName == that.getTypeName &&
           life == that.life &&
           size == that.size &&
-          Arrays.equals(endPoints, that.endPoints) &&
-          Arrays.equals(vitalPoints, that.vitalPoints))
+          util.Arrays.equals(endPoints, that.endPoints) &&
+          util.Arrays.equals(vitalPoints, that.vitalPoints))
     case _ => false
   }
 
   override def hashCode(): Int = {
     var result = if (life) 1 else 0
     result = 31 * result + size.toInt
-    result = 31 * result + (if (vitalPoints != null) Arrays.hashCode(vitalPoints.asInstanceOf[Array[AnyRef]]) else 0)
-    result = 31 * result + (if (endPoints != null) Arrays.hashCode(endPoints.asInstanceOf[Array[AnyRef]]) else 0)
+    result = 31 * result + (if (vitalPoints != null) util.Arrays.hashCode(vitalPoints.asInstanceOf[Array[AnyRef]]) else 0)
+    result = 31 * result + (if (endPoints != null) util.Arrays.hashCode(endPoints.asInstanceOf[Array[AnyRef]]) else 0)
     result = 31 * result + getTypeName.hashCode
     result
   }

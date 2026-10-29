@@ -13,8 +13,6 @@ import scala.jdk.CollectionConverters._
 
 /**
  * Determine the type of an eye on the board.
- *
- * @author Barry Becker
  */
 class EyeTypeAnalyzer(
   private val eye_ : IGoEye,
@@ -33,7 +31,7 @@ class EyeTypeAnalyzer(
     assert(spaces != null, "spaces_ is null")
     val size = spaces.size
 
-    if (isFalseEye()) {
+    if (isFalseEye) {
       return new FalseEyeInformation()
     }
     if (size == 1) {
@@ -57,7 +55,7 @@ class EyeTypeAnalyzer(
    * reclassify a larger eye; those stay on the E2–E7 shape tables.
    * @return true if this one-point region is a false eye.
    */
-  private def isFalseEye(): Boolean = {
+  private def isFalseEye: Boolean = {
     val spaces = eye_.getMembers
     spaces.size == 1 && isFalseEye(spaces.iterator.next())
   }

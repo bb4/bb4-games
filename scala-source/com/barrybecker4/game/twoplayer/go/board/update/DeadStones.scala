@@ -4,8 +4,6 @@ package com.barrybecker4.game.twoplayer.go.board.update
 /**
  * Keeps track of the number of dead stones of each color that are on the board.
  * At the very end of the game we visibly mark dead stones dead.
- *
- * @author Barry Becker
  */
 final class DeadStones {
 

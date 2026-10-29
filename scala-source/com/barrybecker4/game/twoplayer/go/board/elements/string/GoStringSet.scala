@@ -7,8 +7,6 @@ import scala.jdk.CollectionConverters._
 
 /**
  * A set of GoStrings.
- *
- * @author Barry Becker
  */
 class GoStringSet extends LinkedHashSet[IGoString] {
 

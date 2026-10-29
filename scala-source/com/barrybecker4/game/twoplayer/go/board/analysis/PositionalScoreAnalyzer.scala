@@ -9,8 +9,6 @@ import com.barrybecker4.optimization.parameter.ParameterArray
 
 /**
  * Used to keep track of evaluating a measure of score based only on values at positions.
- *
- * @author Barry Becker
  */
 final class PositionalScoreAnalyzer(val board: GoBoard) {
 

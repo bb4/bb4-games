@@ -13,8 +13,6 @@ import scala.jdk.CollectionConverters._
  * In theory, all empties should be considered, but in practice, we keep
  * a shorter list of reasonable moves lest things get intractable.
  * Immutable.
- *
- * @author Barry Becker
  */
 class CandidateMoveAnalyzer(board_ : GoBoard) {
 

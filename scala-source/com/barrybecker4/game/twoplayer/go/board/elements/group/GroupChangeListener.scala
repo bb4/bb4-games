@@ -3,8 +3,6 @@ package com.barrybecker4.game.twoplayer.go.board.elements.group
 
 /**
  * Called when the group changes (stones added or removed).
- *
- * @author Barry Becker
  */
 trait GroupChangeListener {
   def groupChanged(): Unit

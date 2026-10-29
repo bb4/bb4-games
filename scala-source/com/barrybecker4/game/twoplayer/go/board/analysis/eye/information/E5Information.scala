@@ -7,8 +7,6 @@ import com.barrybecker4.game.twoplayer.go.board.elements.eye.IGoEye
 /**
  * MetaData for the different possible Eye shapes of size 5.
  * There are 4 different subtypes to consider.
- *
- * @author Barry Becker
  */
 class E5Information(subTypeDesc: String) extends AbstractEyeSubtypeInformation {
 

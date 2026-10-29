@@ -3,8 +3,6 @@ package com.barrybecker4.game.twoplayer.go.board.analysis.group.eye.potential
 
 /**
  * Figure out the "eye potential" contribution from a horizontal or vertical run within a string.
- *
- * @author Barry Becker
  */
 class Run(val firstPos: Int, val endPos: Int, val max: Int, val boundedByFriends: Boolean) {
 

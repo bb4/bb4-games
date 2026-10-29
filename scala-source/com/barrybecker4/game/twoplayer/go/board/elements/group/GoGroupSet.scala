@@ -10,8 +10,6 @@ import scala.jdk.CollectionConverters._
 
 /**
  * A set of GoGroups.
- *
- * @author Barry Becker
  */
 class GoGroupSet extends LinkedHashSet[IGoGroup] {
 

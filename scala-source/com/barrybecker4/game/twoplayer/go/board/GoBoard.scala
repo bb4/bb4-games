@@ -18,8 +18,6 @@ import scala.jdk.CollectionConverters._
  * There are a lot of data structures to organize the state of the pieces.
  * For example, we update strings, and groups (and eventually armies) after each move.
  * After updating we can use these structures to estimate territory for each side.
- *
- * @author Barry Becker
  */
 final class GoBoard(size: Int, numHandicapStones: Int) extends TwoPlayerBoard[GoMove] {
 

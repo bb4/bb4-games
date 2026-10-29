@@ -12,8 +12,6 @@ import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPositi
  * Updates the empty regions on the board at the end of the game.
  * Used to determine ownership of those empty regions.
  * Does it handle dame's correctly?
- *
- * @author Barry Becker
  */
 class EmptyRegionUpdater(val board_ : GoBoard, val analyzerMap_ : GroupAnalyzerMap) {
 

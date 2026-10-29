@@ -12,8 +12,6 @@ import scala.jdk.CollectionConverters._
 
 /**
  * Responsible for updating a go board after undoing a move.
- *
- * @author Barry Becker
  */
 class PostRemoveUpdater(board: GoBoard, captures: CaptureCounts) 
   extends PostChangeUpdater(board, captures) {

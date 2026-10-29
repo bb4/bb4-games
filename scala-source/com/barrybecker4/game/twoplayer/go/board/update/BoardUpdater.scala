@@ -6,8 +6,6 @@ import com.barrybecker4.game.twoplayer.go.board.move.GoMove
 
 /**
  * Responsible for updating a go board after making or undoing a move.
- *
- * @author Barry Becker
  */
 class BoardUpdater(board: GoBoard, capCounts: CaptureCounts) {
 

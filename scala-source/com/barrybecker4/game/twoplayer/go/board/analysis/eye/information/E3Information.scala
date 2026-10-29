@@ -7,8 +7,6 @@ import com.barrybecker4.game.twoplayer.go.board.elements.eye.IGoEye
 /**
  * Three space eye *** - there is only one type.
  * The vital point may or may not be filled - determining its status.
- *
- * @author Barry Becker
  */
 class E3Information extends AbstractEyeSubtypeInformation {
 

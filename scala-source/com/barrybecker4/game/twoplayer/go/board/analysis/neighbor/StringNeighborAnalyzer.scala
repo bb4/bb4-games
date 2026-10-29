@@ -10,8 +10,6 @@ import scala.jdk.CollectionConverters._
 
 /**
  * Performs static analysis of a go board to determine strings.
- *
- * @author Barry Becker
  */
 class StringNeighborAnalyzer(board_ : GoBoard) {
 

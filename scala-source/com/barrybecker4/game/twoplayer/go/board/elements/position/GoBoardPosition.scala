@@ -13,8 +13,6 @@ import com.barrybecker4.game.twoplayer.go.board.elements.string.IGoString
  * The GoBoardPosition describes the physical marker at a location on the board.
  * It can be empty or occupied. If occupied, then it is either black or white and has a string owner.
  * A GoBoardPosition may have an eye owner if it is part of a group's eye.
- *
- * @author Barry Becker
  */
 final class GoBoardPosition(row: Int, col: Int, string: IGoString, stone: GoStone)
   extends BoardPosition(row, col, stone) with IGoMember {

@@ -5,8 +5,6 @@ package com.barrybecker4.game.twoplayer.go.board.analysis.eye.information
  * Enum for the different possible Eye shapes.
  * See http://www.ai.univ-paris8.fr/~cazenave/eyeLabelling.pdf
  * Extends java.lang.Enum for Java interop.
- *
- * @author Barry Becker
  */
 enum EyeType(eyeSize: Int) extends java.lang.Enum[EyeType]:
 

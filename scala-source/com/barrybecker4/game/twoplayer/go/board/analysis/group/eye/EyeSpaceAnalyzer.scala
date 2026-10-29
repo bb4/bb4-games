@@ -12,8 +12,6 @@ import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPositi
 
 /**
  * Analyzes the eye spaces within a group to determine if they are real eyes.
- *
- * @author Barry Becker
  */
 class EyeSpaceAnalyzer(val group: IGoGroup, val analyzerMap: GroupAnalyzerMap) {
 

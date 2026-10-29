@@ -5,8 +5,6 @@ import java.util.LinkedHashSet
 
 /**
  * A set of GoEyes.
- *
- * @author Barry Becker
  */
 class GoEyeSet extends LinkedHashSet[IGoEye] {
 

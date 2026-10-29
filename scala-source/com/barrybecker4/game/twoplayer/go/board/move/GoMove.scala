@@ -12,8 +12,6 @@ import scala.jdk.CollectionConverters._
 /**
  * Describes a change in state from one board
  * position to the next in a Go game.
- *
- * @author Barry Becker
  */
 class GoMove(destination: Location, value: Int, stone: GoStone)
   extends TwoPlayerMove(destination, value, stone) {

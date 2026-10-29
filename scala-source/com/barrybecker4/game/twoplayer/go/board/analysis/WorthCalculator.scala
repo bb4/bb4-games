@@ -14,8 +14,6 @@ import com.barrybecker4.optimization.parameter.ParameterArray
 
 /**
  * For statically evaluating the current state of a GoBoard.
- *
- * @author Barry Becker
  */
 class WorthCalculator(
   val board_ : GoBoard,

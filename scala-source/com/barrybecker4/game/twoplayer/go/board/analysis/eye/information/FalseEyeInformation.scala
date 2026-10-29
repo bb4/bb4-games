@@ -6,8 +6,6 @@ import com.barrybecker4.game.twoplayer.go.board.elements.eye.IGoEye
 
 /**
  * Info about a false eye
- *
- * @author Barry Becker
  */
 class FalseEyeInformation extends AbstractEyeInformation {
 

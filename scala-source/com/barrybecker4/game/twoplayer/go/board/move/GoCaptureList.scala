@@ -14,8 +14,6 @@ import scala.jdk.CollectionConverters._
  * This class represents a linked list of captured pieces.
  * It provides convenience methods for removing and restoring those
  * pieces to a game board.
- *
- * @author Barry Becker
  */
 class GoCaptureList extends CaptureList {
 

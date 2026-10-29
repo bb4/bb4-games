@@ -10,8 +10,6 @@ import scala.jdk.CollectionConverters._
 
 /**
  * Analyzes territory on board.
- *
- * @author Barry Becker
  */
 class TerritoryUpdater(val board_ : GoBoard, val analyzerMap_ : GroupAnalyzerMap) {
 

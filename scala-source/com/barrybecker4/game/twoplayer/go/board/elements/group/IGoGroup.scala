@@ -9,8 +9,6 @@ import com.barrybecker4.game.twoplayer.go.board.elements.string.{GoStringSet, IG
 /**
  * Makes some unit tests much simpler if we create the tests to use this trait instead
  * of the full-blown GoGroup class.
- *
- * @author Barry Becker
  */
 trait IGoGroup extends IGoSet {
 

@@ -5,8 +5,6 @@ import scala.collection.mutable
 
 /**
  * Used to keep track of evaluating a measure of score passed only on values at positions.
- *
- * @author Barry Becker
  */
 final class PositionalScoreArray private (size: Int) {
 

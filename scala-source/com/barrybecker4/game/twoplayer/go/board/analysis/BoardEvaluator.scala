@@ -13,8 +13,6 @@ import com.barrybecker4.optimization.parameter.ParameterArray
 /**
  * Responsible for evaluating groups and territory on a go board.
  * we keep a cache of the score for each unique board position to avoid recalculating.
- *
- * @author Barry Becker
  */
 final class BoardEvaluator(val board_ : GoBoard, val scoreCache: ScoreCache, komi: Float = GoOptions.DEFAULT_KOMI) {
 

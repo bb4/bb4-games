@@ -9,8 +9,6 @@ import java.awt.Component
 /**
  * Use this modal dialog to initialize the required game parameters that
  * are needed in order to start play in a 2 player game.
- *
- * @author Barry Becker
  */
 class GoPlayerAssignmentPanel(controller: TwoPlayerController[?, ?], parent: Component) 
   extends PlayerAssignmentPanel(controller, parent) {

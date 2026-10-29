@@ -15,8 +15,6 @@ import com.barrybecker4.game.twoplayer.go.options.GoOptions
 
 /**
  * Imports the state of a Go game from a file.
- *
- * @author Barry Becker
  */
 class GoGameImporter(controller: GoController)
   extends TwoPlayerGameImporter[GoMove, GoBoard](controller):

@@ -7,8 +7,6 @@ import java.util.Set
 
 /**
  * A collection of GoMembers of some type (e.g. strings, stones, groups, etc).
- *
- * @author Barry Becker
  */
 trait IGoSet extends IGoMember {
 

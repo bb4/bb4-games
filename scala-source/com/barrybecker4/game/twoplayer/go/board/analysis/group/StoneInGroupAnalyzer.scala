@@ -6,8 +6,6 @@ import com.barrybecker4.game.twoplayer.go.board.elements.position.GoStone
 
 /**
  * Analyze the strength of stone relative to the group that it is in.
- *
- * @author Barry Becker
  */
 class StoneInGroupAnalyzer(val group_ : IGoGroup) {
 

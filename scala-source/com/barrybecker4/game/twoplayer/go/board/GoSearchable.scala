@@ -15,8 +15,6 @@ import scala.jdk.CollectionConverters._
 
 /**
  * For searching go game's search space.
- *
- * @author Barry Becker
  */
 class GoSearchable(board: GoBoard, players: PlayerList, cache: ScoreCache, private val goOptions: GoOptions)
   extends TwoPlayerSearchable[GoMove, GoBoard](board, players) {

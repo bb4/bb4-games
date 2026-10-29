@@ -8,8 +8,6 @@ import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPositi
 /**
  * Checks the shape of the string just formed on the board
  * to determine if it is good or bad shape.
- *
- * @author Barry Becker
  */
 class StringShapeAnalyzer(val board_ : GoBoard) {
 

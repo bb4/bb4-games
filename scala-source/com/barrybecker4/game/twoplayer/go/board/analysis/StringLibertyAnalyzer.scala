@@ -8,8 +8,6 @@ import com.barrybecker4.game.twoplayer.go.board.elements.string.GoString
 
 /**
  * Determines number of liberties on a string.
- *
- * @author Barry Becker
  */
 class StringLibertyAnalyzer(val board: GoBoard, val string: GoString) {
 

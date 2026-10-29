@@ -8,8 +8,6 @@ import com.barrybecker4.game.twoplayer.go.board.elements.position.GoBoardPositio
 
 /**
  * A GoEye is composed of a strongly connected set of empty spaces (and possibly some dead enemy stones).
- *
- * @author Barry Becker
  */
 trait IGoEye extends IGoSet {
 

@@ -7,8 +7,6 @@ import com.barrybecker4.game.twoplayer.go.board.elements.eye.IGoEye
 /**
  * Meta data about the eye type.
  * See http://www.ai.univ-paris8.fr/~cazenave/eyeLabelling.pdf
- *
- * @author Barry Becker
  */
 trait EyeInformation {
 

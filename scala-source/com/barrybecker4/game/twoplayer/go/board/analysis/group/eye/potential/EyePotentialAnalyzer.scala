@@ -10,8 +10,6 @@ import scala.jdk.CollectionConverters._
 
 /**
  * Figure out how likely (the potential) that a group can form two eyes.
- *
- * @author Barry Becker
  */
 class EyePotentialAnalyzer(val group: IGoGroup, val analyzerMap: GroupAnalyzerMap) {
 

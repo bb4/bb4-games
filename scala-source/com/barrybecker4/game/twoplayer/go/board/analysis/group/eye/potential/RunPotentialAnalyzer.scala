@@ -9,8 +9,6 @@ import com.barrybecker4.game.twoplayer.go.board.elements.string.IGoString
 
 /**
  * Figure out the "eye potential" contribution from a horizontal or vertical run within a string.
- *
- * @author Barry Becker
  */
 class RunPotentialAnalyzer(val groupString: IGoString, val board: GoBoard, val analyzerMap: GroupAnalyzerMap) {
 

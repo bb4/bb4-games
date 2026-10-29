@@ -16,8 +16,6 @@ import scala.jdk.CollectionConverters._
  * Determine if group is pass-alive using
  * Benson's algorithm for unconditional life.
  * see http://senseis.xmp.net/?BensonSAlgorithm
- *
- * @author Barry Becker
  */
 class LifeAnalyzer {
 

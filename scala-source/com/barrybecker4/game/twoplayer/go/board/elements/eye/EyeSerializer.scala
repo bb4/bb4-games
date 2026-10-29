@@ -3,8 +3,6 @@ package com.barrybecker4.game.twoplayer.go.board.elements.eye
 
 /**
  * Move serialization of eye to separate class for better reuse.
- *
- * @author Barry Becker
  */
 class EyeSerializer(eye: IGoEye) {
 

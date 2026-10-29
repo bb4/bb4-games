@@ -6,8 +6,6 @@ import scala.jdk.CollectionConverters._
 
 /**
  * A list of GoEyes.
- *
- * @author Barry Becker
  */
 class GoEyeList extends LinkedList[IGoEye] {
 

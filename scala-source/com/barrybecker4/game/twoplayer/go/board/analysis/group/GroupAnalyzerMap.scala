@@ -8,8 +8,6 @@ import java.util.{Map, WeakHashMap}
 /**
  * Maintains a map from groups to GroupAnalyzers.
  * If we request an analyzer for a group that is not in the map, we add it.
- *
- * @author Barry Becker
  */
 class GroupAnalyzerMap {
 

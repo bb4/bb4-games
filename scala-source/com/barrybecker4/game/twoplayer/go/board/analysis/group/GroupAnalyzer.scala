@@ -11,8 +11,6 @@ import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPositi
 
 /**
  * Analyzes a group to determine how alive it is, and also find other properties like eyes and liberties.
- *
- * @author Barry Becker
  */
 class GroupAnalyzer(val group_ : IGoGroup, val analyzerMap_ : GroupAnalyzerMap) extends GroupChangeListener with Cloneable {
 

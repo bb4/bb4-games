@@ -6,8 +6,6 @@ import scala.jdk.CollectionConverters._
 
 /**
  * A set of GoBoardPositions.
- *
- * @author Barry Becker
  */
 class GoBoardPositionSet extends LinkedHashSet[GoBoardPosition] {
 

@@ -10,8 +10,6 @@ import scala.jdk.CollectionConverters._
 /**
  * MetaData for the different possible Eye shapes of size 6.
  * There are 8 different subtypes to consider.
- *
- * @author Barry Becker
  */
 class E6Information(subTypeDesc: String) extends AbstractEyeSubtypeInformation {
 

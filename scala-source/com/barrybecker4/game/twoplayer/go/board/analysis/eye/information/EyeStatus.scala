@@ -7,8 +7,6 @@ package com.barrybecker4.game.twoplayer.go.board.analysis.eye.information
  *
  * Scores match [[EyeShapeScores]].
  * Extends java.lang.Enum for Java interop.
- *
- * @author Barry Becker
  */
 enum EyeStatus(
   private val label: String,

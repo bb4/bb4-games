@@ -6,8 +6,6 @@ import scala.jdk.CollectionConverters._
 
 /**
  * A list of GoBoardPositions.
- *
- * @author Barry Becker
  */
 class GoBoardPositionList extends LinkedList[GoBoardPosition] {
 
