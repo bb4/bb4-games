@@ -66,7 +66,7 @@ class TestTerminalScoreCalculator {
     assertTrue("corner white at 2,2 is dead", isDead(board, 2, 2))
     assertTrue("the enclosed white at 5,4 stays dead", isDead(board, 5, 4))
     assertFalse("the big black group stays alive", isDead(board, 1, 5))
-    assertTrue("the corner is still a fight until the white is removed", new TerminalScoreCalculator(new GoBoard(board)).hasUnsettledGroup())
+    assertTrue("the corner is still a fight until the white is removed", new TerminalScoreCalculator(new GoBoard(board)).hasUnsettledGroup)
     assertEquals(0, score.deadBlack)
   }
 
@@ -312,7 +312,7 @@ class TestTerminalScoreCalculator {
     assertTrue("corner white at 3,9 is dead", isDead(board, 3, 9))
     assertFalse("bottom white still has room", isDead(board, 8, 1))
     assertFalse(isDead(board, 7, 5))
-    assertTrue("room to play is not settled life", new TerminalScoreCalculator(new GoBoard(board)).hasUnsettledGroup())
+    assertTrue("room to play is not settled life", new TerminalScoreCalculator(new GoBoard(board)).hasUnsettledGroup)
   }
 
   /** Dead black stones become white territory points and dead-black counts (not black territory). */

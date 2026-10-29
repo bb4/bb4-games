@@ -1,4 +1,4 @@
-/* Copyright by Barry G. Becker, 2004-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
+/* Copyright by Barry G. Becker, 2004-2026. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.go.board.move
 
 import com.barrybecker4.common.geometry.ByteLocation
@@ -46,7 +46,7 @@ final class GoMoveGenerator(searchable_ : GoSearchable) {
    * @return all possible reasonable next moves. We try to limit to reasonable moves as best we can, but that
    * is difficult without static evaluation. At least no illegal moves will be returned.
    */
-  def generatePossibleMoves(lastMove: GoMove): MoveList[GoMove] = {
+  private def generatePossibleMoves(lastMove: GoMove): MoveList[GoMove] = {
     val board = searchable_.getBoard
     val moveList = new MoveList[GoMove]()
     val nCols = board.getNumCols
@@ -119,7 +119,7 @@ final class GoMoveGenerator(searchable_ : GoSearchable) {
         val liberties = pos.getString.getLiberties(board)
         if (liberties.size == 1) {
           val liberty = liberties.iterator.next()
-          points.add((liberty.getRow.toInt, liberty.getCol.toInt))
+          points.add((liberty.getRow, liberty.getCol))
         }
       }
     }
@@ -152,7 +152,7 @@ final class GoMoveGenerator(searchable_ : GoSearchable) {
     // plays a stone. Deeper in the tree a pass is allowed: without it every
     // unsettled endgame is read to the full depth.
     val unsettledAtRoot = !searchable_.isInsideSearchTree &&
-      new TerminalScoreCalculator(b).hasUnsettledGroup()
+      new TerminalScoreCalculator(b).hasUnsettledGroup
     if (losesAPoint && !unsettledAtRoot) {
       kept.add(kept.size, GoMove.createPassMove(current, player1))
     }

@@ -61,7 +61,7 @@ class SearchScoreCalculator(
     for (r <- 1 to rows; c <- 1 to cols) {
       val pos = position(r, c)
       if (pos.isOccupied && life(pos) == Life.Dead) {
-        dead += ((r, c))
+        dead += r -> c
       }
     }
     dead.toSet
@@ -107,7 +107,7 @@ class SearchScoreCalculator(
         visited(r)(c) = true
         while (stack.nonEmpty) {
           val (cr, cc) = stack.pop()
-          region += ((cr, cc))
+          region += cr -> cc
           for ((nr, nc) <- orthNeighbors(cr, cc)) {
             if (!visited(nr)(nc) && isEmptyForScoring(nr, nc, dead)) {
               visited(nr)(nc) = true
@@ -156,10 +156,10 @@ class SearchScoreCalculator(
 
   private def orthNeighbors(r: Int, c: Int): List[(Int, Int)] = {
     val buf = mutable.ListBuffer.empty[(Int, Int)]
-    if (r > 1) buf += ((r - 1, c))
-    if (r < rows) buf += ((r + 1, c))
-    if (c > 1) buf += ((r, c - 1))
-    if (c < cols) buf += ((r, c + 1))
+    if (r > 1) buf += r - 1 -> c
+    if (r < rows) buf += r + 1 -> c
+    if (c > 1) buf += r -> (c - 1)
+    if (c < cols) buf += r -> (c + 1)
     buf.toList
   }
 

@@ -116,7 +116,7 @@ class TerminalScoreCalculator(board: GoBoard) {
         visited(r)(c) = true
         while (stack.nonEmpty) {
           val (cr, cc) = stack.pop()
-          region += ((cr, cc))
+          region += cr -> cc
           for ((nr, nc) <- orthNeighbors(cr, cc)) {
             if (!visited(nr)(nc) && isScoringEmpty(nr, nc, dead)) {
               visited(nr)(nc) = true
@@ -151,7 +151,7 @@ class TerminalScoreCalculator(board: GoBoard) {
    * True when some string is neither alive as it stands nor dead no matter which
    * unsettled enemy stones are removed. Does not mark stones.
    */
-  def hasUnsettledGroup(): Boolean = {
+  def hasUnsettledGroup: Boolean = {
     val dead = mutable.Set.empty[(Int, Int)]
     val regions = findRegions(dead)
     val ownership = regions.map(r => r -> regionOwner(r, dead)).toMap
@@ -188,7 +188,7 @@ class TerminalScoreCalculator(board: GoBoard) {
           (eyeScore, libs.size, pos.getRow, pos.getCol)
         }
         victim.getMembers.asScala.foreach { pos =>
-          dead += ((pos.getRow, pos.getCol))
+          dead += pos.getRow -> pos.getCol
         }
         changed = true
       }
@@ -218,7 +218,7 @@ class TerminalScoreCalculator(board: GoBoard) {
       if (other.isOwnedByPlayer1 != string.isOwnedByPlayer1 &&
         !livesAsIs(other, dead, regions, ownership)) {
         other.getMembers.asScala.foreach { pos =>
-          assumed += ((pos.getRow, pos.getCol))
+          assumed += pos.getRow -> pos.getCol
         }
       }
     }
@@ -426,7 +426,7 @@ class TerminalScoreCalculator(board: GoBoard) {
     val libs = mutable.Set.empty[(Int, Int)]
     for (stone <- string.getMembers.asScala; (nr, nc) <- orthNeighbors(stone.getRow, stone.getCol)) {
       if (isScoringEmpty(nr, nc, dead)) {
-        libs += ((nr, nc))
+        libs += nr -> nc
       }
     }
     libs.toSet
@@ -450,10 +450,10 @@ class TerminalScoreCalculator(board: GoBoard) {
 
   private def orthNeighbors(r: Int, c: Int): List[(Int, Int)] = {
     val buf = mutable.ListBuffer.empty[(Int, Int)]
-    if (r > 1) buf += ((r - 1, c))
-    if (r < rows) buf += ((r + 1, c))
-    if (c > 1) buf += ((r, c - 1))
-    if (c < cols) buf += ((r, c + 1))
+    if (r > 1) buf += r - 1 -> c
+    if (r < rows) buf += r + 1 -> c
+    if (c > 1) buf += r -> (c - 1)
+    if (c < cols) buf += r -> (c + 1)
     buf.toList
   }
 }
