@@ -9,7 +9,7 @@ import com.barrybecker4.game.twoplayer.go.GoTestCase
 import com.barrybecker4.game.twoplayer.go.board.{GoBoard, GoSearchable}
 import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoStone}
 import com.barrybecker4.game.twoplayer.go.options.{GoOptions, GoWeights}
-import org.junit.Assert.{assertFalse, assertTrue}
+import org.junit.Assert.{assertEquals, assertFalse, assertTrue}
 import org.junit.Test
 import scala.jdk.CollectionConverters.*
 
@@ -111,6 +111,15 @@ class TestPassingMove extends GoTestCase:
     assertFalse("the computer plays on while the position is unsettled", move.isPassingMove)
     assertTrue(s"searched $considered moves", considered < 20000)
 
+  private def keepEveryMove(): Unit =
+    controller.getPlayers.asScala.foreach { player =>
+      val best = player.getOptions.asInstanceOf[TwoPlayerPlayerOptions[GoMove, GoBoard]]
+        .getSearchOptions.getBestMovesSearchOptions
+      best.setPercentageBestMoves(100)
+      best.setMinBestMoves(1)
+      best.setPercentLessThanBestThresh(100)
+    }
+
   private def useGameSearchDepth(): Unit =
     for player <- controller.getPlayers.asScala do
       val options = player.getOptions.asInstanceOf[TwoPlayerPlayerOptions[GoMove, GoBoard]].getSearchOptions
@@ -121,6 +130,45 @@ class TestPassingMove extends GoTestCase:
       brute.setMaxQuiescentDepth(4)
       options.getBestMovesSearchOptions.setPercentageBestMoves(60)
       options.getBestMovesSearchOptions.setMinBestMoves(6)
+
+  /**
+   * Straight three, sealed in. The center makes two eyes if black ignores it.
+   * Either side point leaves one eye, and every point outside the eye is a
+   * stone black can also ignore.
+   */
+  @Test
+  def deadThreePlaysOnlyThePointThatForcesAReply(): Unit =
+    val board = boardFromDiagram(Array(
+      "XXXXXXXXX",
+      "XOOOOOOXX",
+      "XO...OOXX",
+      "XOOOOOOXX",
+      "XXXXXXXXX",
+      "XX.XX.XXX",
+      "XXXXXXXXX",
+      "XX.XX.XXX",
+      "XXXXXXXXX"
+    ))
+    keepEveryMove()
+    val moves = generateLateMoves(board, whiteToPlay = true)
+    assertEquals("only the center, which black must answer", Set((3, 4)), stonePoints(moves))
+
+  /** One eye, and no point inside it makes two. White passes instead of filling. */
+  @Test
+  def oneEyedGroupPassesInsteadOfFilling(): Unit =
+    val board = boardFromDiagram(Array(
+      ".......",
+      ".XXXXX.",
+      ".XOOOX.",
+      ".XO.OX.",
+      ".XOOOX.",
+      ".XXXXX.",
+      "......."
+    ))
+    keepEveryMove()
+    val moves = generateLateMoves(board, whiteToPlay = true)
+    assertTrue("white passes", hasPass(moves))
+    assertEquals("no stone in a group that cannot live", Set.empty, stonePoints(moves))
 
   @Test
   def passWhenEveryStoneMoveIsSuicide(): Unit =
@@ -149,7 +197,10 @@ class TestPassingMove extends GoTestCase:
     moves.asScala.exists(_.isPassingMove)
 
   private def hasStone(moves: MoveList[GoMove], row: Int, col: Int): Boolean =
-    moves.asScala.exists(m => !m.isPassingMove && m.getToRow == row && m.getToCol == col)
+    stonePoints(moves).contains((row, col))
+
+  private def stonePoints(moves: MoveList[GoMove]): Set[(Int, Int)] =
+    moves.asScala.filter(!_.isPassingMove).map(m => (m.getToRow.toInt, m.getToCol.toInt)).toSet
 
   private def boardFromDiagram(lines: Array[String]): GoBoard =
     val size = lines.length

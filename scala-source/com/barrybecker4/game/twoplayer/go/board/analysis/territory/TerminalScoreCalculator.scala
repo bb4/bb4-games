@@ -32,6 +32,7 @@ class TerminalScoreCalculator(board: GoBoard) {
 
   private val rows = board.getNumRows
   private val cols = board.getNumCols
+  private var deadCache: mutable.Set[(Int, Int)] = null
 
   /** Ownership of a scoring region: Some(true)=black, Some(false)=white, None=dame/seki. */
   private type Owner = Option[Boolean]
@@ -148,6 +149,26 @@ class TerminalScoreCalculator(board: GoBoard) {
   }
 
   /**
+   * Stones removed by terminal life-and-death. Does not mark the board.
+   */
+  def deadPoints(): Set[(Int, Int)] = findDead().toSet
+
+  /**
+   * Black-positive Japanese score, including prisoners already taken.
+   * Does not mark the board. A positive change means black gained by being ignored.
+   */
+  def blackAdvantage(): Int = {
+    val dead = findDead()
+    val regions = findRegions(dead)
+    val territory = countTerritory(regions, dead)
+    val deadWhite = dead.count { case (r, c) => isWhiteStone(r, c) }
+    val deadBlack = dead.size - deadWhite
+    val capturedWhite = board.getNumCaptures(false)
+    val capturedBlack = board.getNumCaptures(true)
+    territory._1 - territory._2 + deadWhite - deadBlack + capturedWhite - capturedBlack
+  }
+
+  /**
    * True when some string is neither alive as it stands nor dead no matter which
    * unsettled enemy stones are removed. Does not mark stones.
    */
@@ -166,6 +187,13 @@ class TerminalScoreCalculator(board: GoBoard) {
    * is still removed once nothing unconditionally dead is left.
    */
   private def findDead(): mutable.Set[(Int, Int)] = {
+    if (deadCache == null) {
+      deadCache = computeDead()
+    }
+    deadCache
+  }
+
+  private def computeDead(): mutable.Set[(Int, Int)] = {
     val dead = mutable.Set.empty[(Int, Int)]
     var changed = true
     var guard = 0

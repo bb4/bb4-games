@@ -26,6 +26,7 @@ final class GoMoveGenerator(searchable_ : GoSearchable) {
     prof.startGenerateMoves()
 
     val moveList = generatePossibleMoves(lastMove)
+    dropMovesThatDoNotForceAReply(moveList)
 
     moveList.asScala.foreach { move =>
       setMoveValue(weights, move)
@@ -148,11 +149,79 @@ final class GoMoveGenerator(searchable_ : GoSearchable) {
     }
     // At the root, room in a shared region is not settled life, so the computer
     // plays a stone. Deeper in the tree a pass is allowed: without it every
-    // unsettled endgame is read to the full depth.
-    val unsettledAtRoot = !searchable_.isInsideSearchTree &&
+    // unsettled endgame is read to the full depth. A group that cannot force
+    // a reply has already been removed, and then the only move is to pass.
+    val noStoneMove = kept.asScala.forall(_.isPassingMove)
+    val unsettledAtRoot = !noStoneMove && !searchable_.isInsideSearchTree &&
       new TerminalScoreCalculator(b).hasUnsettledGroup
-    if (losesAPoint && !unsettledAtRoot) {
+    if (noStoneMove || (losesAPoint && !unsettledAtRoot)) {
       kept.add(kept.size, GoMove.createPassMove(current, player1))
+    }
+  }
+
+  /**
+   * Late in the game, at the move the computer will play, drop a point that
+   * black or white can ignore. A dead group is filled only at the point that
+   * makes it live if the opponent passes. Capturing or atari on a group that
+   * is still alive also has to be answered. Deeper plies still see every
+   * candidate, so a fight that needs two moves is not cut off inside the tree.
+   */
+  private def dropMovesThatDoNotForceAReply(moves: MoveList[GoMove]): Unit = {
+    val board = searchable_.getBoard
+    if (searchable_.isInsideSearchTree) return
+    if (searchable_.getNumMoves() <= board.getNumRows + board.getNumCols) return
+
+    val scored = new TerminalScoreCalculator(board)
+    val dead = scored.deadPoints()
+    val before = scored.blackAdvantage()
+    val it = moves.iterator()
+    while (it.hasNext) {
+      val move = it.next()
+      if (!earnsAReply(move, dead, board, before)) {
+        it.remove()
+      }
+    }
+  }
+
+  private def earnsAReply(move: GoMove, dead: Set[(Int, Int)], board: GoBoard, before: Int): Boolean = {
+    if (threatensLivingEnemy(move, dead, board) || touchesNonDeadFriend(move, dead, board)) {
+      return true
+    }
+    searchable_.makeInternalMove(move)
+    val after =
+      try new TerminalScoreCalculator(board).blackAdvantage()
+      finally searchable_.undoInternalMove(move)
+    if (move.isPlayer1) after >= before + GoMoveGenerator.OnePointOfTerritory
+    else before >= after + GoMoveGenerator.OnePointOfTerritory
+  }
+
+  /** Atari or capture of a string terminal scoring has not already given up. */
+  private def threatensLivingEnemy(move: GoMove, dead: Set[(Int, Int)], board: GoBoard): Boolean = {
+    val seen = scala.collection.mutable.Set.empty[IGoString]
+    orthNeighbors(move, board).exists { pos =>
+      val enemy = pos.isOccupied && pos.getPiece.isOwnedByPlayer1 != move.isPlayer1
+      enemy && !dead.contains((pos.getRow.toInt, pos.getCol.toInt)) && pos.getString != null && seen.add(pos.getString) && {
+        val libs = pos.getString.getNumLiberties(board)
+        libs == 1 || libs == 2
+      }
+    }
+  }
+
+  /** A stone of ours that can still live. Playing next to it is still a fight. */
+  private def touchesNonDeadFriend(move: GoMove, dead: Set[(Int, Int)], board: GoBoard): Boolean = {
+    orthNeighbors(move, board).exists { pos =>
+      pos.isOccupied && pos.getPiece.isOwnedByPlayer1 == move.isPlayer1 &&
+        !dead.contains((pos.getRow.toInt, pos.getCol.toInt))
+    }
+  }
+
+  private def orthNeighbors(move: GoMove, board: GoBoard): List[GoBoardPosition] = {
+    val row = move.getToRow.toInt
+    val col = move.getToCol.toInt
+    val points = List((row - 1, col), (row + 1, col), (row, col - 1), (row, col + 1))
+    points.collect {
+      case (r, c) if r >= 1 && c >= 1 && r <= board.getNumRows && c <= board.getNumCols =>
+        board.getPosition(r, c).asInstanceOf[GoBoardPosition]
     }
   }
 }
@@ -160,6 +229,9 @@ final class GoMoveGenerator(searchable_ : GoSearchable) {
 object GoMoveGenerator {
   /** Worth is stored in tenths of a point. */
   private val OnePoint = 10
+
+  /** Terminal territory is whole points, not tenths. */
+  private val OnePointOfTerritory = 1
 
   /**
    * It is a take-back move if the proposed move position (row,col) would immediately replace the last captured piece
