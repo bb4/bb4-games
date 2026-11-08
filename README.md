@@ -75,7 +75,7 @@ See the [releases page](https://github.com/bb4/bb4-games/releases) if you need a
 
 ## Building from source
 
-See the [Building bb4 Projects wiki](https://github.com/bb4/bb4-common/wiki/Building-bb4-Projects).
+Requires **JDK 25+** (bb4-gradle 2.1). See the [Building bb4 Projects wiki](https://github.com/bb4/bb4-common/wiki/Building-bb4-Projects).
 
 ## License
 

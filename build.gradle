@@ -1,9 +1,9 @@
 // Copyright by Barry G. Becker, 2013 - 2026. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 
 plugins {
-    id 'com.barrybecker4.bb4.scala-library' version '2.0.0' apply false
-    id 'com.barrybecker4.bb4.publish' version '2.0.0' apply false
-    id 'com.barrybecker4.bb4.application' version '2.0.0' apply false
+    id 'com.barrybecker4.bb4.scala-library' version '2.1-SNAPSHOT' apply false
+    id 'com.barrybecker4.bb4.publish' version '2.1-SNAPSHOT' apply false
+    id 'com.barrybecker4.bb4.application' version '2.1-SNAPSHOT' apply false
 }
 
 description = 'A game playing framework and a collection of two-player and multi-player games. ' +

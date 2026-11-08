@@ -24,9 +24,8 @@ class TwoPlayerSearchWorker[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
       if (worker != null) {
         worker.interrupt()
         processing_ = false
-        val move = worker.get.asInstanceOf[M]
-        if (move != null) {
-          controller.getViewer.computerMoved(move)
+        worker.get.foreach { result =>
+          controller.getViewer.computerMoved(result.asInstanceOf[M])
         }
       }
       ThreadUtil.sleep(100)
@@ -63,7 +62,7 @@ class TwoPlayerSearchWorker[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
     worker.start()
 
     if (synchronous) {
-      val m = worker.get.asInstanceOf[M]
+      val m = worker.get.get.asInstanceOf[M]
       return controller.getSearchable().done(m, true)
     }
     false

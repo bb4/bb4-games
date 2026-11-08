@@ -109,7 +109,7 @@ object OnlineGameServer {
       GameContext.log(0, "Usage: -game <game name>\n")
       return false
     }
-    if (options.getValueForOption(GAME_OPTION) == null) {
+    if (options.getValueForOption(GAME_OPTION).isEmpty) {
       GameContext.log(0, "You must specify a valid game. See plugins.xml for list of available games.")
       return false
     }
@@ -123,7 +123,7 @@ object OnlineGameServer {
     val options = new CommandLineOptions(args)
 
     if (verifyCmdLineOptions(options)) {
-      val gameName = options.getValueForOption(GAME_OPTION)
+      val gameName = options.getValueForOption(GAME_OPTION).get
       new OnlineGameServer(gameName, null)
     }
   }
