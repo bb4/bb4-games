@@ -12,8 +12,9 @@ import java.io.File
  */
 class SearchTestExample(file: File):
 
-  private val doc = DomUtil.parseXMLFile(file)
-  assert(doc != null, "Check contents of " + file.getAbsolutePath)
+  private val doc = DomUtil.parseXMLFile(file).getOrElse {
+    throw new IllegalArgumentException("Could not parse XML file: " + file.getAbsolutePath)
+  }
   private val root = doc.getDocumentElement
   private val name_ = DomUtil.getAttribute(root, "name")
   private val children = root.getChildNodes
