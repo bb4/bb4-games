@@ -59,9 +59,7 @@ class GoMoveGenerationInvariantTest extends AnyFunSuite {
             weights.getDefaultWeights,
             goMoveIdentity,
             context,
-            m => !m.isPassingMove && !m.isResignationMove,
-            // GoMoveGenerator force-reply pruning can vary between back-to-back calls at borderline positions.
-            checkDeterministic = false
+            m => !m.isPassingMove && !m.isResignationMove
           )
           MoveGenerationInvariantChecks.checkGoInvariants(searchable.getBoard, moves, lastMove, context)
       )

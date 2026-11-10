@@ -23,22 +23,25 @@ final class GoMoveGenerator(searchable_ : GoSearchable) {
    */
   def generateEvaluatedMoves(lastMove: GoMove, weights: ParameterArray): MoveList[GoMove] = {
     val prof = GoProfiler.getInstance
+    val board = searchable_.getBoard
     prof.startGenerateMoves()
+    try {
+      val moveList = generatePossibleMoves(lastMove)
+      dropMovesThatDoNotForceAReply(moveList)
 
-    val moveList = generatePossibleMoves(lastMove)
-    dropMovesThatDoNotForceAReply(moveList)
+      moveList.asScala.foreach { move =>
+        setMoveValue(weights, move)
+      }
+      val finder = new BestMoveFinder[GoMove](searchable_.getSearchOptions.getBestMovesSearchOptions)
+      val bestMoves = finder.getBestMoves(moveList)
+      addBackAtariMoves(moveList, bestMoves)
 
-    moveList.asScala.foreach { move =>
-      setMoveValue(weights, move)
+      addPassingMoveIfNeeded(lastMove, moveList, bestMoves, weights)
+      bestMoves
+    } finally {
+      board.clearTransientAnalysisMarkers()
+      prof.stopGenerateMoves()
     }
-    val finder = new BestMoveFinder[GoMove](searchable_.getSearchOptions.getBestMovesSearchOptions)
-    val bestMoves = finder.getBestMoves(moveList)
-    addBackAtariMoves(moveList, bestMoves)
-
-    addPassingMoveIfNeeded(lastMove, moveList, bestMoves, weights)
-
-    prof.stopGenerateMoves()
-    bestMoves
   }
 
   /**

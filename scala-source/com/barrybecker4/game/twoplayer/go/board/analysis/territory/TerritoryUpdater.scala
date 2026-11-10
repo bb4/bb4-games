@@ -5,7 +5,6 @@ import com.barrybecker4.game.twoplayer.go.GoController
 import com.barrybecker4.game.twoplayer.go.board.{GoBoard, GoProfiler}
 import com.barrybecker4.game.twoplayer.go.board.analysis.group.GroupAnalyzerMap
 import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup
-import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoStone}
 import scala.jdk.CollectionConverters._
 
 /**
@@ -58,21 +57,7 @@ class TerritoryUpdater(val board_ : GoBoard, val analyzerMap_ : GroupAnalyzerMap
    * Clear whatever cached score state we might have before recomputing.
    */
   private def clearScores(): Unit = {
-    for (i <- 1 to board_.getNumRows) {
-      for (j <- 1 to board_.getNumCols) {
-        val pos = board_.getPosition(i, j).asInstanceOf[GoBoardPosition]
-        pos.setScoreContribution(0)
-
-        if (pos.isOccupied) {
-          val stone = pos.getPiece.asInstanceOf[GoStone]
-          stone.setHealth(0)
-          val string = pos.getString
-          if (string != null) {
-            string.setUnconditionallyAlive(false)
-          }
-        }
-      }
-    }
+    board_.clearTransientAnalysisMarkers()
   }
 
   /**

@@ -7,7 +7,7 @@ import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard
 import com.barrybecker4.game.twoplayer.go.board.analysis.CornerChecker
 import com.barrybecker4.game.twoplayer.go.board.analysis.neighbor.NeighborAnalyzer
 import com.barrybecker4.game.twoplayer.go.board.elements.group.GoGroupSet
-import com.barrybecker4.game.twoplayer.go.board.elements.position.GoBoardPosition
+import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoStone}
 import com.barrybecker4.game.twoplayer.go.board.elements.string.{GoString, GoStringSet, IGoString}
 import com.barrybecker4.game.twoplayer.go.board.move.GoMove
 import com.barrybecker4.game.twoplayer.go.board.update.{BoardUpdater, CaptureCounts}
@@ -226,8 +226,32 @@ final class GoBoard(size: Int, numHandicapStones: Int) extends TwoPlayerBoard[Go
   }
 
   /**
+   * Benson and territory analysis set scratch flags on strings and eyes.
+   * They are not part of board geometry and must not persist after static evaluation.
+   *
    * @return either the number of black or white stones.
    */
+  def clearTransientAnalysisMarkers(): Unit = {
+    for (i <- 1 to getNumRows) {
+      for (j <- 1 to getNumCols) {
+        val pos = getPosition(i, j).asInstanceOf[GoBoardPosition]
+        pos.setScoreContribution(0)
+        if (pos.isOccupied) {
+          val stone = pos.getPiece.asInstanceOf[GoStone]
+          stone.setHealth(0)
+          val string = pos.getString
+          if (string != null) {
+            string.setUnconditionallyAlive(false)
+          }
+        }
+        val eye = pos.getEye
+        if (eye != null) {
+          eye.setUnconditionallyAlive(false)
+        }
+      }
+    }
+  }
+
   def getNumStones(forPlayer1: Boolean): Int = {
     var numStones = 0
 
