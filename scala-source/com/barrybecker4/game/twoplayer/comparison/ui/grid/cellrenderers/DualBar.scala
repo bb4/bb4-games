@@ -8,7 +8,7 @@ import java.awt.{Color, Graphics2D}
  */
 class DualBar(barColor: Color) extends SegmentedBar {
 
-  private var color = barColor
+  private val color = barColor
   private var segments: Array[Double] = null
   private var labels: Array[String] = null
 

@@ -1,13 +1,14 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.common.player
 
+import java.util
 import java.util.ArrayList
-import scala.jdk.CollectionConverters._
+import scala.jdk.CollectionConverters.*
 
 /**
  * A list of players.
  */
-class PlayerList extends ArrayList[Player] {
+class PlayerList extends util.ArrayList[Player] {
 
   def getFirstPlayer: Player = get(0)
 

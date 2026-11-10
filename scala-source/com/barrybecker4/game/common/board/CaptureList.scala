@@ -1,8 +1,9 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.common.board
 
+import java.util
 import java.util.LinkedList
-import scala.jdk.CollectionConverters._
+import scala.jdk.CollectionConverters.*
 
 /**
  * This class represents a linked list of captured pieces.
@@ -11,7 +12,7 @@ import scala.jdk.CollectionConverters._
  *
  * @see Board
  */
-class CaptureList extends LinkedList[BoardPosition] {
+class CaptureList extends util.LinkedList[BoardPosition] {
 
   def this(captureList: CaptureList) = {
     this()
