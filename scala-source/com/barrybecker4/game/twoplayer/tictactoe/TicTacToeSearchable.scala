@@ -12,7 +12,7 @@ class TicTacToeSearchable(board: TicTacToeBoard, players: PlayerList)
     extends GoMokuSearchable[TicTacToeBoard](board, players) {
 
   def this(searchable: TicTacToeSearchable) = {
-    this(searchable.board_.asInstanceOf[TicTacToeBoard], searchable.players.clone().asInstanceOf[PlayerList])
+    this(searchable.getBoard.copy(), searchable.players.clone().asInstanceOf[PlayerList])
   }
 
   override def createPatterns(): Patterns = {

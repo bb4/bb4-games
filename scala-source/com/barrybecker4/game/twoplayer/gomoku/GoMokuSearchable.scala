@@ -20,7 +20,7 @@ class GoMokuSearchable[B <: GoMokuBoard](board: B, players: PlayerList)
   init()
 
   private def this(searchable: GoMokuSearchable[B]) = {
-    this(searchable.board_, searchable.players)
+    this(searchable.getBoard.copy().asInstanceOf[B], searchable.players.clone().asInstanceOf[PlayerList])
     init()
   }
 

@@ -16,7 +16,7 @@ class BlockadeSearchable(board: BlockadeBoard, players: PlayerList)
     extends TwoPlayerSearchable[BlockadeMove, BlockadeBoard](board, players):
 
   private def this(searchable: BlockadeSearchable) =
-    this(searchable.board_, searchable.players)
+    this(searchable.getBoard.copy(), searchable.players.clone().asInstanceOf[PlayerList])
 
   override def copy(): BlockadeSearchable =
     BlockadeSearchable(this)

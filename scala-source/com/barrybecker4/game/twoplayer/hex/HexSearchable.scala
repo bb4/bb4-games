@@ -15,7 +15,7 @@ class HexSearchable(board: HexBoard, players: PlayerList)
   private val worthCalculator = WorthCalculator()
 
   def this(searchable: HexSearchable) =
-    this(searchable.board_, searchable.players.clone().asInstanceOf[PlayerList])
+    this(searchable.getBoard.copy(), searchable.players.clone().asInstanceOf[PlayerList])
 
   override def copy(): HexSearchable =
     HexSearchable(this)

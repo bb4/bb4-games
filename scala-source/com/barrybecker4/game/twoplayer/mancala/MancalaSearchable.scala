@@ -20,7 +20,7 @@ class MancalaSearchable(board: MancalaBoard, players: PlayerList)
   private val generator = MancalaMoveGenerator()
 
   def this(searchable: MancalaSearchable) =
-    this(searchable.board_, searchable.players)
+    this(searchable.getBoard.copy(), searchable.players.clone().asInstanceOf[PlayerList])
 
   override def copy(): MancalaSearchable =
     MancalaSearchable(this)

@@ -14,7 +14,7 @@ class ChessSearchable(board: ChessBoard, players: PlayerList)
     extends TwoPlayerSearchable[ChessMove, ChessBoard](board, players) {
 
   def this(searchable: ChessSearchable) = {
-    this(searchable.board_, searchable.players)
+    this(searchable.getBoard.copy(), searchable.players.clone().asInstanceOf[PlayerList])
   }
 
   override def copy(): ChessSearchable = new ChessSearchable(this)

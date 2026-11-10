@@ -11,7 +11,7 @@ class CheckersSearchable(board: CheckersBoard, players: PlayerList)
     extends TwoPlayerSearchable[CheckersMove, CheckersBoard](board, players) {
 
   def this(searchable: CheckersSearchable) = {
-    this(searchable.board_, searchable.players)
+    this(searchable.getBoard.copy(), searchable.players.clone().asInstanceOf[PlayerList])
   }
 
   override def copy(): CheckersSearchable = new CheckersSearchable(this)
