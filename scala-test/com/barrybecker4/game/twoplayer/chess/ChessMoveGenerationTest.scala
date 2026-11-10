@@ -168,6 +168,25 @@ class ChessMoveGenerationTest extends AnyFunSuite {
     assert(causesSelfCheck, "Moving blocking rook should cause self-check")
   }
 
+  test("piece move lists allow filtering self-check moves in place") {
+    val board = emptyBoard()
+    board.setPosition(new BoardPosition(4, 4, new ChessPiece(true, ChessPieceType.KING)))
+    board.setPosition(new BoardPosition(4, 5, new ChessPiece(true, ChessPieceType.ROOK)))
+    board.setPosition(new BoardPosition(4, 8, new ChessPiece(false, ChessPieceType.ROOK)))
+
+    val rook = board.getPosition(4, 5).getPiece.asInstanceOf[ChessPiece]
+    val moves = rook.findPossibleMoves(board, 4, 5, null)
+    val sizeBefore = moves.size()
+
+    val it = moves.iterator()
+    while (it.hasNext) {
+      val move = it.next()
+      if (board.causesSelfCheck(move)) it.remove()
+    }
+
+    assert(sizeBefore > moves.size(), "Some rook moves should be removed as self-check")
+  }
+
   test("initial board worth is approximately zero") {
     val board = createBoard()
     val searchable = createSearchable(board)

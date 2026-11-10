@@ -46,6 +46,11 @@ enum ChessPieceType(private val symbol: Char) {
 }
 
 object ChessPieceType {
+
+  /** Modifiable list; {@code ListBuffer.asJava} does not support {@code Iterator.remove}. */
+  private def toMoveList(moveList: scala.collection.mutable.ListBuffer[ChessMove]): java.util.ArrayList[ChessMove] =
+    new java.util.ArrayList(moveList.asJava)
+
   private def findPawnMoves(board: Board[ChessMove], row: Int, col: Int, piece: ChessPiece): java.util.List[ChessMove] = {
     val moveList = scala.collection.mutable.ListBuffer[ChessMove]()
     val direction = if (piece.isOwnedByPlayer1) 1 else -1
@@ -57,7 +62,7 @@ object ChessPieceType {
     checkPawnDiagonal(row, col, direction, -1, board, moveList, piece)
     checkPawnDiagonal(row, col, direction, 1, board, moveList, piece)
 
-    moveList.asJava
+    toMoveList(moveList)
   }
 
   private def checkPawnForward(row: Int, col: Int, direction: Int, numSteps: Int, b: Board[ChessMove],
@@ -78,7 +83,7 @@ object ChessPieceType {
     checkRunDirection(row, col, -1, 0, board, moveList, piece)
     checkRunDirection(row, col, 0, 1, board, moveList, piece)
     checkRunDirection(row, col, 0, -1, board, moveList, piece)
-    moveList.asJava
+    toMoveList(moveList)
   }
 
   private def findKnightMoves(board: Board[ChessMove], row: Int, col: Int, piece: ChessPiece): java.util.List[ChessMove] = {
@@ -93,7 +98,7 @@ object ChessPieceType {
     checkRunDirection(row, col, 1, -1, board, moveList, piece)
     checkRunDirection(row, col, -1, 1, board, moveList, piece)
     checkRunDirection(row, col, -1, -1, board, moveList, piece)
-    moveList.asJava
+    toMoveList(moveList)
   }
 
   private def findQueenMoves(board: Board[ChessMove], row: Int, col: Int, lastMove: Move, piece: ChessPiece): java.util.List[ChessMove] = {
@@ -102,7 +107,7 @@ object ChessPieceType {
     val bishopMoveList = findBishopMoves(board, row, col, piece).asScala
     moveList.addAll(rookMoveList)
     moveList.addAll(bishopMoveList)
-    moveList.asJava
+    toMoveList(moveList)
   }
 
   private def findKingMoves(board: Board[ChessMove], row: Int, col: Int, piece: ChessPiece): java.util.List[ChessMove] = {
@@ -120,7 +125,7 @@ object ChessPieceType {
       checkForCapture(next, row, col, moveList, piece)
       checkForNonCapture(next, row, col, moveList, piece)
     }
-    moveList.asJava
+    toMoveList(moveList)
   }
 
   private def checkRunDirection(curRow: Int, curCol: Int, rowDir: Int, colDir: Int, board: Board[ChessMove],
