@@ -53,7 +53,7 @@ class SurrogateMultiPlayer(player: MultiGamePlayer, connection: IServerConnectio
   override def getAction(controller: MultiGameController[?, ?]): PlayerAction = {
     try {
       val t1 = System.currentTimeMillis()
-      System.out.println(player.getName + " now waiting for surrogate action on "
+      GameContext.log(2, player.getName + " now waiting for surrogate action on "
         + this + ",  Thread=" + Thread.currentThread.getName)
 
       var action: PlayerAction = null
@@ -61,7 +61,7 @@ class SurrogateMultiPlayer(player: MultiGamePlayer, connection: IServerConnectio
         while (action == null) {
           player.wait(TIMEOUT_DURATION)
           if ((System.currentTimeMillis() - t1) > (TIMEOUT_DURATION - 10)) {
-            System.out.println("****** TIMEOUT! Waiting for " + player.getName + " to play.")
+            GameContext.log(2, "****** TIMEOUT! Waiting for " + player.getName + " to play.")
           }
           action = player.getAction(controller)
           player.setAction(null)
@@ -69,7 +69,7 @@ class SurrogateMultiPlayer(player: MultiGamePlayer, connection: IServerConnectio
       }
 
       val time = (System.currentTimeMillis() - t1) / 1000.0f
-      System.out.println("got action =" + action + " for "
+      GameContext.log(2, "got action =" + action + " for "
         + player.getName + " after " + time + "seconds on "
         + this + ",  Thread=" + Thread.currentThread.getName)
       action

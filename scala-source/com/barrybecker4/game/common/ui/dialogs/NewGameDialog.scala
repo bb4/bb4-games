@@ -183,7 +183,7 @@ abstract class NewGameDialog(parent: Component, val viewer_ : GameViewModel)
    */
   override def processWindowEvent(e: WindowEvent): Unit = {
     if (e.getID == WindowEvent.WINDOW_CLOSING) {
-      System.err.println("Window closing!")
+      GameContext.log(2, "Window closing!")
       if (controller_.isOnlinePlayAvailable) {
         GameContext.log(0, "Standing up from table.")
         playOnlinePanel_.closing()

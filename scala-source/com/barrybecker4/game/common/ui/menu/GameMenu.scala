@@ -32,7 +32,7 @@ class GameMenu(initialGame: String) extends AbstractGameMenu(GameContext.getLabe
 
     currentGameName =
       PluginManager.getInstance.getPluginFromLabel(item.getText).getName
-    System.out.println("the current game is " + currentGameName)
+    GameContext.log(2, "the current game is " + currentGameName)
 
     notifyOfChange(currentGameName)
   }

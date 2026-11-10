@@ -38,9 +38,9 @@ class PerformanceResultsBuilder(controller: TwoPlayerController[?, ?], optionsLi
       .setSearchOptions(config2.getSearchOptions.asInstanceOf[SearchOptions[TwoPlayerMove, TwoPlayerBoard[TwoPlayerMove]]])
     val description = config1.getName + FILE_SIDE_DELIM + config2.getName
 
-    System.out.println("(" + i + ", " + j + ") round 1  starts:" + config1.getSearchOptions.getSearchStrategyMethod)
+    GameContext.log(1, "(" + i + ", " + j + ") round 1  starts:" + config1.getSearchOptions.getSearchStrategyMethod)
     val p1FirstResults = getResultsForRound(player1, player2, description)
-    System.out.println("(" + i + ", " + j + ") round 2  starts:" + config2.getSearchOptions.getSearchStrategyMethod)
+    GameContext.log(1, "(" + i + ", " + j + ") round 2  starts:" + config2.getSearchOptions.getSearchStrategyMethod)
     val p2FirstResults = getResultsForRound(player2, player1, description)
 
     new PerformanceResultsPair(p1FirstResults, p2FirstResults)
@@ -57,7 +57,7 @@ class PerformanceResultsBuilder(controller: TwoPlayerController[?, ?], optionsLi
     controller.getViewer.asInstanceOf[TwoPlayerViewModel[?, ?]].doComputerVsComputerGame()
 
     assert(controller.isDone)
-    System.out.println("******** game is done = " + controller.isDone + " ******")
+    GameContext.log(1, "******** game is done = " + controller.isDone + " ******")
     val strengthOfWin = controller.getStrengthOfWin
     val numMoves = controller.getNumMoves
     val finalImage = GUIUtil.getSnapshot(controller.getViewer.asInstanceOf[JComponent])

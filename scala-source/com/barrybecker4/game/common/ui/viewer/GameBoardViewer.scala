@@ -94,7 +94,7 @@ abstract class GameBoardViewer[M <: Move, B <: Board[M]] extends JPanel
   def openGame(): Unit = {
     val chooser = FileChooserUtil.getFileChooser(new SgfFileFilter())
     if (lastFileAccessed != null) {
-      println("lastFile=" + lastFileAccessed.toString)
+      GameContext.log(2, "lastFile=" + lastFileAccessed.toString)
       chooser.setCurrentDirectory(lastFileAccessed)
     }
     val state = chooser.showOpenDialog(null)

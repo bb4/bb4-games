@@ -1,7 +1,7 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.go.board.analysis
 
-import com.barrybecker4.game.common.Move
+import com.barrybecker4.game.common.{GameContext, Move}
 import com.barrybecker4.game.twoplayer.common.cache.{ScoreCache, ScoreEntry}
 import com.barrybecker4.game.twoplayer.common.search.transposition.HashKey
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
@@ -54,8 +54,7 @@ final class BoardEvaluator(val board_ : GoBoard, val scoreCache: ScoreCache, kom
           "\ncurrent info: " +
           getWorthInfo +
           s"using current key=$key"
-        println(bldr)
-        System.out.flush()
+        GameContext.log(0, bldr)
       }
     }
     worth

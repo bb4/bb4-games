@@ -44,7 +44,7 @@ class MultiPlayerTableManager(
     }
 
     var handled = false
-    System.out.println("got an update of the multi-player table list from the server:\n" + cmd)
+    GameContext.log(2, "got an update of the multi-player table list from the server:\n" + cmd)
     cmd.getName match {
       case GameCommand.Name.UPDATE_TABLES =>
         updateTables(cmd.getArgument.asInstanceOf[OnlineGameTableList])
@@ -120,7 +120,7 @@ class MultiPlayerTableManager(
   }
 
   def joinDifferentTable(joinRow: Int): Unit = {
-    System.out.println("in join different table. row=" + joinRow)
+    GameContext.log(2, "in join different table. row=" + joinRow)
     val m = onlineGameTablesTable_.getPlayerModel
 
     var i = 0

@@ -119,7 +119,7 @@ abstract class MultiPlayerOnlineManagerPanel(viewer: GameViewModel, dlg: GameSta
 
   override def closing(): Unit = {
     val name = namePanel_.getCurrentName
-    System.out.println(name + " cancelled online dlg")
+    GameContext.log(2, name + " cancelled online dlg")
   }
 
   override def keyTyped(key: KeyEvent): Unit = {}

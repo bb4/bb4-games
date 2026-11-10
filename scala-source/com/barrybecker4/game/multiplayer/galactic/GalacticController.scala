@@ -44,7 +44,7 @@ class GalacticController
   override def isDone: Boolean =
     if getLastMove == null then return false
     val numMoves = getNumMoves
-    System.out.println(s"num moves = $numMoves")
+    GameContext.log(2, s"num moves = $numMoves")
     if (numMoves + 2) >= getOptions.asInstanceOf[GalacticOptions].getMaxYearsToPlay then
       return true
     Galaxy.allPlanetsOwnedByOnePlayer()
