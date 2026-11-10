@@ -95,27 +95,6 @@ task runKgsTesujisoftGoClient(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
 }
 
-/*
-task runGoGui(type: JavaExec) {
-    mainClass = 'gogui.Main'
-    args = ["arg1", "-program", "arg2", "${java_compiler} -ea -classpath ${classesDir};${libDir}/gogui7.1.jar com.barrybecker4.game.twoplayer.go.server.GtpTesujisoftGoServer"]
-    classpath = sourceSets.main.runtimeClasspath
-}     */
-
-/*
-task runTrivialServer(type: JavaExec) {
-    mainClass = 'com.barrybecker4.game.common.online.ui.OnlineGameServerFrame'
-    args = ["-game", "trivial"]
-    classpath = sourceSets.main.runtimeClasspath
-}
-task runTrivialServerAndClients(type: JavaExec) {
-    tasks.runTrivialServer.execute()
-    tasks.runTrivial.execute()
-    tasks.runTrivial.execute()
-    tasks.runTrivial.execute()
-}*/
-
-
 task runPokerServer(type: JavaExec) {
     group = 'application'
     mainClass = 'com.barrybecker4.game.common.online.ui.OnlineGameServerFrame'
@@ -130,9 +109,6 @@ task runGameComparisons(type: JavaExec) {
     args = ["-name", "gomoku", "-locale", "ENGLISH"]
     classpath = sourceSets.main.runtimeClasspath
 }
-
-
-/* Some ant code to run poker server and clients was here, but deleted. See git */
 
 // The appMap is used to create the list of available application in the html index page and to generate the app tasks.
 ext.appMap = new LinkedHashMap()
