@@ -16,8 +16,6 @@ import java.awt.event.{ActionEvent, WindowEvent}
 /**
  * Use this modal dialog to let the user configure a new local game.
  * The have a choice of a new player vs player game or combinations of player vs computer or all computer.
- *
- * @author Barry Becker
  */
 abstract class NewGameDialog(parent: Component, val viewer_ : GameViewModel)
   extends OptionsDialog(parent) with ChangeListener {

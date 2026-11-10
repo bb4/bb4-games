@@ -10,8 +10,6 @@ object TwoPlayerOptions:
 
 /**
  * Encapsulate two player options here to keep the TwoPlayerController class mush simpler.
- *
- * @author Barry Becker
  */
 class TwoPlayerOptions(preferredTone: String) extends GameOptions:
 

@@ -8,8 +8,6 @@ import com.barrybecker4.game.common.online.server.IServerConnection
 /**
  * On the server, all players are surrogates except for the robot players.
  * On the client, all players are surrogates except for the human player that is controlling that client.
- *
- * @author Barry Becker
  */
 class SurrogatePlayer(private val player_ : Player, connection: IServerConnection) 
     extends Player(player_.getName, player_.getColor, player_.isHuman) 

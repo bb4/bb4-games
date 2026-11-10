@@ -3,9 +3,7 @@ package com.barrybecker4.game.common.ui.panel
 
 import javax.swing._
 
-/**
- * @author Barry Becker
- */
+
 trait IGamePanel {
 
   /**

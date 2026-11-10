@@ -8,7 +8,6 @@ import java.io.File
 /**
  * Reads in the test case definition from the xml case file and
  * runs the search methods specified and verifies the expected results.
- * @author Barry Becker
  */
 class SearchTestExample(file: File):
 

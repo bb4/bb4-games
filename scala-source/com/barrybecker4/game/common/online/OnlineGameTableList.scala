@@ -9,8 +9,6 @@ import scala.jdk.CollectionConverters._
 
 /**
  * A list of tables that players can sit down at in order to play a game in an online environment.
- *
- * @author Barry Becker
  */
 class OnlineGameTableList extends ArrayList[OnlineGameTable] with Serializable {
 

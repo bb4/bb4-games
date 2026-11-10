@@ -17,8 +17,6 @@ import scala.jdk.CollectionConverters._
  * Manage multi-player online game tables.
  * Shows a list of the currently active "tables" to the user in a table.
  * Used only on the client to show list of active game tables.
- *
- * @author Barry Becker
  */
 class MultiPlayerTableManager(
   connection: IServerConnection,

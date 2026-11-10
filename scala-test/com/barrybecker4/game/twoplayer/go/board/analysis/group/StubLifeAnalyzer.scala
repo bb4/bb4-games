@@ -3,7 +3,6 @@ package com.barrybecker4.game.twoplayer.go.board.analysis.group
 
 /**
  * Always returns a fixed value depending on boolean passed to constructor.
- * @author Barry Becker
  */
 final class StubLifeAnalyzer(alwaysAlive: Boolean) extends LifeAnalyzer:
 

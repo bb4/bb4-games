@@ -9,8 +9,6 @@ import com.barrybecker4.optimization.parameter.ParameterArray
 /**
  * Determines the difference in value between the most recent move
  * and how it was before in the up/down or left right direction.
- *
- * @author Barry Becker
  */
 class StraightDifferencer(board: TwoPlayerBoard[?], patterns: Patterns,
                          lineFactory: LineFactory, dir: Direction)

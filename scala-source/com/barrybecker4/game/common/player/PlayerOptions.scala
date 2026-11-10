@@ -6,8 +6,6 @@ import java.io.Serializable
 
 /**
  * Represents a player in a game (either human or computer).
- *
- * @author Barry Becker
  */
 class PlayerOptions(var name_ : String, private var color_ : Color) extends Serializable {
 

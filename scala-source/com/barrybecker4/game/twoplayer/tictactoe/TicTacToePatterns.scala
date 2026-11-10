@@ -7,8 +7,6 @@ import com.barrybecker4.game.twoplayer.gomoku.pattern.Patterns
  * Encapsulates the domain knowledge for TicTacToe.
  * These are key patterns that can occur in the game and are weighted
  * by importance to let the computer play better.
- *
- * @author Barry Becker
  */
 final class TicTacToePatterns extends Patterns {
 

@@ -8,7 +8,6 @@ import java.util.{LinkedList, List as JList}
 
 /**
  * Creates lines and remembers what lines were created.
- * @author Barry Becker
  */
 class LineFactoryRecorder extends LineFactory:
 

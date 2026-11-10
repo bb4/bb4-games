@@ -16,8 +16,6 @@ import java.awt.*
 
 /**
  * Presents info to the user about the currently moused over node in the tree.
- *
- * @author Barry Becker
  */
 class MoveDetailsPanel extends JPanel:
 

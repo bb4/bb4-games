@@ -7,8 +7,6 @@ import com.barrybecker4.game.twoplayer.comparison.model.config.{SearchOptionsCon
 
 /**
  * A default list of search config options so we do not have to enter them every time.
- *
- * @author Barry Becker
  */
 class DefaultSearchConfigurations extends SearchOptionsConfigList {
 

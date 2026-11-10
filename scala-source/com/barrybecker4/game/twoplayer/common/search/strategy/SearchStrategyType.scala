@@ -9,8 +9,6 @@ import com.barrybecker4.optimization.parameter.ParameterArray
 /**
  * Currently supported search strategies.
  * Extends java.lang.Enum for Java interop.
- *
- * @author Barry Becker
  */
 enum SearchStrategyType(
   private val labelKey: String,

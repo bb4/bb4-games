@@ -12,8 +12,6 @@ import java.awt.Component
 
 /**
  * This class defines the main UI for the TicTacToe game applet or application.
- *
- * @author Barry Becker
  */
 class TicTacToePanel extends GoMokuPanel:
 

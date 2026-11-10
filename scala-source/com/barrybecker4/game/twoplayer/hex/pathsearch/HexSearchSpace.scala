@@ -10,9 +10,7 @@ import scala.jdk.javaapi.CollectionConverters
 
 import java.util.{Collections, LinkedList, List as JList}
 
-/**
- * @author Barry Becker
- */
+
 class HexSearchSpace(board: HexBoard, player1: Boolean) 
     extends AbstractSearchSpace[HexState, HexTransition](
       new HexState(board, if player1 then IntLocation(0, 2) else IntLocation(2, 0))

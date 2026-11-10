@@ -9,8 +9,6 @@ import com.barrybecker4.optimization.parameter.ParameterArray
 /**
  * Determines the difference in value between the most recent move
  * and how it was before in one specific direction
- *
- * @author Barry Becker
  */
 abstract class ValueDifferencer(protected val board_ : TwoPlayerBoard[?],
                                protected val patterns_ : Patterns,

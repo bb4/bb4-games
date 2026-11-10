@@ -12,8 +12,6 @@ import com.barrybecker4.optimization.parameter.ParameterArray
  * Evaluates the value a recent move.
  * It does this by comparing the change in worth of the line patterns
  * vertically, horizontally, and diagonally through the new move's position.
- *
- * @author Barry Becker
  */
 class MoveEvaluator(val patterns: Patterns) {
 

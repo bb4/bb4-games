@@ -8,7 +8,6 @@ import org.junit.Test
 
 /**
  * Various uniqueness tests for hash keys.
- * @author Barry Becker
  */
 class HashGo9x9UniquenessTest extends HashGoBase:
 

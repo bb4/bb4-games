@@ -10,7 +10,6 @@ import java.util.Set
 
 /**
  * Finds the weakest group on the board relative to some other group.
- * @author Barry Becker
  */
 class WeakestGroupFinder(val board: GoBoard, val analyzerMap: GroupAnalyzerMap) {
 

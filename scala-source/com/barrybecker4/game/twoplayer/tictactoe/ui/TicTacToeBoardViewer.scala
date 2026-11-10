@@ -10,8 +10,6 @@ import com.barrybecker4.game.twoplayer.tictactoe.TicTacToeController
 
 /**
  * Takes a TicTacToeController as input and displays the current state of the TicTacToe Game.
- *
- * @author Barry Becker
  */
 class TicTacToeBoardViewer extends GoMokuBoardViewer:
 

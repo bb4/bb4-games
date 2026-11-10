@@ -15,7 +15,6 @@ import java.awt.Dimension
  * It contains a PlayerPanel corresponding to the specified game.
  *
  * @see GamePanel
- * @author Barry Becker
  */
 class GameApplet extends MyJApplet {
 

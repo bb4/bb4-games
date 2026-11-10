@@ -10,7 +10,6 @@ import com.barrybecker4.game.twoplayer.go.board.elements.IGoMember
  * It is either a black or white stone.
  *
  * @see GoBoardPosition
- * @author Barry Becker
  */
 class GoStone(player1: Boolean, health: Float)
   extends GamePiece(player1, GamePiece.REGULAR_PIECE) with IGoMember {

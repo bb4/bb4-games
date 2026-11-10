@@ -15,8 +15,6 @@ import javax.swing.{JFrame, JMenuBar, WindowConstants}
  * against each other using different search strategies.
  * This can work well for integration testing and performance testing of
  * the different search strategies when applied to all the different two player games.
- *
- * @author Barry Becker
  */
 class GameComparisonApp private (initialGame: String) {
 

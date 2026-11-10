@@ -16,8 +16,6 @@ import com.barrybecker4.game.common.{GameContext, Move, MoveList}
  * Other games like Risk, Galactic Empire, or Monopoly and might be supportable in the future.
  * They are harder because they do not have perfect information (i.e. they use dice).
  * and have multiple players.
- *
- * @author Barry Becker
  */
 abstract class Board[M <: Move] extends IRectangularBoard[M] {
 

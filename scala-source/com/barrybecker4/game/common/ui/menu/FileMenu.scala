@@ -9,7 +9,6 @@ import java.awt.event.{ActionEvent, ActionListener}
 /**
  * The standard file menu for all game programs.
  * Allows such common operations as new, load, save, exit.
- * @author Barry Becker
  */
 class FileMenu(listener: FileMenuListener) extends JMenu(GameContext.getLabel("FILE")) with ActionListener {
 

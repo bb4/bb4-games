@@ -15,8 +15,6 @@ import java.util.LinkedHashMap
  * in the move structure so that when we are not in debug mode the space is not used.
  *
  * Extends Java LinkedHashMap so toString matches Java HashMap style (`{k=v, ...}`).
- *
- * @author Barry Becker
  */
 class NodeAttributes extends LinkedHashMap[String, String]:
 

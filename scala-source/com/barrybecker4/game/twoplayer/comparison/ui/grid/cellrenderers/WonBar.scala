@@ -8,8 +8,6 @@ import java.awt.{Color, Graphics2D, Image}
 /**
  * The bar that shows which side won for each player who started fist.
  * Gray if tie.
- *
- * @author Barry Becker
  */
 class WonBar extends SegmentedBar {
 

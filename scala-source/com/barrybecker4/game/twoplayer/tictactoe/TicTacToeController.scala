@@ -13,8 +13,6 @@ import java.awt.Color
  * Without taking symmetries into account, the number of possible games is 255,168 (Henry Bottomley, 2001)
  * Accounting for board symmetries, the number of games in these conditions is 26,830 (Schaeffer 2002)
  * See http://en.wikipedia.org/wiki/Tic-tac-toe
- *
- * @author Barry Becker
  */
 class TicTacToeController extends GoMokuController[TicTacToeBoard] {
 

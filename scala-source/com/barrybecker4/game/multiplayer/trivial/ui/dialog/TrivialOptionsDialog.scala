@@ -12,8 +12,6 @@ import java.awt.event.{ActionListener, ItemListener}
 /**
  * Use this modal dialog to let the user choose from among the
  * different game options.
- *
- * @author Barry Becker
  */
 class TrivialOptionsDialog(parent: Component, controller: GameController[?, ?])
   extends MultiGameOptionsDialog(parent, controller)

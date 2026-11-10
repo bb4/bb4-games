@@ -6,8 +6,6 @@ import com.barrybecker4.game.twoplayer.common.search.strategy.{EvaluationPerspec
 
 /**
  * Meta information about a move made during search.
- *
- * @author Barry Becker
  */
 object SearchResult:
   /** this is the move id when there is no next move at all */

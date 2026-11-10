@@ -7,8 +7,6 @@ import com.barrybecker4.game.twoplayer.common.search.tree.{IGameTreeViewable, Se
 
 /**
  * Interface for all SearchStrategies for 2 player games with perfect information.
- *
- * @author Barry Becker
  */
 trait SearchStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]] extends SearchProgress {
 

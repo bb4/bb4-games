@@ -13,7 +13,6 @@ import scala.jdk.CollectionConverters.*
 /**
  * Stub implementation of Searchable to help test the search strategy classes without needing
  * a specific game implementation.
- * @author Barry Becker
  */
 class SearchableStub(private var options_ : SearchOptions[TwoPlayerMoveStub, TwoPlayerBoard[TwoPlayerMoveStub]])
     extends AbstractSearchable[TwoPlayerMoveStub, TwoPlayerBoard[TwoPlayerMoveStub]](new MoveList[TwoPlayerMoveStub]()):

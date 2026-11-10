@@ -8,8 +8,6 @@ import com.barrybecker4.game.twoplayer.gomoku.pattern.Patterns
 /**
  * Determines the difference in value between the most recent move
  * and how it was before in one specific direction
- *
- * @author Barry Becker
  */
 class ValueDifferencerFactory(protected val patterns_ : Patterns,
                               protected val lineFactory_ : LineFactory) {

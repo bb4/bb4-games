@@ -9,8 +9,6 @@ import javax.swing.{JComponent, JPanel}
 
 /**
  * Show summary information about all planets (or maybe just the ones that you own).
- *
- * @author Barry Becker
  */
 final class PlanetDetailsDialog(parent: Component, boardViewer: GameBoardViewer[?, ?])
   extends AbstractDialog(parent):

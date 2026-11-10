@@ -11,8 +11,6 @@ import java.awt.{Component, Dimension, FlowLayout}
 /**
  * Allow for editing the polynomial weights used in the static
  * evaluation function
- *
- * @author Barry Becker
  */
 class EditWeightsPanel(
   private val weights_ : ParameterArray,

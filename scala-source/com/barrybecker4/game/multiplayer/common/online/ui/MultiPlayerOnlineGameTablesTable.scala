@@ -13,8 +13,6 @@ import java.util.ArrayList
 
 /**
  * A table that has a row for each virtual online game table.
- *
- * @author Barry Becker
  */
 abstract class MultiPlayerOnlineGameTablesTable(
   colNames: Array[String],

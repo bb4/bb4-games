@@ -3,8 +3,6 @@ package com.barrybecker4.game.twoplayer.common.search.strategy
 
 /**
  * Interface for something that can be queried for current search progress toward finding next move.
- *
- * @author Barry Becker
  */
 trait SearchProgress {
 

@@ -13,8 +13,6 @@ import scala.jdk.javaapi.CollectionConverters as JavaConverters
 /**
  * Turns the list of search option configurations into a NxN grid
  * to compare the performance of all the search configurations in the list.
- *
- * @author Barry Becker
  */
 class ComparisonGrid private (optionsList: SearchOptionsConfigList, colNames: Array[String])
   extends TableBase(JavaConverters.asScala(optionsList).toSeq, colNames) {

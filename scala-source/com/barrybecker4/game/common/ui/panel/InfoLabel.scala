@@ -8,7 +8,6 @@ import java.awt.Font
 
 /**
  * An info label has a label a colon and a value.
- * @author Barry Becker
  */
 class InfoLabel(s: String) extends JLabel(s + InfoLabel.COLON) {
   

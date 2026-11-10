@@ -14,7 +14,6 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Verify that all the methods in GoMokuSearchable work as expected
- * @author Barry Becker
  */
 public class GoMokuSearchableTest extends TwoPlayerSearchableBaseTst {
 

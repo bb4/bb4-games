@@ -5,8 +5,6 @@ package com.barrybecker4.game.twoplayer.gomoku.pattern
  * Stores the key patterns that can occur in the game.
  * Acts as a fact hash lookup to find an index given a pattern.
  * Do not add duplicate patterns or patterns that are the reverse of other patterns.
- *
- * @author Barry Becker
  */
 class PatternTable {
 

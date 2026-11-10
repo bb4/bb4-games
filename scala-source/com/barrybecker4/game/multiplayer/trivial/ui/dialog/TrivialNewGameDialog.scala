@@ -8,9 +8,7 @@ import com.barrybecker4.game.multiplayer.trivial.online.ui.OnlineTrivialManagerP
 
 import java.awt.Component
 
-/**
- * @author Barry Becker
- */
+
 class TrivialNewGameDialog(parent: Component, viewer: GameViewModel) 
   extends MultiPlayerNewGameDialog(parent, viewer):
 

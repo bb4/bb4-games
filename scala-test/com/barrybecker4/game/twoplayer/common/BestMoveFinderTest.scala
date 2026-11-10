@@ -9,9 +9,7 @@ import com.barrybecker4.game.twoplayer.common.search.options.BestMovesSearchOpti
 import org.junit.{Before, Test}
 import org.junit.Assert.assertEquals
 
-/**
- * @author Barry Becker
- */
+
 class BestMoveFinderTest:
 
   private var finder: BestMoveFinder[TwoPlayerMove] = scala.compiletime.uninitialized

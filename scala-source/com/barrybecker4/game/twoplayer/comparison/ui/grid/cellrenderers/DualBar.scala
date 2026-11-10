@@ -5,8 +5,6 @@ import java.awt.{Color, Graphics2D}
 
 /**
  * A two part bar showing a result for when each side starts the game.
- *
- * @author Barry Becker
  */
 class DualBar(barColor: Color) extends SegmentedBar {
 

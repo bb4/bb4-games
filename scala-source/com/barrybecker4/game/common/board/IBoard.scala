@@ -12,8 +12,6 @@ import com.barrybecker4.game.common.Move
  * public contract. The abstract class may be package private if we don't
  * want to expose it. Or other classes may implement this interface without
  * extending the abstract base class.
- *
- * @author Barry Becker
  */
 trait IBoard[M <: Move] {
 

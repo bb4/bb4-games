@@ -16,7 +16,6 @@ import javax.swing.{JFrame, JMenuBar, WindowConstants}
  * If you specify a game class as an argument, then you do not get a menu of all possible games to play.
  *
  * @see GamePanel
- * @author Barry Becker
  */
 class GameApp private (initialGame: String) {
 

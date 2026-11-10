@@ -9,8 +9,6 @@ import com.barrybecker4.game.multiplayer.trivial.player.TrivialPlayer
 
 /**
  * Representation of a Trivial Game Board
- *
- * @author Barry Becker
  */
 class TrivialTable(numRows: Int, numCols: Int) extends Board:
 

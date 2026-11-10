@@ -10,7 +10,6 @@ import org.junit.Test
 
 /**
  * Verify that all the methods in GoBoard work as expected
- * @author Barry Becker
  */
 class TestGoBoard extends GoTestCase:
 

@@ -3,9 +3,7 @@ package com.barrybecker4.game.twoplayer.gomoku;
 
 import com.barrybecker4.game.twoplayer.common.search.SearchableHelper;
 
-/**
- * @author Barry Becker
- */
+
 public class GoMokuHelper extends SearchableHelper {
 
     @Override

@@ -4,8 +4,6 @@ package com.barrybecker4.game.twoplayer.common.search.strategy
 /**
  * Enum for how we want to evaluate moves.
  * Extends java.lang.Enum for Java interop.
- *
- * @author Barry Becker
  */
 enum EvaluationPerspective extends java.lang.Enum[EvaluationPerspective]:
 

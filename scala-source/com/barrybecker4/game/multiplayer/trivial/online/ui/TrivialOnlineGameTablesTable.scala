@@ -11,8 +11,6 @@ import com.barrybecker4.ui.table.TableButtonListener
 
 /**
  * Show Trivial specific game options in the table row.
- *
- * @author Barry Becker
  */
 class TrivialOnlineGameTablesTable(tableButtonListener: TableButtonListener)
   extends MultiPlayerOnlineGameTablesTable(TrivialOnlineGameTablesTable.TRIVIAL_COLUMN_NAMES, tableButtonListener):

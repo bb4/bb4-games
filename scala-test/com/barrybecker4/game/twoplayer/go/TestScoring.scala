@@ -7,9 +7,7 @@ import com.barrybecker4.game.twoplayer.go.board.move.GoMove
 import org.junit.Assert.{assertEquals, assertTrue}
 import org.junit.Test
 
-/**
- * @author Barry Becker
- */
+
 class TestScoring extends GoTestCase:
 
   private val PATH_PREFIX = "scoring/"

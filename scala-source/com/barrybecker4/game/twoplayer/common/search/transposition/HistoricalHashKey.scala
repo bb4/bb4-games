@@ -6,8 +6,6 @@ import scala.collection.mutable.ListBuffer
 
 /**
  * A version of the HashKey that maintains its history.
- *
- * @author Barry Becker
  */
 class HistoricalHashKey(key: Long = 0L) extends HashKey(key) {
 

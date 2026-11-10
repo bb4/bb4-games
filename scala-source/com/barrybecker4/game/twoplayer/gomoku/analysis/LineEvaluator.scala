@@ -7,7 +7,6 @@ import com.barrybecker4.optimization.parameter.ParameterArray
 
 /**
  * Test that we can correctly evaluate a run of symbols on the board.
- * @author Barry Becker
  */
 class LineEvaluator(val patterns_ : Patterns, private val weights_ : ParameterArray) {
 

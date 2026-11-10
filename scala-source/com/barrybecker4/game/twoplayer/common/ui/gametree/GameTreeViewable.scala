@@ -14,8 +14,6 @@ import java.util.Enumeration
  *
  * Most operations lock on the tree instance because we want to be sure that we do not modify the
  * tree while we are making a copy of it for use in rendering it.
- *
- * @author Barry Becker
  */
 final class GameTreeViewable(m: TwoPlayerMove) extends IGameTreeViewable:
 

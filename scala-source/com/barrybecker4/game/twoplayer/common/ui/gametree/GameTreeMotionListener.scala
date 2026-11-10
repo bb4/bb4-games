@@ -18,8 +18,6 @@ import java.util.List
 
 /**
  * Responsible for handling events related to the display, and interaction with, the visual game tree.
- *
- * @author Barry Becker
  */
 final class GameTreeMotionListener(
     treeViewer: GameTreeViewer,

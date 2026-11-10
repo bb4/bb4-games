@@ -11,8 +11,6 @@ import com.barrybecker4.optimization.parameter.redistribution.RedistributionFunc
  * evaluation polynomial used by each computer player.
  * Optimizing these weights is the primary way that the game
  * learns to play better.
- *
- * @author Barry Becker
  */
 class GameWeights(val defaultWeights: ParameterArray) {
 

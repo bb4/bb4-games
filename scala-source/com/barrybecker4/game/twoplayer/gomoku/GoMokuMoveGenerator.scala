@@ -12,8 +12,6 @@ import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy.WIN
 
 /**
  * Responsible for determining a set of reasonable next moves.
- *
- * @author Barry Becker
  */
 class GoMokuMoveGenerator {
 

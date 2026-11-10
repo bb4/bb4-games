@@ -12,7 +12,6 @@ import com.barrybecker4.game.multiplayer.galactic.player.GalacticPlayer
  * None of the cells are editable.
  *
  * @see GalacticPlayer
- * @author Barry Becker
  */
 class GalacticSummaryTable(players: PlayerList) extends SummaryTable(players, GalacticSummaryTable.COLUMN_NAMES):
 

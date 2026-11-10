@@ -11,7 +11,6 @@ import scala.jdk.CollectionConverters.*
 /**
  * Stub implementation of TwoPlayerMove to help test the search strategy classes without needing
  * a specific game implementation.
- * @author Barry Becker
  */
 object TwoPlayerMoveStub:
   val ROOT_ID = "root"

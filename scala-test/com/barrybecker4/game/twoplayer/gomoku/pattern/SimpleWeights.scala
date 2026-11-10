@@ -9,8 +9,6 @@ import scala.util.Random
 
 /**
  * Simple weights for unit testing.
- *
- * @author Barry Becker
  */
 class SimpleWeights extends GameWeights(
   new NumericParameterArray(

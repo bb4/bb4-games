@@ -10,9 +10,7 @@ import org.junit.Test
 import java.util.List
 import scala.jdk.CollectionConverters._
 
-/**
- * @author Barry Becker
- */
+
 class TestEyeNeighborMap:
 
   private var nbrMap: EyeNeighborMap = scala.compiletime.uninitialized

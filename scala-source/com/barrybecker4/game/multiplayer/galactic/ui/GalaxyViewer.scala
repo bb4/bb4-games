@@ -20,8 +20,6 @@ import java.util.{Iterator as JIterator, List as JList}
 /**
  * Takes a GalacticController as input and displays the
  * current state of the Galactic Empire Game.
- *
- * @author Barry Becker
  */
 class GalaxyViewer extends MultiGameViewer[GalacticTurn, Galaxy]:
 

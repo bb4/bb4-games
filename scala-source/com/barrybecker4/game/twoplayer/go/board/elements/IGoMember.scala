@@ -6,6 +6,5 @@ package com.barrybecker4.game.twoplayer.go.board.elements
  * members (or members of derived classes).
  *
  * @see GoSet and derived classes, GoEye, GoStone
- * @author Barry Becker
  */
 trait IGoMember

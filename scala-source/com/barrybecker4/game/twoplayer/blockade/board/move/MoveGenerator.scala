@@ -12,8 +12,6 @@ import java.util.{LinkedList, List as JList}
 
 /**
  * Generates candidate next moves for a game of Blockade given a current board state.
- *
- * @author Barry Becker
  */
 class MoveGenerator(weights_ : ParameterArray, board: BlockadeBoard):
 

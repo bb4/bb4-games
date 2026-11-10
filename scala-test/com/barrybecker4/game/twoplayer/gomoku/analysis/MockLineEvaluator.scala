@@ -6,7 +6,6 @@ import com.barrybecker4.game.twoplayer.gomoku.pattern.Patterns
 
 /**
  * Represents a run of symbols to be evaluated on the board.
- * @author Barry Becker
  */
 class MockLineEvaluator(minInteresting: Int) extends LineEvaluator(null, null):
 

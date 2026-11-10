@@ -15,8 +15,6 @@ import java.awt.{BorderLayout, Component, Dimension}
  * Use this modal dialog to initialize the two players that
  * are needed in order to start play in a 2 player game.
  * They are either human players or computer players.
- *
- * @author Barry Becker
  */
 class PlayerAssignmentPanel(
   private val controller: TwoPlayerController[?, ?],

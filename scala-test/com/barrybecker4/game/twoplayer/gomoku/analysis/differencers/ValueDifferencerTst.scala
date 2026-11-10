@@ -9,8 +9,6 @@ import org.junit.Before
 
 /**
  * Base class for all differencer tests.
- *
- * @author Barry Becker
  */
 abstract class ValueDifferencerTst:
 

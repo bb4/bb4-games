@@ -11,7 +11,6 @@ import scala.jdk.CollectionConverters._
 
 /**
  * A worker that will run all the computer vs computer games serially in a separate thread.
- * @author Barry Becker
  */
 class PerformanceWorker(controller: TwoPlayerController[?, ?], optionsList: SearchOptionsConfigList)
   extends SwingWorker[ResultsModel, Integer] {

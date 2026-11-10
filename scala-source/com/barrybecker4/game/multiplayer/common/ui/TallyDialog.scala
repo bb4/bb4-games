@@ -16,8 +16,6 @@ import scala.jdk.CollectionConverters._
  * Show a summary of the final results.
  * We will show how stats about each player.
  * The winner is determined by some metric applied to these stats.
- *
- * @author Barry Becker
  */
 abstract class TallyDialog(parent: Component, val controller: MultiGameController[?, ?])
   extends OptionsDialog(parent) {

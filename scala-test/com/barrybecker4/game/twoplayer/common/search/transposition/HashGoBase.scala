@@ -12,7 +12,6 @@ import scala.jdk.CollectionConverters.*
 
 /**
  * Various uniqueness tests for hash keys.
- * @author Barry Becker
  */
 abstract class HashGoBase:
 

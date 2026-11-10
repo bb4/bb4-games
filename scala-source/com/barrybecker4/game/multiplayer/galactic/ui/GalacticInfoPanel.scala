@@ -18,8 +18,6 @@ import scala.compiletime.uninitialized
 /**
  * Show information and statistics about the game.
  * Also allow the player to enter their commands for the turn.
- *
- * @author Barry Becker
  */
 class GalacticInfoPanel(controller: GameController[?, ?]) extends GameInfoPanel(controller)
   with ActionListener:

@@ -13,8 +13,6 @@ import scala.compiletime.uninitialized
 /**
  * Use this modal dialog to let the user choose from among the
  * different game options.
- *
- * @author Barry Becker
  */
 class TwoPlayerOptionsDialog(parent: Component, controller: TwoPlayerController[?, ?])
   extends GameOptionsDialog(parent, controller) with ActionListener with ItemListener:

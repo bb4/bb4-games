@@ -7,7 +7,6 @@ import com.barrybecker4.optimization.parameter.ParameterArray
 
 /**
  * Creates lines and remembers what lines were created.
- * @author Barry Becker
  */
 class StubLineFactory extends LineFactory:
 

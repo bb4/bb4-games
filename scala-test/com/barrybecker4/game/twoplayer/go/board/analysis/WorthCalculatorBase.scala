@@ -11,7 +11,6 @@ import org.junit.Before
 
 /**
  * Verify that we calculate the expected worth for a given board position.
- * @author Barry Becker
  */
 abstract class WorthCalculatorBase extends GoTestCase:
 

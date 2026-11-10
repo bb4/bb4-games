@@ -8,8 +8,6 @@ import scala.jdk.CollectionConverters._
 
 /**
  * Handles operations on the list of online game tables.
- *
- * @author Barry Becker
  */
 class GameTableManager {
 

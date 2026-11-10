@@ -8,8 +8,6 @@ import com.barrybecker4.game.twoplayer.gomoku.pattern.Patterns
 /**
  * Determines the difference in value between the most recent move
  * and how it was before in the up/down or left right direction.
- *
- * @author Barry Becker
  */
 abstract class DiagonalDifferencer(board: TwoPlayerBoard[?], patterns: Patterns,
                                   lineFactory: LineFactory)

@@ -9,7 +9,6 @@ import java.awt.Dimension
 
 /**
  * Shows the two configurations playing against each other in the {@code TwoPlayerPanel}.
- * @author Barry Becker
  */
 class GameRunnerDialog(panel: TwoPlayerPanel) extends AbstractDialog(panel) {
 

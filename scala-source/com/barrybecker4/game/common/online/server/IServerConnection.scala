@@ -6,8 +6,6 @@ import com.barrybecker4.game.common.player.{Player, PlayerAction}
 
 /**
  * Opens a connection to the Game server from the client so we can talk to it.
- *
- * @author Barry Becker
  */
 trait IServerConnection {
 

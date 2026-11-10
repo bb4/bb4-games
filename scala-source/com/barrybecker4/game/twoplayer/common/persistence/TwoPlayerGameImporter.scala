@@ -13,8 +13,6 @@ import java.io.{IOException, InputStream}
 
 /**
  * Imports the state of a two player game from a file.
- *
- * @author Barry Becker
  */
 class TwoPlayerGameImporter[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](controller: TwoPlayerController[M, B])
   extends GameImporter[M, B](controller):

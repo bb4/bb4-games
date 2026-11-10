@@ -17,8 +17,6 @@ import javax.swing.event.{TableModelEvent, TableModelListener}
 /**
  * GalacticPlayerTable contains a list of players.
  * All the cells are editable.
- *
- * @author Barry Becker
  */
 class GalacticPlayerTable(players: PlayerList)
   extends PlayerTable(players, GalacticPlayerTable.galacticColumnNames)

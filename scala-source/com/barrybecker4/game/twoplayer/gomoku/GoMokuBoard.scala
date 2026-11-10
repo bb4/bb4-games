@@ -5,8 +5,6 @@ import com.barrybecker4.game.twoplayer.common.{TwoPlayerBoard, TwoPlayerMove}
 
 /**
  * Representation of a GoMoku Game Board.
- *
- * @author Barry Becker
  */
 class GoMokuBoard(numRows: Int, numCols: Int) extends TwoPlayerBoard[TwoPlayerMove] {
 

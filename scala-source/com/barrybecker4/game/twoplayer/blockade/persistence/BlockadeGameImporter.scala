@@ -16,8 +16,6 @@ import com.barrybecker4.game.twoplayer.common.persistence.tokens.{Player1NameTok
 
 /**
  * Imports the state of a Blockade game from a file.
- *
- * @author Barry Becker
  */
 class BlockadeGameImporter(controller: BlockadeController)
   extends TwoPlayerGameImporter[BlockadeMove, BlockadeBoard](controller):

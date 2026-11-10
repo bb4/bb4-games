@@ -12,8 +12,6 @@ import java.util.List;
 
 /**
  * Simple weights for unit testing.
- *
- * @author Barry Becker
  */
 public class SimpleWeights extends GameWeights {
 

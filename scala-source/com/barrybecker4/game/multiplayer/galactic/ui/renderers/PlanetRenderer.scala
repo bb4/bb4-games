@@ -14,7 +14,6 @@ import java.awt.geom.Ellipse2D
  * A singleton class that takes a planet instance and renders it for the GalacticBoardViewer.
  *
  * @see com.barrybecker4.game.multiplayer.galactic.Galaxy
- * @author Barry Becker
  */
 class PlanetRenderer private () extends GamePieceRenderer:
 

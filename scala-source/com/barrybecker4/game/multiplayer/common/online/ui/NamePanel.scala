@@ -8,8 +8,6 @@ import java.awt.event.{KeyListener, MouseEvent, MouseListener}
 /**
  * For entering and managing the multi-players name.
  * It must be unique among the players at the table.
- *
- * @author Barry Becker
  */
 class NamePanel extends JPanel(new BorderLayout) with MouseListener {
 

@@ -5,8 +5,6 @@ import com.barrybecker4.game.twoplayer.comparison.model.config.SearchOptionsConf
 
 /**
  * User must add there own configurations manually.
- *
- * @author Barry Becker
  */
 class EmptyConfigurations extends SearchOptionsConfigList {
 

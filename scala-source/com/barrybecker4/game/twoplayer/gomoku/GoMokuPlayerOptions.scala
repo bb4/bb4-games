@@ -8,7 +8,6 @@ import java.awt.Color
 
 /**
  * Player options specific to GoMoku game.
- * @author Barry Becker
  */
 class GoMokuPlayerOptions(name: String, color: Color) extends TwoPlayerPlayerOptions[TwoPlayerMove, GoMokuBoard](name, color) {
 

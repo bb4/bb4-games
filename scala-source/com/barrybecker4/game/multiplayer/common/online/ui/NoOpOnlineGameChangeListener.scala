@@ -7,7 +7,6 @@ import com.barrybecker4.game.multiplayer.common.MultiGamePlayer
 
 /**
  * Use this when you want the command handled, but nothing needs to happen.
- * @author Barry Becker
  */
 class NoOpOnlineGameChangeListener(player: MultiGamePlayer) extends OnlineChangeListener {
 

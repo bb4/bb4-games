@@ -10,8 +10,6 @@ import com.barrybecker4.ui.table.TableButtonListener
 /**
  * Manage online player games.
  * Player can join no more than one table at a time.
- *
- * @author Barry Becker
  */
 class OnlineTrivialManagerPanel(viewer: GameViewModel, dlg: GameStartListener)
   extends MultiPlayerOnlineManagerPanel(viewer, dlg):

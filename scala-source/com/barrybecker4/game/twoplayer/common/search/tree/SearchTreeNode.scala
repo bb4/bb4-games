@@ -14,8 +14,6 @@ import scala.jdk.CollectionConverters.*
  * When showing the game tree graphically, these variables can take a lot of space
  * since they are in every node in the tree. Still it is better to have them here than
  * in the move structure so that when we are not in debug mode the space is not used.
- *
- * @author Barry Becker
  */
 class SearchTreeNode(move: TwoPlayerMove, var attributes: NodeAttributes) 
     extends DefaultMutableTreeNode(move):

@@ -6,8 +6,6 @@ import java.util.EventListener
 
 /**
  * This interface must be implemented by any class that wants to receive GameChangedEvents
- *
- * @author Barry Becker
  */
 trait GameChangedListener[M <: Move] extends EventListener {
   def gameChanged(evt: GameChangedEvent[M]): Unit

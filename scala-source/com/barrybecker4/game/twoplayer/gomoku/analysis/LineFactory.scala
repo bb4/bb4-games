@@ -6,7 +6,6 @@ import com.barrybecker4.optimization.parameter.ParameterArray
 
 /**
  * Creates lines. Easy to override and create mock in tests.
- * @author Barry Becker
  */
 class LineFactory {
 

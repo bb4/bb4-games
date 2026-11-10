@@ -5,7 +5,6 @@ import com.barrybecker4.game.twoplayer.comparison.model.config.SearchOptionsConf
 
 /**
  * Different types of canned configurations
- * @author Barry Becker
  */
 enum ConfigurationListEnum(val label: String, val configList: SearchOptionsConfigList)
   extends java.lang.Enum[ConfigurationListEnum] {

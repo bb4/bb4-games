@@ -10,7 +10,6 @@ import com.barrybecker4.optimization.parameter.ParameterArray
 /**
  * This strategy class defines the MiniMax search algorithm.
  * This is the simplest search strategy to which the other variants are compared.
- * @author Barry Becker
  */
 final class MiniMaxStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
   controller: Searchable[M, B],

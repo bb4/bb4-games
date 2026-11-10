@@ -6,7 +6,6 @@ import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPositi
 
 /**
  * Helps configure go boards for unit testing.
- * @author Barry Becker
  */
 class GoBoardConfigurator(size: Int, numHandicap: Int = 0):
 

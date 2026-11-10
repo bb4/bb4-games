@@ -6,8 +6,6 @@ import com.barrybecker4.game.twoplayer.gomoku.pattern.GoMokuWeights
 
 /**
  * These weights will stay fixed even if GoMokuWeights change.
- *
- * @author Barry Becker
  */
 class GoMokuTestWeights extends GoMokuWeights(GoMokuTestWeights.TEST_WEIGHTS)
 

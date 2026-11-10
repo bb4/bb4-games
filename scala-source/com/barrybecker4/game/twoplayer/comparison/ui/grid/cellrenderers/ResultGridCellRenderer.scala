@@ -11,8 +11,6 @@ import java.awt.{Color, Component, Dimension, GridBagConstraints, GridBagLayout}
  * Draws all the segmented bars representing the results of two games played between
  * two players. The first bar segment of each bar represents the first player playing first,
  * and the second segment is for when the second player plays first.
- *
- * @author Barry Becker
  */
 class ResultGridCellRenderer extends JPanel with TableCellRenderer {
 

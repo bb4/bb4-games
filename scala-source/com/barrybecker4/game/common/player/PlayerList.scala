@@ -6,8 +6,6 @@ import scala.jdk.CollectionConverters._
 
 /**
  * A list of players.
- *
- * @author Barry Becker
  */
 class PlayerList extends ArrayList[Player] {
 

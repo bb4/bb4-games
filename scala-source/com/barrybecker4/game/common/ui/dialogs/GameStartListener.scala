@@ -3,9 +3,7 @@ package com.barrybecker4.game.common.ui.dialogs
 
 import com.barrybecker4.game.common.player.PlayerList
 
-/**
- * @author Barry Becker
- */
+
 trait GameStartListener {
   def startGame(players: PlayerList): Unit
 }

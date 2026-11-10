@@ -18,8 +18,6 @@ import scala.compiletime.uninitialized
 /**
  * Use this modal dialog to initialize the required game parameters that
  * are needed in order to start play in a 2 player game.
- *
- * @author Barry Becker
  */
 class TwoPlayerNewGameDialog(parent: Component, viewer: GameViewModel)
   extends NewGameDialog(parent, viewer) with ActionListener:

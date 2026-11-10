@@ -3,9 +3,7 @@ package com.barrybecker4.game.multiplayer.common
 
 import com.barrybecker4.game.common.GameOptions
 
-/**
- * @author Barry Becker
- */
+
 class MultiGameOptions(
   private var maxNumPlayers: Int = MultiGameOptions.DEFAULT_PLAYER_LIMIT,
   private var numRobotPlayers: Int = MultiGameOptions.DEFAULT_NUM_ROBOT_PLAYERS

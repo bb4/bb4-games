@@ -7,8 +7,6 @@ import com.barrybecker4.game.twoplayer.common.persistence.tokens.TwoPlayerMoveTo
 
 /**
  * Loads a blockade game from a text file.
- *
- * @author Barry Becker
  */
 class BlockadeSGFLoader extends TwoPlayerSGFLoader:
 

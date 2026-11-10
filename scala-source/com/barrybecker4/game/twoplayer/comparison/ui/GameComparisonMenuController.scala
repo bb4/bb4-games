@@ -11,8 +11,6 @@ import javax.swing.{JComponent, JFrame}
 
 /**
  * Listens for menu changes and updates the UI appropriately.
- *
- * @author Barry Becker
  */
 class GameComparisonMenuController(frame: JFrame) extends GameMenuController(frame) {
 

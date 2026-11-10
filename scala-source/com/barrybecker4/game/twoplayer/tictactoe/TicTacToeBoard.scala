@@ -5,8 +5,6 @@ import com.barrybecker4.game.twoplayer.gomoku.GoMokuBoard
 
 /**
  * Representation of a TicTacToe Game Board
- *
- * @author Barry Becker
  */
 class TicTacToeBoard extends GoMokuBoard {
 

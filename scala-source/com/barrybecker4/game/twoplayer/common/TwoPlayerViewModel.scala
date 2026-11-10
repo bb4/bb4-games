@@ -7,8 +7,6 @@ import com.barrybecker4.game.common.GameViewModel
  * The TwoPlayerController communicates with the viewer via this interface.
  * Alternatively, we could use RMI or events, but for now the minimal interface is
  * defined here and called directly by the controller.
- *
- * @author Barry Becker
  */
 trait TwoPlayerViewModel[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]] extends GameViewModel:
 

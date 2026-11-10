@@ -9,8 +9,6 @@ import org.junit.Test
 
 /**
  * Verify that we correctly evaluate lines on the board.
- *
- * @author Barry Becker
  */
 class LineTest:
 

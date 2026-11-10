@@ -8,7 +8,6 @@ import com.barrybecker4.game.twoplayer.gomoku.pattern.Patterns
 /**
  * Represents a run of symbols to be evaluated on the board.
  * All the symbols in the line should be of the same side.
- * @author Barry Becker
  */
 class Line(private val evaluator: LineEvaluator) {
 

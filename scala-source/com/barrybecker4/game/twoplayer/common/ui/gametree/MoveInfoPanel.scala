@@ -12,8 +12,6 @@ import java.awt.*
 
 /**
  * Contains the move details and color legend underneath
- *
- * @author Barry Becker
  */
 final class MoveInfoPanel(colormap: ColorMap) extends JPanel:
 

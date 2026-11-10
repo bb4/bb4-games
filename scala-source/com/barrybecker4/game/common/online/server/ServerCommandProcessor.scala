@@ -16,8 +16,6 @@ import scala.jdk.CollectionConverters._
  * Handles the processing of all commands send to the online game server from human players.
  * All the human players will be surrogates but the robots are here and the server needs to
  * issue their actions to their corresponding surrogates on the clients.
- *
- * @author Barry Becker
  */
 class ServerCommandProcessor private (
   private val controller: GameController[?, ?],

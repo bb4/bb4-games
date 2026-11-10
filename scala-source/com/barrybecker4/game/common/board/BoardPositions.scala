@@ -8,8 +8,6 @@ import com.barrybecker4.game.common.GameContext
  * Represents the array of positions on the board.
  * Assumes an M*N grid.
  * Legal positions are [1, numRows_][1, numCols_]
- *
- * @author Barry Becker
  */
 class BoardPositions(numRows: Int, numCols: Int) {
 

@@ -15,8 +15,6 @@ import java.awt.event.MouseEvent
  * This class takes a BlockadeController as input and displays the
  * Current state of the Blockade Game. The BlockadeController contains a BlockadeBoard
  * which describes this state.
- *
- * @author Barry Becker
  */
 class BlockadeBoardViewer extends AbstractTwoPlayerBoardViewer[BlockadeMove, BlockadeBoard] {
 

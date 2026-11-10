@@ -7,7 +7,6 @@ import java.awt.Color
 
 /**
  * Outcome of the two player game.
- * @author Barry Becker
  */
 enum Outcome extends java.lang.Enum[Outcome] {
   case PLAYER1_WON, PLAYER2_WON, TIE

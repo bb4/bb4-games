@@ -9,8 +9,6 @@ import com.barrybecker4.optimization.parameter.ParameterArray
 /**
  * Determines the difference in value between the most recent move
  * and how it was before in the upward diagonal direction.
- *
- * @author Barry Becker
  */
 class UpDiagonalDifferencer(board: TwoPlayerBoard[?], patterns: Patterns,
                            lineFactory: LineFactory)

@@ -12,8 +12,6 @@ import java.awt.Component
 /**
  * This class defines the main UI for the Galactic Empire game applet.
  * It can be run as an applet or application.
- *
- * @author Barry Becker
  */
 class GalacticPanel extends GamePanel:
 

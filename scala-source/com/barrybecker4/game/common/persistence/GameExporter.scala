@@ -9,8 +9,6 @@ import java.io.{FileWriter, IOException, Writer}
 
 /**
  * Export the state of a game to a file.
- *
- * @author Barry Becker
  */
 abstract class GameExporter[M <: Move, B <: IBoard[M]](val board_ : B) {
 

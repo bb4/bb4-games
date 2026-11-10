@@ -21,8 +21,6 @@ import scala.jdk.CollectionConverters._
  * Manages the tables for the game room.
  * Has a GameController for each table.
  * Consider using executor framework to manage threads.
- *
- * @author Barry Becker
  */
 class OnlineGameServer(gameType: String, text: Appendable) {
 

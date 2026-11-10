@@ -3,7 +3,6 @@ package com.barrybecker4.game.twoplayer.go.server
 
 /**
  * The allowed GTP commands (most are required, some are optional)
- * @author Barry Becker
  */
 enum GTPCommand {
   case boardsize, clear_board, echo, echo_err, fixed_handicap, final_score, final_status_list,

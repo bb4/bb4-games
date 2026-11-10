@@ -7,7 +7,6 @@ import com.barrybecker4.game.twoplayer.comparison.ui.execution.GameRunnerDialog
 
 /**
  * Run through the grid of game combinations and gather the performance results.
- * @author Barry Becker
  */
 class PerformanceRunner(
   gamePanel: TwoPlayerPanel,

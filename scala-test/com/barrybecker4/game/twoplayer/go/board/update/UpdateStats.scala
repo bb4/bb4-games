@@ -3,7 +3,6 @@ package com.barrybecker4.game.twoplayer.go.board.update
 
 /**
  * Things to verify after moving or removing stones from the board
- * @author Barry Becker
  */
 class UpdateStats(
   var expCaptures: Int,

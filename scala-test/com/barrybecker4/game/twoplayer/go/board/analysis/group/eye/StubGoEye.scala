@@ -7,9 +7,7 @@ import com.barrybecker4.game.twoplayer.go.board.elements.eye.{EyeSerializer, IGo
 import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup
 import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoBoardPositionSet}
 
-/**
- * @author Barry Becker
- */
+
 class StubGoEye(
   ownedByPlayer1: Boolean,
   status: EyeStatus,

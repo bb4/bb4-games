@@ -7,7 +7,6 @@ import com.barrybecker4.game.twoplayer.common.TwoPlayerMove;
 
 /**
  * Expected generated moves for search tests.
- * @author Barry Becker
  */
 public class ExpectedSearchableResults {
 

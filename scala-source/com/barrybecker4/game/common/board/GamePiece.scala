@@ -9,7 +9,6 @@ import java.io.Serializable
  * Immutable except for transparency and annotation which should not matter.
  *
  * @see Board
- * @author Barry Becker
  */
 class GamePiece(
   var ownedByPlayer1: Boolean = false,

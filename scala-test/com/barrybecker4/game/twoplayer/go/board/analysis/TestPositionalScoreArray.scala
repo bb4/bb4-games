@@ -6,7 +6,6 @@ import org.junit.Test
 
 /**
  * Test that we create the expected positional array.
- * @author Barry Becker
  */
 class TestPositionalScoreArray:
 

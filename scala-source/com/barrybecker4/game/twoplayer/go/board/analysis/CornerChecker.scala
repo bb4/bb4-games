@@ -5,7 +5,6 @@ import com.barrybecker4.game.common.board.BoardPosition
 
 /**
  * Used to check to see if a position is in the corner of the board.
- * @author Barry Becker
  */
 final class CornerChecker(numRows: Int, numCols: Int) {
 

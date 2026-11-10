@@ -6,9 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 
-/**
- * @author Barry Becker
- */
+
 public class GoMokuBoardTest {
 
     /** instance under test */

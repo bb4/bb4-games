@@ -5,7 +5,5 @@ import java.awt.Color
 
 /**
  * Represents an Human Trivial player.
- *
- * @author Barry Becker
  */
 class TrivialHumanPlayer(name: String, color: Color) extends TrivialPlayer(name, color, true)

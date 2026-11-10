@@ -8,8 +8,6 @@ import java.awt.Color
 
 /**
  * Represents a Robot player.
- *
- * @author Barry Becker
  */
 class TrivialRobotPlayer(name: String, color: Color) extends TrivialPlayer(name, color, false):
 

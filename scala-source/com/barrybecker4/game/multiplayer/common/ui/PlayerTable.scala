@@ -16,8 +16,6 @@ import java.util.Vector
  * PlayerTable contains a list of players.
  * All of the cells are editable.
  * It is initialized with a list of Players and returns a list of Players.
- *
- * @author Barry Becker
  */
 abstract class PlayerTable(players: PlayerList, columnNames: Array[String])
   extends TableBase(JavaConverters.asScala(players).toSeq, columnNames) {

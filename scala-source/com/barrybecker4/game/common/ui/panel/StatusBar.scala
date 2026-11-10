@@ -9,8 +9,6 @@ import java.awt.{BorderLayout, Dimension, Font}
 
 /**
  * Shows game status.
- *
- * @author Barry Becker
  */
 class StatusBar(texture: ImageIcon) extends TexturedPanel(texture) {
 

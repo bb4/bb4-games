@@ -18,7 +18,6 @@ import org.w3c.dom.Node
 /**
  * Corresponds to a test-case node in the case xml. It describes which search algorithm
  * with what
- * @author Barry Becker
  */
 object SearchTestCase:
   /** It is assumed that all the strategy classes come from this package */

@@ -17,8 +17,6 @@ import scala.compiletime.uninitialized
 
 /**
  * Allow the user to maintain their current orders and add new ones.
- *
- * @author Barry Becker
  */
 final class OrdersDialog(parent: Component, player: GalacticPlayer, numYearsRemaining: Int)
   extends OptionsDialog(parent):

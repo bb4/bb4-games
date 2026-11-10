@@ -16,7 +16,6 @@ import java.util.List as JList
 
 /**
  * Verify that all the methods in blockadeSearchable work as expected
- * @author Barry Becker
  */
 class BlockadeSearchableTest extends TwoPlayerSearchableBaseTst:
 

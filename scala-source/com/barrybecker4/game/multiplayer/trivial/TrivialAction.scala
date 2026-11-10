@@ -9,8 +9,6 @@ enum ActionName:
 /**
  * This is what will get sent between client and server as an action for a particular player.
  * Encapsulates the state change.
- *
- * @author Barry Becker
  */
 class TrivialAction(playerName: String, val actionName: ActionName) extends PlayerAction(playerName):
 

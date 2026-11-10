@@ -4,7 +4,6 @@ import org.w3c.dom.Node
 
 /**
  * The set of cases in the test-cases node of the xml case file.
- * @author Barry Becker
  */
 class SearchTestCases(testCasesNode: Node) extends java.util.ArrayList[SearchTestCase]:
 

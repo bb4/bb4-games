@@ -7,9 +7,7 @@ import com.barrybecker4.ui.components.GradientButton
 import javax.swing.{ImageIcon, JButton}
 import java.awt.event.ActionListener
 
-/**
- * @author Barry Becker
- */
+
 class GoToolBar(texture: ImageIcon, listener: ActionListener) extends GameToolBar(texture, listener) {
 
   private var passButton_ : GradientButton = scala.compiletime.uninitialized

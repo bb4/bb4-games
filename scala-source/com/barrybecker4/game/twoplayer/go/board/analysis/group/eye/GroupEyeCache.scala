@@ -10,7 +10,6 @@ import scala.jdk.CollectionConverters._
 
 /**
  * Keep a cache of the eyes in a group because its expensive to recompute them.
- * @author Barry Becker
  */
 class GroupEyeCache(group: IGoGroup, analyzerMap: GroupAnalyzerMap) {
 

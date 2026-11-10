@@ -10,8 +10,6 @@ import scala.compiletime.uninitialized
 
 /**
  * A singleton class that takes a checkers piece and renders it for the BlockadeBoardViewer.
- *
- * @author Barry Becker
  */
 class BlockadePieceRenderer private () extends TwoPlayerPieceRenderer:
 

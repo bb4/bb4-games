@@ -10,8 +10,6 @@ import java.net.{ConnectException, Socket, UnknownHostException}
 /**
  * A socket allowing communication from the client to the GameServer.
  * We pass data using object serialization over the input and output streams.
- *
- * @author Barry Becker
  */
 class ListenerSocket {
 

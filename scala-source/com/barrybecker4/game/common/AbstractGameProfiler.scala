@@ -6,7 +6,6 @@ import com.barrybecker4.common.profile.Profiler
 
 /**
  * Keep track of timing info for different game searching aspects.
- * @author Barry Becker
  */
 abstract class AbstractGameProfiler extends Profiler {
 

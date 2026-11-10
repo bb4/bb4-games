@@ -10,8 +10,6 @@ import com.barrybecker4.game.twoplayer.common.ui.AbstractTwoPlayerBoardViewer
  * This class takes a CheckersController as input and displays the
  * Current state of the Checkers Game. The CheckersController contains a CheckersBoard
  * which describes this state.
- *
- * @author Barry Becker
  */
 class CheckersBoardViewer extends AbstractTwoPlayerBoardViewer[CheckersMove, CheckersBoard] {
 

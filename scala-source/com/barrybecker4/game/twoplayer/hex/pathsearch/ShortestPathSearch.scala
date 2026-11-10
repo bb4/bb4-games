@@ -7,9 +7,7 @@ import scala.Option
 import scala.collection.immutable.Seq
 import scala.jdk.javaapi.CollectionConverters
 
-/**
- * @author Barry Becker
- */
+
 class ShortestPathSearch(state: HexBoard, player1: Boolean) 
     extends AStarSearch[HexState, HexTransition](
       HexSearchSpace(state, player1), 

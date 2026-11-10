@@ -13,8 +13,6 @@ import java.awt.geom.Ellipse2D
 
 /**
  * A singleton class that takes a trivial player and renders it for the TrivialGameViewer.
- *
- * @author Barry Becker
  */
 class TrivialPlayerRenderer private () extends GamePieceRenderer:
 

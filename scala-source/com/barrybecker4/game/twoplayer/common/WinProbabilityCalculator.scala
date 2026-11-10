@@ -7,8 +7,6 @@ import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy
 
 /**
  * Determines the approximate likelihood of a player winning the game.
- *
- * @author Barry Becker
  */
 object WinProbabilityCalculator:
   /**

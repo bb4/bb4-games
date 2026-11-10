@@ -29,8 +29,6 @@ import scala.jdk.CollectionConverters.*
  *  UCT
  *  MtdNegaMax
  *  MtdNegaScout
- *
- * @author Barry Becker
  */
 class AllStrategiesTest:
 

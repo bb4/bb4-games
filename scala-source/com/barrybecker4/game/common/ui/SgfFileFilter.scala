@@ -5,8 +5,6 @@ import com.barrybecker4.ui.file.ExtensionFileFilter
 
 /**
  * File filter for SGF files.
- *
- * @author Barry Becker
  */
 class SgfFileFilter extends ExtensionFileFilter(SgfFileFilter.SGF_EXTENSION)
 

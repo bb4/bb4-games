@@ -8,7 +8,6 @@ import com.barrybecker4.game.twoplayer.go.board.move.GoMove
 
 /**
  * Stub implementation of GoMove to help test without a full game setup.
- * @author Barry Becker
  */
 class GoMoveStub(stone: GoStone) extends GoMove(new ByteLocation(1, 1), 1, stone):
 

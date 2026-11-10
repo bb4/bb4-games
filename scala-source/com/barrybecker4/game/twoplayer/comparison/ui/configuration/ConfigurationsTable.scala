@@ -11,8 +11,6 @@ import scala.jdk.javaapi.CollectionConverters as JavaConverters
 
 /**
  * Contains a list of search option configurations .
- *
- * @author Barry Becker
  */
 class ConfigurationsTable(optionsList: SearchOptionsConfigList)
   extends TableBase(JavaConverters.asScala(optionsList).toSeq, ConfigurationsTable.columnNames) {

@@ -6,8 +6,6 @@ import org.junit.Test
 
 /**
  * Verify that we correctly extract patterns from rows or columns on the board.
- *
- * @author Barry Becker
  */
 class PatternExtractorTest:
 

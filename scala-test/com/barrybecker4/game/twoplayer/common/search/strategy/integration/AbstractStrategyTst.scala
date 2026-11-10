@@ -13,7 +13,6 @@ import org.junit.{Before, Test}
 /**
  * Verify that all the methods in the SearchStrategy interface work as expected (especially search).
  * Note that these are really integration tests and not unit tests.
- * @author Barry Becker
  */
 abstract class AbstractStrategyTst:
 

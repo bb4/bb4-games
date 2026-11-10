@@ -3,8 +3,6 @@ package com.barrybecker4.game.twoplayer.gomoku.pattern
 
 /**
  * Responsible for Converting pattern strings to an integer.
- *
- * @author Barry Becker
  */
 class PatternToIntConverter {
 

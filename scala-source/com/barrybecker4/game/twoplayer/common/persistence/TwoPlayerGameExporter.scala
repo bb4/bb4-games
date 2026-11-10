@@ -13,8 +13,6 @@ import java.io.Writer
 
 /**
  * Exports the state of a two player game to a file.
- *
- * @author Barry Becker
  */
 class TwoPlayerGameExporter[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](controller: IGameController[M, B])
   extends GameExporter[M, B](controller.getBoard.copy().asInstanceOf[B]):

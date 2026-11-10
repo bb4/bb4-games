@@ -3,8 +3,6 @@ package com.barrybecker4.game.common.ui.menu
 
 /**
  * This interface must be implemented by any class that wants to receive GameMenuChangeEvents
- *
- * @author Barry Becker
  */
 trait FileMenuListener {
 

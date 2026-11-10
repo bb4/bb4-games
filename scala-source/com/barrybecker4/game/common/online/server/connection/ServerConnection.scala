@@ -11,8 +11,6 @@ import scala.jdk.CollectionConverters._
 /**
  * Opens a socket to the Game server from the client so we can talk to it.
  * We pass data using object serialization over the input and output streams.
- *
- * @author Barry Becker
  */
 class ServerConnection(port: Int) extends IServerConnection {
 

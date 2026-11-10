@@ -14,8 +14,6 @@ import java.awt.event.ActionEvent
 
 /**
  * Allow for editing player search options.
- *
- * @author Barry Becker
  */
 class SearchOptionsDialog(parent: Component, private val existingOptions: SearchOptionsConfig = null)
   extends OptionsDialog(parent) {

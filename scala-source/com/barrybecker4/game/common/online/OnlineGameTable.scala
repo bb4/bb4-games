@@ -9,8 +9,6 @@ import scala.jdk.CollectionConverters._
 /**
  * Some number of players sitting around a virtual game table online.
  * Each table has a name, set of Players and other game specific properties.
- *
- * @author Barry Becker
  */
 class OnlineGameTable(
   private var name_ : String, 

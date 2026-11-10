@@ -10,7 +10,6 @@ import scala.jdk.CollectionConverters._
  * pieces to a game board.
  *
  * @see Board
- * @author Barry Becker
  */
 class CaptureList extends LinkedList[BoardPosition] {
 

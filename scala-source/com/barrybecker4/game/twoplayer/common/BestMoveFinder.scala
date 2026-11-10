@@ -9,8 +9,6 @@ import java.util.Collections
 /**
  * Find the best moves from a list of reasonable next moves using configured search options.
  * The search options provide a set constraints which all must be minimally satisfied.
- *
- * @author Barry Becker
  */
 class BestMoveFinder[M <: TwoPlayerMove](
   private val searchOptions_ : BestMovesSearchOptions

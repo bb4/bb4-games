@@ -14,8 +14,6 @@ import java.awt.geom.Point2D
 
 /**
  * Singleton class that takes a game board and renders it for the GameBoardViewer.
- *
- * @author Barry Becker
  */
 class GalaxyRenderer private () extends MultiGameBoardRenderer:
 

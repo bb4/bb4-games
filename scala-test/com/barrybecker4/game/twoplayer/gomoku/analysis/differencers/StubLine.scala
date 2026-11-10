@@ -7,7 +7,6 @@ import java.util.List as JList
 
 /**
  * Represents a run of symbols to be evaluated on the board.
- * @author Barry Becker
  */
 class StubLine(evaluator: LineEvaluator) extends Line(evaluator):
 

@@ -15,8 +15,6 @@ import scala.Option
  * See http://en.wikipedia.org/wiki/Transposition_table
  * http://pages.cs.wisc.edu/~mjr/Pente/
  * http://people.csail.mit.edu/plaat/mtdf.html
- *
- * @author Barry Becker
  */
 class TranspositionTable[M <: TwoPlayerMove] extends LRUCache[HashKey, Entry[M]](TranspositionTable.MAX_ENTRIES) {
 

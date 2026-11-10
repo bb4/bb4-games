@@ -11,7 +11,6 @@ import scala.jdk.CollectionConverters._
 /**
  * The standard main menu for all game programs.
  * Allows such common operations as new, load, save, exit.
- * @author Barry Becker
  */
 class GameMenu(initialGame: String) extends AbstractGameMenu(GameContext.getLabel("GAME")) with ActionListener {
 

@@ -14,8 +14,6 @@ import java.text.MessageFormat
 
 /**
  * A dialog to show version information and instructions on how to play the game.
- *
- * @author Barry Becker
  */
 final class HelpDialog(parent: Component, gameName: String, comments: String, text: String)
   extends AbstractDialog(parent) with ActionListener {

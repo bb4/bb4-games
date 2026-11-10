@@ -8,8 +8,6 @@ import com.barrybecker4.game.twoplayer.common.ui.{TwoPlayerBoardRenderer, TwoPla
  * Singleton class that takes a game board and renders it for the GameBoardViewer.
  * Having the board renderer separate from the viewer helps to separate out the rendering logic
  * from other features of the GameBoardViewer.
- *
- * @author Barry Becker
  */
 class GoMokuBoardRenderer extends TwoPlayerBoardRenderer {
   pieceRenderer_ = TwoPlayerPieceRenderer.getRenderer()

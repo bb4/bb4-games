@@ -18,8 +18,6 @@ import java.awt.event.MouseEvent
  * Takes a Controller as input and displays the current state of the game.
  * For example, the TrivialController contains a TrivialTable object
  * which describes this state.
- *
- * @author Barry Becker
  */
 abstract class MultiGameViewer[M <: Move, B <: Board[M]] extends GameBoardViewer[M, B] {
 

@@ -8,8 +8,6 @@ import java.awt.geom.Point2D
 /**
  * Base segmented bar. Shows info about the two sides that played each other
  * for one of the trials. One segment for each of the players that started first.
- *
- * @author Barry Becker
  */
 abstract class SegmentedBar extends JPanel {
 

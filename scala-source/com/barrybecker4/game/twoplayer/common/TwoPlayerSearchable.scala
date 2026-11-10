@@ -13,8 +13,6 @@ import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy
 
 /**
  * For searching two player games
- *
- * @author Barry Becker
  */
 abstract class TwoPlayerSearchable[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
   val board_ : B,

@@ -15,8 +15,6 @@ import java.awt.event.{ActionEvent, ItemEvent, ItemListener}
 /**
  * Use this modal dialog to let the user choose from among the
  * different game options.
- *
- * @author Barry Becker
  */
 abstract class GameOptionsDialog(parent: Component, val controller_ : GameController[?, ?])
   extends OptionsDialog(parent) with ItemListener {

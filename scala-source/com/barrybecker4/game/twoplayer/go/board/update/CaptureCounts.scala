@@ -5,7 +5,6 @@ import com.barrybecker4.game.twoplayer.go.board.move.GoMove
 
 /**
  * Maintains the count of captured stones for each side.
- * @author Barry Becker
  */
 class CaptureCounts {
 

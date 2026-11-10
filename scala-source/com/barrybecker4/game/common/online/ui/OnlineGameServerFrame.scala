@@ -17,8 +17,6 @@ import java.awt.event.{WindowAdapter, WindowEvent}
  *   java OnlineGameServer -game &lt;game&gt;
  * for example:
  *   java OnlineGameServer -game poker
- *
- * @author Barry Becker
  */
 class OnlineGameServerFrame private (gameName: String) extends JFrame {
 

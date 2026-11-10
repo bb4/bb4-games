@@ -9,8 +9,6 @@ import javax.swing.*
 
 /**
  * Panel that shows the options for search strategies that use brute force (like minimax and derivatives).
- *
- * @author Barry Becker
  */
 class BruteSearchOptionsPanel(private val bruteOptions: BruteSearchOptions) extends JPanel:
 

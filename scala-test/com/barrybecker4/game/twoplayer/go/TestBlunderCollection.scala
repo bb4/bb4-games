@@ -11,7 +11,6 @@ import org.junit.Test
  * Martin Mueller (mmueller)
  * Markus Enzenberger (emarkus)
  * email domain: cs.ualberta.ca
- * @author Barry Becker
  */
 class TestBlunderCollection extends GoTestCase:
 

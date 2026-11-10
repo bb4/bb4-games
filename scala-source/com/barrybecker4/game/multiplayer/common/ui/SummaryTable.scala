@@ -11,8 +11,6 @@ import scala.jdk.javaapi.CollectionConverters
 /**
  * Shows a list of the remaining players stats at the end of the game.
  * None of the cells are editable.
- *
- * @author Barry Becker
  */
 abstract class SummaryTable(players: PlayerList, columnNames: Array[String])
   extends TableBase(CollectionConverters.asScala(players).toSeq, columnNames) {

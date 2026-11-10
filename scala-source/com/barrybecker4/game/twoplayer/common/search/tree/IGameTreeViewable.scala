@@ -10,8 +10,6 @@ import com.barrybecker4.game.twoplayer.common.TwoPlayerMove
  * concurrent modification exceptions and null pointer exceptions while showing the game tree. Now events are thrown
  * to indicate changes to the tree should be made during search, and the handler should make the changes
  * to the tree in the eventDispatch thread.
- *
- * @author Barry Becker
  */
 trait IGameTreeViewable:
 

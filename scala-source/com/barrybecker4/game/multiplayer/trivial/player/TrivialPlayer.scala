@@ -11,8 +11,6 @@ import java.text.MessageFormat
 
 /**
  * Represents a trivial player in a game
- *
- * @author Barry Becker
  */
 abstract class TrivialPlayer(name: String, color: Color, isHuman: Boolean) 
   extends MultiGamePlayer(name, color, isHuman):

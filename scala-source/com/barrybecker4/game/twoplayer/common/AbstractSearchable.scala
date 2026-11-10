@@ -10,8 +10,6 @@ import com.barrybecker4.optimization.parameter.ParameterArray
 
 /**
  * Base class for all classes that can search two player games for the next best move.
- *
- * @author Barry Becker
  */
 abstract class AbstractSearchable[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
   protected var moveList: MoveList[M]

@@ -6,8 +6,6 @@ import com.barrybecker4.game.twoplayer.common.search.options.SearchOptions
 /**
  * Right now this just contains the name of the config and the
  * search options, but we may add the game weights too at some point.
- *
- * @author Barry Becker
  */
 class SearchOptionsConfig(val name: String, val searchOptions: SearchOptions[?, ?]) {
 

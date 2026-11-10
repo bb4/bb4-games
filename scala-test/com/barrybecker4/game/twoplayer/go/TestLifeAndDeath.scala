@@ -9,9 +9,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.util.Arrays
 
-/**
- * @author Barry Becker
- */
+
 class TestLifeAndDeath extends GoTestCase:
 
   private val PREFIX1 = "lifeanddeath/"

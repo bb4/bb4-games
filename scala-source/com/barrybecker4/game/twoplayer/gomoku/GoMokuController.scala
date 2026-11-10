@@ -11,8 +11,6 @@ import java.awt.{Color, Dimension}
 
 /**
  * Defines everything the computer needs to know to play GoMoku.
- *
- * @author Barry Becker
  */
 class GoMokuController[B <: GoMokuBoard] extends TwoPlayerController[TwoPlayerMove, B] {
 

@@ -10,8 +10,6 @@ import java.text.MessageFormat
 
 /**
  * Represents the message shown when the game is over.
- *
- * @author Barry Becker
  */
 class GameOverMessage[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](protected val controller: TwoPlayerController[M, B]):
 

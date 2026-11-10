@@ -4,8 +4,6 @@ import com.barrybecker4.optimization.parameter.ParameterArrayWithFitness
 
 /**
  * Called when the optimization is done running.
- *
- * @author Barry Becker
  */
 trait OptimizationDoneHandler:
 

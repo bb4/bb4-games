@@ -13,8 +13,6 @@ import java.awt.Color
  * contains a list of players.
  * All the cells are editable.
  * It is initialized with a list of Players and returns a list of Players
- *
- * @author Barry Becker
  */
 class TrivialPlayerTable(players: PlayerList) extends PlayerTable(players, TrivialPlayerTable.trivialColumnNames):
 

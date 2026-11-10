@@ -10,8 +10,6 @@ import com.barrybecker4.optimization.parameter.ParameterArray
 
 /**
  * Defines everything the computer needs to know to search for the next gomoku move.
- *
- * @author Barry Becker
  */
 class GoMokuSearchable[B <: GoMokuBoard](board: B, players: PlayerList)
   extends TwoPlayerSearchable[TwoPlayerMove, B](board, players) {

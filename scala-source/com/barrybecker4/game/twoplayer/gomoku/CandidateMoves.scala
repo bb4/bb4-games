@@ -9,7 +9,6 @@ import scala.compiletime.uninitialized
 /**
  * Representation of the candidate next moves on a GoMoku Game Board.
  * Immutable after construction.
- * @author Barry Becker
  */
 class CandidateMoves protected ():
 

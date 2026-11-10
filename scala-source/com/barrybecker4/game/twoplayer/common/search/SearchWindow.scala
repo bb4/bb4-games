@@ -5,8 +5,6 @@ import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy
 
 /**
  * Manages alpha and beta - the search window thresholds.
- *
- * @author Barry Becker
  */
 class SearchWindow(var alpha: Int, var beta: Int) {
 

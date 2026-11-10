@@ -8,8 +8,6 @@ import java.awt.{BorderLayout, Component}
 
 /**
  * Panel to show params for a game board that has a rectilinear grid.
- *
- * @author Barry Becker
  */
 class GridBoardParamPanel(initialNumRows: Int, initialNumCols: Int, customConfigPanel: JPanel) 
   extends JPanel {

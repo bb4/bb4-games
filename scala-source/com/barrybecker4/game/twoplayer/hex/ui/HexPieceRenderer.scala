@@ -10,8 +10,7 @@ import java.awt.{BasicStroke, Color, Graphics2D, Point, Stroke}
 /**
  * a singleton class that takes a game piece and renders it for the TwoPlayerBoardViewer.
  * We use a separate piece rendering class to avoid having ui in the piece class itself.
- * This allows us to more cleanly separate the client pieces from the server. *
- */
+ * This allows us to more cleanly separate the client pieces from the server. */
 class HexPieceRenderer extends TwoPlayerPieceRenderer:
 
   override def getPosition(position: BoardPosition, cellSize: Int, pieceSize: Int, margin: Int): Point =

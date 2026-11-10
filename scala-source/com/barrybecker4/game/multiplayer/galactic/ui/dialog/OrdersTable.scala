@@ -15,7 +15,6 @@ import scala.jdk.javaapi.CollectionConverters
  * All the cells are editable.
  *
  * @see Order
- * @author Barry Becker
  */
 class OrdersTable(orders: JList[Order]) extends TableBase(OrdersTable.conv(orders), OrdersTable.columnNames):
 

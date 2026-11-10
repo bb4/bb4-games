@@ -7,8 +7,6 @@ import scala.jdk.CollectionConverters._
 /**
  * A list of game moves.
  * What kind of performance difference is there if this is a LinkedList instead of ArrayList?
- *
- * @author Barry Becker
  */
 class MoveList[M <: Move] extends ArrayList[M] {
 

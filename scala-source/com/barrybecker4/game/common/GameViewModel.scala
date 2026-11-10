@@ -8,8 +8,6 @@ package com.barrybecker4.game.common
  *
  * Kept non-generic to match the original Java API (raw GameViewModel) so Java and
  * Scala viewers can implement it without type-bound conflicts under joint compilation.
- *
- * @author Barry Becker
  */
 trait GameViewModel {
 

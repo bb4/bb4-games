@@ -18,8 +18,6 @@ import scala.compiletime.uninitialized
 
 /**
  * Play a battle sequence that is stored in a GalacticTurn.
- *
- * @author Barry Becker
  */
 final class BattleDialog(parent: Component, battle: BattleSimulation, viewer: GalaxyViewer)
   extends OptionsDialog(parent) with ActionListener:

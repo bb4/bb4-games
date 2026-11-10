@@ -8,8 +8,6 @@ import com.barrybecker4.game.common.GameWeights
  * These weights determine how the computer values features of the board relative to each other.
  * if only one computer is playing, then only one of the weights arrays is used.
  * use these weights if no others are provided.
- *
- * @author Barry Becker
  */
 class TicTacToeWeights extends GameWeights(
   TicTacToeWeights.DEFAULT_WEIGHTS,

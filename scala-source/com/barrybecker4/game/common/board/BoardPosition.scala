@@ -8,7 +8,6 @@ import com.barrybecker4.common.geometry.{ByteLocation, Location}
  * It may be empty if there is no piece there.
  *
  * @see Board
- * @author Barry Becker
  */
 class BoardPosition(
   var location: Location,

@@ -8,8 +8,6 @@ import java.util.List
 
 /**
  * Helps to play back a sequence of moves on the board.
- *
- * @author Barry Becker
  */
 class MoveSequencePlayback[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](private val controller_ : TwoPlayerController[M, B]):
 

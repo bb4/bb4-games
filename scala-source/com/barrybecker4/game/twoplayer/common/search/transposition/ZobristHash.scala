@@ -12,8 +12,6 @@ import java.util.Random
  * should be exceedingly rare.
  * Keeps track of the random numbers to use for the state at each position.
  * No need to create more than one of these per game type.
- *
- * @author Barry Becker
  */
 final class ZobristHash(
   private val board: TwoPlayerBoard[?],

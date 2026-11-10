@@ -6,9 +6,7 @@ import com.barrybecker4.game.twoplayer.common.search.options.{BestMovesSearchOpt
 
 import java.awt.Color
 
-/**
- * @author Barry Becker
- */
+
 class TicTacToePlayerOptions(name: String, color: Color) extends TwoPlayerPlayerOptions[TwoPlayerMove, TicTacToeBoard](name, color) {
 
   override def createDefaultSearchOptions(): SearchOptions[TwoPlayerMove, TicTacToeBoard] = {

@@ -19,7 +19,6 @@ import scala.jdk.CollectionConverters._
 
 /**
  * Singleton class that takes a game board and renders it for the GameBoardViewer.
- * @author Barry Becker
  */
 class GoBoardRenderer private() extends TwoPlayerBoardRenderer {
   pieceRenderer_ = GoStoneRenderer.getRenderer

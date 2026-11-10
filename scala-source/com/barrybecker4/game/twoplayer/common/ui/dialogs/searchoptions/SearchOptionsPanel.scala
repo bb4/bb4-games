@@ -14,8 +14,6 @@ import java.awt.event.ItemListener
 
 /**
  * The algorithm tab - allows selecting two player search options.
- *
- * @author Barry Becker
  */
 class SearchOptionsPanel(private val searchOptions: SearchOptions[?, ?]) extends JPanel with ItemListener:
 

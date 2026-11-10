@@ -4,8 +4,6 @@ package com.barrybecker4.game.common
 /**
  * This base class describes a change in state from one board
  * position to the next in a game.
- *
- * @author Barry Becker
  */
 class Move() extends Comparable[Move] {
 

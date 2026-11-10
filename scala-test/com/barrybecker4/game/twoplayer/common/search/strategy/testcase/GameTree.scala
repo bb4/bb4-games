@@ -7,9 +7,7 @@ import org.w3c.dom.Node
 
 import scala.jdk.CollectionConverters.*
 
-/**
- * @author Barry Becker
- */
+
 class GameTree(rootNode: Node):
 
   private var moveCount = 0

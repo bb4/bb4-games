@@ -6,8 +6,6 @@ import com.barrybecker4.common.geometry.Location
 /**
  * As an experiment to see the sequence of moves that led to a certain hash key,
  * include the move history in the key itself. Should never do this in practice.
- *
- * @author Barry Becker
  */
 class HashKey(private var key: Long = 0L) {
 

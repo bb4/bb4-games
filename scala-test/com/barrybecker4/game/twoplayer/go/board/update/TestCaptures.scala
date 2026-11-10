@@ -6,9 +6,7 @@ import com.barrybecker4.game.twoplayer.go.board.elements.position.GoStone
 import org.junit.Assert.assertEquals
 import org.junit.{After, Before, Test}
 
-/**
- * @author Barry Becker
- */
+
 class TestCaptures extends GoTestCase:
 
   /** instance under test */

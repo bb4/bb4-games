@@ -12,8 +12,6 @@ import java.awt.event.{ActionEvent, ActionListener}
 
 /**
  * Allow the user to maintain their current orders and add new ones.
- *
- * @author Barry Becker
  */
 final class ConfigurationPanel extends JPanel with ActionListener with ListSelectionListener {
 

@@ -7,7 +7,6 @@ import com.barrybecker4.game.twoplayer.go.board.analysis.group.LifeAnalyzer
 
 /**
  * Evaluate the health of a group based on the status of its eye(s).
- * @author Barry Becker
  */
 class EyeHealthEvaluator(val lifeAnalyzer_ : LifeAnalyzer) {
 

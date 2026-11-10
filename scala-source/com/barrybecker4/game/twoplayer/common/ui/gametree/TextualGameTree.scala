@@ -13,8 +13,6 @@ import java.awt.event.MouseMotionListener
  * Draw the entire game tree using a java tree control in a scrolled pane.
  * Contains 3 sub representations: a java text tree with nodes that can be expanded and collapsed,
  * game viewer, and the graphical GameTreeViewer at the bottom that renders a tree.
- *
- * @author Barry Becker
  */
 final class TextualGameTree(root: SearchTreeNode, cellRenderer: GameTreeCellRenderer) extends JScrollPane:
 

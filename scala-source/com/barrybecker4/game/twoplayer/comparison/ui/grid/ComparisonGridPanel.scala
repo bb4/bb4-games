@@ -20,8 +20,6 @@ import java.io.File
 
 /**
  * Show grid of game trials with run button at top.
- *
- * @author Barry Becker
  */
 final class ComparisonGridPanel extends JPanel with ActionListener with GameMenuListener with PerformanceRunnerListener {
 

@@ -8,8 +8,6 @@ import com.barrybecker4.game.common.ui.panel.GamePanel
  * Immutable class representing information info about a game plugin.
  * There is a game plugin for each game that we support.
  * see plugins.xml
- *
- * @author Barry Becker
  */
 class GamePlugin(
   val name: String,

@@ -18,8 +18,6 @@ import scala.jdk.CollectionConverters.*
  * Uses this approach:
  * http://www.tutorialspoint.com/junit/junit_parameterized_test.htm
  * http://stackoverflow.com/questions/358802/junit-test-with-dynamic-number-of-tests
- *
- * @author Barry Becker
  */
 @RunWith(classOf[Parameterized])
 class AllStrategiesTestRunner(

@@ -16,8 +16,6 @@ import scala.compiletime.uninitialized
 
 /**
  * Allow the user to specify a single order
- *
- * @author Barry Becker
  */
 final class OrderDialog(
     player: GalacticPlayer,

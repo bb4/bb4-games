@@ -9,7 +9,6 @@ import java.util.EventObject
  * This event gets fired whenever the Game state changes.
  *
  * @see GameChangedListener
- * @author Barry Becker
  */
 final class GameChangedEvent[M <: Move](mv: M, controller: IGameController[?, ?], source: AnyRef) 
   extends EventObject(source) {

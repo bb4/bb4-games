@@ -14,7 +14,6 @@ import scala.jdk.CollectionConverters._
 
 /**
  * Base class for all Go test cases. Most of this code could be moved to GoBoardConfigurator
- * @author Barry Becker
  */
 abstract class GoTestCase:
 

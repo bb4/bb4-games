@@ -8,7 +8,6 @@ import java.util.{LinkedList, List as JList}
 
 /**
  * Represents a run of symbols to be evaluated on the board.
- * @author Barry Becker
  */
 class StubLineEvaluator(patterns: Patterns, weights: ParameterArray)
   extends LineEvaluator(patterns, weights):

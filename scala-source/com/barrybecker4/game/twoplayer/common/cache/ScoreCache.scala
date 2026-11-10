@@ -14,8 +14,6 @@ import scala.Option
  * See http://en.wikipedia.org/wiki/Transposition_table
  *     http://pages.cs.wisc.edu/~mjr/Pente/
  *     shttp://people.csail.mit.edu/plaat/mtdf.html
- *
- * @author Barry Becker
  */
 class ScoreCache extends LRUCache[HashKey, ScoreEntry](ScoreCache.MAX_ENTRIES) {
 

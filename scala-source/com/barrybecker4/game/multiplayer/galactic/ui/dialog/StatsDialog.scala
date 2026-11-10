@@ -9,8 +9,6 @@ import javax.swing.{JComponent, JPanel}
 
 /**
  * Draw stats about the players and planet ownership in the Galaxy.
- *
- * @author Barry Becker
  */
 final class StatsDialog(parent: Component, boardViewer: GameBoardViewer[?, ?])
   extends AbstractDialog(parent):

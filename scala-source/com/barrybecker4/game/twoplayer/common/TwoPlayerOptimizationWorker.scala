@@ -15,8 +15,6 @@ import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy.WIN
 /**
  * This worker runs in a separate thread to figure out optimal game weights give the UI a chance to update.
  * The computer optimizes by playing against itself for a long time.
- *
- * @author Barry Becker
  */
 class TwoPlayerOptimizationWorker(
   private val optimizer: Optimizer,

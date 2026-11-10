@@ -8,7 +8,6 @@ import java.awt.Dimension
 
 /**
  * UI element for showing the players name.
- * @author Barry Becker
  */
 class PlayerLabel extends JPanel {
 

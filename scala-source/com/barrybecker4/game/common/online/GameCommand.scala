@@ -9,8 +9,6 @@ import java.util.Objects
  * as a means of communication between the two.
  * Implements command pattern.
  * Immutable.
- *
- * @author Barry Becker
  */
 class GameCommand(name: GameCommand.Name, arg: Serializable) extends Serializable:
 

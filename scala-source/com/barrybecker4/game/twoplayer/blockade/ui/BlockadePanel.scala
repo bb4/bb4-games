@@ -13,8 +13,6 @@ import java.awt.Component
  * This class defines the main UI for the Blockade game applet.
  * It can be run as an applet or application.
  * see also the game Quoridor
- *
- * @author Barry Becker
  */
 class BlockadePanel extends TwoPlayerPanel:
 

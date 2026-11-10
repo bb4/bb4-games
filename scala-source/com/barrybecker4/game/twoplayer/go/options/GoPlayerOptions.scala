@@ -9,9 +9,7 @@ import com.barrybecker4.game.twoplayer.go.board.move.GoMove
 
 import java.awt.Color
 
-/**
- * @author Barry Becker
- */
+
 class GoPlayerOptions(
   name: String,
   color: Color,

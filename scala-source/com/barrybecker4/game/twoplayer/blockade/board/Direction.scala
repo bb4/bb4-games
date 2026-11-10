@@ -7,8 +7,6 @@ import java.util.{HashMap, Map as JMap}
 /**
  * Possible Blockade move directions.
  * Extends java.lang.Enum for Java interop.
- *
- * @author Barry Becker
  */
 enum Direction(private val hashKey: Int) extends java.lang.Enum[Direction]:
 

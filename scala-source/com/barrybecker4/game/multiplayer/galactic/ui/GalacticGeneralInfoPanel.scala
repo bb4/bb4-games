@@ -13,8 +13,6 @@ import java.text.MessageFormat
 /**
  * Show information and statistics about the game.
  * Also allow the player to enter their commands for the turn.
- *
- * @author Barry Becker
  */
 class GalacticGeneralInfoPanel(player: Player, commandPanel: JPanel) extends GeneralInfoPanel(player):
 

@@ -14,7 +14,6 @@ import java.awt.image.{BufferedImage, RescaleOp}
 
 /**
  * Singleton class that takes a go piece and renders it for the GoBoardViewer.
- * @author Barry Becker
  */
 final class GoStoneRenderer private() extends TwoPlayerPieceRenderer {
 

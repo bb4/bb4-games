@@ -7,8 +7,6 @@ import com.barrybecker4.optimization.parameter.ParameterArray
 
 /**
  * Class that can optimize the gameWeights by applying repetitive play.
- *
- * @author Barry Becker
  */
 class TwoPlayerOptimizee[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
   private val controller_ : TwoPlayerController[M, B]

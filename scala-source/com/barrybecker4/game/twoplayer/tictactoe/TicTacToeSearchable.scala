@@ -7,8 +7,6 @@ import com.barrybecker4.game.twoplayer.gomoku.pattern.Patterns
 
 /**
  * Defines everything the computer needs to know to play TicTacToe.
- *
- * @author Barry Becker
  */
 class TicTacToeSearchable(board: TicTacToeBoard, players: PlayerList) 
     extends GoMokuSearchable[TicTacToeBoard](board, players) {

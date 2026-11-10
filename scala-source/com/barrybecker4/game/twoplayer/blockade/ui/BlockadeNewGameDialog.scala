@@ -9,8 +9,6 @@ import java.awt.event.ActionListener
 
 /**
  * Any special options that are needed for Blockade
- *
- * @author Barry Becker
  */
 class BlockadeNewGameDialog(parent: Component, viewer: GameViewModel)
   extends TwoPlayerNewGameDialog(parent, viewer) with ActionListener

@@ -10,7 +10,6 @@ import java.awt.event.ActionListener
 /**
  * Toolbar that appears a the top of the game application window.
  * Offers standard actions for all games, but can be given game specific buttons too.
- * @author Barry Becker
  */
 class GameToolBar(texture: ImageIcon, listener: ActionListener) extends TexturedToolBar(texture, listener) {
 

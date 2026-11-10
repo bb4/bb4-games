@@ -7,9 +7,7 @@ import com.barrybecker4.game.twoplayer.go.board.elements.group.{GroupChangeListe
 import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoBoardPositionSet}
 import com.barrybecker4.game.twoplayer.go.board.elements.string.{GoStringSet, IGoString}
 
-/**
- * @author Barry Becker
- */
+
 class StubGoGroup(absHealth: Float, ownedByPlayer1: Boolean, numStones: Int) extends IGoGroup:
 
   def getAbsoluteHealth: Float = absHealth

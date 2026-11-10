@@ -8,8 +8,6 @@ import scala.jdk.CollectionConverters._
 /**
  * Defines the structure of the board and the pieces on it.
  * Each BoardPosition can contain a piece.
- *
- * @author Barry Becker
  */
 abstract class TwoPlayerBoard[M <: TwoPlayerMove] extends Board[M] {
 

@@ -14,8 +14,6 @@ import scala.jdk.CollectionConverters.*
 /**
  * A node in the in memory UCT tree created during search.
  * derived from http://senseis.xmp.net/?UCT%2FDiscussion
- *
- * @author Barry Becker
  */
 class UctNode[M <: TwoPlayerMove](val move: M):
 

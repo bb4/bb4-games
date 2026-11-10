@@ -11,7 +11,6 @@ import scala.compiletime.uninitialized
 
 /**
  * Verify that we correctly evaluate patterns on the board.
- * @author Barry Becker
  */
 class MoveEvaluationTest:
 

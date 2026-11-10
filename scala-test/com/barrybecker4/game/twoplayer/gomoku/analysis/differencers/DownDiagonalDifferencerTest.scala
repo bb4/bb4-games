@@ -8,8 +8,6 @@ import org.junit.Test
 
 /**
  * Verify that we correctly evaluate patterns on the board.
- *
- * @author Barry Becker
  */
 class DownDiagonalDifferencerTest extends ValueDifferencerTst:
 

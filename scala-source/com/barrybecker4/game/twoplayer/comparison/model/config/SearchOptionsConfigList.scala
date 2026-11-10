@@ -5,8 +5,6 @@ import scala.jdk.CollectionConverters._
 
 /**
  * A list of search config options .
- *
- * @author Barry Becker
  */
 class SearchOptionsConfigList extends java.util.ArrayList[SearchOptionsConfig] {
 

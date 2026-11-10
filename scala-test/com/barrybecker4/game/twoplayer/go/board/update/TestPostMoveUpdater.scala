@@ -10,9 +10,7 @@ import com.barrybecker4.game.twoplayer.go.board.move.GoMove
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-/**
- * @author Barry Becker
- */
+
 class TestPostMoveUpdater extends GoTestCase:
 
   private val PREFIX = "board/update/"

@@ -3,8 +3,6 @@ package com.barrybecker4.game.twoplayer.common.search.options
 
 /**
  * The options for search strategies that use Monte Carlo tree search.
- *
- * @author Barry Becker
  */
 class MonteCarloSearchOptions(
   maxSim: Int,

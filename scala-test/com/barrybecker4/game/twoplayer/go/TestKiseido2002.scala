@@ -11,9 +11,7 @@ import java.net.URISyntaxException
 import java.util
 import scala.jdk.CollectionConverters._
 
-/**
- * @author Barry Becker
- */
+
 class TestKiseido2002 extends GoTestCase:
 
   // just do february for now. It has a lot as it is.

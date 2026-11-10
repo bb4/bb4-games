@@ -7,8 +7,6 @@ import com.barrybecker4.game.twoplayer.gomoku.ui.GoMokuBoardRenderer
 
 /**
  * Singleton class that takes a game board and renders it for the GameBoardViewer.
- *
- * @author Barry Becker
  */
 class TicTacToeBoardRenderer private () extends GoMokuBoardRenderer:
   setPieceRenderer(TwoPlayerPieceRenderer.getRenderer())

@@ -8,8 +8,6 @@ import java.awt.Color
 /**
  * Represents a trivial player in the viewer.
  * For the player we draw their value.
- *
- * @author Barry Becker
  */
 class MultiPlayerMarker(private val owner_ : MultiGamePlayer) extends GamePiece {
 

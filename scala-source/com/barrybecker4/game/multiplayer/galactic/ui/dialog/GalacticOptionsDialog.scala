@@ -14,8 +14,6 @@ import scala.compiletime.uninitialized
 /**
  * Use this modal dialog to let the user choose from among the
  * different game options.
- *
- * @author Barry Becker
  */
 class GalacticOptionsDialog(parent: Component, controller: GameController[?, ?])
   extends MultiGameOptionsDialog(parent, controller) with ActionListener with ItemListener:

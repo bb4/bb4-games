@@ -11,7 +11,6 @@ import scala.jdk.CollectionConverters._
 
 /**
  * Determine the absolute health of a group independent of the health of neighboring groups.
- * @author Barry Becker
  */
 class AbsoluteHealthCalculator(val group_ : IGoGroup, val analyzerMap_ : GroupAnalyzerMap) {
 

@@ -13,7 +13,6 @@ import java.awt.event.ActionEvent
 
 /**
  * Allow the user to specify a trivial action: keep hidden or reveal.
- * @author Barry Becker
  */
 class RevealDialog(pc: TrivialController, parent: Component) extends ActionDialog(pc.asInstanceOf[MultiGameController[?, ?]], parent):
 

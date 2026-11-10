@@ -5,7 +5,6 @@ import com.barrybecker4.game.twoplayer.common.TwoPlayerOptions
 
 /**
  * Go specific game options.
- * @author Barry Becker
  */
 class GoOptions(preferredTone: String) extends TwoPlayerOptions(preferredTone):
 

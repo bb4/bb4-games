@@ -14,8 +14,6 @@ import com.barrybecker4.game.twoplayer.common.search.tree.SearchTreeNode
  * See http://people.csail.mit.edu/plaat/mtdf.html
  *
  * TODO: add iterative deepening (https://chessprogramming.wikispaces.com/MTD(f))
- *
- * @author Barry Becker
  */
 final class MtdStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
     private val searchWithMemory: MemorySearchStrategy[M, B]

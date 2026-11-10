@@ -10,8 +10,6 @@ import com.barrybecker4.game.common.GameWeights
  * These weights determine how the computer values features of the board
  * if only one computer is playing, then only one of the weights arrays is used.
  * use these weights if no others are provided.
- *
- * @author Barry Becker
  */
 class GoMokuWeights(weights: Array[Double]) extends GameWeights(
   weights, GoMokuWeights.MIN_WEIGHTS, GoMokuWeights.MAX_WEIGHTS,

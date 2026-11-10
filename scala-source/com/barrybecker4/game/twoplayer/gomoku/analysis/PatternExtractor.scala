@@ -6,8 +6,6 @@ import com.barrybecker4.game.twoplayer.gomoku.pattern.Patterns
 /**
  * Extract a pattern from a line of symbols.
  * A pattern consists of a sequence of friendly and unoccupied positions.
- *
- * @author Barry Becker
  */
 class PatternExtractor(line: CharSequence) {
 

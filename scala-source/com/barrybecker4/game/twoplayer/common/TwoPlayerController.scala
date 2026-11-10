@@ -27,8 +27,6 @@ import java.io.{FileInputStream, FileNotFoundException, IOException, InputStream
  * Instance of this class process requests from the GameViewer.
  * Specifically, the GameViewer tells the TwoPlayerController what move the human made,
  * and the TwoPlayerController returns information such as the computer's move.
- *
- * @author Barry Becker
  */
 abstract class TwoPlayerController[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]] extends GameController[M, B]:
 

@@ -8,9 +8,7 @@ import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPositi
 import java.util.List
 import scala.jdk.CollectionConverters._
 
-/**
- * @author Barry Becker
- */
+
 class StubGoEye(members: GoBoardPositionSet) extends IGoEye:
 
   def this(list: List[GoBoardPosition]) =

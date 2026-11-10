@@ -3,7 +3,6 @@ package com.barrybecker4.game.common
 
 /**
  * Keep track of timing info for different game searching aspects.
- * @author Barry Becker
  */
 class GameProfiler extends AbstractGameProfiler {
 

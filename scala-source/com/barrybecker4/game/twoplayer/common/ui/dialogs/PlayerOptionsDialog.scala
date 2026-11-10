@@ -17,8 +17,6 @@ import java.awt.{BorderLayout, Component, FlowLayout}
 /**
  * Allow for editing player options.
  * There are two tabs: search options and game weights.
- *
- * @author Barry Becker
  */
 class PlayerOptionsDialog(
   parent: Component,

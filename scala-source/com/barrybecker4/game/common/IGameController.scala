@@ -13,7 +13,6 @@ import com.barrybecker4.game.common.player.{Player, PlayerList}
  * extending the abstract base class.
  *
  * @see GameController for the abstract implementation of this interface
- * @author Barry Becker
  */
 trait IGameController[M <: Move, B <: IBoard[M]] {
 

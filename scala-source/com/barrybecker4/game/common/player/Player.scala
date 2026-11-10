@@ -8,8 +8,6 @@ import java.io.Serializable
 
 /**
  * Represents a player in a game (either human or computer).
- *
- * @author Barry Becker
  */
 class Player(private var options: PlayerOptions, humanPlayer: Boolean) 
     extends Serializable with OnlinePlayer {

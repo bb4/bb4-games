@@ -8,8 +8,6 @@ import org.junit.{Before, Test}
 
 /**
  * Verify that we correctly evaluate patterns in lines on the board.
- *
- * @author Barry Becker
  */
 class LineEvaluatorTest:
 

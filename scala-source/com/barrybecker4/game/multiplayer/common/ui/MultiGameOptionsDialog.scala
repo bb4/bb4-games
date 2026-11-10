@@ -10,9 +10,7 @@ import com.barrybecker4.ui.components.NumberInput
 import java.awt.Component
 import java.awt.event.{KeyEvent, KeyListener}
 
-/**
- * @author Barry Becker
- */
+
 abstract class MultiGameOptionsDialog(parent: Component, controller: GameController[?, ?])
   extends GameOptionsDialog(parent, controller) with KeyListener {
 

@@ -12,7 +12,6 @@ import scala.jdk.CollectionConverters._
 
 /**
  * Verify that we come up with reasonable eye potential values (likelihood of making eyes in the group).
- * @author Barry Becker
  */
 class TestEyeSpaceAnalyzer extends GoTestCase:
 

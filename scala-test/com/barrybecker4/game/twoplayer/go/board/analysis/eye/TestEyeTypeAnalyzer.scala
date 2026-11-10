@@ -11,7 +11,6 @@ import scala.jdk.CollectionConverters._
 
 /**
  * Test that we can get the correct type and status for all the different eyes that can arise.
- * @author Barry Becker
  */
 abstract class TestEyeTypeAnalyzer extends GoTestCase:
 

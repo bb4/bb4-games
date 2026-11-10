@@ -11,8 +11,6 @@ import javax.swing.{JComponent, JFrame}
 
 /**
  * Listens for menu changes and updates the UI appropriately.
- *
- * @author Barry Becker
  */
 class GameMenuController(val frame_ : JFrame) extends GameMenuListener with FileMenuListener {
 

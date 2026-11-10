@@ -7,8 +7,6 @@ package com.barrybecker4.game.twoplayer.gomoku.pattern
  * by importance to let the computer play better.
  *
  * Do not add duplicate patterns or patterns that are the reverse of other patterns.
- *
- * @author Barry Becker
  */
 abstract class Patterns {
 

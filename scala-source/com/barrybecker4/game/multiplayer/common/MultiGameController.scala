@@ -16,8 +16,6 @@ import scala.jdk.CollectionConverters._
 
 /**
  * Abstract base class for multi player game controllers.
- *
- * @author Barry Becker
  */
 abstract class MultiGameController[M <: Move, B <: IBoard[M]](size: Dimension) 
     extends GameController[M, B] {

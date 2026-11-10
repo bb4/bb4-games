@@ -9,8 +9,6 @@ import javax.swing.*
 
 /**
  * Panel that shows the options for search strategies that use monte carlo methods (like UCT derivatives).
- *
- * @author Barry Becker
  */
 class MonteCarloOptionsPanel(private val monteCarloOptions: MonteCarloSearchOptions) extends JPanel:
 

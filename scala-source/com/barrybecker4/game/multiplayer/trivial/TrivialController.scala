@@ -13,8 +13,6 @@ import java.util.{Arrays, List as JList}
  * In this simplistic game, players either keep their card hidden or revealed
  * when it is their turn. When all cards are revealed the highest value card
  * wins. The purpose is to test multi-player game without complex rules.
- *
- * @author Barry Becker
  */
 class TrivialController extends MultiGameController {
 

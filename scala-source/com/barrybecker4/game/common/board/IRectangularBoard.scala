@@ -15,7 +15,6 @@ import com.barrybecker4.game.common.Move
  * extending the abstract base class.
  *
  * @see Board for the base implementation of this interface
- * @author Barry Becker
  */
 trait IRectangularBoard[M <: Move] extends IBoard[M] {
 

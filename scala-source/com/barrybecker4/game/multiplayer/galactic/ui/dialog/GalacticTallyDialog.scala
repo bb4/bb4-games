@@ -12,8 +12,6 @@ import java.util.List as JList
 /**
  * Show a summary of the final results.
  * We will show how many planets and how many ships each remaining player has.
- *
- * @author Barry Becker
  */
 final class GalacticTallyDialog(parent: Component, gc: GalacticController)
   extends TallyDialog(parent, gc):

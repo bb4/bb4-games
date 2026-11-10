@@ -10,7 +10,6 @@ import scala.util.Random
 
 /**
  * A player in a multi-player game.
- * @author Barry Becker
  */
 abstract class MultiGamePlayer(name: String, color: Color, isHuman: Boolean) 
     extends Player(name, color, isHuman) {

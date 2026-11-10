@@ -10,8 +10,6 @@ import com.barrybecker4.game.common.player.{PlayerAction, PlayerList}
  * This is an abstract base class for a Game Controller.
  * It contains the key logic for n player games.
  * Instance of this class process requests from the GameViewer.
- *
- * @author Barry Becker
  */
 abstract class GameController[M <: Move, B <: IBoard[M]] extends IGameController[M, B] {
 

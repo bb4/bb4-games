@@ -7,7 +7,6 @@ import java.io.{IOException, StreamTokenizer}
 
 /**
  * Created on May 27, 2007, 5:35 AM
- * @author Barry Becker
  */
 class GoSGFLoader extends SGFLoader {
 

@@ -12,8 +12,6 @@ import java.awt.event.{ActionEvent, ActionListener}
 
 /**
  * Shows progress while the computer move is being determined.
- *
- * @author Barry Becker
  */
 class ComputerMoveProgressBar extends JProgressBar {
 

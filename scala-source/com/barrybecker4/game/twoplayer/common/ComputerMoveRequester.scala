@@ -6,8 +6,6 @@ import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy
 
 /**
  * Requests the next move to be found.
- *
- * @author Barry Becker
  */
 class ComputerMoveRequester[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](private val controller_ : TwoPlayerController[M, B]) extends SearchProgress:
 

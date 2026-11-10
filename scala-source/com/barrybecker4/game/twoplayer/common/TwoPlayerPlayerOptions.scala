@@ -9,8 +9,6 @@ import java.awt.Color
  * Not a great name for this class. These are the options for a player in a two player game.
  * Since each player could be a computer player with different search options, the search options
  * are part of this class and not TwoPlayerOptions.
- *
- * @author Barry Becker
  */
 class TwoPlayerPlayerOptions[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](name: String, color: Color)
   extends PlayerOptions(name, color):

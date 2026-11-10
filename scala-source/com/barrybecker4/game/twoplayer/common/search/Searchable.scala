@@ -13,8 +13,6 @@ import com.barrybecker4.optimization.parameter.ParameterArray
  * Implementations of this interface allow searching for successive moves in a two player game.
  * The SearchStrategy classes call methods of this interface to do their search.
  * @see TwoPlayerController for the default implementation of this interface
- *
- * @author Barry Becker
  */
 trait Searchable[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]]:
 

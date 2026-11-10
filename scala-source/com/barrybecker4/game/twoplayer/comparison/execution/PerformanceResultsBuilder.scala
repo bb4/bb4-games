@@ -16,7 +16,6 @@ import java.awt.image.BufferedImage
 /**
  * Creates performance results given the controller and list of configuration options to pair off
  * against each other.
- * @author Barry Becker
  */
 class PerformanceResultsBuilder(controller: TwoPlayerController[?, ?], optionsList: SearchOptionsConfigList) {
 

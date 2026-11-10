@@ -8,8 +8,6 @@ import com.barrybecker4.game.multiplayer.common.online.SurrogateMultiPlayer
 
 /**
  * Waits for the next computer move in a separate thread.
- *
- * @author Barry Becker
  */
 class SurrogateMoveWorker(viewer: MultiGameViewer[?, ?]) {
 

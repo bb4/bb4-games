@@ -11,8 +11,6 @@ import scala.jdk.CollectionConverters.*
 /**
  * Render the paths on the blockade board.
  * Mostly for debugging purposes.
- *
- * @author Barry Becker
  */
 object PathRenderer:
   private val PATH_WIDTH_RATIO = 0.16f

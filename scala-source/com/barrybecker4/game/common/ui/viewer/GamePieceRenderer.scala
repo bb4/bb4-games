@@ -14,7 +14,6 @@ import java.awt.geom.{Ellipse2D, Point2D}
  * This allows us to more cleanly separate the client and server code.
  *
  * @see GameBoardViewer
- * @author Barry Becker
  */
 abstract class GamePieceRenderer {
 

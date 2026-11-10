@@ -10,8 +10,6 @@ import com.barrybecker4.game.twoplayer.common.ui.AbstractTwoPlayerBoardViewer
  * This class takes a ChessController as input and displays the
  * Current state of the Chess Game. The ChessController contains a ChessBoard
  * which describes this state.
- *
- * @author Barry Becker
  */
 class ChessBoardViewer extends AbstractTwoPlayerBoardViewer[ChessMove, ChessBoard] {
 

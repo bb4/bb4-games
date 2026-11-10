@@ -7,7 +7,6 @@ import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPositi
 
 /**
  * Determine the absolute health of a group independent of the health of neighboring groups.
- * @author Barry Becker
  */
 class RelativeHealthCalculator(val group_ : IGoGroup, val analyzerMap_ : GroupAnalyzerMap) {
 

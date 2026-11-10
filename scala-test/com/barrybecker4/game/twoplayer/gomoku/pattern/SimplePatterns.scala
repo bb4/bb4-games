@@ -3,8 +3,6 @@ package com.barrybecker4.game.twoplayer.gomoku.pattern
 
 /**
  * Simple patterns for use with unit tests.
- *
- * @author Barry Becker
  */
 class SimplePatterns extends Patterns:
 

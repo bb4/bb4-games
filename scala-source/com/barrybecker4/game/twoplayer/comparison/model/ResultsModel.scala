@@ -3,9 +3,7 @@ package com.barrybecker4.game.twoplayer.comparison.model
 
 import com.barrybecker4.common.util.FileUtil
 
-/**
- * @author Barry Becker
- */
+
 class ResultsModel(val size: Int) {
 
   /** matrix of performance results based on the grid of options to compare. */

@@ -15,8 +15,6 @@ import java.awt.event.{ActionEvent, ActionListener}
 
 /**
  * Manager players for new local multi-player game.
- *
- * @author Barry Becker
  */
 abstract class MultiPlayerNewGameDialog(parent: Component, viewer: GameViewModel)
   extends NewGameDialog(parent, viewer)

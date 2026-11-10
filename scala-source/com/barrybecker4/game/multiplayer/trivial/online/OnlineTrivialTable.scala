@@ -9,9 +9,7 @@ import com.barrybecker4.game.multiplayer.trivial.player.TrivialRobotPlayer
 
 import java.awt.Color
 
-/**
- * @author Barry Becker
- */
+
 class OnlineTrivialTable(name: String, initialPlayer: Player, options: GameOptions)
   extends MultiPlayerOnlineTable(name, initialPlayer, options):
 

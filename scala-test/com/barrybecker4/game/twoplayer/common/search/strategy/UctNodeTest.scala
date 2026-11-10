@@ -13,7 +13,6 @@ import org.junit.Test
 
 /**
  * Test node in in-memory UCT tree.
- * @author Barry Becker
  */
 class UctNodeTest:
 

@@ -9,7 +9,6 @@ import java.util.List => JList
 /**
  * The standard main menu for all game programs.
  * Allows such common operations as new, load, save, exit.
- * @author Barry Becker
  */
 class GameComparisonMenu(initialGame: String) extends GameMenu(initialGame) {
 

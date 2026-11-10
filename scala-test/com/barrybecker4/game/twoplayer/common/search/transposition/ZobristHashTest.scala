@@ -13,7 +13,6 @@ import org.junit.{Before, Test}
 
 /**
  * Verify expected hash key are generated based on board state.
- * @author Barry Becker
  */
 object ZobristHashTest:
   private val CENTER_X_HASH = new HashKey(428667830982598836L)

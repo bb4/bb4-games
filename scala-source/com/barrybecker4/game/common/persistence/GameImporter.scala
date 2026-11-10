@@ -10,8 +10,6 @@ import scala.jdk.CollectionConverters._
 
 /**
  * Import the state of a game from a file.
- *
- * @author Barry Becker
  */
 abstract class GameImporter[M <: Move, B <: IBoard[M]](val controller_ : GameController[M, B]) {
 

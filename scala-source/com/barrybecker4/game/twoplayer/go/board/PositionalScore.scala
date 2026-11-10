@@ -5,7 +5,6 @@ import com.barrybecker4.common.format.FormatUtil
 
 /**
  * For debugging purposes we want to keep more detail on what composes the overall score.
- * @author Barry Becker
  */
 class PositionalScore private {
 

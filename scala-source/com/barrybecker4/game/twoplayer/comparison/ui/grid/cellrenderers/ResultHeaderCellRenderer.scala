@@ -9,8 +9,6 @@ import java.awt.{Color, Component}
 /**
  * Show the column headers with player two's color.
  * validate/revalidate overridden in cell renderer for performance reasons..
- *
- * @author Barry Becker
  */
 class ResultHeaderCellRenderer extends PlayerHeadCellRenderer {
 

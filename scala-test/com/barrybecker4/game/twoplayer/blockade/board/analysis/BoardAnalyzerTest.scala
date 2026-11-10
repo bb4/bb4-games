@@ -12,9 +12,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 
-/**
- * @author Barry Becker
- */
+
 class BoardAnalyzerTest extends BlockadeTestCase:
 
   @Test

@@ -6,8 +6,6 @@ import com.barrybecker4.game.twoplayer.go.board.analysis.WorthInfo
 
 /**
  * Holds the score and the board state
- *
- * @author Barry Becker
  */
 class ScoreEntry(
   private val key: HashKey,

@@ -9,8 +9,6 @@ import java.io.{IOException, StreamTokenizer}
 
 /**
  * Loads a two player game from a text file.
- *
- * @author Barry Becker
  */
 class TwoPlayerSGFLoader extends SGFLoader:
 

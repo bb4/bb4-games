@@ -8,7 +8,6 @@ import scala.jdk.CollectionConverters._
 /**
  * The standard file menu for all game programs.
  * Allows such common operations as new, load, save, exit.
- * @author Barry Becker
  */
 abstract class AbstractGameMenu(title: String) extends JMenu(title) with ActionListener {
 

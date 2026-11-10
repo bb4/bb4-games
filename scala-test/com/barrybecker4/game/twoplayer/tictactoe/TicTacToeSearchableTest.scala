@@ -12,7 +12,6 @@ import org.junit.Test
 
 /**
  * Verify that all the methods in TicTacToe searchable work as expected
- * @author Barry Becker
  */
 class TicTacToeSearchableTest extends TwoPlayerSearchableBaseTst:
 

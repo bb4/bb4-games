@@ -10,7 +10,6 @@ import com.barrybecker4.game.common.board.GamePiece
  * This base class describes a change in state from one board position to the next in a game.
  * Perhaps save space by removing some of these members.
  * Consider splitting this into TwoPlayerMove (immutable part) and TwoPlayerMoveNode (game tree parts)
- * @author Barry Becker
  */
 class TwoPlayerMove(
   var toLocation: Location = null,

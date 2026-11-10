@@ -8,8 +8,6 @@ import java.awt.Image
 /**
  * Right now this just contains the name of the config and the
  * search options, but we may add the game weights too at some point.
- *
- * @author Barry Becker
  */
 class PerformanceResultsPair(
   private var p1FirstResults: PerformanceResults,

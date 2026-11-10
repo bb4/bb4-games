@@ -3,9 +3,7 @@ package com.barrybecker4.game.multiplayer.trivial
 
 import com.barrybecker4.game.multiplayer.common.MultiGameOptions
 
-/**
- * @author Barry Becker
- */
+
 class TrivialOptions() extends MultiGameOptions:
 
   /**

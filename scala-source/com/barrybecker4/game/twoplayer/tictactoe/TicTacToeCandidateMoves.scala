@@ -6,7 +6,6 @@ import com.barrybecker4.game.twoplayer.gomoku.{CandidateMoves, GoMokuBoard}
 /**
  * Representation of the candidate next moves on a TicTacToe Game Board.
  * Immutable after construction.
- * @author Barry Becker
  */
 class TicTacToeCandidateMoves(board: TicTacToeBoard) extends CandidateMoves():
 

@@ -9,7 +9,6 @@ import java.awt._
 
 /**
  * Allow the user to specify an action - like which planets to attack
- * @author Barry Becker
  */
 abstract class ActionDialog(gc: MultiGameController[?, ?], parent: Component)
   extends OptionsDialog(parent) {

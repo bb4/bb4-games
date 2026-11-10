@@ -5,8 +5,6 @@ import com.barrybecker4.common.concurrency.{ThreadUtil, Worker}
 
 /**
  * Searches for the next computer move in a separate thread.
- *
- * @author Barry Becker
  */
 class TwoPlayerSearchWorker[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
   private val controller: TwoPlayerController[M, B]

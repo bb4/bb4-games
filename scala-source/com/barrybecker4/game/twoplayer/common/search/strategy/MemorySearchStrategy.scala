@@ -6,8 +6,6 @@ import com.barrybecker4.game.twoplayer.common.search.transposition.Transposition
 
 /**
  * Interface for all memory based SearchStrategies for 2 player games with perfect information.
- *
- * @author Barry Becker
  */
 trait MemorySearchStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]] extends SearchStrategy[M, B]:
 

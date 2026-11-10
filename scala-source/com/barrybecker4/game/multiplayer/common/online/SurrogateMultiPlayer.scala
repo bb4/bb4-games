@@ -10,8 +10,6 @@ import com.barrybecker4.game.multiplayer.common.{MultiGameController, MultiGameP
 /**
  * On the server, all players are surrogates except for the robot players.
  * On the client, all players are surrogates except for the human player that is controlling that client.
- *
- * @author Barry Becker
  */
 class SurrogateMultiPlayer(player: MultiGamePlayer, connection: IServerConnection)
   extends MultiGamePlayer(player.getName, player.getColor, player.isHuman)

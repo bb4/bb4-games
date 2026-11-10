@@ -34,8 +34,6 @@ object BestMovesSearchOptions:
  * The different options define a number of constraints on limiting the number of moves returned.
  * All the constraints must be satisfied in the sense that there will never be fewer moves returned than
  * any one of them dictates unless there are simple not that many moves available.
- *
- * @author Barry Becker
  */
 class BestMovesSearchOptions(
   bestPercentage: Int = BestMovesSearchOptions.DEFAULT_BEST_PERCENTAGE,

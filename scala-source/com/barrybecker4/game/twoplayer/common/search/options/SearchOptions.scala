@@ -10,8 +10,6 @@ import com.barrybecker4.optimization.parameter.ParameterArray
  * Encapsulate two player search options here to keep the TwoPlayerController class much simpler.
  * While some options are used for all strategies,
  * some Search strategies with different SearchAttributes use different sets of options.
- *
- * @author Barry Becker
  */
 class SearchOptions[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
   algorithm: SearchStrategyType,

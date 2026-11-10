@@ -15,8 +15,6 @@ import scala.jdk.CollectionConverters.*
 
 /**
  * Verify that we correctly evaluate patterns on the board.
- *
- * @author Barry Becker
  */
 class MoveEvaluatorTest:
 

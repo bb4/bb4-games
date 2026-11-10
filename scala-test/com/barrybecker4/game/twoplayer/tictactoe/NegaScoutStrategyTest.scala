@@ -12,7 +12,6 @@ import com.barrybecker4.game.twoplayer.common.search.strategy.integration.NegaSc
 /**
  * These results should be exactly the same as we get from minimax
  * because negamax is equivalent to minimax.
- * @author Barry Becker
  */
 class NegaScoutStrategyTest extends NegaScoutStrategyTst:
 
