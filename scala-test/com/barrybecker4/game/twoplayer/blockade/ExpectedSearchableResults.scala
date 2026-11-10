@@ -154,35 +154,20 @@ object ExpectedSearchableResults:
   )
 
   val EXPECTED_ALL_END_GAME_MOVES_P1: Array[BlockadeMove] = Array(
-    createMove(11, 3, 11, 4, -4096, new GamePiece(false), new BlockadeWall(new BlockadeBoardPosition(9, 5), new BlockadeBoardPosition(9, 6))),
-    createMove(11, 3, 11, 4, -4096, new GamePiece(false), new BlockadeWall(new BlockadeBoardPosition(9, 5), new BlockadeBoardPosition(10, 5))),
-    createMove(11, 3, 11, 4, -4096, new GamePiece(false), new BlockadeWall(new BlockadeBoardPosition(8, 6), new BlockadeBoardPosition(9, 6))),
-    createMove(11, 3, 11, 4, -4096, new GamePiece(false), new BlockadeWall(new BlockadeBoardPosition(8, 6), new BlockadeBoardPosition(8, 5))),
-    createMove(11, 3, 11, 4, -4096, new GamePiece(false), new BlockadeWall(new BlockadeBoardPosition(8, 8), new BlockadeBoardPosition(9, 8))),
-    createMove(11, 3, 11, 4, -4096, new GamePiece(false), new BlockadeWall(new BlockadeBoardPosition(13, 4), new BlockadeBoardPosition(12, 4))),
-    createMove(11, 3, 11, 4, -4096, new GamePiece(false), new BlockadeWall(new BlockadeBoardPosition(12, 4), new BlockadeBoardPosition(12, 5))),
-    createMove(11, 3, 11, 4, -4096, new GamePiece(false), new BlockadeWall(new BlockadeBoardPosition(1, 7), new BlockadeBoardPosition(1, 8))),
-    createMove(11, 3, 11, 4, -4096, new GamePiece(false), new BlockadeWall(new BlockadeBoardPosition(3, 1), new BlockadeBoardPosition(4, 1))),
-    createMove(13, 9, 13, 7, -1568, new GamePiece(false), new BlockadeWall(new BlockadeBoardPosition(9, 5), new BlockadeBoardPosition(9, 6))),
-    createMove(13, 9, 13, 7, -1568, new GamePiece(false), new BlockadeWall(new BlockadeBoardPosition(9, 5), new BlockadeBoardPosition(10, 5))),
-    createMove(13, 9, 13, 7, -1568, new GamePiece(false), new BlockadeWall(new BlockadeBoardPosition(8, 6), new BlockadeBoardPosition(9, 6))),
-    createMove(13, 9, 13, 7, -1568, new GamePiece(false), new BlockadeWall(new BlockadeBoardPosition(8, 6), new BlockadeBoardPosition(8, 5))),
-    createMove(13, 9, 13, 7, -1568, new GamePiece(false), new BlockadeWall(new BlockadeBoardPosition(8, 8), new BlockadeBoardPosition(9, 8))),
-    createMove(13, 9, 13, 7, -1568, new GamePiece(false), new BlockadeWall(new BlockadeBoardPosition(13, 4), new BlockadeBoardPosition(12, 4))),
-    createMove(13, 9, 13, 7, -1568, new GamePiece(false), new BlockadeWall(new BlockadeBoardPosition(1, 7), new BlockadeBoardPosition(1, 8))),
-    createMove(13, 9, 13, 7, -1568, new GamePiece(false), new BlockadeWall(new BlockadeBoardPosition(3, 1), new BlockadeBoardPosition(4, 1)))
+    createMove(11, 3, 11, 4, -4096, PLAYER2_PIECE, null),
+    createMove(13, 9, 13, 7, -1568, PLAYER2_PIECE, new BlockadeWall(new BlockadeBoardPosition(9, 5), new BlockadeBoardPosition(9, 6))),
+    createMove(13, 9, 13, 7, -1568, PLAYER2_PIECE, new BlockadeWall(new BlockadeBoardPosition(9, 5), new BlockadeBoardPosition(10, 5))),
+    createMove(13, 9, 13, 7, -1568, PLAYER2_PIECE, new BlockadeWall(new BlockadeBoardPosition(8, 6), new BlockadeBoardPosition(9, 6))),
+    createMove(13, 9, 13, 7, -1568, PLAYER2_PIECE, new BlockadeWall(new BlockadeBoardPosition(8, 6), new BlockadeBoardPosition(8, 5))),
+    createMove(13, 9, 13, 7, -1568, PLAYER2_PIECE, new BlockadeWall(new BlockadeBoardPosition(8, 8), new BlockadeBoardPosition(9, 8))),
+    createMove(13, 9, 13, 7, -1568, PLAYER2_PIECE, new BlockadeWall(new BlockadeBoardPosition(13, 4), new BlockadeBoardPosition(12, 4))),
+    createMove(13, 9, 13, 7, -1568, PLAYER2_PIECE, new BlockadeWall(new BlockadeBoardPosition(1, 7), new BlockadeBoardPosition(1, 8))),
+    createMove(13, 9, 13, 7, -1568, PLAYER2_PIECE, new BlockadeWall(new BlockadeBoardPosition(3, 1), new BlockadeBoardPosition(4, 1)))
   )
 
   val EXPECTED_TOP_END_GAME_MOVES_P1: Array[BlockadeMove] = Array(
-    createMove(11, 3, 11, 4, -4096, new GamePiece(false), new BlockadeWall(new BlockadeBoardPosition(9, 5), new BlockadeBoardPosition(9, 6))),
-    createMove(11, 3, 11, 4, -4096, new GamePiece(false), new BlockadeWall(new BlockadeBoardPosition(9, 5), new BlockadeBoardPosition(10, 5))),
-    createMove(11, 3, 11, 4, -4096, new GamePiece(false), new BlockadeWall(new BlockadeBoardPosition(8, 6), new BlockadeBoardPosition(9, 6))),
-    createMove(11,3,  11,4, -4096, new GamePiece(false), new BlockadeWall(new BlockadeBoardPosition(8, 6), new BlockadeBoardPosition(8, 5))),
-    createMove(11,3,  11,4, -4096, new GamePiece(false), new BlockadeWall(new BlockadeBoardPosition(8, 8), new BlockadeBoardPosition(9, 8))),
-    createMove(11,3,  11,4, -4096, new GamePiece(false), new BlockadeWall(new BlockadeBoardPosition(13, 4), new BlockadeBoardPosition(12, 4))),
-    createMove(11,3,  11,4, -4096, new GamePiece(false), new BlockadeWall(new BlockadeBoardPosition(12, 4), new BlockadeBoardPosition(12, 5))),
-    createMove(11,3,  11,4, -4096, new GamePiece(false), new BlockadeWall(new BlockadeBoardPosition(1, 7), new BlockadeBoardPosition(1, 8))),
-    createMove(11,3,  11,4, -4096, new GamePiece(false), new BlockadeWall(new BlockadeBoardPosition(3, 1), new BlockadeBoardPosition(4, 1)))
+    createMove(11, 3, 11, 4, -4096, PLAYER2_PIECE, null),
+    createMove(13, 9, 13, 7, -1568, PLAYER2_PIECE, new BlockadeWall(new BlockadeBoardPosition(9, 5), new BlockadeBoardPosition(9, 6)))
   )
 
   val EXPECTED_ALL_MIDDLE_GAME_MOVES_P2: Array[BlockadeMove] = Array(
@@ -295,16 +280,13 @@ object ExpectedSearchableResults:
   )
 
   val EXPECTED_ALL_END_GAME_MOVES_P2: Array[BlockadeMove] = Array(
-    createMove(5, 8, 4, 8, 4096, new GamePiece(true), new BlockadeWall(new BlockadeBoardPosition(12, 5), new BlockadeBoardPosition(12, 6))),
-    createMove(5, 8, 4, 8, 4096, new GamePiece(true), new BlockadeWall(new BlockadeBoardPosition(12, 5), new BlockadeBoardPosition(12, 4))),
-    createMove(5, 8, 4, 8, 4096, new GamePiece(true), new BlockadeWall(new BlockadeBoardPosition(11, 4), new BlockadeBoardPosition(12, 4))),
-    createMove(8, 3, 9, 2, -1504, new GamePiece(true), new BlockadeWall(new BlockadeBoardPosition(11, 4), new BlockadeBoardPosition(12, 4))),
-    createMove(8, 3, 9, 2, -1536, new GamePiece(true), new BlockadeWall(new BlockadeBoardPosition(12, 5), new BlockadeBoardPosition(12, 6)))
+    createMove(5, 8, 4, 8, 4096, PLAYER1_PIECE, null),
+    createMove(8, 3, 9, 2, -1504, PLAYER1_PIECE, new BlockadeWall(new BlockadeBoardPosition(11, 4), new BlockadeBoardPosition(12, 4))),
+    createMove(8, 3, 9, 2, -1536, PLAYER1_PIECE, new BlockadeWall(new BlockadeBoardPosition(12, 5), new BlockadeBoardPosition(12, 6)))
   )
 
   val EXPECTED_TOP_END_GAME_MOVES_P2: Array[BlockadeMove] = Array(
-    createMove(5, 8, 4, 8, 4096, new GamePiece(true), new BlockadeWall(new BlockadeBoardPosition(12, 5), new BlockadeBoardPosition(12, 6))),
-    createMove(5, 8, 4, 8, 4096, new GamePiece(true), new BlockadeWall(new BlockadeBoardPosition(12, 5), new BlockadeBoardPosition(12, 4))),
-    createMove(5,8,  4,8, 4096, new GamePiece(true), new BlockadeWall(new BlockadeBoardPosition(11, 4), new BlockadeBoardPosition(12, 4)))
+    createMove(5, 8, 4, 8, 4096, PLAYER1_PIECE, null),
+    createMove(8, 3, 9, 2, -1504, PLAYER1_PIECE, new BlockadeWall(new BlockadeBoardPosition(11, 4), new BlockadeBoardPosition(12, 4)))
   )
 

@@ -2,7 +2,7 @@
 package com.barrybecker4.game.twoplayer.blockade.board.move.wall
 
 import com.barrybecker4.game.common.GameContext
-import com.barrybecker4.game.twoplayer.blockade.board.BlockadeBoard
+import com.barrybecker4.game.twoplayer.blockade.board.{BlockadeBoard, Homes}
 import com.barrybecker4.game.twoplayer.blockade.board.move.BlockadeMove
 import com.barrybecker4.game.twoplayer.blockade.board.path.{Path, PathList, PlayerPathLengths}
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy
@@ -80,9 +80,16 @@ class WallPlacementFinder(
 
     board.makeMove(m)
     val pathLengths = board.findPlayerPathLengths()
+    val legal =
+      if wall == null then pathLengths.isValid
+      else
+        val expectedPaths = Homes.NUM_HOMES * Homes.NUM_HOMES
+        val paths1 = board.findAllOpponentShortestPaths(player1 = true)
+        val paths2 = board.findAllOpponentShortestPaths(player1 = false)
+        paths1.size() >= expectedPaths && paths2.size() >= expectedPaths
     board.undoMove()
 
-    if pathLengths.isValid then
+    if legal then
       m.setValue(pathLengths.determineWorth(SearchStrategy.WINNING_VALUE, weights))
       moves.addOne(m)
     else
