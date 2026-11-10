@@ -2,7 +2,7 @@ package com.barrybecker4.game.twoplayer.hex
 
 import com.barrybecker4.common.geometry.{ByteLocation, Location}
 import com.barrybecker4.game.common.board.BoardPosition
-import com.barrybecker4.math.MathUtil
+import com.barrybecker4.game.common.GameContext
 
 /**
  * Representation of the candidate next moves on a Hex Game Board.
@@ -46,8 +46,8 @@ class HexCandidateMoves(private val numRows: Int, private val numCols: Int,
 
     for k <- 0 until HexCandidateMoves.NUM_RANDOM_PLACEMENTS do
       val loc = ByteLocation(
-        (MathUtil.RANDOM.nextInt(numRows) + 1).toByte,
-        (MathUtil.RANDOM.nextInt(numCols) + 1).toByte)
+        (GameContext.random().nextInt(numRows) + 1).toByte,
+        (GameContext.random().nextInt(numCols) + 1).toByte)
       val pos = board.getPosition(loc)
       setCandidate(pos)
 

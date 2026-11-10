@@ -1,13 +1,13 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.common
 
-import com.barrybecker4.math.MathUtil
 import com.barrybecker4.game.twoplayer.common.ui.OptimizationDoneHandler
 import com.barrybecker4.optimization.Optimizer
 import com.barrybecker4.optimization.parameter.ParameterArray
 import com.barrybecker4.optimization.parameter.ParameterArrayWithFitness
 import com.barrybecker4.optimization.strategy.OptimizationStrategyType
 import scala.Option
+import scala.util.Random
 import javax.swing.SwingWorker
 import com.barrybecker4.game.common.GameContext
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy.WINNING_VALUE
@@ -29,7 +29,7 @@ class TwoPlayerOptimizationWorker(
       DEFAULT_STRATEGY,
       initialWeights,
       WINNING_VALUE,
-      MathUtil.RANDOM,
+      new Random(),
       Option.empty,
       false
     ).best

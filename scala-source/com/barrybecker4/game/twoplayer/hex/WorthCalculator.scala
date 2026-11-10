@@ -1,7 +1,6 @@
 package com.barrybecker4.game.twoplayer.hex
 
 import com.barrybecker4.common.geometry.Location
-import com.barrybecker4.math.MathUtil
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy
 import com.barrybecker4.optimization.parameter.ParameterArray
@@ -23,22 +22,17 @@ class WorthCalculator:
     (wt1 * centricityValue + wt2 * pathValue).toInt
 
   private def calcPathValue(board: HexBoard): Double =
-    var pathValue = MathUtil.RANDOM.nextInt(100)
-
     val p1Cost = board.getP1PathCost
     val p2Cost = board.getP2PathCost
     val p1Connected = p1Cost == 0
     val p2Connected = p2Cost == 0
-    
-    if p1Connected || p2Connected then
-      if p1Connected then
-        pathValue = SearchStrategy.WINNING_VALUE
-      else if p2Connected then
-        pathValue = -SearchStrategy.WINNING_VALUE
+
+    if p1Connected then
+      SearchStrategy.WINNING_VALUE
+    else if p2Connected then
+      -SearchStrategy.WINNING_VALUE
     else
-      pathValue = p2Cost - p1Cost
-    
-    pathValue
+      p2Cost - p1Cost
 
   private def calcCentricityValue(board: HexBoard, lastMove: TwoPlayerMove): Double =
     val thresh = 10

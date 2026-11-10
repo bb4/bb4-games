@@ -1,8 +1,8 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.common
 
-import com.barrybecker4.math.MathUtil
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy
+import scala.util.Random
 import com.barrybecker4.optimization.parameter.{NumericParameterArray, ParameterArray}
 import com.barrybecker4.optimization.parameter.redistribution.RedistributionFunction
 
@@ -33,7 +33,7 @@ class GameWeights(val defaultWeights: ParameterArray) {
       val minVals = minWeights.map(_ * SCALE)
       val defaultVals = defaultWeights.map(_ * SCALE)
       val maxVals = maxWeights.map(_ * SCALE)
-      new NumericParameterArray(defaultVals, minVals, maxVals, names, MathUtil.RANDOM)
+      new NumericParameterArray(defaultVals, minVals, maxVals, names, GameWeights.parameterRandom)
     })
   }
 
@@ -71,4 +71,7 @@ class GameWeights(val defaultWeights: ParameterArray) {
 object GameWeights {
   final val ASSUMED_WINNING_VALUE: Double = 1024
   final val NONE: scala.Option[RedistributionFunction] = scala.Option.apply(null)
+
+  /** Same fixed seed as legacy `MathUtil.RANDOM` for reproducible weight-array construction. */
+  private val parameterRandom: Random = new Random(1)
 }
