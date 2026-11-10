@@ -28,7 +28,7 @@ final class GoNewGameDialog(parent: Component, viewer: GameViewModel)
   }
 
   override def createPlayerAssignmentPanel(): PlayerAssignmentPanel = {
-    new GoPlayerAssignmentPanel(get2PlayerController(), this.myParent)
+    new GoPlayerAssignmentPanel(get2PlayerController(), this)
   }
 
   override def ok(): Unit = {

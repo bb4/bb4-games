@@ -70,7 +70,7 @@ class TwoPlayerNewGameDialog(parent: Component, viewer: GameViewModel)
     p
 
   override def createPlayerAssignmentPanel(): PlayerAssignmentPanel =
-    new PlayerAssignmentPanel(get2PlayerController(), this.myParent)
+    new PlayerAssignmentPanel(get2PlayerController(), this)
 
   override def ok(): Unit =
     val c = get2PlayerController()
@@ -81,19 +81,19 @@ class TwoPlayerNewGameDialog(parent: Component, viewer: GameViewModel)
       val colSize = gridParamPanel_.getColSize
       board.setSize(rowSize, colSize)
 
-    c.getOptions.setAutoOptimize(optimizationCheckbox_.isSelected())
+    c.getOptions.setAutoOptimize(optimizationCheckbox_.isSelected)
     playersPanel_.ok()
     super.ok()
 
   override def actionPerformed(e: ActionEvent): Unit =
-    val source = e.getSource()
+    val source = e.getSource
 
     if source == startButton_ then
       ok()
     else if source == cancelButton then
       cancel()
     else if source == optimizationCheckbox_ then
-      val checked = optimizationCheckbox_.isSelected()
+      val checked = optimizationCheckbox_.isSelected
       optimizationCheckBoxHandler(checked)
     else
       throw new IllegalStateException("unexpected source=" + source)
@@ -106,12 +106,12 @@ class TwoPlayerNewGameDialog(parent: Component, viewer: GameViewModel)
       chooser.setCurrentDirectory(new File(FileUtil.getHomeDir + "/webdeployment"))
       chooser.setFileFilter(new TextFileFilter())
       val state = chooser.showOpenDialog(this)
-      val file = chooser.getSelectedFile()
+      val file = chooser.getSelectedFile
       if file == null || state != JFileChooser.APPROVE_OPTION then
         optimizationCheckbox_.setSelected(false)
       else
         playersPanel_.setBothComputerPlayers(true)
         playersPanel_.setPlayersSelected(false)
-        get2PlayerController().getOptions.setAutoOptimizeFile(file.getAbsolutePath())
+        get2PlayerController().getOptions.setAutoOptimizeFile(file.getAbsolutePath)
     else
       playersPanel_.setPlayersSelected(true)

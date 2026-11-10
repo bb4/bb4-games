@@ -107,11 +107,11 @@ class PlayerAssignmentPanel(
 
   def ok(): Unit =
     val players = controller.getPlayers
-    players.getPlayer1.setHuman(human1Button_.isSelected())
-    players.getPlayer2.setHuman(human2Button_.isSelected())
+    players.getPlayer1.setHuman(human1Button_.isSelected)
+    players.getPlayer2.setHuman(human2Button_.isSelected)
 
   override def actionPerformed(e: ActionEvent): Unit =
-    val source = e.getSource()
+    val source = e.getSource
 
     if source == computer1Button_ then
       editOptions1Button_.setEnabled(true)
@@ -131,11 +131,7 @@ class PlayerAssignmentPanel(
    */
   private def showEditWeightsDialog(showForPlayer1: Boolean): Boolean =
     val editWtsDlg = new PlayerOptionsDialog(dialogParent, controller, showForPlayer1)
-
-    editWtsDlg.setLocationRelativeTo(dialogParent)
-    editWtsDlg.setModal(true)
-    editWtsDlg.setVisible(true)
-    false
+    editWtsDlg.showDialog
 
   def setPlayersSelected(enable: Boolean): Unit =
     editOptions1Button_.setEnabled(enable)
