@@ -78,14 +78,16 @@ class GroupEyeCache(group: IGoGroup, analyzerMap: GroupAnalyzerMap) {
 
   /**
    * clear the current eyes for the group (in preparation for recomputing them).
+   * Always mark the cache invalid, even when there were zero eyes — otherwise a
+   * zero-eye group that was analyzed stays "valid" after invalidate() and can
+   * return stale absolute health.
    */
   private def clearEyes(): Unit = {
-    if (eyes_.isEmpty) return
-
     for (eye <- eyes_.asScala) {
       eye.clear()
     }
     eyes_.clear()
+    eyePotential_ = 0.0f
     isValid_ = false
   }
 }

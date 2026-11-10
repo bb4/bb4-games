@@ -34,7 +34,12 @@ class TerritoryUpdater(val board_ : GoBoard, val analyzerMap_ : GroupAnalyzerMap
 
     val prof = GoProfiler.getInstance
     prof.startUpdateTerritory()
-    analyzerMap_.clear()
+    // Reuse GroupAnalyzers across same-board re-evals so GroupEyeCache can hit.
+    // After a move, groups are recreated and getAnalyzer builds new analyzers.
+    // FORCE_NEW_ANALYZERS restores the old nuclear clear for bisecting regressions.
+    if (TerritoryUpdater.FORCE_NEW_ANALYZERS) {
+      analyzerMap_.clear()
+    }
 
     var delta = calcAbsoluteHealth()
     if (GoController.USE_RELATIVE_GROUP_SCORING) {
@@ -99,4 +104,12 @@ class TerritoryUpdater(val board_ : GoBoard, val analyzerMap_ : GroupAnalyzerMap
 
     delta
   }
+}
+
+object TerritoryUpdater {
+  /**
+   * When true, discard all group analyzers before each territory update (pre-issue-17 behavior).
+   * Leave false so eye/health caches survive same-board re-evaluation.
+   */
+  var FORCE_NEW_ANALYZERS: Boolean = false
 }

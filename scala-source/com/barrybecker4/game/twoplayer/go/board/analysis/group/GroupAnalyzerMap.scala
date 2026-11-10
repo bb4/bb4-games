@@ -3,7 +3,9 @@ package com.barrybecker4.game.twoplayer.go.board.analysis.group
 
 import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup
 
+import java.util
 import java.util.{Map, WeakHashMap}
+import scala.jdk.CollectionConverters.*
 
 /**
  * Maintains a map from groups to GroupAnalyzers.
@@ -11,7 +13,7 @@ import java.util.{Map, WeakHashMap}
  */
 class GroupAnalyzerMap {
 
-  private val analyzerMap: Map[IGoGroup, GroupAnalyzer] = new WeakHashMap[IGoGroup, GroupAnalyzer]()
+  private val analyzerMap: util.Map[IGoGroup, GroupAnalyzer] = new WeakHashMap[IGoGroup, GroupAnalyzer]()
 
   /**
    * Get an analyzer for a specific group.
@@ -28,6 +30,14 @@ class GroupAnalyzerMap {
     analyzerMap.put(group, analyzer)
 
     analyzer
+  }
+
+  /**
+   * Invalidate cached eye/health state for every analyzer without discarding them.
+   * Prefer this over [[clear]] when group identity is still valid (same board).
+   */
+  def invalidateAll(): Unit = {
+    analyzerMap.values.asScala.foreach(_.invalidate())
   }
 
   def clear(): Unit = {

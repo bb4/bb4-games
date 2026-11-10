@@ -6,7 +6,6 @@ import com.barrybecker4.game.twoplayer.go.board.{GoBoard, GoProfiler}
 import com.barrybecker4.game.twoplayer.go.board.analysis.group.eye.{EyeHealthEvaluator, GroupEyeCache}
 import com.barrybecker4.game.twoplayer.go.board.elements.eye.GoEyeSet
 import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup
-import com.barrybecker4.game.twoplayer.go.board.elements.string.IGoString
 import scala.jdk.CollectionConverters._
 
 /**
@@ -16,6 +15,7 @@ class AbsoluteHealthCalculator(val group_ : IGoGroup, val analyzerMap_ : GroupAn
 
   private var absoluteHealth_ = 0.0f
   private var cachedNumStonesInGroup_ = 0
+  private var cachedNumLiberties_ = 0
   private val eyeCache_ = new GroupEyeCache(group_, analyzerMap_)
 
   /**
@@ -51,17 +51,21 @@ class AbsoluteHealthCalculator(val group_ : IGoGroup, val analyzerMap_ : GroupAn
    * @return the overall health of the group independent of nbr groups.
    */
   def calculateAbsoluteHealth(board: GoBoard): Float = {
-    if (eyeCache_.isValid) {
-      GameContext.log(1, "cache valid. Returning health=" + absoluteHealth_)
-      return absoluteHealth_
-    }
-
     val numLiberties = group_.getNumLiberties(board)
+    val numStones = group_.getNumStones
+
+    if (eyeCache_.isValid) {
+      if (numLiberties == cachedNumLiberties_ && numStones == cachedNumStonesInGroup_) {
+        GameContext.log(1, "cache valid. Returning health=" + absoluteHealth_)
+        return absoluteHealth_
+      }
+      // Liberties or stone count changed without a groupChanged() broadcast.
+      eyeCache_.invalidate()
+    }
 
     val side = if (group_.isOwnedByPlayer1) 1.0f else -1.0f
 
     var numEyes = eyeCache_.calcNumEyes()
-    val numStones = group_.getNumStones
     val lifeAnalyzer = new LifeAnalyzer(group_, board, analyzerMap_)
     val eyeEvaluator = new EyeHealthEvaluator(lifeAnalyzer)
 
@@ -83,6 +87,8 @@ class AbsoluteHealthCalculator(val group_ : IGoGroup, val analyzerMap_ : GroupAn
       absoluteHealth_ = side
     }
 
+    cachedNumLiberties_ = numLiberties
+    cachedNumStonesInGroup_ = numStones
     absoluteHealth_
   }
 
