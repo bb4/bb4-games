@@ -82,20 +82,23 @@ tasks.withType(Test).configureEach { test ->
 apply plugin: 'com.barrybecker4.bb4.publish'
 apply plugin: 'com.barrybecker4.bb4.application'
 
-// Gradle 8+: startScripts reads build/libs from jarMap tasks; declare ordering explicitly
-tasks.named('startScripts').configure {
-    dependsOn tasks.named('gameJar')
+def jarMapJarTaskNames = jarMap.keySet().collect { String key -> "${key}Jar" }
+afterEvaluate {
+    // Gradle 8+: startScripts reads build/libs from jarMap tasks; declare ordering explicitly
+    tasks.named('startScripts').configure {
+        dependsOn jarMapJarTaskNames
+    }
 }
 
 ext.gameApp = 'com.barrybecker4.game.common.ui.GameApp'
 
-task runKgsTesujisoftGoClient(type: JavaExec) {
+tasks.register('runKgsTesujisoftGoClient', JavaExec) {
     group = 'application'
     mainClass = 'com.barrybecker4.game.twoplayer.go.GtpKgsTesujisoftGoClient'
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task runPokerServer(type: JavaExec) {
+tasks.register('runPokerServer', JavaExec) {
     group = 'application'
     mainClass = 'com.barrybecker4.game.common.online.ui.OnlineGameServerFrame'
     args = ["-game", "poker", "-locale", "ENGLISH"]
@@ -103,7 +106,7 @@ task runPokerServer(type: JavaExec) {
 }
 
 
-task runGameComparisons(type: JavaExec) {
+tasks.register('runGameComparisons', JavaExec) {
     group = 'application'
     mainClass = "com.barrybecker4.game.twoplayer.comparison.GameComparisonApp"
     args = ["-name", "gomoku", "-locale", "ENGLISH"]
