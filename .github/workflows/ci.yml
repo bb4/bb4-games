@@ -36,5 +36,5 @@ jobs:
         # while the snapshot repository is still limiting this job.
         run: >
           ./gradlew publish --max-workers=1 --no-parallel
-          -Dorg.gradle.internal.network.retry.max.attempts=6
+          -Dorg.gradle.internal.network.retry.max.attempts=4
           -Dorg.gradle.internal.network.retry.initial.backOff=8000
