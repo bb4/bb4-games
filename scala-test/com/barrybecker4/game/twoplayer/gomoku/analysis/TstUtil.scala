@@ -2,7 +2,7 @@
 package com.barrybecker4.game.twoplayer.gomoku.analysis
 
 import com.barrybecker4.game.common.board.{BoardPosition, GamePiece}
-import org.junit.Assert.assertEquals
+import org.junit.jupiter.api.Assertions.assertEquals
 
 import scala.jdk.CollectionConverters.*
 
@@ -45,8 +45,7 @@ object TstUtil:
     val checkedPatterns = evaluator.getPatternsChecked
     var i = 0
     System.out.println("checkedPatterns = " + TstUtil.quoteStringList(checkedPatterns))
-    assertEquals("Unexpected number of patterns checked",
-      expectedPatterns.length, checkedPatterns.size)
+    assertEquals(expectedPatterns.length, checkedPatterns.size, "Unexpected number of patterns checked")
 
     for pat <- checkedPatterns.asScala do
       assertEquals(expectedPatterns(i), pat)

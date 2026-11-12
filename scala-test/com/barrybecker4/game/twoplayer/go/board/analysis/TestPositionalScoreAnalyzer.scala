@@ -1,9 +1,9 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.go.board.analysis
 
-import org.junit.Assert
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import com.barrybecker4.common.geometry.ByteLocation
 import com.barrybecker4.common.geometry.Location
 import com.barrybecker4.game.twoplayer.go.GoTestCase
@@ -23,7 +23,7 @@ class TestPositionalScoreAnalyzer extends GoTestCase:
 
   private val TOLERANCE: Double = 0.001
 
-  @Before
+  @BeforeEach
   override def setUp(): Unit =
     super.setUp()
     goWeights = new GoWeights()
@@ -50,7 +50,7 @@ class TestPositionalScoreAnalyzer extends GoTestCase:
     verifyPositionalScore(new ByteLocation(3, 2), PositionalScore.createOccupiedScore(0.0, 0.0, 0.0), totalScore)
 
     verifyScoresEqual(PositionalScore.createOccupiedScore(0.0, 0.0, 0.0), totalScore)
-    Assert.assertEquals("Unexpected position score.  ", 0.0, totalScore.getPositionScore, TOLERANCE)
+    Assertions.assertEquals(0.0, totalScore.getPositionScore, TOLERANCE, "Unexpected position score.  ")
 
   @Test
   def testOverallPositionalScoreNoEye(): Unit =
@@ -75,7 +75,7 @@ class TestPositionalScoreAnalyzer extends GoTestCase:
     verifyPositionalScore(new ByteLocation(3, 3), PositionalScore.createOccupiedScore(0.0, 0.625, 0.0), totalScore)
 
     verifyScoresEqual(PositionalScore.createOccupiedScore(0.0, 0.625, 0.0), totalScore)
-    Assert.assertEquals("Unexpected position score.  ", 0.625, totalScore.getPositionScore, TOLERANCE)
+    Assertions.assertEquals(0.625, totalScore.getPositionScore, TOLERANCE, "Unexpected position score.  ")
 
   @Test
   def testOverallPositionalScoreInEye(): Unit =
@@ -104,7 +104,7 @@ class TestPositionalScoreAnalyzer extends GoTestCase:
     verifyPositionalScore(new ByteLocation(9, 2), PositionalScore.createOccupiedScore(0.0f, 0.0f, 0.0f), totalScore)
 
     verifyScoresEqual(PositionalScore.createOccupiedScore(-1.0f, 0.625f, 0.0f), totalScore)
-    Assert.assertEquals("Unexpected position score.  ", -0.375f, totalScore.getPositionScore, TOLERANCE)
+    Assertions.assertEquals(-0.375f, totalScore.getPositionScore, TOLERANCE, "Unexpected position score.  ")
 
   @Test
   def testOverallPositionalScoreAlive(): Unit =
@@ -122,20 +122,15 @@ class TestPositionalScoreAnalyzer extends GoTestCase:
     totalScore.incrementBy(actScore)
 
   private def verifyScoresEqual(expScore: PositionalScore, actScore: PositionalScore): Unit =
-    Assert.assertEquals("Unexpected eye space score. " + actScore,
-      expScore.getEyeSpaceScore, actScore.getEyeSpaceScore, TOLERANCE)
-    Assert.assertEquals("Unexpected posScore. " + actScore,
-      expScore.getPosScore, actScore.getPosScore, TOLERANCE)
-    Assert.assertEquals("Unexpected badShape score. " + actScore,
-      expScore.getBadShapeScore, actScore.getBadShapeScore, TOLERANCE)
-    Assert.assertEquals("Unexpected deadStone score.  " + actScore,
-      expScore.getDeadStoneScore, actScore.getDeadStoneScore, TOLERANCE)
-    Assert.assertEquals("Unexpected health score.  " + actScore,
-      expScore.getHealthScore, actScore.getHealthScore, TOLERANCE)
+    Assertions.assertEquals(expScore.getEyeSpaceScore, actScore.getEyeSpaceScore, TOLERANCE, "Unexpected eye space score. " + actScore)
+    Assertions.assertEquals(expScore.getPosScore, actScore.getPosScore, TOLERANCE, "Unexpected posScore. " + actScore)
+    Assertions.assertEquals(expScore.getBadShapeScore, actScore.getBadShapeScore, TOLERANCE, "Unexpected badShape score. " + actScore)
+    Assertions.assertEquals(expScore.getDeadStoneScore, actScore.getDeadStoneScore, TOLERANCE, "Unexpected deadStone score.  " + actScore)
+    Assertions.assertEquals(expScore.getHealthScore, actScore.getHealthScore, TOLERANCE, "Unexpected health score.  " + actScore)
 
   private def verifyExpectedOverallScore(expectedScore: Float): Unit =
     val size: Int = getBoard.getNumRows
     val score: PositionalScore = PositionalScore.createZeroScore()
     for (row <- 1 to size; col <- 1 to size) do
       score.incrementBy(scoreAnalyzer_.determineScoreForPosition(row, col, goWeights.getPlayer1Weights))
-    Assert.assertEquals(expectedScore, score.getPositionScore, TOLERANCE)
+    Assertions.assertEquals(expectedScore, score.getPositionScore, TOLERANCE)

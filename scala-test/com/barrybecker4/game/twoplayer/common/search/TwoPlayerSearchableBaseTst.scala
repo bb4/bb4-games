@@ -5,8 +5,9 @@ import com.barrybecker4.game.common.{GameContext, Move, MoveList}
 import com.barrybecker4.game.twoplayer.common.*
 import com.barrybecker4.game.twoplayer.common.search.options.{BestMovesSearchOptions, BruteSearchOptions, SearchOptions}
 import com.barrybecker4.optimization.parameter.ParameterArray
-import org.junit.Assert.{assertEquals, assertFalse, assertTrue}
-import org.junit.{Before, Test}
+import org.junit.jupiter.api.Assertions.{assertEquals, assertFalse, assertTrue}
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 import scala.jdk.CollectionConverters.*
 
@@ -25,7 +26,7 @@ abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst:
     scala.compiletime.uninitialized
   private var searchOptions_ : SearchOptions[?, ?] = scala.compiletime.uninitialized
 
-  @Before
+  @BeforeEach
   override def setUp(): Unit =
     GameContext.setDebugMode(getDebugLevel)
     super.setUp()
@@ -82,42 +83,36 @@ abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst:
   @Test
   override def testLookaheadValue(): Unit =
     val opts = getSearchOptions.getBruteSearchOptions
-    assertEquals("Unexpected lookahead value.", DEFAULT_LOOKAHEAD, opts.getLookAhead)
+    assertEquals(DEFAULT_LOOKAHEAD, opts.getLookAhead, "Unexpected lookahead value.")
     opts.setLookAhead(7)
-    assertEquals("Unexpected lookahead value.", 7, opts.getLookAhead)
+    assertEquals(7, opts.getLookAhead, "Unexpected lookahead value.")
 
   @Test
   override def testAlphaBetaValue(): Unit =
     val opts = getSearchOptions.getBruteSearchOptions
-    assertEquals("Unexpected alphabeta value.", true, opts.getAlphaBeta)
+    assertEquals(true, opts.getAlphaBeta, "Unexpected alphabeta value.")
     opts.setAlphaBeta(false)
-    assertEquals("Unexpected alphabeta value.", false, opts.getAlphaBeta)
+    assertEquals(false, opts.getAlphaBeta, "Unexpected alphabeta value.")
 
   @Test
   override def testQuiescenceValue(): Unit =
     val opts = getSearchOptions.getBruteSearchOptions
-    assertEquals("Unexpected quiessence value.", false, opts.getQuiescence)
+    assertEquals(false, opts.getQuiescence, "Unexpected quiessence value.")
     opts.setQuiescence(true)
-    assertEquals("Unexpected quiessence value.", true, opts.getQuiescence)
+    assertEquals(true, opts.getQuiescence, "Unexpected quiessence value.")
 
   @Test
   def testDoneBeforeAnyMovesMade(): Unit =
-    assertFalse("We cannot be done if no moves have been made yet. ", searchable.done(null, false))
+    assertFalse(searchable.done(null, false), "We cannot be done if no moves have been made yet. ")
 
   @Test
   def testDoneNullAfterFirstMove(): Unit =
     controller.computerMovesFirst()
-    assertTrue(
-      "We expect to be done if our next move is null and at least one move has been made. ",
-      searchable.done(null, false)
-    )
+    assertTrue(searchable.done(null, false), "We expect to be done if our next move is null and at least one move has been made. ")
 
   @Test
   def testDoneStartGame(): Unit =
-    assertFalse(
-      "We don't expect to be done after making the very first move. ",
-      searchable.done(createInitialMove, false)
-    )
+    assertFalse(searchable.done(createInitialMove, false), "We don't expect to be done after making the very first move. ")
 
   @Test
   def testNotDoneMidGame(): Unit
@@ -131,13 +126,9 @@ abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst:
   @Test
   def testGenerateMovesBeforeFirstMove(): Unit =
     val moves = searchable.generateMoves(null, weights)
-    assertTrue("We expect the move list to be non-null at the very start of the game.", moves != null)
+    assertTrue(moves != null, "We expect the move list to be non-null at the very start of the game.")
     val exp = getExpectedNumGeneratedMovesBeforeFirstMove
-    assertEquals(
-      "Unexpected number of generated moves before the first move has been played.",
-      exp,
-      moves.size
-    )
+    assertEquals(exp, moves.size, "Unexpected number of generated moves before the first move has been played.")
 
   protected def getExpectedNumGeneratedMovesBeforeFirstMove: Int = 0
 
@@ -147,8 +138,8 @@ abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst:
     val wts = weights
     val lastMove = controller.getLastMove
     val moves = searchable.generateMoves(lastMove, wts)
-    assertTrue("We expect the move list to be non-null very start of the game.", moves != null)
-    assertTrue("We expected some valid next moves at the very start of the game.", moves.size > 0)
+    assertTrue(moves != null, "We expect the move list to be non-null very start of the game.")
+    assertTrue(moves.size > 0, "We expected some valid next moves at the very start of the game.")
 
   @Test def testGenerateAllP1MovesMidGame(): Unit = assertFalse(false)
   @Test def testGenerateTopP1MovesMidGame(): Unit = assertFalse(false)
@@ -162,8 +153,8 @@ abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst:
   @Test
   def testGenerateUrgentMovesAtStartOfGame(): Unit =
     val moves = searchable.generateUrgentMoves(null, weights)
-    assertTrue("We expected move list to be non-null.", moves != null)
-    assertTrue("We expected no urgent moves at the start of the game, but was:" + moves, moves.size == 0)
+    assertTrue(moves != null, "We expected move list to be non-null.")
+    assertTrue(moves.size == 0, "We expected no urgent moves at the start of the game, but was:" + moves)
 
   @Test
   def testGenerateUrgentMoves(): Unit =
@@ -172,7 +163,7 @@ abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst:
   @Test
   def testInJeopardy(): Unit =
     var actualInJeopardy = searchable.inJeopardy(null, weights)
-    assertFalse("We don't expect anything to be in jeopardy at the very start of the game.", actualInJeopardy)
+    assertFalse(actualInJeopardy, "We don't expect anything to be in jeopardy at the very start of the game.")
     val lastMove = createInitialMove
     searchable.makeInternalMove(lastMove)
     actualInJeopardy =
@@ -185,11 +176,7 @@ abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst:
   ): Unit =
     if expectedMoves.length != moves.size then
       printMoves(title, moves)
-    assertEquals(
-      "Unexpected number of generated moves. The moves generated were:\n" + moves,
-      expectedMoves.length,
-      moves.size
-    )
+    assertEquals(expectedMoves.length, moves.size, "Unexpected number of generated moves. The moves generated were:\n" + moves)
     val diffs = new StringBuilder("")
     for i <- 0 until moves.size do
       val move = moves.get(i)
@@ -199,7 +186,7 @@ abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst:
           .append(" \nBut got ").append(move).append("\n")
     if diffs.length > 0 then
       printMoves(title, moves)
-    assertTrue("There were unexpected generated moves for " + title + "\n" + diffs, diffs.length == 0)
+    assertTrue(diffs.length == 0, "There were unexpected generated moves for " + title + "\n" + diffs)
 
   protected def weights: ParameterArray =
     getController.getComputerWeights().getPlayer1Weights

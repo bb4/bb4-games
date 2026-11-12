@@ -7,8 +7,9 @@ import com.barrybecker4.game.common.board.GamePiece
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove
 import com.barrybecker4.game.twoplayer.common.cache.{ScoreCache, ScoreEntry}
 import com.barrybecker4.game.twoplayer.tictactoe.TicTacToeBoard
-import org.junit.Assert.assertEquals
-import org.junit.{Before, Test}
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 import scala.jdk.CollectionConverters.*
 
@@ -23,7 +24,7 @@ class HashUniquenessTest:
   private var rowMax: Int = scala.compiletime.uninitialized
   private var colMax: Int = scala.compiletime.uninitialized
 
-  @Before
+  @BeforeEach
   def setUp(): Unit =
     board = new TicTacToeBoard()
     scoreCache = new ScoreCache()
@@ -68,8 +69,8 @@ class HashUniquenessTest:
 
   private def verifyScoreCacheStats(expHits: Int, expMisses: Int): Unit =
     System.out.println("scoreCache =" + scoreCache.toString)
-    assertEquals("Unexpected number of cache hits", expHits, scoreCache.getCacheHits)
-    assertEquals("Unexpected number of cache misses", expMisses, scoreCache.getCacheMisses)
+    assertEquals(expHits, scoreCache.getCacheHits, "Unexpected number of cache hits")
+    assertEquals(expMisses, scoreCache.getCacheMisses, "Unexpected number of cache misses")
 
   /** Play all possible tic tac toe moves */
   private def playAllMoves(depth: Int): Unit =

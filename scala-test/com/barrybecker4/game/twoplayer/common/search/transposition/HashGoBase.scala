@@ -5,8 +5,8 @@ import com.barrybecker4.game.common.board.{BoardPosition, GamePiece}
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.elements.position.GoStone
 import com.barrybecker4.game.twoplayer.go.board.move.GoMove
-import org.junit.Assert.{assertEquals, assertTrue}
-import org.junit.Before
+import org.junit.jupiter.api.Assertions.{assertEquals, assertTrue}
+import org.junit.jupiter.api.BeforeEach
 
 import scala.jdk.CollectionConverters.*
 
@@ -18,7 +18,7 @@ abstract class HashGoBase:
   protected var hash: ZobristHash = scala.compiletime.uninitialized
   protected var board: GoBoard = scala.compiletime.uninitialized
 
-  @Before
+  @BeforeEach
   def setUp(): Unit =
     board = createBoard()
     hash = createZobristHash()
@@ -54,9 +54,9 @@ abstract class HashGoBase:
     val key2 = hash.getKey
 
     if assertEqual then
-      assertEquals("Keys not equal", key1, key2)
+      assertEquals(key1, key2, "Keys not equal")
     else
-      assertTrue("Keys unexpectedly equal. \nkey1=" + key1 + "\nkey2=" + key2, !key1.equals(key2))
+      assertTrue(!key1.equals(key2), "Keys unexpectedly equal. \nkey1=" + key1 + "\nkey2=" + key2)
 
   protected def black(): GoStone = new GoStone(true)
 

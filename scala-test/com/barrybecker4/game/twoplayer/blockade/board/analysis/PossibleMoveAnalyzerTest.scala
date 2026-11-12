@@ -5,8 +5,8 @@ import com.barrybecker4.common.geometry.{ByteLocation, Location}
 import com.barrybecker4.game.twoplayer.blockade.BlockadeTestCase
 import com.barrybecker4.game.twoplayer.blockade.board.{BlockadeBoard, BlockadeTstUtil}
 import com.barrybecker4.game.twoplayer.blockade.board.move.BlockadeMove
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
 import java.util.{Arrays, List as JList}
 
@@ -46,4 +46,4 @@ class PossibleMoveAnalyzerTest extends BlockadeTestCase:
     val moveAnalyzer = new PossibleMoveAnalyzer(board)
     val position = board.getPosition(loc)
     val moves = moveAnalyzer.getPossibleMoveList(position, true)
-    assertEquals("Unexpected possible moves.", expMoves, moves)
+    assertEquals(expMoves, moves, "Unexpected possible moves.")

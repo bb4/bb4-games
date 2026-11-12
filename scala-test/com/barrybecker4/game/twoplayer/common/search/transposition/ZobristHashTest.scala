@@ -8,8 +8,9 @@ import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.elements.position.GoStone
 import com.barrybecker4.game.twoplayer.go.board.move.GoMove
 import com.barrybecker4.game.twoplayer.tictactoe.TicTacToeBoard
-import org.junit.Assert.{assertEquals, assertFalse}
-import org.junit.{Before, Test}
+import org.junit.jupiter.api.Assertions.{assertEquals, assertFalse}
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 /**
  * Verify expected hash key are generated based on board state.
@@ -23,72 +24,64 @@ class ZobristHashTest:
   private var hash: ZobristHash = scala.compiletime.uninitialized
   private var board: TwoPlayerBoard[TwoPlayerMove] = scala.compiletime.uninitialized
 
-  @Before
+  @BeforeEach
   def setUp(): Unit =
     board = new TicTacToeBoard()
     createZHash(board)
 
   @Test
   def testEmptyBoardHash(): Unit =
-    assertEquals("Unexpected hashkey for empty board", new HashKey(), hash.getKey)
+    assertEquals(new HashKey(), hash.getKey, "Unexpected hashkey for empty board")
 
   @Test
   def testCenterXHash(): Unit =
     applyMoveToHash(2, 2, true)
-    assertEquals("Unexpected hashkey for board with center X", ZobristHashTest.CENTER_X_HASH, hash.getKey)
+    assertEquals(ZobristHashTest.CENTER_X_HASH, hash.getKey, "Unexpected hashkey for board with center X")
 
   @Test
   def testCenterXBoard(): Unit =
     val m = TwoPlayerMove.createMove(new ByteLocation(2, 2), 0, new GamePiece(true))
     board.makeMove(m)
     hash = createZHash(board)
-    assertEquals("Unexpected hashkey for board with center X", ZobristHashTest.CENTER_X_HASH, hash.getKey)
+    assertEquals(ZobristHashTest.CENTER_X_HASH, hash.getKey, "Unexpected hashkey for board with center X")
 
   @Test
   def testCornerOHash(): Unit =
     applyMoveToHash(1, 1, false)
-    assertEquals("Unexpected hashkey for board with corner O", ZobristHashTest.CORNER_O_HASH, hash.getKey)
+    assertEquals(ZobristHashTest.CORNER_O_HASH, hash.getKey, "Unexpected hashkey for board with corner O")
 
   @Test
   def testCornerOBoard(): Unit =
     val m = TwoPlayerMove.createMove(new ByteLocation(1, 1), 0, new GamePiece(false))
     board.makeMove(m)
     hash = createZHash(board)
-    assertEquals("Unexpected hashkey for board with corner O", ZobristHashTest.CORNER_O_HASH, hash.getKey)
+    assertEquals(ZobristHashTest.CORNER_O_HASH, hash.getKey, "Unexpected hashkey for board with corner O")
 
   @Test
   def testHashAfterUndo(): Unit =
     applyMoveToHash(2, 2, true)
     applyMoveToHash(2, 2, true)
-    assertEquals("Unexpected hashkey for entry board after undo", new HashKey(), hash.getKey)
+    assertEquals(new HashKey(), hash.getKey, "Unexpected hashkey for entry board after undo")
 
   @Test
   def testHashAfterTwoMoves(): Unit =
     applyMoveToHash(2, 2, true)
     applyMoveToHash(1, 1, false)
-    assertEquals("Unexpected hashkey for board after 2 moves", new HashKey(-6422371760107745138L), hash.getKey)
+    assertEquals(new HashKey(-6422371760107745138L), hash.getKey, "Unexpected hashkey for board after 2 moves")
 
   @Test
   def testHashAfterTwoMovesThenUndoFirst(): Unit =
     applyMoveToHash(2, 2, true)
     applyMoveToHash(1, 1, false)
     applyMoveToHash(2, 2, true)
-    assertEquals(
-      "Unexpected hashkey for board after 2 moves then an undo",
-      ZobristHashTest.CORNER_O_HASH,
-      hash.getKey
-    )
+    assertEquals(ZobristHashTest.CORNER_O_HASH, hash.getKey, "Unexpected hashkey for board after 2 moves then an undo")
 
   @Test
   def testHashAfterTwoMovesThenUndoSecond(): Unit =
     applyMoveToHash(2, 2, true)
     applyMoveToHash(1, 1, false)
     applyMoveToHash(1, 1, false)
-    assertEquals(
-      "Unexpected hashkey for board after 2 moves then an undo",
-      ZobristHashTest.CENTER_X_HASH,
-      hash.getKey
-    )
+    assertEquals(ZobristHashTest.CENTER_X_HASH, hash.getKey, "Unexpected hashkey for board after 2 moves then an undo")
 
   @Test
   def testHashAfterTwoMovesThenUndoMoveO(): Unit =
@@ -96,11 +89,7 @@ class ZobristHashTest:
     board.makeMove(TwoPlayerMove.createMove(new ByteLocation(2, 2), 0, new GamePiece(true)))
     board.undoMove()
     hash = createZHash(board)
-    assertEquals(
-      "Unexpected hashkey for board after 2 moves then an undo move",
-      ZobristHashTest.CORNER_O_HASH,
-      hash.getKey
-    )
+    assertEquals(ZobristHashTest.CORNER_O_HASH, hash.getKey, "Unexpected hashkey for board after 2 moves then an undo move")
 
   @Test
   def testHashAfterTwoMovesThenUndoMoveX(): Unit =
@@ -108,11 +97,7 @@ class ZobristHashTest:
     board.makeMove(TwoPlayerMove.createMove(new ByteLocation(1, 1), 0, new GamePiece(false)))
     board.undoMove()
     hash = createZHash(board)
-    assertEquals(
-      "Unexpected hashkey for board after 2 moves then an undo move",
-      ZobristHashTest.CENTER_X_HASH,
-      hash.getKey
-    )
+    assertEquals(ZobristHashTest.CENTER_X_HASH, hash.getKey, "Unexpected hashkey for board after 2 moves then an undo move")
 
   @Test
   def testHashAfterTwoMovesThenTwoUndos(): Unit =
@@ -121,7 +106,7 @@ class ZobristHashTest:
     board.undoMove()
     board.undoMove()
     hash = createZHash(board)
-    assertEquals("Unexpected hashkey for board after 2 moves then two undos", new HashKey(), hash.getKey)
+    assertEquals(new HashKey(), hash.getKey, "Unexpected hashkey for board after 2 moves then two undos")
 
   @Test
   def testHashesForDifferentBoardsStatesUnequal(): Unit =
@@ -133,7 +118,7 @@ class ZobristHashTest:
     board.makeMove(TwoPlayerMove.createMove(new ByteLocation(2, 2), 0, new GamePiece(true)))
     board.makeMove(TwoPlayerMove.createMove(new ByteLocation(3, 1), 0, new GamePiece(false)))
     hash = createZHash(board)
-    assertFalse("Hash keys for different moves unexpectedly equal. both=" + hash1, hash1.equals(hash.getKey))
+    assertFalse(hash1.equals(hash.getKey), "Hash keys for different moves unexpectedly equal. both=" + hash1)
 
   @Test
   def testHashesForDifferentBoardsStatesUnequalUsingUndo(): Unit =
@@ -146,7 +131,7 @@ class ZobristHashTest:
     board.makeMove(TwoPlayerMove.createMove(new ByteLocation(2, 2), 0, new GamePiece(true)))
     board.makeMove(TwoPlayerMove.createMove(new ByteLocation(3, 1), 0, new GamePiece(false)))
     hash = createZHash(board)
-    assertFalse("Hash keys for different moves unexpectedly equal. both=" + hash1, hash1.equals(hash.getKey))
+    assertFalse(hash1.equals(hash.getKey), "Hash keys for different moves unexpectedly equal. both=" + hash1)
 
   @Test
   def testGoHash(): Unit =
@@ -154,7 +139,7 @@ class ZobristHashTest:
     goBoard.makeMove(new GoMove(new ByteLocation(3, 3), 0, new GoStone(true)))
     goBoard.makeMove(new GoMove(new ByteLocation(1, 3), 0, new GoStone(false)))
     hash = createZHash(goBoard)
-    assertEquals("Unexpected hashkey for GoBoard", new HashKey(-5179128285022783026L), hash.getKey)
+    assertEquals(new HashKey(-5179128285022783026L), hash.getKey, "Unexpected hashkey for GoBoard")
 
   private def applyMoveToHash(row: Int, col: Int, player1: Boolean): Unit =
     val p = new GamePiece(player1)

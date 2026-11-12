@@ -1,8 +1,8 @@
 // Copyright by Barry G. Becker, 2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 package com.barrybecker4.game.twoplayer.go.board.analysis
 
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 /**
  * Test that we create the expected positional array.
@@ -46,4 +46,4 @@ class TestPositionalScoreArray:
       for j <- 1 to size do
         if expectedValues(i - 1)(j - 1) != scoreArray.getValue(i, j) then
           equal = false
-    assertTrue("The array was not what we expected. Got:" + scoreArray, equal)
+    assertTrue(equal, "The array was not what we expected. Got:" + scoreArray)

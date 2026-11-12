@@ -8,8 +8,10 @@ import com.barrybecker4.game.twoplayer.gomoku.GoMokuBoard
 import com.barrybecker4.game.twoplayer.gomoku.GoMokuTestWeights
 import com.barrybecker4.game.twoplayer.gomoku.analysis.differencers.ValueDifferencerFactory
 import com.barrybecker4.game.twoplayer.gomoku.pattern.GoMokuPatterns
-import org.junit.Assert.assertEquals
-import org.junit.{Before, Test}
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.Test
 
 import scala.jdk.CollectionConverters.*
 
@@ -27,7 +29,7 @@ class MoveEvaluatorTest:
   /**
    * Common initialization for all test cases.
    */
-  @Before
+  @BeforeEach
   def setUp(): Unit =
     board = new GoMokuBoard()
     weights = new GoMokuTestWeights()
@@ -40,11 +42,13 @@ class MoveEvaluatorTest:
   /**
    * Verify error if piece is not where last move was played.
    */
-  @Test(expected = classOf[IllegalStateException])
+  @Test
   def testInvalidEvaluation(): Unit =
-    initRow(board, 1, "___")
-    lastMove = TwoPlayerMove.createMove(1, 1, 0, new GamePiece(true))
-    checkResultLines(lastMove, 0, Array("______", "______", "_", "______"))
+    assertThrows(classOf[IllegalStateException], () => {
+      initRow(board, 1, "___")
+      lastMove = TwoPlayerMove.createMove(1, 1, 0, new GamePiece(true))
+      checkResultLines(lastMove, 0, Array("______", "______", "_", "______"))
+    })
 
   @Test
   def testX__Evaluation(): Unit =
@@ -84,11 +88,13 @@ class MoveEvaluatorTest:
     checkResultLines(lastMove, -8, Array("_OO____", "O_____", "_O", "O_____"))
 
   /** the side of the last move played must match the piece on the board or we get an exception. */
-  @Test(expected = classOf[IllegalStateException])
+  @Test
   def test_XO__PlayerMismatch(): Unit =
-    initRow(board, 1, "_XO__")
-    lastMove = TwoPlayerMove.createMove(1, 2, 0, new GamePiece(false))
-    checkResultLines(lastMove, 0, Array("_XO____", "X_____", "_X", "X_____"))
+    assertThrows(classOf[IllegalStateException], () => {
+      initRow(board, 1, "_XO__")
+      lastMove = TwoPlayerMove.createMove(1, 2, 0, new GamePiece(false))
+      checkResultLines(lastMove, 0, Array("_XO____", "X_____", "_X", "X_____"))
+    })
 
   @Test
   def test_XO__Evaluation(): Unit =
@@ -172,7 +178,7 @@ class MoveEvaluatorTest:
     val lines = lineFactory.getCreatedLines
     TstUtil.printLines(lines)
 
-    assertEquals("Unexpected worth for move " + lastMove, expectedWorth, worth)
+    assertEquals(expectedWorth, worth, "Unexpected worth for move " + lastMove)
     assertEquals(expectedLines.length, lines.size)
     var i = 0
     for expPattern <- expectedLines do

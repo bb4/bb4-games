@@ -7,8 +7,9 @@ import com.barrybecker4.game.common.board.GamePiece
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove
 import com.barrybecker4.game.twoplayer.common.search.options.BestMovesSearchOptions
 import com.barrybecker4.optimization.parameter.ParameterArray
-import org.junit.Assert.assertEquals
-import org.junit.{Before, Test}
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 import scala.jdk.CollectionConverters.*
 
@@ -23,7 +24,7 @@ class GoMokuMoveGeneratorTest:
 
   private var weights: ParameterArray = scala.compiletime.uninitialized
 
-  @Before
+  @BeforeEach
   def setUp(): Unit =
     helper = new GoMokuHelper()
     controller = helper.createController.asInstanceOf[GoMokuController[GoMokuBoard]]
@@ -46,7 +47,7 @@ class GoMokuMoveGeneratorTest:
     val expMoves = new MoveList[TwoPlayerMove]()
     expMoves.add(TwoPlayerMove.createMove(new ByteLocation(6, 6), 0, new GamePiece(true)))
 
-    assertEquals("Unexpected first move.", expMoves, actMoves)
+    assertEquals(expMoves, actMoves, "Unexpected first move.")
 
   @Test
   def testGeneratedMovesSomeMovesAlready(): Unit =
@@ -75,7 +76,7 @@ class GoMokuMoveGeneratorTest:
     expMoves.add(TwoPlayerMove.createMove(new ByteLocation(10, 12), -48, new GamePiece(true)))
     expMoves.add(TwoPlayerMove.createMove(new ByteLocation(10, 9), -48, new GamePiece(true)))
 
-    assertEquals("Unexpected moves.", expMoves, actMoves)
+    assertEquals(expMoves, actMoves, "Unexpected moves.")
 
   @Test
   def testGeneratedMovesAfterFirstMove(): Unit =
@@ -94,7 +95,7 @@ class GoMokuMoveGeneratorTest:
     expMoves.add(TwoPlayerMove.createMove(new ByteLocation(3, 2), 0, new GamePiece(false)))
     expMoves.add(TwoPlayerMove.createMove(new ByteLocation(3, 3), 0, new GamePiece(false)))
 
-    assertEquals("Unexpected moves.", expMoves, actMoves)
+    assertEquals(expMoves, actMoves, "Unexpected moves.")
 
   @Test
   def testGeneratedMovesAfterSecondMove(): Unit =
@@ -111,7 +112,7 @@ class GoMokuMoveGeneratorTest:
     expMoves.add(TwoPlayerMove.createMove(new ByteLocation(2, 3), 8, new GamePiece(true)))
     expMoves.add(TwoPlayerMove.createMove(new ByteLocation(2, 2), 8, new GamePiece(true)))
 
-    assertEquals("Unexpected moves.", expMoves, actMoves)
+    assertEquals(expMoves, actMoves, "Unexpected moves.")
 
   @Test
   def testGeneratedMovesMidGame(): Unit =
@@ -176,7 +177,7 @@ class GoMokuMoveGeneratorTest:
     expMoves.add(TwoPlayerMove.createMove(new ByteLocation(2, 7), -2, new GamePiece(true)))
     expMoves.add(TwoPlayerMove.createMove(new ByteLocation(2, 6), -2, new GamePiece(true)))
 
-    assertEquals("Unexpected moves. act=\n" + printMoves(actMoves), expMoves, actMoves)
+    assertEquals(expMoves, actMoves, "Unexpected moves. act=\n" + printMoves(actMoves))
 
   protected def restore(problemFileBase: String): Unit =
     controller.restoreFromStream(helper.getTestResource(problemFileBase))

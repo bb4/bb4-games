@@ -1,10 +1,10 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.go.board.analysis.group.eye.potential
 
-import org.junit.Assert
-import org.junit.Before
-import org.junit.After
-import org.junit.Test
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Test
 import com.barrybecker4.game.twoplayer.go.GoTestCase
 import com.barrybecker4.game.twoplayer.go.board.analysis.group.GroupAnalyzerMap
 import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup
@@ -195,13 +195,13 @@ class TestEyePotentialAnalyzer extends GoTestCase {
         var group: IGoGroup = getBiggestGroup(forBlackGroup)
 
         var size: Int = group.getNumStones
-        Assert.assertEquals("Unexpected size of test group.", expectedSizeOfGroup, size)
+        Assertions.assertEquals(expectedSizeOfGroup, size, "Unexpected size of test group.")
 
         var analyzer: EyePotentialAnalyzer = new EyePotentialAnalyzer(group, new GroupAnalyzerMap())
         analyzer.setBoard(getBoard)
         var eyePotential: Float = analyzer.calculateEyePotential()
 
-        Assert.assertEquals("Unexpected group eye potential", expectedPotential, eyePotential, TOLERANCE)
+        Assertions.assertEquals(expectedPotential, eyePotential, TOLERANCE, "Unexpected group eye potential")
     }
 
 

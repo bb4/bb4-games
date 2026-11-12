@@ -6,8 +6,10 @@ import com.barrybecker4.math.Range
 import com.barrybecker4.game.common.MoveList
 import com.barrybecker4.game.common.board.GamePiece
 import com.barrybecker4.game.twoplayer.common.search.options.BestMovesSearchOptions
-import org.junit.{Before, Test}
-import org.junit.Assert.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.Assertions.assertEquals
 
 
 class BestMoveFinderTest:
@@ -17,15 +19,15 @@ class BestMoveFinderTest:
   private var mList: MoveList[TwoPlayerMove] = scala.compiletime.uninitialized
 
   /** common initialization for all test cases. */
-  @Before
+  @BeforeEach
   def setUp(): Unit =
     options = new BestMovesSearchOptions()
     finder = new BestMoveFinder(options)
 
   /** MinBestMoves must be greater than 0. */
-  @Test(expected = classOf[IllegalArgumentException])
+  @Test
   def testMinBestMoves0(): Unit =
-    options.setMinBestMoves(0)
+    assertThrows(classOf[IllegalArgumentException], () => options.setMinBestMoves(0))
 
   /**
    * if all the thresholds are set to 0, we still get one move (teh best one)
@@ -37,7 +39,7 @@ class BestMoveFinderTest:
     options.setPercentageBestMoves(0)
     options.setMinBestMoves(1)
     mList = finder.getBestMoves(createSimpleThreeMoveList(BestMoveFinderTest.PLAYER2))
-    assertEquals("Unexpected number of best moves found", 1, mList.getNumMoves)
+    assertEquals(1, mList.getNumMoves, "Unexpected number of best moves found")
 
   /** If there are no moves to select from, then 0 will be returned. */
   @Test
@@ -46,7 +48,7 @@ class BestMoveFinderTest:
     options.setPercentageBestMoves(1)
     options.setMinBestMoves(1)
     mList = finder.getBestMoves(new MoveList[TwoPlayerMove]())
-    assertEquals("Unexpected number of best moves found", 0, mList.getNumMoves)
+    assertEquals(0, mList.getNumMoves, "Unexpected number of best moves found")
 
   @Test
   def testMinBestOfOneP1(): Unit =
@@ -54,8 +56,8 @@ class BestMoveFinderTest:
     options.setPercentageBestMoves(0)
     options.setMinBestMoves(1)
     mList = finder.getBestMoves(createSimpleThreeMoveList(BestMoveFinderTest.PLAYER1))
-    assertEquals("Unexpected number of best moves found", 1, mList.getNumMoves)
-    assertEquals("Unexpected value", 100, mList.getFirstMove.getValue)
+    assertEquals(1, mList.getNumMoves, "Unexpected number of best moves found")
+    assertEquals(100, mList.getFirstMove.getValue, "Unexpected value")
 
   @Test
   def testMinBestOfOneP2(): Unit =
@@ -63,8 +65,8 @@ class BestMoveFinderTest:
     options.setPercentageBestMoves(0)
     options.setMinBestMoves(1)
     mList = finder.getBestMoves(createSimpleThreeMoveList(BestMoveFinderTest.PLAYER2))
-    assertEquals("Unexpected number of best moves found", 1, mList.getNumMoves)
-    assertEquals("Unexpected value", -10, mList.getFirstMove.getValue)
+    assertEquals(1, mList.getNumMoves, "Unexpected number of best moves found")
+    assertEquals(-10, mList.getFirstMove.getValue, "Unexpected value")
 
   @Test
   def testMinBestTwoP1(): Unit =
@@ -72,8 +74,8 @@ class BestMoveFinderTest:
     options.setPercentageBestMoves(0)
     options.setMinBestMoves(2)
     mList = finder.getBestMoves(createSimpleThreeMoveList(BestMoveFinderTest.PLAYER1))
-    assertEquals("Unexpected number of best moves found", 2, mList.getNumMoves)
-    assertEquals("Unexpected value", 100, mList.getFirstMove.getValue)
+    assertEquals(2, mList.getNumMoves, "Unexpected number of best moves found")
+    assertEquals(100, mList.getFirstMove.getValue, "Unexpected value")
 
   @Test
   def testMinBestTwoP2(): Unit =
@@ -81,8 +83,8 @@ class BestMoveFinderTest:
     options.setPercentageBestMoves(0)
     options.setMinBestMoves(2)
     val list = finder.getBestMoves(createSimpleThreeMoveList(BestMoveFinderTest.PLAYER2))
-    assertEquals("Unexpected number of best moves found", 2, list.getNumMoves)
-    assertEquals("Unexpected value", -10, list.getFirstMove.getValue)
+    assertEquals(2, list.getNumMoves, "Unexpected number of best moves found")
+    assertEquals(-10, list.getFirstMove.getValue, "Unexpected value")
 
   @Test
   def testBestMinBiggerThanTotalP1(): Unit =
@@ -90,7 +92,7 @@ class BestMoveFinderTest:
     options.setPercentageBestMoves(0)
     options.setMinBestMoves(5)
     mList = finder.getBestMoves(createSimpleThreeMoveList(BestMoveFinderTest.PLAYER1))
-    assertEquals("Unexpected number of best moves found", 3, mList.getNumMoves)
+    assertEquals(3, mList.getNumMoves, "Unexpected number of best moves found")
 
   @Test
   def testBestMinBiggerThanTotalP2(): Unit =
@@ -98,7 +100,7 @@ class BestMoveFinderTest:
     options.setPercentageBestMoves(0)
     options.setMinBestMoves(5)
     mList = finder.getBestMoves(createSimpleThreeMoveList(BestMoveFinderTest.PLAYER2))
-    assertEquals("Unexpected number of best moves found", 3, mList.getNumMoves)
+    assertEquals(3, mList.getNumMoves, "Unexpected number of best moves found")
 
   @Test
   def testBestMinSmallerThanTotalP1(): Unit =
@@ -106,7 +108,7 @@ class BestMoveFinderTest:
     options.setPercentageBestMoves(0)
     options.setMinBestMoves(5)
     mList = finder.getBestMoves(createSixMoveListWithNegatives(BestMoveFinderTest.PLAYER1))
-    assertEquals("Unexpected number of best moves found", 5, mList.getNumMoves)
+    assertEquals(5, mList.getNumMoves, "Unexpected number of best moves found")
 
   @Test
   def testMinBestSmallerThanNumberReturnedP1(): Unit =
@@ -114,7 +116,7 @@ class BestMoveFinderTest:
     options.setPercentageBestMoves(100)
     options.setMinBestMoves(2)
     mList = finder.getBestMoves(createSimpleThreeMoveList(BestMoveFinderTest.PLAYER1))
-    assertEquals("Unexpected number of best moves found", 3, mList.getNumMoves)
+    assertEquals(3, mList.getNumMoves, "Unexpected number of best moves found")
 
   @Test
   def testBest20PercentMovesP1(): Unit =
@@ -122,8 +124,8 @@ class BestMoveFinderTest:
     options.setPercentageBestMoves(20)
     options.setMinBestMoves(1)
     mList = finder.getBestMoves(createRangeMoveList(Range(-10, 10), BestMoveFinderTest.PLAYER1))
-    assertEquals("Unexpected number of best moves found", 4, mList.getNumMoves)
-    assertEquals("Unexpected value", 10, mList.getFirstMove.getValue)
+    assertEquals(4, mList.getNumMoves, "Unexpected number of best moves found")
+    assertEquals(10, mList.getFirstMove.getValue, "Unexpected value")
 
   @Test
   def testBest20PercentMovesP2(): Unit =
@@ -131,8 +133,8 @@ class BestMoveFinderTest:
     options.setPercentageBestMoves(20)
     options.setMinBestMoves(1)
     mList = finder.getBestMoves(createRangeMoveList(Range(-10, 10), BestMoveFinderTest.PLAYER2))
-    assertEquals("Unexpected number of best moves found", 4, mList.getNumMoves)
-    assertEquals("Unexpected value", -10, mList.getFirstMove.getValue)
+    assertEquals(4, mList.getNumMoves, "Unexpected number of best moves found")
+    assertEquals(-10, mList.getFirstMove.getValue, "Unexpected value")
 
   @Test
   def testBest25PercentLessThanBestThreshMovesP1(): Unit =
@@ -140,8 +142,8 @@ class BestMoveFinderTest:
     options.setPercentageBestMoves(0)
     options.setMinBestMoves(1)
     mList = finder.getBestMoves(createRangeMoveList(Range(-20, 20), BestMoveFinderTest.PLAYER1))
-    assertEquals("Unexpected number of best moves found", 11, mList.getNumMoves)
-    assertEquals("Unexpected value", 20, mList.getFirstMove.getValue)
+    assertEquals(11, mList.getNumMoves, "Unexpected number of best moves found")
+    assertEquals(20, mList.getFirstMove.getValue, "Unexpected value")
 
   @Test
   def testBest25PercentLessThanBestThreshMovesP1WhenAllPositive(): Unit =
@@ -149,8 +151,8 @@ class BestMoveFinderTest:
     options.setPercentageBestMoves(0)
     options.setMinBestMoves(1)
     mList = finder.getBestMoves(createRangeMoveList(Range(1, 40), BestMoveFinderTest.PLAYER1))
-    assertEquals("Unexpected number of best moves found", 10, mList.getNumMoves)
-    assertEquals("Unexpected value", 40, mList.getFirstMove.getValue)
+    assertEquals(10, mList.getNumMoves, "Unexpected number of best moves found")
+    assertEquals(40, mList.getFirstMove.getValue, "Unexpected value")
 
   @Test
   def testBest25PercentLessThanBestThreshMovesP2WhenAllPositive(): Unit =
@@ -158,8 +160,8 @@ class BestMoveFinderTest:
     options.setPercentageBestMoves(0)
     options.setMinBestMoves(1)
     mList = finder.getBestMoves(createRangeMoveList(Range(1, 40), BestMoveFinderTest.PLAYER2))
-    assertEquals("Unexpected number of best moves found", 10, mList.getNumMoves)
-    assertEquals("Unexpected value", 1, mList.getFirstMove.getValue)
+    assertEquals(10, mList.getNumMoves, "Unexpected number of best moves found")
+    assertEquals(1, mList.getFirstMove.getValue, "Unexpected value")
 
   @Test
   def testBest25PercentLessThanBestThreshMovesP1WhenAllNegative(): Unit =
@@ -167,8 +169,8 @@ class BestMoveFinderTest:
     options.setPercentageBestMoves(0)
     options.setMinBestMoves(1)
     mList = finder.getBestMoves(createRangeMoveList(Range(-40, 1), BestMoveFinderTest.PLAYER1))
-    assertEquals("Unexpected number of best moves found", 11, mList.getNumMoves)
-    assertEquals("Unexpected value", 1, mList.getFirstMove.getValue)
+    assertEquals(11, mList.getNumMoves, "Unexpected number of best moves found")
+    assertEquals(1, mList.getFirstMove.getValue, "Unexpected value")
 
   @Test
   def testBest30PercentLessThanBestThreshMovesP1(): Unit =
@@ -176,8 +178,8 @@ class BestMoveFinderTest:
     options.setPercentageBestMoves(0)
     options.setMinBestMoves(1)
     mList = finder.getBestMoves(createSixMoveListWithNegatives(BestMoveFinderTest.PLAYER1))
-    assertEquals("Unexpected number of best moves found", 4, mList.getNumMoves)
-    assertEquals("Unexpected value", 50, mList.getFirstMove.getValue)
+    assertEquals(4, mList.getNumMoves, "Unexpected number of best moves found")
+    assertEquals(50, mList.getFirstMove.getValue, "Unexpected value")
 
   @Test
   def testBest30PercentLessThanBestThreshMovesP2(): Unit =
@@ -185,8 +187,8 @@ class BestMoveFinderTest:
     options.setPercentageBestMoves(0)
     options.setMinBestMoves(1)
     mList = finder.getBestMoves(createSixMoveListWithNegatives(BestMoveFinderTest.PLAYER2))
-    assertEquals("Unexpected number of best moves found", 1, mList.getNumMoves)
-    assertEquals("Unexpected value", -550, mList.getFirstMove.getValue)
+    assertEquals(1, mList.getNumMoves, "Unexpected number of best moves found")
+    assertEquals(-550, mList.getFirstMove.getValue, "Unexpected value")
 
   @Test
   def testBest25PercentLessThanBestThreshMovesP2WhenAllNegative(): Unit =
@@ -194,8 +196,8 @@ class BestMoveFinderTest:
     options.setPercentageBestMoves(0)
     options.setMinBestMoves(1)
     mList = finder.getBestMoves(createRangeMoveList(Range(-40, 1), BestMoveFinderTest.PLAYER2))
-    assertEquals("Unexpected number of best moves found", 11, mList.getNumMoves)
-    assertEquals("Unexpected value", -40, mList.getFirstMove.getValue)
+    assertEquals(11, mList.getNumMoves, "Unexpected number of best moves found")
+    assertEquals(-40, mList.getFirstMove.getValue, "Unexpected value")
 
   @Test
   def testBest20PercentLessThanBestThreshMovesP1(): Unit =
@@ -203,8 +205,8 @@ class BestMoveFinderTest:
     options.setPercentageBestMoves(0)
     options.setMinBestMoves(1)
     mList = finder.getBestMoves(createRangeMoveList(Range(-10, 9), BestMoveFinderTest.PLAYER1))
-    assertEquals("Unexpected number of best moves found", 4, mList.getNumMoves)
-    assertEquals("Unexpected value", 9, mList.getFirstMove.getValue)
+    assertEquals(4, mList.getNumMoves, "Unexpected number of best moves found")
+    assertEquals(9, mList.getFirstMove.getValue, "Unexpected value")
 
   @Test
   def testBest20PercentLessThanBestThreshMovesP2(): Unit =
@@ -212,8 +214,8 @@ class BestMoveFinderTest:
     options.setPercentageBestMoves(0)
     options.setMinBestMoves(1)
     mList = finder.getBestMoves(createRangeMoveList(Range(-10, 9), BestMoveFinderTest.PLAYER2))
-    assertEquals("Unexpected number of best moves found", 4, mList.getNumMoves)
-    assertEquals("Unexpected value", -10, mList.getFirstMove.getValue)
+    assertEquals(4, mList.getNumMoves, "Unexpected number of best moves found")
+    assertEquals(-10, mList.getFirstMove.getValue, "Unexpected value")
 
   @Test
   def testBestMinMoreThanPercentMovesP1(): Unit =
@@ -221,7 +223,7 @@ class BestMoveFinderTest:
     options.setPercentageBestMoves(20)
     options.setMinBestMoves(10)
     val list = finder.getBestMoves(createRangeMoveList(Range(-10, 10), BestMoveFinderTest.PLAYER1))
-    assertEquals("Unexpected number of best moves found", 10, list.getNumMoves)
+    assertEquals(10, list.getNumMoves, "Unexpected number of best moves found")
 
   @Test
   def testBestMinMoreThanPercentLessThanBestThreshMovesP2(): Unit =
@@ -229,7 +231,7 @@ class BestMoveFinderTest:
     options.setPercentageBestMoves(20)
     options.setMinBestMoves(10)
     mList = finder.getBestMoves(createRangeMoveList(Range(-10, 10), BestMoveFinderTest.PLAYER1))
-    assertEquals("Unexpected number of best moves found", 10, mList.getNumMoves)
+    assertEquals(10, mList.getNumMoves, "Unexpected number of best moves found")
 
   @Test
   def test50PercentLessThanBest5P1(): Unit =
@@ -237,8 +239,8 @@ class BestMoveFinderTest:
     options.setPercentageBestMoves(0)
     options.setMinBestMoves(1)
     mList = finder.getBestMoves(createSimpleFiveMoveList(BestMoveFinderTest.PLAYER1))
-    assertEquals("Unexpected number of best moves found", 1, mList.getNumMoves)
-    assertEquals("Unexpected value", 1000, mList.getFirstMove.getValue)
+    assertEquals(1, mList.getNumMoves, "Unexpected number of best moves found")
+    assertEquals(1000, mList.getFirstMove.getValue, "Unexpected value")
 
   @Test
   def test50PercentLessThanBest5P2(): Unit =
@@ -246,8 +248,8 @@ class BestMoveFinderTest:
     options.setPercentageBestMoves(0)
     options.setMinBestMoves(1)
     mList = finder.getBestMoves(createSimpleFiveMoveList(BestMoveFinderTest.PLAYER2))
-    assertEquals("Unexpected number of best moves found", 4, mList.getNumMoves)
-    assertEquals("Unexpected value", -5, mList.getFirstMove.getValue)
+    assertEquals(4, mList.getNumMoves, "Unexpected number of best moves found")
+    assertEquals(-5, mList.getFirstMove.getValue, "Unexpected value")
 
   @Test
   def test50PercentLessThanBestWithDuplicatesP1(): Unit =
@@ -255,8 +257,8 @@ class BestMoveFinderTest:
     options.setPercentageBestMoves(0)
     options.setMinBestMoves(1)
     mList = finder.getBestMoves(createMoveListWithDuplicateScores(BestMoveFinderTest.PLAYER1))
-    assertEquals("Unexpected number of best moves found", 1, mList.getNumMoves)
-    assertEquals("Unexpected value", 1000, mList.getFirstMove.getValue)
+    assertEquals(1, mList.getNumMoves, "Unexpected number of best moves found")
+    assertEquals(1000, mList.getFirstMove.getValue, "Unexpected value")
 
   @Test
   def test50PercentLessThanBestWithDuplicatesP2(): Unit =
@@ -264,8 +266,8 @@ class BestMoveFinderTest:
     options.setPercentageBestMoves(0)
     options.setMinBestMoves(1)
     mList = finder.getBestMoves(createMoveListWithDuplicateScores(BestMoveFinderTest.PLAYER2))
-    assertEquals("Unexpected number of best moves found", 3, mList.getNumMoves)
-    assertEquals("Unexpected value", 5, mList.getFirstMove.getValue)
+    assertEquals(3, mList.getNumMoves, "Unexpected number of best moves found")
+    assertEquals(5, mList.getFirstMove.getValue, "Unexpected value")
 
   @Test
   def testGetAllWhen100PercentLessThanBestP1(): Unit =
@@ -273,7 +275,7 @@ class BestMoveFinderTest:
     options.setPercentageBestMoves(1)
     options.setMinBestMoves(1)
     mList = finder.getBestMoves(createSimpleFiveMoveList(BestMoveFinderTest.PLAYER1))
-    assertEquals("Unexpected number of best moves found", 5, mList.getNumMoves)
+    assertEquals(5, mList.getNumMoves, "Unexpected number of best moves found")
 
   @Test
   def testGetAllWhen100PercentLessThanBestP2(): Unit =
@@ -281,7 +283,7 @@ class BestMoveFinderTest:
     options.setPercentageBestMoves(1)
     options.setMinBestMoves(1)
     mList = finder.getBestMoves(createSimpleFiveMoveList(BestMoveFinderTest.PLAYER2))
-    assertEquals("Unexpected number of best moves found", 5, mList.getNumMoves)
+    assertEquals(5, mList.getNumMoves, "Unexpected number of best moves found")
 
   private def createSimpleThreeMoveList(player1: Boolean): MoveList[TwoPlayerMove] =
     val moveList = new MoveList[TwoPlayerMove]()

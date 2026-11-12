@@ -4,8 +4,8 @@ package com.barrybecker4.game.twoplayer.go
 import com.barrybecker4.game.common.GameContext
 import com.barrybecker4.game.twoplayer.go.board.move.GoMove
 import com.barrybecker4.ui.file.GenericFileFilter
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 import java.io.{File, IOException}
 import java.net.URISyntaxException
 import java.util

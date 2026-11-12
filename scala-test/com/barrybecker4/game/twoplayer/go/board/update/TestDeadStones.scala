@@ -1,10 +1,10 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.go.board.update
 
-import org.junit.Assert
-import org.junit.Before
-import org.junit.After
-import org.junit.Test
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Test
 import com.barrybecker4.game.twoplayer.go.GoTestCase
 
 class TestDeadStones extends GoTestCase {
@@ -16,15 +16,15 @@ class TestDeadStones extends GoTestCase {
     @Test
     def testNoDeadStones(): Unit = {
 
-        Assert.assertEquals("Unexpected dead stones", 0, deadStones.getNumberOnBoard(true))
-        Assert.assertEquals("Unexpected dead stones", 0, deadStones.getNumberOnBoard(false))
+        Assertions.assertEquals(0, deadStones.getNumberOnBoard(true), "Unexpected dead stones")
+        Assertions.assertEquals(0, deadStones.getNumberOnBoard(false), "Unexpected dead stones")
     }
 
     @Test
     def testIncBlackDeadStones(): Unit = {
 
         deadStones.increment(true)
-        Assert.assertEquals("Unexpected dead stones", 1, deadStones.getNumberOnBoard(true))
+        Assertions.assertEquals(1, deadStones.getNumberOnBoard(true), "Unexpected dead stones")
 
     }
 
@@ -35,8 +35,8 @@ class TestDeadStones extends GoTestCase {
         deadStones.increment(true)
         deadStones.increment(false)
 
-        Assert.assertEquals("Unexpected black dead stones", 1, deadStones.getNumberOnBoard(true))
-        Assert.assertEquals("Unexpected white dead stones", 2, deadStones.getNumberOnBoard(false))
+        Assertions.assertEquals(1, deadStones.getNumberOnBoard(true), "Unexpected black dead stones")
+        Assertions.assertEquals(2, deadStones.getNumberOnBoard(false), "Unexpected white dead stones")
     }
 
 }

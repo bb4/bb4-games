@@ -1,10 +1,10 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.go.board.analysis.group
 
-import org.junit.Assert
-import org.junit.Before
-import org.junit.After
-import org.junit.Test
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Test
 import com.barrybecker4.common.format.FormatUtil
 import com.barrybecker4.game.twoplayer.go.GoTestCase
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
@@ -578,23 +578,21 @@ class TestAbsoluteHealthAnalyzer extends GoTestCase {
             System.out.println("\n")
         }
 
-        Assert.assertEquals(file + ". Expected num liberties: black ="+ expectedNumberOfBlackLiberties + " but got "+numBlackLiberties,
-                 expectedNumberOfBlackLiberties, numBlackLiberties)
-        Assert.assertEquals(file + ". Expected num liberties: white ="+ expectedNumberOfWhiteLiberties + " but got "+numWhiteLiberties,
-                 expectedNumberOfWhiteLiberties, numWhiteLiberties)
+        Assertions.assertEquals(expectedNumberOfBlackLiberties, numBlackLiberties, file + ". Expected num liberties: black ="+ expectedNumberOfBlackLiberties + " but got "+numBlackLiberties)
+        Assertions.assertEquals(expectedNumberOfWhiteLiberties, numWhiteLiberties, file + ". Expected num liberties: white ="+ expectedNumberOfWhiteLiberties + " but got "+numWhiteLiberties)
 
-        Assert.assertTrue(file + ".  Unexpected black eye potential: eye = " + bPotential,  bEyePotentialOK)
-        Assert.assertTrue(file + ".  Unexpected white eye potential: eye = " + wPotential,  wEyePotentialOK)
+        Assertions.assertTrue(bEyePotentialOK, file + ".  Unexpected black eye potential: eye = " + bPotential)
+        Assertions.assertTrue(wEyePotentialOK, file + ".  Unexpected white eye potential: eye = " + wPotential)
 
-        Assert.assertTrue(file + ".  Unexpected health: black = " + bah,  bHealthOK)
-        Assert.assertTrue(file + ".  Unexpected health: white = " + wah,  wHealthOK)
+        Assertions.assertTrue(bHealthOK, file + ".  Unexpected health: black = " + bah)
+        Assertions.assertTrue(wHealthOK, file + ".  Unexpected health: white = " + wah)
 
-        Assert.assertTrue(file + ". Expected (absAbs) abs(black AbsHealth) - abs(white AbsHealth) to be about "
-                + expectedAbsAbsHealthDifference + "\n but instead got ("+abah+" -"+ awah+") = "+ daah, absAbsDifOK)
-        Assert.assertTrue(file + ". Expected (black AbsHealth) - (white AbsHealth) to be about "
-                + expectedAbsHealthDifference + "\n but instead got ("+bah+" -"+ wah+") = "+ dah, absDifOK)
-        Assert.assertTrue(file + ". Expected (rel) (black RelativeHealth) - (white RelativeHealth) to be about "
-                + expectedRelHealthDifference + "\n but instead got  ("+brh+" -"+ wrh+") = "+ drh, relDifOK)
+        Assertions.assertTrue(absAbsDifOK, file + ". Expected (absAbs) abs(black AbsHealth) - abs(white AbsHealth) to be about "
+                + expectedAbsAbsHealthDifference + "\n but instead got ("+abah+" -"+ awah+") = "+ daah)
+        Assertions.assertTrue(absDifOK, file + ". Expected (black AbsHealth) - (white AbsHealth) to be about "
+                + expectedAbsHealthDifference + "\n but instead got ("+bah+" -"+ wah+") = "+ dah)
+        Assertions.assertTrue(relDifOK, file + ". Expected (rel) (black RelativeHealth) - (white RelativeHealth) to be about "
+                + expectedRelHealthDifference + "\n but instead got  ("+brh+" -"+ wrh+") = "+ drh)
     }
 
     private def errorMarker(OK: Boolean): String = if OK then "" else "      *Error*"
@@ -606,13 +604,12 @@ class TestAbsoluteHealthAnalyzer extends GoTestCase {
             System.out.println("We expected " + sideColor +" eyes to be " + expectedEyes.mkString(", ") + ",\n")
             System.out.println("but we got "+ eyes)
         }
-        Assert.assertEquals("unequal numbers of " + color + " eyes. Got " + eyes, expectedEyes.length, eyes.size)
+        Assertions.assertEquals(expectedEyes.length, eyes.size, "unequal numbers of " + color + " eyes. Got " + eyes)
         if (eyes.size > 0) {
             var i: Int = 0
             for (eye <- eyes.asScala) {
                 var eyeInformation: EyeInformation = eye.getInformation
-                Assert.assertEquals(color + "Eye " + i + " was not the type that we expected. ",
-                         expectedEyes(i), eyeInformation)
+                Assertions.assertEquals(expectedEyes(i), eyeInformation, color + "Eye " + i + " was not the type that we expected. ")
                 i += 1
             }
         }

@@ -1,10 +1,10 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.go.board.analysis
 
-import org.junit.Assert
-import org.junit.Before
-import org.junit.After
-import org.junit.Test
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Test
 import com.barrybecker4.game.twoplayer.go.board.move.GoMove
 
 class TestWorthCalculator5 extends WorthCalculatorBase {
@@ -29,7 +29,7 @@ class TestWorthCalculator5 extends WorthCalculatorBase {
 
         var actWorth: Int = calculator.worth(move, WEIGHTS.getDefaultWeights)
 
-        Assert.assertEquals("Unexpected worth.", -56, actWorth)
+        Assertions.assertEquals(-56, actWorth, "Unexpected worth.")
     }
 
     /**

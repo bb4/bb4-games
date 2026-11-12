@@ -6,7 +6,7 @@ import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.analysis.eye.information.{EyeInformation, EyeStatus, EyeType}
 import com.barrybecker4.game.twoplayer.go.board.analysis.group.{GroupAnalyzer, GroupAnalyzerMap}
 import com.barrybecker4.game.twoplayer.go.board.elements.group.{GoGroup, IGoGroup}
-import org.junit.Assert.assertEquals
+import org.junit.jupiter.api.Assertions.assertEquals
 import scala.jdk.CollectionConverters._
 
 /**
@@ -37,7 +37,7 @@ abstract class TestEyeTypeAnalyzer extends GoTestCase:
     restore(getPathPrefix + eyesProblemFile)
     val board = getBoard
     val groups = board.getGroups
-    assertEquals("Unexpected number of groups.", expectedNumGroups, groups.size)
+    assertEquals(expectedNumGroups, groups.size, "Unexpected number of groups.")
     board
 
   protected def checkBlackEye(board: GoBoard, expectedInfo: EyeInformation, expectedStatus: EyeStatus): Unit =
@@ -86,16 +86,16 @@ abstract class TestEyeTypeAnalyzer extends GoTestCase:
     val group = getGroupToCheck(isBlack, groupType, board)
     val groupAnalyzer = new GroupAnalyzer(group, new GroupAnalyzerMap())
     val eyes = groupAnalyzer.getEyes(board)
-    assertEquals("The group\n" + group + "\n did not have one eye.", 1, eyes.size)
+    assertEquals(1, eyes.size, "The group\n" + group + "\n did not have one eye.")
     val firstEye = groupAnalyzer.getEyes(board).iterator.next()
     val eyeAnalyzer = new EyeTypeAnalyzer(firstEye, board, groupAnalyzer)
     val information = eyeAnalyzer.determineEyeInformation()
     val eyeColor = if isBlack then "black" else "white"
-    assertEquals("Unexpected information found for " + eyeColor + " eye.", expectedInfo, information)
+    assertEquals(expectedInfo, information, "Unexpected information found for " + eyeColor + " eye.")
     val status = information.determineStatus(firstEye, board)
-    assertEquals("Unexpected status found for " + eyeColor + " eye in group=" + group, expectedStatus, status)
-    assertEquals("Corner status unexpected.", isInCorner, information.isInCorner(firstEye))
-    assertEquals("Edge status unexpected.", isOnEdge, information.isOnEdge(firstEye))
+    assertEquals(expectedStatus, status, "Unexpected status found for " + eyeColor + " eye in group=" + group)
+    assertEquals(isInCorner, information.isInCorner(firstEye), "Corner status unexpected.")
+    assertEquals(isOnEdge, information.isOnEdge(firstEye), "Edge status unexpected.")
 
   private def getGroupToCheck(isBlack: Boolean, groupType: GroupType, board: GoBoard): IGoGroup =
     groupType match

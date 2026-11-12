@@ -1,8 +1,9 @@
 // Copyright by Barry G. Becker, 2012. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 package com.barrybecker4.game.twoplayer.gomoku.pattern
 
-import org.junit.Assert.assertEquals
-import org.junit.{Before, Test}
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 /** @author Barry Becker */
 class PatternIntConverterTest:
@@ -10,7 +11,7 @@ class PatternIntConverterTest:
   /** instance under test. */
   private var converter: PatternToIntConverter = scala.compiletime.uninitialized
 
-  @Before
+  @BeforeEach
   def setUp(): Unit =
     converter = new PatternToIntConverter()
 
@@ -112,9 +113,7 @@ class PatternIntConverterTest:
   @Test
   def testGetIntForOOX_X_XO(): Unit =
     val pattern = "OOX_X_XO"
-    assertEquals("Unexpected integer for pattern.",
-      53, converter.convertPatternToInt(pattern, 2, 6))
+    assertEquals(53, converter.convertPatternToInt(pattern, 2, 6), "Unexpected integer for pattern.")
 
   private def verify(expectedInt: Int, pattern: String): Unit =
-    assertEquals("Unexpected integer for pattern.",
-      expectedInt, converter.convertPatternToInt(pattern))
+    assertEquals(expectedInt, converter.convertPatternToInt(pattern), "Unexpected integer for pattern.")

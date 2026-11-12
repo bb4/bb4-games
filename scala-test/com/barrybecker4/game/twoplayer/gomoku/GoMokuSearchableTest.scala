@@ -6,8 +6,8 @@ import com.barrybecker4.game.common.board.GamePiece
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove
 import com.barrybecker4.game.twoplayer.common.search.{ISearchableHelper, TwoPlayerSearchableBaseTst}
 import com.barrybecker4.game.twoplayer.gomoku.ExpectedSearchableResults.*
-import org.junit.Assert.{assertFalse, assertTrue}
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.{assertFalse, assertTrue}
+import org.junit.jupiter.api.Test
 
 /** Verify that all the methods in GoMokuSearchable work as expected @author Barry Becker */
 class GoMokuSearchableTest extends TwoPlayerSearchableBaseTst:
@@ -22,45 +22,27 @@ class GoMokuSearchableTest extends TwoPlayerSearchableBaseTst:
 
   override def testNotDoneMidGame(): Unit =
     restore("midGameP1ToPlay")
-    assertFalse(
-      "Did not expect done in the middle of the game. ",
-      searchable.done(getController.getLastMove.asInstanceOf[TwoPlayerMove], false)
-    )
+    assertFalse(searchable.done(getController.getLastMove.asInstanceOf[TwoPlayerMove], false), "Did not expect done in the middle of the game. ")
 
   @Test
   def testAlmostWonP1ToPlay(): Unit =
     restore("almostWonP1ToPlay")
-    assertFalse(
-      "Did not expect done even though very close. ",
-      searchable.done(getController.getLastMove.asInstanceOf[TwoPlayerMove], false)
-    )
+    assertFalse(searchable.done(getController.getLastMove.asInstanceOf[TwoPlayerMove], false), "Did not expect done even though very close. ")
 
   @Test
   def testAlmostWonP2ToPlay(): Unit =
     restore("almostWonP2ToPlay")
-    assertFalse(
-      "Did not expect done even though very close. ",
-      searchable.done(getController.getLastMove.asInstanceOf[TwoPlayerMove], false)
-    )
+    assertFalse(searchable.done(getController.getLastMove.asInstanceOf[TwoPlayerMove], false), "Did not expect done even though very close. ")
 
   override def testDoneForMidGameWin(): Unit =
     restore("wonGameP1")
-    assertTrue(
-      "Expected done state for this game. P1 should have won.",
-      searchable.done(getController.getLastMove.asInstanceOf[TwoPlayerMove], false)
-    )
+    assertTrue(searchable.done(getController.getLastMove.asInstanceOf[TwoPlayerMove], false), "Expected done state for this game. P1 should have won.")
     restore("wonGameP2")
-    assertTrue(
-      "Expected done state for this game. P2 should have won.",
-      searchable.done(getController.getLastMove.asInstanceOf[TwoPlayerMove], false)
-    )
+    assertTrue(searchable.done(getController.getLastMove.asInstanceOf[TwoPlayerMove], false), "Expected done state for this game. P2 should have won.")
 
   override def testDoneEndGame(): Unit =
     restore("endGameNoMoreMoves")
-    assertTrue(
-      "Expected done state for this game because there are no more moves. ",
-      searchable.done(getController.getLastMove.asInstanceOf[TwoPlayerMove], false)
-    )
+    assertTrue(searchable.done(getController.getLastMove.asInstanceOf[TwoPlayerMove], false), "Expected done state for this game because there are no more moves. ")
 
   override def testGenerateAllP1MovesMidGame(): Unit =
     checkGeneratedMoves("midGameP1ToPlay8x8", EXPECTED_ALL_MIDDLE_GAME_MOVES_P1)

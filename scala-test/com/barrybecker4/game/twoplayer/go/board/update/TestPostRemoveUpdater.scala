@@ -1,10 +1,10 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.go.board.update
 
-import org.junit.Assert
-import org.junit.Before
-import org.junit.After
-import org.junit.Test
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Test
 import com.barrybecker4.common.geometry.ByteLocation
 import com.barrybecker4.common.geometry.Location
 import com.barrybecker4.game.twoplayer.go.GoTestCase
@@ -32,9 +32,9 @@ class TestPostRemoveUpdater extends GoTestCase {
         removeUpdater.update(move)
 
         var pos: GoBoardPosition = board.getPosition(location).asInstanceOf[GoBoardPosition]
-        Assert.assertEquals("Unexpected captures", 0, captureCounts.getNumCaptures(true))
-        Assert.assertNull("Unexpected string at now empty position", pos.getString)
-        Assert.assertEquals("Unexpected number of groups", 0, board.getGroups.size)
+        Assertions.assertEquals(0, captureCounts.getNumCaptures(true), "Unexpected captures")
+        Assertions.assertNull(pos.getString, "Unexpected string at now empty position")
+        Assertions.assertEquals(0, board.getGroups.size, "Unexpected number of groups")
     }
 
 

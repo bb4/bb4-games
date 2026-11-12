@@ -6,8 +6,8 @@ import com.barrybecker4.game.twoplayer.go.board.analysis.eye.information.{E1Info
 import com.barrybecker4.game.twoplayer.go.board.analysis.group.GroupAnalyzerMap
 import com.barrybecker4.game.twoplayer.go.board.elements.eye.{GoEyeSet, IGoEye}
 import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup
-import org.junit.Assert.{assertEquals, assertTrue}
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.{assertEquals, assertTrue}
+import org.junit.jupiter.api.Test
 import scala.jdk.CollectionConverters._
 
 /**
@@ -126,11 +126,11 @@ class TestEyeSpaceAnalyzer extends GoTestCase:
     if !matched then
       System.err.println("we expected: \n" + expectedEyes)
       System.err.println("but got: \n" + eyes)
-    assertTrue("The actual eyes did not match the expected.", matched)
+    assertTrue(matched, "The actual eyes did not match the expected.")
 
   /** @return true if both sets of eyes are the same */
   private def compareEyeSets(expEyes: GoEyeSet, actEyes: GoEyeSet): Boolean =
-    assertEquals("Unexpected number of eyes in group.", expEyes.size, actEyes.size)
+    assertEquals(expEyes.size, actEyes.size, "Unexpected number of eyes in group.")
     var allFound = true
     for actEye <- actEyes.asScala do
       var found = false

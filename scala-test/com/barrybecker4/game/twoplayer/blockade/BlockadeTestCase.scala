@@ -8,8 +8,8 @@ import com.barrybecker4.game.twoplayer.common.TwoPlayerPlayerOptions
 import com.barrybecker4.game.twoplayer.common.search.options.SearchOptions
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategyType
 import com.barrybecker4.ui.file.GenericFileFilter
-import org.junit.Assert.assertTrue
-import org.junit.Before
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.BeforeEach
 
 /** Base class for all Blockade test cases. @author Barry Becker */
 abstract class BlockadeTestCase:
@@ -20,7 +20,7 @@ abstract class BlockadeTestCase:
 
   protected var controller_ : BlockadeController = scala.compiletime.uninitialized
 
-  @Before
+  @BeforeEach
   def setUp(): Unit =
     GameContext.setDebugMode(-1)
     GameContext.loadResources("blockade")
@@ -55,7 +55,4 @@ abstract class BlockadeTestCase:
     m
 
   protected def checkExpected(m: BlockadeMove, row: Int, col: Int): Unit =
-    assertTrue(
-      "Was expecting " + row + ", " + col + ", but instead got " + m,
-      m.getToRow == row && m.getToCol == col
-    )
+    assertTrue(m.getToRow == row && m.getToCol == col, "Was expecting " + row + ", " + col + ", but instead got " + m)

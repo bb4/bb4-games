@@ -3,8 +3,8 @@ package com.barrybecker4.game.twoplayer.go.board.analysis.territory
 
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoStone}
-import org.junit.Assert.{assertEquals, assertFalse, assertTrue}
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.{assertEquals, assertFalse, assertTrue}
+import org.junit.jupiter.api.Test
 
 /**
  * Exact terminal life-and-death / territory tests (no health-heuristic tolerance).
@@ -29,13 +29,13 @@ class TestTerminalScoreCalculator {
       "....X..X."
     ))
     val score = new TerminalScoreCalculator(board).calculate()
-    assertTrue("white at 6,3 is dead", isDead(board, 6, 3))
-    assertTrue("white at 6,4 is dead", isDead(board, 6, 4))
-    assertTrue("white at 7,3 is dead", isDead(board, 7, 3))
-    assertTrue("white at 8,3 is dead", isDead(board, 8, 3))
-    assertFalse("the two-eyed white group lives", isDead(board, 1, 2))
-    assertFalse("black wall lives", isDead(board, 5, 1))
-    assertTrue("edge white at 2,9 stays dead", isDead(board, 2, 9))
+    assertTrue(isDead(board, 6, 3), "white at 6,3 is dead")
+    assertTrue(isDead(board, 6, 4), "white at 6,4 is dead")
+    assertTrue(isDead(board, 7, 3), "white at 7,3 is dead")
+    assertTrue(isDead(board, 8, 3), "white at 8,3 is dead")
+    assertFalse(isDead(board, 1, 2), "the two-eyed white group lives")
+    assertFalse(isDead(board, 5, 1), "black wall lives")
+    assertTrue(isDead(board, 2, 9), "edge white at 2,9 stays dead")
     assertEquals(0, score.deadBlack)
   }
 
@@ -58,15 +58,15 @@ class TestTerminalScoreCalculator {
       "...X..O.."
     ))
     val score = new TerminalScoreCalculator(board).calculate()
-    assertFalse("black at 3,1 is alive", isDead(board, 3, 1))
-    assertFalse("black at 4,1 is alive", isDead(board, 4, 1))
-    assertFalse("black at 6,1 is alive", isDead(board, 6, 1))
-    assertTrue("corner white at 1,3 is dead", isDead(board, 1, 3))
-    assertTrue("corner white at 2,1 is dead", isDead(board, 2, 1))
-    assertTrue("corner white at 2,2 is dead", isDead(board, 2, 2))
-    assertTrue("the enclosed white at 5,4 stays dead", isDead(board, 5, 4))
-    assertFalse("the big black group stays alive", isDead(board, 1, 5))
-    assertTrue("the corner is still a fight until the white is removed", new TerminalScoreCalculator(new GoBoard(board)).hasUnsettledGroup)
+    assertFalse(isDead(board, 3, 1), "black at 3,1 is alive")
+    assertFalse(isDead(board, 4, 1), "black at 4,1 is alive")
+    assertFalse(isDead(board, 6, 1), "black at 6,1 is alive")
+    assertTrue(isDead(board, 1, 3), "corner white at 1,3 is dead")
+    assertTrue(isDead(board, 2, 1), "corner white at 2,1 is dead")
+    assertTrue(isDead(board, 2, 2), "corner white at 2,2 is dead")
+    assertTrue(isDead(board, 5, 4), "the enclosed white at 5,4 stays dead")
+    assertFalse(isDead(board, 1, 5), "the big black group stays alive")
+    assertTrue(new TerminalScoreCalculator(new GoBoard(board)).hasUnsettledGroup, "the corner is still a fight until the white is removed")
     assertEquals(0, score.deadBlack)
   }
 
@@ -88,20 +88,17 @@ class TestTerminalScoreCalculator {
       "OO..OXX.."
     ))
     val score = new TerminalScoreCalculator(board).calculate()
-    assertEquals("no dead black stones", 0, score.deadBlack)
+    assertEquals(0, score.deadBlack, "no dead black stones")
     // (4,4)-(4,5) have a single real eye and are dead. The rest of white is alive.
-    assertEquals("only the one-eyed white pair is dead", 2, score.deadWhite)
+    assertEquals(2, score.deadWhite, "only the one-eyed white pair is dead")
     assertTrue(isDead(board, 4, 4))
     assertTrue(isDead(board, 4, 5))
-    assertFalse("black stone at 1,6 should be alive", isDead(board, 1, 6))
-    assertFalse("black stone at 5,4 should be alive (connected to right)", isDead(board, 5, 4))
-    assertFalse("black stone at 9,7 should be alive", isDead(board, 9, 7))
-    assertFalse("last-move white at 9,1 should be alive", isDead(board, 9, 1))
-    assertTrue("black should have some territory on the right", score.blackTerritory > 0)
-    assertTrue(
-      "white territory must not swallow the whole empty board",
-      score.whiteTerritory < 40
-    )
+    assertFalse(isDead(board, 1, 6), "black stone at 1,6 should be alive")
+    assertFalse(isDead(board, 5, 4), "black stone at 5,4 should be alive (connected to right)")
+    assertFalse(isDead(board, 9, 7), "black stone at 9,7 should be alive")
+    assertFalse(isDead(board, 9, 1), "last-move white at 9,1 should be alive")
+    assertTrue(score.blackTerritory > 0, "black should have some territory on the right")
+    assertTrue(score.whiteTerritory < 40, "white territory must not swallow the whole empty board")
   }
 
   /**
@@ -121,11 +118,11 @@ class TestTerminalScoreCalculator {
     ))
     val score = new TerminalScoreCalculator(board).calculate()
 
-    assertEquals("all 8 interior black stones dead", 8, score.deadBlack)
+    assertEquals(8, score.deadBlack, "all 8 interior black stones dead")
     assertEquals(0, score.deadWhite)
     assertEquals(0, score.blackTerritory)
     // Interior 3x3 (including dead black) is white territory; exterior empties also white
-    assertTrue(s"white territory was ${score.whiteTerritory}", score.whiteTerritory >= 9)
+    assertTrue(score.whiteTerritory >= 9, s"white territory was ${score.whiteTerritory}")
     assertTrue(isDead(board, 3, 3))
     assertTrue(isDead(board, 4, 4) || !board.getPosition(4, 4).isOccupied)
   }
@@ -168,7 +165,7 @@ class TestTerminalScoreCalculator {
     assertEquals(0, score.deadWhite)
     assertFalse(isDead(board, 1, 1))
     assertFalse(isDead(board, 1, 5))
-    assertEquals("shared column is dame", 0, score.blackTerritory + score.whiteTerritory)
+    assertEquals(0, score.blackTerritory + score.whiteTerritory, "shared column is dame")
   }
 
   /** Two separate one-point eyes are enough to live. */
@@ -214,18 +211,18 @@ class TestTerminalScoreCalculator {
     ))
     val score = new TerminalScoreCalculator(board).calculate()
 
-    assertEquals("every white stone is dead", 21, score.deadWhite)
-    assertEquals("no black stone is dead", 0, score.deadBlack)
+    assertEquals(21, score.deadWhite, "every white stone is dead")
+    assertEquals(0, score.deadBlack, "no black stone is dead")
     assertEquals(0, score.whiteTerritory)
-    assertEquals("empty points plus dead white", 48, score.blackTerritory)
-    assertTrue("edge white at 8,1", isDead(board, 8, 1))
-    assertTrue("bottom white at 7,4", isDead(board, 7, 4))
-    assertTrue("bottom white at 9,5", isDead(board, 9, 5))
-    assertTrue("edge white at 8,9", isDead(board, 8, 9))
-    assertFalse("black at 4,4 lives", isDead(board, 4, 4))
-    assertFalse("black at 6,6 lives", isDead(board, 6, 6))
-    assertFalse("inner black at 7,3 lives", isDead(board, 7, 3))
-    assertFalse("inner black at 8,2 lives", isDead(board, 8, 2))
+    assertEquals(48, score.blackTerritory, "empty points plus dead white")
+    assertTrue(isDead(board, 8, 1), "edge white at 8,1")
+    assertTrue(isDead(board, 7, 4), "bottom white at 7,4")
+    assertTrue(isDead(board, 9, 5), "bottom white at 9,5")
+    assertTrue(isDead(board, 8, 9), "edge white at 8,9")
+    assertFalse(isDead(board, 4, 4), "black at 4,4 lives")
+    assertFalse(isDead(board, 6, 6), "black at 6,6 lives")
+    assertFalse(isDead(board, 7, 3), "inner black at 7,3 lives")
+    assertFalse(isDead(board, 8, 2), "inner black at 8,2 lives")
   }
 
   /**
@@ -248,16 +245,16 @@ class TestTerminalScoreCalculator {
     ))
     val score = new TerminalScoreCalculator(board).calculate()
 
-    assertEquals("three loose white stones", 3, score.deadWhite)
-    assertEquals("black is alive", 0, score.deadBlack)
-    assertEquals("left-side eyes", 6, score.whiteTerritory)
-    assertEquals("right side plus the one black eye", 34, score.blackTerritory)
+    assertEquals(3, score.deadWhite, "three loose white stones")
+    assertEquals(0, score.deadBlack, "black is alive")
+    assertEquals(6, score.whiteTerritory, "left-side eyes")
+    assertEquals(34, score.blackTerritory, "right side plus the one black eye")
     assertTrue(isDead(board, 2, 5))
     assertTrue(isDead(board, 4, 7))
     assertTrue(isDead(board, 6, 6))
-    assertFalse("left white group lives", isDead(board, 1, 2))
-    assertFalse("black wall lives", isDead(board, 1, 4))
-    assertFalse("black group on the right lives", isDead(board, 5, 7))
+    assertFalse(isDead(board, 1, 2), "left white group lives")
+    assertFalse(isDead(board, 1, 4), "black wall lives")
+    assertFalse(isDead(board, 5, 7), "black group on the right lives")
   }
 
   /**
@@ -304,15 +301,15 @@ class TestTerminalScoreCalculator {
     ))
     val score = new TerminalScoreCalculator(board).calculate()
 
-    assertEquals("top-left corner stays white", 6, score.whiteTerritory)
-    assertEquals("black eyes plus the top-right pocket", 13, score.blackTerritory)
-    assertEquals("only the top-right white stone is dead", 1, score.deadWhite)
-    assertEquals("black groups have eyes", 0, score.deadBlack)
-    assertFalse("white wall around the corner lives", isDead(board, 1, 4))
-    assertTrue("corner white at 3,9 is dead", isDead(board, 3, 9))
-    assertFalse("bottom white still has room", isDead(board, 8, 1))
+    assertEquals(6, score.whiteTerritory, "top-left corner stays white")
+    assertEquals(13, score.blackTerritory, "black eyes plus the top-right pocket")
+    assertEquals(1, score.deadWhite, "only the top-right white stone is dead")
+    assertEquals(0, score.deadBlack, "black groups have eyes")
+    assertFalse(isDead(board, 1, 4), "white wall around the corner lives")
+    assertTrue(isDead(board, 3, 9), "corner white at 3,9 is dead")
+    assertFalse(isDead(board, 8, 1), "bottom white still has room")
     assertFalse(isDead(board, 7, 5))
-    assertTrue("room to play is not settled life", new TerminalScoreCalculator(new GoBoard(board)).hasUnsettledGroup)
+    assertTrue(new TerminalScoreCalculator(new GoBoard(board)).hasUnsettledGroup, "room to play is not settled life")
   }
 
   /** Dead black stones become white territory points and dead-black counts (not black territory). */
@@ -332,7 +329,7 @@ class TestTerminalScoreCalculator {
     assertEquals(0, score.deadWhite)
     assertEquals(0, score.blackTerritory)
     // Points under dead black + the eye are white territory
-    assertTrue(s"white territory was ${score.whiteTerritory}", score.whiteTerritory >= 9)
+    assertTrue(score.whiteTerritory >= 9, s"white territory was ${score.whiteTerritory}")
   }
 
   /** A 2x2 eye is two eyes. The surrounding group lives. */

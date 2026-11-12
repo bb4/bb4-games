@@ -4,7 +4,7 @@ package com.barrybecker4.game.twoplayer.common.search.transposition
 import com.barrybecker4.common.geometry.ByteLocation
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.move.GoMove
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 /**
  * Various uniqueness tests for hash keys.

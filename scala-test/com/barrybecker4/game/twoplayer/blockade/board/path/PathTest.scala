@@ -5,8 +5,9 @@ import com.barrybecker4.common.geometry.ByteLocation
 import com.barrybecker4.game.twoplayer.blockade.BlockadeTestCase
 import com.barrybecker4.game.twoplayer.blockade.board.{BlockadeBoard, BlockadeBoardPosition, BlockadeTstUtil}
 import com.barrybecker4.game.twoplayer.blockade.board.move.wall.BlockadeWall
-import org.junit.Assert.{assertFalse, assertTrue}
-import org.junit.{Before, Test}
+import org.junit.jupiter.api.Assertions.{assertFalse, assertTrue}
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 /** @author Barry Becker */
 class PathTest extends BlockadeTestCase:
@@ -14,7 +15,7 @@ class PathTest extends BlockadeTestCase:
   private var path: Path = scala.compiletime.uninitialized
   private var board: BlockadeBoard = scala.compiletime.uninitialized
 
-  @Before
+  @BeforeEach
   override def setUp(): Unit =
     super.setUp()
     board = new BlockadeBoard(7, 5)
@@ -67,7 +68,7 @@ class PathTest extends BlockadeTestCase:
     assertBlocked(path)
 
   private def assertBlocked(p: Path): Unit =
-    assertTrue("Path unexpectedly not blocked", p.isBlocked(board))
+    assertTrue(p.isBlocked(board), "Path unexpectedly not blocked")
 
   private def assertNotBlocked(p: Path): Unit =
-    assertFalse("Path unexpectedly blocked", p.isBlocked(board))
+    assertFalse(p.isBlocked(board), "Path unexpectedly blocked")

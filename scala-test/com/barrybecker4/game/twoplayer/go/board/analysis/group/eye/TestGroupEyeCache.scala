@@ -10,8 +10,9 @@ import com.barrybecker4.game.twoplayer.go.board.analysis.territory.TerritoryUpda
 import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoStone}
 import com.barrybecker4.game.twoplayer.go.board.move.GoMove
 import com.barrybecker4.game.twoplayer.go.options.GoWeights
-import org.junit.Assert.{assertEquals, assertFalse, assertTrue}
-import org.junit.{After, Test}
+import org.junit.jupiter.api.Assertions.{assertEquals, assertFalse, assertTrue}
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Test
 import scala.jdk.CollectionConverters._
 
 /**
@@ -33,11 +34,11 @@ class TestGroupEyeCache extends GoTestCase:
     val cache = new GroupEyeCache(group, new GroupAnalyzerMap())
 
     cache.updateEyes(board)
-    assertTrue("Cache should be valid after updateEyes", cache.isValid)
-    assertEquals("Isolated stone should have no eyes", 0, cache.getEyes(board).size)
+    assertTrue(cache.isValid, "Cache should be valid after updateEyes")
+    assertEquals(0, cache.getEyes(board).size, "Isolated stone should have no eyes")
 
     cache.invalidate()
-    assertFalse("Cache must be invalid after invalidate even with zero eyes", cache.isValid)
+    assertFalse(cache.isValid, "Cache must be invalid after invalidate even with zero eyes")
 
   /**
    * Liberty count change without groupChanged() must not return stale absolute health.
@@ -54,7 +55,7 @@ class TestGroupEyeCache extends GoTestCase:
     assertTrue(calculator.isValid)
     val libsBefore = group.getNumLiberties(board)
     // Single stone: 4 and 3 liberties both score 0.1; drop to 2 so health must change.
-    assertEquals("Center stone should start with 4 liberties", 4, libsBefore)
+    assertEquals(4, libsBefore, "Center stone should start with 4 liberties")
 
     for (liberty <- group.getLiberties(board).asScala.take(2)) {
       liberty.setPiece(new GoStone(false))
@@ -62,19 +63,16 @@ class TestGroupEyeCache extends GoTestCase:
     }
 
     val libsAfter = group.getNumLiberties(board)
-    assertEquals("Should have 2 liberties after filling two", 2, libsAfter)
-    assertTrue("Eye cache still marked valid until health is recalculated", calculator.isValid)
+    assertEquals(2, libsAfter, "Should have 2 liberties after filling two")
+    assertTrue(calculator.isValid, "Eye cache still marked valid until health is recalculated")
 
     val healthAfter = calculator.calculateAbsoluteHealth(board)
-    assertTrue("Cache should be valid again after recompute", calculator.isValid)
-    assertTrue(
-      s"Black health should drop when liberties drop (before=$healthBefore after=$healthAfter)",
-      healthAfter < healthBefore
-    )
+    assertTrue(calculator.isValid, "Cache should be valid again after recompute")
+    assertTrue(healthAfter < healthBefore, s"Black health should drop when liberties drop (before=$healthBefore after=$healthAfter)")
     // Recompute again with unchanged liberties — must hit the fast path and stay consistent.
     assertEquals(healthAfter, calculator.calculateAbsoluteHealth(board), 0.0f)
 
-  @After
+  @AfterEach
   override def tearDown(): Unit =
     TerritoryUpdater.FORCE_NEW_ANALYZERS = false
     val profiler = GoProfiler.getInstance
@@ -100,17 +98,13 @@ class TestGroupEyeCache extends GoTestCase:
     val worth1 = calculator.worth(move, weights)
     val group = getBiggestGroup(true)
     val analyzer = analyzerMap.getAnalyzer(group)
-    assertTrue("Analyzer should be valid after first worth()", analyzer.isValid)
+    assertTrue(analyzer.isValid, "Analyzer should be valid after first worth()")
 
     profiler.resetAll()
     val worth2 = calculator.worth(move, weights)
-    assertEquals("Repeated worth on same board must be identical", worth1, worth2)
-    assertTrue("Eye cache should still be valid after second worth()", analyzer.isValid)
-    assertEquals(
-      "Second worth() should skip eye updates when cache is valid",
-      0L,
-      profiler.getEntry("update eyes").getTime
-    )
+    assertEquals(worth1, worth2, "Repeated worth on same board must be identical")
+    assertTrue(analyzer.isValid, "Eye cache should still be valid after second worth()")
+    assertEquals(0L, profiler.getEntry("update eyes").getTime, "Second worth() should skip eye updates when cache is valid")
 
   /** Sanity check: FORCE_NEW_ANALYZERS discards analyzers between worth() calls. */
   @Test
@@ -131,7 +125,4 @@ class TestGroupEyeCache extends GoTestCase:
     val analyzerAfterSecond = analyzerMap.getAnalyzer(group)
 
     assertEquals(worth1, worth2)
-    assertFalse(
-      "clear() must discard prior analyzers so a new instance is created",
-      analyzerAfterFirst eq analyzerAfterSecond
-    )
+    assertFalse(analyzerAfterFirst eq analyzerAfterSecond, "clear() must discard prior analyzers so a new instance is created")

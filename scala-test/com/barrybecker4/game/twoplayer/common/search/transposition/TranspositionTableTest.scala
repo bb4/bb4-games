@@ -9,8 +9,9 @@ import com.barrybecker4.game.twoplayer.common.search.options.SearchOptions
 import com.barrybecker4.game.twoplayer.common.search.strategy.{SearchStrategy, SearchStrategyType}
 import com.barrybecker4.game.twoplayer.common.search.tree.SearchTreeNode
 import com.barrybecker4.game.twoplayer.tictactoe.TicTacToeHelper
-import org.junit.Assert.{assertEquals, assertFalse, assertTrue}
-import org.junit.{Before, Test}
+import org.junit.jupiter.api.Assertions.{assertEquals, assertFalse, assertTrue}
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 /**
  * Direct tests for [[TranspositionTable.entryExists]] and agreement between memory and plain NegaMax.
@@ -19,7 +20,7 @@ class TranspositionTableTest:
 
   private var table: TranspositionTable[TwoPlayerMoveStub] = scala.compiletime.uninitialized
 
-  @Before
+  @BeforeEach
   def setUp(): Unit =
     table = new TranspositionTable[TwoPlayerMoveStub]()
 
@@ -102,14 +103,14 @@ class TranspositionTableTest:
     val plainMid = searchWithStrategy(controller, searchOptions, SearchStrategyType.NEGAMAX)
     controller.restoreFromStream(helper.getTestResource(Progress.MIDDLE, player1 = true))
     val memoryMid = searchWithStrategy(controller, searchOptions, SearchStrategyType.NEGAMAX_W_MEMORY)
-    assertEquals("Mid-game scores should match", plainMid.getValue, memoryMid.getValue)
+    assertEquals(plainMid.getValue, memoryMid.getValue, "Mid-game scores should match")
 
     controller.restoreFromStream(helper.getTestResource(Progress.BEGINNING, player1 = true))
     val plainStart = searchWithStrategy(controller, searchOptions, SearchStrategyType.NEGAMAX)
     controller.restoreFromStream(helper.getTestResource(Progress.BEGINNING, player1 = true))
     val memoryStart = searchWithStrategy(controller, searchOptions, SearchStrategyType.NEGAMAX_W_MEMORY)
-    assertEquals("Opening scores should match", plainStart.getValue, memoryStart.getValue)
-    assertEquals("Unique best opening move location", plainStart.getToLocation, memoryStart.getToLocation)
+    assertEquals(plainStart.getValue, memoryStart.getValue, "Opening scores should match")
+    assertEquals(plainStart.getToLocation, memoryStart.getToLocation, "Unique best opening move location")
 
   private def searchWithStrategy(
       controller: TwoPlayerController[TwoPlayerMove, TwoPlayerBoard[TwoPlayerMove]],

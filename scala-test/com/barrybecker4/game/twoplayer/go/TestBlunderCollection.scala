@@ -3,8 +3,8 @@ package com.barrybecker4.game.twoplayer.go
 
 import com.barrybecker4.game.twoplayer.common.search.options.SearchOptions
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategyType
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 /**
  * Test a collection of problems from

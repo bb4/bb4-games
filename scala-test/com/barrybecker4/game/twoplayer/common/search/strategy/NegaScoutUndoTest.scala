@@ -10,8 +10,8 @@ import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.elements.position.GoStone
 import com.barrybecker4.game.twoplayer.go.board.move.GoMove
 import com.barrybecker4.optimization.parameter.ParameterArray
-import org.junit.Assert.{assertEquals, assertTrue}
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.{assertEquals, assertTrue}
+import org.junit.jupiter.api.Test
 
 /**
  * A re-search that returns no move must still undo the stone it just made.
@@ -23,16 +23,16 @@ class NegaScoutUndoTest:
     val stub = new BalanceSearchable(lookAhead = 1, emptyQuiescenceOnSecondVisit = true)
     val strategy = new NegaScoutStrategy[GoMove, GoBoard](stub, null)
     strategy.search(stub.root, null)
-    assertTrue("re-search should have visited the second move twice", stub.secondMoveVisits >= 2)
-    assertEquals("board depth after a null quiescence re-search", 0, stub.depth)
+    assertTrue(stub.secondMoveVisits >= 2, "re-search should have visited the second move twice")
+    assertEquals(0, stub.depth, "board depth after a null quiescence re-search")
 
   @Test
   def negaScoutMemoryUndoesWhenResearchReturnsNull(): Unit =
     val stub = new BalanceSearchable(lookAhead = 2, emptyMovesOnSecondVisit = true)
     val strategy = new NegaScoutMemoryStrategy[GoMove, GoBoard](stub, null)
     strategy.search(stub.root, null)
-    assertTrue("re-search should have generated moves for the second move twice", stub.secondMoveGenerations >= 2)
-    assertEquals("board depth after a null re-search", 0, stub.depth)
+    assertTrue(stub.secondMoveGenerations >= 2, "re-search should have generated moves for the second move twice")
+    assertEquals(0, stub.depth, "board depth after a null re-search")
 
 /**
  * Counts make/undo calls. The second root move forces a NegaScout re-search whose

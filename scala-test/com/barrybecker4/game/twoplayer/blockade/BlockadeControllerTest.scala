@@ -7,8 +7,8 @@ import com.barrybecker4.game.twoplayer.blockade.board.BlockadeBoardPosition
 import com.barrybecker4.game.twoplayer.blockade.board.move.BlockadeMove
 import com.barrybecker4.game.twoplayer.blockade.board.move.wall.BlockadeWall
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
 /** @author Barry Becker */
 class BlockadeControllerTest extends BlockadeTestCase:
@@ -28,8 +28,4 @@ class BlockadeControllerTest extends BlockadeTestCase:
     val weights = controller_.getComputerWeights().getDefaultWeights
     val winFromP1Persp = controller_.getSearchable().worth(winningMove, weights)
 
-    assertEquals(
-      "Unexpected value of winning move from P1 perspective",
-      SearchStrategy.WINNING_VALUE,
-      winFromP1Persp
-    )
+    assertEquals(SearchStrategy.WINNING_VALUE, winFromP1Persp, "Unexpected value of winning move from P1 perspective")

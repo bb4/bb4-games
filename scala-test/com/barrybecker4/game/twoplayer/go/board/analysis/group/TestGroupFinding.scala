@@ -1,10 +1,10 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.go.board.analysis.group
 
-import org.junit.Assert
-import org.junit.Before
-import org.junit.After
-import org.junit.Test
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Test
 import com.barrybecker4.common.geometry.ByteLocation
 import com.barrybecker4.common.geometry.Location
 import com.barrybecker4.game.twoplayer.go.GoTestCase
@@ -66,7 +66,7 @@ class TestGroupFinding extends GoTestCase {
         var b: GoBoard = initializeBoard("false_ko_eye1")
         try {
             verifyGroup(b, new ByteLocation(2, 3), 6)
-            Assert.fail()
+            Assertions.fail()
         } catch { case e: NullPointerException =>
             // expected, but maybe we should throw illegal argument exception instead.
         }
@@ -96,16 +96,14 @@ class TestGroupFinding extends GoTestCase {
         var na: NeighborAnalyzer = new NeighborAnalyzer(board)
         var position: GoBoardPosition = board.getPosition(loc).asInstanceOf[GoBoardPosition]
         var group: GoBoardPositionSet = na.findGroupNeighbors(position, true)
-        Assert.assertEquals("Unexpected number of group neighbors for : "+ position +" \n" + group + "\n",
-                expectedNumNeighbors, group.size)
+        Assertions.assertEquals(expectedNumNeighbors, group.size, "Unexpected number of group neighbors for : "+ position +" \n" + group + "\n")
     }
 
     private def verifyGroup(board: GoBoard, loc: Location, expectedNumStonesInGroup: Int): Unit = {
         var na: NeighborAnalyzer = new NeighborAnalyzer(board)
         var position: GoBoardPosition = board.getPosition(loc).asInstanceOf[GoBoardPosition]
         var group: List[GoBoardPosition] = na.findGroupFromInitialPosition(position)
-        Assert.assertEquals("Unexpected number of stones in group: \n" + group + "\n",
-                expectedNumStonesInGroup, group.size)
+        Assertions.assertEquals(expectedNumStonesInGroup, group.size, "Unexpected number of stones in group: \n" + group + "\n")
     }
 
 }

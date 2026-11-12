@@ -7,8 +7,8 @@ import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.analysis.group.{GroupAnalyzer, GroupAnalyzerMap}
 import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoStone}
 import com.barrybecker4.game.twoplayer.go.board.move.GoMove
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
 
 class TestPostMoveUpdater extends GoTestCase:
@@ -63,11 +63,11 @@ class TestPostMoveUpdater extends GoTestCase:
     val move = board.getMoveList.getLastMove.asInstanceOf[GoMove]
     val pos = board.getPosition(move.getToLocation).asInstanceOf[GoBoardPosition]
     val groupAnalyzer = new GroupAnalyzer(pos.getGroup, new GroupAnalyzerMap())
-    assertEquals("Unexpected captures", stats.expCaptures, move.getCaptures.size)
-    assertEquals("Unexpected captures for black", stats.expCaptures, board.getNumCaptures(false))
-    assertEquals("Unexpected number of liberties for the string", stats.expStringLiberties, pos.getString.getNumLiberties(board))
-    assertEquals("Unexpected number of stones in string", stats.expNumStonesInString, pos.getString.size)
-    assertEquals("Unexpected number of strings in group", stats.expNumStringsInGroup, pos.getGroup.size)
-    assertEquals("Unexpected number eyes in group", stats.expNumEyesInGroup, groupAnalyzer.getEyes(board).size)
-    assertEquals("Unexpected number of groups", stats.expGroupsOnBoard, board.getGroups.size)
-    assertEquals("The group is new so should be valid", stats.expValid, groupAnalyzer.isValid)
+    assertEquals(stats.expCaptures, move.getCaptures.size, "Unexpected captures")
+    assertEquals(stats.expCaptures, board.getNumCaptures(false), "Unexpected captures for black")
+    assertEquals(stats.expStringLiberties, pos.getString.getNumLiberties(board), "Unexpected number of liberties for the string")
+    assertEquals(stats.expNumStonesInString, pos.getString.size, "Unexpected number of stones in string")
+    assertEquals(stats.expNumStringsInGroup, pos.getGroup.size, "Unexpected number of strings in group")
+    assertEquals(stats.expNumEyesInGroup, groupAnalyzer.getEyes(board).size, "Unexpected number eyes in group")
+    assertEquals(stats.expGroupsOnBoard, board.getGroups.size, "Unexpected number of groups")
+    assertEquals(stats.expValid, groupAnalyzer.isValid, "The group is new so should be valid")

@@ -7,8 +7,9 @@ import com.barrybecker4.game.twoplayer.common.search.{ISearchableHelper, Progres
 import com.barrybecker4.game.twoplayer.common.search.options.{BestMovesSearchOptions, BruteSearchOptions, SearchOptions}
 import com.barrybecker4.game.twoplayer.common.search.strategy.{SearchStrategy, SearchStrategyType}
 import com.barrybecker4.game.twoplayer.common.search.tree.SearchTreeNode
-import org.junit.Assert.{assertEquals, assertTrue}
-import org.junit.{Before, Test}
+import org.junit.jupiter.api.Assertions.{assertEquals, assertTrue}
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 /**
  * Verify that all the methods in the SearchStrategy interface work as expected (especially search).
@@ -23,7 +24,7 @@ abstract class AbstractStrategyTst:
   /** All tests should be able to run in less time than this. */
   private val MAX_NUM_SECONDS = 4.0
 
-  @Before
+  @BeforeEach
   def setUp(): Unit =
     helper = createSearchableHelper
     controller = helper.createController
@@ -123,10 +124,7 @@ abstract class AbstractStrategyTst:
       verifyMove(prog, true, expectedMoves, desc)
       verifyMove(prog, false, expectedMoves, desc)
     val elapsed = (System.currentTimeMillis - time).toFloat / 1000.0
-    assertTrue(
-      "Took too long. Expected to be less than " + MAX_NUM_SECONDS + " seconds but was: " + elapsed + " seconds.",
-      elapsed < MAX_NUM_SECONDS
-    )
+    assertTrue(elapsed < MAX_NUM_SECONDS, "Took too long. Expected to be less than " + MAX_NUM_SECONDS + " seconds but was: " + elapsed + " seconds.")
 
   def verifyMove(prog: Progress, player1: Boolean, expectedMoves: ExpectedMoveMatrix, desc: String): Unit =
     controller.restoreFromStream(helper.getTestResource(prog, player1))
@@ -136,12 +134,8 @@ abstract class AbstractStrategyTst:
     val numMoves = strategy.getNumMovesConsidered
     val info = "" + getSearchStrategyToTest + " " + desc + " " + prog + " player1=" + player1
     if expectedNext.hasMovesConsidered then
-      assertEquals("Unexpected number of moves considered.", expectedNext.getNumMovesConsidered, numMoves)
-    assertEquals(
-      info + "\nWe did not get the next move that we expected after searching.",
-      expectedNext.getMove,
-      nextMove
-    )
+      assertEquals(expectedNext.getNumMovesConsidered, numMoves, "Unexpected number of moves considered.")
+    assertEquals(expectedNext.getMove, nextMove, info + "\nWe did not get the next move that we expected after searching.")
 
   protected def getExpectedZeroLookAheadMoves: ExpectedMoveMatrix
   protected def getExpectedOneLevelLookAheadMoves: ExpectedMoveMatrix
@@ -161,10 +155,7 @@ abstract class AbstractStrategyTst:
     val root = new SearchTreeNode(lastMove)
     val nextMove = strategy.search(lastMove, root)
     if searchOptions.getBruteSearchOptions.getLookAhead > 0 then
-      assertTrue(
-        "The last move (" + lastMove + ") was the same player as the next move (" + nextMove + ")",
-        lastMove.isPlayer1 != nextMove.isPlayer1
-      )
+      assertTrue(lastMove.isPlayer1 != nextMove.isPlayer1, "The last move (" + lastMove + ") was the same player as the next move (" + nextMove + ")")
     nextMove
 
   protected def createSearchStrategy: SearchStrategy[TwoPlayerMove, TwoPlayerBoard[TwoPlayerMove]] =

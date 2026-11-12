@@ -3,8 +3,9 @@ package com.barrybecker4.game.twoplayer.blockade.board.move.wall
 
 import com.barrybecker4.game.twoplayer.blockade.BlockadeTestCase
 import com.barrybecker4.game.twoplayer.blockade.board.{BlockadeBoard, BlockadeBoardPosition}
-import org.junit.Assert.assertEquals
-import org.junit.{Before, Test}
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 /** @author Barry Becker */
 class DiagonalWallCheckerTest extends BlockadeTestCase:
@@ -20,7 +21,7 @@ class DiagonalWallCheckerTest extends BlockadeTestCase:
   private var topTopLeft: BlockadeBoardPosition = scala.compiletime.uninitialized
   private var bottomBottomLeft: BlockadeBoardPosition = scala.compiletime.uninitialized
 
-  @Before
+  @BeforeEach
   override def setUp(): Unit =
     super.setUp()
     board = new BlockadeBoard(7, 5)
@@ -110,4 +111,4 @@ class DiagonalWallCheckerTest extends BlockadeTestCase:
 
   private def verifyWalls(expWalls: BlockadeWallList): Unit =
     val walls = checker.checkWalls(topLeft, topRight, bottomLeft)
-    assertEquals("Unexpected walls", expWalls, walls)
+    assertEquals(expWalls, walls, "Unexpected walls")

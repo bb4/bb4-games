@@ -2,7 +2,8 @@
 package com.barrybecker4.game.twoplayer.common.search
 
 import com.barrybecker4.game.twoplayer.common.{TwoPlayerBoard, TwoPlayerMove}
-import org.junit.{Before, Test}
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 /**
  * Verify that all the methods in the Searchable interface work as expected.
@@ -16,7 +17,7 @@ abstract class SearchableBaseTst:
 
   protected var helper: ISearchableHelper = scala.compiletime.uninitialized
 
-  @Before
+  @BeforeEach
   def setUp(): Unit =
     helper = createSearchableHelper
 

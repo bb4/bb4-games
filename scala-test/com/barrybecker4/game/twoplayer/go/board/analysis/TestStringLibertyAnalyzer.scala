@@ -1,10 +1,10 @@
 /* Copyright by Barry G. Becker, 2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT */
 package com.barrybecker4.game.twoplayer.go.board.analysis
 
-import org.junit.Assert
-import org.junit.Before
-import org.junit.After
-import org.junit.Test
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Test
 import com.barrybecker4.game.twoplayer.go.GoTestCase
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.GoBoardConfigurator
@@ -19,7 +19,7 @@ class TestStringLibertyAnalyzer extends GoTestCase {
     private var boardConfig: GoBoardConfigurator = scala.compiletime.uninitialized
 
 
-    @Before
+    @BeforeEach
     override def setUp(): Unit = {
         super.setUp()
         boardConfig = new GoBoardConfigurator(9, 0)
@@ -131,8 +131,7 @@ class TestStringLibertyAnalyzer extends GoTestCase {
             boardConfig.setPositions(otherList)
         }
         var analyzer: StringLibertyAnalyzer = new StringLibertyAnalyzer(board, string)
-        Assert.assertEquals("Unexpected number of liberties",
-                expectedNumber, analyzer.getLiberties.size)
+        Assertions.assertEquals(expectedNumber, analyzer.getLiberties.size, "Unexpected number of liberties")
     }
 
     /**

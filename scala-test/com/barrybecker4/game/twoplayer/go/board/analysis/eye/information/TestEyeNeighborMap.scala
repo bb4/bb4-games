@@ -5,8 +5,8 @@ import com.barrybecker4.common.geometry.{ByteLocation, Location}
 import com.barrybecker4.game.twoplayer.go.board.GoBoardConfigurator
 import com.barrybecker4.game.twoplayer.go.board.elements.eye.IGoEye
 import com.barrybecker4.game.twoplayer.go.board.elements.position.GoBoardPosition
-import org.junit.Assert.{assertEquals, assertFalse, assertTrue, fail}
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.{assertEquals, assertFalse, assertTrue, fail}
+import org.junit.jupiter.api.Test
 import java.util.List
 import scala.jdk.CollectionConverters._
 
@@ -20,14 +20,14 @@ class TestEyeNeighborMap:
     val eye: IGoEye =
       new StubGoEye(GoBoardConfigurator.createPositionList(Array[Location](new ByteLocation(2, 2))))
     nbrMap = new EyeNeighborMap(eye)
-    assertEquals("unexpected size", 1, nbrMap.keySet().size)
+    assertEquals(1, nbrMap.keySet().size, "unexpected size")
 
   @Test
   def testTwoSpaceEye(): Unit =
     val positions: Array[Location] = Array(new ByteLocation(2, 2), new ByteLocation(2, 3))
     val eye: IGoEye = new StubGoEye(GoBoardConfigurator.createPositionList(positions))
     nbrMap = new EyeNeighborMap(eye)
-    assertEquals("unexpected size", 2, nbrMap.keySet().size)
+    assertEquals(2, nbrMap.keySet().size, "unexpected size")
 
   /** Negative case */
   @Test
@@ -47,7 +47,7 @@ class TestEyeNeighborMap:
     val spaces: List[GoBoardPosition] = GoBoardConfigurator.createPositionList(positions)
     val eye: IGoEye = new StubGoEye(spaces)
     nbrMap = new EyeNeighborMap(eye)
-    assertEquals("unexpected size", 3, nbrMap.keySet().size)
+    assertEquals(3, nbrMap.keySet().size, "unexpected size")
     verifyNumEyeNbrs(Array(1, 2, 1), spaces)
 
   @Test
@@ -55,7 +55,7 @@ class TestEyeNeighborMap:
     val spaces: List[GoBoardPosition] = GoBoardConfigurator.createPositionList(TestEyeNeighborMap.RABBITY_SIX)
     val eye: IGoEye = new StubGoEye(spaces)
     nbrMap = new EyeNeighborMap(eye)
-    assertEquals("unexpected size", 6, nbrMap.keySet().size)
+    assertEquals(6, nbrMap.keySet().size, "unexpected size")
     verifyNumEyeNbrs(Array(2, 2, 1, 4, 2, 1), spaces)
 
   @Test
@@ -76,16 +76,12 @@ class TestEyeNeighborMap:
     val spaces: List[GoBoardPosition] = GoBoardConfigurator.createPositionList(TestEyeNeighborMap.BLOCK_OF_SIX)
     val eye: IGoEye = new StubGoEye(spaces)
     nbrMap = new EyeNeighborMap(eye)
-    assertEquals("unexpected size", 6, nbrMap.keySet().size)
+    assertEquals(6, nbrMap.keySet().size, "unexpected size")
     verifyNumEyeNbrs(Array(2, 3, 2, 2, 3, 2), spaces)
 
   private def verifyNumEyeNbrs(expectedNumNbrs: Array[Int], spaces: List[GoBoardPosition]): Unit =
     for i <- expectedNumNbrs.indices do
-      assertEquals(
-        "Unexpected number of neighbors for position " + i,
-        expectedNumNbrs(i),
-        nbrMap.getNumEyeNeighbors(spaces.get(i))
-      )
+      assertEquals(expectedNumNbrs(i), nbrMap.getNumEyeNeighbors(spaces.get(i)), "Unexpected number of neighbors for position " + i)
 
 
 object TestEyeNeighborMap:

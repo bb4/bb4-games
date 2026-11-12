@@ -8,8 +8,8 @@ import com.barrybecker4.game.twoplayer.go.board.analysis.group.GroupAnalyzerMap
 import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoStone}
 import com.barrybecker4.game.twoplayer.go.board.move.GoMove
 import com.barrybecker4.game.twoplayer.go.options.{GoOptions, GoWeights}
-import org.junit.Assert.{assertEquals, assertTrue}
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.{assertEquals, assertTrue}
+import org.junit.jupiter.api.Test
 
 /**
  * Search worth is a Japanese point estimate: territory of living groups,
@@ -148,7 +148,7 @@ class TestSearchScoreCalculator {
       "........."
     ))
     val points = scoredPoints(board)
-    assertTrue(s"white's wall was scored as owning the board: $points", points > -20.0)
+    assertTrue(points > -20.0, s"white's wall was scored as owning the board: $points")
   }
 
   /** The finished game: black has two real eyes and about twenty dead white stones. */
@@ -166,7 +166,7 @@ class TestSearchScoreCalculator {
       "..O..O..."
     ))
     val points = scoredPoints(board)
-    assertTrue(s"black's territory was ignored: $points", points > 20.0)
+    assertTrue(points > 20.0, s"black's territory was ignored: $points")
   }
 
   @Test
@@ -177,7 +177,7 @@ class TestSearchScoreCalculator {
     play(third, 3, 5, black = true)
     val edgeWorth = worth(edge)
     val thirdWorth = worth(third)
-    assertTrue(s"first line $edgeWorth should be worse than third line $thirdWorth", thirdWorth >= edgeWorth + 1)
+    assertTrue(thirdWorth >= edgeWorth + 1, s"first line $edgeWorth should be worse than third line $thirdWorth")
   }
 
   /** Same eye analysis the search uses, then the point score. */
@@ -201,7 +201,7 @@ class TestSearchScoreCalculator {
 
   private def play(board: GoBoard, row: Int, col: Int, black: Boolean): Unit = {
     val played = board.makeMove(new GoMove(new ByteLocation(row, col), 0, new GoStone(black)))
-    assertTrue(s"move ($row,$col) should be legal", played)
+    assertTrue(played, s"move ($row,$col) should be legal")
   }
 
   private def setHealth(board: GoBoard, health: Float): Unit =

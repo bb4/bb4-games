@@ -1,10 +1,10 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.go.board.analysis.eye.information
 
-import org.junit.Assert
-import org.junit.Before
-import org.junit.After
-import org.junit.Test
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Test
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.analysis.eye.TestEyeTypeAnalyzer
 import com.barrybecker4.game.twoplayer.go.board.analysis.eye.information.E4Information.Eye4Type.E1113
@@ -112,7 +112,7 @@ class TestE4Information extends TestEyeTypeAnalyzer {
         var b: GoBoard = initializeBoard("four_space_bent_in_atari_ends_split", 10)
 
         checkBlackEyeSurrounded(b, new E4Information(E1122.toString()), EyeStatus.UNSETTLED)
-        Assert.assertEquals("jump-connected white stones do not share the eye", 0, countGroupsWithOneEye(b, false))
+        Assertions.assertEquals(0, countGroupsWithOneEye(b, false), "jump-connected white stones do not share the eye")
     }
 
     @Test

@@ -1,10 +1,10 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.go.board.analysis.neighbor
 
-import org.junit.Assert
-import org.junit.Before
-import org.junit.After
-import org.junit.Test
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Test
 import com.barrybecker4.game.twoplayer.go.GoTestCase
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.elements.position.GoBoardPosition
@@ -175,8 +175,8 @@ class TestGroupNeighborAnalyzer extends GoTestCase {
 
         System.out.println("group1=" + group1)
         System.out.println("group2=" + group2)
-        Assert.assertEquals("Group1 did not have expected size.", 1, group1.size)
-        Assert.assertEquals("Groups did not have the same size", group1.size, group2.size)
+        Assertions.assertEquals(1, group1.size, "Group1 did not have expected size.")
+        Assertions.assertEquals(group1.size, group2.size, "Groups did not have the same size")
     }
 
 
@@ -198,8 +198,7 @@ class TestGroupNeighborAnalyzer extends GoTestCase {
 
         var pos: GoBoardPosition = board_.getPosition(row, col).asInstanceOf[GoBoardPosition]
         var numNbrs: Int = groupAnalyzer_.findGroupNeighbors(pos, friendP1, samePlayerOnly).size
-        Assert.assertEquals("Unexpected number of group neigbors found.",
-                expectedNumNbrs, numNbrs)
+        Assertions.assertEquals(expectedNumNbrs, numNbrs, "Unexpected number of group neigbors found.")
     }
 
 }

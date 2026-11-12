@@ -1,8 +1,9 @@
 // Copyright by Barry G. Becker, 2012. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 package com.barrybecker4.game.twoplayer.gomoku.analysis
 
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.Test
 
 /**
  * Verify that we correctly extract patterns from rows or columns on the board.
@@ -12,10 +13,12 @@ class PatternExtractorTest:
   /** instance under test. */
   private var extractor: PatternExtractor = scala.compiletime.uninitialized
 
-  @Test(expected = classOf[StringIndexOutOfBoundsException])
+  @Test
   def testEmpty(): Unit =
-    extractor = new PatternExtractor("")
-    extractor.getPattern('O', 0, 0, 0)
+    assertThrows(classOf[StringIndexOutOfBoundsException], () => {
+      extractor = new PatternExtractor("")
+      extractor.getPattern('O', 0, 0, 0)
+    })
 
   @Test
   def testGetPatternFromX(): Unit =

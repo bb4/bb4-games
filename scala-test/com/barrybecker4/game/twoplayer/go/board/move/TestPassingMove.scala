@@ -9,8 +9,8 @@ import com.barrybecker4.game.twoplayer.go.GoTestCase
 import com.barrybecker4.game.twoplayer.go.board.{GoBoard, GoSearchable}
 import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoStone}
 import com.barrybecker4.game.twoplayer.go.options.{GoOptions, GoWeights}
-import org.junit.Assert.{assertEquals, assertFalse, assertTrue}
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.{assertEquals, assertFalse, assertTrue}
+import org.junit.jupiter.api.Test
 import scala.jdk.CollectionConverters.*
 
 /**
@@ -36,8 +36,8 @@ class TestPassingMove extends GoTestCase:
       "........."
     ))
     val moves = generateLateMoves(board, whiteToPlay = true)
-    assertFalse("pass replaced a move that does not lose a point", hasPass(moves))
-    assertTrue("the middle of the left edge is still a move", hasStone(moves, 5, 1))
+    assertFalse(hasPass(moves), "pass replaced a move that does not lose a point")
+    assertTrue(hasStone(moves, 5, 1), "the middle of the left edge is still a move")
 
   /**
    * The corner white is dead and the left black is alive, but only once that
@@ -56,8 +56,8 @@ class TestPassingMove extends GoTestCase:
       "OOX.XOOXO",
       "...X..O.."
     ))
-    assertFalse("white must play the fight, not pass", hasPass(generateLateMoves(board, whiteToPlay = true)))
-    assertFalse("black must play the fight, not pass", hasPass(generateLateMoves(board, whiteToPlay = false)))
+    assertFalse(hasPass(generateLateMoves(board, whiteToPlay = true)), "white must play the fight, not pass")
+    assertFalse(hasPass(generateLateMoves(board, whiteToPlay = false)), "black must play the fight, not pass")
 
   /** A group with only a large shared region is not settled, so passing is refused. */
   @Test
@@ -73,8 +73,8 @@ class TestPassingMove extends GoTestCase:
       "O.X.OXX.X",
       "........."
     ))
-    assertFalse("white still has to settle the bottom", hasPass(generateLateMoves(board, whiteToPlay = true)))
-    assertFalse("black still has to settle the bottom", hasPass(generateLateMoves(board, whiteToPlay = false)))
+    assertFalse(hasPass(generateLateMoves(board, whiteToPlay = true)), "white still has to settle the bottom")
+    assertFalse(hasPass(generateLateMoves(board, whiteToPlay = false)), "black still has to settle the bottom")
 
   /**
    * The same unsettled endgame, searched at the game's normal depth.
@@ -107,9 +107,9 @@ class TestPassingMove extends GoTestCase:
     searchable.makeInternalMove(last)
     val move = searchable.searchForNextMove(new GoWeights().getDefaultWeights, last, null)
     val considered = searchable.getSearchStrategy.getNumMovesConsidered
-    assertTrue("search returns a move", move != null)
-    assertFalse("the computer plays on while the position is unsettled", move.isPassingMove)
-    assertTrue(s"searched $considered moves", considered < 20000)
+    assertTrue(move != null, "search returns a move")
+    assertFalse(move.isPassingMove, "the computer plays on while the position is unsettled")
+    assertTrue(considered < 20000, s"searched $considered moves")
 
   private def keepEveryMove(): Unit =
     controller.getPlayers.asScala.foreach { player =>
@@ -151,7 +151,7 @@ class TestPassingMove extends GoTestCase:
     ))
     keepEveryMove()
     val moves = generateLateMoves(board, whiteToPlay = true)
-    assertEquals("only the center, which black must answer", Set((3, 4)), stonePoints(moves))
+    assertEquals(Set((3, 4)), stonePoints(moves), "only the center, which black must answer")
 
   /** One eye, and no point inside it makes two. White passes instead of filling. */
   @Test
@@ -167,8 +167,8 @@ class TestPassingMove extends GoTestCase:
     ))
     keepEveryMove()
     val moves = generateLateMoves(board, whiteToPlay = true)
-    assertTrue("white passes", hasPass(moves))
-    assertEquals("no stone in a group that cannot live", Set.empty, stonePoints(moves))
+    assertTrue(hasPass(moves), "white passes")
+    assertEquals(Set.empty, stonePoints(moves), "no stone in a group that cannot live")
 
   @Test
   def passWhenEveryStoneMoveIsSuicide(): Unit =
@@ -180,8 +180,8 @@ class TestPassingMove extends GoTestCase:
       "XXXXX"
     ))
     val moves = generateLateMoves(board, whiteToPlay = true)
-    assertTrue("white has no stone move, so pass is the move", hasPass(moves))
-    assertFalse("filling either eye is suicide", hasStone(moves, 3, 3) || hasStone(moves, 4, 4))
+    assertTrue(hasPass(moves), "white has no stone move, so pass is the move")
+    assertFalse(hasStone(moves, 3, 3) || hasStone(moves, 4, 4), "filling either eye is suicide")
 
   private def generateLateMoves(board: GoBoard, whiteToPlay: Boolean): MoveList[GoMove] =
     val searchable = new GoSearchable(board, controller.getPlayers, new ScoreCache(), new GoOptions())

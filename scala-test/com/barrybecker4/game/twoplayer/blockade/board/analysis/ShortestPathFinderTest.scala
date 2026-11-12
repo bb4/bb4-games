@@ -7,8 +7,8 @@ import com.barrybecker4.game.twoplayer.blockade.BlockadeTestCase
 import com.barrybecker4.game.twoplayer.blockade.board.{BlockadeBoard, BlockadeTstUtil}
 import com.barrybecker4.game.twoplayer.blockade.board.move.BlockadeMove
 import com.barrybecker4.game.twoplayer.blockade.board.path.{Path, PathList}
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
 /** @author Barry Becker */
 class ShortestPathFinderTest extends BlockadeTestCase:
@@ -48,8 +48,4 @@ class ShortestPathFinderTest extends BlockadeTestCase:
     val board = controller_.getBoard.asInstanceOf[BlockadeBoard]
     val pathFinder = new ShortestPathFinder(board)
     val paths = pathFinder.findShortestPaths(board.getPosition(loc))
-    assertEquals(
-      "Unexpected paths. Got\n" + BlockadeTstUtil.getConstructorString(paths),
-      expPaths,
-      paths
-    )
+    assertEquals(expPaths, paths, "Unexpected paths. Got\n" + BlockadeTstUtil.getConstructorString(paths))

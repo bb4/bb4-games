@@ -1,10 +1,10 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.go.board.analysis
 
-import org.junit.Assert
-import org.junit.Before
-import org.junit.After
-import org.junit.Test
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Test
 import com.barrybecker4.common.geometry.ByteLocation
 import com.barrybecker4.common.geometry.Location
 import com.barrybecker4.game.twoplayer.go.GoTestCase
@@ -72,12 +72,12 @@ class TestCandidateMoveAnalyzer extends GoTestCase {
         var cma: CandidateMoveAnalyzer = new CandidateMoveAnalyzer(board)
 
         var actNumCandidates: Int = cma.getNumCandidates
-        Assert.assertEquals("Unexpected number of candidate moves for case  "+ file, expNumCandidates, actNumCandidates)
+        Assertions.assertEquals(expNumCandidates, actNumCandidates, "Unexpected number of candidate moves for case  "+ file)
 
         if (expCandidates != null) {
             System.out.println("var candidates: actual ="+ actNumCandidates)
             for (loc <- expCandidates.asScala) {
-                Assert.assertTrue("Invalid candidate position:" + loc, cma.isCandidateMove(loc.row, loc.col))
+                Assertions.assertTrue(cma.isCandidateMove(loc.row, loc.col), "Invalid candidate position:" + loc)
             }
         }
     }

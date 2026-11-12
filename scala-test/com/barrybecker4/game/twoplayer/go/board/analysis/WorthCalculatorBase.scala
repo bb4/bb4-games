@@ -6,8 +6,8 @@ import com.barrybecker4.game.twoplayer.go.GoTestCase
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.analysis.group.GroupAnalyzerMap
 import com.barrybecker4.game.twoplayer.go.options.GoWeights
-import org.junit.Assert.assertEquals
-import org.junit.Before
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
 
 /**
  * Verify that we calculate the expected worth for a given board position.
@@ -18,7 +18,7 @@ abstract class WorthCalculatorBase extends GoTestCase:
   protected val WEIGHTS = new GoWeights()
   protected var calculator: WorthCalculator = scala.compiletime.uninitialized
 
-  @Before
+  @BeforeEach
   override def setUp(): Unit =
     super.setUp()
     val board = getBoard
@@ -29,7 +29,7 @@ abstract class WorthCalculatorBase extends GoTestCase:
     restore(PREFIX + file)
     val move = controller.getLastMove
     val actWorth = calculator.worth(move, WEIGHTS.getDefaultWeights)
-    assertEquals("Unexpected worth.", expWorth, actWorth)
+    assertEquals(expWorth, actWorth, "Unexpected worth.")
 
   /**
    * If we arrive at the same exact board position from two different paths,
@@ -43,5 +43,5 @@ abstract class WorthCalculatorBase extends GoTestCase:
     restore(PREFIX + game2)
     move = controller.getLastMove
     val actWorthB = calculator.worth(move, WEIGHTS.getDefaultWeights)
-    assertEquals("Unexpected worth for A.", expWorth, actWorthA)
-    assertEquals("Unexpected worth for B.", expWorth, actWorthB)
+    assertEquals(expWorth, actWorthA, "Unexpected worth for A.")
+    assertEquals(expWorth, actWorthB, "Unexpected worth for B.")

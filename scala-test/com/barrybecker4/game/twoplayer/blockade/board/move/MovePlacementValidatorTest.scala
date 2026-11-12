@@ -4,8 +4,9 @@ package com.barrybecker4.game.twoplayer.blockade.board.move
 import com.barrybecker4.game.twoplayer.blockade.BlockadeTestCase
 import com.barrybecker4.game.twoplayer.blockade.board.{BlockadeBoard, BlockadeBoardPosition, BlockadeTstUtil}
 import com.barrybecker4.game.twoplayer.blockade.board.move.wall.BlockadeWall
-import org.junit.Assert.{assertFalse, assertTrue}
-import org.junit.{Before, Test}
+import org.junit.jupiter.api.Assertions.{assertFalse, assertTrue}
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 /** @author Barry Becker */
 class MovePlacementValidatorTest extends BlockadeTestCase:
@@ -21,7 +22,7 @@ class MovePlacementValidatorTest extends BlockadeTestCase:
   private var topTopLeft: BlockadeBoardPosition = scala.compiletime.uninitialized
   private var bottomBottomLeft: BlockadeBoardPosition = scala.compiletime.uninitialized
 
-  @Before
+  @BeforeEach
   override def setUp(): Unit =
     super.setUp()
     board = new BlockadeBoard(7, 6)
@@ -134,7 +135,7 @@ class MovePlacementValidatorTest extends BlockadeTestCase:
     verifyBlocked(BlockadeTstUtil.createMove(4, 3, 3, 4))
 
   private def verifyNotBlocked(move: BlockadeMove): Unit =
-    assertFalse("Move " + move + " unexpectedly blocked", validator.isMoveBlocked(move))
+    assertFalse(validator.isMoveBlocked(move), "Move " + move + " unexpectedly blocked")
 
   private def verifyBlocked(move: BlockadeMove): Unit =
-    assertTrue("Move " + move + " unexpectedly not blocked", validator.isMoveBlocked(move))
+    assertTrue(validator.isMoveBlocked(move), "Move " + move + " unexpectedly not blocked")

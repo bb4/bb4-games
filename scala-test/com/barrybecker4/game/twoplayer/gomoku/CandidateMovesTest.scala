@@ -4,8 +4,8 @@ package com.barrybecker4.game.twoplayer.gomoku
 import com.barrybecker4.common.geometry.ByteLocation
 import com.barrybecker4.game.common.board.GamePiece
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove
-import org.junit.Assert.{assertFalse, assertTrue}
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.{assertFalse, assertTrue}
+import org.junit.jupiter.api.Test
 
 /** @author Barry Becker */
 class CandidateMovesTest:
@@ -20,9 +20,9 @@ class CandidateMovesTest:
 
     candidates = board.getCandidateMoves
 
-    assertTrue("Missing candidate move.", candidates.isCandidateMove(6, 6))
-    assertFalse("Unexpected candidate.", candidates.isCandidateMove(5, 6))
-    assertFalse("Unexpected candidate.", candidates.isCandidateMove(4, 7))
+    assertTrue(candidates.isCandidateMove(6, 6), "Missing candidate move.")
+    assertFalse(candidates.isCandidateMove(5, 6), "Unexpected candidate.")
+    assertFalse(candidates.isCandidateMove(4, 7), "Unexpected candidate.")
 
   /** The center position should be a candidate if no moves have been played yet. */
   @Test
@@ -31,10 +31,10 @@ class CandidateMovesTest:
 
     candidates = board.getCandidateMoves
 
-    assertTrue("Missing candidate move.", candidates.isCandidateMove(2, 2))
-    assertFalse("Unexpected candidate.", candidates.isCandidateMove(1, 2))
-    assertFalse("Unexpected candidate.", candidates.isCandidateMove(2, 1))
-    assertFalse("Unexpected candidate.", candidates.isCandidateMove(1, 1))
+    assertTrue(candidates.isCandidateMove(2, 2), "Missing candidate move.")
+    assertFalse(candidates.isCandidateMove(1, 2), "Unexpected candidate.")
+    assertFalse(candidates.isCandidateMove(2, 1), "Unexpected candidate.")
+    assertFalse(candidates.isCandidateMove(1, 1), "Unexpected candidate.")
 
   /** No candidates if the board is completely full. */
   @Test
@@ -47,10 +47,10 @@ class CandidateMovesTest:
 
     candidates = board.getCandidateMoves
 
-    assertFalse("Unexpected candidate.", candidates.isCandidateMove(2, 2))
-    assertFalse("Unexpected candidate.", candidates.isCandidateMove(1, 2))
-    assertFalse("Unexpected candidate.", candidates.isCandidateMove(1, 1))
-    assertFalse("Unexpected candidate.", candidates.isCandidateMove(2, 1))
+    assertFalse(candidates.isCandidateMove(2, 2), "Unexpected candidate.")
+    assertFalse(candidates.isCandidateMove(1, 2), "Unexpected candidate.")
+    assertFalse(candidates.isCandidateMove(1, 1), "Unexpected candidate.")
+    assertFalse(candidates.isCandidateMove(2, 1), "Unexpected candidate.")
 
   /** The 8 spaces surrounding should be candidates. */
   @Test
@@ -60,11 +60,11 @@ class CandidateMovesTest:
 
     candidates = board.getCandidateMoves
 
-    assertTrue("Missing candidate move.", candidates.isCandidateMove(4, 4))
-    assertTrue("Missing candidate move.", candidates.isCandidateMove(2, 3))
-    assertTrue("Missing candidate move.", candidates.isCandidateMove(3, 2))
-    assertFalse("Unexpected candidate.", candidates.isCandidateMove(5, 6))
-    assertFalse("Unexpected candidate.", candidates.isCandidateMove(4, 7))
+    assertTrue(candidates.isCandidateMove(4, 4), "Missing candidate move.")
+    assertTrue(candidates.isCandidateMove(2, 3), "Missing candidate move.")
+    assertTrue(candidates.isCandidateMove(3, 2), "Missing candidate move.")
+    assertFalse(candidates.isCandidateMove(5, 6), "Unexpected candidate.")
+    assertFalse(candidates.isCandidateMove(4, 7), "Unexpected candidate.")
 
   /** This is a typical case. */
   @Test
@@ -75,10 +75,10 @@ class CandidateMovesTest:
 
     candidates = board.getCandidateMoves
 
-    assertTrue("Missing candidate move.", candidates.isCandidateMove(2, 2))
-    assertTrue("Missing candidate move.", candidates.isCandidateMove(2, 3))
-    assertTrue("Missing candidate move.", candidates.isCandidateMove(3, 2))
-    assertTrue("Missing candidate move.", candidates.isCandidateMove(5, 3))
-    assertTrue("Missing candidate move.", candidates.isCandidateMove(5, 4))
-    assertFalse("Unexpected candidate.", candidates.isCandidateMove(6, 6))
-    assertFalse("Unexpected candidate.", candidates.isCandidateMove(1, 7))
+    assertTrue(candidates.isCandidateMove(2, 2), "Missing candidate move.")
+    assertTrue(candidates.isCandidateMove(2, 3), "Missing candidate move.")
+    assertTrue(candidates.isCandidateMove(3, 2), "Missing candidate move.")
+    assertTrue(candidates.isCandidateMove(5, 3), "Missing candidate move.")
+    assertTrue(candidates.isCandidateMove(5, 4), "Missing candidate move.")
+    assertFalse(candidates.isCandidateMove(6, 6), "Unexpected candidate.")
+    assertFalse(candidates.isCandidateMove(1, 7), "Unexpected candidate.")

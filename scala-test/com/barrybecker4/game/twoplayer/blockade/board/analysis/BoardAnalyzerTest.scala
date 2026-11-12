@@ -8,8 +8,8 @@ import com.barrybecker4.game.twoplayer.blockade.board.BlockadeTstUtil
 import com.barrybecker4.game.twoplayer.blockade.board.move.BlockadeMove
 import com.barrybecker4.game.twoplayer.blockade.board.path.Path
 import com.barrybecker4.game.twoplayer.blockade.board.path.PathList
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
 
 
@@ -244,5 +244,4 @@ class BoardAnalyzerTest extends BlockadeTestCase:
 
     val paths = analyzer.findAllOpponentShortestPaths(player1)
 
-    assertEquals("Unexpected paths. Got\n" + BlockadeTstUtil.getConstructorString(paths),
-      expPaths, paths)
+    assertEquals(expPaths, paths, "Unexpected paths. Got\n" + BlockadeTstUtil.getConstructorString(paths))

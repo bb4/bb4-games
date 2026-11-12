@@ -4,8 +4,9 @@ package com.barrybecker4.game.twoplayer.tictactoe
 import com.barrybecker4.game.common.board.GamePiece
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove
 import com.barrybecker4.game.twoplayer.gomoku.analysis.{Direction, MoveEvaluator}
-import org.junit.Assert.assertEquals
-import org.junit.{Before, Test}
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 import scala.compiletime.uninitialized
 
@@ -21,7 +22,7 @@ class MoveEvaluationTest:
   private val PLAYER1_PIECE = new GamePiece(true)
   private val PLAYER2_PIECE = new GamePiece(false)
 
-  @Before
+  @BeforeEach
   def setUp(): Unit =
     board = new TicTacToeBoard()
     weights = new TicTacToeWeights()
@@ -109,5 +110,5 @@ class MoveEvaluationTest:
     val lastMove = TwoPlayerMove.createMove(row, col, 0, new GamePiece(player1))
     board.makeMove(lastMove)
     val worth = evaluator.worth(board, lastMove, weights.getDefaultWeights)
-    assertEquals("[" + dir + "] Unexpected worth for move " + lastMove, expectedWorth, worth)
+    assertEquals(expectedWorth, worth, "[" + dir + "] Unexpected worth for move " + lastMove)
     board.undoMove()

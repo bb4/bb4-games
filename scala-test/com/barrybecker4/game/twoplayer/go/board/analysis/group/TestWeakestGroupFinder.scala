@@ -1,10 +1,10 @@
 /* Copyright by Barry G. Becker, 2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT */
 package com.barrybecker4.game.twoplayer.go.board.analysis.group
 
-import org.junit.Assert
-import org.junit.Before
-import org.junit.After
-import org.junit.Test
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Test
 import com.barrybecker4.game.common.Move
 import com.barrybecker4.game.twoplayer.go.GoTestCase
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
@@ -41,7 +41,7 @@ class TestWeakestGroupFinder extends GoTestCase {
         groupStones.add(board.getPosition(2, 3).asInstanceOf[GoBoardPosition])
 
         var group: GoGroup = finder.findWeakestGroup(groupStones)
-        Assert.assertNull("There should not be a weakest group if the board is empty", group)
+        Assertions.assertNull(group, "There should not be a weakest group if the board is empty")
     }
 
     @Test
@@ -52,7 +52,7 @@ class TestWeakestGroupFinder extends GoTestCase {
         groupStones.add(board.getPosition(4, 3).asInstanceOf[GoBoardPosition])
 
         var group: GoGroup = finder.findWeakestGroup(groupStones)
-        Assert.assertEquals("Unexpected number of stones found.", 1, group.getNumStones)
+        Assertions.assertEquals(1, group.getNumStones, "Unexpected number of stones found.")
     }
 
     @Test
@@ -65,7 +65,7 @@ class TestWeakestGroupFinder extends GoTestCase {
         groupStones.add(board.getPosition(6, 6).asInstanceOf[GoBoardPosition])
 
         var group: GoGroup = finder.findWeakestGroup(groupStones)
-        Assert.assertEquals("most alive enemy is the larger group", 5, group.getNumStones)
+        Assertions.assertEquals(5, group.getNumStones, "most alive enemy is the larger group")
     }
 
     @Test
@@ -78,7 +78,7 @@ class TestWeakestGroupFinder extends GoTestCase {
         groupStones.add(board.getPosition(6, 6).asInstanceOf[GoBoardPosition])
 
         var group: GoGroup = finder.findWeakestGroup(groupStones)
-        Assert.assertEquals("most alive enemy is the larger group", 7, group.getNumStones)
+        Assertions.assertEquals(7, group.getNumStones, "most alive enemy is the larger group")
     }
 
 

@@ -4,8 +4,9 @@ package com.barrybecker4.game.twoplayer.gomoku.analysis
 import com.barrybecker4.game.common.GameWeights
 import com.barrybecker4.game.twoplayer.gomoku.GoMokuTestWeights
 import com.barrybecker4.game.twoplayer.gomoku.pattern.GoMokuPatterns
-import org.junit.Assert.assertEquals
-import org.junit.{Before, Test}
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 import scala.jdk.CollectionConverters.*
 
@@ -18,7 +19,7 @@ class GoMokuLineTest:
   private val PLAYER1_PERSP = true
   private val PLAYER2_PERSP = false
 
-  @Before
+  @BeforeEach
   def setUp(): Unit =
     weights = new GoMokuTestWeights()
 
@@ -62,12 +63,10 @@ class GoMokuLineTest:
     val line = new StringBuilder(linePattern)
     val worth = evaluator.evaluate(line, player1persp, position, 0, linePattern.length - 1)
 
-    assertEquals("unexpected score for pattern " + linePattern + " pos=" + position + " player1Persp=" + player1persp,
-      expectedWorth, worth)
+    assertEquals(expectedWorth, worth, "unexpected score for pattern " + linePattern + " pos=" + position + " player1Persp=" + player1persp)
 
     val checkedPats = evaluator.getPatternsChecked
-    assertEquals("Unexpected number of patterns checked",
-      expectedPatternsChecked.length, checkedPats.size)
+    assertEquals(expectedPatternsChecked.length, checkedPats.size, "Unexpected number of patterns checked")
     var i = 0
     for p <- checkedPats.asScala do
       assertEquals(expectedPatternsChecked(i), p)

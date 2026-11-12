@@ -2,8 +2,8 @@
 package com.barrybecker4.game.twoplayer.blockade.board
 
 import com.barrybecker4.common.geometry.ByteLocation
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
 /** @author Barry Becker */
 class DirectionTest:

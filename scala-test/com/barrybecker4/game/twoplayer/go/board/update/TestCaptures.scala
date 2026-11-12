@@ -3,8 +3,10 @@ package com.barrybecker4.game.twoplayer.go.board.update
 
 import com.barrybecker4.game.twoplayer.go.GoTestCase
 import com.barrybecker4.game.twoplayer.go.board.elements.position.GoStone
-import org.junit.Assert.assertEquals
-import org.junit.{After, Before, Test}
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 
 class TestCaptures extends GoTestCase:
@@ -12,19 +14,19 @@ class TestCaptures extends GoTestCase:
   /** instance under test */
   private var captures: CaptureCounts = scala.compiletime.uninitialized
 
-  @Before
+  @BeforeEach
   override def setUp(): Unit =
     captures = new CaptureCounts()
     super.setUp()
 
-  @After
+  @AfterEach
   override def tearDown(): Unit =
     super.tearDown()
 
   @Test
   def testNoCaptures(): Unit =
-    assertEquals("Unexpected number of black captures", 0, captures.getNumCaptures(true))
-    assertEquals("Unexpected number of white captures", 0, captures.getNumCaptures(false))
+    assertEquals(0, captures.getNumCaptures(true), "Unexpected number of black captures")
+    assertEquals(0, captures.getNumCaptures(false), "Unexpected number of white captures")
 
   @Test
   def testIncBlackCaptures(): Unit = verifyIncCaptures(true)
@@ -43,9 +45,9 @@ class TestCaptures extends GoTestCase:
     move.setNumCaptures(2)
     captures.updateCaptures(move, true)
     val color = if isPlayer1 then "balck" else "white"
-    assertEquals("Unexpected number of " + color + " captures", 2, captures.getNumCaptures(isPlayer1))
+    assertEquals(2, captures.getNumCaptures(isPlayer1), "Unexpected number of " + color + " captures")
     captures.updateCaptures(move, true)
-    assertEquals("Unexpected number of  " + color + " captures", 4, captures.getNumCaptures(isPlayer1))
+    assertEquals(4, captures.getNumCaptures(isPlayer1), "Unexpected number of  " + color + " captures")
 
   def verifyDecrCaptures(isPlayer1: Boolean): Unit =
     // first add some captures so they can be decremented
@@ -55,6 +57,6 @@ class TestCaptures extends GoTestCase:
     move.setNumCaptures(1)
     captures.updateCaptures(move, false)
     val color = if isPlayer1 then "balck" else "white"
-    assertEquals("Unexpected number of " + color + " captures", 2, captures.getNumCaptures(isPlayer1))
+    assertEquals(2, captures.getNumCaptures(isPlayer1), "Unexpected number of " + color + " captures")
     captures.updateCaptures(move, false)
-    assertEquals("Unexpected number of " + color + " captures", 1, captures.getNumCaptures(isPlayer1))
+    assertEquals(1, captures.getNumCaptures(isPlayer1), "Unexpected number of " + color + " captures")

@@ -7,8 +7,9 @@ import com.barrybecker4.game.twoplayer.common.{TwoPlayerController, TwoPlayerMov
 import com.barrybecker4.game.twoplayer.common.search.ISearchableHelper
 import com.barrybecker4.game.twoplayer.common.search.options.SearchOptions
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategyType
-import org.junit.Assert.assertEquals
-import org.junit.{Before, Test}
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 import scala.compiletime.uninitialized
 
@@ -19,7 +20,7 @@ class ComputerVsComputerMiniMaxTest:
   protected var searchOptions: SearchOptions[?, ?] = uninitialized
   protected var helper: ISearchableHelper = uninitialized
 
-  @Before
+  @BeforeEach
   def setUp(): Unit =
     helper = new TicTacToeHelper()
     controller = helper.createController
@@ -42,8 +43,8 @@ class ComputerVsComputerMiniMaxTest:
   def testSecondMoveInCorner(): Unit =
     controller.computerMovesFirst()
     var move = controller.getLastMove.asInstanceOf[TwoPlayerMove]
-    assertEquals("Unexpected first move for computer.", new ByteLocation(2, 2), move.getToLocation)
+    assertEquals(new ByteLocation(2, 2), move.getToLocation, "Unexpected first move for computer.")
 
     controller.requestComputerMove(false, true)
     move = controller.getLastMove.asInstanceOf[TwoPlayerMove]
-    assertEquals("Unexpected second move for computer.", new ByteLocation(1, 1), move.getToLocation)
+    assertEquals(new ByteLocation(1, 1), move.getToLocation, "Unexpected second move for computer.")

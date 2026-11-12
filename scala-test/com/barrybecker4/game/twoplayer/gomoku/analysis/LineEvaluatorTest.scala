@@ -3,8 +3,9 @@ package com.barrybecker4.game.twoplayer.gomoku.analysis
 
 import com.barrybecker4.game.common.GameWeights
 import com.barrybecker4.game.twoplayer.gomoku.pattern.{SimplePatterns, SimpleWeights}
-import org.junit.Assert.assertEquals
-import org.junit.{Before, Test}
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 /**
  * Verify that we correctly evaluate patterns in lines on the board.
@@ -16,7 +17,7 @@ class LineEvaluatorTest:
   private var lineEvaluator: LineEvaluator = scala.compiletime.uninitialized
   private var worth = 0.0
 
-  @Before
+  @BeforeEach
   def setUp(): Unit =
     lineEvaluator = createLineEvaluator()
 

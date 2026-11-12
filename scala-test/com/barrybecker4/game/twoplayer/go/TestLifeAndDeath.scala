@@ -5,8 +5,8 @@ import com.barrybecker4.common.geometry.Location
 import com.barrybecker4.game.twoplayer.common.search.options.SearchOptions
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategyType
 import com.barrybecker4.game.twoplayer.go.board.move.GoMove
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 import java.util.Arrays
 
 
@@ -41,17 +41,11 @@ class TestLifeAndDeath extends GoTestCase:
     var pass = false
     for loc <- acceptableMoves do
       if isExpected(move, loc) then pass = true
-    assertTrue(
-      "The computed move (" + move + ") was not one that we though acceptable =" +
-        Arrays.toString(acceptableMoves.asInstanceOf[Array[Object]]),
-      pass
-    )
+    assertTrue(pass, "The computed move (" + move + ") was not one that we though acceptable =" +
+        Arrays.toString(acceptableMoves.asInstanceOf[Array[Object]]))
 
   private def verifyExpected(m: GoMove, row: Int, col: Int): Unit =
-    assertTrue(
-      "Was expecting " + row + ", " + col + ", but instead got " + m,
-      isExpected(m, row, col)
-    )
+    assertTrue(isExpected(m, row, col), "Was expecting " + row + ", " + col + ", but instead got " + m)
 
   private def isExpected(m: GoMove, loc: Location): Boolean =
     isExpected(m, loc.row, loc.col)

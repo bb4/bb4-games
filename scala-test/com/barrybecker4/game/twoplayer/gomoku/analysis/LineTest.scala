@@ -4,8 +4,9 @@ package com.barrybecker4.game.twoplayer.gomoku.analysis
 import com.barrybecker4.game.common.GameWeights
 import com.barrybecker4.game.common.board.{BoardPosition, GamePiece}
 import com.barrybecker4.game.twoplayer.gomoku.pattern.{SimplePatterns, SimpleWeights}
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.Test
 
 /**
  * Verify that we correctly evaluate lines on the board.
@@ -135,10 +136,12 @@ class LineTest:
     TstUtil.checkRecordedPatterns(Array("_", "_", "_X_X_", "_"), line)
 
   /** Cannot check where no symbol was played */
-  @Test(expected = classOf[IllegalStateException])
+  @Test
   def testComputeValueDifferenceXX_XO_X_X_emptyPosition(): Unit =
-    val line = createLineWithRecorder("XX_XO_X_X_")
-    line.computeValueDifference(2)
+    assertThrows(classOf[IllegalStateException], () => {
+      val line = createLineWithRecorder("XX_XO_X_X_")
+      line.computeValueDifference(2)
+    })
 
   /**
    * @param linePattern some sequence of X, O, _

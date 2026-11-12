@@ -7,8 +7,8 @@ import com.barrybecker4.game.common.board.GamePiece
 import com.barrybecker4.game.twoplayer.blockade.BlockadeTestCase
 import com.barrybecker4.game.twoplayer.blockade.board.BlockadeBoard
 import com.barrybecker4.game.twoplayer.blockade.board.move.wall.BlockadeWall
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 /** Test methods on MoveGenerator @author Barry Becker */
 class MoveGeneratorTest extends BlockadeTestCase:
@@ -25,10 +25,7 @@ class MoveGeneratorTest extends BlockadeTestCase:
     val generator = new MoveGenerator(controller_.getComputerWeights().getDefaultWeights, board)
     val moves = generator.generateMoves(lastMove)
     val expectedNumMoves = 56
-    assertTrue(
-      "Expected there to be " + expectedNumMoves + " moves but got " + moves.size + " moves=" + moves,
-      moves.size == expectedNumMoves
-    )
+    assertTrue(moves.size == expectedNumMoves, "Expected there to be " + expectedNumMoves + " moves but got " + moves.size + " moves=" + moves)
 
   @Test
   def testGenerateMoves2(): Unit =
@@ -47,7 +44,4 @@ class MoveGeneratorTest extends BlockadeTestCase:
     val generator = new MoveGenerator(controller_.getComputerWeights().getDefaultWeights, board)
     val moves = generator.generateMoves(lastMove)
     val expectedNumMoves = 60
-    assertTrue(
-      "Expected there to be " + expectedNumMoves + " moves but got " + moves.size + " moves=" + moves,
-      moves.size == expectedNumMoves
-    )
+    assertTrue(moves.size == expectedNumMoves, "Expected there to be " + expectedNumMoves + " moves but got " + moves.size + " moves=" + moves)

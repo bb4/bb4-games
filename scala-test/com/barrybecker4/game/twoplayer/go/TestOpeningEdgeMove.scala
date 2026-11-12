@@ -4,8 +4,8 @@ import com.barrybecker4.common.geometry.ByteLocation
 import com.barrybecker4.game.twoplayer.go.board.analysis.CandidateMoveAnalyzer
 import com.barrybecker4.game.twoplayer.go.board.elements.position.GoStone
 import com.barrybecker4.game.twoplayer.go.board.move.GoMove
-import org.junit.Assert.{assertFalse, assertTrue, fail}
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.{assertFalse, assertTrue, fail}
+import org.junit.jupiter.api.Test
 
 /**
  * Regression: White's second move must not prefer a first-line edge play in the opening.
@@ -27,9 +27,9 @@ class TestOpeningEdgeMove extends GoTestCase:
   def firstLineNotCandidateAfterInteriorThreeThree(): Unit =
     setupScreenshotOpening()
     val cma = new CandidateMoveAnalyzer(getBoard)
-    assertFalse("B9 must not be a candidate after an interior 3-3", cma.isCandidateMove(1, 2))
-    assertFalse("A9 must not be a candidate after an interior 3-3", cma.isCandidateMove(1, 1))
-    assertTrue("Nearby 3rd/4th line moves remain candidates", cma.isCandidateMove(2, 5) || cma.isCandidateMove(4, 4))
+    assertFalse(cma.isCandidateMove(1, 2), "B9 must not be a candidate after an interior 3-3")
+    assertFalse(cma.isCandidateMove(1, 1), "A9 must not be a candidate after an interior 3-3")
+    assertTrue(cma.isCandidateMove(2, 5) || cma.isCandidateMove(4, 4), "Nearby 3rd/4th line moves remain candidates")
 
   @Test
   def computerDoesNotPlayFirstLineOnSecondMove(): Unit =

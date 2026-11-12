@@ -1,10 +1,10 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.go.board.elements.group
 
-import org.junit.Assert
-import org.junit.Before
-import org.junit.After
-import org.junit.Test
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Test
 import com.barrybecker4.common.geometry.Box
 import com.barrybecker4.common.geometry.ByteLocation
 import com.barrybecker4.game.twoplayer.go.GoTestCase
@@ -24,12 +24,11 @@ class TestGoGroup extends GoTestCase {
         var string: GoString = new GoString(stone, board)
         var group: GoGroup = new GoGroup(string)
 
-        Assert.assertFalse(group.containsStone(new GoBoardPosition(3, 3, null, new GoStone(true, 0.5f))))
-        Assert.assertTrue(group.containsStone(stone))
-        Assert.assertEquals("Unexpected bounding box.",
-               new Box(new ByteLocation(4, 4), new ByteLocation(4, 4)), group.findBoundingBox())
-        Assert.assertEquals("Unexpected number of liberties", 4, group.getNumLiberties(board))
-        Assert.assertTrue(group.isOwnedByPlayer1)
+        Assertions.assertFalse(group.containsStone(new GoBoardPosition(3, 3, null, new GoStone(true, 0.5f))))
+        Assertions.assertTrue(group.containsStone(stone))
+        Assertions.assertEquals(new Box(new ByteLocation(4, 4), new ByteLocation(4, 4)), group.findBoundingBox(), "Unexpected bounding box.")
+        Assertions.assertEquals(4, group.getNumLiberties(board), "Unexpected number of liberties")
+        Assertions.assertTrue(group.isOwnedByPlayer1)
     }
 
 }

@@ -7,8 +7,8 @@ import com.barrybecker4.game.twoplayer.common.TwoPlayerMove
 import com.barrybecker4.game.twoplayer.common.search.ISearchableHelper
 import com.barrybecker4.game.twoplayer.common.search.TwoPlayerSearchableBaseTst
 import com.barrybecker4.game.twoplayer.tictactoe.ExpectedSearchableResults._
-import org.junit.Assert.{assertFalse, assertTrue}
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.{assertFalse, assertTrue}
+import org.junit.jupiter.api.Test
 
 /**
  * Verify that all the methods in TicTacToe searchable work as expected
@@ -27,24 +27,15 @@ class TicTacToeSearchableTest extends TwoPlayerSearchableBaseTst:
 
   override def testNotDoneMidGame(): Unit =
     restore("midGameCenterO")
-    assertFalse(
-      "Did not expect done in the middle of the game. ",
-      searchable.done(getController.getLastMove.asInstanceOf[TwoPlayerMove], false)
-    )
+    assertFalse(searchable.done(getController.getLastMove.asInstanceOf[TwoPlayerMove], false), "Did not expect done in the middle of the game. ")
 
   override def testDoneForMidGameWin(): Unit =
     restore("wonGameO")
-    assertTrue(
-      "Expected done state for this game. ",
-      searchable.done(getController.getLastMove.asInstanceOf[TwoPlayerMove], false)
-    )
+    assertTrue(searchable.done(getController.getLastMove.asInstanceOf[TwoPlayerMove], false), "Expected done state for this game. ")
 
   override def testDoneEndGame(): Unit =
     restore("endGameNoMoreMoves")
-    assertTrue(
-      "Expected done state for this game because there are no more moves. ",
-      searchable.done(getController.getLastMove.asInstanceOf[TwoPlayerMove], false)
-    )
+    assertTrue(searchable.done(getController.getLastMove.asInstanceOf[TwoPlayerMove], false), "Expected done state for this game because there are no more moves. ")
 
   override def testGenerateAllP1MovesMidGame(): Unit =
     checkGeneratedMoves("midGameCenterX", EXPECTED_ALL_MIDDLE_GAME_MOVES_CENTER_P1)

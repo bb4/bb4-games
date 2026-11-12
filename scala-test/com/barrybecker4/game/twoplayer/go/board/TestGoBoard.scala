@@ -5,8 +5,8 @@ import com.barrybecker4.common.geometry.{ByteLocation, Location}
 import com.barrybecker4.game.twoplayer.go.GoTestCase
 import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoStone}
 import com.barrybecker4.game.twoplayer.go.board.move.GoMove
-import org.junit.Assert.{assertEquals, assertTrue}
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.{assertEquals, assertTrue}
+import org.junit.jupiter.api.Test
 
 /**
  * Verify that all the methods in GoBoard work as expected
@@ -44,30 +44,21 @@ class TestGoBoard extends GoTestCase:
     controller.makeMove(move)
     val numWhiteStonesAfter = board.getNumStones(false)
     val actualNumCaptures = move.getNumCaptures
-    assertTrue(
-      "move.captures=" + actualNumCaptures + " expected " + expNnumCaptures,
-      actualNumCaptures == expNnumCaptures
-    )
+    assertTrue(actualNumCaptures == expNnumCaptures, "move.captures=" + actualNumCaptures + " expected " + expNnumCaptures)
     val diffWhite = numWhiteStonesBefore - numWhiteStonesAfter
-    assertTrue(
-      "diff in num white stones (" + diffWhite + ") not = numcaptures (" + expNnumCaptures + ')',
-      diffWhite == expNnumCaptures
-    )
+    assertTrue(diffWhite == expNnumCaptures, "diff in num white stones (" + diffWhite + ") not = numcaptures (" + expNnumCaptures + ')')
     controller.undoLastMove()
     // verify that all the captured stones get restored to the board
     val numWhiteStonesAfterUndo = board.getNumStones(false)
-    assertTrue(
-      "numWhiteStonesBefore=" + numWhiteStonesBefore +
-        " not equal numWhiteStonesAfter=" + numWhiteStonesAfterUndo,
-      numWhiteStonesBefore == numWhiteStonesAfterUndo
-    )
+    assertTrue(numWhiteStonesBefore == numWhiteStonesAfterUndo, "numWhiteStonesBefore=" + numWhiteStonesBefore +
+        " not equal numWhiteStonesAfter=" + numWhiteStonesAfterUndo)
 
   @Test
   def testCausedAtari1(): Unit =
     restore(PREFIX + "causedAtari1")
     val m = new GoMove(new ByteLocation(4, 4), 0, new GoStone(false))
     val numInAtari = m.numStonesAtaried(getBoard)
-    assertTrue("numInAtri=" + numInAtari + " expected=" + 4, numInAtari == 4)
+    assertTrue(numInAtari == 4, "numInAtri=" + numInAtari + " expected=" + 4)
 
   @Test
   def testCausedAtari2(): Unit =
@@ -76,7 +67,7 @@ class TestGoBoard extends GoTestCase:
     controller.makeMove(m)
     val board = controller.getBoard.asInstanceOf[GoBoard]
     val numInAtari = m.numStonesAtaried(board)
-    assertTrue("numInAtri=" + numInAtari + " expected=" + 12, numInAtari == 12)
+    assertTrue(numInAtari == 12, "numInAtri=" + numInAtari + " expected=" + 12)
 
   @Test
   def testNumLiberties1(): Unit =
@@ -92,7 +83,7 @@ class TestGoBoard extends GoTestCase:
     val center: Location = new ByteLocation(2, 2)
     board.makeMove(new GoMove(center, 1, new GoStone(true)))
     val boardCopy = board.copy()
-    assertEquals("Center positions not equal.", board.getPosition(center), boardCopy.getPosition(center))
+    assertEquals(board.getPosition(center), boardCopy.getPosition(center), "Center positions not equal.")
 
   private def verifyGroupLiberties(
     file: String,
@@ -103,13 +94,7 @@ class TestGoBoard extends GoTestCase:
     val board = getBoard
     var pos = board.getPosition(bRow, bCol).asInstanceOf[GoBoardPosition]
     var numGroupLiberties = pos.getGroup.getLiberties(board).size
-    assertTrue(
-      "numGroupLiberties=" + numGroupLiberties + " expected=" + expectedBlackLiberties,
-      numGroupLiberties == expectedBlackLiberties
-    )
+    assertTrue(numGroupLiberties == expectedBlackLiberties, "numGroupLiberties=" + numGroupLiberties + " expected=" + expectedBlackLiberties)
     pos = board.getPosition(wRow, wCol).asInstanceOf[GoBoardPosition]
     numGroupLiberties = pos.getGroup.getLiberties(board).size
-    assertTrue(
-      "numGroupLiberties=" + numGroupLiberties + " expected=" + expectedWhiteLiberties,
-      numGroupLiberties == expectedWhiteLiberties
-    )
+    assertTrue(numGroupLiberties == expectedWhiteLiberties, "numGroupLiberties=" + numGroupLiberties + " expected=" + expectedWhiteLiberties)

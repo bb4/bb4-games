@@ -6,8 +6,8 @@ import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.analysis.territory.TerritoryUpdater
 import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoStone}
 import com.barrybecker4.game.twoplayer.go.board.move.GoMove
-import org.junit.Assert.{assertEquals, assertFalse, assertTrue}
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.{assertEquals, assertFalse, assertTrue}
+import org.junit.jupiter.api.Test
 import scala.jdk.CollectionConverters.*
 
 /**
@@ -20,11 +20,11 @@ class TestLifeConnections {
   def diagonalSharesAGroupOnlyWhenACutIsOpen(): Unit = {
     val cut = new GoBoard(5, 0)
     play(cut, (2, 2, true), (3, 3, true), (2, 3, false), (3, 2, false))
-    assertEquals("both cutting points occupied separates the stones", 2, blackGroupCount(cut))
+    assertEquals(2, blackGroupCount(cut), "both cutting points occupied separates the stones")
 
     val open = new GoBoard(5, 0)
     play(open, (2, 2, true), (3, 3, true), (3, 2, false))
-    assertEquals("one open cutting point joins the diagonal", 1, blackGroupCount(open))
+    assertEquals(1, blackGroupCount(open), "one open cutting point joins the diagonal")
   }
 
   @Test
@@ -45,7 +45,7 @@ class TestLifeConnections {
 
     val health = pos.getPiece.asInstanceOf[GoStone].getHealth
     assertFalse(pos.getString.isUnconditionallyAlive)
-    assertTrue(s"health was forced to $health", math.abs(health) < 0.5f)
+    assertTrue(math.abs(health) < 0.5f, s"health was forced to $health")
   }
 
   private def play(board: GoBoard, moves: (Int, Int, Boolean)*): Unit =

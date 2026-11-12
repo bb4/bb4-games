@@ -8,8 +8,8 @@ import com.barrybecker4.game.twoplayer.go.board.GoSearchable
 import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoStone}
 import com.barrybecker4.game.twoplayer.go.board.move.GoMove
 import com.barrybecker4.game.twoplayer.go.options.GoOptions
-import org.junit.Assert.{assertEquals, assertFalse, assertNotSame, assertTrue}
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.{assertEquals, assertFalse, assertNotSame, assertTrue}
+import org.junit.jupiter.api.Test
 
 /**
  * Integration tests for endgame score formula, komi, winner selection, copy, and two-pass.
@@ -43,21 +43,11 @@ class TestEndgameScoring extends GoTestCase:
     val whiteTerritory = searchable.getFinalTerritory(false)
     val komi = options.getKomi.toDouble
 
-    assertTrue(s"expected dead black, got $deadBlack", deadBlack >= 8)
+    assertTrue(deadBlack >= 8, s"expected dead black, got $deadBlack")
     assertEquals(0, deadWhite)
-    assertEquals(
-      "black score = territory + white captures + dead white (no own dead)",
-      blackTerritory + searchable.getNumCaptures(false) + deadWhite,
-      blackScore,
-      0.001
-    )
-    assertEquals(
-      "white score = territory + black captures + dead black + komi",
-      whiteTerritory + searchable.getNumCaptures(true) + deadBlack + komi,
-      whiteScore,
-      0.001
-    )
-    assertTrue("white should be ahead after removing dead black + komi", whiteScore > blackScore)
+    assertEquals(blackTerritory + searchable.getNumCaptures(false) + deadWhite, blackScore, 0.001, "black score = territory + white captures + dead white (no own dead)")
+    assertEquals(whiteTerritory + searchable.getNumCaptures(true) + deadBlack + komi, whiteScore, 0.001, "white score = territory + black captures + dead black + komi")
+    assertTrue(whiteScore > blackScore, "white should be ahead after removing dead black + komi")
 
   /** Winner comes from post-bookkeeping score after two passes. */
   @Test
@@ -82,8 +72,8 @@ class TestEndgameScoring extends GoTestCase:
 
     val blackScore = searchable.getFinalScore(true)
     val whiteScore = searchable.getFinalScore(false)
-    assertTrue(s"black ($blackScore) should beat white ($whiteScore)", blackScore > whiteScore)
-    assertTrue("black should be recorded as winner", searchable.players.getPlayer1.hasWon)
+    assertTrue(blackScore > whiteScore, s"black ($blackScore) should beat white ($whiteScore)")
+    assertTrue(searchable.players.getPlayer1.hasWon, "black should be recorded as winner")
     assertFalse(searchable.players.getPlayer2.hasWon)
 
   @Test
@@ -91,17 +81,10 @@ class TestEndgameScoring extends GoTestCase:
     controller.makeMove(new GoMove(new ByteLocation(3, 3), 0, new GoStone(true)))
     val original = controller.getSearchable().asInstanceOf[GoSearchable]
     val copy = original.copy()
-    assertNotSame("copy must use a distinct board", original.getBoard, copy.getBoard)
+    assertNotSame(original.getBoard, copy.getBoard, "copy must use a distinct board")
     copy.getBoard.makeMove(new GoMove(new ByteLocation(1, 1), 0, new GoStone(false)))
-    assertTrue(
-      "original board must stay empty at 1,1",
-      original.getBoard.getPosition(1, 1).isUnoccupied
-    )
-    assertEquals(
-      "capture counts survive on the copy's board",
-      original.getNumCaptures(true),
-      copy.getNumCaptures(true)
-    )
+    assertTrue(original.getBoard.getPosition(1, 1).isUnoccupied, "original board must stay empty at 1,1")
+    assertEquals(original.getNumCaptures(true), copy.getNumCaptures(true), "capture counts survive on the copy's board")
 
   @Test
   def twoOpeningPassesEndTheGame(): Unit =
@@ -110,7 +93,7 @@ class TestEndgameScoring extends GoTestCase:
     val pass2 = GoMove.createPassMove(0, false)
     controller.makeMove(pass2)
     val over = controller.getSearchable().done(pass2, true)
-    assertTrue("two consecutive passes must end the game even as moves 1 and 2", over)
+    assertTrue(over, "two consecutive passes must end the game even as moves 1 and 2")
 
   private def boardFromDiagram(lines: Array[String]): GoBoard =
     val size = lines.length

@@ -1,10 +1,10 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.go.board.analysis.neighbor
 
-import org.junit.Assert
-import org.junit.Before
-import org.junit.After
-import org.junit.Test
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Test
 import com.barrybecker4.common.geometry.Box
 import com.barrybecker4.game.twoplayer.go.GoTestCase
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
@@ -99,8 +99,7 @@ class TestStringNeighborAnalyzer extends GoTestCase {
         var stack: GoBoardPositionList = new GoBoardPositionList()
         var numNbrs: Int = stringAnalyzer_.pushStringNeighbors(pos, friendP1, stack, samePlayerOnly)
 
-        Assert.assertEquals("Unexpected number of neigbors pushed on stack.",
-                expectedNumNbrs, numNbrs)
+        Assertions.assertEquals(expectedNumNbrs, numNbrs, "Unexpected number of neigbors pushed on stack.")
     }
 
     private def verifyFindFriendString(row: Int, col: Int, friendP1: Boolean, expectedNumNbrs: Int): Unit = {
@@ -120,8 +119,7 @@ class TestStringNeighborAnalyzer extends GoTestCase {
         var numNbrs: Int =
                 stringAnalyzer_ .findStringFromInitialPosition(pos, friendP1, true, nbrType, box).size
 
-        Assert.assertEquals("Unexpected number of stones in string.",
-                expectedNumNbrs, numNbrs)
+        Assertions.assertEquals(expectedNumNbrs, numNbrs, "Unexpected number of stones in string.")
     }
 
 }

@@ -9,7 +9,8 @@ import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategyType
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup
 import com.barrybecker4.game.twoplayer.go.board.move.GoMove
-import org.junit.{After, Before}
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 import scala.jdk.CollectionConverters._
 
 /**
@@ -23,7 +24,7 @@ abstract class GoTestCase:
   protected var controller: GoController = scala.compiletime.uninitialized
 
   /** common initialization for all go test cases. Override setOptionOverrides if you want different search parameters. */
-  @Before
+  @BeforeEach
   def setUp(): Unit =
     GameContext.setDebugMode(GoTestCase.DEBUG_LEVEL)
     GameContext.loadResources("go")
@@ -33,7 +34,7 @@ abstract class GoTestCase:
         player.getOptions.asInstanceOf[TwoPlayerPlayerOptions[GoMove, GoBoard]].getSearchOptions
       setOptionOverrides(searchOptions)
 
-  @After
+  @AfterEach
   def tearDown(): Unit =
     controller = null
 

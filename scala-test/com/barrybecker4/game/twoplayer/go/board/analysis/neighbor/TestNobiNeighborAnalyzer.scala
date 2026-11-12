@@ -1,10 +1,10 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.go.board.analysis.neighbor
 
-import org.junit.Assert
-import org.junit.Before
-import org.junit.After
-import org.junit.Test
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Test
 import com.barrybecker4.common.geometry.ByteLocation
 import com.barrybecker4.common.geometry.Location
 import com.barrybecker4.game.twoplayer.go.GoTestCase
@@ -97,8 +97,7 @@ class TestNobiNeighborAnalyzer extends GoTestCase {
 
         var numOccupiedNbrs: Int = nobiAnalyzer_.findOccupiedNobiNeighbors(emptyList).size
 
-        Assert.assertEquals("Unexpected number of occupied neigbors.",
-                expectedNumOccupiedNbrs, numOccupiedNbrs)
+        Assertions.assertEquals(expectedNumOccupiedNbrs, numOccupiedNbrs, "Unexpected number of occupied neigbors.")
     }
 
     private def verifyNobiNbrs(file: String, row: Int, col: Int, friendOwnedByP1: Boolean, nbrType: NeighborType, expectedNumNbrs: Int): Unit = {
@@ -110,8 +109,7 @@ class TestNobiNeighborAnalyzer extends GoTestCase {
 
         var numNbrs: Int = nobiAnalyzer_.getNobiNeighbors(pos, friendOwnedByP1, nbrType).size
 
-        Assert.assertEquals("Unexpected number of neigbors.",
-                expectedNumNbrs, numNbrs)
+        Assertions.assertEquals(expectedNumNbrs, numNbrs, "Unexpected number of neigbors.")
     }
 
 }

@@ -4,8 +4,8 @@ package com.barrybecker4.game.twoplayer.go
 import com.barrybecker4.game.common.GameContext
 import com.barrybecker4.game.twoplayer.go.board.GoSearchable
 import com.barrybecker4.game.twoplayer.go.board.move.GoMove
-import org.junit.Assert.{assertEquals, assertTrue}
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.{assertEquals, assertTrue}
+import org.junit.jupiter.api.Test
 
 
 class TestScoring extends GoTestCase:
@@ -77,23 +77,17 @@ class TestScoring extends GoTestCase:
     val numDeadWhite = searchable.getNumDeadStonesOnBoard(false)
     GameContext.log(0, "CaptureCounts :          black = " + numBlackCaptures + "   white = " + numWhiteCaptures)
     GameContext.log(0, "Territory: black = " + blackTerrEst + "   white = " + whiteTerrEst)
-    assertEquals("Unexpected number of black captures. Expected ", expectedBlackCapturesSoFar, numBlackCaptures)
-    assertEquals("Unexpected number of white captures. Expected ", expectedWhiteCapturesSoFar, numWhiteCaptures)
-    assertEquals("Unexpected number of dead black stones on board", expectedDeadBlackOnBoard, numDeadBlack)
-    assertEquals("Unexpected number of dead white stones on board.", expectedDeadWhiteOnBoard, numDeadWhite)
-    assertTrue(
-      "The black territory estimate (" + blackTerrEst + ") was not close to " + expectedBlackTerr,
-      withinBounds(blackTerrEst, expectedBlackTerr)
-    )
-    assertTrue(
-      "The white territory estimate (" + whiteTerrEst + ") was not close to " + expectedWhiteTerr,
-      withinBounds(whiteTerrEst, expectedWhiteTerr)
-    )
+    assertEquals(expectedBlackCapturesSoFar, numBlackCaptures, "Unexpected number of black captures. Expected ")
+    assertEquals(expectedWhiteCapturesSoFar, numWhiteCaptures, "Unexpected number of white captures. Expected ")
+    assertEquals(expectedDeadBlackOnBoard, numDeadBlack, "Unexpected number of dead black stones on board")
+    assertEquals(expectedDeadWhiteOnBoard, numDeadWhite, "Unexpected number of dead white stones on board.")
+    assertTrue(withinBounds(blackTerrEst, expectedBlackTerr), "The black territory estimate (" + blackTerrEst + ") was not close to " + expectedBlackTerr)
+    assertTrue(withinBounds(whiteTerrEst, expectedWhiteTerr), "The white territory estimate (" + whiteTerrEst + ") was not close to " + expectedWhiteTerr)
     val finalWorth = searchable.worth(
       searchable.getMoveList.getLastMove,
       controller.getComputerWeights().getDefaultWeights
     )
-    assertEquals("Unexpected worth for final move.", expectedFinalWorth, finalWorth)
+    assertEquals(expectedFinalWorth, finalWorth, "Unexpected worth for final move.")
 
   protected def updateLifeAndDeath(problemFile: String): Unit =
     GameContext.log(0, "finding score for " + problemFile + " ...")

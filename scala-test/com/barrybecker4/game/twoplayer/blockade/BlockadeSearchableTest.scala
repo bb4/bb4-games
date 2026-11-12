@@ -10,7 +10,7 @@ import com.barrybecker4.game.twoplayer.blockade.board.move.wall.BlockadeWall
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove
 import com.barrybecker4.game.twoplayer.common.search.{ISearchableHelper, TwoPlayerSearchableBaseTst}
 import com.barrybecker4.optimization.parameter.ParameterArray
-import org.junit.Assert.{assertEquals, assertFalse, assertTrue}
+import org.junit.jupiter.api.Assertions.{assertEquals, assertFalse, assertTrue}
 
 import java.util.List as JList
 
@@ -81,7 +81,7 @@ class BlockadeSearchableTest extends TwoPlayerSearchableBaseTst:
     if expectedMoves.length != moves.size then
       printMoves(fileName, moves)
 
-    assertEquals("Unexpected number of generated moves.", expectedMoves.length, moves.size)
+    assertEquals(expectedMoves.length, moves.size, "Unexpected number of generated moves.")
 
     val diffs = new StringBuilder("")
     for i <- 0 until moves.size do
@@ -94,14 +94,8 @@ class BlockadeSearchableTest extends TwoPlayerSearchableBaseTst:
     if diffs.length > 0 then
       printMoves(fileName, moves)
 
-    assertTrue(
-      "There were unexpected generated moves for " + fileName + "\n" + diffs,
-      diffs.length == 0
-    )
+    assertTrue(diffs.length == 0, "There were unexpected generated moves for " + fileName + "\n" + diffs)
 
   override def testGenerateUrgentMoves(): Unit =
     val moves: JList[?] = searchable.generateUrgentMoves(null, weights)
-    assertTrue(
-      "We expect move list to be empty since generateUrgentMoves is not implemented for Blockade.",
-      moves.isEmpty
-    )
+    assertTrue(moves.isEmpty, "We expect move list to be empty since generateUrgentMoves is not implemented for Blockade.")

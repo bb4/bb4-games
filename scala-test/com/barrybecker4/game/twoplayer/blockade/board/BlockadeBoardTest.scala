@@ -8,8 +8,8 @@ import com.barrybecker4.game.twoplayer.blockade.BlockadeTestCase
 import com.barrybecker4.game.twoplayer.blockade.board.move.BlockadeMove
 import com.barrybecker4.game.twoplayer.blockade.board.move.wall.BlockadeWall
 import com.barrybecker4.game.twoplayer.blockade.board.path.{Path, PathLengths, PathList, PlayerPathLengths}
-import org.junit.Assert.{assertEquals, assertTrue}
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.{assertEquals, assertTrue}
+import org.junit.jupiter.api.Test
 
 import java.util as ju
 
@@ -19,21 +19,21 @@ class BlockadeBoardTest extends BlockadeTestCase:
   @Test
   def testPositionStates(): Unit =
     val p = new BlockadeBoardPosition(1, 1)
-    assertTrue("no piece or walls", p.getStateIndex == 0)
+    assertTrue(p.getStateIndex == 0, "no piece or walls")
     p.setPiece(new GamePiece(true))
     val wallPositions = new ju.LinkedHashSet[BlockadeBoardPosition](2)
-    assertTrue("p1 piece and no walls", p.getStateIndex == 1)
+    assertTrue(p.getStateIndex == 1, "p1 piece and no walls")
     wallPositions.add(new BlockadeBoardPosition(10, 11))
     wallPositions.add(new BlockadeBoardPosition(10, 12))
     p.setEastWall(new BlockadeWall(wallPositions))
-    assertTrue("p1 piece and east wall", p.getStateIndex == 3)
+    assertTrue(p.getStateIndex == 3, "p1 piece and east wall")
     wallPositions.clear()
     wallPositions.add(new BlockadeBoardPosition(10, 12))
     wallPositions.add(new BlockadeBoardPosition(11, 12))
     p.setSouthWall(new BlockadeWall(wallPositions))
-    assertTrue("p1 piece and both walls", p.getStateIndex == 7)
+    assertTrue(p.getStateIndex == 7, "p1 piece and both walls")
     p.setPiece(new GamePiece(false))
-    assertTrue("p2 piece and both walls", p.getStateIndex == 11)
+    assertTrue(p.getStateIndex == 11, "p2 piece and both walls")
 
   private val P1_NUM_MAP: ju.Map[Location, Integer] =
     val m = new ju.HashMap[Location, Integer]()
@@ -115,10 +115,7 @@ class BlockadeBoardTest extends BlockadeTestCase:
     var expectedNumMoves = expectedNumMovesIn
     if p1NumMap.containsKey(position.getLocation) then
       expectedNumMoves = p1NumMap.get(position.getLocation)
-    assertTrue(
-      "Expected " + expectedNumMoves + " moves for player1, but got " + player1Moves.size + ":" + player1Moves,
-      player1Moves.size == expectedNumMoves
-    )
+    assertTrue(player1Moves.size == expectedNumMoves, "Expected " + expectedNumMoves + " moves for player1, but got " + player1Moves.size + ":" + player1Moves)
 
   private def createMove(r1: Int, c1: Int, r2: Int, c2: Int, piece: GamePiece): BlockadeMove =
     new BlockadeMove(new ByteLocation(r1, c1), new ByteLocation(r2, c2), 0, piece, null)
@@ -195,12 +192,12 @@ class BlockadeBoardTest extends BlockadeTestCase:
     val board = controller_.getBoard.asInstanceOf[BlockadeBoard]
     val p1Paths = board.findAllOpponentShortestPaths(true)
     val p2Paths = board.findAllOpponentShortestPaths(false)
-    assertEquals("Unexpected number of paths", 4, p1Paths.size)
-    assertEquals("Unexpected number of paths", 4, p2Paths.size)
+    assertEquals(4, p1Paths.size, "Unexpected number of paths")
+    assertEquals(4, p2Paths.size, "Unexpected number of paths")
     val p1PathDiff = pathListDiff(EXPECTED_P1_PATHS, p1Paths)
     val p2PathDiff = pathListDiff(EXPECTED_P2_PATHS, p2Paths)
-    assertTrue("p1Path difference=\n" + p1PathDiff, p1PathDiff.length == 0)
-    assertTrue("p2Path difference=\n" + p2PathDiff, p2PathDiff.length == 0)
+    assertTrue(p1PathDiff.length == 0, "p1Path difference=\n" + p1PathDiff)
+    assertTrue(p2PathDiff.length == 0, "p2Path difference=\n" + p2PathDiff)
 
   private def pathListDiff(expectedPaths: Array[Path], actualPaths: PathList): String =
     var pathListsDifferent = false
@@ -225,8 +222,8 @@ class BlockadeBoardTest extends BlockadeTestCase:
     val expectedP2Lengths = new PathLengths(3, 3, 10)
     val actualP1Lengths = pLengths.getPathLengthsForPlayer(true)
     val actualP2Lengths = pLengths.getPathLengthsForPlayer(false)
-    assertTrue("Unexpected Player1 Path lengths - " + actualP1Lengths, expectedP1Lengths.equals(actualP1Lengths))
-    assertTrue("Unexpected Player2 Path lengths - " + actualP2Lengths, expectedP2Lengths.equals(actualP2Lengths))
+    assertTrue(expectedP1Lengths.equals(actualP1Lengths), "Unexpected Player1 Path lengths - " + actualP1Lengths)
+    assertTrue(expectedP2Lengths.equals(actualP2Lengths), "Unexpected Player2 Path lengths - " + actualP2Lengths)
 
   @Test
   def testShortestPaths2(): Unit =
@@ -246,8 +243,8 @@ class BlockadeBoardTest extends BlockadeTestCase:
     val expectedP2Lengths = new PathLengths(4, 6, 10)
     val actualP1Lengths = pLengths.getPathLengthsForPlayer(true)
     val actualP2Lengths = pLengths.getPathLengthsForPlayer(false)
-    assertTrue("Unexpected Player1 Path lengths - " + actualP1Lengths, expectedP1Lengths.equals(actualP1Lengths))
-    assertTrue("Unexpected Player2 Path lengths - " + actualP2Lengths, expectedP2Lengths.equals(actualP2Lengths))
+    assertTrue(expectedP1Lengths.equals(actualP1Lengths), "Unexpected Player1 Path lengths - " + actualP1Lengths)
+    assertTrue(expectedP2Lengths.equals(actualP2Lengths), "Unexpected Player2 Path lengths - " + actualP2Lengths)
 
   private val EXPECTED_PATHS_LENGTHS: Array[Int] = Array(0, 11, 12)
 
@@ -261,13 +258,10 @@ class BlockadeBoardTest extends BlockadeTestCase:
     val pLengths2 = board.findShortestPaths(pos2)
     val size = EXPECTED_PATHS_LENGTHS.length
     val lengths = new Array[Int](size)
-    assertTrue("Unexpected number of pLengths1=" + pLengths1.size, pLengths1.size == 1)
-    assertTrue("Unexpected number of pLengths2=" + pLengths2.size, pLengths2.size == 2)
+    assertTrue(pLengths1.size == 1, "Unexpected number of pLengths1=" + pLengths1.size)
+    assertTrue(pLengths2.size == 2, "Unexpected number of pLengths2=" + pLengths2.size)
     lengths(0) = pLengths1.get(0).getLength
     lengths(1) = pLengths2.get(0).getLength
     lengths(2) = pLengths2.get(1).getLength
     for i <- 0 until size do
-      assertTrue(
-        "Expected len " + EXPECTED_PATHS_LENGTHS(i) + " but got  " + lengths(i),
-        lengths(i) == EXPECTED_PATHS_LENGTHS(i)
-      )
+      assertTrue(lengths(i) == EXPECTED_PATHS_LENGTHS(i), "Expected len " + EXPECTED_PATHS_LENGTHS(i) + " but got  " + lengths(i))

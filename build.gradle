@@ -209,7 +209,6 @@ bb4 {
     jpackage {
         enabled = true
         packageIdentifierPrefix = 'com.barrybecker4.game'
-        mainJarKey = { String appId, Map props -> 'game' }
         defaultMainClass = 'com.barrybecker4.game.common.ui.GameApp'
         arguments = { String appId, Map props -> ['-name', appId] }
     }
@@ -227,23 +226,7 @@ dependencies {
     // jars needed for go
     implementation fileTree(dir: 'lib', include: '*.jar')
 
-    testImplementation 'junit:junit:4.13.2'
-    testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:6.1.3'
-}
-
-tasks.withType(Test).configureEach { test ->
-    test.useJUnitPlatform {
-        includeEngines 'junit-vintage', 'junit-jupiter', 'scalatest'
-    }
-    // Keep CI logs readable: show failures with full stack traces, hide passing-test I/O
-    test.testLogging {
-        events 'failed'
-        exceptionFormat 'full'
-        showExceptions true
-        showCauses true
-        showStackTraces true
-        showStandardStreams false
-    }
+    // JUnit Jupiter + ScalaTest come from bb4.scala-library (no Vintage).
 }
 
 apply plugin: 'com.barrybecker4.bb4.publish'

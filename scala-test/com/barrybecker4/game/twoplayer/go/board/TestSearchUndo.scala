@@ -7,8 +7,8 @@ import com.barrybecker4.game.twoplayer.go.GoTestCase
 import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoStone}
 import com.barrybecker4.game.twoplayer.go.board.move.GoMove
 import com.barrybecker4.game.twoplayer.go.options.GoOptions
-import org.junit.Assert.{assertEquals, assertFalse, assertNotEquals, assertTrue}
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.{assertEquals, assertFalse, assertNotEquals, assertTrue}
+import org.junit.jupiter.api.Test
 import scala.jdk.CollectionConverters.*
 
 /**
@@ -37,29 +37,29 @@ class TestSearchUndo extends GoTestCase:
 
     val before = snapshot(searchable)
     val beforeKey = searchable.getHashKey().getKey
-    assertTrue("corner stone is the resignation coordinate", board.getPosition(1, 1).isOccupied)
+    assertTrue(board.getPosition(1, 1).isOccupied, "corner stone is the resignation coordinate")
     val whiteLibs = board.getPosition(2, 3).asInstanceOf[GoBoardPosition].getString.getNumLiberties(board)
-    assertEquals("white string should have one liberty before the capture", 1, whiteLibs)
+    assertEquals(1, whiteLibs, "white string should have one liberty before the capture")
 
     val pass = GoMove.createPassMove(0, true)
     searchable.makeInternalMove(pass)
-    assertNotEquals("a pass must change the hash", beforeKey, searchable.getHashKey().getKey)
+    assertNotEquals(beforeKey, searchable.getHashKey().getKey, "a pass must change the hash")
     searchable.undoInternalMove(pass)
-    assertEquals("undoing a pass must restore hash and board", before, snapshot(searchable))
+    assertEquals(before, snapshot(searchable), "undoing a pass must restore hash and board")
 
     val resignation = GoMove.createResignationMove(false)
     searchable.makeInternalMove(resignation)
     searchable.undoInternalMove(resignation)
-    assertTrue("resignation undo must leave the stone at (1,1)", board.getPosition(1, 1).isOccupied)
-    assertEquals("undoing a resignation must restore hash and board", before, snapshot(searchable))
+    assertTrue(board.getPosition(1, 1).isOccupied, "resignation undo must leave the stone at (1,1)")
+    assertEquals(before, snapshot(searchable), "undoing a resignation must restore hash and board")
 
     val capturing = stoneMove(3, 3, black = true)
     searchable.makeInternalMove(capturing)
-    assertEquals("the filling move captures both white stones", 2, capturing.getNumCaptures)
+    assertEquals(2, capturing.getNumCaptures, "the filling move captures both white stones")
     assertEquals(2, searchable.getNumCaptures(false))
     assertFalse(board.getPosition(2, 2).isOccupied)
     searchable.undoInternalMove(capturing)
-    assertEquals("undoing a multi-stone capture must restore hash, liberties, and groups", before, snapshot(searchable))
+    assertEquals(before, snapshot(searchable), "undoing a multi-stone capture must restore hash, liberties, and groups")
 
   private def stoneMove(row: Int, col: Int, black: Boolean): GoMove =
     new GoMove(new ByteLocation(row, col), 0, new GoStone(black))

@@ -1,10 +1,10 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.go.board.analysis.neighbor
 
-import org.junit.Assert
-import org.junit.Before
-import org.junit.After
-import org.junit.Test
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Test
 import com.barrybecker4.game.twoplayer.go.GoTestCase
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.elements.position.GoBoardPosition
@@ -97,8 +97,8 @@ class TestNeighborAnalyzer extends GoTestCase {
         var numSameNbrs: Int = nbrAnalyzer_.findGroupNeighbors(pos, true).size
         var numNbrs: Int = nbrAnalyzer_.findGroupNeighbors(pos, false).size
 
-        Assert.assertTrue("numSameNbrs="+numSameNbrs+" expected "+expectedNumSameNbrs, numSameNbrs == expectedNumSameNbrs)
-        Assert.assertTrue("numNbrs="+numNbrs+" expected "+expectedNumNbrs, numNbrs == expectedNumNbrs)
+        Assertions.assertTrue(numSameNbrs == expectedNumSameNbrs, "numSameNbrs="+numSameNbrs+" expected "+expectedNumSameNbrs)
+        Assertions.assertTrue(numNbrs == expectedNumNbrs, "numNbrs="+numNbrs+" expected "+expectedNumNbrs)
     }
 
     @Test
@@ -122,7 +122,7 @@ class TestNeighborAnalyzer extends GoTestCase {
         nbrAnalyzer_ = new NeighborAnalyzer(board)
         var numNbrs: Int = nbrAnalyzer_.findOccupiedNobiNeighbors(empties).size
 
-        Assert.assertTrue("numNbrs="+numNbrs+" expected "+expectedNumNbrs, numNbrs == expectedNumNbrs)
+        Assertions.assertTrue(numNbrs == expectedNumNbrs, "numNbrs="+numNbrs+" expected "+expectedNumNbrs)
     }
 
 

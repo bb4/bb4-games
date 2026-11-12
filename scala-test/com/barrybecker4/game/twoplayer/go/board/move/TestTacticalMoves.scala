@@ -10,8 +10,8 @@ import com.barrybecker4.game.twoplayer.go.board.analysis.CandidateMoveAnalyzer
 import com.barrybecker4.game.twoplayer.go.board.{GoBoard, GoSearchable}
 import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoStone}
 import com.barrybecker4.game.twoplayer.go.options.{GoOptions, GoWeights}
-import org.junit.Assert.{assertEquals, assertFalse, assertTrue}
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.{assertEquals, assertFalse, assertTrue}
+import org.junit.jupiter.api.Test
 import scala.jdk.CollectionConverters.*
 
 /**
@@ -36,11 +36,11 @@ class TestTacticalMoves extends GoTestCase:
     val weights = new GoWeights().getDefaultWeights
     val blackJustPlayed = new GoMove(new ByteLocation(3, 2), 0, new GoStone(true))
     val whiteReplies = searchable.generateUrgentMoves(blackJustPlayed, weights)
-    assertTrue("white's escape is urgent", containsUrgent(whiteReplies, 2, 3))
+    assertTrue(containsUrgent(whiteReplies, 2, 3), "white's escape is urgent")
 
     val whiteJustPlayed = new GoMove(new ByteLocation(2, 2), 0, new GoStone(false))
     val blackReplies = searchable.generateUrgentMoves(whiteJustPlayed, weights)
-    assertTrue("black's capture is urgent", containsUrgent(blackReplies, 2, 3))
+    assertTrue(containsUrgent(blackReplies, 2, 3), "black's capture is urgent")
 
   @Test
   def prunedEscapeIsAddedBack(): Unit =
@@ -50,14 +50,14 @@ class TestTacticalMoves extends GoTestCase:
     val searchable = newSearchable(board)
     val blackJustPlayed = new GoMove(new ByteLocation(1, 4), 0, new GoStone(true))
     val moves = searchable.generateMoves(blackJustPlayed, new GoWeights().getDefaultWeights)
-    assertTrue("the first-line escape survives the prune", contains(moves, 1, 6))
+    assertTrue(contains(moves, 1, 6), "the first-line escape survives the prune")
     assertTrue(moves.size > 1)
 
   @Test
   def firstLineLibertyOfAtariIsCandidate(): Unit =
     val candidates = new CandidateMoveAnalyzer(edgeAtari())
-    assertTrue("the liberty on the first line is a candidate", candidates.isCandidateMove(1, 6))
-    assertFalse("an empty first-line point far from the atari is not a candidate", candidates.isCandidateMove(1, 1))
+    assertTrue(candidates.isCandidateMove(1, 6), "the liberty on the first line is a candidate")
+    assertFalse(candidates.isCandidateMove(1, 1), "an empty first-line point far from the atari is not a candidate")
 
   @Test
   def quiescenceSearchesThreeStoneEscapeAndRestoresTheBoard(): Unit =
@@ -87,10 +87,10 @@ class TestTacticalMoves extends GoTestCase:
       case (r, c, black) => new GoMove(new ByteLocation(r, c), 0, new GoStone(black))
     val weights = new GoWeights().getDefaultWeights
     val urgent = searchable.generateUrgentMoves(last, weights)
-    assertTrue("quiescence includes the escape from the three-stone atari", contains(urgent, 3, 3))
+    assertTrue(contains(urgent, 3, 3), "quiescence includes the escape from the three-stone atari")
     val strategy = new NegaScoutStrategy[GoMove, GoBoard](searchable, weights)
     strategy.search(last, null)
-    assertEquals("search restores the board", before, snapshot(searchable))
+    assertEquals(before, snapshot(searchable), "search restores the board")
 
   private def keepEveryMove(): Unit = setPrune(100, 1)
 

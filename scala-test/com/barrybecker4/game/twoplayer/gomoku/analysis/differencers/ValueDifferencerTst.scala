@@ -4,8 +4,8 @@ package com.barrybecker4.game.twoplayer.gomoku.analysis.differencers
 import com.barrybecker4.game.twoplayer.gomoku.{GoMokuBoard, GoMokuController}
 import com.barrybecker4.game.twoplayer.gomoku.pattern.{GoMokuPatterns, Patterns, SimpleWeights}
 import com.barrybecker4.optimization.parameter.ParameterArray
-import org.junit.Assert.assertEquals
-import org.junit.Before
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
 
 /**
  * Base class for all differencer tests.
@@ -18,7 +18,7 @@ abstract class ValueDifferencerTst:
   protected var weights: ParameterArray = new SimpleWeights().getDefaultWeights
   protected var lineFactory: StubLineFactory = scala.compiletime.uninitialized
 
-  @Before
+  @BeforeEach
   def setUp(): Unit =
     val board = restoreBoard("exampleBoard")
     val patterns: Patterns = new GoMokuPatterns()
@@ -44,8 +44,8 @@ abstract class ValueDifferencerTst:
 
   protected def verifyLine(row: Int, col: Int, expectedLineContent: String): Unit =
     val diff = differencer.findValueDifference(row, col, weights)
-    assertEquals("Unexpected difference", 0, diff)
-    assertEquals("Unexpected line created", expectedLineContent, lineFactory.getLineContent)
+    assertEquals(0, diff, "Unexpected difference")
+    assertEquals(expectedLineContent, lineFactory.getLineContent, "Unexpected line created")
 
 object ValueDifferencerTst:
   private val TEST_CASE_DIR =

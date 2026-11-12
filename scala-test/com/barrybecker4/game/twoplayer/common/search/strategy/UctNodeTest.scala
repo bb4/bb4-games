@@ -8,8 +8,8 @@ import com.barrybecker4.game.twoplayer.common.TwoPlayerMove
 import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub
 import com.barrybecker4.game.twoplayer.common.search.options.MaximizationStyle
 import com.barrybecker4.game.twoplayer.common.search.tree.NodeAttributes
-import org.junit.Assert.{assertEquals, assertFalse, assertTrue}
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.{assertEquals, assertFalse, assertTrue}
+import org.junit.jupiter.api.Test
 
 /**
  * Test node in in-memory UCT tree.
@@ -22,34 +22,34 @@ class UctNodeTest:
   @Test
   def testConstructionOfNodeWithNoChildren(): Unit =
     uctNode = new UctNode(UctNodeTest.P2_MOVE)
-    assertEquals("Unexpected move", UctNodeTest.P2_MOVE, uctNode.getMove)
-    assertEquals("Unexpected bestNode", null, uctNode.findBestChildMove(MaximizationStyle.WIN_RATE))
-    assertFalse("Unexpected children", uctNode.hasChildren)
-    assertEquals("Unexpected numVisits", 0, uctNode.getNumVisits)
+    assertEquals(UctNodeTest.P2_MOVE, uctNode.getMove, "Unexpected move")
+    assertEquals(null, uctNode.findBestChildMove(MaximizationStyle.WIN_RATE), "Unexpected bestNode")
+    assertFalse(uctNode.hasChildren, "Unexpected children")
+    assertEquals(0, uctNode.getNumVisits, "Unexpected numVisits")
     // The winrate is 0.5 (tie) + 10/WINNING = 0.50122
-    assertEquals("Unexpected winRate", 0.5012207f, uctNode.getWinRate, UctNodeTest.TOL)
+    assertEquals(0.5012207f, uctNode.getWinRate, UctNodeTest.TOL, "Unexpected winRate")
     val expectedAttributes = new NodeAttributes()
     expectedAttributes.put("visits", "0")
     expectedAttributes.put("wins", "0.0")
     expectedAttributes.put("winRate", "0.50122")
-    assertEquals("Unexpected attrs", expectedAttributes, uctNode.getAttributes)
-    assertEquals("Unexpected uctValue", 1000.50122, uctNode.calculateUctValue(1.0, 1), UctNodeTest.TOL)
+    assertEquals(expectedAttributes, uctNode.getAttributes, "Unexpected attrs")
+    assertEquals(1000.50122, uctNode.calculateUctValue(1.0, 1), UctNodeTest.TOL, "Unexpected uctValue")
 
   @Test
   def testUpdateWinP1(): Unit =
     uctNode = new UctNode(UctNodeTest.P1_MOVE)
     uctNode.update(1.0)
-    assertEquals("Unexpected numWins", 1.0f, uctNode.getWinRate, UctNodeTest.TOL)
+    assertEquals(1.0f, uctNode.getWinRate, UctNodeTest.TOL, "Unexpected numWins")
     uctNode.update(0.0)
-    assertEquals("Unexpected numWins", 0.5f, uctNode.getWinRate, UctNodeTest.TOL)
+    assertEquals(0.5f, uctNode.getWinRate, UctNodeTest.TOL, "Unexpected numWins")
 
   @Test
   def testUpdateWinP2(): Unit =
     uctNode = new UctNode(UctNodeTest.P2_MOVE)
     uctNode.update(1.0)
-    assertEquals("Unexpected numWins", 0.0f, uctNode.getWinRate, UctNodeTest.TOL)
+    assertEquals(0.0f, uctNode.getWinRate, UctNodeTest.TOL, "Unexpected numWins")
     uctNode.update(0.0)
-    assertEquals("Unexpected numWins", 0.5f, uctNode.getWinRate, UctNodeTest.TOL)
+    assertEquals(0.5f, uctNode.getWinRate, UctNodeTest.TOL, "Unexpected numWins")
 
   @Test
   def testSetBestNodeWithAllZeroWinrate(): Unit =
@@ -62,7 +62,7 @@ class UctNodeTest:
     moves.add(new TwoPlayerMoveStub(9, false, new ByteLocation(1, 3), null))
     uctNode.addChildren(moves)
     // good move is selected first because it has a better winrate using static evaluation.
-    assertEquals("Unexpected bestMove", goodMove, uctNode.findBestChildMove(MaximizationStyle.WIN_RATE))
+    assertEquals(goodMove, uctNode.findBestChildMove(MaximizationStyle.WIN_RATE), "Unexpected bestMove")
 
   @Test
   def testSetBestNode(): Unit =
@@ -79,43 +79,43 @@ class UctNodeTest:
     secondNode.update(1.0)
     secondNode.update(0.0)
     // secondMove is selected since it has a winrate of 0.6667
-    assertEquals("Unexpected bestMove", secondNode.getMove, uctNode.findBestChildMove(MaximizationStyle.WIN_RATE))
+    assertEquals(secondNode.getMove, uctNode.findBestChildMove(MaximizationStyle.WIN_RATE), "Unexpected bestMove")
 
   /** It should be a large value in this case so it gets selected to be visited first. */
   @Test
   def testCalcUctValueWhenNoVisits(): Unit =
     uctNode = new UctNode(UctNodeTest.P2_MOVE)
-    assertTrue("Unexpected uctValue", uctNode.calculateUctValue(1.0, 1) > 100)
+    assertTrue(uctNode.calculateUctValue(1.0, 1) > 100, "Unexpected uctValue")
 
   @Test
   def testCalcUctValueWithOneVisitNoWinsOneParentVisitP1(): Unit =
     uctNode = new UctNode(UctNodeTest.P1_MOVE)
     uctNode.update(0.0)
-    assertEquals("Unexpected uctValue", 0.0, uctNode.calculateUctValue(1.0, 1), UctNodeTest.TOL)
+    assertEquals(0.0, uctNode.calculateUctValue(1.0, 1), UctNodeTest.TOL, "Unexpected uctValue")
 
   @Test
   def testCalcUctValueWithOneVisitNoWinsOneParentVisitP2(): Unit =
     uctNode = new UctNode(UctNodeTest.P2_MOVE)
     uctNode.update(1.0)
-    assertEquals("Unexpected uctValue", 0.0, uctNode.calculateUctValue(1.0, 1), UctNodeTest.TOL)
+    assertEquals(0.0, uctNode.calculateUctValue(1.0, 1), UctNodeTest.TOL, "Unexpected uctValue")
 
   @Test
   def testCalcUctValueWithOneVisitNoWinsTwoParentVisits(): Unit =
     uctNode = new UctNode(UctNodeTest.P2_MOVE)
     uctNode.update(1.0)
-    assertEquals("Unexpected uctValue", 0.3723297411, uctNode.calculateUctValue(1.0, 2), UctNodeTest.TOL)
+    assertEquals(0.3723297411, uctNode.calculateUctValue(1.0, 2), UctNodeTest.TOL, "Unexpected uctValue")
 
   @Test
   def testCalcUctValueWithOneVisitNoWins32ParentVisitsP1Won(): Unit =
     uctNode = new UctNode(UctNodeTest.P2_MOVE)
     uctNode.update(1.0)
-    assertEquals("Unexpected uctValue", 0.83255461, uctNode.calculateUctValue(1.0, 32), UctNodeTest.TOL)
+    assertEquals(0.83255461, uctNode.calculateUctValue(1.0, 32), UctNodeTest.TOL, "Unexpected uctValue")
 
   @Test
   def testCalcUctValueWithOneVisitNoWins32ParentVisitsP2Won(): Unit =
     uctNode = new UctNode(UctNodeTest.P2_MOVE)
     uctNode.update(0.0)
-    assertEquals("Unexpected uctValue", 1.83255461, uctNode.calculateUctValue(1.0, 32), UctNodeTest.TOL)
+    assertEquals(1.83255461, uctNode.calculateUctValue(1.0, 32), UctNodeTest.TOL, "Unexpected uctValue")
 
   @Test
   def testCalcUctValueWith10Visits1Win32ParentVisitsP1WonAll(): Unit =
@@ -141,24 +141,9 @@ class UctNodeTest:
       expBalancedValue: Double,
       expMoreExploreValue: Double
   ): Unit =
-    assertEquals(
-      "Unexpected uctValue (more exploit)",
-      expMoreExploitValue,
-      uctNode.calculateUctValue(0.1, 32),
-      UctNodeTest.TOL
-    )
-    assertEquals(
-      "Unexpected uctValue (balanced)",
-      expBalancedValue,
-      uctNode.calculateUctValue(1.0, 32),
-      UctNodeTest.TOL
-    )
-    assertEquals(
-      "Unexpected uctValue (more explore)",
-      expMoreExploreValue,
-      uctNode.calculateUctValue(10.0, 32),
-      UctNodeTest.TOL
-    )
+    assertEquals(expMoreExploitValue, uctNode.calculateUctValue(0.1, 32), UctNodeTest.TOL, "Unexpected uctValue (more exploit)")
+    assertEquals(expBalancedValue, uctNode.calculateUctValue(1.0, 32), UctNodeTest.TOL, "Unexpected uctValue (balanced)")
+    assertEquals(expMoreExploreValue, uctNode.calculateUctValue(10.0, 32), UctNodeTest.TOL, "Unexpected uctValue (more explore)")
 
   private def calcUctTable(parentVisits: Int): Unit =
     var numVisits = 5

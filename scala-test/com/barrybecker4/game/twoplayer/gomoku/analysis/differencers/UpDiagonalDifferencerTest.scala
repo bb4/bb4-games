@@ -4,7 +4,7 @@ package com.barrybecker4.game.twoplayer.gomoku.analysis.differencers
 import com.barrybecker4.game.twoplayer.gomoku.GoMokuBoard
 import com.barrybecker4.game.twoplayer.gomoku.analysis.Direction
 import com.barrybecker4.game.twoplayer.gomoku.pattern.Patterns
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 /**
  * Verify that we correctly evaluate patterns on the board.

@@ -1,10 +1,10 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.go.board.analysis.group.eye
 
-import org.junit.Assert
-import org.junit.Before
-import org.junit.After
-import org.junit.Test
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Test
 import com.barrybecker4.game.twoplayer.go.GoTestCase
 import com.barrybecker4.game.twoplayer.go.board.analysis.group.LifeAnalyzer
 import com.barrybecker4.game.twoplayer.go.board.analysis.group.StubLifeAnalyzer
@@ -79,7 +79,7 @@ class TestEyeHealthEvaluator extends GoTestCase {
 
         var actEyeHealth: Float = evaluator.determineHealth(forBlackGroup, numEyes.toFloat, numLiberties, numStones)
 
-        Assert.assertEquals("Unexpected eyeHealth", expEyeHealth, actEyeHealth, TOLERANCE)
+        Assertions.assertEquals(expEyeHealth, actEyeHealth, TOLERANCE, "Unexpected eyeHealth")
     }
 
 

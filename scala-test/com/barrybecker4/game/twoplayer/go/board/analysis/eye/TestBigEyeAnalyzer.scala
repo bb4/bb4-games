@@ -5,8 +5,8 @@ import com.barrybecker4.game.twoplayer.go.GoTestCase
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.analysis.eye.information.{EyeInformation, EyeType}
 import com.barrybecker4.game.twoplayer.go.board.analysis.group.{GroupAnalyzer, GroupAnalyzerMap}
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
 /**
  * Test that we can get the correct type and status for all the different eyes that can arise.
@@ -38,11 +38,11 @@ class TestBigEyeAnalyzer extends GoTestCase:
     val group = getBiggestGroup(isBlack)
     val groupAnalyzer = new GroupAnalyzer(group, new GroupAnalyzerMap())
     val eyes = groupAnalyzer.getEyes(board)
-    assertEquals("The group\n" + group + "\n did not have one eye", 1, eyes.size)
+    assertEquals(1, eyes.size, "The group\n" + group + "\n did not have one eye")
     val firstEye = groupAnalyzer.getEyes(board).iterator.next()
     val eyeAnalyzer = new BigEyeAnalyzer(firstEye)
     val information = eyeAnalyzer.determineEyeInformation()
     val eyeColor = if isBlack then "black" else "white"
-    assertEquals("Unexpected information found for " + eyeColor + " eye.", expectedInfo, information)
-    assertEquals("Corner status unexpected", isInCorner, information.isInCorner(firstEye))
-    assertEquals("Edge status unexpected", isOnEdge, information.isOnEdge(firstEye))
+    assertEquals(expectedInfo, information, "Unexpected information found for " + eyeColor + " eye.")
+    assertEquals(isInCorner, information.isInCorner(firstEye), "Corner status unexpected")
+    assertEquals(isOnEdge, information.isOnEdge(firstEye), "Edge status unexpected")

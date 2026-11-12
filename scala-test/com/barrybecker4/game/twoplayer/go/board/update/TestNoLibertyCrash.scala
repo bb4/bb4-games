@@ -4,8 +4,8 @@ import com.barrybecker4.common.geometry.ByteLocation
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoStone}
 import com.barrybecker4.game.twoplayer.go.board.move.GoMove
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 /**
  * A liberty update must see every neighboring stone, including ones an earlier
@@ -29,14 +29,11 @@ class TestNoLibertyCrash {
     ))
     markAllVisited(board)
     val move = new GoMove(new ByteLocation(3, 3), 0, new GoStone(true))
-    assertTrue("capturing the last liberty is legal", !move.isSuicidal(board))
+    assertTrue(!move.isSuicidal(board), "capturing the last liberty is legal")
     assertTrue(board.makeMove(move))
     val stone = board.getPosition(3, 3).asInstanceOf[GoBoardPosition]
-    assertTrue(
-      s"liberties=${stone.getString.getNumLiberties(board)}\n$board",
-      stone.getString.getNumLiberties(board) > 0
-    )
-    assertTrue("the white stone was captured", board.getPosition(2, 3).isUnoccupied)
+    assertTrue(stone.getString.getNumLiberties(board) > 0, s"liberties=${stone.getString.getNumLiberties(board)}\n$board")
+    assertTrue(board.getPosition(2, 3).isUnoccupied, "the white stone was captured")
   }
 
   /** The endgame crash position, with every stone left visited the way search can. */
@@ -55,13 +52,10 @@ class TestNoLibertyCrash {
     ))
     markAllVisited(board)
     val move = new GoMove(new ByteLocation(9, 5), 0, new GoStone(true))
-    assertTrue("the connection is legal", !move.isSuicidal(board))
+    assertTrue(!move.isSuicidal(board), "the connection is legal")
     assertTrue(board.makeMove(move))
     val stone = board.getPosition(9, 5).asInstanceOf[GoBoardPosition]
-    assertTrue(
-      s"liberties=${stone.getString.getNumLiberties(board)}\n$board",
-      stone.getString.getNumLiberties(board) > 0
-    )
+    assertTrue(stone.getString.getNumLiberties(board) > 0, s"liberties=${stone.getString.getNumLiberties(board)}\n$board")
   }
 
   private def markAllVisited(board: GoBoard): Unit = {
