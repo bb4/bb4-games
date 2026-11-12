@@ -13,7 +13,7 @@ class SearchOptionsConfigList extends java.util.ArrayList[SearchOptionsConfig] {
   }
 
   /**
-   * @throws IllegalStateException if we already have a configuration with that name.
+   * @throws java.lang.IllegalStateException if we already have a configuration with that name.
    */
   override def add(config: SearchOptionsConfig): Boolean = {
     this.asScala.foreach { element =>

@@ -235,7 +235,7 @@ abstract class TwoPlayerController[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]] e
    * game is over.
    * @param player1ToMove true if is player one to move.
    * @return true if the game is over.
-   * @throws AssertionError thrown if something bad happened while searching.
+   * @throws java.lang.AssertionError thrown if something bad happened while searching.
    */
   def requestComputerMove(player1ToMove: Boolean): Boolean =
     requestComputerMove(player1ToMove, getPlayers.allPlayersComputer)
@@ -246,7 +246,7 @@ abstract class TwoPlayerController[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]] e
    * @param player1ToMove true if player one to move.
    * @param synchronous if true then the method does not return until the next move has been found.
    * @return true if the game is over
-   * @throws AssertionError if something bad happened while searching.
+   * @throws java.lang.AssertionError if something bad happened while searching.
    */
   def requestComputerMove(player1ToMove: Boolean, synchronous: Boolean): Boolean =
     worker_.requestComputerMove(player1ToMove, synchronous)

@@ -36,7 +36,7 @@ class TwoPlayerSearchWorker[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
    * @param isPlayer1 true if player one to move.
    * @param synchronous if true then the method does not return until the next move has been found.
    * @return true if the game is over
-   * @throws AssertionError  if something bad happened while searching.
+   * @throws java.lang.AssertionError if something bad happened while searching.
    */
   @throws[AssertionError]
   def requestComputerMove(isPlayer1: Boolean, synchronous: Boolean): Boolean = {
