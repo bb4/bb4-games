@@ -46,6 +46,13 @@ sourceSets {
 bb4 {
     archivesBaseName.set('bb4-game')
     mainClass.set('com.barrybecker4.game.common.ui.GameApp')
+    jpackage {
+        enabled = true
+        packageIdentifierPrefix = 'com.barrybecker4.game'
+        mainJarKey = { String appId, Map props -> 'game' }
+        defaultMainClass = 'com.barrybecker4.game.common.ui.GameApp'
+        arguments = { String appId, Map props -> ['-name', appId] }
+    }
 }
 
 dependencies {
@@ -275,13 +282,6 @@ appMap.each { appId, propMap ->
         jvmArgs = ["-ea"]
     }
 }
-
-// jpackage --app-version rejects -SNAPSHOT and other non x[.y[.z]] strings.
-def rawVersion = project.version.toString()
-def strippedVersion = rawVersion.replaceAll(/-SNAPSHOT$/, '')
-ext.jpackageVersion = (strippedVersion ==~ /\d+(\.\d+){0,2}/) ? strippedVersion : '0.0.1'
-
-apply from: 'gradle/jpackage.gradle'
 
 // Plugin deployHtml reads source/html; this repo keeps website files under scala-source/html.
 tasks.named('deployHtml').configure { enabled = false }
