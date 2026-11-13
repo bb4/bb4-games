@@ -2,7 +2,6 @@
 package com.barrybecker4.game.twoplayer.blockade.board.path
 
 import com.barrybecker4.game.twoplayer.blockade.board.Homes
-import scala.collection.mutable.ListBuffer
 import scala.jdk.CollectionConverters.*
 
 class PathList extends java.util.LinkedList[Path]:

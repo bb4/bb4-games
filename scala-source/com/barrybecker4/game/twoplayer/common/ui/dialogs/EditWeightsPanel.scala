@@ -3,7 +3,6 @@ package com.barrybecker4.game.twoplayer.common.ui.dialogs
 
 import com.barrybecker4.game.common.{GameContext, GameWeights}
 import com.barrybecker4.optimization.parameter.ParameterArray
-import com.barrybecker4.optimization.parameter.types.Parameter
 
 import javax.swing.{BorderFactory, Box, BoxLayout, JLabel, JOptionPane, JPanel, JScrollPane, JTextField}
 import java.awt.{Component, Dimension, FlowLayout}

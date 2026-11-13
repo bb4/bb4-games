@@ -5,7 +5,6 @@ import com.barrybecker4.game.common.{GameContext, GameController, GameViewModel}
 import com.barrybecker4.game.common.ui.dialogs.NewGameDialog
 import com.barrybecker4.game.common.ui.panel.GameInfoPanel
 import com.barrybecker4.game.common.ui.viewer.GameBoardViewer
-import com.barrybecker4.game.twoplayer.checkers.{CheckersBoard, CheckersMove}
 import com.barrybecker4.game.twoplayer.common.ui.{TwoPlayerInfoPanel, TwoPlayerPanel}
 
 import java.awt.Component

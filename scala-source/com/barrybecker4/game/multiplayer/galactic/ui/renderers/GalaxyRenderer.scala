@@ -1,16 +1,13 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.multiplayer.galactic.ui.renderers
 
-import com.barrybecker4.common.geometry.Location
 import com.barrybecker4.game.common.board.Board
 import com.barrybecker4.game.common.player.PlayerList
 import com.barrybecker4.game.common.ui.viewer.GameBoardRenderer
 import com.barrybecker4.game.multiplayer.common.ui.MultiGameBoardRenderer
-import com.barrybecker4.game.multiplayer.galactic.Order
 import com.barrybecker4.game.multiplayer.galactic.player.GalacticPlayer
 
 import java.awt.Graphics2D
-import java.awt.geom.Point2D
 
 /**
  * Singleton class that takes a game board and renders it for the GameBoardViewer.

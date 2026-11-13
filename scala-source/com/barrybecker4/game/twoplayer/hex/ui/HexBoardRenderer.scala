@@ -1,7 +1,7 @@
 package com.barrybecker4.game.twoplayer.hex.ui
 
 import com.barrybecker4.common.geometry.{ByteLocation, IntLocation, Location}
-import com.barrybecker4.game.common.board.{Board, BoardPosition}
+import com.barrybecker4.game.common.board.Board
 import com.barrybecker4.game.common.player.{Player, PlayerList}
 import com.barrybecker4.game.common.ui.viewer.GameBoardRenderer
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove

@@ -7,7 +7,6 @@ import com.barrybecker4.game.common.ui.viewer.GameBoardViewer
 import com.barrybecker4.game.twoplayer.checkers.{CheckersBoard, CheckersMove, CheckersSearchable, MoveGenerator}
 import com.barrybecker4.game.twoplayer.common.TwoPlayerController
 
-import scala.jdk.CollectionConverters._
 
 class CheckersViewerMouseListener(viewer: GameBoardViewer[CheckersMove, CheckersBoard])
     extends CheckersLikeViewerMouseListener[CheckersMove, CheckersBoard](viewer) {

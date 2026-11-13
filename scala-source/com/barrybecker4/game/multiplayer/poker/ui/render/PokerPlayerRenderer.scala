@@ -4,8 +4,6 @@ package com.barrybecker4.game.multiplayer.poker.ui.render
 import com.barrybecker4.game.common.board.{Board, BoardPosition, GamePiece}
 import com.barrybecker4.game.common.ui.viewer.GamePieceRenderer
 import com.barrybecker4.game.multiplayer.poker.player.PokerPlayer
-import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerBoardRenderer
-import com.barrybecker4.ui.gradient.RoundGradientPaint
 import com.barrybecker4.ui.util.GUIUtil
 import java.awt.{Color, Font, Graphics2D, Point}
 import java.awt.geom.Ellipse2D

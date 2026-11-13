@@ -2,7 +2,7 @@
 package com.barrybecker4.game.multiplayer.poker.model
 
 import com.barrybecker4.game.card.Deck
-import com.barrybecker4.game.common.player.{Player, PlayerList}
+import com.barrybecker4.game.common.player.PlayerList
 import com.barrybecker4.game.multiplayer.poker.hand.Hand
 import com.barrybecker4.game.multiplayer.poker.player.PokerPlayer
 

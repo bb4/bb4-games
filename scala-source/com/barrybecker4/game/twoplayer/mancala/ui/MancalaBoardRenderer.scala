@@ -1,8 +1,7 @@
 /* Copyright by Barry G. Becker, 2014. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.mancala.ui
 
-import com.barrybecker4.common.geometry.IntLocation
-import com.barrybecker4.game.common.board.{Board, BoardPosition}
+import com.barrybecker4.game.common.board.Board
 import com.barrybecker4.game.common.player.Player
 import com.barrybecker4.game.common.ui.viewer.GameBoardRenderer
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove

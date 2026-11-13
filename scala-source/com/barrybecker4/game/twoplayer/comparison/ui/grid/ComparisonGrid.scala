@@ -6,7 +6,7 @@ import com.barrybecker4.game.twoplayer.comparison.model.config.{SearchOptionsCon
 import com.barrybecker4.game.twoplayer.comparison.ui.grid.cellrenderers.{FirstColumnCellRenderer, ResultGridCellRenderer, ResultHeaderCellRenderer}
 import com.barrybecker4.ui.table.{BasicTableModel, TableBase, TableColumnMeta}
 
-import javax.swing.table.{TableColumn, TableModel}
+import javax.swing.table.TableModel
 import scala.jdk.CollectionConverters._
 import scala.jdk.javaapi.CollectionConverters as JavaConverters
 

@@ -2,7 +2,6 @@
 package com.barrybecker4.game.common.ui
 
 import com.barrybecker4.common.app.CommandLineOptions
-import com.barrybecker4.common.i18n.LocaleType
 import com.barrybecker4.game.common.GameContext
 import com.barrybecker4.game.common.plugin.PluginManager
 import com.barrybecker4.game.common.ui.menu.{FileMenu, GameMenu, GameMenuController}

@@ -5,7 +5,7 @@ import com.barrybecker4.ca.dj.jigo.sgf.{SGFException, SGFLoader}
 import com.barrybecker4.ca.dj.jigo.sgf.tokens.*
 import com.barrybecker4.game.common.GameContext
 import com.barrybecker4.game.twoplayer.common.persistence.tokens.{Player1MoveToken, Player1NameToken, Player2MoveToken, Player2NameToken, Size2Token, TwoPlayerMoveToken}
-import java.io.{IOException, StreamTokenizer}
+import java.io.StreamTokenizer
 
 /**
  * Loads a two player game from a text file.

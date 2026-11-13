@@ -7,7 +7,6 @@ import com.barrybecker4.game.multiplayer.common.MultiGamePlayer
 import com.barrybecker4.game.multiplayer.common.online.ui.MultiPlayerOnlineTable
 import com.barrybecker4.game.multiplayer.trivial.player.TrivialRobotPlayer
 
-import java.awt.Color
 
 
 class OnlineTrivialTable(name: String, initialPlayer: Player, options: GameOptions)

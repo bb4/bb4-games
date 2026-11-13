@@ -2,7 +2,7 @@
 package com.barrybecker4.game.twoplayer.common
 
 import com.barrybecker4.game.common.GameContext
-import com.barrybecker4.game.common.board.{Board, BoardPosition, GamePiece}
+import com.barrybecker4.game.common.board.{Board, BoardPosition}
 import scala.jdk.CollectionConverters._
 
 /**

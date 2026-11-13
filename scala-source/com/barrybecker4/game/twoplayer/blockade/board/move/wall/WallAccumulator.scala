@@ -2,7 +2,7 @@
 package com.barrybecker4.game.twoplayer.blockade.board.move.wall
 
 import com.barrybecker4.game.twoplayer.blockade.board.{BlockadeBoard, BlockadeBoardPosition, Direction}
-import com.barrybecker4.game.twoplayer.blockade.board.path.{Path, PathList}
+import com.barrybecker4.game.twoplayer.blockade.board.path.PathList
 import scala.jdk.CollectionConverters.*
 
 class WallAccumulator(private val board: BlockadeBoard):

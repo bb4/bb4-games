@@ -59,8 +59,8 @@ object GtpKgsTesujisoftGoClient {
 
       log.close()
     } catch {
-      case t: Throwable =>
-        t.printStackTrace()
+      case e: Exception =>
+        e.printStackTrace()
         System.exit(-1)
     }
   }

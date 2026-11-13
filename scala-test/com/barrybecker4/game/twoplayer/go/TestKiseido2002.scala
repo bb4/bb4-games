@@ -6,8 +6,7 @@ import com.barrybecker4.game.twoplayer.go.board.move.GoMove
 import com.barrybecker4.ui.file.GenericFileFilter
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-import java.io.{File, IOException}
-import java.net.URISyntaxException
+import java.io.File
 import java.util
 import scala.jdk.CollectionConverters._
 

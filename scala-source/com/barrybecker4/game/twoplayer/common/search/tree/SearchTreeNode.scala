@@ -5,8 +5,6 @@ import com.barrybecker4.game.twoplayer.common.TwoPlayerMove
 
 import javax.swing.tree.DefaultMutableTreeNode
 import java.awt.Point
-import java.util.Enumeration
-import scala.jdk.CollectionConverters.*
 
 /**
  * Represents a move/node in the game tree.

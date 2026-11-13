@@ -2,7 +2,6 @@
 package com.barrybecker4.game.twoplayer.blockade.board.analysis
 
 import com.barrybecker4.game.common.GameContext
-import com.barrybecker4.game.common.board.GamePiece
 import com.barrybecker4.game.twoplayer.blockade.board.{BlockadeBoard, BlockadeBoardPosition, Homes}
 import com.barrybecker4.game.twoplayer.blockade.board.path.{PathList, PlayerPathLengths}
 import scala.collection.mutable

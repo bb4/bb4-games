@@ -1,17 +1,15 @@
 // Copyright by Barry G. Becker, 2014. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 package com.barrybecker4.game.twoplayer.comparison.execution
 
-import com.barrybecker4.game.common.{GameContext, GameViewModel}
-import com.barrybecker4.game.common.persistence.GameExporter
-import com.barrybecker4.game.common.player.{Player, PlayerList}
+import com.barrybecker4.game.common.GameContext
+import com.barrybecker4.game.common.player.Player
 import com.barrybecker4.game.twoplayer.common.{TwoPlayerBoard, TwoPlayerController, TwoPlayerMove, TwoPlayerPlayerOptions, TwoPlayerViewModel}
 import com.barrybecker4.game.twoplayer.common.search.options.SearchOptions
 import com.barrybecker4.game.twoplayer.comparison.model.{PerformanceResults, PerformanceResultsPair}
-import com.barrybecker4.game.twoplayer.comparison.model.config.{SearchOptionsConfig, SearchOptionsConfigList}
+import com.barrybecker4.game.twoplayer.comparison.model.config.SearchOptionsConfigList
 import com.barrybecker4.ui.util.GUIUtil
 
 import javax.swing.JComponent
-import java.awt.image.BufferedImage
 
 /**
  * Creates performance results given the controller and list of configuration options to pair off

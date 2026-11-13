@@ -8,7 +8,7 @@ import com.barrybecker4.game.common.board.BoardPosition
 import com.barrybecker4.game.twoplayer.go.board.{BoardValidator, GoBoard}
 import com.barrybecker4.game.twoplayer.go.board.analysis.group.GroupAnalyzer
 import com.barrybecker4.game.twoplayer.go.board.analysis.neighbor.NeighborAnalyzer
-import com.barrybecker4.game.twoplayer.go.board.elements.eye.{GoEyeSet, IGoEye}
+import com.barrybecker4.game.twoplayer.go.board.elements.eye.GoEyeSet
 import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup
 import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoBoardPositionList, GoBoardPositionSet}
 import com.barrybecker4.ui.util.GUIUtil

@@ -5,7 +5,6 @@ import com.barrybecker4.game.common.GameContext
 import com.barrybecker4.game.multiplayer.galactic.{Galaxy, Order, Planet}
 import com.barrybecker4.ui.table.{BasicTableModel, TableBase, TableColumnMeta}
 
-import java.awt.geom.Point2D
 import java.util.{ArrayList, HashMap, List as JList, Map as JMap}
 import javax.swing.table.TableModel
 import scala.jdk.javaapi.CollectionConverters

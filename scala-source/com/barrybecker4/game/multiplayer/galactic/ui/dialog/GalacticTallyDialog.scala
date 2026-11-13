@@ -2,7 +2,7 @@
 package com.barrybecker4.game.multiplayer.galactic.ui.dialog
 
 import com.barrybecker4.game.common.player.PlayerList
-import com.barrybecker4.game.multiplayer.common.{MultiGameController, MultiGamePlayer}
+import com.barrybecker4.game.multiplayer.common.MultiGamePlayer
 import com.barrybecker4.game.multiplayer.common.ui.{SummaryTable, TallyDialog}
 import com.barrybecker4.game.multiplayer.galactic.GalacticController
 

@@ -3,7 +3,7 @@ package com.barrybecker4.game.multiplayer.trivial
 
 import com.barrybecker4.game.common.GameContext
 import com.barrybecker4.game.common.Move
-import com.barrybecker4.game.common.board.{Board, BoardPosition}
+import com.barrybecker4.game.common.board.Board
 import com.barrybecker4.game.common.player.PlayerList
 import com.barrybecker4.game.multiplayer.trivial.player.TrivialPlayer
 

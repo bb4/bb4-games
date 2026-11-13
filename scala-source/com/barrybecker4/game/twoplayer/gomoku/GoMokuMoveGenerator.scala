@@ -1,7 +1,6 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.gomoku
 
-import com.barrybecker4.common.geometry.Location
 import com.barrybecker4.game.common.MoveList
 import com.barrybecker4.game.common.board.GamePiece
 import com.barrybecker4.game.twoplayer.common.{BestMoveFinder, TwoPlayerMove}

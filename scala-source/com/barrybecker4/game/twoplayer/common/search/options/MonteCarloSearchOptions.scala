@@ -11,7 +11,6 @@ class MonteCarloSearchOptions(
   style: MaximizationStyle
 ):
 
-  import MonteCarloSearchOptions.*
 
   private var maxSimulations: Int = maxSim
   private var exploreExploitRatio: Double = exploreExploit

@@ -1,7 +1,7 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.common.search.transposition
 
-import com.barrybecker4.game.common.board.{BoardPosition, GamePiece}
+import com.barrybecker4.game.common.board.BoardPosition
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.elements.position.GoStone
 import com.barrybecker4.game.twoplayer.go.board.move.GoMove

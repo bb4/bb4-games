@@ -6,7 +6,7 @@ import com.barrybecker4.game.multiplayer.set.SetController
 import com.barrybecker4.ui.components.GradientButton
 import com.barrybecker4.ui.dialogs.OptionsDialog
 
-import java.awt.{BorderLayout, Component, FlowLayout, event}
+import java.awt.{BorderLayout, Component, FlowLayout}
 import java.awt.event.ActionEvent
 import javax.swing.{JComponent, JPanel}
 import scala.compiletime.uninitialized

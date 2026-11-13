@@ -2,7 +2,6 @@
 package com.barrybecker4.game.twoplayer.blockade
 
 import com.barrybecker4.common.geometry.ByteLocation
-import com.barrybecker4.game.common.MoveList
 import com.barrybecker4.game.common.board.GamePiece
 import com.barrybecker4.game.twoplayer.blockade.board.BlockadeBoardPosition
 import com.barrybecker4.game.twoplayer.blockade.board.move.BlockadeMove

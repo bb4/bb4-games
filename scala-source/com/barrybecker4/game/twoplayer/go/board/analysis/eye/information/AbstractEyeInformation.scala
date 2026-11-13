@@ -4,7 +4,6 @@ package com.barrybecker4.game.twoplayer.go.board.analysis.eye.information
 import com.barrybecker4.game.twoplayer.go.board.elements.eye.IGoEye
 
 import java.util
-import java.util.Arrays
 
 /**
  * Enum for the different possible Eye shapes.

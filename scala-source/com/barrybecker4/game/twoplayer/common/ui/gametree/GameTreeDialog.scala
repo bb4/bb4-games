@@ -7,7 +7,6 @@ import com.barrybecker4.game.common.ui.panel.GameChangedListener
 import com.barrybecker4.game.twoplayer.common.TwoPlayerController
 import com.barrybecker4.game.twoplayer.common.TwoPlayerViewModel
 import com.barrybecker4.game.twoplayer.common.search.tree.IGameTreeViewable
-import com.barrybecker4.game.twoplayer.common.search.tree.SearchTreeNode
 import com.barrybecker4.game.twoplayer.common.ui.AbstractTwoPlayerBoardViewer
 import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerPieceRenderer
 import com.barrybecker4.ui.dialogs.AbstractDialog

@@ -14,7 +14,6 @@ import java.awt.{BorderLayout, Color, Component, Dimension, Graphics, Graphics2D
 import java.awt.event.{ActionEvent, ActionListener}
 import javax.swing._
 import javax.swing.border.EtchedBorder
-import scala.compiletime.uninitialized
 
 /**
  * Play a battle sequence that is stored in a GalacticTurn.

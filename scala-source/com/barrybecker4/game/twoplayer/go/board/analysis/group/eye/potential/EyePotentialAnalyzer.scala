@@ -6,7 +6,6 @@ import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.analysis.group.GroupAnalyzerMap
 import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup
 import com.barrybecker4.game.twoplayer.go.board.elements.string.IGoString
-import scala.jdk.CollectionConverters._
 
 /**
  * Figure out how likely (the potential) that a group can form two eyes.

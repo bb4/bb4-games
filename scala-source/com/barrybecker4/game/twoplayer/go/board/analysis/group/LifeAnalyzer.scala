@@ -6,7 +6,7 @@ import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.analysis.neighbor.{NeighborAnalyzer, NeighborType}
 import com.barrybecker4.game.twoplayer.go.board.elements.eye.{GoEyeList, GoEyeSet, IGoEye}
 import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup
-import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoBoardPositionSet}
+import com.barrybecker4.game.twoplayer.go.board.elements.position.GoBoardPosition
 import com.barrybecker4.game.twoplayer.go.board.elements.string.{GoStringSet, IGoString}
 
 import java.util.{HashMap, LinkedList, List, Map}

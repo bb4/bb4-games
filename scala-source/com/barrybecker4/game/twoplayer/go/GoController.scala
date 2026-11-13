@@ -15,7 +15,6 @@ import com.barrybecker4.game.twoplayer.go.persistence.{GoGameExporter, GoGameImp
 import com.barrybecker4.game.twoplayer.go.ui.rendering.GoStoneRenderer
 import java.awt.Color
 import java.io.{IOException, InputStream}
-import scala.jdk.CollectionConverters._
 
 /**
  * Defines everything the computer needs to know to play Go.

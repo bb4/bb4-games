@@ -7,7 +7,7 @@ import com.barrybecker4.game.twoplayer.common.persistence.TwoPlayerGameExporter
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.move.GoMove
 import com.barrybecker4.game.twoplayer.go.options.GoOptions
-import java.io.{IOException, Writer}
+import java.io.IOException
 
 /**
  * Exports the state of a Go game to a file.

@@ -3,7 +3,7 @@ package com.barrybecker4.game.multiplayer.galactic
 
 import com.barrybecker4.common.geometry.ByteLocation
 import com.barrybecker4.game.common.{GameContext, GameOptions}
-import com.barrybecker4.game.common.player.{Player, PlayerList}
+import com.barrybecker4.game.common.player.PlayerList
 import com.barrybecker4.game.common.ui.viewer.GameBoardViewer
 import com.barrybecker4.game.multiplayer.common.{MultiGameController, MultiGamePlayer}
 import com.barrybecker4.game.multiplayer.galactic.player.GalacticPlayer

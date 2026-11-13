@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test
 import com.barrybecker4.common.geometry.ByteLocation
 import com.barrybecker4.common.geometry.Location
 import com.barrybecker4.game.twoplayer.go.GoTestCase
-import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.PositionalScore
 import com.barrybecker4.game.twoplayer.go.options.GoWeights
 import com.barrybecker4.optimization.parameter.ParameterArray

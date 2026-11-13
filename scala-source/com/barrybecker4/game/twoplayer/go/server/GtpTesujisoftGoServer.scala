@@ -85,8 +85,8 @@ object GtpTesujisoftGoServer {
       gtpTSGoServer.mainLoop()
       log.close()
     } catch {
-      case t: Throwable =>
-        StringUtils.printException(t)
+      case e: Exception =>
+        StringUtils.printException(e)
         System.exit(-1)
     }
   }

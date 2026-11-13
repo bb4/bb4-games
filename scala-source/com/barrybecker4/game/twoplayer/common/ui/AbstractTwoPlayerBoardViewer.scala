@@ -2,7 +2,6 @@
 package com.barrybecker4.game.twoplayer.common.ui
 
 import com.barrybecker4.game.common.GameContext
-import com.barrybecker4.game.common.player.PlayerList
 import com.barrybecker4.game.common.ui.ComputerMoveProgressBar
 import com.barrybecker4.game.common.ui.panel.GameChangedEvent
 import com.barrybecker4.game.common.ui.panel.GameChangedListener

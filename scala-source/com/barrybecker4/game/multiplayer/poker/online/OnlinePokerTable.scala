@@ -6,8 +6,7 @@ import com.barrybecker4.game.common.player.Player
 import com.barrybecker4.game.multiplayer.common.MultiGamePlayer
 import com.barrybecker4.game.multiplayer.common.online.ui.MultiPlayerOnlineTable
 import com.barrybecker4.game.multiplayer.poker.PokerOptions
-import com.barrybecker4.game.multiplayer.poker.player.{PokerPlayer, PokerRobotPlayer}
-import java.awt.Color
+import com.barrybecker4.game.multiplayer.poker.player.PokerRobotPlayer
 
 class OnlinePokerTable(name: String, initialPlayer: Player, options: GameOptions) 
     extends MultiPlayerOnlineTable(name, initialPlayer, options) {

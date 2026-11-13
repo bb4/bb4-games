@@ -1,15 +1,12 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.go.board.analysis.eye
 
-import com.barrybecker4.game.common.board.BoardPosition
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.analysis.eye.information._
 import com.barrybecker4.game.twoplayer.go.board.analysis.group.GroupAnalyzer
 import com.barrybecker4.game.twoplayer.go.board.analysis.neighbor.{NeighborAnalyzer, NeighborType}
 import com.barrybecker4.game.twoplayer.go.board.elements.eye.IGoEye
-import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup
-import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoBoardPositionSet}
-import scala.jdk.CollectionConverters._
+import com.barrybecker4.game.twoplayer.go.board.elements.position.GoBoardPosition
 
 /**
  * Determine the type of an eye on the board.

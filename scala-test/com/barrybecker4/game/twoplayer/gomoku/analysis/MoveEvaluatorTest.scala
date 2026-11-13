@@ -13,7 +13,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 
-import scala.jdk.CollectionConverters.*
 
 /**
  * Verify that we correctly evaluate patterns on the board.

@@ -3,7 +3,6 @@ package com.barrybecker4.game.multiplayer.poker.hand
 
 import com.barrybecker4.game.card.{Card, Rank}
 import java.util.{ArrayList, Collections, HashMap, List}
-import scala.jdk.CollectionConverters.*
 
 private class RankGrouping(hand: List[Card]) {
   import Rank.*

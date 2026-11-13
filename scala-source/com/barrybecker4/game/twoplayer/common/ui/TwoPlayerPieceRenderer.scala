@@ -1,11 +1,11 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.common.ui
 
-import com.barrybecker4.game.common.board.{Board, BoardPosition, GamePiece}
+import com.barrybecker4.game.common.board.{Board, GamePiece}
 import com.barrybecker4.game.common.ui.viewer.GamePieceRenderer
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove
 
-import java.awt.{Color, Graphics2D, Point}
+import java.awt.{Color, Graphics2D}
 import java.text.DecimalFormat
 
 /**

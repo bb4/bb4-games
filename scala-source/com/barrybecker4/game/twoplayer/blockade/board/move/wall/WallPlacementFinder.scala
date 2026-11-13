@@ -4,7 +4,7 @@ package com.barrybecker4.game.twoplayer.blockade.board.move.wall
 import com.barrybecker4.game.common.GameContext
 import com.barrybecker4.game.twoplayer.blockade.board.{BlockadeBoard, Homes}
 import com.barrybecker4.game.twoplayer.blockade.board.move.BlockadeMove
-import com.barrybecker4.game.twoplayer.blockade.board.path.{Path, PathList, PlayerPathLengths}
+import com.barrybecker4.game.twoplayer.blockade.board.path.{Path, PathList}
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy
 import com.barrybecker4.optimization.parameter.ParameterArray
 import scala.collection.mutable.ListBuffer

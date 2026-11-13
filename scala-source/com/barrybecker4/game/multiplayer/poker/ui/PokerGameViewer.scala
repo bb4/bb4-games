@@ -11,7 +11,6 @@ import com.barrybecker4.game.multiplayer.poker.player.{PokerPlayer, PokerRobotPl
 import com.barrybecker4.game.multiplayer.poker.ui.dialog.RoundOverDialog
 import com.barrybecker4.game.multiplayer.poker.ui.render.PokerGameRenderer
 import javax.swing.JOptionPane
-import java.awt.Point
 
 class PokerGameViewer extends MultiGameViewer[Move, com.barrybecker4.game.common.board.Board[Move]] {
 

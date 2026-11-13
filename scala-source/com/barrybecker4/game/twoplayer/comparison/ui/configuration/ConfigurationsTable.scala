@@ -1,12 +1,10 @@
 // Copyright by Barry G. Becker, 2012. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 package com.barrybecker4.game.twoplayer.comparison.ui.configuration
 
-import com.barrybecker4.game.twoplayer.common.search.options.SearchOptions
 import com.barrybecker4.game.twoplayer.comparison.model.config.{SearchOptionsConfig, SearchOptionsConfigList}
 import com.barrybecker4.ui.table.{BasicCellRenderer, BasicTableModel, TableBase, TableColumnMeta}
 
 import javax.swing.table.TableModel
-import scala.jdk.CollectionConverters._
 import scala.jdk.javaapi.CollectionConverters as JavaConverters
 
 /**

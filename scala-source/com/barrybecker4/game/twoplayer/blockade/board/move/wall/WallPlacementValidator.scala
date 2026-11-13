@@ -5,7 +5,6 @@ import com.barrybecker4.common.geometry.Location
 import com.barrybecker4.game.common.GameContext
 import com.barrybecker4.game.twoplayer.blockade.board.{BlockadeBoard, BlockadeBoardPosition, Homes}
 import com.barrybecker4.game.twoplayer.blockade.board.analysis.BoardAnalyzer
-import com.barrybecker4.game.twoplayer.blockade.board.path.PathList
 import scala.collection.mutable
 import scala.jdk.CollectionConverters.*
 

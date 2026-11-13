@@ -3,10 +3,9 @@ package com.barrybecker4.game.twoplayer.blockade.board.move
 
 import com.barrybecker4.common.geometry.Location
 import com.barrybecker4.game.common.board.GamePiece
-import com.barrybecker4.game.twoplayer.blockade.board.{BlockadeBoardPosition, Direction}
+import com.barrybecker4.game.twoplayer.blockade.board.Direction
 import com.barrybecker4.game.twoplayer.blockade.board.move.wall.BlockadeWall
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove
-import scala.jdk.CollectionConverters.*
 
 object BlockadeMove:
   def createMove(origin: Location, destination: Location, 

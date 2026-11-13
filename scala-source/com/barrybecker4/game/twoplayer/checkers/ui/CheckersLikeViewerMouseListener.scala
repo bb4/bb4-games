@@ -1,9 +1,8 @@
 /* Copyright by Barry G. Becker, 2000-2015. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.checkers.ui
 
-import com.barrybecker4.common.geometry.Location
-import com.barrybecker4.game.common.{GameContext, GameController}
-import com.barrybecker4.game.common.board.{Board, BoardPosition, GamePiece}
+import com.barrybecker4.game.common.GameContext
+import com.barrybecker4.game.common.board.BoardPosition
 import com.barrybecker4.game.common.ui.viewer.{GameBoardViewer, ViewerMouseListener}
 import com.barrybecker4.game.twoplayer.common.{TwoPlayerBoard, TwoPlayerController, TwoPlayerMove}
 import com.barrybecker4.game.twoplayer.common.ui.AbstractTwoPlayerBoardViewer

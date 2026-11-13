@@ -10,7 +10,7 @@ import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPositi
 import com.barrybecker4.ui.util.GUIUtil
 import javax.swing.ImageIcon
 import java.awt.{Color, Font, Graphics2D, Image, Point}
-import java.awt.image.{BufferedImage, RescaleOp}
+import java.awt.image.RescaleOp
 
 /**
  * Singleton class that takes a go piece and renders it for the GoBoardViewer.

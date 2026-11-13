@@ -3,8 +3,7 @@ package com.barrybecker4.game.twoplayer.blockade.ui
 
 import com.barrybecker4.common.geometry.Location
 import com.barrybecker4.game.common.GameContext
-import com.barrybecker4.game.common.board.{Board, BoardPosition, GamePiece}
-import com.barrybecker4.game.common.ui.viewer.{GameBoardRenderer, GameBoardViewer, ViewerMouseListener}
+import com.barrybecker4.game.common.ui.viewer.{GameBoardViewer, ViewerMouseListener}
 import com.barrybecker4.game.twoplayer.blockade.BlockadeController
 import com.barrybecker4.game.twoplayer.blockade.board.{BlockadeBoard, BlockadeBoardPosition}
 import com.barrybecker4.game.twoplayer.blockade.board.move.BlockadeMove

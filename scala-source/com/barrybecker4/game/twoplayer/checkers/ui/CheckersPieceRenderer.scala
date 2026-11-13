@@ -2,7 +2,7 @@
 package com.barrybecker4.game.twoplayer.checkers.ui
 
 import com.barrybecker4.game.common.board.GamePiece
-import com.barrybecker4.game.twoplayer.checkers.{CheckersPiece, CheckersPieceType}
+import com.barrybecker4.game.twoplayer.checkers.CheckersPiece
 import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerPieceRenderer
 
 import java.awt.{Color, Graphics2D, Point}

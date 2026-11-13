@@ -8,8 +8,6 @@ import com.barrybecker4.game.twoplayer.common.WinProbabilityCalculator
 import com.barrybecker4.game.twoplayer.common.search.options.MaximizationStyle
 import com.barrybecker4.game.twoplayer.common.search.tree.NodeAttributes
 
-import scala.collection.mutable.ListBuffer
-import scala.jdk.CollectionConverters.*
 
 /**
  * A node in the in memory UCT tree created during search.

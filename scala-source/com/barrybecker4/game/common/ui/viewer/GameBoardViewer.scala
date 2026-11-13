@@ -3,7 +3,6 @@ package com.barrybecker4.game.common.ui.viewer
 
 import com.barrybecker4.game.common.{GameContext, GameController, GameViewModel, Move, MoveList}
 import com.barrybecker4.game.common.board.{Board, IBoard}
-import com.barrybecker4.game.common.persistence.GameExporter
 import com.barrybecker4.game.common.ui.SgfFileFilter
 import com.barrybecker4.game.common.ui.panel.{GameChangedEvent, GameChangedListener}
 import com.barrybecker4.game.common.ui.ComputerMoveProgressBar
@@ -11,7 +10,6 @@ import com.barrybecker4.ui.file.FileChooserUtil
 import javax.swing._
 import java.awt.{Color, Cursor, Graphics}
 import java.io.File
-import scala.jdk.CollectionConverters._
 
 /**
  * This class contains a GameController and displays the current state of the Game.

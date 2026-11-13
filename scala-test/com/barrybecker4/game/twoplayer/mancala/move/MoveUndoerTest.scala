@@ -2,7 +2,6 @@
 package com.barrybecker4.game.twoplayer.mancala.move
 
 import com.barrybecker4.common.geometry.ByteLocation
-import com.barrybecker4.common.geometry.Location
 import com.barrybecker4.game.twoplayer.mancala.board.MancalaBoard
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.funsuite.AnyFunSuite

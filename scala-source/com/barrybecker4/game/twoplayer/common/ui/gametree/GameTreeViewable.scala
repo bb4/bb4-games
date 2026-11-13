@@ -7,7 +7,6 @@ import com.barrybecker4.game.twoplayer.common.search.tree.IGameTreeViewable
 import com.barrybecker4.game.twoplayer.common.search.tree.NodeAttributes
 import com.barrybecker4.game.twoplayer.common.search.tree.SearchTreeNode
 
-import java.util.Enumeration
 
 /**
  * Responsible for handling events related to modifying the nodes in the game tree.

@@ -41,7 +41,6 @@ class BestMovesSearchOptions(
   minBestMoves: Int = BestMovesSearchOptions.DEFAULT_MIN_BEST_MOVES
 ):
 
-  import BestMovesSearchOptions.*
 
   /** percent of the best moves to consider */
   private var bestPercentage_ : Int = bestPercentage

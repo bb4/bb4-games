@@ -2,8 +2,6 @@
 package com.barrybecker4.game.multiplayer.poker.hand
 
 import com.barrybecker4.game.card.{Card, Deck}
-import scala.collection.mutable.ArrayBuffer
-import scala.jdk.CollectionConverters.*
 
 class Hand(private val hand: java.util.List[Card], private var faceUp: Boolean = false) {
 

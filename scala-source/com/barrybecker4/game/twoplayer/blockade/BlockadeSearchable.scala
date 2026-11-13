@@ -1,16 +1,13 @@
-/* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
+/* Copyright by Barry G. Becker, 2000-2026. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.blockade
 
 import com.barrybecker4.game.common.{GameContext, MoveList}
-import com.barrybecker4.game.common.board.{BoardPosition, GamePiece}
 import com.barrybecker4.game.common.player.PlayerList
 import com.barrybecker4.game.twoplayer.blockade.board.BlockadeBoard
 import com.barrybecker4.game.twoplayer.blockade.board.move.{BlockadeMove, MoveGenerator}
-import com.barrybecker4.game.twoplayer.blockade.board.path.PlayerPathLengths
 import com.barrybecker4.game.twoplayer.common.TwoPlayerSearchable
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy
 import com.barrybecker4.optimization.parameter.ParameterArray
-import scala.jdk.CollectionConverters.*
 
 class BlockadeSearchable(board: BlockadeBoard, players: PlayerList) 
     extends TwoPlayerSearchable[BlockadeMove, BlockadeBoard](board, players):

@@ -4,10 +4,9 @@ package com.barrybecker4.game.twoplayer.common.search.strategy
 import com.barrybecker4.game.common.MoveList
 import com.barrybecker4.game.twoplayer.common.{TwoPlayerMove, TwoPlayerBoard}
 import com.barrybecker4.game.twoplayer.common.search.{SearchWindow, Searchable}
-import com.barrybecker4.game.twoplayer.common.search.transposition.{Entry, HashKey, TranspositionTable}
+import com.barrybecker4.game.twoplayer.common.search.transposition.{Entry, TranspositionTable}
 import com.barrybecker4.game.twoplayer.common.search.tree.SearchTreeNode
 import com.barrybecker4.optimization.parameter.ParameterArray
-import scala.Option
 
 /**
  *  This strategy class defines the NegaMax with memory search algorithm.

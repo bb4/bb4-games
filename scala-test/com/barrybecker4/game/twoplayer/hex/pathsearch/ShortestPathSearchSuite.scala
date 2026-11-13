@@ -1,6 +1,5 @@
 package com.barrybecker4.game.twoplayer.hex.pathsearch
 
-import com.barrybecker4.common.geometry.Location
 import com.barrybecker4.game.common.board.GamePiece
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove
 import com.barrybecker4.game.twoplayer.hex.HexBoard
@@ -8,7 +7,6 @@ import org.scalatest.BeforeAndAfterEach
 import org.scalatest.funsuite.AnyFunSuite
 
 import scala.compiletime.uninitialized
-import scala.jdk.CollectionConverters.*
 
 class ShortestPathSearchSuite extends AnyFunSuite with BeforeAndAfterEach:
 

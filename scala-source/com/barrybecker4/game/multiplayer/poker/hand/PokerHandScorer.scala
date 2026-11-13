@@ -1,7 +1,7 @@
 // Copyright by Barry G. Becker, 2012. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 package com.barrybecker4.game.multiplayer.poker.hand
 
-import com.barrybecker4.game.card.{Card, Rank, Suit}
+import com.barrybecker4.game.card.Rank
 import java.util.List
 import HandType.*
 

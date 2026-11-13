@@ -2,7 +2,6 @@
 package com.barrybecker4.game.twoplayer.common.ui.dialogs
 
 import com.barrybecker4.game.common.GameContext
-import com.barrybecker4.game.common.player.PlayerList
 import com.barrybecker4.game.twoplayer.common.TwoPlayerController
 import com.barrybecker4.ui.components.GradientButton
 import com.barrybecker4.ui.dialogs.OptionsDialog

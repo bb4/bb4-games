@@ -2,7 +2,7 @@
 package com.barrybecker4.game.twoplayer.comparison.ui.grid
 
 import com.barrybecker4.common.util.FileUtil
-import com.barrybecker4.game.common.{GameContext, GameViewModel}
+import com.barrybecker4.game.common.GameContext
 import com.barrybecker4.game.common.plugin.PluginManager
 import com.barrybecker4.game.common.ui.menu.GameMenuListener
 import com.barrybecker4.game.common.ui.panel.IGamePanel

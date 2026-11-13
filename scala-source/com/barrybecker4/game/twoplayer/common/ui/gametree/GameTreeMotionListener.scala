@@ -10,7 +10,6 @@ import com.barrybecker4.game.twoplayer.common.search.tree.SearchTreeNode
 import com.barrybecker4.game.twoplayer.common.ui.AbstractTwoPlayerBoardViewer
 
 import javax.swing.*
-import javax.swing.tree.TreePath
 import java.awt.event.MouseEvent
 import java.awt.event.MouseMotionListener
 import java.util.LinkedList

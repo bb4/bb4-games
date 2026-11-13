@@ -1,10 +1,10 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.multiplayer.poker.ui.infopanel
 
-import com.barrybecker4.game.common.{GameContext, GameController, Move}
+import com.barrybecker4.game.common.{GameContext, GameController}
 import com.barrybecker4.game.common.player.Player
-import com.barrybecker4.game.common.ui.panel.{GameChangedEvent, GameChangedListener, GameInfoPanel, GeneralInfoPanel, SectionPanel}
-import com.barrybecker4.game.multiplayer.poker.model.{PokerAction, PokerRound}
+import com.barrybecker4.game.common.ui.panel.{GameInfoPanel, GeneralInfoPanel, SectionPanel}
+import com.barrybecker4.game.multiplayer.poker.model.PokerAction
 import com.barrybecker4.game.multiplayer.poker.PokerController
 import com.barrybecker4.game.multiplayer.poker.player.PokerPlayer
 import com.barrybecker4.game.multiplayer.poker.ui.dialog.BettingDialog

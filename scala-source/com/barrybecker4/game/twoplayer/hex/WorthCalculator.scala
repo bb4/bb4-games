@@ -1,6 +1,5 @@
 package com.barrybecker4.game.twoplayer.hex
 
-import com.barrybecker4.common.geometry.Location
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy
 import com.barrybecker4.optimization.parameter.ParameterArray

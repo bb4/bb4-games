@@ -5,8 +5,7 @@ import com.barrybecker4.common.geometry.Box
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.analysis.group.GroupAnalyzerMap
 import com.barrybecker4.game.twoplayer.go.board.analysis.neighbor.{NeighborAnalyzer, NeighborType}
-import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup
-import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoBoardPositionList, GoBoardPositionLists, GoBoardPositionSet}
+import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoBoardPositionLists, GoBoardPositionSet}
 
 /**
  * Updates the empty regions on the board at the end of the game.

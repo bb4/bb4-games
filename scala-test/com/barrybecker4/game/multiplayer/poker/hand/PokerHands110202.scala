@@ -1,11 +1,9 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.multiplayer.poker.hand
 
-import com.barrybecker4.game.card.{Card, Rank}
-import org.scalatest.funsuite.AnyFunSuite
+import com.barrybecker4.game.card.Card
 
 import java.io.{IOException, InputStream}
-import java.util
 import java.util.{ArrayList, StringTokenizer}
 
 /**

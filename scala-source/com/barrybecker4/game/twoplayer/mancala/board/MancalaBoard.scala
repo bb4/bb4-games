@@ -6,7 +6,6 @@ import com.barrybecker4.game.common.Move
 import com.barrybecker4.game.common.board.BoardPosition
 import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard
 import com.barrybecker4.game.twoplayer.mancala.move.{Captures, MancalaMove, MoveMaker, MoveUndoer}
-import scala.jdk.CollectionConverters.*
 
 /**
   * Representation of a Mancala Game Board.

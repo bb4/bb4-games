@@ -13,9 +13,7 @@ import java.awt.Color
 import java.awt.GradientPaint
 import java.awt.Graphics
 import java.awt.Graphics2D
-import java.awt.Point
 import java.awt.RenderingHints
-import java.util.Enumeration
 import java.util.LinkedList
 import java.util.List
 

@@ -1,7 +1,6 @@
 package com.barrybecker4.game.twoplayer.hex.ui
 
-import com.barrybecker4.common.geometry.Location
-import com.barrybecker4.game.common.board.{BoardPosition, GamePiece}
+import com.barrybecker4.game.common.board.GamePiece
 import com.barrybecker4.game.common.ui.viewer.ViewerMouseListener
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove
 import com.barrybecker4.game.twoplayer.hex.{HexBoard, HexController}

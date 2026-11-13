@@ -6,7 +6,6 @@ import com.barrybecker4.game.common.online.server.IServerConnection
 import com.barrybecker4.game.common.player.{Player, PlayerAction}
 
 import java.util.concurrent.CopyOnWriteArrayList
-import scala.jdk.CollectionConverters._
 
 /**
  * Opens a socket to the Game server from the client so we can talk to it.

@@ -3,7 +3,6 @@ package com.barrybecker4.game.twoplayer.go.board.move
 
 import com.barrybecker4.common.geometry.ByteLocation
 import com.barrybecker4.game.common.{GameContext, MoveList}
-import com.barrybecker4.game.common.board.{Board, CaptureList}
 import com.barrybecker4.game.twoplayer.common.{BestMoveFinder, TwoPlayerMove}
 import com.barrybecker4.game.twoplayer.go.board.{GoBoard, GoProfiler, GoSearchable}
 import com.barrybecker4.game.twoplayer.go.board.analysis.CandidateMoveAnalyzer

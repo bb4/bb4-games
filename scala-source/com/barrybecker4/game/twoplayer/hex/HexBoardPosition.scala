@@ -1,7 +1,6 @@
 package com.barrybecker4.game.twoplayer.hex
 
 import com.barrybecker4.common.geometry.{ByteLocation, Location}
-import com.barrybecker4.game.common.board.Board
 import com.barrybecker4.game.common.board.{BoardPosition, GamePiece}
 
 /**

@@ -4,7 +4,7 @@ package com.barrybecker4.game.twoplayer.common.search.strategy
 import com.barrybecker4.game.common.{GameContext, MoveList}
 import com.barrybecker4.game.twoplayer.common.{TwoPlayerMove, TwoPlayerBoard}
 import com.barrybecker4.game.twoplayer.common.search.{SearchWindow, Searchable}
-import com.barrybecker4.game.twoplayer.common.search.options.{BruteSearchOptions, SearchOptions}
+import com.barrybecker4.game.twoplayer.common.search.options.SearchOptions
 import com.barrybecker4.game.twoplayer.common.search.tree.{NodeAttributes, SearchTreeNode}
 import com.barrybecker4.optimization.parameter.ParameterArray
 import java.util.List

@@ -6,7 +6,6 @@ import com.barrybecker4.game.twoplayer.go.board.elements.eye.IGoEye
 import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup
 import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoBoardPositionSet}
 import java.util.List
-import scala.jdk.CollectionConverters._
 
 
 class StubGoEye(members: GoBoardPositionSet) extends IGoEye:

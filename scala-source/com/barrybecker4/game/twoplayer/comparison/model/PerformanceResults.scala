@@ -7,7 +7,6 @@ import com.barrybecker4.game.common.persistence.GameExporter
 import com.barrybecker4.ui.util.ImageUtil
 
 import java.awt.image.BufferedImage
-import java.io.PrintWriter
 
 /**
  * Right now this just contains the name of the config and the

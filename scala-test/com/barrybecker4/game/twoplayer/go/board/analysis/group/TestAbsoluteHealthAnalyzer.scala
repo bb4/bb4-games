@@ -2,8 +2,6 @@
 package com.barrybecker4.game.twoplayer.go.board.analysis.group
 
 import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import com.barrybecker4.common.format.FormatUtil
 import com.barrybecker4.game.twoplayer.go.GoTestCase
@@ -12,9 +10,7 @@ import com.barrybecker4.game.twoplayer.go.board.analysis.eye.information.E1Infor
 import com.barrybecker4.game.twoplayer.go.board.analysis.eye.information.E2Information
 import com.barrybecker4.game.twoplayer.go.board.analysis.eye.information.EyeInformation
 import com.barrybecker4.game.twoplayer.go.board.elements.eye.GoEyeSet
-import com.barrybecker4.game.twoplayer.go.board.elements.eye.IGoEye
 import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup
-import java.util.Arrays
 import com.barrybecker4.game.twoplayer.go.board.analysis.eye.information.E4Information.Eye4Type.E2222
 import com.barrybecker4.game.twoplayer.go.board.analysis.eye.information.E5Information.Eye5Type.E12223
 import com.barrybecker4.game.twoplayer.go.board.analysis.eye.information.E6Information.Eye6Type.E222233

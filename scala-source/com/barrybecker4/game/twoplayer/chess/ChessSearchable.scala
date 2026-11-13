@@ -8,7 +8,6 @@ import com.barrybecker4.game.twoplayer.checkers.CheckersBoard
 import com.barrybecker4.game.twoplayer.common.TwoPlayerSearchable
 import com.barrybecker4.optimization.parameter.ParameterArray
 
-import scala.jdk.CollectionConverters._
 
 class ChessSearchable(board: ChessBoard, players: PlayerList)
     extends TwoPlayerSearchable[ChessMove, ChessBoard](board, players) {

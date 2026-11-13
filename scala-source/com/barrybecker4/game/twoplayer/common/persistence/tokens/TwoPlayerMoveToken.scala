@@ -3,7 +3,7 @@ package com.barrybecker4.game.twoplayer.common.persistence.tokens
 
 import com.barrybecker4.ca.dj.jigo.sgf.Point
 import com.barrybecker4.ca.dj.jigo.sgf.tokens.PlacementToken
-import java.io.{IOException, StreamTokenizer}
+import java.io.StreamTokenizer
 
 /**
  * A generic two player move.

@@ -5,7 +5,6 @@ import com.barrybecker4.game.common.board.BoardPosition
 import com.barrybecker4.game.twoplayer.go.board.{GoBoard, GoProfiler}
 import com.barrybecker4.game.twoplayer.go.board.elements.group.{GoGroup, GoGroupSet}
 import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoBoardPositionList, GoBoardPositionSet}
-import scala.jdk.CollectionConverters._
 
 /**
  * Performs static analysis of a go board to determine groups.
@@ -328,7 +327,7 @@ class GroupNeighborAnalyzer(board_ : GoBoard) {
     if (nbr.isOccupied &&
       (!sameSideOnly || nbr.getPiece.isOwnedByPlayer1 == friendPlayer1) && !nbr.isVisited) {
 
-      val (intermediate1, intermediate2): (BoardPosition, BoardPosition) =
+      val (intermediate1, intermediate2) =
         if (math.abs(rowOffset) == 2) {
           val rr = r + (rowOffset >> 1)
           (board_.getPosition(rr, c), board_.getPosition(rr, c + colOffset))

@@ -2,7 +2,7 @@
 package com.barrybecker4.game.common.ui.menu
 
 import javax.swing.{BorderFactory, JMenu, JMenuItem}
-import java.awt.event.{ActionEvent, ActionListener}
+import java.awt.event.ActionListener
 import scala.jdk.CollectionConverters._
 
 /**

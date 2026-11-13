@@ -1,7 +1,7 @@
 // Copyright by Barry G. Becker, 2012. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 package com.barrybecker4.game.multiplayer.poker.ui
 
-import com.barrybecker4.game.common.player.{Player, PlayerList}
+import com.barrybecker4.game.common.player.PlayerList
 import com.barrybecker4.game.multiplayer.poker.player.PokerPlayer
 
 class GameOverMessage(players: PlayerList) {

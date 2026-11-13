@@ -5,7 +5,6 @@ import com.barrybecker4.game.common.board.Board
 import com.barrybecker4.game.common.player.Player
 import com.barrybecker4.game.common.ui.viewer.GameBoardRenderer
 import com.barrybecker4.game.twoplayer.checkers.ui.CheckersBoardRenderer
-import com.barrybecker4.game.twoplayer.chess.ChessMove
 
 import java.awt.Graphics2D
 

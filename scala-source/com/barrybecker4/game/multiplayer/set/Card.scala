@@ -1,8 +1,6 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.multiplayer.set
 
-import scala.collection.mutable.ListBuffer
-import scala.jdk.CollectionConverters.*
 import scala.util.boundary
 import scala.util.boundary.break
 

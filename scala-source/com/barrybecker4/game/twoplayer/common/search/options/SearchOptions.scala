@@ -18,7 +18,6 @@ class SearchOptions[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
   val mcOptions: MonteCarloSearchOptions
 ):
 
-  import SearchOptions.*
 
   private var strategyMethod: SearchStrategyType = algorithm
 

@@ -2,7 +2,6 @@
 package com.barrybecker4.game.twoplayer.common.ui.gametree
 
 import com.barrybecker4.common.format.FormatUtil
-import com.barrybecker4.game.common.player.PlayerList
 import com.barrybecker4.game.twoplayer.common.TwoPlayerController
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove
 import com.barrybecker4.game.twoplayer.common.search.tree.SearchTreeNode

@@ -1,13 +1,12 @@
 // Copyright by Barry G. Becker, 2012. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 package com.barrybecker4.game.multiplayer.galactic.ui
 
-import com.barrybecker4.game.common.{GameContext, GameController, Move}
+import com.barrybecker4.game.common.{GameContext, GameController}
 import com.barrybecker4.game.common.player.Player
 import com.barrybecker4.game.common.ui.panel.GeneralInfoPanel
 
 import javax.swing.JPanel
 import javax.swing.border.TitledBorder
-import java.awt.Color
 import java.text.MessageFormat
 
 /**

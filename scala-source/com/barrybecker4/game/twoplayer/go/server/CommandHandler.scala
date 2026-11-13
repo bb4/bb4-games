@@ -2,9 +2,8 @@
 package com.barrybecker4.game.twoplayer.go.server
 
 import com.barrybecker4.common.geometry.ByteLocation
-import com.barrybecker4.game.common.{GameContext, Move}
+import com.barrybecker4.game.common.GameContext
 import com.barrybecker4.game.twoplayer.common.TwoPlayerPlayerOptions
-import com.barrybecker4.game.twoplayer.common.search.options.SearchOptions
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategyType
 import com.barrybecker4.game.twoplayer.go.GoController
 import com.barrybecker4.game.twoplayer.go.board.GoBoard

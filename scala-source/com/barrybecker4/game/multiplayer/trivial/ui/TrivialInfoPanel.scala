@@ -3,7 +3,7 @@ package com.barrybecker4.game.multiplayer.trivial.ui
 
 import com.barrybecker4.game.common.{GameContext, GameController}
 import com.barrybecker4.game.common.player.Player
-import com.barrybecker4.game.common.ui.panel.{GameChangedEvent, GameChangedListener, GameInfoPanel, GeneralInfoPanel, SectionPanel}
+import com.barrybecker4.game.common.ui.panel.{GameInfoPanel, GeneralInfoPanel, SectionPanel}
 import com.barrybecker4.game.multiplayer.trivial.{ActionName, TrivialAction, TrivialController}
 import com.barrybecker4.game.multiplayer.trivial.player.TrivialPlayer
 import com.barrybecker4.game.multiplayer.trivial.ui.dialog.RevealDialog

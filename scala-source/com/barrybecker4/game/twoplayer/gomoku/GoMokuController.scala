@@ -2,7 +2,7 @@
 package com.barrybecker4.game.twoplayer.gomoku
 
 import com.barrybecker4.game.common.GameContext
-import com.barrybecker4.game.common.board.{Board, GamePiece}
+import com.barrybecker4.game.common.board.GamePiece
 import com.barrybecker4.game.common.player.{PlayerList, PlayerOptions}
 import com.barrybecker4.game.twoplayer.common.{TwoPlayerController, TwoPlayerMove, TwoPlayerOptions}
 import com.barrybecker4.game.twoplayer.gomoku.pattern.{GoMokuPatterns, GoMokuWeights}

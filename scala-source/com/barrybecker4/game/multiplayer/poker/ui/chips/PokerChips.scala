@@ -3,7 +3,6 @@ package com.barrybecker4.game.multiplayer.poker.ui.chips
 
 import com.barrybecker4.math.Range
 import java.util.{LinkedHashMap, Map}
-import scala.jdk.CollectionConverters.*
 
 class PokerChips(amount: Int) extends LinkedHashMap[PokerChip, Integer] {
   import PokerChips.*

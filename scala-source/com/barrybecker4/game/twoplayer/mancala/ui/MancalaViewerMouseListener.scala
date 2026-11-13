@@ -1,8 +1,6 @@
 /* Copyright by Barry G. Becker, 2014. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.mancala.ui
 
-import com.barrybecker4.common.geometry.Location
-import com.barrybecker4.game.common.board.BoardPosition
 import com.barrybecker4.game.common.ui.viewer.{GameBoardViewer, ViewerMouseListener}
 import com.barrybecker4.game.twoplayer.mancala.MancalaController
 import com.barrybecker4.game.twoplayer.mancala.board.{MancalaBin, MancalaBoard}

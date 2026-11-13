@@ -5,7 +5,7 @@ import com.barrybecker4.game.common.GameContext
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.analysis.neighbor.NeighborType
 import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoBoardPositionSet}
-import com.barrybecker4.game.twoplayer.go.board.elements.string.{GoString, GoStringSet, IGoString}
+import com.barrybecker4.game.twoplayer.go.board.elements.string.{GoString, GoStringSet}
 import com.barrybecker4.game.twoplayer.go.board.move.{GoCaptureList, GoMove}
 import scala.jdk.CollectionConverters._
 

@@ -4,7 +4,7 @@ package com.barrybecker4.game.twoplayer.go.board.analysis.group.eye
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.analysis.group.GroupAnalyzerMap
 import com.barrybecker4.game.twoplayer.go.board.analysis.group.eye.potential.EyePotentialAnalyzer
-import com.barrybecker4.game.twoplayer.go.board.elements.eye.{GoEyeSet, IGoEye}
+import com.barrybecker4.game.twoplayer.go.board.elements.eye.GoEyeSet
 import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup
 import scala.jdk.CollectionConverters._
 

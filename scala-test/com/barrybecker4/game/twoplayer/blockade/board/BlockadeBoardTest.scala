@@ -7,7 +7,7 @@ import com.barrybecker4.game.common.board.{BoardPosition, GamePiece}
 import com.barrybecker4.game.twoplayer.blockade.BlockadeTestCase
 import com.barrybecker4.game.twoplayer.blockade.board.move.BlockadeMove
 import com.barrybecker4.game.twoplayer.blockade.board.move.wall.BlockadeWall
-import com.barrybecker4.game.twoplayer.blockade.board.path.{Path, PathLengths, PathList, PlayerPathLengths}
+import com.barrybecker4.game.twoplayer.blockade.board.path.{Path, PathLengths, PathList}
 import org.junit.jupiter.api.Assertions.{assertEquals, assertTrue}
 import org.junit.jupiter.api.Test
 

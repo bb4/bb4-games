@@ -2,9 +2,9 @@
 package com.barrybecker4.game.multiplayer.poker
 
 import com.barrybecker4.game.common.{GameOptions, MoveList}
-import com.barrybecker4.game.common.player.{Player, PlayerList}
+import com.barrybecker4.game.common.player.PlayerList
 import com.barrybecker4.game.multiplayer.common.{MultiGameController, MultiGamePlayer}
-import com.barrybecker4.game.multiplayer.poker.model.{Dealer, PokerAction, PokerRound, PokerTable}
+import com.barrybecker4.game.multiplayer.poker.model.{Dealer, PokerRound, PokerTable}
 import com.barrybecker4.game.multiplayer.poker.player.{PokerPlayer, PokerRobotPlayer}
 import com.barrybecker4.game.multiplayer.poker.ui.PokerGameViewer
 

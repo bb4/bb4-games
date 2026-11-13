@@ -1,7 +1,7 @@
 /* Copyright by Barry G. Becker, 2000-2015. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.common.search.strategy
 
-import com.barrybecker4.game.common.{GameContext, MoveList}
+import com.barrybecker4.game.common.MoveList
 import com.barrybecker4.game.twoplayer.common.{TwoPlayerMove, TwoPlayerBoard}
 import com.barrybecker4.game.twoplayer.common.search.Searchable
 import com.barrybecker4.game.twoplayer.common.search.options.SearchOptions

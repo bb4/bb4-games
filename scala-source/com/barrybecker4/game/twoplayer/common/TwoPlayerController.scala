@@ -11,7 +11,6 @@ import com.barrybecker4.game.twoplayer.common.search.tree.IGameTreeViewable
 import com.barrybecker4.game.twoplayer.common.ui.{OptimizationDoneHandler, TwoPlayerPieceRenderer}
 import com.barrybecker4.optimization.Optimizer
 import com.barrybecker4.optimization.optimizee.Optimizee
-import com.barrybecker4.optimization.parameter.ParameterArray
 import scala.Some
 import javax.swing.JOptionPane
 import java.awt.Color

@@ -1,9 +1,8 @@
 // Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 package com.barrybecker4.game.multiplayer.common.ui
 
-import com.barrybecker4.common.geometry.Location
 import com.barrybecker4.game.common.{GameContext, Move}
-import com.barrybecker4.game.common.board.{Board, BoardPosition, IRectangularBoard}
+import com.barrybecker4.game.common.board.{Board, IRectangularBoard}
 import com.barrybecker4.game.common.player.Player
 import com.barrybecker4.game.common.player.PlayerAction
 import com.barrybecker4.game.common.ui.panel.GameChangedEvent

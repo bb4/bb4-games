@@ -1,10 +1,9 @@
 // Copyright by Barry G. Becker, 2013. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 package com.barrybecker4.game.multiplayer.poker.hand
 
-import com.barrybecker4.game.card.{Deck, Rank}
+import com.barrybecker4.game.card.Deck
 import org.scalatest.funsuite.AnyFunSuite
 
-import java.util
 import java.util.HashMap
 
 /** Verify that the distribution of the poker hand types roughly matches reality. */

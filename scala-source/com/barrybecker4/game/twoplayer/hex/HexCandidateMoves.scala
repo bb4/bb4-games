@@ -1,6 +1,6 @@
 package com.barrybecker4.game.twoplayer.hex
 
-import com.barrybecker4.common.geometry.{ByteLocation, Location}
+import com.barrybecker4.common.geometry.ByteLocation
 import com.barrybecker4.game.common.board.BoardPosition
 import com.barrybecker4.game.common.GameContext
 

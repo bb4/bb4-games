@@ -8,7 +8,7 @@ import com.barrybecker4.game.twoplayer.go.board.analysis.CornerChecker
 import com.barrybecker4.game.twoplayer.go.board.analysis.neighbor.NeighborAnalyzer
 import com.barrybecker4.game.twoplayer.go.board.elements.group.GoGroupSet
 import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoStone}
-import com.barrybecker4.game.twoplayer.go.board.elements.string.{GoString, GoStringSet, IGoString}
+import com.barrybecker4.game.twoplayer.go.board.elements.string.GoString
 import com.barrybecker4.game.twoplayer.go.board.move.GoMove
 import com.barrybecker4.game.twoplayer.go.board.update.{BoardUpdater, CaptureCounts}
 import scala.jdk.CollectionConverters._

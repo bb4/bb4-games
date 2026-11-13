@@ -7,7 +7,6 @@ import com.barrybecker4.game.common.ui.panel.GeneralInfoPanel
 
 import javax.swing.JPanel
 import javax.swing.border.TitledBorder
-import java.awt.Color
 import java.text.MessageFormat
 
 /**

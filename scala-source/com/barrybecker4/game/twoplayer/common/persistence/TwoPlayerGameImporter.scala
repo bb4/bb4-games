@@ -1,15 +1,15 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.common.persistence
 
-import com.barrybecker4.ca.dj.jigo.sgf.{SGFException, SGFGame, SGFLoader}
-import com.barrybecker4.ca.dj.jigo.sgf.tokens.{InfoToken, PlacementToken, SGFToken, TextToken}
+import com.barrybecker4.ca.dj.jigo.sgf.{SGFGame, SGFLoader}
+import com.barrybecker4.ca.dj.jigo.sgf.tokens.{PlacementToken, SGFToken, TextToken}
 import com.barrybecker4.game.common.GameContext
 import com.barrybecker4.game.common.MoveList
 import com.barrybecker4.game.common.board.{GamePiece, IRectangularBoard}
 import com.barrybecker4.game.common.persistence.GameImporter
 import com.barrybecker4.game.twoplayer.common.{TwoPlayerController, TwoPlayerMove, TwoPlayerBoard}
 import com.barrybecker4.game.twoplayer.common.persistence.tokens.{Player1MoveToken, Player1NameToken, Player2NameToken, Size2Token, TwoPlayerMoveToken}
-import java.io.{IOException, InputStream}
+import java.io.InputStream
 
 /**
  * Imports the state of a two player game from a file.

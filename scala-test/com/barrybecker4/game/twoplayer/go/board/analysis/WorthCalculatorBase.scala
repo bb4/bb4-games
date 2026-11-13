@@ -3,7 +3,6 @@ package com.barrybecker4.game.twoplayer.go.board.analysis
 
 import com.barrybecker4.game.common.Move
 import com.barrybecker4.game.twoplayer.go.GoTestCase
-import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.analysis.group.GroupAnalyzerMap
 import com.barrybecker4.game.twoplayer.go.options.GoWeights
 import org.junit.jupiter.api.Assertions.assertEquals

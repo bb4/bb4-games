@@ -2,7 +2,7 @@
 package com.barrybecker4.game.common.ui.dialogs
 
 import com.barrybecker4.common.i18n.{LocaleType, MessageContext}
-import com.barrybecker4.game.common.{GameContext, GameController, GameOptions, GameViewModel}
+import com.barrybecker4.game.common.{GameContext, GameController, GameOptions}
 import com.barrybecker4.game.common.ui.viewer.GameBoardViewer
 import com.barrybecker4.ui.components.{ColorInputPanel, GradientButton, NumberInput, RadioButtonPanel}
 import com.barrybecker4.ui.dialogs.OptionsDialog

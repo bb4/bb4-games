@@ -5,11 +5,9 @@ import com.barrybecker4.common.geometry.Location
 import com.barrybecker4.game.card.{Card, Suit}
 import com.barrybecker4.game.common.GameContext
 import com.barrybecker4.game.multiplayer.poker.hand.Hand
-import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerBoardRenderer
 import com.barrybecker4.ui.util.GUIUtil
 import javax.swing.ImageIcon
-import java.awt.{Color, Font, Graphics2D}
-import scala.jdk.CollectionConverters.*
+import java.awt.{Color, Graphics2D}
 
 class HandRenderer {
   import HandRenderer.*

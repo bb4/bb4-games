@@ -8,7 +8,6 @@ import com.barrybecker4.game.twoplayer.go.board.elements.position.GoBoardPositio
 import org.junit.jupiter.api.Assertions.{assertEquals, assertFalse, assertTrue, fail}
 import org.junit.jupiter.api.Test
 import java.util.List
-import scala.jdk.CollectionConverters._
 
 
 class TestEyeNeighborMap:

@@ -5,7 +5,7 @@ import com.barrybecker4.common.geometry.Box
 import com.barrybecker4.game.twoplayer.go.board.{GoBoard, GoProfiler}
 import com.barrybecker4.game.twoplayer.go.board.elements.group.GoGroupSet
 import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoBoardPositionList, GoBoardPositionSet}
-import com.barrybecker4.game.twoplayer.go.board.elements.string.{GoString, GoStringSet, IGoString}
+import com.barrybecker4.game.twoplayer.go.board.elements.string.{GoString, GoStringSet}
 
 /**
  * Performs static analysis of a go board to determine strings and

@@ -4,7 +4,7 @@ package com.barrybecker4.game.multiplayer.poker.ui.dialog
 import com.barrybecker4.game.common.GameContext
 import com.barrybecker4.game.multiplayer.common.ui.ActionDialog
 import com.barrybecker4.game.multiplayer.poker.model.PokerAction
-import com.barrybecker4.game.multiplayer.poker.{PokerController, PokerOptions}
+import com.barrybecker4.game.multiplayer.poker.PokerController
 import com.barrybecker4.game.multiplayer.poker.player.PokerPlayer
 import com.barrybecker4.ui.components.GradientButton
 import javax.swing.JPanel

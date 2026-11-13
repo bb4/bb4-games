@@ -4,7 +4,7 @@ package com.barrybecker4.game.twoplayer.go.board.analysis.group.eye
 import com.barrybecker4.common.geometry.Box
 import com.barrybecker4.game.common.GameContext
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
-import com.barrybecker4.game.twoplayer.go.board.analysis.group.{GroupAnalyzer, GroupAnalyzerMap}
+import com.barrybecker4.game.twoplayer.go.board.analysis.group.GroupAnalyzerMap
 import com.barrybecker4.game.twoplayer.go.board.analysis.neighbor.{NeighborAnalyzer, NeighborType}
 import com.barrybecker4.game.twoplayer.go.board.elements.eye.{GoEye, GoEyeSet}
 import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup

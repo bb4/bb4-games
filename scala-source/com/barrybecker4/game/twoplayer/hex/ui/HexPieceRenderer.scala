@@ -1,7 +1,7 @@
 package com.barrybecker4.game.twoplayer.hex.ui
 
 import com.barrybecker4.game.common.GameContext
-import com.barrybecker4.game.common.board.{Board, BoardPosition, GamePiece}
+import com.barrybecker4.game.common.board.{Board, BoardPosition}
 import com.barrybecker4.game.common.ui.viewer.GamePieceRenderer
 import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerPieceRenderer
 

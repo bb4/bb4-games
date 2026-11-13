@@ -2,7 +2,7 @@
 package com.barrybecker4.game.multiplayer.galactic.ui
 
 import com.barrybecker4.game.common.{GameContext, Move}
-import com.barrybecker4.game.common.board.{BoardPosition, IRectangularBoard}
+import com.barrybecker4.game.common.board.IRectangularBoard
 import com.barrybecker4.game.common.player.Player
 import com.barrybecker4.game.common.ui.viewer.GameBoardRenderer
 import com.barrybecker4.game.multiplayer.common.ui.MultiGameViewer
@@ -13,7 +13,6 @@ import com.barrybecker4.game.multiplayer.galactic.player.{GalacticPlayer, Galact
 import com.barrybecker4.game.multiplayer.galactic.ui.dialog.{BattleDialog, GalacticTallyDialog}
 import com.barrybecker4.game.multiplayer.galactic.ui.renderers.GalaxyRenderer
 
-import java.awt.Point
 import java.awt.event.MouseEvent
 import java.util.{Iterator as JIterator, List as JList}
 

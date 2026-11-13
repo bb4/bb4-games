@@ -3,10 +3,9 @@ package com.barrybecker4.game.multiplayer.poker.ui.render
 
 import com.barrybecker4.common.geometry.Location
 import com.barrybecker4.game.common.GameContext
-import com.barrybecker4.game.multiplayer.poker.ui.chips.{PokerChip, PokerChips}
-import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerBoardRenderer
+import com.barrybecker4.game.multiplayer.poker.ui.chips.PokerChips
 import javax.swing.JComponent
-import java.awt.{Color, Font, Graphics2D}
+import java.awt.{Color, Graphics2D}
 import java.text.NumberFormat
 
 class ChipRenderer {

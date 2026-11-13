@@ -1,11 +1,10 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.blockade.ui
 
-import com.barrybecker4.common.geometry.Location
 import com.barrybecker4.game.common.{GameContext, GameController}
 import com.barrybecker4.game.common.ui.viewer.{GameBoardRenderer, ViewerMouseListener}
 import com.barrybecker4.game.twoplayer.blockade.BlockadeController
-import com.barrybecker4.game.twoplayer.blockade.board.{BlockadeBoard, BlockadeBoardPosition}
+import com.barrybecker4.game.twoplayer.blockade.board.BlockadeBoard
 import com.barrybecker4.game.twoplayer.blockade.board.move.BlockadeMove
 import com.barrybecker4.game.twoplayer.common.ui.AbstractTwoPlayerBoardViewer
 

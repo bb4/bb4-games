@@ -3,11 +3,10 @@ package com.barrybecker4.game.twoplayer.go.board.analysis.eye.information
 
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.elements.eye.IGoEye
-import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoBoardPositionList}
+import com.barrybecker4.game.twoplayer.go.board.elements.position.GoBoardPositionList
 
 import java.util
 import scala.jdk.CollectionConverters.*
-import java.util.Arrays
 
 /**
  * Enum for the different possible Eye shapes.

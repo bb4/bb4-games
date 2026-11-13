@@ -1,7 +1,7 @@
 // Copyright by Barry G. Becker, 2012. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 package com.barrybecker4.game.twoplayer.comparison.ui.configuration
 
-import com.barrybecker4.game.twoplayer.comparison.model.config.{SearchOptionsConfig, SearchOptionsConfigList}
+import com.barrybecker4.game.twoplayer.comparison.model.config.SearchOptionsConfigList
 import com.barrybecker4.game.twoplayer.comparison.model.config.data.ConfigurationListEnum
 import com.barrybecker4.ui.components.GradientButton
 

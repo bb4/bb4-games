@@ -6,7 +6,6 @@ import com.barrybecker4.game.multiplayer.common.MultiGamePlayer
 import com.barrybecker4.game.multiplayer.common.ui.PlayerTable
 import com.barrybecker4.game.multiplayer.trivial.player.TrivialPlayer
 
-import javax.swing.table.TableModel
 import java.awt.Color
 
 /**

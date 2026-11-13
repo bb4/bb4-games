@@ -2,7 +2,6 @@
 package com.barrybecker4.game.common.online.server
 
 import com.barrybecker4.game.common.online.{OnlineGameTable, OnlineGameTableList}
-import com.barrybecker4.game.common.player.Player
 
 import scala.jdk.CollectionConverters._
 

@@ -1,9 +1,9 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.common.search
 
-import com.barrybecker4.game.common.{GameContext, Move, MoveList}
+import com.barrybecker4.game.common.{GameContext, MoveList}
 import com.barrybecker4.game.twoplayer.common.*
-import com.barrybecker4.game.twoplayer.common.search.options.{BestMovesSearchOptions, BruteSearchOptions, SearchOptions}
+import com.barrybecker4.game.twoplayer.common.search.options.{BestMovesSearchOptions, SearchOptions}
 import com.barrybecker4.optimization.parameter.ParameterArray
 import org.junit.jupiter.api.Assertions.{assertEquals, assertFalse, assertTrue}
 import org.junit.jupiter.api.BeforeEach

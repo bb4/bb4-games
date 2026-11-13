@@ -9,12 +9,9 @@ import com.barrybecker4.game.common.ui.viewer.GameBoardRenderer
 import com.barrybecker4.game.twoplayer.common.ui.TwoPlayerBoardRenderer
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.analysis.group.{GroupAnalyzer, GroupAnalyzerMap}
-import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup
 import com.barrybecker4.game.twoplayer.go.board.elements.position.GoBoardPosition
 import com.barrybecker4.ui.util.GUIUtil
-import javax.swing.ImageIcon
 import java.awt.{Color, Font, Graphics, Graphics2D}
-import java.awt.geom.Rectangle2D
 import scala.jdk.CollectionConverters._
 
 /**

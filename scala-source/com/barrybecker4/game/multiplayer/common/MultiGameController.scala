@@ -5,7 +5,7 @@ import com.barrybecker4.game.common.{GameContext, GameController, GameOptions, M
 import com.barrybecker4.game.common.board.{Board, IBoard}
 import com.barrybecker4.game.common.online.server.IServerConnection
 import com.barrybecker4.game.common.online.server.connection.ServerConnection
-import com.barrybecker4.game.common.player.{Player, PlayerAction}
+import com.barrybecker4.game.common.player.PlayerAction
 import com.barrybecker4.game.multiplayer.common.online.SurrogateMultiPlayer
 import com.barrybecker4.game.multiplayer.common.ui.MultiGameViewer
 import com.barrybecker4.optimization.parameter.ParameterArray

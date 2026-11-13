@@ -5,7 +5,7 @@ import com.barrybecker4.game.common.GameContext
 import com.barrybecker4.game.common.board.Board
 import com.barrybecker4.game.common.player.PlayerList
 import com.barrybecker4.game.common.ui.viewer.GameBoardRenderer
-import com.barrybecker4.game.twoplayer.blockade.board.{BlockadeBoard, BlockadeBoardPosition}
+import com.barrybecker4.game.twoplayer.blockade.board.BlockadeBoard
 import com.barrybecker4.game.twoplayer.blockade.board.move.wall.BlockadeWall
 import com.barrybecker4.game.twoplayer.common.ui.{TwoPlayerBoardRenderer, TwoPlayerPieceRenderer}
 

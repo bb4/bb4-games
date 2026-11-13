@@ -2,7 +2,6 @@
 package com.barrybecker4.game.twoplayer.common.search.strategy
 
 import com.barrybecker4.game.common.GameContext
-import com.barrybecker4.game.common.MoveList
 import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove
 import com.barrybecker4.game.twoplayer.common.WinProbabilityCalculator

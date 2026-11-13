@@ -2,7 +2,6 @@ package com.barrybecker4.game.twoplayer.go
 
 import com.barrybecker4.game.common.GameContext
 import com.barrybecker4.game.twoplayer.common.{MoveGenerationInvariantChecks, TwoPlayerPlayerOptions}
-import com.barrybecker4.game.twoplayer.common.cache.ScoreCache
 import com.barrybecker4.game.twoplayer.common.search.options.BestMovesSearchOptions
 import com.barrybecker4.game.twoplayer.go.board.GoSearchable
 import com.barrybecker4.game.twoplayer.go.board.move.GoMove

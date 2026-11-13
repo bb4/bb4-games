@@ -2,7 +2,7 @@
 package com.barrybecker4.game.multiplayer.poker.player
 
 import com.barrybecker4.game.common.GameContext
-import com.barrybecker4.game.common.player.{Player, PlayerAction}
+import com.barrybecker4.game.common.player.PlayerAction
 import com.barrybecker4.game.multiplayer.common.MultiGameController
 import com.barrybecker4.game.multiplayer.poker.model.PokerAction
 import com.barrybecker4.game.multiplayer.poker.PokerController

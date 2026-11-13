@@ -1,14 +1,13 @@
 package com.barrybecker4.game.twoplayer.hex.pathsearch
 
 import com.barrybecker4.common.geometry.{IntLocation, Location}
-import com.barrybecker4.game.common.board.BoardPosition
 import com.barrybecker4.game.twoplayer.hex.{HexBoard, HexBoardUtil}
 import com.barrybecker4.search.space.AbstractSearchSpace
 import scala.Option
 import scala.collection.immutable.Seq
 import scala.jdk.javaapi.CollectionConverters
 
-import java.util.{Collections, LinkedList, List as JList}
+import java.util.{Collections, LinkedList}
 
 
 class HexSearchSpace(board: HexBoard, player1: Boolean) 

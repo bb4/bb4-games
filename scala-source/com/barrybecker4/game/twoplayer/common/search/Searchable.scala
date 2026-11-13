@@ -2,7 +2,7 @@
 package com.barrybecker4.game.twoplayer.common.search
 
 import com.barrybecker4.game.common.MoveList
-import com.barrybecker4.game.twoplayer.common.{TwoPlayerBoard, TwoPlayerController, TwoPlayerMove}
+import com.barrybecker4.game.twoplayer.common.{TwoPlayerBoard, TwoPlayerMove}
 import com.barrybecker4.game.twoplayer.common.search.options.SearchOptions
 import com.barrybecker4.game.twoplayer.common.search.strategy.SearchStrategy
 import com.barrybecker4.game.twoplayer.common.search.transposition.HashKey

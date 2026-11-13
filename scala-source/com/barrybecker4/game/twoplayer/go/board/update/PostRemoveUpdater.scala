@@ -4,8 +4,7 @@ package com.barrybecker4.game.twoplayer.go.board.update
 import com.barrybecker4.game.common.GameContext
 import com.barrybecker4.game.twoplayer.go.board.{GoBoard, GoProfiler}
 import com.barrybecker4.game.twoplayer.go.board.analysis.neighbor.NeighborType
-import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup
-import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoBoardPositionList, GoBoardPositionLists, GoBoardPositionSet}
+import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoBoardPositionLists}
 import com.barrybecker4.game.twoplayer.go.board.elements.string.{GoString, IGoString}
 import com.barrybecker4.game.twoplayer.go.board.move.{GoCaptureList, GoMove}
 import scala.jdk.CollectionConverters._

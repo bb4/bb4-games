@@ -5,7 +5,7 @@ import com.barrybecker4.common.geometry.Location
 import com.barrybecker4.game.common.Move
 import com.barrybecker4.game.common.board.IBoard
 import com.barrybecker4.game.common.ui.SgfFileFilter
-import java.io.{FileWriter, IOException, Writer}
+import java.io.{FileWriter, Writer}
 
 /**
  * Export the state of a game to a file.

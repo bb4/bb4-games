@@ -3,7 +3,7 @@ package com.barrybecker4.game.twoplayer.common.ui
 
 import com.barrybecker4.game.common.GameController
 import com.barrybecker4.game.common.player.Player
-import com.barrybecker4.game.common.ui.panel.{GameChangedEvent, GameChangedListener, GameInfoPanel, GeneralInfoPanel}
+import com.barrybecker4.game.common.ui.panel.{GameChangedEvent, GameInfoPanel, GeneralInfoPanel}
 import com.barrybecker4.game.twoplayer.common.TwoPlayerController
 
 /**

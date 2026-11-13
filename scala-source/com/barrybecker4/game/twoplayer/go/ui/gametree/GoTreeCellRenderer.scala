@@ -1,7 +1,6 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.go.ui.gametree
 
-import com.barrybecker4.ui.util.ColorMap
 import com.barrybecker4.common.format.FormatUtil
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove
 import com.barrybecker4.game.twoplayer.common.search.tree.SearchTreeNode

@@ -3,7 +3,6 @@ package com.barrybecker4.game.twoplayer.go.board
 
 import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoBoardPositionList, GoStone}
 import com.barrybecker4.game.twoplayer.go.board.move.GoMove
-import scala.jdk.CollectionConverters._
 
 /**
  * The number of star points used for handicap stones on the board

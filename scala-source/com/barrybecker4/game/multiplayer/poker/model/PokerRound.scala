@@ -2,11 +2,10 @@
 package com.barrybecker4.game.multiplayer.poker.model
 
 import com.barrybecker4.game.common.{GameContext, Move}
-import com.barrybecker4.game.common.player.{Player, PlayerList}
-import com.barrybecker4.game.multiplayer.poker.hand.{Hand, HandScore, PokerHandScorer}
+import com.barrybecker4.game.common.player.PlayerList
+import com.barrybecker4.game.multiplayer.poker.hand.PokerHandScorer
 import com.barrybecker4.game.multiplayer.poker.player.PokerPlayer
 import java.util.ArrayList
-import scala.jdk.CollectionConverters.*
 
 class PokerRound extends Move {
   private var pot_ : Int = 0

@@ -5,7 +5,7 @@ import com.barrybecker4.game.common.{GameContext, GameController}
 import com.barrybecker4.game.common.ui.ComputerMoveProgressBar
 import com.barrybecker4.game.common.ui.dialogs.GameOptionsDialog
 import com.barrybecker4.game.common.ui.panel.{GameChangedListener, GamePanel}
-import com.barrybecker4.game.twoplayer.common.{TwoPlayerController, TwoPlayerOptions}
+import com.barrybecker4.game.twoplayer.common.TwoPlayerController
 import com.barrybecker4.game.twoplayer.common.ui.dialogs.TwoPlayerOptionsDialog
 import com.barrybecker4.game.twoplayer.common.ui.gametree.{GameTreeCellRenderer, GameTreeDialog}
 import com.barrybecker4.ui.components.TexturedPanel

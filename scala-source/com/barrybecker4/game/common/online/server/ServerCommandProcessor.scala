@@ -3,7 +3,7 @@ package com.barrybecker4.game.common.online.server
 
 import com.barrybecker4.game.common.{GameContext, GameController}
 import com.barrybecker4.game.common.online.{GameCommand, OnlineGameTable, OnlineGameTableList}
-import com.barrybecker4.game.common.player.{Player, PlayerAction, PlayerList}
+import com.barrybecker4.game.common.player.{PlayerAction, PlayerList}
 import com.barrybecker4.game.common.plugin.{GamePlugin, PluginManager}
 import com.barrybecker4.game.common.ui.panel.GamePanel
 import com.barrybecker4.game.common.ui.viewer.GameBoardViewer

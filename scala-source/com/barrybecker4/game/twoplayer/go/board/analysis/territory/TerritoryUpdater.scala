@@ -4,7 +4,6 @@ package com.barrybecker4.game.twoplayer.go.board.analysis.territory
 import com.barrybecker4.game.twoplayer.go.GoController
 import com.barrybecker4.game.twoplayer.go.board.{GoBoard, GoProfiler}
 import com.barrybecker4.game.twoplayer.go.board.analysis.group.GroupAnalyzerMap
-import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup
 import scala.jdk.CollectionConverters._
 
 /**

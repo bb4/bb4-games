@@ -2,7 +2,6 @@
 package com.barrybecker4.game.twoplayer.chess
 
 import com.barrybecker4.game.common.board.{BoardPosition, CaptureList}
-import com.barrybecker4.game.twoplayer.checkers.CheckersBoard
 import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard
 
 class ChessBoard extends TwoPlayerBoard[ChessMove] {

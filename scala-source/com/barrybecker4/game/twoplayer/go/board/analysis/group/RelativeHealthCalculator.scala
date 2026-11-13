@@ -2,7 +2,7 @@
 package com.barrybecker4.game.twoplayer.go.board.analysis.group
 
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
-import com.barrybecker4.game.twoplayer.go.board.elements.group.{GoGroup, IGoGroup}
+import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup
 import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoBoardPositionSet}
 
 /**

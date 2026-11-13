@@ -1,7 +1,6 @@
 /* Copyright by Barry G. Becker, 2000-2015. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.checkers
 
-import com.barrybecker4.game.common.MoveList
 import com.barrybecker4.game.common.player.{PlayerList, PlayerOptions}
 import com.barrybecker4.game.twoplayer.common.{TwoPlayerController, TwoPlayerOptions}
 

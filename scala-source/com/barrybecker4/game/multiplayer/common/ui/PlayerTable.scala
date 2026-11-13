@@ -7,7 +7,6 @@ import com.barrybecker4.ui.table.{BasicTableModel, ColorCellEditor, ColorCellRen
 
 import javax.swing.JOptionPane
 import javax.swing.table.TableModel
-import scala.jdk.CollectionConverters._
 import scala.jdk.javaapi.CollectionConverters as JavaConverters
 
 import java.util.Vector

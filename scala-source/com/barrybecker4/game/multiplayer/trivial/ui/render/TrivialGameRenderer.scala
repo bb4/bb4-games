@@ -4,7 +4,7 @@ package com.barrybecker4.game.multiplayer.trivial.ui.render
 import com.barrybecker4.game.common.board.Board
 import com.barrybecker4.game.common.player.Player
 import com.barrybecker4.game.common.ui.viewer.GameBoardRenderer
-import com.barrybecker4.game.multiplayer.common.{MultiGamePlayer, MultiPlayerMarker}
+import com.barrybecker4.game.multiplayer.common.MultiGamePlayer
 import com.barrybecker4.game.multiplayer.common.ui.MultiGameBoardRenderer
 
 import java.awt.{Graphics, Graphics2D}

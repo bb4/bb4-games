@@ -1,7 +1,6 @@
 // Copyright by Barry G. Becker, 2012. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 package com.barrybecker4.game.twoplayer.gomoku.analysis
 
-import com.barrybecker4.game.common.GameWeights
 import com.barrybecker4.game.twoplayer.gomoku.pattern.{SimplePatterns, SimpleWeights}
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach

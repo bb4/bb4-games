@@ -4,11 +4,10 @@ package com.barrybecker4.game.multiplayer.common.online.ui
 import com.barrybecker4.game.common.GameContext
 import com.barrybecker4.game.common.online.{GameCommand, OnlineGameTable, OnlineGameTableList}
 import com.barrybecker4.game.common.online.server.IServerConnection
-import com.barrybecker4.game.common.player.{Player, PlayerList}
+import com.barrybecker4.game.common.player.PlayerList
 import com.barrybecker4.game.common.ui.dialogs.GameStartListener
 import com.barrybecker4.game.multiplayer.common.{MultiGameOptions, MultiGamePlayer}
 import com.barrybecker4.game.multiplayer.common.online.SurrogateMultiPlayer
-import com.barrybecker4.ui.table.BasicTableModel
 
 import javax.swing.JOptionPane
 import scala.jdk.CollectionConverters._
