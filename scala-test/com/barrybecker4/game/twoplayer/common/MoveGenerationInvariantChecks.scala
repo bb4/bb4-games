@@ -29,7 +29,7 @@ object MoveGenerationInvariantChecks {
     val b = second.asScala.filter(includeInCheck).map(moveIdentity).toSet
     assert(
       a == b,
-      s"$context: generateMoves differed on second call (sizes ${a.size} vs ${b.size})"
+      s"$context: generateMoves differed on second call (sizes ${a.size} vs ${b.size}); onlyInFirst=${a -- b}; onlyInSecond=${b -- a}"
     )
   }
 

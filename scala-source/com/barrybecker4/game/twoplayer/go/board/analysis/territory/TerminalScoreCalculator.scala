@@ -212,8 +212,9 @@ class TerminalScoreCalculator(board: GoBoard) {
           val libs = scoringLiberties(s, dead)
           val eyes = eyeRegionsOf(s.isOwnedByPlayer1, libs, dead, regions, ownership)
           val eyeScore = if (eyes.exists(countsAsTwoEyes)) 2 else eyes.size
-          val pos = s.getMembers.iterator().next()
-          (eyeScore, libs.size, pos.getRow, pos.getCol)
+          // Deterministic tie-break: LinkedHashSet iteration order changes across make/undo.
+          val anchor = s.getMembers.asScala.minBy(p => (p.getRow, p.getCol))
+          (eyeScore, libs.size, anchor.getRow, anchor.getCol)
         }
         victim.getMembers.asScala.foreach { pos =>
           dead += pos.getRow -> pos.getCol

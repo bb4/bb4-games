@@ -78,7 +78,9 @@ class TestEyePotentialAnalyzer extends GoTestCase {
 
         restoreGame("clump_near_edge")
         verifyBlackEyePotential(4, 0.688f)
-        verifyWhiteEyePotential(4, 0.68802f)
+        // White clump is near a corner; expandBordersToEdge now snaps both near sides
+        // independently (previously a sequential overwrite left one side unsnapped).
+        verifyWhiteEyePotential(4, 0.910166f)
     }
 
     @Test
