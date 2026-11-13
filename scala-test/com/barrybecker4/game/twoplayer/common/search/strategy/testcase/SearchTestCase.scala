@@ -1,6 +1,6 @@
 package com.barrybecker4.game.twoplayer.common.search.strategy.testcase
 
-import com.barrybecker4.common.xml.DomUtil
+import com.barrybecker4.xml.DomUtil
 import com.barrybecker4.game.common.{GameWeights, GameWeightsStub}
 import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard
 import com.barrybecker4.game.twoplayer.common.search.{Searchable, SearchableStub, TwoPlayerMoveStub}

@@ -2,11 +2,12 @@
 package com.barrybecker4.game.common.plugin
 
 import com.barrybecker4.common.util.FileUtil
-import com.barrybecker4.common.xml.DomUtil
+import com.barrybecker4.xml.DomUtil
 import com.barrybecker4.game.common.GameContext
 import org.w3c.dom.{Document, Node}
-import scala.jdk.CollectionConverters._
-import java.net.URL
+
+import scala.jdk.CollectionConverters.*
+import java.util
 import java.util.{ArrayList, HashMap, List, Map}
 
 /**
@@ -16,9 +17,9 @@ import java.util.{ArrayList, HashMap, List, Map}
  */
 class PluginManager private() {
 
-  private var plugins: List[GamePlugin] = scala.compiletime.uninitialized
-  private var hmNameToPlugin: Map[String, GamePlugin] = scala.compiletime.uninitialized
-  private var hmLabelToPlugin: Map[String, GamePlugin] = scala.compiletime.uninitialized
+  private var plugins: util.List[GamePlugin] = scala.compiletime.uninitialized
+  private var hmNameToPlugin: util.Map[String, GamePlugin] = scala.compiletime.uninitialized
+  private var hmLabelToPlugin: util.Map[String, GamePlugin] = scala.compiletime.uninitialized
   private var defaultGame: GamePlugin = scala.compiletime.uninitialized
 
   val url = FileUtil.getURL(PluginManager.PLUGINS_FILE)
@@ -30,9 +31,9 @@ class PluginManager private() {
   private def initializePlugins(document: Document): Unit = {
     val root = document.getDocumentElement
     val children = root.getChildNodes
-    plugins = new ArrayList[GamePlugin]()
-    hmNameToPlugin = new HashMap[String, GamePlugin]()
-    hmLabelToPlugin = new HashMap[String, GamePlugin]()
+    plugins = new util.ArrayList[GamePlugin]()
+    hmNameToPlugin = new util.HashMap[String, GamePlugin]()
+    hmLabelToPlugin = new util.HashMap[String, GamePlugin]()
     var defaultGame: GamePlugin = null
 
     val num = children.getLength
@@ -68,10 +69,10 @@ class PluginManager private() {
     new GamePlugin(name, label, `type`, msgBundleBase, panelClass, controllerClass, isDefault)
   }
 
-  def getPlugins: List[GamePlugin] = plugins
+  def getPlugins: util.List[GamePlugin] = plugins
 
-  def getPlugins(`type`: PluginType): List[GamePlugin] = {
-    val plugins = new ArrayList[GamePlugin]()
+  def getPlugins(`type`: PluginType): util.List[GamePlugin] = {
+    val plugins = new util.ArrayList[GamePlugin]()
     this.plugins.asScala.foreach { plugin =>
       if (plugin.getType == `type`) {
         plugins.add(plugin)

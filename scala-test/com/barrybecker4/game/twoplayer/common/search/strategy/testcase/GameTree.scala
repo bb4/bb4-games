@@ -1,7 +1,7 @@
 package com.barrybecker4.game.twoplayer.common.search.strategy.testcase
 
 import com.barrybecker4.common.geometry.{ByteLocation, Location}
-import com.barrybecker4.common.xml.DomUtil
+import com.barrybecker4.xml.DomUtil
 import com.barrybecker4.game.twoplayer.common.search.TwoPlayerMoveStub
 import org.w3c.dom.Node
 
