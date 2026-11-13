@@ -286,7 +286,7 @@ tasks.register('deployScalaHtml', Copy) {
     from('scala-source/html') {
         include '**/*.*'
         exclude '**/*.png', '**/*.jpg', '**/*.PNG', '**/*.JPG'
-        filter org.apache.tools.ant.filters.ReplaceTokens, tokens: [version: project.version.toString()]
+        filter ReplaceTokens, tokens: [version: project.version.toString()]
         filter { String line ->
             if (!line.contains('@table_rows@')) {
                 return line
