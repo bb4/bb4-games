@@ -50,7 +50,7 @@ class GameTree(rootNode: Node):
       grandParent
     )
     for child <- parent.getChildren.asScala do
-      getCloneWithRootPlayer1(!player1, child.asInstanceOf[TwoPlayerMoveStub], newParent)
+      getCloneWithRootPlayer1(!player1, child, newParent)
     newParent
 
   /** @return the root move in the game tree. */
@@ -65,7 +65,7 @@ class GameTree(rootNode: Node):
   private def print(moveNode: TwoPlayerMoveStub, indent: String): Unit =
     System.out.println(indent + "Move: " + moveNode)
     for move <- moveNode.getChildren.asScala do
-      print(move.asInstanceOf[TwoPlayerMoveStub], indent + "  ")
+      print(move, indent + "  ")
 
   private def createMoveFromNode(node: Node, isPlayer1: Boolean, parent: TwoPlayerMoveStub): TwoPlayerMoveStub =
     val value = Integer.parseInt(DomUtil.getAttribute(node, "value"))
