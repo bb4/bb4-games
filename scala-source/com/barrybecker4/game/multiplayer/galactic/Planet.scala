@@ -62,7 +62,7 @@ class Planet(name: Char, initialNumShips: Int, productionCapacity: Int, pos: Loc
 
   private def getDistanceFrom(loc: Location): Double = location_.getDistanceFrom(loc)
 
-  def getDistanceFrom(loc: Point2D): Double = location_.getDistanceFrom(loc)
+  def getDistanceFrom(loc: Point2D): Double = location_.getDistanceFrom(loc.getX, loc.getY)
 
   def getRadius: Double = 0.85 * Math.pow(getProductionCapacity, 0.333) / 2.1
 
