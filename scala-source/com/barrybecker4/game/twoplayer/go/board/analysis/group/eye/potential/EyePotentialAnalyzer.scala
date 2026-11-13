@@ -34,8 +34,8 @@ class EyePotentialAnalyzer(val group: IGoGroup, val analyzerMap: GroupAnalyzerMa
     assert(board != null, "The board must be set before calculating potential")
     val numRows = board.getNumRows
     val numCols = board.getNumCols
-    boundingBox = boundingBox.expandGloballyBy(1, numRows, numCols)
-    boundingBox = boundingBox.expandBordersToEdge(1, numRows, numCols)
+    boundingBox = boundingBox.expandGloballyBy(1, 1, 1, numRows, numCols)
+    boundingBox = boundingBox.expandBordersToEdge(1, 1, 1, numRows, numCols)
 
     findTotalEyePotential()
   }
