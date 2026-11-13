@@ -123,7 +123,7 @@ object MoveGenerationInvariantChecks {
     moves.asScala.foreach { move =>
       if (move.getWall != null) {
         val hashBefore = searchable.getHashKey().getKey
-        val played = move.copy().asInstanceOf[BlockadeMove]
+        val played = move.copy()
         searchable.makeInternalMove(played)
         try {
           val paths1 = board.findAllOpponentShortestPaths(player1 = true)

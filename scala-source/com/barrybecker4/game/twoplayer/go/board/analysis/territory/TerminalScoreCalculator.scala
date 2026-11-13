@@ -3,14 +3,15 @@ package com.barrybecker4.game.twoplayer.go.board.analysis.territory
 
 import com.barrybecker4.game.twoplayer.go.board.GoBoard
 import com.barrybecker4.game.twoplayer.go.board.analysis.eye.BigEyeAnalyzer
-import com.barrybecker4.game.twoplayer.go.board.analysis.eye.information._
+import com.barrybecker4.game.twoplayer.go.board.analysis.eye.information.*
 import com.barrybecker4.game.twoplayer.go.board.elements.eye.IGoEye
 import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup
 import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoBoardPositionSet, GoStone}
 import com.barrybecker4.game.twoplayer.go.board.elements.string.IGoString
 
 import scala.collection.mutable
-import scala.jdk.CollectionConverters._
+import scala.compiletime.uninitialized
+import scala.jdk.CollectionConverters.*
 
 /**
  * End-of-game life-and-death and territory without mid-game relative-health heuristics.
@@ -32,7 +33,7 @@ class TerminalScoreCalculator(board: GoBoard) {
 
   private val rows = board.getNumRows
   private val cols = board.getNumCols
-  private var deadCache: mutable.Set[(Int, Int)] = null
+  private var deadCache: mutable.Set[(Int, Int)] = uninitialized
 
   /** Ownership of a scoring region: Some(true)=black, Some(false)=white, None=dame/seki. */
   private type Owner = Option[Boolean]
