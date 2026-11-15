@@ -49,6 +49,9 @@ class GoSearchable(board: GoBoard, players: PlayerList, cache: ScoreCache, priva
 
   def getScoreCache: ScoreCache = boardEvaluator.getCache
 
+  /** Diagnostics / leak tests. */
+  def analyzerMapSize: Int = boardEvaluator.analyzerMapSize
+
   private def init(cache: ScoreCache): Unit = {
     deadStoneUpdater = new DeadStoneUpdater(getBoard)
     boardEvaluator = new BoardEvaluator(getBoard, cache, goOptions.getKomi)

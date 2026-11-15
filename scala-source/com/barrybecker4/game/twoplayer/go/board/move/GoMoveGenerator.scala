@@ -83,12 +83,13 @@ final class GoMoveGenerator(searchable_ : GoSearchable) {
     prof.stopGenerateMoves()
     m.setUrgent(UrgentMoveGenerator.isUrgentCandidate(m, searchable_.getBoard))
     searchable_.makeInternalMove(m)
-
-    m.setValue(searchable_.worth(m, weights))
-
-    // now revert the board
-    searchable_.undoInternalMove(m)
-    prof.startGenerateMoves()
+    try {
+      m.setValue(searchable_.worth(m, weights))
+    } finally {
+      // worth (or group analysis under it) must not leave this candidate on the board
+      searchable_.undoInternalMove(m)
+      prof.startGenerateMoves()
+    }
   }
 
   /**

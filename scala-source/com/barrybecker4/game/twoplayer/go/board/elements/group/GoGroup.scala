@@ -67,7 +67,7 @@ final class GoGroup extends GoSet with IGoGroup {
     changeListeners += listener
   }
 
-  def removeChangeListener(listener: GroupChangeListener): Unit = {
+  override def removeChangeListener(listener: GroupChangeListener): Unit = {
     changeListeners -= listener
   }
 

@@ -20,17 +20,32 @@ final class BoardEvaluator(val board_ : GoBoard, val scoreCache: ScoreCache, kom
 
   private val analyzerMap_ = new GroupAnalyzerMap()
   private val worthCalculator = new WorthCalculator(board_, analyzerMap_, komi)
+  /**
+   * Snapshot of the board hash analyzers were built for.
+   * Must copy — Zobrist returns a live mutable key that changes on every make/undo.
+   */
+  private var analyzersForKey_ : Long = Long.MinValue
 
   /**
    * @return the worth of the board from player1's perspective
    */
   def worth(lastMove: Move, weights: ParameterArray, hashKey: HashKey): Int = {
+    // Groups are recreated on make/undo. Keep analyzers only for the current hash so
+    // same-board re-eval still hits the eye cache (#17) without leaking across search.
+    val key = hashKey.getKey
+    if key != analyzersForKey_ then
+      analyzerMap_.clear()
+      analyzersForKey_ = key
+
     if (USE_SCORE_CACHING) {
       cachedWorth(lastMove, weights, hashKey)
     } else {
       worthCalculator.worth(lastMove, weights)
     }
   }
+
+  /** Exposed for leak / diagnostics tests. */
+  def analyzerMapSize: Int = analyzerMap_.size
 
   /**
    * If we have a cached worth value for this board position, then use that instead of recomputing it.

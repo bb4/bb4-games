@@ -65,17 +65,18 @@ final class NegaScoutMemoryStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
     var bestMove = list.get(0)
     val entry = new Entry[M](bestMove, depth, window)
 
-    while !list.isEmpty() do
+    while !list.isEmpty do
       val theMove = getNextMove(list)
       if isPaused then
         return lastMove
       updatePercentDone(depth, list)
 
       searchable.makeInternalMove(theMove)
-      val child = addNodeToTree(parent, theMove, window)
-
-      // search with minimal search window
+      var child: SearchTreeNode = null
+      // addNodeToTree / search must share this try so a tree failure still undoes
       try
+        child = addNodeToTree(parent, theMove, window)
+        // search with minimal search window
         selectedMove = searchInternal(theMove, depth - 1, new SearchWindow(-newBeta, -window.alpha), child)
       finally
         searchable.undoInternalMove(theMove)

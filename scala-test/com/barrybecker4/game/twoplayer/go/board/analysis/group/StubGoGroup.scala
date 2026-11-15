@@ -17,7 +17,7 @@ class StubGoGroup(absHealth: Float, ownedByPlayer1: Boolean, numStones: Int) ext
   override def addChangeListener(listener: GroupChangeListener): Unit =
     throw new UnsupportedOperationException()
 
-  def removeChangeListener(listener: GroupChangeListener): Unit =
+  override def removeChangeListener(listener: GroupChangeListener): Unit =
     throw new UnsupportedOperationException()
 
   override def addMember(string: IGoString): Unit =

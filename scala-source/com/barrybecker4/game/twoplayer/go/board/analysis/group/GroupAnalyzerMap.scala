@@ -40,9 +40,16 @@ class GroupAnalyzerMap {
     analyzerMap.values.asScala.foreach(_.invalidate())
   }
 
+  /**
+   * Discard all analyzers. Disposes each first so group↔listener cycles do not leak.
+   */
   def clear(): Unit = {
+    analyzerMap.values.asScala.foreach(_.dispose())
     analyzerMap.clear()
   }
+
+  /** Number of cached analyzers (for leak tests / diagnostics). */
+  def size: Int = analyzerMap.size
 
   override def toString: String = {
     analyzerMap.toString

@@ -1,6 +1,7 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT */
 package com.barrybecker4.game.card
 
+import java.util
 import java.util.{HashMap, Map as JMap}
 
 /** Card suits listed in increasing order of value. Extends java.lang.Enum for Java interop. */
@@ -16,7 +17,7 @@ end Suit
 
 object SuitLookup:
   private val suitFromSymbol: JMap[String, Suit] =
-    val m = new HashMap[String, Suit]()
+    val m = new util.HashMap[String, Suit]()
     Suit.values.foreach(s => m.put(s.getSymbol, s))
     m
 

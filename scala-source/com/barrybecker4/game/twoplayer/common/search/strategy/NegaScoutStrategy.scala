@@ -42,10 +42,11 @@ class NegaScoutStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
       updatePercentDone(depth, list)
 
       searchable.makeInternalMove(theMove)
-      val child = addNodeToTree(parent, theMove, window)
-
-      // search with minimal search window
+      var child: SearchTreeNode = null
+      // addNodeToTree / search must share this try so a tree failure still undoes
       try
+        child = addNodeToTree(parent, theMove, window)
+        // search with minimal search window
         selectedMove = searchInternal(theMove, depth - 1, SearchWindow(-newBeta, -window.alpha), child)
       finally
         searchable.undoInternalMove(theMove)

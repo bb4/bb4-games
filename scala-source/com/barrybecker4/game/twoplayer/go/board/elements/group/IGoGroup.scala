@@ -20,6 +20,8 @@ trait IGoGroup extends IGoSet {
 
   def addChangeListener(listener: GroupChangeListener): Unit
 
+  def removeChangeListener(listener: GroupChangeListener): Unit
+
   def getNumStones: Int
 
   def containsStone(stone: GoBoardPosition): Boolean

@@ -66,6 +66,15 @@ class GroupAnalyzer(val group_ : IGoGroup, val analyzerMap_ : GroupAnalyzerMap) 
   }
 
   /**
+   * Drop the group↔analyzer listener link so WeakHashMap / clear can release both.
+   * Without this, value→key and listener→value form a permanent cycle.
+   */
+  def dispose(): Unit = {
+    group_.removeChangeListener(this)
+    invalidate()
+  }
+
+  /**
    * @return true if the group has changed (structurally) in any way.
    */
   def isValid: Boolean = {

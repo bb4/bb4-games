@@ -35,20 +35,20 @@ class NegaMaxStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
     var bestMove = list.get(0)
     var done = false
 
-    while !list.isEmpty() && !done do
+    while !list.isEmpty && !done do
       val theMove = getNextMove(list)
       if isPaused then
         return lastMove
       updatePercentDone(depth, list)
 
       searchable.makeInternalMove(theMove)
-      val child = addNodeToTree(parent, theMove, window)
       i += 1
-
-      selectedMove = searchInternal(theMove, depth - 1,
-        new SearchWindow(-window.beta, -Math.max(window.alpha, bestInheritedValue)), child)
-
-      searchable.undoInternalMove(theMove)
+      try
+        val child = addNodeToTree(parent, theMove, window)
+        selectedMove = searchInternal(theMove, depth - 1,
+          new SearchWindow(-window.beta, -Math.max(window.alpha, bestInheritedValue)), child)
+      finally
+        searchable.undoInternalMove(theMove)
 
       if selectedMove != null then
         val selectedValue = -selectedMove.getInheritedValue
