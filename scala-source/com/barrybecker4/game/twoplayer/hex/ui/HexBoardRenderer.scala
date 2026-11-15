@@ -111,7 +111,7 @@ class HexBoardRenderer extends TwoPlayerBoardRenderer:
     super.drawMarkers(board, players, g2)
 
   override def drawLastMoveMarker(g2: Graphics2D, player: Player, board: Board[?]): Unit =
-    val last = board.getMoveList.getLastMove.asInstanceOf[TwoPlayerMove]
+    val last = board.getMoveList.getLastMove.map(_.asInstanceOf[TwoPlayerMove]).orNull
     if last != null then
       val cellSize = getCellSize
       val pos = getPosition(last.getToLocation)

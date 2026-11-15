@@ -203,11 +203,13 @@ class CommandHandler {
     val blackPlays = controller_.getCurrentPlayer.equals(controller_.getPlayers.getPlayer1)
     controller_.requestComputerMove(blackPlays, true)
 
-    val m = controller_.getLastMove
-
-    val point = new Point(m.getToRow - 1, m.getToCol - 1)
-    response.append(Point.toString(point))
-    true
+    controller_.getLastMove match {
+      case Some(m) =>
+        val point = new Point(m.getToRow - 1, m.getToCol - 1)
+        response.append(Point.toString(point))
+        true
+      case None => false
+    }
   }
 
   private def cmdInvalid(): Unit = {
@@ -244,7 +246,7 @@ class CommandHandler {
 
   private def cmdUndo(response: StringBuffer): Boolean = {
     val m = controller_.undoLastMove()
-    if (m == null) {
+    if (m.isEmpty) {
       response.append("cannot undo")
       return false
     }

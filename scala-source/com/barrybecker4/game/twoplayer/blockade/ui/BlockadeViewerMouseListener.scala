@@ -139,7 +139,7 @@ class BlockadeViewerMouseListener(viewer: GameBoardViewer[BlockadeMove, Blockade
 
     if (newPosition.isHomeBase(!isPlayer1)) {
       hasWon = true
-      assert(isPlayer1 == (controller.getCurrentPlayer == controller.getPlayers.getFirstPlayer))
+      assert(isPlayer1 == (controller.getCurrentPlayer == controller.getPlayers.getPlayer1))
       controller.getCurrentPlayer.setWon(true)
     } else {
       wallPlacingMode = true

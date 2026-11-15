@@ -54,10 +54,10 @@ class ServerCommandProcessor private (
         handleLeaveRoom(cmd)
         true
       case GameCommand.Name.ADD_TABLE =>
-        tableManager.addTable(cmd.getArgument.asInstanceOf[OnlineGameTable])
+        tableManager.addTable(cmd.asTable)
         true
       case GameCommand.Name.JOIN_TABLE =>
-        tableManager.joinTable(cmd.getArgument.asInstanceOf[OnlineGameTable])
+        tableManager.joinTable(cmd.asTable)
         true
       case GameCommand.Name.CHANGE_NAME =>
         handleChangeName(cmd)
@@ -80,12 +80,13 @@ class ServerCommandProcessor private (
   }
 
   private def handleLeaveRoom(cmd: GameCommand): Unit = {
-    GameContext.log(0, "Player " + cmd.getArgument + " is now leaving the room.")
-    tableManager.removePlayer(cmd.getArgument.asInstanceOf[String])
+    val playerName = cmd.asString
+    GameContext.log(0, "Player " + playerName + " is now leaving the room.")
+    tableManager.removePlayer(playerName)
   }
 
   private def handleChangeName(cmd: GameCommand): Unit = {
-    val names = cmd.getArgument.asInstanceOf[String].split(GameCommand.CHANGE_TO)
+    val names = cmd.asString.split(GameCommand.CHANGE_TO)
     if (names.length > 1) {
       tableManager.changeName(names(0), names(1))
     }
@@ -97,7 +98,7 @@ class ServerCommandProcessor private (
   }
 
   private def handleStartGame(cmd: GameCommand): Unit = {
-    val tableToStart = cmd.getArgument.asInstanceOf[OnlineGameTable]
+    val tableToStart = cmd.asTable
     startGame(tableToStart)
     tableManager.removeTable(tableToStart)
   }
@@ -112,7 +113,7 @@ class ServerCommandProcessor private (
    *       actions for the robots on the server that play immediately after the player.
    */
   private def doPlayerAction(cmd: GameCommand, responses: LinkedList[GameCommand]): Unit = {
-    val action = cmd.getArgument.asInstanceOf[PlayerAction]
+    val action = cmd.asAction
     GameContext.log(0, "ServerCmdProc: doPlayerAction (" + action + "). Surrogates to handle")
     controller.handlePlayerAction(action)
 
@@ -153,9 +154,8 @@ class ServerCommandProcessor private (
     controller.reset()
     controller.setPlayers(newPlayers)
 
-    // if getFirstPlayer returns null, then it is not a turn based game
-    val firstPlayer = controller.getPlayers.getFirstPlayer
-    if (firstPlayer != null && !firstPlayer.isHuman) {
+    val firstPlayer = controller.getPlayers.getPlayer1
+    if (!firstPlayer.isHuman) {
       controller.computerMovesFirst()
     }
   }

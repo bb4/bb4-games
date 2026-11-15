@@ -20,7 +20,7 @@ trait IGameController[M <: Move, B <: IBoard[M]] {
 
   def getViewer: GameViewModel
 
-  def undoLastMove(): M
+  def undoLastMove(): Option[M]
 
   def makeMove(m: M): Unit
 

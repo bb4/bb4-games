@@ -42,9 +42,9 @@ class ComputerVsComputerMiniMaxTest:
   @Test
   def testSecondMoveInCorner(): Unit =
     controller.computerMovesFirst()
-    var move = controller.getLastMove.asInstanceOf[TwoPlayerMove]
+    var move = controller.getLastMove.get.asInstanceOf[TwoPlayerMove]
     assertEquals(new ByteLocation(2, 2), move.getToLocation, "Unexpected first move for computer.")
 
     controller.requestComputerMove(false, true)
-    move = controller.getLastMove.asInstanceOf[TwoPlayerMove]
+    move = controller.getLastMove.get.asInstanceOf[TwoPlayerMove]
     assertEquals(new ByteLocation(1, 1), move.getToLocation, "Unexpected second move for computer.")

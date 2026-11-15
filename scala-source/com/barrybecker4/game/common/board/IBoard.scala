@@ -21,5 +21,5 @@ trait IBoard[M <: Move] {
 
   def makeMove(move: M): Boolean
 
-  def undoMove(): M
+  def undoMove(): Option[M]
 }

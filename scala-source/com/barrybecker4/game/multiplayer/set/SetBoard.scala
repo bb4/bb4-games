@@ -75,7 +75,7 @@ class SetBoard(private val initialNumCardsShown_ : Int) extends Board[Move] {
   override def makeMove(move: Move): Boolean = 
     throw UnsupportedOperationException("make move not supported for set.")
 
-  override def undoMove(): Move = 
+  override def undoMove(): Option[Move] = 
     throw UnsupportedOperationException("undo move not supported for set.")
   
   override def makeInternalMove(move: Move): Boolean = 

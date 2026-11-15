@@ -122,7 +122,7 @@ class TranspositionTableTest:
       controller.getSearchable(),
       controller.getComputerWeights().getDefaultWeights
     )
-    val lastMove = controller.getLastMove
+    val lastMove = controller.getLastMove.get
     val root = new SearchTreeNode(lastMove)
     strategy.asInstanceOf[SearchStrategy[TwoPlayerMove, TwoPlayerBoard[TwoPlayerMove]]].search(lastMove, root)
 

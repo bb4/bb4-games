@@ -68,9 +68,7 @@ class MultiPlayerTableManager(
       onlineGameTablesTable_.addRow(table, table.hasPlayer(currentName_))
     }
 
-    val readyTable = tableList.getTableReadyToPlay(currentName_)
-
-    if (readyTable != null) {
+    tableList.getTableReadyToPlay(currentName_).foreach { readyTable =>
       JOptionPane.showMessageDialog(
         null,
         "All the players required \n(" + readyTable.getPlayersString

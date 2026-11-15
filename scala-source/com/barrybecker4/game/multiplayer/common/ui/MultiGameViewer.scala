@@ -31,7 +31,7 @@ abstract class MultiGameViewer[M <: Move, B <: Board[M]] extends GameBoardViewer
     reset()
     winnerDialogShown_ = false
     sendGameChangedEvent(null.asInstanceOf[M]) // get the info panel to refresh with 1st players name
-    val firstPlayer = getController.getPlayers.getFirstPlayer
+    val firstPlayer = getController.getPlayers.getPlayer1
 
     if (firstPlayer.isSurrogate) {
       doSurrogateMove(firstPlayer.asInstanceOf[SurrogateMultiPlayer])

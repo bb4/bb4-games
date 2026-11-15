@@ -49,7 +49,7 @@ abstract class BlockadeTestCase:
     val time = System.currentTimeMillis
     restore(problemFile)
     controller_.requestComputerMove(firstPlayerPlays, true)
-    val m = controller_.getLastMove
+    val m = controller_.getLastMove.get
     val elapsedTime = (System.currentTimeMillis - time) / 1000
     GameContext.log(1, "got " + m + " in " + elapsedTime + " seconds.")
     m

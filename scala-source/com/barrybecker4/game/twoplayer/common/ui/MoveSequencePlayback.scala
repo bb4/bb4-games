@@ -4,6 +4,7 @@ package com.barrybecker4.game.twoplayer.common.ui
 import com.barrybecker4.game.common.Move
 import com.barrybecker4.game.twoplayer.common.{TwoPlayerBoard, TwoPlayerController, TwoPlayerMove}
 
+import java.util
 import java.util.List
 
 /**
@@ -26,7 +27,7 @@ class MoveSequencePlayback[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](private v
     // the first time we click on a row in the tree, the controller has no moves.
     val lastMove = controller_.getLastMove
 
-    if lastMove == null then
+    if lastMove.isEmpty then
       controller_.reset() // was AbsTwoPlayerBoardViewer.reset()
     else
       backupNMoves(moveSequence, numMovesToBackup, firstMove)
@@ -38,13 +39,13 @@ class MoveSequencePlayback[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](private v
    * number of steps to backup is # of most recent real moves minus
    * the first move in the sequence.
    */
-  private def backupNMoves(moveSequence: List[?], numMovesToBackup: Int, firstMove: Move): Unit =
+  private def backupNMoves(moveSequence: util.List[?], numMovesToBackup: Int, firstMove: Move): Unit =
     var ct = 0
     if firstMove != null then
       while ct < numMovesToBackup do
         controller_.undoLastMove()
         // I suppose this is possible
-        if controller_.getLastMove == null then
+        if controller_.getLastMove.isEmpty then
           throw new IllegalArgumentException("Reached the end after backing up "
             + ct + " out of " + numMovesToBackup + " steps." +
             "\n moveSequence=" + moveSequence)
@@ -54,7 +55,7 @@ class MoveSequencePlayback[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](private v
    * Perform the specified sequence of moves.
    * @param moveSequence the sequence of consecutive moves to play on the board.
    */
-  private def performMoveSequence(moveSequence: List[?]): Unit = synchronized {
+  private def performMoveSequence(moveSequence: util.List[?]): Unit = synchronized {
     var firstFuture = 0
     var i = 0
     while i < moveSequence.size do

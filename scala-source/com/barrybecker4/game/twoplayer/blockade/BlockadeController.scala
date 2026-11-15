@@ -40,7 +40,7 @@ class BlockadeController extends TwoPlayerController[BlockadeMove, BlockadeBoard
     if !getPlayers.anyPlayerWon then
       0
     else
-      getSearchable().worth(getLastMove, weights_.getDefaultWeights)
+      getSearchable().worth(getLastMove.orNull, weights_.getDefaultWeights)
 
   override def getExporter: TwoPlayerGameExporter[BlockadeMove, BlockadeBoard] =
     BlockadeGameExporter(this)

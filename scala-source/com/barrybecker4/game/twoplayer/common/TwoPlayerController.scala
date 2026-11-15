@@ -101,10 +101,10 @@ abstract class TwoPlayerController[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]] e
   def restoreFromStream(iStream: InputStream): Unit =
     val importer = new TwoPlayerGameImporter[M, B](this)
     importer.restoreFromStream(iStream)
-    val m = getLastMove
-    if m != null then
+    getLastMove.foreach { m =>
       val value = getSearchable().worth(m, weights_.getDefaultWeights)
       m.setValue(value)
+    }
 
   /**
    * @return true if the computer is supposed to make the first move.
@@ -163,13 +163,14 @@ abstract class TwoPlayerController[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]] e
 
   /**
    * retract the most recently played move
-   * @return  the move which was undone (null returned if no prior move)
+   * @return  the move which was undone (None returned if no prior move)
    */
-  override def undoLastMove(): M =
+  override def undoLastMove(): Option[M] =
     val lastMove = getLastMove
-    getSearchable().undoInternalMove(lastMove)
-    if lastMove != null then
-      player1sTurn = lastMove.isPlayer1
+    lastMove.foreach { m =>
+      getSearchable().undoInternalMove(m)
+      player1sTurn = m.isPlayer1
+    }
     lastMove
 
   /**
@@ -190,8 +191,7 @@ abstract class TwoPlayerController[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]] e
     // we cannot find a computer move if no move played yet.
     if getMoveList.isEmpty then return null.asInstanceOf[M]
 
-    val move = getMoveList.getLastMove
-    val lastMove = move.copy().asInstanceOf[M]
+    val lastMove = getMoveList.getLastMove.get.copy().asInstanceOf[M]
 
     val weights = if player1 then weights_.getPlayer1Weights else weights_.getPlayer2Weights
 
@@ -293,8 +293,7 @@ abstract class TwoPlayerController[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]] e
     gameTreeViewer_ = gameTreeViewable
 
   override def isDone: Boolean =
-    val lastMove = getLastMove
-    getSearchable().done(lastMove, false)
+    getSearchable().done(getLastMove.orNull.asInstanceOf[M], false)
 
   final def getOptimizee: Optimizee =
     new TwoPlayerOptimizee(this)

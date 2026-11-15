@@ -47,7 +47,7 @@ class TrivialGeneralInfoPanel(player: Player, commandPanel: JPanel) extends Gene
     val mgController = controller.asInstanceOf[com.barrybecker4.game.multiplayer.common.MultiGameController[?, ?]]
     setPlayerLabel(controller.getPlayers.get(mgController.currentPlayerIndex))
     val lastMove = controller.getLastMove
-    if lastMove != null then
+    if lastMove.isDefined then
       moveNumLabel.setText(s"${controller.getNumMoves + 2} ")
     else
       moveNumLabel.setText("1 ")

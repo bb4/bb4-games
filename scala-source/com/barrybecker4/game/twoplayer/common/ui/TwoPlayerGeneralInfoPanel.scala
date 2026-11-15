@@ -45,7 +45,7 @@ class TwoPlayerGeneralInfoPanel(player: Player) extends GeneralInfoPanel:
     repaint()
 
   override def update(controller: GameController[?, ?]): Unit =
-    if controller.getLastMove != null then
+    if controller.getLastMove.isDefined then
       setPlayerLabel(controller.getCurrentPlayer)
       moveNumLabel.setText(s"${controller.getNumMoves} ")
       val calc = new WinProbabilityCalculator()

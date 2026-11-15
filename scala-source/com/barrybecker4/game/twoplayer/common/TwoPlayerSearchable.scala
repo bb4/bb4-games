@@ -53,7 +53,7 @@ abstract class TwoPlayerSearchable[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
   def undoInternalMove(move: M): Unit =
     val lastMove = moveList.getLastMove
     assert(move != null)
-    assert(move.equals(lastMove), s"The move we are trying to undo ($move) in list=$moveList was not equal to the last move ($lastMove). all move=${getBoard.getMoveList}")
+    assert(lastMove.exists(move.equals), s"The move we are trying to undo ($move) in list=$moveList was not equal to the last move ($lastMove). all move=${getBoard.getMoveList}")
 
     if move.isPassOrResignation then
       hash.applyPassingMove()
@@ -113,8 +113,8 @@ abstract class TwoPlayerSearchable[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
    * @return the player who's turn it is to move next.
    */
   private def getCurrentPlayer: Player =
-    val move = moveList.getLastMove.asInstanceOf[TwoPlayerMove]
-    if move == null || !move.isPlayer1 then players.getPlayer1 else players.getPlayer2
+    val move = moveList.getLastMove.map(_.asInstanceOf[TwoPlayerMove])
+    if move.forall(!_.isPlayer1) then players.getPlayer1 else players.getPlayer2
 
   /**
    * @return true if the specified move caused one or more opponent pieces to become jeopardized

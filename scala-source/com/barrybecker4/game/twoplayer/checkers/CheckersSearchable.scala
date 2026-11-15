@@ -25,8 +25,7 @@ class CheckersSearchable(board: CheckersBoard, players: PlayerList)
   override def done(move: CheckersMove, recordWin: Boolean): Boolean = {
     if (move == null) {
       if (recordWin) {
-        val lastMove = getMoveList.getLastMove
-        recordPlayerWin(lastMove.isPlayer1)
+        getMoveList.getLastMove.foreach(lastMove => recordPlayerWin(lastMove.isPlayer1))
       }
       return true
     }

@@ -84,7 +84,7 @@ class TestScoring extends GoTestCase:
     assertTrue(withinBounds(blackTerrEst, expectedBlackTerr), "The black territory estimate (" + blackTerrEst + ") was not close to " + expectedBlackTerr)
     assertTrue(withinBounds(whiteTerrEst, expectedWhiteTerr), "The white territory estimate (" + whiteTerrEst + ") was not close to " + expectedWhiteTerr)
     val finalWorth = searchable.worth(
-      searchable.getMoveList.getLastMove,
+      searchable.getMoveList.getLastMove.get,
       controller.getComputerWeights().getDefaultWeights
     )
     assertEquals(expectedFinalWorth, finalWorth, "Unexpected worth for final move.")

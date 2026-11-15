@@ -1,25 +1,32 @@
 // Copyright by Barry G. Becker, 2012. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 package com.barrybecker4.game.common
 
-import com.barrybecker4.game.twoplayer.gomoku.pattern.SimpleWeights
-import org.scalatest.BeforeAndAfterEach
+import com.barrybecker4.game.twoplayer.tictactoe.TicTacToeWeights
 import org.scalatest.funsuite.AnyFunSuite
 
-import scala.compiletime.uninitialized
+/** Verify GameWeights preserves caller-supplied names/descriptions and NONE is empty. */
+class GameWeightsSuite extends AnyFunSuite:
 
-/** Verify that we correctly evaluate patterns on the board. */
-class GameWeightsSuite extends AnyFunSuite with BeforeAndAfterEach:
+  test("secondary constructor preserves names and descriptions") {
+    val weights = new TicTacToeWeights()
+    assert(weights.getName(0) == "1a weight")
+    assert(weights.getName(2) == "2a weight")
+    assert(weights.getDescription(0) == "1 in a row weight (X__)")
+    assert(weights.getDescription(4) == "3 in a row weight (XXX)")
+  }
 
-  private var weights: GameWeights = uninitialized
+  test("primary constructor derives names from parameters") {
+    val weights = new GameWeightsStub()
+    assert(weights.getName(0) == "paramName")
+  }
 
-  override def beforeEach(): Unit =
-    weights = new SimpleWeights()
+  test("NONE is empty Option") {
+    assert(GameWeights.NONE.isEmpty)
+  }
 
-  test("construction") {
-    assert(weights.getName(1) == "Weight 1", "unexpected name ")
-    assert(
-      weights.getDescription(1) == "The weighting coefficient for the 1th term of the evaluation polynomial",
-      "unexpected description "
-    )
-    assert(weights.getPlayer1Weights.get(2).getValue == 10.0, "unexpected param 2 value ")
+  test("player weight accessors round-trip") {
+    val weights = new TicTacToeWeights()
+    val p1 = weights.getPlayer1Weights
+    weights.setPlayer1Weights(p1)
+    assert(weights.getPlayer1Weights eq p1)
   }

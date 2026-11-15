@@ -14,7 +14,7 @@ class ChessViewerMouseListener(viewer: GameBoardViewer[ChessMove, ChessBoard])
     val controller = viewer.getController.asInstanceOf[ChessController]
 
     val piece = position.getPiece.asInstanceOf[ChessPiece]
-    val possibleMoveList = piece.findPossibleMoves(board, position.getRow, position.getCol, controller.getLastMove)
+    val possibleMoveList = piece.findPossibleMoves(board, position.getRow, position.getCol, controller.getLastMove.orNull)
     controller.removeSelfCheckingMoves(possibleMoveList)
     possibleMoveList
   }

@@ -121,8 +121,11 @@ object OnlineGameServer {
     val options = new CommandLineOptions(args)
 
     if (verifyCmdLineOptions(options)) {
-      val gameName = options.getValueForOption(GAME_OPTION).get
-      new OnlineGameServer(gameName, null)
+      options.getValueForOption(GAME_OPTION) match {
+        case Some(gameName) => new OnlineGameServer(gameName, null)
+        case None =>
+          GameContext.log(0, s"Missing required -$GAME_OPTION after verification.")
+      }
     }
   }
 }

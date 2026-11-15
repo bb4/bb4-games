@@ -75,7 +75,7 @@ class UctStrategyTest extends AnyFunSuite with BeforeAndAfterEach {
       maxSimulations: Int,
       context: String
   ): Unit = {
-    val lastMove = searchable.getMoveList.getLastMove.asInstanceOf[M]
+    val lastMove = searchable.getMoveList.getLastMove.get.asInstanceOf[M]
     val numMovesBefore = searchable.getNumMoves()
     val hashBefore = searchable.getHashKey().getKey
     val strategy = new UctStrategy[M, B](searchable, weights)
@@ -97,7 +97,7 @@ class UctStrategyTest extends AnyFunSuite with BeforeAndAfterEach {
   ): Unit = {
     val lastMove =
       if searchable.getNumMoves() == 0 then null.asInstanceOf[M]
-      else searchable.getMoveList.getLastMove.asInstanceOf[M]
+      else searchable.getMoveList.getLastMove.get.asInstanceOf[M]
     val numMovesBefore = searchable.getNumMoves()
     val hashBefore = searchable.getHashKey().getKey
     val copy = searchable.copy().asInstanceOf[TwoPlayerSearchable[M, B]]
@@ -236,7 +236,7 @@ class UctStrategyTest extends AnyFunSuite with BeforeAndAfterEach {
     val searchable = controller.getSearchable().asInstanceOf[TicTacToeSearchable]
     val weights = controller.getComputerWeights().asInstanceOf[TicTacToeWeights].getPlayer1Weights
     val strategy = new UctStrategy(searchable, weights)
-    val lastMove = searchable.getMoveList.getLastMove
+    val lastMove = searchable.getMoveList.getLastMove.get
     val root = UctNode[TwoPlayerMove](lastMove)
     var i = 0
     while i < 60 do
@@ -259,7 +259,7 @@ class UctStrategyTest extends AnyFunSuite with BeforeAndAfterEach {
 
     val searchable = controller.getSearchable().asInstanceOf[TicTacToeSearchable]
     val weights = controller.getComputerWeights().asInstanceOf[TicTacToeWeights].getPlayer1Weights
-    val lastMove = searchable.getMoveList.getLastMove
+    val lastMove = searchable.getMoveList.getLastMove.get
     assert(lastMove.isPlayer1 == false, "Player 1 should be to move")
 
     val strategy = new UctStrategy(searchable, weights)
@@ -281,7 +281,7 @@ class UctStrategyTest extends AnyFunSuite with BeforeAndAfterEach {
       controller.restoreFromStream(helper.getTestResource(Progress.MIDDLE, true))
       val searchable = controller.getSearchable().asInstanceOf[TicTacToeSearchable]
       val weights = controller.getComputerWeights().asInstanceOf[TicTacToeWeights].getPlayer1Weights
-      val lastMove = searchable.getMoveList.getLastMove
+      val lastMove = searchable.getMoveList.getLastMove.get
       new UctStrategy(searchable, weights).search(lastMove, new SearchTreeNode(lastMove))
     }
 

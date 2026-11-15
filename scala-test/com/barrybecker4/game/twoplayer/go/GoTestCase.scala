@@ -65,7 +65,7 @@ abstract class GoTestCase:
     val time = System.currentTimeMillis
     restore(problemFile)
     controller.requestComputerMove(blackPlays, true)
-    val m = controller.getLastMove.asInstanceOf[GoMove]
+    val m = controller.getLastMove.get.asInstanceOf[GoMove]
     val elapsedTime = (System.currentTimeMillis - time) / 1000.0
     GameContext.log(1, "got " + m + " in " + FormatUtil.formatNumber(elapsedTime) + " seconds.")
     m

@@ -136,7 +136,7 @@ abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst:
   def testGenerateMovesAfterFirstMove(): Unit =
     controller.computerMovesFirst()
     val wts = weights
-    val lastMove = controller.getLastMove
+    val lastMove = controller.getLastMove.get
     val moves = searchable.generateMoves(lastMove, wts)
     assertTrue(moves != null, "We expect the move list to be non-null very start of the game.")
     assertTrue(moves.size > 0, "We expected some valid next moves at the very start of the game.")

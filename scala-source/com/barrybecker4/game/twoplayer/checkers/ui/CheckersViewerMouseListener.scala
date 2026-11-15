@@ -13,7 +13,7 @@ class CheckersViewerMouseListener(viewer: GameBoardViewer[CheckersMove, Checkers
 
   override def getPossibleMoveList(position: BoardPosition): java.util.List[CheckersMove] = {
     val controller = viewer.getController.asInstanceOf[TwoPlayerController[CheckersMove, CheckersBoard]]
-    val lastMove = controller.getLastMove
+    val lastMove = controller.getLastMove.orNull
     val generator = new MoveGenerator(
       controller.getSearchable().asInstanceOf[CheckersSearchable],
       controller.getComputerWeights().getDefaultWeights

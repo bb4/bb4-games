@@ -21,7 +21,7 @@ class MoveGeneratorTest extends BlockadeTestCase:
   def testGenerateMoves(): Unit =
     restore("whitebox/noMoves2")
     val board = controller_.getBoard.asInstanceOf[BlockadeBoard]
-    val lastMove = controller_.getMoveList.getLastMove.asInstanceOf[BlockadeMove]
+    val lastMove = controller_.getMoveList.getLastMove.get.asInstanceOf[BlockadeMove]
     val generator = new MoveGenerator(controller_.getComputerWeights().getDefaultWeights, board)
     val moves = generator.generateMoves(lastMove)
     val expectedNumMoves = 56
@@ -39,7 +39,7 @@ class MoveGeneratorTest extends BlockadeTestCase:
     val move2 = BlockadeMove.createMove(new ByteLocation(12, 6), new ByteLocation(10, 6), 1, piece1, wall1)
     controller_.makeMove(move1)
     controller_.makeMove(move2)
-    val lastMove = controller_.getMoveList.getLastMove.asInstanceOf[BlockadeMove]
+    val lastMove = controller_.getMoveList.getLastMove.get.asInstanceOf[BlockadeMove]
     GameContext.log(2, "lastMove=" + lastMove)
     val generator = new MoveGenerator(controller_.getComputerWeights().getDefaultWeights, board)
     val moves = generator.generateMoves(lastMove)

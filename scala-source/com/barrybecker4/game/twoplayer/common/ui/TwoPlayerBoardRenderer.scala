@@ -23,7 +23,7 @@ abstract class TwoPlayerBoardRenderer extends GameBoardRenderer:
     )
 
   override def drawLastMoveMarker(g2: Graphics2D, player: Player, board: Board[?]): Unit =
-    val last = board.getMoveList.getLastMove.asInstanceOf[TwoPlayerMove]
+    val last = board.getMoveList.getLastMove.map(_.asInstanceOf[TwoPlayerMove]).orNull
 
     // this draws a small indicator on the last move to show where it was played
     if last != null then

@@ -86,7 +86,7 @@ class TestWeakestGroupFinder extends GoTestCase {
 
         finder = createFinder(board)
         /** need something to update the scores for the group  */
-        var move: Move = controller.getLastMove
+        var move: Move = controller.getLastMove.get
         var calculator: WorthCalculator = new WorthCalculator(board, analyzerMap)
         calculator.worth(move, WEIGHTS.getDefaultWeights)
         System.out.println("AMAP="+ analyzerMap)

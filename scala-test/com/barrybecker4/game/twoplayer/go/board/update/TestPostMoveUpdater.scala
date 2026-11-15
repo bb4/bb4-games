@@ -60,7 +60,7 @@ class TestPostMoveUpdater extends GoTestCase:
 
   /** probably too many things to verify for a unit test. */
   private def verifyStats(stats: UpdateStats): Unit =
-    val move = board.getMoveList.getLastMove.asInstanceOf[GoMove]
+    val move = board.getMoveList.getLastMove.get.asInstanceOf[GoMove]
     val pos = board.getPosition(move.getToLocation).asInstanceOf[GoBoardPosition]
     val groupAnalyzer = new GroupAnalyzer(pos.getGroup, new GroupAnalyzerMap())
     assertEquals(stats.expCaptures, move.getCaptures.size, "Unexpected captures")

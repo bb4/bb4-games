@@ -101,7 +101,7 @@ abstract class GameBoardViewer[M <: Move, B <: Board[M]] extends JPanel
     if (file != null && state == JFileChooser.APPROVE_OPTION) {
       lastFileAccessed = file
       controller.restoreFromFile(file.getAbsolutePath)
-      sendGameChangedEvent(controller.getLastMove)
+      sendGameChangedEvent(controller.getLastMove.getOrElse(null.asInstanceOf[M]))
       this.refresh()
     }
   }
@@ -215,7 +215,7 @@ abstract class GameBoardViewer[M <: Move, B <: Board[M]] extends JPanel
    * @return true if there is a move to undo.
    */
   final def canUndoMove: Boolean = {
-    controller.getLastMove != null
+    controller.getLastMove.isDefined
   }
 
   /**

@@ -91,7 +91,7 @@ class TestGroupEyeCache extends GoTestCase:
     val analyzerMap = new GroupAnalyzerMap()
     val calculator = new WorthCalculator(board, analyzerMap)
     val weights = new GoWeights().getDefaultWeights
-    val move = controller.getLastMove
+    val move = controller.getLastMove.get
     val profiler = GoProfiler.getInstance
     profiler.setEnabled(true)
 
@@ -114,7 +114,7 @@ class TestGroupEyeCache extends GoTestCase:
     val analyzerMap = new GroupAnalyzerMap()
     val calculator = new WorthCalculator(board, analyzerMap)
     val weights = new GoWeights().getDefaultWeights
-    val move = controller.getLastMove
+    val move = controller.getLastMove.get
 
     TerritoryUpdater.FORCE_NEW_ANALYZERS = true
     val worth1 = calculator.worth(move, weights)

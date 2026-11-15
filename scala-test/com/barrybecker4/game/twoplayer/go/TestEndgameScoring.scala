@@ -68,7 +68,7 @@ class TestEndgameScoring extends GoTestCase:
     // Two passes on the move list
     board.makeMove(GoMove.createPassMove(0, true))
     board.makeMove(GoMove.createPassMove(0, false))
-    assertTrue(searchable.done(board.getMoveList.getLastMove.asInstanceOf[GoMove], true))
+    assertTrue(searchable.done(board.getMoveList.getLastMove.get.asInstanceOf[GoMove], true))
 
     val blackScore = searchable.getFinalScore(true)
     val whiteScore = searchable.getFinalScore(false)

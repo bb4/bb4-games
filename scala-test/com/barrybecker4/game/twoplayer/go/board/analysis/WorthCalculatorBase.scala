@@ -26,7 +26,7 @@ abstract class WorthCalculatorBase extends GoTestCase:
 
   protected def verifyWorth(file: String, expWorth: Int): Unit =
     restore(PREFIX + file)
-    val move = controller.getLastMove
+    val move = controller.getLastMove.get
     val actWorth = calculator.worth(move, WEIGHTS.getDefaultWeights)
     assertEquals(expWorth, actWorth, "Unexpected worth.")
 
@@ -36,11 +36,11 @@ abstract class WorthCalculatorBase extends GoTestCase:
    */
   protected def compareWorths(game1: String, game2: String, expWorth: Int): Unit =
     restore(PREFIX + game1)
-    var move: Move = controller.getLastMove
+    var move: Move = controller.getLastMove.get
     val actWorthA = calculator.worth(move, WEIGHTS.getDefaultWeights)
     controller.reset()
     restore(PREFIX + game2)
-    move = controller.getLastMove
+    move = controller.getLastMove.get
     val actWorthB = calculator.worth(move, WEIGHTS.getDefaultWeights)
     assertEquals(expWorth, actWorthA, "Unexpected worth for A.")
     assertEquals(expWorth, actWorthB, "Unexpected worth for B.")

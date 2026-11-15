@@ -66,7 +66,7 @@ class GoViewerMouseListener(viewer: GameBoardViewer[GoMove, GoBoard])
       GameContext.log(0, "BoardViewer: There is already a stone there: " + stone)
       return
     }
-    if (GoMoveGenerator.isTakeBack(m.getToRow, m.getToCol, controller.getLastMove, board)) {
+    if (GoMoveGenerator.isTakeBack(m.getToRow, m.getToCol, controller.getLastMove.orNull, board)) {
       JOptionPane.showMessageDialog(null, GameContext.getLabel("NO_TAKEBACKS"))
       return
     }

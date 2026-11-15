@@ -76,7 +76,7 @@ abstract class TwoPlayerBoard[M <: TwoPlayerMove] extends Board[M] {
       for (j <- 1 to nCols) {
         val pos = this.getPosition(i, j)
         if (pos.isOccupied) {
-          if (lastMove != null && pos.getLocation.equals(lastMove.getToLocation)) {
+          if (lastMove.exists(m => pos.getLocation.equals(m.getToLocation))) {
             bldr.append("[").append(pos.getPiece).append("]")
             followingLastMove = true
           } else {

@@ -22,7 +22,7 @@ class TestWorthCalculator5 extends WorthCalculatorBase {
 
         restore(PREFIX  + "worth5x5")
 
-        var move: GoMove = controller.undoLastMove()
+        var move: GoMove = controller.undoLastMove().get
         controller.makeMove(move)
 
         var actWorth: Int = calculator.worth(move, WEIGHTS.getDefaultWeights)

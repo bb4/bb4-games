@@ -61,7 +61,7 @@ class PokerController extends MultiGameController[PokerRound, PokerTable](PokerC
   override def getServerPort: Int = POKER_SERVER_PORT
 
   override def isDone: Boolean = {
-    if (getLastMove == null) return false
+    if (getLastMove.isEmpty) return false
     
     var numPlayersStillPlaying = 0
     val it = getPlayers.iterator()

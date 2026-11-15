@@ -27,15 +27,15 @@ class TicTacToeSearchableTest extends TwoPlayerSearchableBaseTst:
 
   override def testNotDoneMidGame(): Unit =
     restore("midGameCenterO")
-    assertFalse(searchable.done(getController.getLastMove.asInstanceOf[TwoPlayerMove], false), "Did not expect done in the middle of the game. ")
+    assertFalse(searchable.done(getController.getLastMove.get.asInstanceOf[TwoPlayerMove], false), "Did not expect done in the middle of the game. ")
 
   override def testDoneForMidGameWin(): Unit =
     restore("wonGameO")
-    assertTrue(searchable.done(getController.getLastMove.asInstanceOf[TwoPlayerMove], false), "Expected done state for this game. ")
+    assertTrue(searchable.done(getController.getLastMove.get.asInstanceOf[TwoPlayerMove], false), "Expected done state for this game. ")
 
   override def testDoneEndGame(): Unit =
     restore("endGameNoMoreMoves")
-    assertTrue(searchable.done(getController.getLastMove.asInstanceOf[TwoPlayerMove], false), "Expected done state for this game because there are no more moves. ")
+    assertTrue(searchable.done(getController.getLastMove.get.asInstanceOf[TwoPlayerMove], false), "Expected done state for this game because there are no more moves. ")
 
   override def testGenerateAllP1MovesMidGame(): Unit =
     checkGeneratedMoves("midGameCenterX", EXPECTED_ALL_MIDDLE_GAME_MOVES_CENTER_P1)
@@ -75,19 +75,19 @@ class TicTacToeSearchableTest extends TwoPlayerSearchableBaseTst:
   override def testGenerateUrgentMoves(): Unit =
     restore("urgentMoves")
     val moves =
-      searchable.generateUrgentMoves(getController.getLastMove.asInstanceOf[TwoPlayerMove], weights)
+      searchable.generateUrgentMoves(getController.getLastMove.get.asInstanceOf[TwoPlayerMove], weights)
     checkMoveListAgainstExpected("urgentMoves", EXPECTED_URGENT_MOVES, moves.asInstanceOf[MoveList[TwoPlayerMove]])
 
   @Test
   def testGenerateUrgentMovesP2(): Unit =
     restore("urgentMoves")
     val moves =
-      searchable.generateUrgentMoves(getController.getLastMove.asInstanceOf[TwoPlayerMove], weights)
+      searchable.generateUrgentMoves(getController.getLastMove.get.asInstanceOf[TwoPlayerMove], weights)
     checkMoveListAgainstExpected("urgentMoves: " + moves, EXPECTED_URGENT_MOVES, moves.asInstanceOf[MoveList[TwoPlayerMove]])
 
   private def checkGeneratedMoves(fileName: String, expectedMoves: Array[TwoPlayerMove]): Unit =
     restore(fileName)
-    val lastMove = getController.getLastMove.asInstanceOf[TwoPlayerMove]
+    val lastMove = getController.getLastMove.get.asInstanceOf[TwoPlayerMove]
     val moves =
       getController.getSearchable().generateMoves(lastMove, weights)
     checkMoveListAgainstExpected(fileName, expectedMoves, moves.asInstanceOf[MoveList[TwoPlayerMove]])

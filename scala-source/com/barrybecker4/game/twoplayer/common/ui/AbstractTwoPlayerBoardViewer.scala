@@ -270,19 +270,19 @@ abstract class AbstractTwoPlayerBoardViewer[M <: TwoPlayerMove, B <: TwoPlayerBo
     val players = c.getPlayers
     if players.allPlayersComputer then return
 
-    val move = c.undoLastMove()
-    if move != null then
-      undoneMoves_.add(move)
-      if !players.allPlayersHuman then
-        undoneMoves_.add(c.undoLastMove())
-      refresh()
-    else
-      JOptionPane.showMessageDialog(
-        this,
-        GameContext.getLabel("NO_MOVES_TO_UNDO"),
-        GameContext.getLabel("WARNING"),
-        JOptionPane.WARNING_MESSAGE
-      )
+    c.undoLastMove() match
+      case Some(move) =>
+        undoneMoves_.add(move)
+        if !players.allPlayersHuman then
+          c.undoLastMove().foreach(undoneMoves_.add(_))
+        refresh()
+      case None =>
+        JOptionPane.showMessageDialog(
+          this,
+          GameContext.getLabel("NO_MOVES_TO_UNDO"),
+          GameContext.getLabel("WARNING"),
+          JOptionPane.WARNING_MESSAGE
+        )
 
   /**
    * redo the last human player's move.

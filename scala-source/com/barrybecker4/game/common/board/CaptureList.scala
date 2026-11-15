@@ -48,11 +48,8 @@ class CaptureList extends util.LinkedList[BoardPosition] {
     }
   }
 
-  override def toString: String = {
-    var s = " These piece(s) were captured by this move:\n"
-    this.asScala.foreach { p =>
-      s += s"(${p.toString}),"
-    }
-    s
-  }
+  override def toString: String =
+    val bldr = new StringBuilder(" These piece(s) were captured by this move:\n")
+    this.asScala.foreach(p => bldr.append('(').append(p.toString).append("),"))
+    bldr.toString()
 }

@@ -151,7 +151,7 @@ abstract class AbstractStrategyTst:
   protected def getExpectedFourLevelNoAlphaBetaMoves: ExpectedMoveMatrix
 
   protected def searchForNextMove(strategy: SearchStrategy[TwoPlayerMove, TwoPlayerBoard[TwoPlayerMove]]): TwoPlayerMove =
-    val lastMove = controller.getLastMove.asInstanceOf[TwoPlayerMove]
+    val lastMove = controller.getLastMove.get.asInstanceOf[TwoPlayerMove]
     val root = new SearchTreeNode(lastMove)
     val nextMove = strategy.search(lastMove, root)
     if searchOptions.getBruteSearchOptions.getLookAhead > 0 then

@@ -29,7 +29,7 @@ abstract class GameController[M <: Move, B <: IBoard[M]] extends IGameController
     getBoard.reset()
   }
 
-  def getLastMove: M = getMoveList.getLastMove
+  def getLastMove: Option[M] = getMoveList.getLastMove
 
   override def getNumMoves: Int = getMoveList.getNumMoves
 
@@ -52,7 +52,7 @@ abstract class GameController[M <: Move, B <: IBoard[M]] extends IGameController
     getBoard.makeMove(move)
   }
 
-  override def undoLastMove(): M = getBoard.undoMove()
+  override def undoLastMove(): Option[M] = getBoard.undoMove()
 
   def getExporter: GameExporter[M, B] = {
     GameContext.log(0, s"Error: saveToFile(name, rte) not implemented yet for ${getClass.getName}")

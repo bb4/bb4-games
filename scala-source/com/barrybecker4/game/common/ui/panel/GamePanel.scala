@@ -180,7 +180,7 @@ abstract class GamePanel extends TexturedPanel(GamePanel.BG_TEXTURE)
    * This method called whenever a move has been made.
    */
   override def gameChanged(gce: GameChangedEvent[Move]): Unit = {
-    toolBar_.getUndoButton.setEnabled(boardViewer_.getController.getLastMove != null)
+    toolBar_.getUndoButton.setEnabled(boardViewer_.getController.getLastMove.isDefined)
   }
 
   /**

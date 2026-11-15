@@ -74,7 +74,7 @@ class BlockadeSearchableTest extends TwoPlayerSearchableBaseTst:
   private def checkGeneratedMoves(fileName: String, expectedMoves: Array[BlockadeMove]): Unit =
     restore(fileName)
     val wts: ParameterArray = weights
-    val lastMove = getController.getLastMove.asInstanceOf[TwoPlayerMove]
+    val lastMove = getController.getLastMove.get.asInstanceOf[TwoPlayerMove]
     val moves = getController.getSearchable().generateMoves(lastMove, wts)
 
     if expectedMoves.length != moves.size then

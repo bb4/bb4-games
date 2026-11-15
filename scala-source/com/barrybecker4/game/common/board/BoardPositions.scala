@@ -2,7 +2,6 @@
 package com.barrybecker4.game.common.board
 
 import com.barrybecker4.common.geometry.{ByteLocation, Location}
-import com.barrybecker4.game.common.GameContext
 
 /**
  * Represents the array of positions on the board.
@@ -36,8 +35,9 @@ class BoardPositions(numRows: Int, numCols: Int) {
 
   def clear(proto: BoardPosition): Unit = {
     for (i <- 1 to getNumRows; j <- 1 to getNumCols) {
-      proto.setLocation(new ByteLocation(i, j))
-      positions_(i)(j) = proto.copy()
+      val cell = proto.copy()
+      cell.setLocation(new ByteLocation(i, j))
+      positions_(i)(j) = cell
     }
   }
 
@@ -64,23 +64,17 @@ class BoardPositions(numRows: Int, numCols: Int) {
   override def equals(b: Any): Boolean = {
     if (!b.isInstanceOf[BoardPositions]) return false
     val board = b.asInstanceOf[BoardPositions]
+    if (getNumRows != board.getNumRows || getNumCols != board.getNumCols) return false
     (1 to getNumRows).forall { i =>
       (1 to getNumCols).forall { j =>
         val p1 = this.getPosition(i, j)
         val p2 = board.getPosition(i, j)
-        assert(p1 != null)
-        assert(p2 != null)
-        if (p1.isOccupied != p2.isOccupied) {
-          GameContext.log(2, s"Inconsistent occupation status  p1=$p1 and p2=$p2")
-          false
-        } else if (p1.isOccupied) {
+        if (p1 == null || p2 == null) false
+        else if (p1.isOccupied != p2.isOccupied) false
+        else if (p1.isOccupied) {
           val piece1 = p1.getPiece
           val piece2 = p2.getPiece
-          if (piece1.isOwnedByPlayer1 != piece2.isOwnedByPlayer1 ||
-              piece1.getType != piece2.getType) {
-            GameContext.log(2, s"There was an inconsistency between p1=$p1 and $p2")
-            false
-          } else true
+          piece1.isOwnedByPlayer1 == piece2.isOwnedByPlayer1 && piece1.getType == piece2.getType
         } else true
       }
     }

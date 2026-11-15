@@ -179,7 +179,7 @@ object MoveGenerationInvariantChecks {
       if (playRandomMove(searchable, moves, context)) {
         return
       }
-      lastMove = searchable.getMoveList.getLastMove
+      lastMove = searchable.getMoveList.getLastMove.getOrElse(null.asInstanceOf[M])
       step += 1
     }
   }

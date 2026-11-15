@@ -231,8 +231,7 @@ class GoSearchable(board: GoBoard, players: PlayerList, cache: ScoreCache, priva
    * @return estimate of the amount of territory the player has
    */
   def getTerritoryEstimate(forPlayer1: Boolean): Int = {
-    val m = moveList.getLastMove
-    if (m == null)
+    if (moveList.getLastMove.isEmpty)
       return 0
 
     boardEvaluator.getTerritoryEstimate(forPlayer1, false)

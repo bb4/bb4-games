@@ -42,7 +42,9 @@ class GoMokuMoveGeneratorTest:
   @Test
   def testNextMoveWhenNoMovesOnBoard(): Unit =
     val actMoves = generator.generateMoves(
-      controller.getSearchable(), controller.getLastMove.asInstanceOf[TwoPlayerMove], weights)
+      controller.getSearchable(),
+      controller.getLastMove.map(_.asInstanceOf[TwoPlayerMove]).orNull,
+      weights)
 
     val expMoves = new MoveList[TwoPlayerMove]()
     expMoves.add(TwoPlayerMove.createMove(new ByteLocation(6, 6), 0, new GamePiece(true)))
@@ -54,7 +56,7 @@ class GoMokuMoveGeneratorTest:
     restore("midGameP1ToPlay")
 
     val actMoves = generator.generateMoves(
-      controller.getSearchable(), controller.getLastMove.asInstanceOf[TwoPlayerMove], weights)
+      controller.getSearchable(), controller.getLastMove.get.asInstanceOf[TwoPlayerMove], weights)
 
     System.out.println("move=" + printMoves(actMoves))
     val expMoves = new MoveList[TwoPlayerMove]()
@@ -83,7 +85,7 @@ class GoMokuMoveGeneratorTest:
     restore("p2ToPlayAfterFirstMove")
 
     val actMoves = generator.generateMoves(
-      controller.getSearchable(), controller.getLastMove.asInstanceOf[TwoPlayerMove], weights)
+      controller.getSearchable(), controller.getLastMove.get.asInstanceOf[TwoPlayerMove], weights)
 
     val expMoves = new MoveList[TwoPlayerMove]()
     expMoves.add(TwoPlayerMove.createMove(new ByteLocation(1, 1), 0, new GamePiece(false)))
@@ -102,7 +104,7 @@ class GoMokuMoveGeneratorTest:
     restore("p1ToPlayAfterSecondMove")
 
     val actMoves = generator.generateMoves(
-      controller.getSearchable(), controller.getLastMove.asInstanceOf[TwoPlayerMove], weights)
+      controller.getSearchable(), controller.getLastMove.get.asInstanceOf[TwoPlayerMove], weights)
 
     val expMoves = new MoveList[TwoPlayerMove]()
     expMoves.add(TwoPlayerMove.createMove(new ByteLocation(4, 4), 0, new GamePiece(true)))
@@ -125,7 +127,7 @@ class GoMokuMoveGeneratorTest:
     restore("../analysis/differencers/exampleBoard")
 
     val actMoves = generator.generateMoves(
-      controller.getSearchable(), controller.getLastMove.asInstanceOf[TwoPlayerMove], weights)
+      controller.getSearchable(), controller.getLastMove.get.asInstanceOf[TwoPlayerMove], weights)
 
     val expMoves = new MoveList[TwoPlayerMove]()
     expMoves.add(TwoPlayerMove.createMove(new ByteLocation(5, 3), 4597, new GamePiece(true)))

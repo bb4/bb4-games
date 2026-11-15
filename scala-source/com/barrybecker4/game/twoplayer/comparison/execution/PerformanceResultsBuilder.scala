@@ -65,7 +65,7 @@ class PerformanceResultsBuilder(controller: TwoPlayerController[?, ?], optionsLi
     val elapsedMillis = System.currentTimeMillis() - startTime
 
     val isTie = !players.anyPlayerWon
-    val player1Won = players.getWinningPlayer == player1
+    val player1Won = players.getWinningPlayer.contains(player1)
     controller.reset()
 
     new PerformanceResults(player1Won, isTie, strengthOfWin, numMoves, elapsedMillis, finalImage,

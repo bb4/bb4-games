@@ -39,7 +39,7 @@ class PokerGeneralInfoPanel(player: Player, private val commandPanel_ : JPanel)
   override def update(controller: GameController[?, ?]): Unit = {
     setPlayerLabel(controller.getCurrentPlayer)
     val lastMove = controller.getLastMove
-    if (lastMove != null) {
+    if (lastMove.isDefined) {
       moveNumLabel.setText(s"${controller.getNumMoves + 2} ")
     } else {
       moveNumLabel.setText("1 ")

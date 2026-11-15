@@ -35,7 +35,7 @@ class TestOpeningEdgeMove extends GoTestCase:
   def computerDoesNotPlayFirstLineOnSecondMove(): Unit =
     setupScreenshotOpening()
     controller.requestComputerMove(false, true)
-    val move = controller.getLastMove.asInstanceOf[GoMove]
+    val move = controller.getLastMove.get.asInstanceOf[GoMove]
     val onFirstLine =
       move.getToRow == 1 || move.getToCol == 1 || move.getToRow == 9 || move.getToCol == 9
     if onFirstLine then

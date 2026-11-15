@@ -45,7 +45,7 @@ abstract class GeneralInfoPanel(player: Player) extends JPanel {
 
   def update(controller: GameController[?, ?]): Unit = {
     setPlayerLabel(controller.getCurrentPlayer)
-    if (controller.getLastMove != null) {
+    if (controller.getLastMove.isDefined) {
       moveNumLabel.setText(" " + controller.getNumMoves)
     }
   }

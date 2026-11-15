@@ -62,9 +62,12 @@ object OnlineGameServerFrame {
     val options = new CommandLineOptions(args)
 
     if (OnlineGameServer.verifyCmdLineOptions(options)) {
-      val gameName = options.getValueForOption(OnlineGameServer.GAME_OPTION).get
-      val frame = new OnlineGameServerFrame(gameName)
-      frame.setVisible(true)
+      options.getValueForOption(OnlineGameServer.GAME_OPTION) match {
+        case Some(gameName) =>
+          val frame = new OnlineGameServerFrame(gameName)
+          frame.setVisible(true)
+        case None => ()
+      }
     }
   }
 }

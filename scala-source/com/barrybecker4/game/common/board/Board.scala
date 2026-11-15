@@ -67,15 +67,12 @@ abstract class Board[M <: Move] extends IRectangularBoard[M] {
     legal
   }
 
-  override def undoMove(): M = {
-    if (!getMoveList.isEmpty) {
+  override def undoMove(): Option[M] =
+    if getMoveList.isEmpty then None
+    else
       val move = getMoveList.removeLast()
       undoInternalMove(move)
-      move
-    } else {
-      null.asInstanceOf[M]
-    }
-  }
+      Some(move)
 
   override def equals(b: Any): Boolean = {
     if (!b.isInstanceOf[Board[?]]) return false

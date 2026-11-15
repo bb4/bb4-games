@@ -60,7 +60,7 @@ class BestMoveFinder[M <: TwoPlayerMove](
     var thresholdValue = 0.0
     if (!moveList.isEmpty) {
       val highValue = moveList.getFirstMove.getValue
-      val lowValue = moveList.getLastMove.getValue
+      val lowValue = moveList.getLastMove.get.getValue
       val range = Math.abs(highValue - lowValue)
       val percent = searchOptions_.getPercentLessThanBestThresh / 100.0
       val diff = range * percent

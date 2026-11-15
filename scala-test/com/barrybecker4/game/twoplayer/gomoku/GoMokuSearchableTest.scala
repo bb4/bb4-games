@@ -21,27 +21,27 @@ class GoMokuSearchableTest extends TwoPlayerSearchableBaseTst:
 
   override def testNotDoneMidGame(): Unit =
     restore("midGameP1ToPlay")
-    assertFalse(searchable.done(getController.getLastMove.asInstanceOf[TwoPlayerMove], false), "Did not expect done in the middle of the game. ")
+    assertFalse(searchable.done(getController.getLastMove.get.asInstanceOf[TwoPlayerMove], false), "Did not expect done in the middle of the game. ")
 
   @Test
   def testAlmostWonP1ToPlay(): Unit =
     restore("almostWonP1ToPlay")
-    assertFalse(searchable.done(getController.getLastMove.asInstanceOf[TwoPlayerMove], false), "Did not expect done even though very close. ")
+    assertFalse(searchable.done(getController.getLastMove.get.asInstanceOf[TwoPlayerMove], false), "Did not expect done even though very close. ")
 
   @Test
   def testAlmostWonP2ToPlay(): Unit =
     restore("almostWonP2ToPlay")
-    assertFalse(searchable.done(getController.getLastMove.asInstanceOf[TwoPlayerMove], false), "Did not expect done even though very close. ")
+    assertFalse(searchable.done(getController.getLastMove.get.asInstanceOf[TwoPlayerMove], false), "Did not expect done even though very close. ")
 
   override def testDoneForMidGameWin(): Unit =
     restore("wonGameP1")
-    assertTrue(searchable.done(getController.getLastMove.asInstanceOf[TwoPlayerMove], false), "Expected done state for this game. P1 should have won.")
+    assertTrue(searchable.done(getController.getLastMove.get.asInstanceOf[TwoPlayerMove], false), "Expected done state for this game. P1 should have won.")
     restore("wonGameP2")
-    assertTrue(searchable.done(getController.getLastMove.asInstanceOf[TwoPlayerMove], false), "Expected done state for this game. P2 should have won.")
+    assertTrue(searchable.done(getController.getLastMove.get.asInstanceOf[TwoPlayerMove], false), "Expected done state for this game. P2 should have won.")
 
   override def testDoneEndGame(): Unit =
     restore("endGameNoMoreMoves")
-    assertTrue(searchable.done(getController.getLastMove.asInstanceOf[TwoPlayerMove], false), "Expected done state for this game because there are no more moves. ")
+    assertTrue(searchable.done(getController.getLastMove.get.asInstanceOf[TwoPlayerMove], false), "Expected done state for this game because there are no more moves. ")
 
   override def testGenerateAllP1MovesMidGame(): Unit =
     checkGeneratedMoves("midGameP1ToPlay8x8", EXPECTED_ALL_MIDDLE_GAME_MOVES_P1)
@@ -74,7 +74,7 @@ class GoMokuSearchableTest extends TwoPlayerSearchableBaseTst:
   override def testGenerateUrgentMoves(): Unit =
     restore("urgentMoveP1ToPlay")
     val moves = searchable.generateUrgentMoves(
-      getController.getLastMove.asInstanceOf[TwoPlayerMove],
+      getController.getLastMove.get.asInstanceOf[TwoPlayerMove],
       weights
     )
     checkMoveListAgainstExpected("urgentMoveP1ToPlay", EXPECTED_URGENT_MOVES_P1, moves)
@@ -83,13 +83,13 @@ class GoMokuSearchableTest extends TwoPlayerSearchableBaseTst:
   def testGenerateUrgentMovesP2(): Unit =
     restore("urgentMoveP2ToPlay")
     val moves = searchable.generateUrgentMoves(
-      getController.getLastMove.asInstanceOf[TwoPlayerMove],
+      getController.getLastMove.get.asInstanceOf[TwoPlayerMove],
       weights
     )
     checkMoveListAgainstExpected("urgentMoveP2ToPlay", EXPECTED_URGENT_MOVES_P2, moves)
 
   private def checkGeneratedMoves(fileName: String, expectedMoves: Array[TwoPlayerMove]): Unit =
     restore(fileName)
-    val lastMove = getController.getLastMove.asInstanceOf[TwoPlayerMove]
+    val lastMove = getController.getLastMove.get.asInstanceOf[TwoPlayerMove]
     val moves = getController.getSearchable().generateMoves(lastMove, weights)
     checkMoveListAgainstExpected(fileName, expectedMoves, moves)

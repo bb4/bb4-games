@@ -39,7 +39,7 @@ class WinProbabilityCalculator:
    */
   final def getChanceOfPlayer1Winning(moveList: MoveList[?]): Double =
     // if true then too early in the game to tell.
-    val lastMove = moveList.getLastMove.asInstanceOf[TwoPlayerMove]
+    val lastMove = moveList.getLastMove.map(_.asInstanceOf[TwoPlayerMove]).orNull
 
     // at the beginning of the game its anybody's guess : 50-50
     if moveList.getNumMoves < 4 then

@@ -1,5 +1,7 @@
-/* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
+/* Copyright by Barry G. Becker, 2000-2036. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.common.online
+
+import com.barrybecker4.game.common.player.PlayerAction
 
 import java.io.Serializable
 import java.util.Objects
@@ -14,11 +16,26 @@ class GameCommand(name: GameCommand.Name, arg: Serializable) extends Serializabl
 
   Objects.requireNonNull(name, "name")
   private val name_ : GameCommand.Name = name
-  private val argument_ : Object = Objects.requireNonNull(arg, "argument must not be null").asInstanceOf[Object]
+  private val argument_ : Serializable = Objects.requireNonNull(arg, "argument must not be null")
 
   def getName: GameCommand.Name = name_
 
-  def getArgument: Object = argument_
+  def getArgument: Object = argument_.asInstanceOf[Object]
+
+  /** Typed access to the command argument; fails clearly on type mismatch. */
+  def argumentAs[T](clazz: Class[T]): T =
+    if clazz.isInstance(argument_) then clazz.cast(argument_)
+    else throw new ClassCastException(
+      s"GameCommand $name_ expected ${clazz.getSimpleName} but was ${argument_.getClass.getSimpleName}"
+    )
+
+  def asString: String = argumentAs(classOf[String])
+
+  def asTable: OnlineGameTable = argumentAs(classOf[OnlineGameTable])
+
+  def asAction: PlayerAction = argumentAs(classOf[PlayerAction])
+
+  def asTables: OnlineGameTableList = argumentAs(classOf[OnlineGameTableList])
 
   override def toString: String =
     "Command: " + name_ + " " + argument_.toString
@@ -26,6 +43,8 @@ class GameCommand(name: GameCommand.Name, arg: Serializable) extends Serializabl
 object GameCommand:
 
   val CHANGE_TO: String = "!:!"
+
+  def apply(name: Name, arg: Serializable): GameCommand = new GameCommand(name, arg)
 
   /**
    * list of possible commands that the player can issue.

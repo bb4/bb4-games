@@ -9,6 +9,7 @@ import com.barrybecker4.game.multiplayer.common.{MultiGameController, MultiGameP
 import com.barrybecker4.game.multiplayer.galactic.player.GalacticPlayer
 import com.barrybecker4.game.multiplayer.galactic.ui.GalaxyViewer
 
+import java.util
 import java.util.{ArrayList, List as JList}
 
 class GalacticController
@@ -37,12 +38,12 @@ class GalacticController
   def getNumberOfYearsRemaining: Int =
     val m = getLastMove
     getOptions.asInstanceOf[GalacticOptions].getMaxYearsToPlay -
-      (if m != null then getNumMoves else 0) - 2
+      (if m.isDefined then getNumMoves else 0) - 2
 
   override def isOnlinePlayAvailable: Boolean = false
 
   override def isDone: Boolean =
-    if getLastMove == null then return false
+    if getLastMove.isEmpty then return false
     val numMoves = getNumMoves
     GameContext.log(2, s"num moves = $numMoves")
     if (numMoves + 2) >= getOptions.asInstanceOf[GalacticOptions].getMaxYearsToPlay then
@@ -57,7 +58,7 @@ class GalacticController
       val criteria = scorer.score(pit.next().asInstanceOf[GalacticPlayer])
       if criteria > maxCriteria then maxCriteria = criteria
 
-    val winners = new ArrayList[GalacticPlayer]()
+    val winners = new util.ArrayList[GalacticPlayer]()
     val pit2 = getPlayers.iterator()
     while pit2.hasNext do
       val player = pit2.next().asInstanceOf[GalacticPlayer]
@@ -73,7 +74,7 @@ class GalacticController
 
     advanceToNextPlayerIndex()
 
-    if getCurrentPlayer == getPlayers.getFirstPlayer then
+    if getCurrentPlayer == getPlayers.getPlayer1 then
       val gmove = gviewer.createMove(null)
       makeMove(gmove)
 

@@ -112,7 +112,7 @@ class HashUniquenessTest:
 
   private def score(b: TicTacToeBoard): Int =
     var scoreVal = 0.0
-    val player1 = b.getMoveList.getLastMove.isPlayer1
+    val player1 = b.getMoveList.getLastMove.get.isPlayer1
     var i = 1
     while i <= rowMax do
       var j = 1

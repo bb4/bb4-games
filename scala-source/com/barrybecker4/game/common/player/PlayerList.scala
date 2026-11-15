@@ -10,8 +10,6 @@ import scala.jdk.CollectionConverters.*
  */
 class PlayerList extends util.ArrayList[Player] {
 
-  def getFirstPlayer: Player = get(0)
-
   def getPlayer1: Player = get(0)
 
   def getPlayer2: Player = get(1)
@@ -26,9 +24,8 @@ class PlayerList extends util.ArrayList[Player] {
     this.asScala.exists(_.hasWon)
   }
 
-  def getWinningPlayer: Player = {
-    this.asScala.find(_.hasWon).orNull
-  }
+  def getWinningPlayer: Option[Player] =
+    this.asScala.find(_.hasWon)
 
   def allPlayersHuman: Boolean = {
     this.asScala.forall(_.isHuman)

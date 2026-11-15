@@ -33,7 +33,7 @@ class CheckersController extends TwoPlayerController[CheckersMove, CheckersBoard
     if (!getPlayers.anyPlayerWon) {
       0
     } else {
-      getSearchable().worth(getLastMove, weights_.getDefaultWeights)
+      getSearchable().worth(getLastMove.orNull, weights_.getDefaultWeights)
     }
   }
 

@@ -32,7 +32,7 @@ class GalacticGeneralInfoPanel(player: Player, commandPanel: JPanel) extends Gen
   override def update(controller: GameController[?, ?]): Unit =
     setPlayerLabel(controller.getCurrentPlayer)
     val lastMove = controller.getLastMove
-    if lastMove != null then
+    if lastMove.isDefined then
       moveNumLabel.setText(s"${controller.getPlayers.getNumPlayers + 2} ")
     else
       moveNumLabel.setText("1 ")
