@@ -32,7 +32,7 @@ class NegaMaxStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
     var i = 0
     var bestInheritedValue = -SearchStrategy.INFINITY
     var selectedMove: M = null.asInstanceOf[M]
-    var bestMove = list.get(0)
+    var bestMove = bestFirstFromPrepared(list)
     var done = false
 
     while !list.isEmpty && !done do
@@ -45,8 +45,9 @@ class NegaMaxStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
       i += 1
       try
         val child = addNodeToTree(parent, theMove, window)
-        selectedMove = searchInternal(theMove, depth - 1,
-          new SearchWindow(-window.beta, -Math.max(window.alpha, bestInheritedValue)), child)
+        val childWindow =
+          new SearchWindow(Math.max(window.alpha, bestInheritedValue), window.beta).negateAndSwap()
+        selectedMove = searchInternal(theMove, depth - 1, childWindow, child)
       finally
         searchable.undoInternalMove(theMove)
 
@@ -61,6 +62,10 @@ class NegaMaxStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
             showPrunedNodesInTree(list, parent, i, selectedValue, window)
             done = true
 
+    finalizeBestMove(bestMove, lastMove)
+
+  /** Mark best move selected and propagate inherited value to parent. */
+  protected def finalizeBestMove(bestMove: M, lastMove: M): M =
     bestMove.setSelected(true)
     lastMove.setInheritedValue(-bestMove.getInheritedValue)
     bestMove

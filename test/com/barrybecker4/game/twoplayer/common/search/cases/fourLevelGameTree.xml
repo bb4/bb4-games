@@ -51,19 +51,19 @@
 
         <test-case strategy="NegaScoutStrategy" rootPlayer1="true" notes="Winning next move for depth 4 p1">
               <brute-force-options look-ahead="4" alpha-beta="false" />
-              <expected-search-result move-id="1" inherited-value="22" num-moves-considered="27"/>
+              <expected-search-result move-id="1" inherited-value="14" num-moves-considered="36"/>
         </test-case>
         <test-case strategy="NegaScoutStrategy" rootPlayer1="true" notes="Winning next move for depth 4 p1 (alpha/beta)">
               <brute-force-options look-ahead="4" alpha-beta="true" />
-              <expected-search-result move-id="1" inherited-value="22" num-moves-considered="27"/>
+              <expected-search-result move-id="1" inherited-value="14" num-moves-considered="36"/>
         </test-case>
         <test-case strategy="NegaScoutStrategy" rootPlayer1="false" notes="Winning next move for depth 4 p0">
               <brute-force-options look-ahead="4" alpha-beta="false" />
-              <expected-search-result move-id="0" inherited-value="33" num-moves-considered="23"/>
+              <expected-search-result move-id="0" inherited-value="48" num-moves-considered="24"/>
         </test-case>
         <test-case strategy="NegaScoutStrategy" rootPlayer1="false" notes="Winning next move for depth 4 p0 (alpha/beta)">
               <brute-force-options look-ahead="4" alpha-beta="true" />
-              <expected-search-result move-id="0" inherited-value="33" num-moves-considered="23"/>
+              <expected-search-result move-id="0" inherited-value="48" num-moves-considered="24"/>
         </test-case>
 
         <test-case strategy="NegaMaxMemoryStrategy" rootPlayer1="true" notes="Winning next move for depth 4">
@@ -89,15 +89,15 @@
         </test-case>
         <test-case strategy="NegaScoutMemoryStrategy" rootPlayer1="false" notes="Winning next move for depth 4">
               <brute-force-options look-ahead="4" alpha-beta="false" />
-              <expected-search-result move-id="0" inherited-value="33" num-moves-considered="20"/>
+              <expected-search-result move-id="0" inherited-value="7" num-moves-considered="20"/>
         </test-case>
         <test-case strategy="NegaScoutMemoryStrategy" rootPlayer1="true" notes="Winning next move for depth 4 (alpha/beta)">
               <brute-force-options look-ahead="4" alpha-beta="true" />
-              <expected-search-result move-id="1" inherited-value="22" num-moves-considered="22"/>
+              <expected-search-result move-id="1" inherited-value="17" num-moves-considered="24"/>
         </test-case>
         <test-case strategy="NegaScoutMemoryStrategy" rootPlayer1="false" notes="Winning next move for depth 4 (alpha/beta)">
               <brute-force-options look-ahead="4" alpha-beta="true" />
-              <expected-search-result move-id="0" inherited-value="33" num-moves-considered="20"/>
+              <expected-search-result move-id="0" inherited-value="7" num-moves-considered="20"/>
         </test-case>
 
         <test-case strategy="UctStrategy" rootPlayer1="true" notes="Winning next move for p1 look2">

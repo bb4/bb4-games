@@ -105,22 +105,27 @@ class UctStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
     selected
 
   /**
-   * Plays a semi-random game from the current node position.
-   * Its semi random in the sense that we try to avoid obviously bad moves.
+   * Plays a semi-random game from the current node position on the live board,
+   * then undoes all playout moves so the search position is restored.
    * @return a score (0 = p1 lost; 0.5 = tie; or 1= p1 won) indication p1 advantage.
    */
   private def playRandomGame(lastMove: M): Float =
-    val s = searchable.copy()
-    playRandomMove(lastMove, s, s.getNumMoves())
+    val startNumMoves = searchable.getNumMoves()
+    try
+      playRandomMove(lastMove, startNumMoves)
+    finally
+      while searchable.getNumMoves() > startNumMoves do
+        val m = searchable.getMoveList.getLastMove.get.asInstanceOf[M]
+        searchable.undoInternalMove(m)
 
   /**
-   * Plays a semi-random game from the current node position.
-   * Its semi-random in the sense that we try to avoid obviously bad moves.
+   * Semi-random playout: prefer moves near the best static value.
+   * Moves are made on [[searchable]]; [[playRandomGame]] undoes them.
    *
-   * @param startNumMoves how many moves have already been played.
-   * @return a score (0 = p1 lost; 0.5 = tie; or 1= p1 won) indication p1 advantage.
+   * @param startNumMoves move count before this playout began.
+   * @return p1 win chance in [0, 1].
    */
-  private def playRandomMove(lastMove: M, searchable: Searchable[M, B], startNumMoves: Int): Float =
+  private def playRandomMove(lastMove: M, startNumMoves: Int): Float =
     val numRandMoves = searchable.getNumMoves() - startNumMoves
     if numRandMoves >= numRandomLookAhead || searchable.done(lastMove, false) then
       val score = searchable.worth(lastMove, weights_)
@@ -133,7 +138,7 @@ class UctStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
 
     val randomMove = moves.getRandomMoveForThresh(percentLessThanBestThresh)
     searchable.makeInternalMove(randomMove)
-    playRandomMove(randomMove, searchable, startNumMoves)
+    playRandomMove(randomMove, startNumMoves)
 
   /**
    * add a move to the visual game tree (if parent not null).

@@ -73,23 +73,23 @@ class NegaScoutStrategyTest extends NegaScoutStrategyTst:
 
   override protected def getExpectedFourLevelLookaheadMoves: ExpectedMoveMatrix =
     new ExpectedMoveMatrix(
-                new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(1, 1), 8, PLAYER2_PIECE), 211),
+                new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(1, 1), 8, PLAYER2_PIECE), 221),
                 new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(2, 1), 48, PLAYER1_PIECE), 101),
                 new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(3, 2), 28, PLAYER2_PIECE), 18),
-                new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(1, 2), 0, PLAYER1_PIECE), 28),
+                new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(1, 2), 0, PLAYER1_PIECE), 32),
                 new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(2, 1), 0, PLAYER2_PIECE), 4),
                 new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(3, 1), -12, PLAYER1_PIECE), 11)
-            )
+    )
 
   override protected def getExpectedFourLevelBest20PercentMoves: ExpectedMoveMatrix =
     new ExpectedMoveMatrix(
                  new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(1, 2), 4, PLAYER2_PIECE), 73),   // as 61
                  new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(2, 1), 48, PLAYER1_PIECE), 53),
                  new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(3, 2), 28, PLAYER2_PIECE), 18),
-                 new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(1, 2), 0, PLAYER1_PIECE), 26),
+                 new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(1, 2), 0, PLAYER1_PIECE), 30),
                  new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(2, 1), 0, PLAYER2_PIECE), 4),
                  new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(3, 1), -12, PLAYER1_PIECE), 11)
-            )
+    )
 
   override protected def getExpectedTwoLevelWithQuiescenceMoves: ExpectedMoveMatrix =
     new ExpectedMoveMatrix(
@@ -114,29 +114,29 @@ class NegaScoutStrategyTest extends NegaScoutStrategyTst:
   override protected def getExpectedThreeLevelWithQuiescenceMoves: ExpectedMoveMatrix =
     new ExpectedMoveMatrix(
                 new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(1, 2), 4, PLAYER2_PIECE), 76),
-                new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(3, 3), 8272, PLAYER1_PIECE), 146),  // was 136
+                new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(3, 3), 8272, PLAYER1_PIECE), 154),
                 new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(3, 2), 28, PLAYER2_PIECE), 14),
-                new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(1, 2), 0, PLAYER1_PIECE), 27),
+                new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(1, 2), 0, PLAYER1_PIECE), 30),
                 new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(2, 1), 0, PLAYER2_PIECE), 4),
                 new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(3, 1), -12, PLAYER1_PIECE), 11)
-            )
+    )
 
   override protected def getExpectedFourLevelWithQuiescenceMoves: ExpectedMoveMatrix =
     new ExpectedMoveMatrix(
-                new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(2, 1), -8240, PLAYER2_PIECE), 292), // was 292, 247, now 784
+                new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(1, 2), 0, PLAYER2_PIECE), 225),
                 new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(2, 1), 48, PLAYER1_PIECE), 101),
                 new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(3, 2), 28, PLAYER2_PIECE), 18),
-                new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(1, 2), 0, PLAYER1_PIECE), 28),
+                new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(1, 2), 0, PLAYER1_PIECE), 32),
                 new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(2, 1), 0, PLAYER2_PIECE), 4),
                 new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(3, 1), -12, PLAYER1_PIECE), 11)
-            )
+    )
 
   override protected def getExpectedFourLevelNoAlphaBetaMoves: ExpectedMoveMatrix =
     new ExpectedMoveMatrix(
-                new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(1, 1), 8, PLAYER2_PIECE), 211), // was 197
+                new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(1, 1), 8, PLAYER2_PIECE), 221),
                 new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(2, 1), 48, PLAYER1_PIECE), 101),
                 new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(3, 2), 28, PLAYER2_PIECE), 18),
-                new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(1, 2), 0, PLAYER1_PIECE), 28),
+                new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(1, 2), 0, PLAYER1_PIECE), 32),
                 new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(2, 1), 0, PLAYER2_PIECE), 4),
                 new MoveInfo(TwoPlayerMove.createMove(new ByteLocation(3, 1), -12, PLAYER1_PIECE), 11)
             )

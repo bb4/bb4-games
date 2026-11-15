@@ -75,14 +75,15 @@ A simple game tree for testing search strategies.
         </test-case>
 
 
-        <!--test-case strategy="NegaMaxMemoryStrategy" rootPlayer1="true" notes="Winning next move for depth 3">
-              <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
-              <expected-search-result move-id="0" inherited-value="-8" num-moves-considered="2"/>
+        <!-- Memory strategies should agree with NegaMax on best move and value at depth 3. -->
+        <test-case strategy="NegaMaxMemoryStrategy" rootPlayer1="true" notes="Winning next move for depth 3">
+              <brute-force-options look-ahead="3" alpha-beta="false"/>
+              <expected-search-result move-id="0" inherited-value="-1" num-moves-considered="6"/>
         </test-case>
-        <test-case strategy="NegaScoutMemoryStrategy" rootPlayer1="true" notes="Winning next move for depth 3">
-              <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
-              <expected-search-result move-id="0" inherited-value="-8" num-moves-considered="2"/>
-        </test-case-->
+        <test-case strategy="NegaMaxMemoryStrategy" rootPlayer1="false" notes="Winning next move for depth 3">
+              <brute-force-options look-ahead="3" alpha-beta="false" />
+              <expected-search-result move-id="0" inherited-value="1" num-moves-considered="6"/>
+        </test-case>
         <test-case strategy="UctStrategy" rootPlayer1="true" notes="Winning next move for depth 3">
               <monte-carlo-options max-simulations="10" explore-exploit-ratio="1.0" random-look-ahead="3" />
               <expected-search-result move-id="0" inherited-value="-8" num-moves-considered="7"/>

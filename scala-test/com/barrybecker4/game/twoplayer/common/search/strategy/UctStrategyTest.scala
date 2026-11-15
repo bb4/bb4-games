@@ -119,6 +119,17 @@ class UctStrategyTest extends AnyFunSuite with BeforeAndAfterEach {
     assertBoardUnchangedBySearch(searchable, weights, SmallMaxSimulations, "TicTacToe mid-game")
   }
 
+  test("UCT search with many simulations restores TicTacToe hash and move count") {
+    val manySims = 200
+    val helper = new TicTacToeHelper()
+    val controller = new TicTacToeController()
+    applyUctToPlayers(controller, manySims)
+    controller.restoreFromStream(helper.getTestResource(Progress.MIDDLE, true))
+    val searchable = controller.getSearchable().asInstanceOf[TicTacToeSearchable]
+    val weights = controller.getComputerWeights().asInstanceOf[TicTacToeWeights].getPlayer1Weights
+    assertBoardUnchangedBySearch(searchable, weights, manySims, "TicTacToe mid-game many sims")
+  }
+
   test("UCT search leaves chess board unchanged") {
     val board = new ChessBoard()
     board.reset()

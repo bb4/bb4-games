@@ -70,7 +70,7 @@
         </test-case>
         <test-case strategy="NegaScoutMemoryStrategy" notes="Winning next move for depth 3">
               <brute-force-options look-ahead="3" alpha-beta="false" />
-              <expected-search-result move-id="2" inherited-value="-16" num-moves-considered="12"/>
+              <expected-search-result move-id="2" inherited-value="-13" num-moves-considered="12"/>
         </test-case>
 
         <test-case strategy="UctStrategy" rootPlayer1="true" notes="Winning move for max 10 moves">

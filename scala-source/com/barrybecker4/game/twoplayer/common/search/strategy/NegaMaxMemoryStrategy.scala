@@ -18,15 +18,19 @@ import com.barrybecker4.optimization.parameter.ParameterArray
 final class NegaMaxMemoryStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
   controller: Searchable[M, B],
   weights: ParameterArray
-) extends NegaMaxStrategy[M, B](controller, weights) with MemorySearchStrategy[M, B]:
+) extends NegaMaxStrategy[M, B](controller, weights)
+    with MemorySearchStrategy[M, B]
+    with TranspositionProbe[M, B]:
 
   /** Stores positions that have already been evaluated, so we do not need to repeat work. */
   private val lookupTable: TranspositionTable[M] = new TranspositionTable[M]()
 
+  override protected def transpositionTable: TranspositionTable[M] = lookupTable
+
   override def getTranspositionTable(): TranspositionTable[?] = lookupTable
 
   override def search(lastMove: M, parent: SearchTreeNode): M =
-    // need to negate alpha and beta on initial call.
+    // Zero-width seed at the root (Millington/Funge memory NegaMax); MTD builds on this.
     val window = getOptions.getBruteSearchOptions.getInitialSearchWindow
     val g = window.getMidPoint
     searchInternal(lastMove, lookAhead_, new SearchWindow(g, g), parent)
@@ -36,34 +40,31 @@ final class NegaMaxMemoryStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
 
   override def searchInternal(lastMove: M, depth: Int,
                                          window: SearchWindow, parent: SearchTreeNode): M =
+    // Keep legacy fall-through when entryExists is true but bounds do not force a cutoff.
     val key = searchable.getHashKey()
     val entry = lookupTable.get(key)
     if lookupTable.entryExists(entry, lastMove, depth, window) then
-      val e = entry.get
-      if e.lowerValue > window.alpha then
-        e.bestMove.setInheritedValue(e.lowerValue)
-        return e.bestMove
-      else if e.upperValue < window.beta then
-        e.bestMove.setInheritedValue(e.upperValue)
-        return e.bestMove
-
-    var theEntry = new Entry[M](lastMove, depth, new SearchWindow(-SearchStrategy.INFINITY, SearchStrategy.INFINITY))
+      entry match
+        case Some(e) if e.lowerValue > window.alpha =>
+          e.bestMove.setInheritedValue(e.lowerValue)
+          return e.bestMove
+        case Some(e) if e.upperValue < window.beta =>
+          e.bestMove.setInheritedValue(e.upperValue)
+          return e.bestMove
+        case _ => ()
 
     val done = searchable.done(lastMove, false)
     if depth <= 0 || done then
       if doQuiescentSearch(depth, done, lastMove) then
         val qMove = quiescentSearch(lastMove, depth, window, parent)
         if qMove != null then
-          theEntry = new Entry[M](qMove, qMove.getInheritedValue)
-          lookupTable.put(key, theEntry)
+          storeQuiescentLeaf(key, qMove)
           return qMove
 
       val sign = if fromPlayer1sPerspective(lastMove) then 1 else -1
       val value = sign * lastMove.getValue
       lastMove.setInheritedValue(value)
-      theEntry.lowerValue = value
-      theEntry.upperValue = value
-      lookupTable.put(key, theEntry)
+      storeExactLeaf(key, lastMove, value)
       return lastMove
 
     val list = searchable.generateMoves(lastMove, weights_)
@@ -73,6 +74,7 @@ final class NegaMaxMemoryStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
 
     if emptyMoveList(list, lastMove) then return null.asInstanceOf[M]
 
+    prepareMovesForSearch(list)
     findBestMove(lastMove, depth, list, window, parent)
 
   override def findBestMove(lastMove: M, depth: Int, list: MoveList[M],
@@ -81,7 +83,7 @@ final class NegaMaxMemoryStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
     var bestInheritedValue = -SearchStrategy.INFINITY
     var selectedMove: TwoPlayerMove = null
 
-    var bestMove = list.get(0)
+    var bestMove = bestFirstFromPrepared(list)
     val entry = new Entry[M](bestMove, depth, window)
 
     while !list.isEmpty() do
@@ -91,12 +93,12 @@ final class NegaMaxMemoryStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
       updatePercentDone(depth, list)
 
       searchable.makeInternalMove(theMove)
-      val child = addNodeToTree(parent, theMove, window)
-      i += 1
-
-      selectedMove = searchInternal(theMove, depth - 1, window.negateAndSwap(), child)
-
-      searchable.undoInternalMove(theMove)
+      try
+        val child = addNodeToTree(parent, theMove, window)
+        i += 1
+        selectedMove = searchInternal(theMove, depth - 1, window.negateAndSwap(), child)
+      finally
+        searchable.undoInternalMove(theMove)
 
       if selectedMove != null then
         val selectedValue = -selectedMove.getInheritedValue
@@ -109,14 +111,10 @@ final class NegaMaxMemoryStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
           if alphaBeta_ && bestInheritedValue >= window.beta then
             showPrunedNodesInTree(list, parent, i, selectedValue, window)
             storeBestMove(window.alpha, entry, bestMove.getInheritedValue)
-            bestMove.setSelected(true)
-            lastMove.setInheritedValue(-bestMove.getInheritedValue)
-            return bestMove
+            return finalizeBestMove(bestMove, lastMove)
 
     storeBestMove(window.alpha, entry, bestMove.getInheritedValue)
-    bestMove.setSelected(true)
-    lastMove.setInheritedValue(-bestMove.getInheritedValue)
-    bestMove
+    finalizeBestMove(bestMove, lastMove)
 
   /**
    * Store off the best move so we do not need to analyze it again.

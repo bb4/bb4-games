@@ -25,8 +25,6 @@ class BruteSearchOptions(defaultLookAhead: Int):
     this(defaultLookAhead)
     this.maxQuiescentDepth = maxQuiescentDepth
 
-  def getDefaultLookAhead: Int = DEFAULT_LOOK_AHEAD
-
   final def getLookAhead: Int = lookAhead
 
   final def setLookAhead(look: Int): Unit =

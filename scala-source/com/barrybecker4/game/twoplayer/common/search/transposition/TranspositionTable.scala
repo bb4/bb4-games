@@ -1,22 +1,16 @@
-/* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
+/* Copyright by Barry G. Becker, 2000-2026. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.common.search.transposition
 
 import com.barrybecker4.common.util.LRUCache
 import com.barrybecker4.game.twoplayer.common.TwoPlayerMove
 import com.barrybecker4.game.twoplayer.common.search.SearchWindow
-import scala.Option
 
 /**
- * A kind of LRU cache for game moves so that we do not need to
- * recompute scores. Since lookups can use more accurate scores, alpha-beta
- * pruning can be much more effective - thereby dramatically reducing the
- * search space.
- * This technique applies the memoization pattern to search.
- * See http://en.wikipedia.org/wiki/Transposition_table
- * http://pages.cs.wisc.edu/~mjr/Pente/
- * http://people.csail.mit.edu/plaat/mtdf.html
+ * LRU cache for searched positions so scores need not be recomputed.
+ * Memoization for alpha-beta search; see http://en.wikipedia.org/wiki/Transposition_table
  */
-class TranspositionTable[M <: TwoPlayerMove] extends LRUCache[HashKey, Entry[M]](TranspositionTable.MAX_ENTRIES) {
+class TranspositionTable[M <: TwoPlayerMove]
+    extends LRUCache[HashKey, Entry[M]](TranspositionTable.MAX_ENTRIES):
 
   private var cacheHits = 0
   private var cacheNearHits = 0
@@ -25,50 +19,36 @@ class TranspositionTable[M <: TwoPlayerMove] extends LRUCache[HashKey, Entry[M]]
   /**
    * if we can just look up the best move in the transposition table, then just do that.
    * Has side effect of updating the lastMove with the correct boundary if cache hit.
-   * @return saved best move in entry
+   * @return true if a useful TT entry exists for this window/depth
    */
-  def entryExists(entry: Option[Entry[M]], lastMove: M, depth: Int, window: SearchWindow): Boolean = {
-    if (entry.isDefined && entry.get.depth >= depth) {
-      cacheHits += 1
+  def entryExists(entry: Option[Entry[M]], lastMove: M, depth: Int, window: SearchWindow): Boolean =
+    entry match
+      case Some(e) if e.depth >= depth =>
+        cacheHits += 1
+        if e.upperValue <= window.alpha || e.upperValue == e.lowerValue then
+          e.bestMove.setInheritedValue(e.upperValue)
+          lastMove.setInheritedValue(-e.upperValue)
+          true
+        else if e.lowerValue >= window.beta then
+          e.bestMove.setInheritedValue(e.lowerValue)
+          lastMove.setInheritedValue(-e.lowerValue)
+          true
+        else false
+      case Some(_) =>
+        cacheNearHits += 1
+        false
+      case None =>
+        cacheMisses += 1
+        false
 
-      val e = entry.get
-      if (e.upperValue <= window.alpha || e.upperValue == e.lowerValue) {
-        e.bestMove.setInheritedValue(e.upperValue)
-        lastMove.setInheritedValue(-e.upperValue)
-        return true
-      }
-      if (e.lowerValue >= window.beta) {
-        e.bestMove.setInheritedValue(e.lowerValue)
-        lastMove.setInheritedValue(-e.lowerValue)
-        return true
-      }
-    } else {
-      if (entry.isDefined) cacheNearHits += 1
-      else cacheMisses += 1
-    }
-    false
-  }
-
-  /**
-   * @return the number of times we were able to retrieve a stored move that was useful to us.
-   */
   def getCacheHits: Int = cacheHits
 
-  /**
-   * @return the number of times we were able to retrieve a stored move, but it was not useful to us.
-   */
   def getNearCacheHits: Int = cacheNearHits
 
-  /**
-   * @return the number of times we looked but failed to find a stored move..
-   */
   def getCacheMisses: Int = cacheMisses
 
-  override def toString: String = {
+  override def toString: String =
     s"TranspositionTable [\nnumEntries=$numEntries hits$getCacheHits nearHits=$getNearCacheHits misses=$getCacheMisses\n]"
-  }
-}
 
-object TranspositionTable {
+object TranspositionTable:
   private val MAX_ENTRIES = 100000
-}

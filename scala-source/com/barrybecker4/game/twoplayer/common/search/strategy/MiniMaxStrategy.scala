@@ -8,8 +8,9 @@ import com.barrybecker4.game.twoplayer.common.search.tree.SearchTreeNode
 import com.barrybecker4.optimization.parameter.ParameterArray
 
 /**
- * This strategy class defines the MiniMax search algorithm.
- * This is the simplest search strategy to which the other variants are compared.
+ * Classic MiniMax with optional alpha-beta pruning.
+ * Kept as a teaching / reference implementation; production games typically use
+ * NegaMax or NegaScout (default), which produce equivalent trees more cleanly.
  */
 final class MiniMaxStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
   controller: Searchable[M, B],
@@ -26,7 +27,7 @@ final class MiniMaxStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
     val player1ToMove = !lastMove.isPlayer1
     var bestInheritedValue = if player1ToMove then -SearchStrategy.INFINITY else SearchStrategy.INFINITY
 
-    var bestMove = list.get(0)
+    var bestMove = bestFirstFromPrepared(list)
     var done = false
     while !list.isEmpty && !done do
       if isPaused then

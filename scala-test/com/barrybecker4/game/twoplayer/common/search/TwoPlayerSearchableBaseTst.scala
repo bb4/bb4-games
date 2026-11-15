@@ -141,14 +141,15 @@ abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst:
     assertTrue(moves != null, "We expect the move list to be non-null very start of the game.")
     assertTrue(moves.size > 0, "We expected some valid next moves at the very start of the game.")
 
-  @Test def testGenerateAllP1MovesMidGame(): Unit = assertFalse(false)
-  @Test def testGenerateTopP1MovesMidGame(): Unit = assertFalse(false)
-  @Test def testGenerateAllP1MovesEndGame(): Unit = assertFalse(false)
-  @Test def testGenerateTopP1MovesEndGame(): Unit = assertFalse(false)
-  @Test def testGenerateAllP2MovesMidGame(): Unit = assertFalse(false)
-  @Test def testGenerateTopP2MovesMidGame(): Unit = assertFalse(false)
-  @Test def testGenerateAllP2MovesEndGame(): Unit = assertFalse(false)
-  @Test def testGenerateTopP2MovesEndGame(): Unit = assertFalse(false)
+  /** Game-specific subclasses must supply mid/end-game generateMoves expectations. */
+  @Test def testGenerateAllP1MovesMidGame(): Unit
+  @Test def testGenerateTopP1MovesMidGame(): Unit
+  @Test def testGenerateAllP1MovesEndGame(): Unit
+  @Test def testGenerateTopP1MovesEndGame(): Unit
+  @Test def testGenerateAllP2MovesMidGame(): Unit
+  @Test def testGenerateTopP2MovesMidGame(): Unit
+  @Test def testGenerateAllP2MovesEndGame(): Unit
+  @Test def testGenerateTopP2MovesEndGame(): Unit
 
   @Test
   def testGenerateUrgentMovesAtStartOfGame(): Unit =
@@ -156,18 +157,17 @@ abstract class TwoPlayerSearchableBaseTst extends SearchableBaseTst:
     assertTrue(moves != null, "We expected move list to be non-null.")
     assertTrue(moves.size == 0, "We expected no urgent moves at the start of the game, but was:" + moves)
 
-  @Test
-  def testGenerateUrgentMoves(): Unit =
-    assertFalse(false)
+  /** Game-specific subclasses must verify urgent-move generation for a mid-game position. */
+  @Test def testGenerateUrgentMoves(): Unit
 
   @Test
-  def testInJeopardy(): Unit =
-    var actualInJeopardy = searchable.inJeopardy(null, weights)
-    assertFalse(actualInJeopardy, "We don't expect anything to be in jeopardy at the very start of the game.")
+  def testInJeopardyAtStartOfGame(): Unit =
+    val atStart = searchable.inJeopardy(null, weights)
+    assertFalse(atStart, "We don't expect anything to be in jeopardy at the very start of the game.")
     val lastMove = createInitialMove
     searchable.makeInternalMove(lastMove)
-    actualInJeopardy =
-      searchable.inJeopardy(lastMove, getController.getComputerWeights().getPlayer2Weights)
+    // After the first move, jeopardy is game-specific; just ensure the call is safe.
+    searchable.inJeopardy(lastMove, getController.getComputerWeights().getPlayer2Weights)
 
   protected def checkMoveListAgainstExpected(
       title: String,

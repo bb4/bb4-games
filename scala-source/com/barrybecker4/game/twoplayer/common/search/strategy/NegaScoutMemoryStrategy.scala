@@ -1,4 +1,4 @@
-/* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
+/* Copyright by Barry G. Becker, 2000-2026. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.common.search.strategy
 
 import com.barrybecker4.game.common.MoveList
@@ -9,43 +9,40 @@ import com.barrybecker4.game.twoplayer.common.search.tree.SearchTreeNode
 import com.barrybecker4.optimization.parameter.ParameterArray
 
 /**
- *  This strategy class defines the NegaScout with memory search algorithm.
- *  This version stores the values of moves that have already been searched.
- *  See http://people.csail.mit.edu/plaat/mtdf.html
- *  and http://en.wikipedia.org/wiki/Negascout
- *
- *  @author Barry Becker
+ * NegaScout (PVS) with a transposition table.
+ * See http://people.csail.mit.edu/plaat/mtdf.html and http://en.wikipedia.org/wiki/Negascout
  */
 final class NegaScoutMemoryStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
   controller: Searchable[M, B],
   weights: ParameterArray
-) extends NegaScoutStrategy[M, B](controller, weights) with MemorySearchStrategy[M, B]:
+) extends NegaScoutStrategy[M, B](controller, weights)
+    with MemorySearchStrategy[M, B]
+    with TranspositionProbe[M, B]:
 
-  /** Stores positions that have already been evaluated, so we do not need to repeat work. */
   private val lookupTable: TranspositionTable[M] = new TranspositionTable[M]()
+
+  override protected def transpositionTable: TranspositionTable[M] = lookupTable
 
   override def getTranspositionTable(): TranspositionTable[?] = lookupTable
 
   override def searchInternal(lastMove: M, depth: Int,
                                          window: SearchWindow, parent: SearchTreeNode): M =
-    val key = searchable.getHashKey()
-    val entry = lookupTable.get(key)
-    if lookupTable.entryExists(entry, lastMove, depth, window) then
-      return entry.get.bestMove
+    probeTranspositionHit(lastMove, depth, window) match
+      case Some(hit) => return hit
+      case None => ()
 
+    val key = searchable.getHashKey()
     val done = searchable.done(lastMove, false)
     if depth <= 0 || done then
       if doQuiescentSearch(depth, done, lastMove) then
         val qMove = quiescentSearch(lastMove, depth, window, parent)
         if qMove != null then
-          val theEntry = new Entry[M](qMove, qMove.getInheritedValue)
-          lookupTable.put(key, theEntry)
+          storeQuiescentLeaf(key, qMove)
           return qMove
 
       val sign = if fromPlayer1sPerspective(lastMove) then 1 else -1
       lastMove.setInheritedValue(sign * lastMove.getValue)
-      val theEntry = new Entry[M](lastMove, -lastMove.getInheritedValue)
-      lookupTable.put(key, theEntry)
+      storeExactLeaf(key, lastMove, -lastMove.getInheritedValue)
       return lastMove
 
     val list = searchable.generateMoves(lastMove, weights_)
@@ -55,6 +52,7 @@ final class NegaScoutMemoryStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
 
     if emptyMoveList(list, lastMove) then return null.asInstanceOf[M]
 
+    prepareMovesForSearch(list)
     findBestMove(lastMove, depth, list, window, parent)
 
   override def findBestMove(lastMove: M, depth: Int, list: MoveList[M],
@@ -62,7 +60,7 @@ final class NegaScoutMemoryStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
     var newBeta = window.beta
     var selectedMove: TwoPlayerMove = null
 
-    var bestMove = list.get(0)
+    var bestMove = bestFirstFromPrepared(list)
     val entry = new Entry[M](bestMove, depth, window)
 
     while !list.isEmpty do
@@ -73,11 +71,9 @@ final class NegaScoutMemoryStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
 
       searchable.makeInternalMove(theMove)
       var child: SearchTreeNode = null
-      // addNodeToTree / search must share this try so a tree failure still undoes
       try
         child = addNodeToTree(parent, theMove, window)
-        // search with minimal search window
-        selectedMove = searchInternal(theMove, depth - 1, new SearchWindow(-newBeta, -window.alpha), child)
+        selectedMove = searchInternal(theMove, depth - 1, SearchWindow(-newBeta, -window.alpha), child)
       finally
         searchable.undoInternalMove(theMove)
 
@@ -92,12 +88,9 @@ final class NegaScoutMemoryStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
           theMove.setInheritedValue(window.alpha)
           bestMove = theMove
           storeBestMove(window, entry, bestMove.getInheritedValue)
-          bestMove.setSelected(true)
-          lastMove.setInheritedValue(-bestMove.getInheritedValue)
-          return bestMove
+          return finalizeBestMove(bestMove, lastMove)
 
         if window.alpha >= newBeta then
-          // re-search with narrower window (typical alpha beta search).
           searchable.makeInternalMove(theMove)
           try
             selectedMove = searchInternal(theMove, depth - 1, window.negateAndSwap(), child)
@@ -111,20 +104,13 @@ final class NegaScoutMemoryStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
 
             if window.alpha >= window.beta then
               storeBestMove(window, entry, bestMove.getInheritedValue)
-              bestMove.setSelected(true)
-              lastMove.setInheritedValue(-bestMove.getInheritedValue)
-              return bestMove
+              return finalizeBestMove(bestMove, lastMove)
 
         newBeta = window.alpha + 1
 
     storeBestMove(window, entry, bestMove.getInheritedValue)
-    bestMove.setSelected(true)
-    lastMove.setInheritedValue(-bestMove.getInheritedValue)
-    bestMove
+    finalizeBestMove(bestMove, lastMove)
 
-  /**
-   * Store off the best move so we do not need to analyze it again.
-   */
   private def storeBestMove(window: SearchWindow, entry: Entry[M], bestValue: Int): Unit =
     if bestValue <= window.alpha then
       entry.upperValue = bestValue

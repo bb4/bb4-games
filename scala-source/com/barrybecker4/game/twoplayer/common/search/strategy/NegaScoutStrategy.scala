@@ -33,7 +33,7 @@ class NegaScoutStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
     var i = 0
     var newBeta = window.beta
     var selectedMove: M = null.asInstanceOf[M]
-    var bestMove = list.getFirstMove
+    var bestMove = bestFirstFromPrepared(list)
 
     while !list.isEmpty do
       val theMove = getNextMove(list)
@@ -86,8 +86,3 @@ class NegaScoutStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoard[M]](
         newBeta = window.alpha + 1
 
     finalizeBestMove(bestMove, lastMove)
-
-  private def finalizeBestMove(bestMove: M, lastMove: M): M =
-    bestMove.setSelected(true)
-    lastMove.setInheritedValue(-bestMove.getInheritedValue)
-    bestMove

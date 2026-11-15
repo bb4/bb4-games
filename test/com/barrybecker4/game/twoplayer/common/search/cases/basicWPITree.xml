@@ -34,18 +34,19 @@
               <expected-search-result move-id="2" inherited-value="-5" num-moves-considered="11"/>
         </test-case>
 
-        <!--test-case strategy="NegaMaxMemoryStrategy" notes="Winning next move for depth 3">
+        <!-- Memory strategies should agree with NegaMax / NegaScout on best move and value. -->
+        <test-case strategy="NegaMaxMemoryStrategy" rootPlayer1="false" notes="Winning next move for depth 3">
               <brute-force-options look-ahead="3" alpha-beta="false" />
-              <expected-search-result move-id="2" inherited-value="-16" num-moves-considered="15"/>
+              <expected-search-result move-id="0" inherited-value="-3" num-moves-considered="9"/>
+        </test-case>
+        <test-case strategy="NegaMaxMemoryStrategy" rootPlayer1="true" notes="Winning next move for depth 3">
+              <brute-force-options look-ahead="3" alpha-beta="true" />
+              <expected-search-result move-id="0" inherited-value="3" num-moves-considered="9"/>
         </test-case>
         <test-case strategy="NegaScoutMemoryStrategy" notes="Winning next move for depth 3">
-              <brute-force-options look-ahead="3" alpha-beta="false" quiescence="false" max-quiescent-depth="3"/>
-              <expected-search-result move-id="2" inherited-value="-16" num-moves-considered="12"/>
+              <brute-force-options look-ahead="3" alpha-beta="false" />
+              <expected-search-result move-id="0" inherited-value="3" num-moves-considered="9"/>
         </test-case>
-        <test-case strategy="UctStrategy" notes="Winning next move for depth 3">
-              <monte-carlo-options max-simulations="10" explore-exploit-ratio="1.0" random-look-ahead="3" />
-              <expected-search-result move-id="2" inherited-value="16" num-moves-considered="10"/>
-        </test-case-->
 
 
     </test-cases>

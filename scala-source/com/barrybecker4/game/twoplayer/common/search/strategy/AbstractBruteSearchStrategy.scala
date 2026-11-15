@@ -84,15 +84,30 @@ abstract class AbstractBruteSearchStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoa
       // if there are no possible next moves, return the lastMove (we hit the end of the game).
       return lastMove
 
+    prepareMovesForSearch(list)
     findBestMove(lastMove, depth, list, window, parent)
 
   /**
+   * Reverse a best-first list so [[getNextMove]] can pop from the end in O(1)
+   * while still returning moves in original front-to-back (best-first) order.
+   * After this, the best move is at the end of the list — use [[bestFirstFromPrepared]].
+   */
+  protected def prepareMovesForSearch(list: MoveList[M]): Unit =
+    java.util.Collections.reverse(list)
+
+  /**
+   * Best (first-to-search) move after [[prepareMovesForSearch]] — last element of the reversed list.
+   */
+  protected def bestFirstFromPrepared(list: MoveList[M]): M =
+    list.get(list.size() - 1)
+
+  /**
    * Get the next move and increment the number of moves considered.
-   * @return next move in sorted generated next move list.
+   * Requires [[prepareMovesForSearch]] first. Returns moves in best-first order.
    */
   protected def getNextMove(list: MoveList[M]): M =
     movesConsidered += 1
-    list.remove(0)
+    list.removeLast()
 
   /**
    * Search more if quiescense is on, depth is negative, but not yet at -maxQuiescentDepth
@@ -113,6 +128,7 @@ abstract class AbstractBruteSearchStrategy[M <: TwoPlayerMove, B <: TwoPlayerBoa
     val urgentMoves = searchable.generateUrgentMoves(lastMove, weights_)
     if emptyMoveList(urgentMoves, lastMove) then return null.asInstanceOf[M]
 
+    prepareMovesForSearch(urgentMoves)
     findBestMove(lastMove, depth, urgentMoves, window, parent)
 
   /**

@@ -6,7 +6,7 @@ import com.barrybecker4.game.twoplayer.common.search.SearchWindow
 
 /**
  * An entry in the transposition table.
- * Fields are public vars so remaining Java strategies can access them as fields.
+ * Fields are public vars for direct access from search strategies.
  */
 class Entry[M <: TwoPlayerMove](
   bm: M,
