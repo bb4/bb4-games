@@ -151,12 +151,13 @@ class TestE4Information extends TestEyeTypeAnalyzer {
 
     // clump
 
+    /** Square four (2x2 clump) is nakade — one eye, dead as it stands. */
     @Test
     def testFourClumpSpaceEye(): Unit = {
         var b: GoBoard = initializeBoard("four_space_clump_eye", 2)
 
-        checkBlackEye(b, new E4Information(E2222.toString()), EyeStatus.ALIVE)
-        checkWhiteEye(b, new E4Information(E2222.toString()), EyeStatus.ALIVE)
+        checkBlackEye(b, new E4Information(E2222.toString()), EyeStatus.NAKADE)
+        checkWhiteEye(b, new E4Information(E2222.toString()), EyeStatus.NAKADE)
     }
 
 }

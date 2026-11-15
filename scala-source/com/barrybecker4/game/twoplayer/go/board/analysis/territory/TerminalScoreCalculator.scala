@@ -9,6 +9,7 @@ import com.barrybecker4.game.twoplayer.go.board.elements.group.IGoGroup
 import com.barrybecker4.game.twoplayer.go.board.elements.position.{GoBoardPosition, GoBoardPositionSet, GoStone}
 import com.barrybecker4.game.twoplayer.go.board.elements.string.IGoString
 
+import java.nio.file.{Files, Paths, StandardOpenOption}
 import scala.collection.mutable
 import scala.compiletime.uninitialized
 import scala.jdk.CollectionConverters.*
@@ -368,11 +369,38 @@ class TerminalScoreCalculator(board: GoBoard) {
     }
     try {
       val eye = regionEye(region)
-      eyeInformation(eye).determineStatus(eye, board) == EyeStatus.ALIVE
+      val info = eyeInformation(eye)
+      val status = info.determineStatus(eye, board)
+      // #region agent log
+      if (rows == 9 && cols == 9 && region.size == 4) {
+        val pts = region.map(p => s"${p._1},${p._2}").mkString(" ")
+        agentLog("H-E2222", "TerminalScoreCalculator.countsAsTwoEyes",
+          s"4pt status=$status twoEyes=${status == EyeStatus.ALIVE}",
+          s"""{"points":"$pts","info":"${info.getClass.getSimpleName}","subtype":"${info.getTypeName}","status":"$status","countsAsTwoEyes":${status == EyeStatus.ALIVE}}""")
+      }
+      // #endregion
+      status == EyeStatus.ALIVE
     } catch {
       case _: IllegalArgumentException => false
     }
   }
+
+  // #region agent log
+  private def agentLog(hypothesisId: String, location: String, message: String, data: String): Unit = {
+    try {
+      val line =
+        s"""{"sessionId":"f8b893","runId":"post-fix","hypothesisId":"$hypothesisId","location":"$location","message":"$message","data":$data,"timestamp":${System.currentTimeMillis()}}"""
+      Files.writeString(
+        Paths.get("/Users/barry/projects/bb4/bb4-games/.cursor/debug-f8b893.log"),
+        line + "\n",
+        StandardOpenOption.CREATE,
+        StandardOpenOption.APPEND
+      )
+    } catch {
+      case _: Throwable => ()
+    }
+  }
+  // #endregion
 
   private def regionEye(region: List[(Int, Int)]): IGoEye = {
     val members = new GoBoardPositionSet()

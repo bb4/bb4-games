@@ -332,9 +332,12 @@ class TestTerminalScoreCalculator {
     assertTrue(score.whiteTerritory >= 9, s"white territory was ${score.whiteTerritory}")
   }
 
-  /** A 2x2 eye is two eyes. The surrounding group lives. */
+  /**
+   * A 2x2 (square four) is nakade — one eye, not two. The surrounding group is dead.
+   * See Sensei's Library / Wikipedia life-and-death: square four is dead as it stands.
+   */
   @Test
-  def squareFourLives(): Unit = {
+  def squareFourIsDead(): Unit = {
     val board = boardFromDiagram(Array(
       "XXXXXX",
       "XX..XX",
@@ -344,9 +347,37 @@ class TestTerminalScoreCalculator {
       "XXXXXX"
     ))
     val score = new TerminalScoreCalculator(board).calculate()
-    assertEquals(0, score.deadBlack)
+    assertEquals(32, score.deadBlack, "square-four group is dead")
     assertEquals(0, score.deadWhite)
-    assertEquals(4, score.blackTerritory)
+    assertEquals(0, score.blackTerritory)
+  }
+
+  /**
+   * Screenshot: white's only eye is a corner 2x2 (square four = one eye), so white is dead.
+   * The three black stones at (1,6), (2,6), (3,5) live once white is removed.
+   */
+  @Test
+  def screenshotCornerSquareFourWhiteIsDead(): Unit = {
+    val board = boardFromDiagram(Array(
+      "..X..XO..",
+      "OOXX.XO..",
+      "..X.XOOOO",
+      ".X.XOOOXX",
+      ".XOXOOOX.",
+      ".OXOXXXX.",
+      ".OX.X..O.",
+      ".X.X..X..",
+      "..X......"
+    ))
+    val score = new TerminalScoreCalculator(board).calculate()
+    assertEquals(0, score.deadBlack, "no dead black stones")
+    assertTrue(score.deadWhite >= 12, s"white group dead, got deadWhite=${score.deadWhite}")
+    assertFalse(isDead(board, 1, 6), "black at 1,6 lives")
+    assertFalse(isDead(board, 2, 6), "black at 2,6 lives")
+    assertFalse(isDead(board, 3, 5), "black at 3,5 lives")
+    assertTrue(isDead(board, 1, 7), "white at 1,7 is dead")
+    assertTrue(isDead(board, 3, 7), "white at 3,7 is dead")
+    assertTrue(isDead(board, 5, 6), "white at 5,6 is dead")
   }
 
   /** Corner bent four is not two eyes, so the group that owns only that shape is dead. */

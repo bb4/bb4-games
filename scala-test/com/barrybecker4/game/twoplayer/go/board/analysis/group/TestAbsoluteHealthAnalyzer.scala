@@ -392,17 +392,18 @@ class TestAbsoluteHealthAnalyzer extends GoTestCase {
                                                  AbsAbsHealthDiff, AbsHealthDiff, RelHealthDiff)
     }
 
+    /** Square-four eye is nakade (one eye), so absolute health is much lower than a living shape. */
     @Test
     def testAbsHealth5b(): Unit = {
         val blackEyes: Array[EyeInformation] = Array(E4.getInformation(E2222.toString))
         var whiteEyes: Array[EyeInformation] = Array()
         var bPotential: Double = 1.003
         var wPotential: Double = 0.988
-        var blackHealth: Double = 0.94
+        var blackHealth: Double = 0.340
         var whiteHealth: Double = -0.242
-        var AbsAbsHealthDiff: Double = 0.698
-        var AbsHealthDiff: Double = 1.182
-        var RelHealthDiff: Double = 1.182
+        var AbsAbsHealthDiff: Double = 0.099
+        var AbsHealthDiff: Double = 0.582
+        var RelHealthDiff: Double = 0.582
         verifyHealthDifferences("groupHealth5b", 9, 8, blackEyes, whiteEyes,
                                                  bPotential, wPotential,
                                                  blackHealth, whiteHealth,

@@ -16,7 +16,9 @@ class E4Information(subTypeDesc: String) extends AbstractEyeSubtypeInformation {
   e4Type match {
     case Eye4Type.E1122 => initialize(false, 4, Array(2.03f, 2.03f))
     case Eye4Type.E1113 => initialize(false, 4, Array(3.03f))
-    case Eye4Type.E2222 => initialize(true, 4)
+    // Square four has no life property: wherever the defender plays, the rest is a
+    // bent three and the attacker takes the vital point (one eye / nakade).
+    case Eye4Type.E2222 => initialize(false, 4)
   }
 
   /**
@@ -31,7 +33,7 @@ class E4Information(subTypeDesc: String) extends AbstractEyeSubtypeInformation {
         if (status == EyeStatus.ALIVE && touchesBoardCorner(eye, board)) EyeStatus.UNSETTLED
         else status
       case Eye4Type.E1113 => handleVitalPointCases(nbrMap, eye, 1)
-      case Eye4Type.E2222 => EyeStatus.ALIVE
+      case Eye4Type.E2222 => EyeStatus.NAKADE
     }
   }
 
