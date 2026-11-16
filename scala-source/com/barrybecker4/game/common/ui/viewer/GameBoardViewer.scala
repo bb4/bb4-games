@@ -140,12 +140,13 @@ abstract class GameBoardViewer[M <: Move, B <: Board[M]] extends JPanel
   }
 
   /**
-   *  Animate the last move so the player does not lose orientation.
-   *  By default this just redraws the board, but for games with complex moves,
-   *  we may want to do more.
+   * Animate the last move so the player does not lose orientation.
+   * By default, this just redraws the board, but for games with complex moves,
+   * we may want to do more. Call `onDone` when the animation (if any) finishes.
    */
-  def showLastMove(): Unit = {
+  def showLastMove(onDone: () => Unit = () => ()): Unit = {
     this.refresh()
+    onDone()
   }
 
   /**

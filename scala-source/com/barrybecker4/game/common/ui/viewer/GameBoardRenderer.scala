@@ -5,9 +5,10 @@ import com.barrybecker4.common.geometry.{ByteLocation, Location}
 import com.barrybecker4.game.common.GameContext
 import com.barrybecker4.game.common.board.{Board, BoardPosition, IBoard}
 import com.barrybecker4.game.common.player.{Player, PlayerList}
+import com.barrybecker4.game.common.ui.viewer.animation.{MoveAnimationState, PieceMoveAnimator}
 import com.barrybecker4.ui.themes.BarryTheme
 import com.barrybecker4.ui.util.GUIUtil
-import java.awt.{BasicStroke, Color, Dimension, Font, Graphics, Graphics2D, Stroke}
+import java.awt.{BasicStroke, Color, Dimension, Font, Graphics, Graphics2D, Point, Stroke}
 import java.awt.event.MouseEvent
 
 /**
@@ -25,6 +26,9 @@ abstract class GameBoardRenderer {
 
   /** this copy of the dragged piece is only for show   */
   private var draggedShowPiece_ : BoardPosition = scala.compiletime.uninitialized
+
+  /** Paint-only computer move animation; null when not animating. */
+  private var moveAnimationState_ : MoveAnimationState = scala.compiletime.uninitialized
 
   /**
    * singleton class for rendering the game pieces
@@ -89,6 +93,12 @@ abstract class GameBoardRenderer {
   }
 
   def getDraggedShowPiece: BoardPosition = draggedShowPiece_
+
+  def setMoveAnimationState(state: MoveAnimationState): Unit = {
+    moveAnimationState_ = state
+  }
+
+  def getMoveAnimationState: MoveAnimationState = moveAnimationState_
 
   /**
    * Constructs a new Location given a MouseEvent
@@ -200,13 +210,47 @@ abstract class GameBoardRenderer {
    * Draw the pieces and possibly other game markers for both players.
    */
   def drawMarkers(board: Board[?], players: PlayerList, g2: Graphics2D): Unit = {
+    val anim = moveAnimationState_
+    val skipLoc = if (anim != null) anim.toLocation else null
     val nrows = board.getNumRows
     val ncols = board.getNumCols
     for (i <- 1 to nrows) {
       for (j <- 1 to ncols) {
-        pieceRenderer_.render(g2, board.getPosition(i, j), cellSize, getMargin, board)
+        val pos = board.getPosition(i, j)
+        val skipMovingPiece =
+          skipLoc != null && pos.getRow == skipLoc.row && pos.getCol == skipLoc.col
+        if (!skipMovingPiece) {
+          pieceRenderer_.render(g2, pos, cellSize, getMargin, board)
+        }
       }
     }
+    if (anim != null) {
+      anim.visibleCaptures.foreach { capture =>
+        pieceRenderer_.render(g2, capture, cellSize, getMargin, board)
+      }
+    }
+  }
+
+  private def drawAnimatedPiece(g2: Graphics2D, board: Board[?]): Unit = {
+    val anim = moveAnimationState_
+    if (anim == null || anim.isComplete) return
+
+    val piece = anim.movingPiece
+    val pieceSize = pieceRenderer_.getPieceSize(cellSize, piece)
+    val startPos = piecePixelPosition(anim.segmentStart, pieceSize)
+    val endPos = piecePixelPosition(anim.segmentEnd, pieceSize)
+    val t = PieceMoveAnimator.ease(anim.progress)
+    val x = (startPos.x + (endPos.x - startPos.x) * t).toInt
+    val y = (startPos.y + (endPos.y - startPos.y) * t).toInt
+    pieceRenderer_.renderForShow(g2, new Point(x, y), piece, pieceSize)
+  }
+
+  private def piecePixelPosition(loc: Location, pieceSize: Int): Point = {
+    val offset = (cellSize - pieceSize) >> 1
+    new Point(
+      getMargin + cellSize * (loc.col - 1) + offset,
+      getMargin + cellSize * (loc.row - 1) + offset
+    )
   }
 
   /**
@@ -245,6 +289,8 @@ abstract class GameBoardRenderer {
 
     // now draw both player markers
     drawMarkers(b, players, g2)
+
+    drawAnimatedPiece(g2, b)
 
     // if there is a piece being dragged, draw it
     if (draggedShowPiece_ != null) {

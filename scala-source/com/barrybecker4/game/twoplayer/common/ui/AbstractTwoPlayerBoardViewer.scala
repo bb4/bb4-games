@@ -1,12 +1,15 @@
 /* Copyright by Barry G. Becker, 2000-2011. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.game.twoplayer.common.ui
 
+import com.barrybecker4.common.geometry.Location
 import com.barrybecker4.game.common.GameContext
+import com.barrybecker4.game.common.board.{CaptureList, GamePiece}
 import com.barrybecker4.game.common.ui.ComputerMoveProgressBar
 import com.barrybecker4.game.common.ui.panel.GameChangedEvent
 import com.barrybecker4.game.common.ui.panel.GameChangedListener
 import com.barrybecker4.game.common.ui.viewer.GameBoardViewer
 import com.barrybecker4.game.common.ui.viewer.GamePieceRenderer
+import com.barrybecker4.game.common.ui.viewer.animation.{MoveAnimationState, PieceMoveAnimator}
 import com.barrybecker4.game.twoplayer.common.ComputerMoveRequester
 import com.barrybecker4.game.twoplayer.common.TwoPlayerBoard
 import com.barrybecker4.game.twoplayer.common.TwoPlayerController
@@ -47,6 +50,9 @@ abstract class AbstractTwoPlayerBoardViewer[M <: TwoPlayerMove, B <: TwoPlayerBo
 
   /** playback a sequence of moves  */
   private var moveSequencePlayer: MoveSequencePlayback[M, B] = scala.compiletime.uninitialized
+
+  /** Computer piece slide/hop animation; null when idle. */
+  private var pieceMoveAnimator: PieceMoveAnimator = scala.compiletime.uninitialized
 
   // Initialize in constructor
   controller.setViewer(this)
@@ -93,9 +99,44 @@ abstract class AbstractTwoPlayerBoardViewer[M <: TwoPlayerMove, B <: TwoPlayerBo
    * return the game to its original state.
    */
   override def reset(): Unit =
+    stopPieceMoveAnimation()
     controller.reset()
     val board = getBoard
     commonReset(board)
+
+  protected def stopPieceMoveAnimation(): Unit =
+    if pieceMoveAnimator != null then
+      pieceMoveAnimator.stop()
+      pieceMoveAnimator = null
+      // Animation onDone will not run — clear transient UI so the game is not stuck.
+      cachedGameBoard = null.asInstanceOf[B]
+      if progressBar != null then
+        progressBar.cleanup()
+
+  /**
+   * Paint-only animation of a computer piece move. Calls `onDone` when finished.
+   */
+  protected def animateComputerMove(
+      from: Location,
+      to: Location,
+      captures: CaptureList,
+      piece: GamePiece,
+      onDone: () => Unit
+  ): Unit =
+    stopPieceMoveAnimation()
+    MoveAnimationState.create(from, to, captures, piece) match
+      case Some(state) =>
+        pieceMoveAnimator = new PieceMoveAnimator(
+          getBoardRenderer,
+          this,
+          () =>
+            pieceMoveAnimator = null
+            onDone()
+        )
+        pieceMoveAnimator.start(state)
+      case None =>
+        refresh()
+        onDone()
 
   /**
    * start over with a new game using the current options.
@@ -270,6 +311,7 @@ abstract class AbstractTwoPlayerBoardViewer[M <: TwoPlayerMove, B <: TwoPlayerBo
     val players = c.getPlayers
     if players.allPlayersComputer then return
 
+    stopPieceMoveAnimation()
     c.undoLastMove() match
       case Some(move) =>
         undoneMoves_.add(move)
@@ -352,12 +394,14 @@ abstract class AbstractTwoPlayerBoardViewer[M <: TwoPlayerMove, B <: TwoPlayerBo
           200,
           1000
         )
-      showLastMove()
-      cachedGameBoard = null.asInstanceOf[B]
-      if !get2PlayerController().getOptions.isAutoOptimize() then
-        // show a pop-up for certain exceptional cases.
-        // For example, in chess we warn on a checking move.
-        warnOnSpecialMoves(lastMove)
-        sendGameChangedEvent(lastMove)
-      if progressBar != null then
-        progressBar.cleanup()
+      showLastMove(() => finishPostMoveCleanup(lastMove))
+
+  private def finishPostMoveCleanup(lastMove: M): Unit =
+    cachedGameBoard = null.asInstanceOf[B]
+    if !get2PlayerController().getOptions.isAutoOptimize() then
+      // show a pop-up for certain exceptional cases.
+      // For example, in chess we warn on a checking move.
+      warnOnSpecialMoves(lastMove)
+      sendGameChangedEvent(lastMove)
+    if progressBar != null then
+      progressBar.cleanup()

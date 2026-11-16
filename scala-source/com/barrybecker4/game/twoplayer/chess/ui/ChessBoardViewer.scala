@@ -13,12 +13,20 @@ import com.barrybecker4.game.twoplayer.common.ui.AbstractTwoPlayerBoardViewer
  */
 class ChessBoardViewer extends AbstractTwoPlayerBoardViewer[ChessMove, ChessBoard] {
 
-  override def createController(): GameController[ChessMove, ChessBoard] = 
+  override def createController(): GameController[ChessMove, ChessBoard] =
     new ChessController()
 
   override def getBoardRenderer: GameBoardRenderer =
     ChessBoardRenderer.getRenderer
 
-  override def createViewerMouseListener(): ViewerMouseListener[ChessMove, ChessBoard] = 
+  override def createViewerMouseListener(): ViewerMouseListener[ChessMove, ChessBoard] =
     new ChessViewerMouseListener(this)
+
+  override def showLastMove(onDone: () => Unit): Unit =
+    get2PlayerController().getLastMove match
+      case Some(move: ChessMove) =>
+        animateComputerMove(move.fromLocation, move.toLocation, move.captureList, move.getPiece, onDone)
+      case _ =>
+        refresh()
+        onDone()
 }

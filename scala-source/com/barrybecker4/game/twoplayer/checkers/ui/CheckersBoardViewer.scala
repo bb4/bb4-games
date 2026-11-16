@@ -13,12 +13,20 @@ import com.barrybecker4.game.twoplayer.common.ui.AbstractTwoPlayerBoardViewer
  */
 class CheckersBoardViewer extends AbstractTwoPlayerBoardViewer[CheckersMove, CheckersBoard] {
 
-  override def createController(): GameController[CheckersMove, CheckersBoard] = 
+  override def createController(): GameController[CheckersMove, CheckersBoard] =
     new CheckersController()
 
   override def getBoardRenderer: GameBoardRenderer =
     CheckersBoardRenderer.getRenderer
 
-  override def createViewerMouseListener(): ViewerMouseListener[CheckersMove, CheckersBoard] = 
+  override def createViewerMouseListener(): ViewerMouseListener[CheckersMove, CheckersBoard] =
     new CheckersViewerMouseListener(this)
+
+  override def showLastMove(onDone: () => Unit): Unit =
+    get2PlayerController().getLastMove match
+      case Some(move: CheckersMove) =>
+        animateComputerMove(move.fromLocation, move.toLocation, move.captureList, move.getPiece, onDone)
+      case _ =>
+        refresh()
+        onDone()
 }
